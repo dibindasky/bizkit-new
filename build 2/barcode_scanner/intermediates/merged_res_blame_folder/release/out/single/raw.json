@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "io.scanbot.barcode.sdk.flutter.barcode_scanner-merged_res-34:/raw/sonar.m4a",
+        "source": "io.scanbot.barcode.sdk.flutter.barcode_scanner-jetified-barcode-scanbot-sdk-ui-base-3.6.0-17:/raw/sonar.m4a"
+    },
+    {
+        "merged": "io.scanbot.barcode.sdk.flutter.barcode_scanner-merged_res-34:/raw/shutter.m4a",
+        "source": "io.scanbot.barcode.sdk.flutter.barcode_scanner-jetified-barcode-scanbot-sdk-ui-base-3.6.0-17:/raw/shutter.m4a"
+    },
+    {
+        "merged": "io.scanbot.barcode.sdk.flutter.barcode_scanner-merged_res-34:/raw/snap.m4a",
+        "source": "io.scanbot.barcode.sdk.flutter.barcode_scanner-jetified-barcode-scanbot-sdk-ui-base-3.6.0-17:/raw/snap.m4a"
+    },
+    {
+        "merged": "io.scanbot.barcode.sdk.flutter.barcode_scanner-merged_res-34:/raw/bing.m4a",
+        "source": "io.scanbot.barcode.sdk.flutter.barcode_scanner-jetified-barcode-scanbot-sdk-ui-base-3.6.0-17:/raw/bing.m4a"
+    },
+    {
+        "merged": "io.scanbot.barcode.sdk.flutter.barcode_scanner-merged_res-34:/raw/plop.m4a",
+        "source": "io.scanbot.barcode.sdk.flutter.barcode_scanner-jetified-barcode-scanbot-sdk-ui-base-3.6.0-17:/raw/plop.m4a"
+    },
+    {
+        "merged": "io.scanbot.barcode.sdk.flutter.barcode_scanner-merged_res-34:/raw/bleep.m4a",
+        "source": "io.scanbot.barcode.sdk.flutter.barcode_scanner-jetified-barcode-scanbot-sdk-base-3.6.0-21:/raw/bleep.m4a"
+    },
+    {
+        "merged": "io.scanbot.barcode.sdk.flutter.barcode_scanner-merged_res-34:/raw/success.m4a",
+        "source": "io.scanbot.barcode.sdk.flutter.barcode_scanner-jetified-barcode-scanbot-sdk-ui-base-3.6.0-17:/raw/success.m4a"
+    }
+]

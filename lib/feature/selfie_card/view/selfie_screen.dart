@@ -1,5 +1,5 @@
 import 'package:bizkit/core/const.dart';
-import 'package:bizkit/feature/selfie_card/view/widgets/selfie_preview_screen.dart';
+import 'package:bizkit/feature/selfie_card/widgets/selfie_preview_screen.dart';
 import 'package:flutter/material.dart';
 
 class SelfieScreen extends StatelessWidget {

@@ -1,3 +1,5 @@
+import 'package:bizkit/fade_transition/fade_transition.dart';
+import 'package:bizkit/feature/home/widgets/view_all_connection.dart';
 import 'package:bizkit/initial_anime/second_anime.dart';
 import 'package:flutter/material.dart';
 
@@ -177,23 +179,30 @@ class _SplitScreenState extends State<SplitScreen>
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                               ),
-                              const Row(
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'My connections',
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 22),
-                                  ),
-                                  Text(
-                                    'view all',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: Colors.white,
-                                      decorationThickness: 1.5,
                                       color: Colors.white,
-                                      fontSize: 18,
+                                      fontSize: 22,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => Navigator.of(context).push(
+                                      fadePageRoute(const ViewAllConnections()),
+                                    ),
+                                    child: const Text(
+                                      'view all',
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: Colors.white,
+                                        decorationThickness: 1.5,
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
                                 ],

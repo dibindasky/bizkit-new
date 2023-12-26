@@ -1,6 +1,7 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/feature/card_share/view/screen/card_screen_main.dart';
 import 'package:bizkit/feature/profile_screen/view/screen/home_main_screen.dart';
+import 'package:bizkit/feature/selfie_card/view/selfie_screen.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
@@ -89,19 +90,6 @@ class HomeScreenn extends StatelessWidget {
     return const Scaffold(
       body: Center(
         child: Text('HomeScreen'),
-      ),
-    );
-  }
-}
-
-class SelfieScreen extends StatelessWidget {
-  const SelfieScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('SelfieScreen'),
       ),
     );
   }

@@ -8,6 +8,7 @@ const Color kgreen = Colors.green;
 const Color kblue = Colors.blue;
 const Color neonShade = Color.fromRGBO(6, 199, 172, 1);
 const Color kblack = Colors.black;
+const Color knill = Colors.transparent;
 late double khieght;
 late double kwidth;
 

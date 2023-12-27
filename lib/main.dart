@@ -1,7 +1,6 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/feature/authentication/view/screens/login_screen.dart';
-import 'package:bizkit/feature/selfie_card/view/selfie_screen.dart';
-import 'package:bizkit/initial_anime/home_nime.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

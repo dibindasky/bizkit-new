@@ -4,6 +4,7 @@ import 'package:bizkit/core/const.dart';
 import 'package:bizkit/feature/create_business_card.dart/view/widgets/indicator_skip_continue.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CompanyAndBankingDetails extends StatelessWidget {
   CompanyAndBankingDetails({super.key, required this.pageController});
 

@@ -1,3 +1,4 @@
+import 'package:bizkit/core/const.dart';
 import 'package:bizkit/fade_transition/fade_transition.dart';
 import 'package:bizkit/feature/home/widgets/view_all_connection.dart';
 import 'package:bizkit/initial_anime/second_anime.dart';
@@ -224,8 +225,11 @@ class _SplitScreenState extends State<SplitScreen>
                                         color: Colors.grey,
                                       ),
                                       child: const Center(
-                                        child: Icon(Icons.add,
-                                            size: 40, color: Colors.white),
+                                        child: Icon(
+                                          Icons.add,
+                                          size: 40,
+                                          color: kwhite,
+                                        ),
                                       ),
                                     ),
                                     Expanded(
@@ -235,7 +239,8 @@ class _SplitScreenState extends State<SplitScreen>
                                         itemBuilder: (context, index) {
                                           return Container(
                                             margin: const EdgeInsets.symmetric(
-                                                horizontal: 10),
+                                              horizontal: 10,
+                                            ),
                                             height: 40,
                                             width: 70,
                                             decoration: BoxDecoration(
@@ -275,9 +280,10 @@ class _SplitScreenState extends State<SplitScreen>
                                     Text(
                                       'Reminders',
                                       style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.w600),
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -304,19 +310,20 @@ class _SplitScreenState extends State<SplitScreen>
                                                 width: 80,
                                                 height: 80,
                                                 decoration: const BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: NetworkImage(
-                                                            'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg'),
-                                                        fit: BoxFit.cover),
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft: Radius.circular(
-                                                        12,
-                                                      ),
-                                                      bottomLeft:
-                                                          Radius.circular(12),
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg'),
+                                                      fit: BoxFit.cover),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft: Radius.circular(
+                                                      12,
                                                     ),
-                                                    color: Colors.black),
+                                                    bottomLeft:
+                                                        Radius.circular(12),
+                                                  ),
+                                                  color: kblack,
+                                                ),
                                               ),
                                               const SizedBox(
                                                 width: 10,
@@ -330,8 +337,8 @@ class _SplitScreenState extends State<SplitScreen>
                                                           'Project Discussion with \nReynolds',
                                                           maxLines: 2,
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
+                                                            color: Colors.white,
+                                                          ),
                                                         ),
                                                         const SizedBox(
                                                           width: 50,
@@ -344,10 +351,11 @@ class _SplitScreenState extends State<SplitScreen>
                                                             size: 30,
                                                             color:
                                                                 Color.fromARGB(
-                                                                    255,
-                                                                    32,
-                                                                    233,
-                                                                    183),
+                                                              255,
+                                                              32,
+                                                              233,
+                                                              183,
+                                                            ),
                                                           ),
                                                         ),
                                                       ],

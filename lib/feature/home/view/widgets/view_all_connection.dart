@@ -1,6 +1,6 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/fade_transition/fade_transition.dart';
-import 'package:bizkit/feature/home/widgets/listtile_detail_view.dart';
+import 'package:bizkit/feature/home/view/widgets/listtile_detail_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

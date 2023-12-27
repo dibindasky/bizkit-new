@@ -73,7 +73,7 @@ class LevelSharing extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
               ),
-              adjustHieght(khieght * .04),
+              //adjustHieght(khieght * .04),
             ],
           ),
         ),

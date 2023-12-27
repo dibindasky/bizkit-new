@@ -1,4 +1,6 @@
 import 'package:bizkit/core/const.dart';
+import 'package:bizkit/fade_transition/fade_transition.dart';
+import 'package:bizkit/feature/selfie_card/widgets/make_bizkit_card_screen.dart';
 import 'package:flutter/material.dart';
 
 class SelfiePreviewScreen extends StatelessWidget {
@@ -18,12 +20,14 @@ class SelfiePreviewScreen extends StatelessWidget {
                   TextStyle(fontSize: kwidth * 0.08, fontWeight: FontWeight.bold),
             ),
             const Spacer(),
-            Text('Skip',
-                style: TextStyle(
+            TextButton(onPressed: (){
+              Navigator.push(context, fadePageRoute(const MakeABizkitCardScreen()));
+            }, child: Text('Skip',
+                style: TextStyle(color: kwhite,
                     decoration: TextDecoration.underline,
                     decorationColor: kwhite,
                     fontSize: kwidth * 0.06,
-                    fontWeight: FontWeight.w300)),
+                    fontWeight: FontWeight.w300))),
             adjustHieght(khieght * 0.05),
             Container(
               padding: const EdgeInsets.all(35),

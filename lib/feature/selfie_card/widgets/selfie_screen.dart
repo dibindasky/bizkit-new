@@ -1,4 +1,5 @@
 import 'package:bizkit/core/const.dart';
+import 'package:bizkit/feature/selfie_card/view/selfie_screens_list.dart';
 import 'package:bizkit/feature/selfie_card/widgets/selfie_preview_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -76,6 +77,8 @@ class _SelfieScreenState extends State<SelfieScreen> {
                           builder: (context) => const SelfiePreviewScreen(),
                         ),
                       );
+                      //screensSelfi.add(const SelfiePreviewScreen());
+                      print(screensSelfi);
                     },
                     customBorder: const CircleBorder(),
                     child: Container(

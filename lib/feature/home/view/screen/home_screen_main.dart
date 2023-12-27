@@ -1,8 +1,12 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/fade_transition/fade_transition.dart';
+import 'package:bizkit/feature/business_card_preview/view/screen/preview_main_screen.dart';
+import 'package:bizkit/feature/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/feature/home/view/screen/second_screen_anime.dart';
 import 'package:bizkit/feature/home/view/widgets/view_all_connection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class SplitScreen extends StatefulWidget {
   const SplitScreen({super.key});
@@ -112,266 +116,352 @@ class _SplitScreenState extends State<SplitScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  const Column(
-                                    children: [
-                                      Text(
-                                        'Hello',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Febin',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.mark_email_unread_rounded,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.settings,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const Text(
-                                'My Cards',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                height: 120,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.green,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'My connections',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => Navigator.of(context).push(
-                                      fadePageRoute(const ViewAllConnections()),
-                                    ),
-                                    child: const Text(
-                                      'view all',
-                                      style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        decorationColor: Colors.white,
-                                        decorationThickness: 1.5,
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              SizedBox(
-                                width: double.infinity,
-                                height: 60,
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                      ),
-                                      height: 60,
-                                      width: 70,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: Colors.grey,
-                                      ),
-                                      child: const Center(
-                                        child: Icon(
-                                          Icons.add,
-                                          size: 40,
-                                          color: kwhite,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: ListView.builder(
-                                        itemCount: 10,
-                                        scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) {
-                                          return Container(
-                                            margin: const EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                            ),
-                                            height: 40,
-                                            width: 70,
-                                            decoration: BoxDecoration(
-                                              image: const DecorationImage(
-                                                image: NetworkImage(
-                                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCp_ByMCZW8m0s3KmAbIENDvR2Zc_HkBJyYw&usqp=CAU",
-                                                ),
-                                                fit: BoxFit.cover,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              color: Colors.amber,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: SlideTransition(
-                          position: _offsetAnimationBottom,
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            color: Colors.transparent,
-                            child: Column(
+                      Container(
+                        height: 400,
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            Row(
                               children: [
-                                const Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                Column(
                                   children: [
                                     Text(
-                                      'Reminders',
+                                      'Hello',
                                       style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w600,
+                                        color: kwhite,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Febin',
+                                      style: TextStyle(
+                                        color: kwhite,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w700,
                                       ),
                                     ),
                                   ],
                                 ),
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemCount: 15,
-                                    itemBuilder: (context, index) {
-                                      return Card(
-                                        elevation: 4,
-                                        surfaceTintColor: Colors.transparent,
-                                        margin: const EdgeInsets.only(
-                                          bottom: 10,
-                                        ),
-                                        child: Container(
-                                          padding: const EdgeInsets.all(5),
-                                          height: 100,
-                                          width: double.infinity,
-                                          decoration: const BoxDecoration(
-                                            color: Colors.black,
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 80,
-                                                height: 80,
-                                                decoration: const BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg'),
-                                                      fit: BoxFit.cover),
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft: Radius.circular(
-                                                      12,
-                                                    ),
-                                                    bottomLeft:
-                                                        Radius.circular(12),
-                                                  ),
-                                                  color: kblack,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Expanded(
-                                                    child: Row(
-                                                      children: [
-                                                        const Text(
-                                                          'Project Discussion with \nReynolds',
-                                                          maxLines: 2,
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 50,
-                                                        ),
-                                                        IconButton(
-                                                          onPressed: () {},
-                                                          icon: const Icon(
-                                                            Icons
-                                                                .arrow_circle_right,
-                                                            size: 30,
-                                                            color:
-                                                                Color.fromARGB(
-                                                              255,
-                                                              32,
-                                                              233,
-                                                              183,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
+                                const Spacer(),
+                                const CircleAvatar(
+                                  radius: 17,
+                                  backgroundColor: textFieldFillColr,
+                                  backgroundImage: AssetImage(
+                                    'asset/images/bizkitIcon.png',
                                   ),
                                 ),
                               ],
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'My Cards',
+                                  style: TextStyle(
+                                    color: kwhite,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            adjustHieght(khieght * .02),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  height: 130,
+                                  width: 240,
+                                  child: ListView.separated(
+                                    separatorBuilder: (context, index) =>
+                                        adjustWidth(
+                                      kwidth * .03,
+                                    ),
+                                    itemCount: 10,
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) =>
+                                        GestureDetector(
+                                      onTap: () => Navigator.of(context).push(
+                                          fadePageRoute(
+                                              const PreviewMainScreen())),
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                        ),
+                                        height: 130,
+                                        width: 220,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 1,
+                                            color: kgreen,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Text(
+                                                  'Febin baby',
+                                                  style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'Mobile app developer',
+                                                  style: TextStyle(
+                                                      fontSize: 14.sp),
+                                                ),
+                                                Image.asset(
+                                                    'asset/images/home logo 1.png'),
+                                              ],
+                                            ),
+                                            const Icon(
+                                              Icons.arrow_right,
+                                              color: kwhite,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                adjustWidth(kwidth * .07),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () => Navigator.of(context).push(
+                                      fadePageRoute(
+                                          const StartingBusinessCardCreation()),
+                                    ),
+                                    child: Container(
+                                      height: 130,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: textFieldFillColr,
+                                      ),
+                                      width: 140,
+                                      child: const Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundImage: AssetImage(
+                                              'asset/images/home add circl.png',
+                                            ),
+                                          ),
+                                          Text('Add Card'),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            adjustHieght(khieght * .02),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'My connections',
+                                  style: TextStyle(
+                                    color: kwhite,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () => Navigator.of(context).push(
+                                    fadePageRoute(const ViewAllConnections()),
+                                  ),
+                                  child: Text(
+                                    'view all',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: kwhite,
+                                      decorationThickness: 1.5,
+                                      color: kwhite,
+                                      fontSize: 11.sp,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 60,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    height: 60,
+                                    width: 70,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: textFieldFillColr),
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.add,
+                                        size: 20,
+                                        color: kwhite,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ListView.separated(
+                                      separatorBuilder: (context, index) =>
+                                          adjustWidth(kwidth * .02),
+                                      itemCount: 5,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        List image = [
+                                          'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&usqp=CAU',
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2fU6VWMdDDAYhNv6NQiHuGeXP3KKtPwVHew&usqp=CAU',
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKJPxxwPeNvISnBbZsZHe887Ws0FnrL7o0w&usqp=CAU',
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
+                                        ];
+                                        return Container(
+                                          height: 40,
+                                          width: 60,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(image[index]),
+                                              fit: BoxFit.cover,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          color: Colors.transparent,
+                          child: Column(
+                            children: [
+                              const Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Reminders',
+                                    style: TextStyle(
+                                      color: kwhite,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              adjustHieght(khieght * .02),
+                              Expanded(
+                                child: ListView.separated(
+                                  separatorBuilder: (context, index) =>
+                                      adjustHieght(khieght * .02),
+                                  itemCount: 5,
+                                  itemBuilder: (context, index) {
+                                    List names = [
+                                      'Febin',
+                                      'Dibin',
+                                      'Joshua',
+                                      'Anagh',
+                                      'Santhosh',
+                                    ];
+                                    List image = [
+                                      'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&usqp=CAU',
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2fU6VWMdDDAYhNv6NQiHuGeXP3KKtPwVHew&usqp=CAU',
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKJPxxwPeNvISnBbZsZHe887Ws0FnrL7o0w&usqp=CAU',
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
+                                    ];
+                                    return Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 5,
+                                      ),
+                                      height: 100,
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: 95,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                  image[index],
+                                                ),
+                                                fit: BoxFit.cover,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(12),
+                                                bottomLeft: Radius.circular(12),
+                                              ),
+                                              color: kblack,
+                                            ),
+                                          ),
+                                          adjustWidth(kwidth * .03),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                'Project Discussion with \n${names[index]}',
+                                                style: const TextStyle(
+                                                  color: kwhite,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  const Text('11 Nov'),
+                                                  adjustWidth(kwidth * .02),
+                                                  const Text('11:45 AM'),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          const Spacer(),
+                                          const CircleAvatar(
+                                            radius: 15,
+                                            backgroundColor: neonShade,
+                                            child: Icon(
+                                              Icons.keyboard_arrow_right,
+                                              size: 25,
+                                              color: kblack,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

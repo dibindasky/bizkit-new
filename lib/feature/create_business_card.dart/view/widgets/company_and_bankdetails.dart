@@ -60,7 +60,7 @@ class CompanyAndBankingDetails extends StatelessWidget {
             inputType: TextInputType.name,
           ),
           adjustHieght(khieght * .05),
-          SkipContinueIndicator(pageController: pageController)
+          SkipContinueIndicator(pageController: pageController),
         ],
       ),
     );

@@ -433,7 +433,8 @@ class _HomeScreenPageviewAnimatedContanerState
                       backgroundColor: neonShade,
                       child: CircleAvatar(
                         backgroundImage: NetworkImage(
-                            'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',),
+                          'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+                        ),
                         radius: 30,
                       ),
                     ),

@@ -7,13 +7,26 @@ import 'package:bizkit/feature/create_business_card.dart/view/screens/create_bus
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class LoGInScreen extends StatelessWidget {
+class LoGInScreen extends StatefulWidget {
   LoGInScreen({super.key});
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  @override
+  State<LoGInScreen> createState() => _LoGInScreenState();
+}
 
+class _LoGInScreenState extends State<LoGInScreen> {
+  TextEditingController nameController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final eyes = [
+    'asset/images/eyes_straight.png',
+    'asset/images/eyes_look_left.png',
+    'asset/images/eyes_look_down.png',
+    'asset/images/eyes_look_up.png'
+  ];
+  int index = 0;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -32,7 +45,16 @@ class LoGInScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 height: 160,
-                child: Image.asset('asset/images/usernamefielfTouch.png'),
+                child: Hero(
+                    tag: 'eye',
+                    transitionOnUserGestures: true,
+                    flightShuttleBuilder: (flightContext, animation, flightDirection, fromHeroContext, toHeroContext) {
+                      return Image.asset(eyes[index]);
+                    },
+                    createRectTween: (begin, end) {
+                      return Tween(begin: Rect.zero, end: Rect.largest);
+                    },
+                    child: Image.asset(eyes[index])),
               ),
               const Text(
                 'Your key to your business',
@@ -42,12 +64,22 @@ class LoGInScreen extends StatelessWidget {
                 ),
               ),
               TTextFormField(
+                onTap: () {
+                  setState(() {
+                    index = 1;
+                  });
+                },
                 text: 'Name',
                 controller: nameController,
                 inputType: TextInputType.name,
                 obscureText: false,
               ),
               TTextFormField(
+                onTap: () {
+                  setState(() {
+                    index = 3;
+                  });
+                },
                 text: 'Password',
                 controller: passwordController,
                 inputType: TextInputType.emailAddress,

@@ -66,7 +66,7 @@ class _SecondAnimationState extends State<SecondAnimation>
 
   Future<void> _reverseAnimation() async {
     setState(() {
-      showScreens = false;
+      showScreens = true;
     });
 
     await _controllerBottom.reverse();
@@ -118,7 +118,7 @@ class _SecondAnimationState extends State<SecondAnimation>
                       const Column(
                         children: [
                           SizedBox(
-                            height: 250,
+                            height: 230.5,
                             child: HomeScreenPageviewAnimatedContaner(),
                           ),
                         ],
@@ -126,63 +126,60 @@ class _SecondAnimationState extends State<SecondAnimation>
                       adjustHieght(khieght * .04),
                       Expanded(
                         flex: 1,
-                        child: SlideTransition(
-                          position: _offsetAnimationBottom,
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomButton(
-                                      label: 'Archived',
-                                      onPressed: () {
-                                        setState(() {
-                                          selectedChoiceIndex = 0;
-                                        });
-                                      },
-                                      isSelected: selectedChoiceIndex == 0,
-                                    ),
-                                    CustomButton(
-                                      label: 'Reminders',
-                                      onPressed: () {
-                                        setState(() {
-                                          selectedChoiceIndex = 1;
-                                        });
-                                      },
-                                      isSelected: selectedChoiceIndex == 1,
-                                    ),
-                                    CustomButton(
-                                      label: 'Upcoming',
-                                      onPressed: () {
-                                        setState(() {
-                                          selectedChoiceIndex = 2;
-                                        });
-                                      },
-                                      isSelected: selectedChoiceIndex == 2,
-                                    ),
-                                  ],
-                                ),
-                                adjustHieght(khieght * .02),
-                                Expanded(
-                                  child: Builder(
-                                    builder: (BuildContext context) {
-                                      if (selectedChoiceIndex == 0) {
-                                        return const ArchiedTilesHomeScreen();
-                                      } else if (selectedChoiceIndex == 1) {
-                                        return const RemindersTilesHomeScreen();
-                                      } else if (selectedChoiceIndex == 2) {
-                                        return const ArchiedTilesHomeScreen();
-                                      } else {
-                                        return const SizedBox();
-                                      }
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomButton(
+                                    label: 'Archived',
+                                    onPressed: () {
+                                      setState(() {
+                                        selectedChoiceIndex = 0;
+                                      });
                                     },
+                                    isSelected: selectedChoiceIndex == 0,
                                   ),
+                                  CustomButton(
+                                    label: 'Reminders',
+                                    onPressed: () {
+                                      setState(() {
+                                        selectedChoiceIndex = 1;
+                                      });
+                                    },
+                                    isSelected: selectedChoiceIndex == 1,
+                                  ),
+                                  CustomButton(
+                                    label: 'Upcoming',
+                                    onPressed: () {
+                                      setState(() {
+                                        selectedChoiceIndex = 2;
+                                      });
+                                    },
+                                    isSelected: selectedChoiceIndex == 2,
+                                  ),
+                                ],
+                              ),
+                              adjustHieght(khieght * .02),
+                              Expanded(
+                                child: Builder(
+                                  builder: (BuildContext context) {
+                                    if (selectedChoiceIndex == 0) {
+                                      return const ArchiedTilesHomeScreen();
+                                    } else if (selectedChoiceIndex == 1) {
+                                      return const RemindersTilesHomeScreen();
+                                    } else if (selectedChoiceIndex == 2) {
+                                      return const ArchiedTilesHomeScreen();
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  },
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -205,63 +202,79 @@ class RemindersTilesHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 15,
+    return ListView.separated(
+      separatorBuilder: (context, index) => adjustHieght(khieght * .02),
+      itemCount: 5,
       itemBuilder: (context, index) {
+        List names = [
+          'Febin',
+          'Dibin',
+          'Joshua',
+          'Anagh',
+          'Santhosh',
+        ];
+        List image = [
+          'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2fU6VWMdDDAYhNv6NQiHuGeXP3KKtPwVHew&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKJPxxwPeNvISnBbZsZHe887Ws0FnrL7o0w&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
+        ];
         return Container(
-          padding: const EdgeInsets.all(5),
-          height: 100,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            color: Colors.black,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 5,
           ),
+          height: 100,
           child: Row(
             children: [
               Container(
-                width: 80,
-                height: 100,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
-                      ),
-                      fit: BoxFit.cover,
+                width: 95,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      image[index],
                     ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
-                    ),
-                    color: Colors.black),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    bottomLeft: Radius.circular(12),
+                  ),
+                  color: kblack,
+                ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              adjustWidth(kwidth * .03),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Project Discussion with \nReynolds',
-                          maxLines: 2,
-                          style: TextStyle(color: kwhite),
-                        ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.arrow_circle_right,
-                            size: 30,
-                            color: neonShade,
-                          ),
-                        )
-                      ],
+                  Text(
+                    'Project Discussion with \n${names[index]}',
+                    style: const TextStyle(
+                      color: kwhite,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
                     ),
-                  )
+                  ),
+                  Row(
+                    children: [
+                      const Text('11 Nov'),
+                      adjustWidth(kwidth * .02),
+                      const Text('11:45 AM'),
+                    ],
+                  ),
                 ],
-              )
+              ),
+              const Spacer(),
+              const CircleAvatar(
+                radius: 15,
+                backgroundColor: neonShade,
+                child: Icon(
+                  Icons.keyboard_arrow_right,
+                  size: 25,
+                  color: kblack,
+                ),
+              ),
             ],
           ),
         );
@@ -277,61 +290,79 @@ class ArchiedTilesHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 15,
+    return ListView.separated(
+      separatorBuilder: (context, index) => adjustHieght(khieght * .02),
+      itemCount: 5,
       itemBuilder: (context, index) {
+        List names = [
+          'Joshua',
+          'Anagh',
+          'Santhosh',
+          'Febin',
+          'Dibin',
+        ];
+        List image = [
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKJPxxwPeNvISnBbZsZHe887Ws0FnrL7o0w&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
+          'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2fU6VWMdDDAYhNv6NQiHuGeXP3KKtPwVHew&usqp=CAU',
+        ];
         return Container(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 5,
+          ),
           height: 100,
-          width: double.infinity,
           child: Row(
             children: [
               Container(
-                width: 80,
-                height: 100,
-                decoration: const BoxDecoration(
+                width: 95,
+                decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                      'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+                      image[index],
                     ),
                     fit: BoxFit.cover,
                   ),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
                     bottomLeft: Radius.circular(12),
                   ),
                   color: kblack,
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              adjustWidth(kwidth * .03),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Project Discussion with \nReynolds',
-                          maxLines: 2,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.arrow_circle_right,
-                            size: 30,
-                            color: neonShade,
-                          ),
-                        )
-                      ],
+                  Text(
+                    'Project Discussion with \n${names[index]}',
+                    style: const TextStyle(
+                      color: kwhite,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
                     ),
-                  )
+                  ),
+                  Row(
+                    children: [
+                      const Text('11 Nov'),
+                      adjustWidth(kwidth * .02),
+                      const Text('11:45 AM'),
+                    ],
+                  ),
                 ],
-              )
+              ),
+              const Spacer(),
+              const CircleAvatar(
+                radius: 15,
+                backgroundColor: neonShade,
+                child: Icon(
+                  Icons.keyboard_arrow_right,
+                  size: 25,
+                  color: kblack,
+                ),
+              ),
             ],
           ),
         );
@@ -421,7 +452,6 @@ class _HomeScreenPageviewAnimatedContanerState
               ),
               borderRadius: BorderRadius.circular(10),
             ),
-            // height: 00,
             child: Column(
               children: [
                 adjustHieght(khieght * .02),

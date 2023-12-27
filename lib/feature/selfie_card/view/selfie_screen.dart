@@ -3,10 +3,16 @@ import 'package:bizkit/feature/selfie_card/widgets/selfie_preview_screen.dart';
 import 'package:flutter/material.dart';
 
 class SelfieScreen extends StatelessWidget {
-  const SelfieScreen({super.key});
+  SelfieScreen({super.key});
+
+  final buttons=['asset/images/camerFromgalleryIcon.png','asset/images/ic_twotone-tap-and-play.png'];
+  final centerButtons=['asset/images/solar_gallery-bold.png','asset/images/Vector.png','asset/images/camera select Icon.png','asset/images/phone_connectivity_bold.png'];
 
   @override
   Widget build(BuildContext context) {
+  int indexofButton=1;
+  int leftButton=0;
+  int rightButton=2;
     return Scaffold(
       body: SizedBox(
         width: kwidth,

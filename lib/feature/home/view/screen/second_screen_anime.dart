@@ -1,5 +1,5 @@
 import 'package:bizkit/core/const.dart';
-import 'package:bizkit/initial_anime/home_nime.dart';
+import 'package:bizkit/feature/home/view/screen/home_screen_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

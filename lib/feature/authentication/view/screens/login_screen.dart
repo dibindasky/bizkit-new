@@ -5,6 +5,7 @@ import 'package:bizkit/feature/authentication/view/screens/signin_screen.dart';
 import 'package:bizkit/feature/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/feature/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 
 // ignore: must_be_immutable
 class LoGInScreen extends StatefulWidget {
@@ -14,19 +15,52 @@ class LoGInScreen extends StatefulWidget {
   State<LoGInScreen> createState() => _LoGInScreenState();
 }
 
-class _LoGInScreenState extends State<LoGInScreen> {
-  TextEditingController nameController = TextEditingController();
+class _LoGInScreenState extends State<LoGInScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late SpringSimulation _simulation;
+  double initial = 0.0;
+  double target = 0.0;
 
+  TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final eyes = [
-    'asset/images/eyes_straight.png',
-    'asset/images/eyes_look_left.png',
-    'asset/images/eyes_look_down.png',
-    'asset/images/eyes_look_up.png'
+  final alignments = [
+    Alignment.center,
+    Alignment.bottomLeft,
+    Alignment.bottomCenter,
+    Alignment.topRight
   ];
-  int index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2500),
+    );
+    _simulation = SpringSimulation(
+      const SpringDescription(mass: 1.0, stiffness: 100.0, damping: 10.0),
+      initial, // Initial position
+      target, // Target position
+      0.0, // Initial velocity (important!)
+    );
+    _controller.forward();
+  }
+
+  void animate(double t) {
+    initial = target;
+    target = t;
+    _simulation = SpringSimulation(
+      const SpringDescription(mass: 1.0, stiffness: 100.0, damping: 10.0),
+      initial,
+      target,
+      0.0,
+    );
+    _controller.reset();
+    _controller.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -56,6 +90,22 @@ class _LoGInScreenState extends State<LoGInScreen> {
                     return Tween(begin: Rect.zero, end: Rect.largest);
                   },
                   child: Image.asset(eyes[index]),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    eyeCircleAnimated(),
+                    Container(
+                      width: kwidth * 0.05,
+                      height: kwidth * 0.02,
+                      decoration: const BoxDecoration(
+                          gradient: LinearGradient(colors: [
+                        Color.fromRGBO(6, 199, 172, 1),
+                        Color.fromRGBO(6, 199, 172, 1),
+                        Color.fromRGBO(6, 199, 172, .34),
+                      ])),
+                    ),
+                    eyeCircleAnimated()
+                  ],
                 ),
               ),
               const Text(
@@ -68,7 +118,7 @@ class _LoGInScreenState extends State<LoGInScreen> {
               TTextFormField(
                 onTap: () {
                   setState(() {
-                    index = 1;
+                    animate(40);
                   });
                 },
                 text: 'Name',
@@ -79,7 +129,7 @@ class _LoGInScreenState extends State<LoGInScreen> {
               TTextFormField(
                 onTap: () {
                   setState(() {
-                    index = 3;
+                    animate(-40);
                   });
                 },
                 text: 'Password',
@@ -109,6 +159,40 @@ class _LoGInScreenState extends State<LoGInScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Container eyeCircleAnimated() {
+    return Container(
+      padding: const EdgeInsets.all(6),
+      height: kwidth * 0.30,
+      width: kwidth * 0.30,
+      decoration: BoxDecoration(
+          gradient: const LinearGradient(colors: [
+            Color.fromRGBO(6, 199, 172, 1),
+            Color.fromRGBO(6, 199, 172, 1),
+            Color.fromRGBO(6, 199, 172, .34),
+          ]),
+          borderRadius: BorderRadius.all(Radius.circular(kwidth))),
+      child: CircleAvatar(
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            _simulation.x(_controller.value);
+            return Transform.translate(
+              offset: Offset(0.0, _simulation.x(_controller.value)),
+              child: Container(
+                height: 20,
+                width: 30,
+                decoration: const BoxDecoration(
+                  color: kblack,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

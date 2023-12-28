@@ -102,17 +102,6 @@ class _LoGInScreenState extends State<LoGInScreen>
               SizedBox(
                 width: double.infinity,
                 height: 160,
-                child: Hero(
-                  tag: 'eye',
-                  transitionOnUserGestures: true,
-                  flightShuttleBuilder: (flightContext, animation,
-                      flightDirection, fromHeroContext, toHeroContext) {
-                    return Image.asset(eyes[index]);
-                  },
-                  createRectTween: (begin, end) {
-                    return Tween(begin: Rect.zero, end: Rect.largest);
-                  },
-                  child: Image.asset(eyes[index]),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

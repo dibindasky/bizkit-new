@@ -1,4 +1,7 @@
 import 'package:bizkit/core/const.dart';
+import 'package:bizkit/fade_transition/fade_transition.dart';
+import 'package:bizkit/feature/business_card_preview/view/widgets/bank_person_achived.dart';
+import 'package:bizkit/feature/business_card_preview/view/widgets/show_model_items.dart';
 import 'package:bizkit/feature/home/view/screen/home_screen_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,6 +20,7 @@ class _SecondAnimationState extends State<SecondAnimation>
   late Animation<Offset> _offsetAnimationTop;
   late AnimationController _controllerBottom;
   late Animation<Offset> _offsetAnimationBottom;
+
   int selectedChoiceIndex = 0;
 
   @override
@@ -66,7 +70,7 @@ class _SecondAnimationState extends State<SecondAnimation>
 
   Future<void> _reverseAnimation() async {
     setState(() {
-      showScreens = false;
+      showScreens = true;
     });
 
     await _controllerBottom.reverse();
@@ -79,6 +83,13 @@ class _SecondAnimationState extends State<SecondAnimation>
     _controllerBottom.dispose();
     super.dispose();
   }
+
+  List names = [
+    'Archived',
+    'Reminders',
+    'Upcoming',
+  ];
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +129,7 @@ class _SecondAnimationState extends State<SecondAnimation>
                       const Column(
                         children: [
                           SizedBox(
-                            height: 250,
+                            height: 230.5,
                             child: HomeScreenPageviewAnimatedContaner(),
                           ),
                         ],
@@ -126,63 +137,36 @@ class _SecondAnimationState extends State<SecondAnimation>
                       adjustHieght(khieght * .04),
                       Expanded(
                         flex: 1,
-                        child: SlideTransition(
-                          position: _offsetAnimationBottom,
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomButton(
-                                      label: 'Archived',
-                                      onPressed: () {
-                                        setState(() {
-                                          selectedChoiceIndex = 0;
-                                        });
-                                      },
-                                      isSelected: selectedChoiceIndex == 0,
-                                    ),
-                                    CustomButton(
-                                      label: 'Reminders',
-                                      onPressed: () {
-                                        setState(() {
-                                          selectedChoiceIndex = 1;
-                                        });
-                                      },
-                                      isSelected: selectedChoiceIndex == 1,
-                                    ),
-                                    CustomButton(
-                                      label: 'Upcoming',
-                                      onPressed: () {
-                                        setState(() {
-                                          selectedChoiceIndex = 2;
-                                        });
-                                      },
-                                      isSelected: selectedChoiceIndex == 2,
-                                    ),
-                                  ],
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  textChange(index: 0),
+                                  textChange(index: 1),
+                                  textChange(index: 2),
+                                ],
+                              ),
+                              adjustHieght(khieght * .02),
+                              Expanded(
+                                child: Builder(
+                                  builder: (BuildContext context) {
+                                    if (selectedIndex == 0) {
+                                      return const ArchiedTilesHomeScreen();
+                                    } else if (selectedIndex == 1) {
+                                      return const RemindersTilesHomeScreen();
+                                    } else if (selectedIndex == 2) {
+                                      return const ArchiedTilesHomeScreen();
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  },
                                 ),
-                                adjustHieght(khieght * .02),
-                                Expanded(
-                                  child: Builder(
-                                    builder: (BuildContext context) {
-                                      if (selectedChoiceIndex == 0) {
-                                        return const ArchiedTilesHomeScreen();
-                                      } else if (selectedChoiceIndex == 1) {
-                                        return const RemindersTilesHomeScreen();
-                                      } else if (selectedChoiceIndex == 2) {
-                                        return const ArchiedTilesHomeScreen();
-                                      } else {
-                                        return const SizedBox();
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -196,6 +180,21 @@ class _SecondAnimationState extends State<SecondAnimation>
       ),
     );
   }
+
+  Widget textChange({required int index}) {
+    return InkWell(
+      splashFactory: NoSplash.splashFactory,
+      onTap: () {
+        setState(() {
+          String temp = names[index];
+          names[index] = names[1];
+          names[1] = temp;
+          selectedIndex = index;
+        });
+      },
+      child: Text(names[index]),
+    );
+  }
 }
 
 class RemindersTilesHomeScreen extends StatelessWidget {
@@ -205,63 +204,79 @@ class RemindersTilesHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 15,
+    return ListView.separated(
+      separatorBuilder: (context, index) => adjustHieght(khieght * .02),
+      itemCount: 5,
       itemBuilder: (context, index) {
+        List names = [
+          'Febin',
+          'Dibin',
+          'Joshua',
+          'Anagh',
+          'Santhosh',
+        ];
+        List image = [
+          'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2fU6VWMdDDAYhNv6NQiHuGeXP3KKtPwVHew&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKJPxxwPeNvISnBbZsZHe887Ws0FnrL7o0w&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
+        ];
         return Container(
-          padding: const EdgeInsets.all(5),
-          height: 100,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            color: Colors.black,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 5,
           ),
+          height: 100,
           child: Row(
             children: [
               Container(
-                width: 80,
-                height: 100,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
-                      ),
-                      fit: BoxFit.cover,
+                width: 95,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      image[index],
                     ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
-                    ),
-                    color: Colors.black),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    bottomLeft: Radius.circular(12),
+                  ),
+                  color: kblack,
+                ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              adjustWidth(kwidth * .03),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Project Discussion with \nReynolds',
-                          maxLines: 2,
-                          style: TextStyle(color: kwhite),
-                        ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.arrow_circle_right,
-                            size: 30,
-                            color: neonShade,
-                          ),
-                        )
-                      ],
+                  Text(
+                    'Project Discussion with \n${names[index]}',
+                    style: const TextStyle(
+                      color: kwhite,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
                     ),
-                  )
+                  ),
+                  Row(
+                    children: [
+                      const Text('11 Nov'),
+                      adjustWidth(kwidth * .02),
+                      const Text('11:45 AM'),
+                    ],
+                  ),
                 ],
-              )
+              ),
+              const Spacer(),
+              const CircleAvatar(
+                radius: 15,
+                backgroundColor: neonShade,
+                child: Icon(
+                  Icons.keyboard_arrow_right,
+                  size: 25,
+                  color: kblack,
+                ),
+              ),
             ],
           ),
         );
@@ -277,91 +292,83 @@ class ArchiedTilesHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 15,
+    return ListView.separated(
+      separatorBuilder: (context, index) => adjustHieght(khieght * .02),
+      itemCount: 5,
       itemBuilder: (context, index) {
+        List names = [
+          'Joshua',
+          'Anagh',
+          'Santhosh',
+          'Febin',
+          'Dibin',
+        ];
+        List image = [
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKJPxxwPeNvISnBbZsZHe887Ws0FnrL7o0w&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
+          'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2fU6VWMdDDAYhNv6NQiHuGeXP3KKtPwVHew&usqp=CAU',
+        ];
         return Container(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 5,
+          ),
           height: 100,
-          width: double.infinity,
           child: Row(
             children: [
               Container(
-                width: 80,
-                height: 100,
-                decoration: const BoxDecoration(
+                width: 95,
+                decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                      'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+                      image[index],
                     ),
                     fit: BoxFit.cover,
                   ),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
                     bottomLeft: Radius.circular(12),
                   ),
                   color: kblack,
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              adjustWidth(kwidth * .03),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Project Discussion with \nReynolds',
-                          maxLines: 2,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.arrow_circle_right,
-                            size: 30,
-                            color: neonShade,
-                          ),
-                        )
-                      ],
+                  Text(
+                    'Project Discussion with \n${names[index]}',
+                    style: const TextStyle(
+                      color: kwhite,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
                     ),
-                  )
+                  ),
+                  Row(
+                    children: [
+                      const Text('11 Nov'),
+                      adjustWidth(kwidth * .02),
+                      const Text('11:45 AM'),
+                    ],
+                  ),
                 ],
-              )
+              ),
+              const Spacer(),
+              const CircleAvatar(
+                radius: 15,
+                backgroundColor: neonShade,
+                child: Icon(
+                  Icons.keyboard_arrow_right,
+                  size: 25,
+                  color: kblack,
+                ),
+              ),
             ],
           ),
         );
       },
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  final String label;
-  final VoidCallback? onPressed;
-  final bool isSelected;
-
-  const CustomButton({
-    super.key,
-    required this.label,
-    required this.onPressed,
-    required this.isSelected,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Text(
-        label,
-        style: TextStyle(
-          color: isSelected ? kwhite : klightgrey,
-        ),
-      ),
     );
   }
 }
@@ -413,133 +420,137 @@ class _HomeScreenPageviewAnimatedContanerState
       child: (index, _) {
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: neonShade,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(10),
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              fadePageRoute(const SecondHomeScreenPAgeviewMeetingScreen()),
             ),
-            // height: 00,
-            child: Column(
-              children: [
-                adjustHieght(khieght * .02),
-                Row(
-                  children: [
-                    adjustWidth(kwidth * .03),
-                    const CircleAvatar(
-                      radius: 32,
-                      backgroundColor: neonShade,
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
-                        ),
-                        radius: 30,
-                      ),
-                    ),
-                    adjustWidth(kwidth * .02),
-                    Text(
-                      'Meeting With \nMarcopolo',
-                      style: TextStyle(
-                        fontSize: 19.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: neonShade,
+                  width: 2,
                 ),
-                adjustHieght(khieght * .03),
-                SizedBox(
-                  width: 280,
-                  child: Column(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  adjustHieght(khieght * .02),
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Venue :',
-                            style: TextStyle(fontSize: 9.sp),
+                      adjustWidth(kwidth * .03),
+                      const CircleAvatar(
+                        radius: 32,
+                        backgroundColor: neonShade,
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
                           ),
-                          const Spacer(),
-                          Text(
-                            'Central Mall, Jayanagar',
-                            style: TextStyle(
-                              fontSize: 9.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
+                          radius: 30,
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            'Created :',
-                            style: TextStyle(fontSize: 9.sp),
-                          ),
-                          const Spacer(),
-                          Text(
-                            '2nd October, 11:45 AM',
-                            style: TextStyle(
-                              fontSize: 9.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Occasion :',
-                            style: TextStyle(fontSize: 9.sp),
-                          ),
-                          const Spacer(),
-                          Text(
-                            'International Film Festival',
-                            style: TextStyle(
-                              fontSize: 9.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
+                      adjustWidth(kwidth * .02),
+                      Text(
+                        'Meeting With \nMarcopolo',
+                        style: TextStyle(
+                          fontSize: 19.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ],
                   ),
-                ),
-                adjustHieght(khieght * .03),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 42,
-                        decoration: const BoxDecoration(
-                          color: neonShade,
-                          borderRadius:
-                              BorderRadius.only(bottomLeft: Radius.circular(7)),
+                  adjustHieght(khieght * .03),
+                  SizedBox(
+                    width: 280,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Venue :',
+                              style: TextStyle(fontSize: 9.sp),
+                            ),
+                            const Spacer(),
+                            Text(
+                              'Central Mall, Jayanagar',
+                              style: TextStyle(
+                                fontSize: 9.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
-                        child: const Center(
-                          child: Text('Connect'),
+                        Row(
+                          children: [
+                            Text(
+                              'Created :',
+                              style: TextStyle(fontSize: 9.sp),
+                            ),
+                            const Spacer(),
+                            Text(
+                              '2nd October, 11:45 AM',
+                              style: TextStyle(
+                                fontSize: 9.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
+                        Row(
+                          children: [
+                            Text(
+                              'Occasion :',
+                              style: TextStyle(fontSize: 9.sp),
+                            ),
+                            const Spacer(),
+                            Text(
+                              'International Film Festival',
+                              style: TextStyle(
+                                fontSize: 9.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: Container(
-                        height: 42,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: neonShade),
-                          borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(7),
+                  ),
+                  adjustHieght(khieght * .03),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 42,
+                          decoration: const BoxDecoration(
+                            color: neonShade,
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(7)),
+                          ),
+                          child: const Center(
+                            child: Text('Connect'),
                           ),
                         ),
-                        child: const Center(
-                          child: Text(
-                            'Postpone',
-                            style: TextStyle(color: neonShade),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: 42,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: neonShade),
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(7),
+                            ),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'Postpone',
+                              style: TextStyle(color: neonShade),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -597,6 +608,462 @@ class HomeScreenPagviewAnimatedWidget extends StatelessWidget {
           return child(index, context);
         }
       },
+    );
+  }
+}
+
+class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
+  const SecondHomeScreenPAgeviewMeetingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        // leading: IconButton(
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        //   icon: const Icon(
+        //     Icons.arrow_back_ios,
+        //     color: kwhite,
+        //     size: 20,
+        //   ),
+        // ),
+        backgroundColor: Colors.transparent,
+        title: Text(
+          'Todays \nReminders',
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w700,
+            color: kwhite,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.search,
+              color: kwhite,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.list_rounded,
+              color: kwhite,
+            ),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          children: [
+            adjustHieght(khieght * .03),
+            Stack(
+              children: [
+                Positioned(
+                  right: 2,
+                  top: 2,
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: const CircleAvatar(
+                      radius: 15,
+                      backgroundImage:
+                          AssetImage('asset/images/close icon home.png'),
+                      child: Icon(
+                        Icons.close,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: khieght * .8,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: neonShade,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: SizedBox(
+                          child: Column(
+                            children: [
+                              adjustHieght(khieght * .02),
+                              Row(
+                                children: [
+                                  adjustWidth(kwidth * .03),
+                                  const CircleAvatar(
+                                    radius: 32,
+                                    backgroundColor: neonShade,
+                                    child: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                        'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+                                      ),
+                                      radius: 30,
+                                    ),
+                                  ),
+                                  adjustWidth(kwidth * .02),
+                                  Text(
+                                    'Meeting With \nMarcopolo',
+                                    style: TextStyle(
+                                      fontSize: 19.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              adjustHieght(khieght * .03),
+                              SizedBox(
+                                width: 280,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Venue :',
+                                          style: TextStyle(fontSize: 9.sp),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          'Central Mall, Jayanagar',
+                                          style: TextStyle(
+                                            fontSize: 9.sp,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Created :',
+                                          style: TextStyle(fontSize: 9.sp),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          '2nd October, 11:45 AM',
+                                          style: TextStyle(
+                                            fontSize: 9.sp,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Occasion :',
+                                          style: TextStyle(fontSize: 9.sp),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          'International Film Festival',
+                                          style: TextStyle(
+                                            fontSize: 9.sp,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              adjustHieght(khieght * .03),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      height: 42,
+                                      decoration: const BoxDecoration(
+                                        color: neonShade,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(7),
+                                          topLeft: Radius.circular(7),
+                                        ),
+                                      ),
+                                      child: const Center(
+                                        child: Text('Connect'),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      height: 42,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: neonShade),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomRight: Radius.circular(7),
+                                          topRight: Radius.circular(7),
+                                        ),
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          'Postpone',
+                                          style: TextStyle(color: neonShade),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      adjustHieght(khieght * .02),
+                      const Expanded(child: TabBarHomeScreen())
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TabBarHomeScreen extends StatelessWidget {
+  const TabBarHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body: Column(
+          children: [
+            Container(
+              height: 60,
+              decoration: const BoxDecoration(),
+              child: TabBar(
+                dividerHeight: 0,
+                isScrollable: true,
+                labelPadding: const EdgeInsets.symmetric(horizontal: 30),
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color.fromRGBO(6, 199, 172, 1),
+                      Color.fromRGBO(6, 199, 172, 1),
+                      Color.fromRGBO(6, 199, 172, .34),
+                    ],
+                  ),
+                ),
+                tabs: const [
+                  SizedBox(
+                    width: 120,
+                    child: Tab(
+                      child: Text(
+                        "History/Log",
+                        style: TextStyle(color: kwhite),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: Tab(
+                      child: Text(
+                        "Profile",
+                        style: TextStyle(color: kwhite),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: SizedBox(
+                      child: ListView(
+                        children: [
+                          historyLog(
+                            'asset/images/meeting profile png1.png',
+                            '16-10-23 | 11:40 AM',
+                            'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+                          ),
+                          historyLog(
+                            'asset/images/meeting profile png2.png',
+                            '16-10-23 | 11:40 AM',
+                            'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+                          ),
+                          historyLog(
+                            'asset/images/meeting profile png3.png',
+                            '16-10-23 | 11:40 AM',
+                            'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+                          ),
+                          historyLog(
+                            'asset/images/meeting profile png4.png',
+                            '16-10-23 | 11:40 AM',
+                            'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: ListView(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () => bottomSheet(context),
+                                child: Container(
+                                  height: 40,
+                                  decoration: const BoxDecoration(
+                                      color: textFieldFillColr),
+                                  child: Image.asset(
+                                      'asset/images/preview phone.png'),
+                                ),
+                              ),
+                              rowItems(
+                                  asset:
+                                      'asset/images/preview messages gif.gif'),
+                              rowItems(asset: 'asset/images/preview globe.gif'),
+                              rowItems(
+                                  asset: 'asset/images/preview_spinner.png'),
+                              rowItems(
+                                  asset:
+                                      'asset/images/preview location gif.gif'),
+                            ],
+                          ),
+                          adjustHieght(khieght * .01),
+                          const BankPersonAchivedRows(
+                            first: 'asset/images/banking.png',
+                            scnd: 'asset/images/persona.png',
+                            third: 'asset/images/achieved.png',
+                          ),
+                          adjustHieght(khieght * .02),
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: textFieldFillColr,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            width: double.infinity,
+                            height: 140,
+                            child: Column(
+                              children: [
+                                adjustHieght(khieght * .01),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 8),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text('Products / Brands'),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                          color: neonShade,
+                                        ),
+                                        child: const Icon(
+                                            Icons.arrow_right_outlined),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                adjustHieght(khieght * .01),
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 80,
+                                  child: ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      List listImages = [
+                                        'asset/images/preview image 0.png',
+                                        'asset/images/preview list image 2.png',
+                                        'asset/images/preview list image 3.png',
+                                        'asset/images/previewlist image 1.png',
+                                        'asset/images/preview list image 3.png',
+                                        'asset/images/preview list image 2.png',
+                                      ];
+                                      return SizedBox(
+                                        width: 75.dm,
+                                        height: 80.dm,
+                                        child: Image.asset(
+                                          listImages[index],
+                                        ),
+                                      );
+                                    },
+                                    itemCount: 6,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          adjustHieght(khieght * .02),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget rowItems({required String asset}) {
+    return Container(
+      padding: const EdgeInsets.only(top: 10),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(6),
+        ),
+        color: Color.fromRGBO(53, 53, 53, 0.42),
+      ),
+      height: 40,
+      child: Image.asset(asset),
+    );
+  }
+
+  void bottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => const ModelSheetItems(),
+    );
+  }
+
+  Widget historyLog(String image, String date, String detail) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Image.asset(image),
+              adjustWidth(kwidth * .004),
+              Text(
+                date,
+                style: TextStyle(fontSize: 11.sp),
+              ),
+            ],
+          ),
+          adjustHieght(khieght * .006),
+          Text(
+            detail,
+            style: TextStyle(fontSize: 11.sp),
+          ),
+        ],
+      ),
     );
   }
 }

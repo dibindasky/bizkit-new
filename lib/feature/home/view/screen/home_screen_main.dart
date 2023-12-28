@@ -6,7 +6,6 @@ import 'package:bizkit/feature/home/view/screen/second_screen_anime.dart';
 import 'package:bizkit/feature/home/view/widgets/view_all_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class SplitScreen extends StatefulWidget {
   const SplitScreen({super.key});

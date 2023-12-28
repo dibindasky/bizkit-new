@@ -38,7 +38,7 @@ class _SignInscreeenState extends State<SignInscreeen>
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(100),
             child: Material(
-              color: kgreen,
+              color: knill,
               child: CustomtabBar(
                 tabController: _tabController,
               ),

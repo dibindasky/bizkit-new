@@ -10,7 +10,7 @@ class SelfieScreen extends StatefulWidget {
   State<SelfieScreen> createState() => _SelfieScreenState();
 }
 
-class _SelfieScreenState extends State<SelfieScreen> {
+class _SelfieScreenState extends State<SelfieScreen> with SingleTickerProviderStateMixin{
   final buttons = [
     'asset/images/camerFromgalleryIcon.png',
     'asset/images/Vector.png',
@@ -24,6 +24,14 @@ class _SelfieScreenState extends State<SelfieScreen> {
   int indexofButton = 1;
   int leftButton = 0;
   int rightButton = 2;
+
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    _controller=AnimationController(vsync: this,duration: const Duration(milliseconds: 500));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,20 +90,23 @@ class _SelfieScreenState extends State<SelfieScreen> {
                       print(screensSelfi);
                     },
                     customBorder: const CircleBorder(),
-                    child: Container(
-                      padding: const EdgeInsets.all(35),
-                      width: kwidth * 0.28,
-                      height: kwidth * 0.28,
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(kwidth * 0.2)),
-                          image: const DecorationImage(
-                            image: AssetImage(
-                                'asset/images/cameraSelectBackground.png'),
-                            fit: BoxFit.contain,
-                          )),
-                      child: Image.asset(
-                        centerButtons[indexofButton],
+                    child: FadeTransition(
+                      opacity: _controller,
+                      child: Container(
+                        padding: const EdgeInsets.all(35),
+                        width: kwidth * 0.28,
+                        height: kwidth * 0.28,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(kwidth * 0.2)),
+                            image: const DecorationImage(
+                              image: AssetImage(
+                                  'asset/images/cameraSelectBackground.png'),
+                              fit: BoxFit.contain,
+                            )),
+                        child: Image.asset(
+                          centerButtons[indexofButton],
+                        ),
                       ),
                     ),
                   ),
@@ -115,6 +126,7 @@ class _SelfieScreenState extends State<SelfieScreen> {
       splashFactory: NoSplash.splashFactory,
       onTap: () {
         setState(() {
+          _controller.forward(from: 0.5);
           if (left) {
             int temp = leftButton;
             leftButton = indexofButton;
@@ -126,19 +138,22 @@ class _SelfieScreenState extends State<SelfieScreen> {
           }
         });
       },
-      child: Container(
-        width: kwidth * 0.13,
-        height: kwidth * 0.13,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(kwidth * 0.1)),
-          border: Border.all(
-            color: neonShade,
-            width: kwidth * 0.003,
+      child: FadeTransition(
+        opacity: _controller,
+        child: Container(
+          width: kwidth * 0.13,
+          height: kwidth * 0.13,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(kwidth * 0.1)),
+            border: Border.all(
+              color: neonShade,
+              width: kwidth * 0.003,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Image.asset(image),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image.asset(image),
+          ),
         ),
       ),
     );

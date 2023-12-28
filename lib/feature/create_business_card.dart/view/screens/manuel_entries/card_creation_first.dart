@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
-  TextEditingController nameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
                           radius: 13,
                           backgroundImage: AssetImage(
                             'asset/images/profilestackcircle.png',
-                          ),
+                          ),child: Icon(Icons.add),
                         ),
                       ),
                     ],

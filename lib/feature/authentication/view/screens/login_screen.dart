@@ -33,6 +33,7 @@ class _LoGInScreenState extends State<LoGInScreen>
     Alignment.bottomCenter,
     Alignment.topRight
   ];
+  int indexOfEye=0;
 
   @override
   void initState() {
@@ -75,6 +76,12 @@ class _LoGInScreenState extends State<LoGInScreen>
     );
     _controller.reset();
     _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -124,6 +131,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                 onTap: () {
                   setState(() {
                     animate(-28, 20);
+                    indexOfEye=1;
                   });
                 },
                 onChanaged: (name) {
@@ -131,6 +139,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                   double newYPosition = 20 + (name.length * 0.5);
                   setState(() {
                     animate(newXPosition, newYPosition);
+                    indexOfEye=2;
                   });
                 },
                 text: 'Name',
@@ -141,6 +150,7 @@ class _LoGInScreenState extends State<LoGInScreen>
               TTextFormField(
                 onTap: () {
                   setState(() {
+                    indexOfEye=3;
                     animate(30, -20);
                   });
                 },
@@ -197,23 +207,24 @@ class _LoGInScreenState extends State<LoGInScreen>
               offset: Offset(_simulationX.x(_controller.value),
                   _simulation.x(_controller.value)),
               child: Container(
-                  padding: const EdgeInsets.all(3),
-                  height: 30,
-                  width: 30,
-                  decoration: const BoxDecoration(
-                    color: kblack,
-                    shape: BoxShape.circle,
-                  ),
+                padding: const EdgeInsets.all(3),
+                height: 30,
+                width: 30,
+                decoration: const BoxDecoration(
+                  color: kblack,
+                  shape: BoxShape.circle,
+                ),
+                child: Align(alignment: alignments[indexOfEye],
                   child: const SizedBox(
-                      height: 10,
-                      width: 10,
-                      child: Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(100)),
-                          child: ColoredBox(color: kwhite),
-                        ),
-                      ))),
+                    height: 10,
+                    width: 10,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(100)),
+                      child: ColoredBox(color: kwhite),
+                    ),
+                  ),
+                ),
+              ),
             );
           },
         ),

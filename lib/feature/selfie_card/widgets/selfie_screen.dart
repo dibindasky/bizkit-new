@@ -4,7 +4,7 @@ import 'package:bizkit/feature/selfie_card/widgets/selfie_preview_screen.dart';
 import 'package:flutter/material.dart';
 
 class SelfieScreen extends StatefulWidget {
-  SelfieScreen({super.key});
+  const SelfieScreen({super.key});
 
   @override
   State<SelfieScreen> createState() => _SelfieScreenState();
@@ -37,7 +37,8 @@ class _SelfieScreenState extends State<SelfieScreen> {
                     image: AssetImage('asset/images/connecting_iphone.gif'),
                     fit: BoxFit.cover))
             : null,
-        child: ColoredBox(color: indexofButton == 2? kblack.withOpacity(0.8):knill,
+        child: ColoredBox(
+          color: indexofButton == 2 ? kblack.withOpacity(0.8) : knill,
           child: Column(
             children: [
               adjustHieght(khieght * 0.10),

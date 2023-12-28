@@ -9,25 +9,30 @@ class SelfiePreviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(width: kwidth,
+      body: SizedBox(
+        width: kwidth,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             adjustHieght(khieght * 0.10),
             Text(
               'Selfie',
-              style:
-                  TextStyle(fontSize: kwidth * 0.08, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: kwidth * 0.08, fontWeight: FontWeight.bold),
             ),
             const Spacer(),
-            TextButton(onPressed: (){
-              Navigator.push(context, fadePageRoute(const MakeABizkitCardScreen()));
-            }, child: Text('Skip',
-                style: TextStyle(color: kwhite,
-                    decoration: TextDecoration.underline,
-                    decorationColor: kwhite,
-                    fontSize: kwidth * 0.06,
-                    fontWeight: FontWeight.w300))),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, fadePageRoute(const MakeABizkitCardScreen()));
+                },
+                child: Text('Skip',
+                    style: TextStyle(
+                        color: kwhite,
+                        decoration: TextDecoration.underline,
+                        decorationColor: kwhite,
+                        fontSize: kwidth * 0.06,
+                        fontWeight: FontWeight.w300))),
             adjustHieght(khieght * 0.05),
             Container(
               padding: const EdgeInsets.all(35),
@@ -43,7 +48,8 @@ class SelfiePreviewScreen extends StatelessWidget {
               child: PhysicalModel(
                 color: kwhite,
                 elevation: 8.0,
-                shadowColor: const Color.fromARGB(255, 15, 15, 15).withOpacity(0.5),
+                shadowColor:
+                    const Color.fromARGB(255, 15, 15, 15).withOpacity(0.5),
                 borderRadius: BorderRadius.circular(50.0),
                 child: const CircleAvatar(
                   backgroundColor: kwhite,

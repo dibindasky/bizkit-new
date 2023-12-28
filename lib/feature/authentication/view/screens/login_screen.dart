@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class LoGInScreen extends StatefulWidget {
-  LoGInScreen({super.key});
+  const LoGInScreen({super.key});
 
   @override
   State<LoGInScreen> createState() => _LoGInScreenState();
@@ -46,15 +46,17 @@ class _LoGInScreenState extends State<LoGInScreen> {
                 width: double.infinity,
                 height: 160,
                 child: Hero(
-                    tag: 'eye',
-                    transitionOnUserGestures: true,
-                    flightShuttleBuilder: (flightContext, animation, flightDirection, fromHeroContext, toHeroContext) {
-                      return Image.asset(eyes[index]);
-                    },
-                    createRectTween: (begin, end) {
-                      return Tween(begin: Rect.zero, end: Rect.largest);
-                    },
-                    child: Image.asset(eyes[index])),
+                  tag: 'eye',
+                  transitionOnUserGestures: true,
+                  flightShuttleBuilder: (flightContext, animation,
+                      flightDirection, fromHeroContext, toHeroContext) {
+                    return Image.asset(eyes[index]);
+                  },
+                  createRectTween: (begin, end) {
+                    return Tween(begin: Rect.zero, end: Rect.largest);
+                  },
+                  child: Image.asset(eyes[index]),
+                ),
               ),
               const Text(
                 'Your key to your business',

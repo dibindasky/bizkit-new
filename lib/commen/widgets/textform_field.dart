@@ -13,6 +13,7 @@ class TTextFormField extends StatelessWidget {
   final Widget? su;
   final Widget? suffix;
   final Color? clr;
+  final Function(String)? onChanaged;
   final VoidCallback? onTap;
   const TTextFormField({
     Key? key,
@@ -26,7 +27,9 @@ class TTextFormField extends StatelessWidget {
     this.maxlegth,
     this.height,
     this.maxLines,
-    this.function, this.onTap,
+    this.function, 
+    this.onTap,
+    this.onChanaged,
   }) : super(key: key);
 
   @override
@@ -38,6 +41,7 @@ class TTextFormField extends StatelessWidget {
         maxLines: maxLines ?? 1,
         style: const TextStyle(color: kwhite),
         maxLength: maxlegth,
+        onChanged: onChanaged,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please $text';

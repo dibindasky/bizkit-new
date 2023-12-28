@@ -7,7 +7,6 @@ import 'package:bizkit/feature/create_business_card.dart/view/screens/create_bus
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 
-// ignore: must_be_immutable
 class LoGInScreen extends StatefulWidget {
   const LoGInScreen({super.key});
 
@@ -19,8 +18,11 @@ class _LoGInScreenState extends State<LoGInScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late SpringSimulation _simulation;
+  late SpringSimulation _simulationX;
   double initial = 0.0;
+  double initialx = 0.0;
   double target = 0.0;
+  double targetx = 0.0;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -45,16 +47,30 @@ class _LoGInScreenState extends State<LoGInScreen>
       target, // Target position
       0.0, // Initial velocity (important!)
     );
+    _simulationX = SpringSimulation(
+      const SpringDescription(mass: 1.0, stiffness: 100.0, damping: 10.0),
+      initialx, // Initial position
+      targetx, // Target position
+      0.0, // Initial velocity (important!)
+    );
     _controller.forward();
   }
 
-  void animate(double t) {
+  void animate(double targetX, double targety) {
     initial = target;
-    target = t;
+    target = targety;
+    initialx = targetx;
+    targetx = targetX;
     _simulation = SpringSimulation(
       const SpringDescription(mass: 1.0, stiffness: 100.0, damping: 10.0),
       initial,
       target,
+      0.0,
+    );
+    _simulationX = SpringSimulation(
+      const SpringDescription(mass: 1.0, stiffness: 100.0, damping: 10.0),
+      initialx,
+      targetX,
       0.0,
     );
     _controller.reset();
@@ -118,7 +134,14 @@ class _LoGInScreenState extends State<LoGInScreen>
               TTextFormField(
                 onTap: () {
                   setState(() {
-                    animate(40);
+                    animate(-28, 20);
+                  });
+                },
+                onChanaged: (name) {
+                  double newXPosition = -28 + (name.length * 1.5);
+                  double newYPosition = 20 + (name.length * 0.5);
+                  setState(() {
+                    animate(newXPosition, newYPosition);
                   });
                 },
                 text: 'Name',
@@ -129,7 +152,7 @@ class _LoGInScreenState extends State<LoGInScreen>
               TTextFormField(
                 onTap: () {
                   setState(() {
-                    animate(-40);
+                    animate(30, -20);
                   });
                 },
                 text: 'Password',
@@ -182,15 +205,26 @@ class _LoGInScreenState extends State<LoGInScreen>
           builder: (context, child) {
             _simulation.x(_controller.value);
             return Transform.translate(
-              offset: Offset(0.0, _simulation.x(_controller.value)),
+              offset: Offset(_simulationX.x(_controller.value),
+                  _simulation.x(_controller.value)),
               child: Container(
-                height: 20,
-                width: 30,
-                decoration: const BoxDecoration(
-                  color: kblack,
-                  shape: BoxShape.circle,
-                ),
-              ),
+                  padding: const EdgeInsets.all(3),
+                  height: 30,
+                  width: 30,
+                  decoration: const BoxDecoration(
+                    color: kblack,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const SizedBox(
+                      height: 10,
+                      width: 10,
+                      child: Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(100)),
+                          child: ColoredBox(color: kwhite),
+                        ),
+                      ))),
             );
           },
         ),

@@ -25,7 +25,7 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(const Duration(milliseconds: 2000), () {
       Navigator.pushReplacement(
         context,
-        fadePageRoute(LoGInScreen()),
+        fadePageRoute(const LoGInScreen()),
       );
     });
   }

@@ -1,6 +1,6 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/feature/card_share/view/screen/card_screen_main.dart';
-import 'package:bizkit/feature/home/view/screen/home_screen_main.dart';
+import 'package:bizkit/feature/home/view/home_main_screen/home_screen_main.dart';
 import 'package:bizkit/feature/profile_screen/view/screen/home_main_screen.dart';
 import 'package:bizkit/feature/selfie_card/widgets/selfie_screen.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
@@ -20,7 +20,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
   final List _widgetOptions = [
     const SplitScreen(),
     const CardShareMainScreen(),
-    SelfieScreen(),
+    const SelfieScreen(),
     const ProfileScreen()
   ];
 

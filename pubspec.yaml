@@ -37,6 +37,8 @@ dependencies:
   flutter_screenutil: ^5.9.0
   image_picker: ^1.0.5
 
+  camera: ^0.10.5+7 
+
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:

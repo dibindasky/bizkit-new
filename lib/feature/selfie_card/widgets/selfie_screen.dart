@@ -4,7 +4,7 @@ import 'package:bizkit/feature/selfie_card/widgets/selfie_preview_screen.dart';
 import 'package:flutter/material.dart';
 
 class SelfieScreen extends StatefulWidget {
-  const SelfieScreen({super.key});
+  SelfieScreen({super.key});
 
   @override
   State<SelfieScreen> createState() => _SelfieScreenState();
@@ -30,6 +30,7 @@ class _SelfieScreenState extends State<SelfieScreen> with SingleTickerProviderSt
   @override
   void initState() {
     _controller=AnimationController(vsync: this,duration: const Duration(milliseconds: 500));
+    _controller.forward();
     super.initState();
   }
 

@@ -1,7 +1,9 @@
 import 'package:bizkit/core/const.dart';
+import 'package:bizkit/fade_transition/fade_transition.dart';
 import 'package:bizkit/feature/business_card_preview/view/widgets/bank_person_achived.dart';
 import 'package:bizkit/feature/business_card_preview/view/widgets/image_offset_container.dart';
 import 'package:bizkit/feature/business_card_preview/view/widgets/show_model_items.dart';
+import 'package:bizkit/feature/home/view/widgets/reminder_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,7 +14,7 @@ class ListTileDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        leading: IconButton( 
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -63,11 +65,15 @@ class ListTileDetailView extends StatelessWidget {
                       ),
                     ),
                     adjustWidth(kwidth * .03),
-                    Text(
-                      'Add Reminder',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
+                    InkWell(onTap: (){
+                      Navigator.push(context, fadePageRoute(AddReminderScreen()));
+                    },
+                      child: Text(
+                        'Add Reminder',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ],

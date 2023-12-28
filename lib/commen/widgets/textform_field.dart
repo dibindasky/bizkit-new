@@ -82,7 +82,7 @@ class TTextFormField extends StatelessWidget {
           filled: true,
           hintText: text,
           hintStyle: TextStyle(color: clr ?? klightgrey),
-          border: UnderlineInputBorder(
+          border: UnderlineInputBorder(borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(7),
           ),
           focusedBorder: OutlineInputBorder(

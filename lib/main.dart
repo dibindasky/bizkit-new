@@ -19,6 +19,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowMaterialGrid: false,
         theme: ThemeData(
+          primaryColor: kblack,
+          colorScheme: const ColorScheme.dark(primary: neonShade),
           fontFamily: 'Euclid',
           scaffoldBackgroundColor: kblack,
           textTheme: Theme.of(context).textTheme.apply(
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
               ),
         ),
         debugShowCheckedModeBanner: false,
-        home: LoGInScreen(),
+        home: const LoGInScreen(),
       ),
     );
   }

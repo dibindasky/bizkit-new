@@ -33,7 +33,7 @@ class _LoGInScreenState extends State<LoGInScreen>
     Alignment.bottomCenter,
     Alignment.topRight
   ];
-  int indexOfEye=0;
+  int indexOfEye = 0;
 
   @override
   void initState() {
@@ -141,8 +141,17 @@ class _LoGInScreenState extends State<LoGInScreen>
               TTextFormField(
                 onTap: () {
                   setState(() {
-                    animate(-28, 20);
-                    indexOfEye=1;
+                    if (nameController.text.isEmpty) {
+                      animate(-28, 20);
+                      indexOfEye = 1;
+                    } else {
+                      double newXPosition =
+                          -28 + (nameController.text.length * 1.5);
+                      double newYPosition =
+                          20 + (nameController.text.length * 0.5);
+                      animate(newXPosition, newYPosition);
+                      indexOfEye = 1;
+                    }
                   });
                 },
                 onChanaged: (name) {
@@ -150,7 +159,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                   double newYPosition = 20 + (name.length * 0.5);
                   setState(() {
                     animate(newXPosition, newYPosition);
-                    indexOfEye=2;
+                    indexOfEye = 1;
                   });
                 },
                 text: 'Name',
@@ -161,7 +170,7 @@ class _LoGInScreenState extends State<LoGInScreen>
               TTextFormField(
                 onTap: () {
                   setState(() {
-                    indexOfEye=3;
+                    indexOfEye = 3;
                     animate(30, -20);
                   });
                 },
@@ -209,7 +218,7 @@ class _LoGInScreenState extends State<LoGInScreen>
             Color.fromRGBO(6, 199, 172, .34),
           ]),
           borderRadius: BorderRadius.all(Radius.circular(kwidth))),
-      child: CircleAvatar(
+      child: CircleAvatar(backgroundColor: kwhite.withOpacity(0.9),
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
@@ -225,7 +234,8 @@ class _LoGInScreenState extends State<LoGInScreen>
                   color: kblack,
                   shape: BoxShape.circle,
                 ),
-                child: Align(alignment: alignments[indexOfEye],
+                child: Align(
+                  alignment: alignments[indexOfEye],
                   child: const SizedBox(
                     height: 10,
                     width: 10,

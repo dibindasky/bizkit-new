@@ -51,12 +51,33 @@ class CardShareMainScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const Positioned(
-                                right: 10,
-                                top: 20,
-                                child: Icon(
-                                  Icons.more_vert,
-                                  size: 30,
+                              Positioned(
+                                right: 0,
+                                top: 10,
+                                child: PopupMenuButton<String>(
+                                  icon: const Icon(
+                                    Icons.more_vert,
+                                    size: 35,
+                                    color: kblack,
+                                  ),
+                                  onSelected: (value) {
+                                    if (value == 'Add Tag') {}
+                                    print('Selected: $value');
+                                  },
+                                  itemBuilder: (context) => [
+                                    const PopupMenuItem(
+                                      value: 'Edit Card',
+                                      child: Text('Edit Card'),
+                                    ),
+                                    const PopupMenuItem(
+                                      value: 'Archive',
+                                      child: Text('Archive'),
+                                    ),
+                                    const PopupMenuItem(
+                                      value: 'Delete Card',
+                                      child: Text('Delete Card'),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

@@ -1,6 +1,6 @@
 import 'package:bizkit/commen/widgets/textform_field.dart';
 import 'package:bizkit/core/const.dart';
-import 'package:bizkit/feature/home/view/widgets/listtile_detail_view.dart';
+import 'package:bizkit/feature/home/view/widgets/connection_detail_view.dart';
 import 'package:bizkit/feature/selfie_card/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 

@@ -35,6 +35,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomBarBubble(
+        height: 55,
         backgroundColor: homescreenbottomsheetcolr,
         selectedIndex: _selectedIndex,
         items: [

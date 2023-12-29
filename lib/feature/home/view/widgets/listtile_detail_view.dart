@@ -14,7 +14,7 @@ class ListTileDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton( 
+        leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -65,9 +65,11 @@ class ListTileDetailView extends StatelessWidget {
                       ),
                     ),
                     adjustWidth(kwidth * .03),
-                    InkWell(onTap: (){
-                      Navigator.push(context, fadePageRoute(AddReminderScreen()));
-                    },
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context, fadePageRoute(AddReminderScreen()));
+                      },
                       child: Text(
                         'Add Reminder',
                         style: TextStyle(
@@ -83,7 +85,7 @@ class ListTileDetailView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: () => bottomSheet(context),
+                    onTap: () => numberBottomSheet(context),
                     child: SizedBox(
                       height: 80,
                       child: Image.asset('asset/images/preview phone.png'),
@@ -179,7 +181,7 @@ class ListTileDetailView extends StatelessWidget {
     );
   }
 
-  void bottomSheet(BuildContext context) {
+  void numberBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) => const ModelSheetItems(),
@@ -198,28 +200,63 @@ class _VerticalScrollState extends State<VerticalScroll> {
   double scrollPosition = 0.0;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 500,
-      child: NotificationListener<ScrollUpdateNotification>(
-        onNotification: (notification) {
-          setState(() {
-            scrollPosition = notification.metrics.pixels;
-          });
-          return true;
-        },
-        child: Scrollbar(
-          child: ListView.builder(
-            itemCount: 50,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(
-                  'Item $index',
-                  style: const TextStyle(color: kwhite),
-                ),
-              );
-            },
-          ),
+    return NotificationListener<ScrollUpdateNotification>(
+      onNotification: (notification) {
+        setState(() {
+          scrollPosition = notification.metrics.pixels;
+        });
+        return true;
+      },
+      child: Scrollbar(
+        child: Column(
+          children: [
+            historyLog(
+              'asset/images/meeting profile png1.png',
+              '1-10-23 | 11:40 AM',
+              'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+            ),
+            historyLog(
+              'asset/images/meeting profile png2.png',
+              '22-10-23 | 1:40 PM',
+              'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+            ),
+            historyLog(
+              'asset/images/meeting profile png3.png',
+              '16-10-23 | 7:40 PM',
+              'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+            ),
+            historyLog(
+              'asset/images/meeting profile png4.png',
+              '19-10-23 | 5:40 PM',
+              'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget historyLog(String image, String date, String detail) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Image.asset(image),
+              adjustWidth(kwidth * .004),
+              Text(
+                date,
+                style: TextStyle(fontSize: 11.sp),
+              ),
+            ],
+          ),
+          adjustHieght(khieght * .006),
+          Text(
+            detail,
+            style: TextStyle(fontSize: 11.sp),
+          ),
+        ],
       ),
     );
   }

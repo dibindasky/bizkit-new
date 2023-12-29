@@ -9,8 +9,6 @@ class AddReminderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime? selectedDate;
-    DateTime? chooseDate;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: knill,
@@ -87,7 +85,13 @@ class AddReminderScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(child: TextField(controller: dateController,)),
+                    Text('Select the Date',
+                        style: TextStyle(
+                            color: klightgrey, fontSize: kwidth * 0.03)),
+                    const Icon(
+                      Icons.calendar_month_outlined,
+                      color: neonShade,
+                    )
                   ],
                 ),
               ),
@@ -101,26 +105,18 @@ class AddReminderScreen extends StatelessWidget {
                           initialDate: DateTime.now(),
                           firstDate: DateTime.now(),
                           lastDate: DateTime.now().add(
-                            const Duration(days: 365),
+                            const Duration(days: 365 * 100),
                           ),
-                          onDateChanged: (date) {
-                            selectedDate = date;
-                            print(selectedDate);
-                          }),
+                          onDateChanged: (date) {}),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
-                            onPressed: () {
-                              chooseDate = null;
-                            },
+                            onPressed: () {},
                             child: const Text('Cancel'),
                           ),
                           TextButton(
-                            onPressed: () {
-                              chooseDate = selectedDate;
-                              print('choose date = $chooseDate');
-                            },
+                            onPressed: () {},
                             child: const Text('ok'),
                           ),
                         ],

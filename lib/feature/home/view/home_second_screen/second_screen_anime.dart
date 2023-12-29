@@ -1,9 +1,11 @@
 import 'package:bizkit/core/const.dart';
+import 'package:bizkit/feature/home/view/home_main_screen/home_screen_main.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/archieved_tiles.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/pageview_animated_containers.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/reminder_screen.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/upcoming_tiles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SecondAnimation extends StatefulWidget {
   const SecondAnimation({super.key});
@@ -24,27 +26,25 @@ class _SecondAnimationState extends State<SecondAnimation>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leadingWidth: kwidth *0.25,
+        leading: Row(
+          children: [
+            SizedBox(width: kwidth * 0.05),
+            Text(
+              'Todays\nReminders',
+              style: TextStyle(fontFamily: 'Euclid', fontWeight: FontWeight.w700,fontSize: 17.sp),
+            ),
+          ],
+        ),actions: [],
+      ),
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              adjustHieght(khieght * .04),
-              Column(
-                children: [
-                  SizedBox(
-                    height: 260.5,
-                    child: GestureDetector(
-                      onVerticalDragStart: (details) async {
-                        // ignore: use_build_context_synchronously
-                        Navigator.of(context).pop();
-                      },
-                      child: const HomeScreenPageviewAnimatedContaner(),
-                    ),
-                  ),
-                ],
-              ),
+              const HomeScreenPageviewAnimatedContaner(),
               const SizedBox(
                 height: 20,
               ),

@@ -1,5 +1,5 @@
 import 'package:bizkit/core/const.dart';
-import 'package:bizkit/navbar/navba.dart';
+import 'package:bizkit/feature/authentication/view/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
               ),
         ),
         debugShowCheckedModeBanner: false,
-        home: const BizkitBottomNavigationBar(),
+        home: const LoGInScreen(),
       ),
     );
   }

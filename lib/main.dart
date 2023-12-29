@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           primaryColor: kblack,
           colorScheme: const ColorScheme.dark(primary: neonShade),
           fontFamily: 'Euclid',
-          scaffoldBackgroundColor: kblack,
+          scaffoldBackgroundColor: backgroundColour,
           textTheme: Theme.of(context).textTheme.apply(
                 bodyColor: kwhite,
                 displayColor: kwhite,

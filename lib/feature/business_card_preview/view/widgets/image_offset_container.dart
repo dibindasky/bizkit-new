@@ -70,7 +70,7 @@ class _ImageOffsetContainersState extends State<ImageOffsetContainers> {
       isScrollControlled: true,
       builder: (context) => SingleChildScrollView(
         child: Container(
-          color: homescreenbottomsheetcolr,
+          color: backgroundColour,
           width: double.infinity,
           // padding: const EdgeInsets.all(16),
           height: khieght * 3.3 / 4,

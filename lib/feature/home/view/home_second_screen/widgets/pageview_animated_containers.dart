@@ -1,5 +1,6 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/fade_transition/fade_transition.dart';
+import 'package:bizkit/feature/home/view/home_main_screen/home_screen_main.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/pageview_detail_screen.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/pageview_offset_settings.dart';
 import 'package:flutter/material.dart';
@@ -54,9 +55,10 @@ class _HomeScreenPageviewAnimatedContanerState
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onTap: () => Navigator.of(context).push(
-                fadePageRoute(const SecondHomeScreenPAgeviewMeetingScreen()),
-              ),
+              onTap: (){
+                showCardsNotifier.value=HomeScreensList.third;
+                showCardsNotifier.notifyListeners();
+              },
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(

@@ -11,6 +11,7 @@ const Color kblack = Colors.black;
 const Color knill = Colors.transparent;
 late double khieght;
 late double kwidth;
+const Color homescreenbottomsheetcolr = Color.fromRGBO(27, 27, 27, 1);
 
 adjustWidth(double width) {
   return SizedBox(

@@ -35,14 +35,14 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomBarBubble(
-        backgroundColor: kblack,
+        backgroundColor: homescreenbottomsheetcolr,
         selectedIndex: _selectedIndex,
         items: [
           BottomBarItem(
             iconBuilder: (color) => Image.asset(
               'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png',
               fit: BoxFit.cover,
-              color: _selectedIndex == 0 ? kgreen : color,
+              color: _selectedIndex == 0 ? neonShade : color,
               height: _selectedIndex == 0 ? 38 : 30,
               width: _selectedIndex == 0 ? 38 : 30,
             ),
@@ -51,7 +51,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
             iconBuilder: (color) => Image.asset(
               'asset/images/NavPngs/my connection selected.png',
               fit: BoxFit.cover,
-              color: _selectedIndex == 1 ? kgreen : color,
+              color: _selectedIndex == 1 ? neonShade : color,
               height: _selectedIndex == 1 ? 32 : 26,
               width: _selectedIndex == 1 ? 32 : 26,
             ),
@@ -60,7 +60,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
             iconBuilder: (color) => Image.asset(
               'asset/images/NavPngs/selfie selected.png',
               fit: BoxFit.cover,
-              color: _selectedIndex == 2 ? kgreen : color,
+              color: _selectedIndex == 2 ? neonShade : color,
               height: _selectedIndex == 2 ? 27 : 22,
               width: _selectedIndex == 2 ? 27 : 22,
             ),
@@ -69,7 +69,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
             iconBuilder: (color) => Image.asset(
               'asset/images/NavPngs/account un selected.png',
               fit: BoxFit.cover,
-              color: _selectedIndex == 3 ? kgreen : color,
+              color: _selectedIndex == 3 ? neonShade : color,
               height: _selectedIndex == 3 ? 30 : 26,
               width: _selectedIndex == 3 ? 30 : 26,
             ),

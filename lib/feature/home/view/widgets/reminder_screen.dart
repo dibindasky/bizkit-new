@@ -9,26 +9,18 @@ class AddReminderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime? selectedDate;
-    DateTime? chooseDate;
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode focusScope = FocusScope.of(context);
-        if (!focusScope.hasPrimaryFocus) {
-          focusScope.unfocus();
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: knill,
-          foregroundColor: kwhite,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-            ),
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: knill,
+        foregroundColor: kwhite,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+
           ),
           title: const Text('Alex Adams'),
           actions: [
@@ -82,18 +74,26 @@ class AddReminderScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                adjustHieght(kwidth * 0.03),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  height: kwidth * 0.13,
-                  decoration: const BoxDecoration(
-                    color: textFieldFillColr,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(7),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Select the Date',
+                        style: TextStyle(
+                            color: klightgrey, fontSize: kwidth * 0.03)),
+                    const Icon(
+                      Icons.calendar_month_outlined,
+                      color: neonShade,
+                    )
+                  ],
+                ),
+              ),
+              ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                child: ColoredBox(
+                  color: kwhite.withOpacity(0.05),
+                  child: Column(
+
                     children: [
                       Expanded(
                           child: TextField(
@@ -112,33 +112,26 @@ class AddReminderScreen extends StatelessWidget {
                           initialDate: DateTime.now(),
                           firstDate: DateTime.now(),
                           lastDate: DateTime.now().add(
-                            const Duration(days: 365),
+                            const Duration(days: 365 * 100),
                           ),
-                          onDateChanged: (date) {
-                            selectedDate = date;
-                            print(selectedDate);
-                          },
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                chooseDate = null;
-                              },
-                              child: const Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                chooseDate = selectedDate;
-                                print('choose date = $chooseDate');
-                              },
-                              child: const Text('ok'),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+
+
+                          onDateChanged: (date) {}),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text('ok'),
+                          ),
+                        ],
+                      )
+                    ],
+
                   ),
                 ),
                 adjustHieght(kwidth * 0.10),

@@ -1,6 +1,5 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/fade_transition/fade_transition.dart';
-import 'package:bizkit/feature/business_card_preview/view/screen/preview_main_screen.dart';
 import 'package:bizkit/feature/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/feature/home/view/widgets/view_all_connection.dart';
 import 'package:flutter/material.dart';
@@ -14,175 +13,167 @@ class HomeScreenFirstPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 410,
+      height: kwidth * 1.1,
       padding: const EdgeInsets.all(10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  Text(
-                    'Hello',
-                    style: TextStyle(
-                      color: kwhite,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w700,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      'Hello,',
+                      style: TextStyle(
+                        color: kwhite,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Febin',
-                    style: TextStyle(
-                      color: kwhite,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w700,
+                    Text(
+                      'Febin',
+                      style: TextStyle(
+                        color: kwhite,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              const CircleAvatar(
-                radius: 17,
-                backgroundColor: textFieldFillColr,
-                backgroundImage: AssetImage(
-                  'asset/images/bizkitIcon.png',
+                  ],
                 ),
-              ),
-            ],
+                const Spacer(),
+                 CircleAvatar(
+                   radius: kwidth * 0.080,
+                   backgroundColor: textFieldFillColr,
+                   child: Padding(
+                     padding: const EdgeInsets.all(10.0),
+                     child: Image.asset('asset/images/bizkitIcon.png'),
+                   ),
+                 )
+              ],
+            ),
           ),
           const SizedBox(
-            height: 20,
+            height: 30,
           ),
-          Row(
-            children: [
-              Text(
-                'My Cards',
-                style: TextStyle(
-                  color: kwhite,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              'My Cards',
+              style: TextStyle(
+                color: kwhite,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w700,
               ),
-            ],
+            ),
           ),
           adjustHieght(khieght * .02),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 130,
-                width: 240,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => adjustWidth(
-                    kwidth * .03,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  height: kwidth * 0.35,
+                  width: kwidth * 0.55,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: neonShade,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  itemCount: 3,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () => Navigator.of(context)
-                        .push(fadePageRoute(const PreviewMainScreen())),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                      ),
-                      height: 130,
-                      width: 220,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: kgreen,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'Febin baby',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              Text(
-                                'Mobile app developer',
-                                style: TextStyle(fontSize: 14.sp),
-                              ),
-                              Image.asset('asset/images/home logo 1.png'),
-                            ],
+                          Text(
+                            'Febin baby',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                          const Icon(
-                            Icons.arrow_right,
-                            color: kwhite,
-                          )
+                          Text(
+                            'Mobile app developer',
+                            style: TextStyle(fontSize: 14.sp),
+                          ),
+                          Image.asset('asset/images/home logo 1.png'),
+                        ],
+                      ),
+                      const Icon(
+                        Icons.arrow_right,
+                        color: kwhite,
+                      )
+                    ],
+                  ),
+                ),
+                adjustWidth(kwidth * .03),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      fadePageRoute(const StartingBusinessCardCreation()),
+                    ),
+                    child: Container(
+                      height: kwidth * 0.35,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: textFieldFillColr,
+                      ),
+                      width: 140,
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: AssetImage(
+                              'asset/images/home add circl.png',
+                            ),
+                          ),
+                          Text('Add Card'),
                         ],
                       ),
                     ),
                   ),
                 ),
-              ),
-              adjustWidth(kwidth * .07),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                    fadePageRoute(const StartingBusinessCardCreation()),
-                  ),
-                  child: Container(
-                    height: 130,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: textFieldFillColr,
-                    ),
-                    width: 140,
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage(
-                            'asset/images/home add circl.png',
-                          ),
-                        ),
-                        Text('Add Card'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-          adjustHieght(khieght * .02),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'My connections',
-                style: TextStyle(
-                  color: kwhite,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                  fadePageRoute(const ViewAllConnections()),
-                ),
-                child: Text(
-                  'view all',
+          adjustHieght(khieght * .03),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'My connections',
                   style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    decorationColor: kwhite,
-                    decorationThickness: 1.5,
                     color: kwhite,
-                    fontSize: 11.sp,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-              ),
-            ],
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    fadePageRoute(const ViewAllConnections()),
+                  ),
+                  child: Text(
+                    'view all',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      decorationColor: kwhite,
+                      decorationThickness: 1.5,
+                      color: kwhite,
+                      fontSize: 11.sp,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 20),
           SizedBox(

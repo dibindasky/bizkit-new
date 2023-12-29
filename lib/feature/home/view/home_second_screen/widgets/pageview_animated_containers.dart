@@ -40,153 +40,158 @@ class _HomeScreenPageviewAnimatedContanerState
 
   @override
   Widget build(BuildContext context) {
-    return HomeScreenPagviewAnimatedWidget(
-      pageController: pageController,
-      pageValue: pageValue,
-      pageCount: image.length,
-      onpageCallBack: (index) {
-        setState(() {
-          currentIndex = index;
-        });
-      },
-      child: (index, _) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              fadePageRoute(const SecondHomeScreenPAgeviewMeetingScreen()),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: neonShade,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(10),
+    return SizedBox(height: kwidth *0.6,
+      child: HomeScreenPagviewAnimatedWidget(
+        pageController: pageController,
+        pageValue: pageValue,
+        pageCount: image.length,
+        onpageCallBack: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        child: (index, _) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () => Navigator.of(context).push(
+                fadePageRoute(const SecondHomeScreenPAgeviewMeetingScreen()),
               ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      const SizedBox(width: 30),
-                      const CircleAvatar(
-                        radius: 32,
-                        backgroundColor: neonShade,
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
-                          ),
-                          radius: 30,
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        'Meeting With \nMarcopolo',
-                        style: TextStyle(
-                          fontSize: 19.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: neonShade,
+                    width: 2,
                   ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: 280,
-                    child: Column(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const SizedBox(height: 20),
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Venue :',
-                              style: TextStyle(fontSize: 9.sp),
+                        const SizedBox(width: 30),
+                        const CircleAvatar(
+                          radius: 32,
+                          backgroundColor: neonShade,
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
                             ),
-                            const Spacer(),
-                            Text(
-                              'Central Mall, Jayanagar',
-                              style: TextStyle(
-                                fontSize: 9.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
+                            radius: 30,
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              'Created :',
-                              style: TextStyle(fontSize: 9.sp),
-                            ),
-                            const Spacer(),
-                            Text(
-                              '2nd October, 11:45 AM',
-                              style: TextStyle(
-                                fontSize: 9.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Occasion :',
-                              style: TextStyle(fontSize: 9.sp),
-                            ),
-                            const Spacer(),
-                            Text(
-                              'International Film Festival',
-                              style: TextStyle(
-                                fontSize: 9.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
+                        const SizedBox(width: 20),
+                        Text(
+                          'Meeting With \nMarcopolo',
+                          style: TextStyle(
+                            fontSize: 19.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 42.3),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 42,
-                          decoration: const BoxDecoration(
-                            color: neonShade,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(7)),
-                          ),
-                          child: const Center(
-                            child: Text('Connect'),
-                          ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: kwidth * 0.8,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'Venue :',
+                                  style: TextStyle(fontSize: 9.sp),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  'Central Mall, Jayanagar',
+                                  style: TextStyle(
+                                    fontSize: 9.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Created :',
+                                  style: TextStyle(fontSize: 9.sp),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  '2nd October, 11:45 AM',
+                                  style: TextStyle(
+                                    fontSize: 9.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Occasion :',
+                                  style: TextStyle(fontSize: 9.sp),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  'International Film Festival',
+                                  style: TextStyle(
+                                    fontSize: 9.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          height: 42,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: neonShade),
-                            borderRadius: const BorderRadius.only(
-                              bottomRight: Radius.circular(7),
+                    ),
+                    SizedBox(height: kwidth * 0.05),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: kwidth * 0.1,
+                            decoration: const BoxDecoration(
+                              color: neonShade,
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(7)),
                             ),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'Postpone',
-                              style: TextStyle(color: neonShade),
+                            child: const Center(
+                              child: Text('Connect'),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        Expanded(
+                          child: Container(
+                            height: kwidth * 0.1,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: neonShade),
+                              borderRadius: const BorderRadius.only(
+                                bottomRight: Radius.circular(7),
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'Postpone',
+                                style: TextStyle(color: neonShade),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

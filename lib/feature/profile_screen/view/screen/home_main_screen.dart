@@ -18,11 +18,14 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: knill,
+        ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              adjustHieght(khieght * .05),
               const CircleAvatar(
                 radius: 75,
                 backgroundColor: neonShade,
@@ -63,7 +66,6 @@ class ProfileScreen extends StatelessWidget {
               ),
               const ProfileTiles(
                 heading: 'Logout',
-                subtittle: '',
                 widget: LogOutScreen(),
               ),
             ],
@@ -79,15 +81,15 @@ class ProfileTiles extends StatelessWidget {
     Key? key,
     this.widget,
     required this.heading,
-    required this.subtittle,
+    this.subtittle,
   }) : super(key: key);
   final Widget? widget;
   final String heading;
-  final String subtittle;
+  final String? subtittle;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () => Navigator.of(context).push(fadePageRoute(widget!)),
       child: SizedBox(
         height: 70,
@@ -106,10 +108,12 @@ class ProfileTiles extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text(
-                    subtittle,
-                    style: TextStyle(fontSize: 10.sp),
-                  ),
+                  subtittle == null
+                      ? const SizedBox()
+                      : Text(
+                          subtittle!,
+                          style: TextStyle(fontSize: 10.sp),
+                        ),
                 ],
               ),
               const Spacer(),

@@ -1,4 +1,6 @@
 import 'package:bizkit/core/const.dart';
+import 'package:bizkit/feature/home/view/home_main_screen/home_screen_main.dart';
+import 'package:bizkit/feature/home/view/home_second_screen/widgets/appbar_second_third.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/tabbar_with_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,43 +11,7 @@ class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // leading: IconButton(
-        //   onPressed: () {
-        //     Navigator.of(context).pop();
-        //   },
-        //   icon: const Icon(
-        //     Icons.arrow_back_ios,
-        //     color: kwhite,
-        //     size: 20,
-        //   ),
-        // ),
-        backgroundColor: Colors.transparent,
-        title: Text(
-          'Todays \nReminders',
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w700,
-            color: kwhite,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-              color: kwhite,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.list_rounded,
-              color: kwhite,
-            ),
-          ),
-        ],
-      ),
+      appBar: homeAppbarSecondAndThird(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
@@ -53,23 +19,8 @@ class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
             adjustHieght(khieght * .03),
             Stack(
               children: [
-                Positioned(
-                  right: 2,
-                  top: 2,
-                  child: InkWell(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: const CircleAvatar(
-                      radius: 15,
-                      backgroundImage:
-                          AssetImage('asset/images/close icon home.png'),
-                      child: Icon(
-                        Icons.close,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: khieght * .8,
+                Container(margin: const EdgeInsets.all(10),
+                  height: khieght * .75,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: neonShade,
@@ -209,6 +160,21 @@ class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
                       adjustHieght(khieght * .02),
                       const Expanded(child: TabBarHomeScreen())
                     ],
+                  ),
+                ),Align(alignment: Alignment.topRight,
+                  child: InkWell(
+                    onTap: () {
+                      showCardsNotifier.value=HomeScreensList.second;
+                      showCardsNotifier.notifyListeners();
+                    },
+                    child: const CircleAvatar(
+                      radius: 15,
+                      backgroundImage:
+                          AssetImage('asset/images/close icon home.png'),
+                      child: Icon(
+                        Icons.close,
+                      ),
+                    ),
                   ),
                 ),
               ],

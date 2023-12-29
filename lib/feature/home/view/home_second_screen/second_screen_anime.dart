@@ -1,43 +1,21 @@
 import 'package:bizkit/core/const.dart';
-import 'package:bizkit/feature/home/view/home_main_screen/home_screen_main.dart';
-import 'package:bizkit/feature/home/view/home_second_screen/widgets/archieved_tiles.dart';
+import 'package:bizkit/feature/home/view/home_second_screen/widgets/appbar_second_third.dart';
+import 'package:bizkit/feature/home/view/home_second_screen/widgets/second_animation_list.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/pageview_animated_containers.dart';
-import 'package:bizkit/feature/home/view/home_second_screen/widgets/reminder_screen.dart';
-import 'package:bizkit/feature/home/view/home_second_screen/widgets/upcoming_tiles.dart';
+import 'package:bizkit/feature/home/view/home_second_screen/widgets/tab_buttons_second_animation.dart';
+import 'package:bizkit/feature/home/view/home_second_screen/widgets/test+list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SecondAnimation extends StatefulWidget {
+ValueNotifier<String> selectedTabNotifier = ValueNotifier(tabBarNames[1]);
+
+class SecondAnimation extends StatelessWidget {
   const SecondAnimation({super.key});
 
   @override
-  State<SecondAnimation> createState() => _SecondAnimationState();
-}
-
-class _SecondAnimationState extends State<SecondAnimation>
-    with TickerProviderStateMixin {
-  List names = [
-    'Archived',
-    'Reminders',
-    'Upcoming',
-  ];
-  int selectedIndex = 0;
-
-  @override
   Widget build(BuildContext context) {
+    int count = 0;
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: kwidth *0.25,
-        leading: Row(
-          children: [
-            SizedBox(width: kwidth * 0.05),
-            Text(
-              'Todays\nReminders',
-              style: TextStyle(fontFamily: 'Euclid', fontWeight: FontWeight.w700,fontSize: 17.sp),
-            ),
-          ],
-        ),actions: [],
-      ),
+      appBar: homeAppbarSecondAndThird(),
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -54,30 +32,23 @@ class _SecondAnimationState extends State<SecondAnimation>
                   padding: const EdgeInsets.all(5),
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          textChange(index: 0),
-                          textChange(index: 1),
-                          textChange(index: 2),
-                        ],
-                      ),
+                      const TabButtonsSecondAnimation(),
                       adjustHieght(khieght * .02),
                       Expanded(
-                        child: Builder(
-                          builder: (BuildContext context) {
-                            if (selectedIndex == 0) {
-                              return const ArchiedTilesHomeScreen();
-                            } else if (selectedIndex == 1) {
-                              return const RemindersTilesHomeScreen();
-                            } else if (selectedIndex == 2) {
-                              return const UpcomingTiles();
-                            } else {
-                              return const SizedBox();
-                            }
-                          },
-                        ),
-                      ),
+                          child: ValueListenableBuilder(
+                              valueListenable: selectedTabNotifier,
+                              builder: (context, value, _) {
+                                count++;
+                                value;
+                                if (value == 'Reminders') {
+                                  return TestSecondAnimationPageListView(
+                                    doTransition: count > 1,
+                                  );
+                                }
+                                return SecondAnimationPageListView(
+                                  doTransition: count > 1,
+                                );
+                              })),
                     ],
                   ),
                 ),
@@ -85,24 +56,6 @@ class _SecondAnimationState extends State<SecondAnimation>
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget textChange({required int index}) {
-    return InkWell(
-      splashFactory: NoSplash.splashFactory,
-      onTap: () {
-        setState(() {
-          String temp = names[index];
-          names[index] = names[1];
-          names[1] = temp;
-          selectedIndex = index;
-        });
-      },
-      child: Text(
-        names[index],
-        style: const TextStyle(fontSize: 15),
       ),
     );
   }

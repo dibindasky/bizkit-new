@@ -1,13 +1,13 @@
 import 'package:bizkit/core/const.dart';
-import 'package:bizkit/fade_transition/fade_transition.dart';
 import 'package:bizkit/feature/home/view/home_main_screen/home_screen_main.dart';
-import 'package:bizkit/feature/home/view/home_second_screen/widgets/pageview_detail_screen.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/pageview_offset_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreenPageviewAnimatedContaner extends StatefulWidget {
-  const HomeScreenPageviewAnimatedContaner({super.key});
+  const HomeScreenPageviewAnimatedContaner({super.key,required this.fadeCallBack});
+
+  final VoidCallback fadeCallBack;
 
   @override
   State<HomeScreenPageviewAnimatedContaner> createState() =>
@@ -57,7 +57,7 @@ class _HomeScreenPageviewAnimatedContanerState
             child: InkWell(
               onTap: (){
                 showCardsNotifier.value=HomeScreensList.third;
-                showCardsNotifier.notifyListeners();
+                widget.fadeCallBack();
               },
               child: Container(
                 decoration: BoxDecoration(

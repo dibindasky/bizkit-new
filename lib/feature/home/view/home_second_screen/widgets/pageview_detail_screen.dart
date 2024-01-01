@@ -1,25 +1,27 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/feature/home/view/home_main_screen/home_screen_main.dart';
-import 'package:bizkit/feature/home/view/home_second_screen/widgets/appbar_second_third.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/tabbar_with_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
-  const SecondHomeScreenPAgeviewMeetingScreen({super.key});
+  const SecondHomeScreenPAgeviewMeetingScreen(
+      {super.key, required this.fadeCallBack});
+
+  final VoidCallback fadeCallBack;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: homeAppbarSecondAndThird(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            adjustHieght(khieght * .03),
+            adjustHieght(khieght * .02),
             Stack(
               children: [
-                Container(margin: const EdgeInsets.all(10),
+                Container(
+                  margin: const EdgeInsets.all(10),
                   height: khieght * .75,
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -161,16 +163,19 @@ class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
                       const Expanded(child: TabBarHomeScreen())
                     ],
                   ),
-                ),Align(alignment: Alignment.topRight,
+                ),
+                Align(
+                  alignment: Alignment.topRight,
                   child: InkWell(
                     onTap: () {
-                      showCardsNotifier.value=HomeScreensList.second;
+                      print('fade call back meeting screen');
+                      showCardsNotifier.value = HomeScreensList.second;
                       showCardsNotifier.notifyListeners();
+                      fadeCallBack();
                     },
                     child: const CircleAvatar(
                       radius: 15,
-                      backgroundImage:
-                          AssetImage('asset/images/close icon home.png'),
+                      backgroundColor: neonShade,
                       child: Icon(
                         Icons.close,
                       ),

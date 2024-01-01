@@ -34,7 +34,7 @@ class _SignInscreeenState extends State<SignInscreeen>
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
+          backgroundColor: knill,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(100),
             child: Material(

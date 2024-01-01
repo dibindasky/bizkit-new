@@ -80,25 +80,17 @@ class ViewAllConnections extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 300.dm,
+                      width: kwidth * .87,
                       child: Column(
                         children: [
                           Container(
                             height: 20,
                             padding: const EdgeInsets.only(left: 10, right: 10),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(5),
                               ),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromRGBO(6, 199, 172, 1),
-                                  Color.fromRGBO(6, 199, 172, 1),
-                                  Color.fromRGBO(6, 199, 172, .34),
-                                ],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              ),
+                              gradient: neonShadeGradient,
                             ),
                             child: const Row(
                               children: [
@@ -111,8 +103,8 @@ class ViewAllConnections extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () => Navigator.of(context).push(
-                                      fadePageRoute(
-                                          const ListTileDetailView())),
+                                    fadePageRoute(const ListTileDetailView()),
+                                  ),
                                   child: ListTile(
                                     leading: const Stack(
                                       children: [
@@ -135,7 +127,7 @@ class ViewAllConnections extends StatelessWidget {
                                     title: Row(
                                       children: [
                                         Text(
-                                          'Febin $index',
+                                          'Alex $index',
                                           style: TextStyle(
                                             color: kwhite,
                                             fontSize: 17.sp,
@@ -160,19 +152,11 @@ class ViewAllConnections extends StatelessWidget {
                           Container(
                             height: 20,
                             padding: const EdgeInsets.only(left: 10, right: 10),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(5),
                               ),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromRGBO(6, 199, 172, 1),
-                                  Color.fromRGBO(6, 199, 172, 1),
-                                  Color.fromRGBO(6, 199, 172, .34),
-                                ],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              ),
+                              gradient: neonShadeGradient,
                             ),
                             child: const Row(
                               children: [

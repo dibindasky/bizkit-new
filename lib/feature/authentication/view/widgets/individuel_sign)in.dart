@@ -22,9 +22,12 @@ class IndividuelSignIn extends StatelessWidget {
         child: Column(
           children: [
             adjustHieght(khieght * .02),
-            const Text(
+            Text(
               'Create your key to your business kit',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: custumText(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             adjustHieght(khieght * .02),
             TTextFormField(

@@ -1,3 +1,4 @@
+import 'package:bizkit/core/const.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
@@ -18,24 +19,16 @@ class AuthButton extends StatelessWidget {
       child: Container(
         width: wdth ?? 150,
         height: 45,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(
             Radius.circular(9),
           ),
-          gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(6, 199, 172, 1),
-              Color.fromRGBO(6, 199, 172, 1),
-              Color.fromRGBO(6, 199, 172, .34),
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
+          gradient: neonShadeGradient,
         ),
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(
+            style: custumText(
               fontSize: 15,
               fontWeight: FontWeight.w800,
             ),

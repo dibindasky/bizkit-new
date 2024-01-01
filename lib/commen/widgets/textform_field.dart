@@ -27,7 +27,7 @@ class TTextFormField extends StatelessWidget {
     this.maxlegth,
     this.height,
     this.maxLines,
-    this.function, 
+    this.function,
     this.onTap,
     this.onChanaged,
   }) : super(key: key);
@@ -76,13 +76,17 @@ class TTextFormField extends StatelessWidget {
         keyboardType: inputType,
         decoration: InputDecoration(
           suffixIcon: suffix,
+          suffixIconColor: klightgrey,
           prefixIcon: su,
           prefixIconColor: kwhite,
           fillColor: textFieldFillColr,
           filled: true,
           hintText: text,
-          hintStyle: TextStyle(color: clr ?? klightgrey),
-          border: UnderlineInputBorder(borderSide: BorderSide.none,
+          hintStyle: custumText(
+            colr: clr ?? klightgrey,
+          ),
+          border: UnderlineInputBorder(
+            borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(7),
           ),
           focusedBorder: OutlineInputBorder(

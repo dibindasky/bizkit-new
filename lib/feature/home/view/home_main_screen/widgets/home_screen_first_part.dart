@@ -33,7 +33,7 @@ class HomeScreenFirstPart extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Febin',
+                      'Alex',
                       style: TextStyle(
                         color: kwhite,
                         fontSize: 16.sp,
@@ -43,14 +43,14 @@ class HomeScreenFirstPart extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                 CircleAvatar(
-                   radius: kwidth * 0.080,
-                   backgroundColor: textFieldFillColr,
-                   child: Padding(
-                     padding: const EdgeInsets.all(10.0),
-                     child: Image.asset('asset/images/bizkitIcon.png'),
-                   ),
-                 )
+                CircleAvatar(
+                  radius: kwidth * 0.080,
+                  backgroundColor: textFieldFillColr,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset('asset/images/bizkitIcon.png'),
+                  ),
+                )
               ],
             ),
           ),
@@ -93,7 +93,7 @@ class HomeScreenFirstPart extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            'Febin baby',
+                            'Alex Tyler',
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w700,

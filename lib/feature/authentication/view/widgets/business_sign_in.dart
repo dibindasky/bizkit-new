@@ -22,9 +22,9 @@ class BusinessSignIn extends StatelessWidget {
         child: Column(
           children: [
             adjustHieght(khieght * .02),
-            const Text(
+            Text(
               'Create your key to your business kit',
-              style: TextStyle(
+              style: custumText(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),

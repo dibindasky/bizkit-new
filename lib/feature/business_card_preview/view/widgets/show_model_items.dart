@@ -12,7 +12,10 @@ class ModelSheetItems extends StatelessWidget {
     return Container(
       height: 300,
       padding: const EdgeInsets.all(16.0),
-      color: kblack,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: backgroundColour,
+      ),
       child: ListView(
         children: [
           Center(
@@ -36,7 +39,7 @@ class ModelSheetItems extends StatelessWidget {
                 return Container(
                   height: 70,
                   decoration: const BoxDecoration(
-                    color: klightgrey,
+                    color: Color.fromRGBO(53, 53, 53, 0.42),
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),
@@ -47,7 +50,7 @@ class ModelSheetItems extends StatelessWidget {
                       adjustWidth(kwidth * .03),
                       const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text('Mobile number'),
                           Text('+91 0000 0000 00'),

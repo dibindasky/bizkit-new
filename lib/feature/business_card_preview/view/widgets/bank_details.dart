@@ -11,7 +11,10 @@ class BankDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            size: 18,
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -24,7 +27,7 @@ class BankDetails extends StatelessWidget {
         ),
       ),
       body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           child: Column(
             children: [

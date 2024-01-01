@@ -49,22 +49,20 @@ class CustomBottomSheet extends StatelessWidget {
               adjustWidth(kwidth * .02),
               Text(
                 'Business card',
-                style: TextStyle(
+                style: custumText(
                   fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               const Spacer(),
               GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
+                onTap: () => Navigator.of(context).pop(),
                 child: const CircleAvatar(
-                  radius: 15,
-                  backgroundColor: klightgrey,
+                  radius: 17,
+                  backgroundColor: smallBigGrey,
                   child: Icon(
                     Icons.close,
-                    color: kwhite,
+                    color: klightgrey,
                   ),
                 ),
               ),
@@ -89,9 +87,8 @@ class CustomBottomSheet extends StatelessWidget {
               ),
               adjustWidth(kwidth * .02),
               GestureDetector(
-                onTap: () {
-                  _pickImage(context);
-                  //Navigator.of(context).pop();
+                onTap: () async {
+                  await _pickImage(context);
                 },
                 child: SizedBox(
                   child: Column(
@@ -126,35 +123,35 @@ class CustomBottomSheet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                width: 70,
-                height: 70,
-                decoration: const BoxDecoration(),
+                width: kwidth * .2,
+                height: kwidth * .2,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: smallBigGrey,
+                ),
                 child: Image.asset(
                   'asset/images/bottom sheet/logos_whatsapp-icon.png',
                 ),
               ),
-              Container(
-                width: 70,
-                height: 70,
-                decoration: const BoxDecoration(),
+              SizedBox(
+                width: kwidth * .2,
+                height: kwidth * .2,
                 child: Image.asset(
                   'asset/images/bottom sheet/face book bottom sheet image.png',
                   fit: BoxFit.cover,
                 ),
               ),
-              Container(
-                width: 70,
-                height: 70,
-                decoration: const BoxDecoration(),
+              SizedBox(
+                width: kwidth * .2,
+                height: kwidth * .2,
                 child: Image.asset(
                   'asset/images/bottom sheet/linkedin bottom sheet image.png',
                   fit: BoxFit.cover,
                 ),
               ),
-              Container(
-                width: 70,
-                height: 70,
-                decoration: const BoxDecoration(),
+              SizedBox(
+                width: kwidth * .2,
+                height: kwidth * .2,
                 child: Image.asset(
                   'asset/images/bottom sheet/x bottom sheet image.png',
                   fit: BoxFit.cover,
@@ -168,7 +165,7 @@ class CustomBottomSheet extends StatelessWidget {
             controller: textEditingController,
             inputType: TextInputType.name,
             suffix: const Icon(Icons.copy),
-          )
+          ),
         ],
       ),
     );

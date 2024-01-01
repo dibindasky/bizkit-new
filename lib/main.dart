@@ -3,7 +3,7 @@ import 'package:bizkit/feature/authentication/view/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
@@ -21,11 +21,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: kblack,
           colorScheme: const ColorScheme.dark(primary: neonShade),
-          fontFamily: 'Euclid',
           scaffoldBackgroundColor: backgroundColour,
           textTheme: Theme.of(context).textTheme.apply(
                 bodyColor: kwhite,
                 displayColor: kwhite,
+                fontFamily: 'Euclid',
               ),
         ),
         debugShowCheckedModeBanner: false,

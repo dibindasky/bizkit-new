@@ -11,9 +11,11 @@ const Color kblue = Colors.blue;
 const Color neonShade = Color.fromRGBO(6, 199, 172, 1);
 const Color kblack = Colors.black;
 const Color knill = Colors.transparent;
+const Color backgroundColour = Color.fromRGBO(27, 27, 27, 1);
+const Color lightColr = Color.fromRGBO(53, 53, 53, .42);
+
 late double khieght;
 late double kwidth;
-const Color backgroundColour = Color.fromRGBO(27, 27, 27, 1);
 
 adjustWidth(double width) {
   return SizedBox(
@@ -37,3 +39,26 @@ TextStyle textStyle1 = const TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w400,
 );
+LinearGradient neonShadeGradient = const LinearGradient(
+  colors: [
+    Color.fromRGBO(6, 199, 172, 1),
+    Color.fromRGBO(6, 199, 172, 1),
+    Color.fromRGBO(6, 199, 172, .34),
+  ],
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+);
+
+TextStyle custumText({
+  FontWeight? fontWeight,
+  double? fontSize,
+  Color? colr,
+  String? fontFamily,
+}) {
+  return TextStyle(
+    fontFamily: fontFamily ?? 'Euclid',
+    fontWeight: fontWeight,
+    fontSize: fontSize,
+    color: colr,
+  );
+}

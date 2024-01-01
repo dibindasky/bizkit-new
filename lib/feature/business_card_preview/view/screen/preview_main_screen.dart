@@ -17,9 +17,10 @@ class PreviewMainScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           PopupMenuButton<String>(
+            color: backgroundColour,
             icon: const Icon(
               Icons.more_vert,
-              size: 30,
+              size: 25,
               color: kwhite,
             ),
             onSelected: (value) {
@@ -42,30 +43,32 @@ class PreviewMainScreen extends StatelessWidget {
           ),
         ],
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            size: 18,
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
           color: kwhite,
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: knill,
         title: const Text(
           'My Bizkit Card Preview',
-          style: TextStyle(color: kwhite),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
             const SizedBox(
-              height: 200,
+              height: 220,
               child: ImageOffsetContainers(),
             ),
-            const SizedBox(height: 20),
+            adjustHieght(khieght * .02),
             Text(
-              'Febin Baby',
-              style: TextStyle(color: kwhite, fontSize: 26.sp),
+              'Alex Tyler',
+              style: TextStyle(fontSize: 26.sp),
             ),
             const Text('Mobile app developer - Flutter'),
             adjustHieght(khieght * .02),
@@ -76,7 +79,9 @@ class PreviewMainScreen extends StatelessWidget {
                   onTap: () => bottomSheet(context),
                   child: Container(
                     height: 40,
-                    decoration: const BoxDecoration(color: textFieldFillColr),
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(53, 53, 53, 0.42),
+                    ),
                     child: Image.asset('asset/images/preview phone.png'),
                   ),
                 ),
@@ -122,24 +127,29 @@ class PreviewMainScreen extends StatelessWidget {
                   adjustHieght(khieght * .01),
                   SizedBox(
                     width: double.infinity,
-                    height: 80,
-                    child: ListView.builder(
+                    height: kwidth * .2,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => adjustWidth(
+                        kwidth * .02,
+                      ),
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         List listImages = [
-                          'asset/images/preview image 0.png',
+                          'asset/images/carbon_add-filled.png',
                           'asset/images/preview list image 2.png',
                           'asset/images/preview list image 3.png',
                           'asset/images/previewlist image 1.png',
                           'asset/images/preview list image 3.png',
                           'asset/images/preview list image 2.png',
                         ];
-                        return SizedBox(
-                          width: 75.dm,
-                          height: 80.dm,
-                          child: Image.asset(
-                            listImages[index],
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: ColoredBox(
+                            color: smallBigGrey,
+                            child: Image.asset(
+                              listImages[index],
+                            ),
                           ),
                         );
                       },
@@ -149,13 +159,14 @@ class PreviewMainScreen extends StatelessWidget {
                 ],
               ),
             ),
-            adjustHieght(khieght * .02),
+            adjustHieght(khieght * .04),
             AuthButton(
               wdth: 180,
               text: 'Create buziness card',
               onTap: () {
-                Navigator.of(context)
-                    .push(fadePageRoute(const BizkitBottomNavigationBar()));
+                Navigator.of(context).push(
+                  fadePageRoute(const BizkitBottomNavigationBar()),
+                );
               },
             ),
           ],

@@ -109,20 +109,17 @@ class _LoGInScreenState extends State<LoGInScreen>
                     Container(
                       width: kwidth * 0.05,
                       height: kwidth * 0.02,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(colors: [
-                        Color.fromRGBO(6, 199, 172, 1),
-                        Color.fromRGBO(6, 199, 172, 1),
-                        Color.fromRGBO(6, 199, 172, .34),
-                      ])),
+                      decoration: BoxDecoration(
+                        gradient: neonShadeGradient,
+                      ),
                     ),
                     eyeCircleAnimated()
                   ],
                 ),
               ),
-              const Text(
+              Text(
                 'Your key to your business',
-                style: TextStyle(
+                style: custumText(
                   fontSize: 19,
                   fontWeight: FontWeight.bold,
                 ),
@@ -201,13 +198,13 @@ class _LoGInScreenState extends State<LoGInScreen>
       height: kwidth * 0.30,
       width: kwidth * 0.30,
       decoration: BoxDecoration(
-          gradient: const LinearGradient(colors: [
-            Color.fromRGBO(6, 199, 172, 1),
-            Color.fromRGBO(6, 199, 172, 1),
-            Color.fromRGBO(6, 199, 172, .34),
-          ]),
-          borderRadius: BorderRadius.all(Radius.circular(kwidth))),
-      child: CircleAvatar(backgroundColor: kwhite.withOpacity(0.9),
+        gradient: neonShadeGradient,
+        borderRadius: BorderRadius.all(
+          Radius.circular(kwidth),
+        ),
+      ),
+      child: CircleAvatar(
+        backgroundColor: kwhite.withOpacity(0.9),
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {

@@ -46,7 +46,7 @@ class _SignInscreeenState extends State<SignInscreeen>
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: TabBarView(
             physics: const BouncingScrollPhysics(),
             controller: _tabController,

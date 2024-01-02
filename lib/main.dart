@@ -1,5 +1,6 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/feature/authentication/view/screens/login_screen.dart';
+import 'package:bizkit/feature/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
               ),
         ),
         debugShowCheckedModeBanner: false,
-        home: const LoGInScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

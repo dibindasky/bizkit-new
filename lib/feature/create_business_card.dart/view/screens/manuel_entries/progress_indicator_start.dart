@@ -28,20 +28,22 @@ class _LinearProgressIndicatorStartingState
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            size: 20,
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
           color: kwhite,
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: knill,
         title: const Text(
           'Make a Bizkit card',
-          style: TextStyle(color: kwhite),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
             ClipRRect(
@@ -49,7 +51,7 @@ class _LinearProgressIndicatorStartingState
               child: LinearProgressIndicator(
                 minHeight: 13,
                 value: (_currentPage + 1) / 7,
-                backgroundColor: textFieldFillColr,
+                backgroundColor: smallBigGrey,
                 valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
               ),
             ),

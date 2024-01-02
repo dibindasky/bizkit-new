@@ -20,7 +20,6 @@ class CustomtabBar extends StatefulWidget implements PreferredSizeWidget {
 class _CustomTabBarState extends State<CustomtabBar>
     with TickerProviderStateMixin {
   late AnimationController _fadeController;
-  // late Animation<double> _fadeAnimation;
 
   @override
   void initState() {

@@ -87,48 +87,46 @@ class _SecondAnimationState extends State<SecondAnimation>
                       fadeCallBack: _toggleScreen,
                     )),
               ),
-              Offstage(offstage: _secondOpacityAnimation.isCompleted,
-                child: FadeTransition(
-                  opacity: _secondOpacityAnimation,
-                  child: Column(
-                    children: [
-                      HomeScreenPageviewAnimatedContaner(
-                          fadeCallBack: _toggleScreen),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              const TabButtonsSecondAnimation(),
-                              adjustHieght(khieght * .02),
-                              Expanded(
-                                child: ValueListenableBuilder(
-                                  valueListenable: selectedTabNotifier,
-                                  builder: (context, value, _) {
-                                    count++;
-                                    value;
-                                    // only SecondAnimationPageListView is needed TestSecondAnimationPageListView is for demo
-                                    if (value != 'Reminders') {
-                                      return TestSecondAnimationPageListView(
-                                        doTransition: count > 1,
-                                      );
-                                    }
-                                    return SecondAnimationPageListView(
+              FadeTransition(
+                opacity: _secondOpacityAnimation,
+                child: Column(
+                  children: [
+                    HomeScreenPageviewAnimatedContaner(
+                        fadeCallBack: _toggleScreen),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          children: [
+                            const TabButtonsSecondAnimation(),
+                            adjustHieght(khieght * .02),
+                            Expanded(
+                              child: ValueListenableBuilder(
+                                valueListenable: selectedTabNotifier,
+                                builder: (context, value, _) {
+                                  count++;
+                                  value;
+                                  // only SecondAnimationPageListView is needed TestSecondAnimationPageListView is for demo
+                                  if (value != 'Reminders') {
+                                    return TestSecondAnimationPageListView(
                                       doTransition: count > 1,
                                     );
-                                  },
-                                ),
+                                  }
+                                  return SecondAnimationPageListView(
+                                    doTransition: count > 1,
+                                  );
+                                },
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

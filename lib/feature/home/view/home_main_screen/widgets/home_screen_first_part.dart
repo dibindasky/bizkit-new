@@ -23,25 +23,13 @@ class HomeScreenFirstPart extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
-                  Column(
-                    children: [
-                      Text(
-                        'Hello,',
-                        style: TextStyle(
-                          color: kwhite,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        'Febin',
-                        style: TextStyle(
-                          color: kwhite,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'Hello,\nJoi',
+                    style: TextStyle(
+                      color: kwhite,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const Spacer(),
                    CircleAvatar(
@@ -94,14 +82,14 @@ class HomeScreenFirstPart extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              'Febin baby',
+                              'Jaisai Gopisetty',
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
                             Text(
-                              'Mobile app developer',
+                              'UIxUX Designer',
                               style: TextStyle(fontSize: 14.sp),
                             ),
                             Image.asset('asset/images/home logo 1.png'),

@@ -8,13 +8,14 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _navigateToSignInPage(context);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) => _navigateToSignInPage(context),
+    );
     return Scaffold(
       body: FadeInUp(
-        duration: const Duration(milliseconds: 800),
-        delay: const Duration(milliseconds: 1000),
-        child: Align(
-          alignment: Alignment.center,
+        duration: const Duration(milliseconds: 600),
+        delay: const Duration(milliseconds: 600),
+        child: Center(
           child: Image.asset('asset/images/Bizkit.png'),
         ),
       ),

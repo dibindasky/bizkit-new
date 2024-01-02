@@ -15,6 +15,7 @@ class TTextFormField extends StatelessWidget {
   final Color? clr;
   final Function(String)? onChanaged;
   final VoidCallback? onTap;
+  final FocusNode? focusNode;
   const TTextFormField({
     Key? key,
     this.clr,
@@ -30,6 +31,7 @@ class TTextFormField extends StatelessWidget {
     this.function,
     this.onTap,
     this.onChanaged,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -37,6 +39,7 @@ class TTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
+        focusNode: focusNode,
         onTap: onTap,
         maxLines: maxLines ?? 1,
         style: const TextStyle(color: kwhite),

@@ -124,7 +124,7 @@ class _LoGInScreenState extends State<LoGInScreen>
               Text(
                 'Your key to your business',
                 style: custumText(
-                  fontSize: 19,
+                  fontSize: kwidth * 0.043,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -170,15 +170,20 @@ class _LoGInScreenState extends State<LoGInScreen>
                 inputType: TextInputType.emailAddress,
                 obscureText: true,
               ),
-              const Text('Don\'t have an acount?'),
+              Text(
+                'Don\'t have an acount?',
+                style: TextStyle(
+                  fontSize: kwidth * 0.026,
+                ),
+              ),
               adjustHieght(khieght * .01),
               InkWell(
                 onTap: () => Navigator.push(
                     context, fadePageRoute(const SignInscreeen())),
-                child: const Text(
+                child: Text(
                   'Signup',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: kwidth * 0.037,
                     decoration: TextDecoration.underline,
                   ),
                 ),

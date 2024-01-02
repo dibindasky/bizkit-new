@@ -15,66 +15,73 @@ class LevelSharing extends StatelessWidget {
             Navigator.of(context).pop();
           },
           icon: const Icon(
-            Icons.arrow_back_ios_new,
-            size: 17,
+            Icons.arrow_back_ios,
+            size: 18,
             color: kwhite,
           ),
         ),
-        backgroundColor: Colors.transparent,
-        title: Hero(
-          transitionOnUserGestures: true,
-          tag: 'Level Sharing',
-          child: Text(
-            'Level Sharing',
-            style: TextStyle(color: kwhite, fontSize: 16.sp),
-          ),
+        backgroundColor: knill,
+        title: Text(
+          'Level Sharing',
+          style: appBarHeading1,
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            children: [
-              adjustHieght(khieght * .03),
-              Container(
-                padding: const EdgeInsets.only(left: 15, right: 10),
-                height: 57.dm,
-                width: 300.dm,
-                decoration: BoxDecoration(border: Border.all(color: kwhite)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              children: [
+                adjustHieght(khieght * .03),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 15, right: 10),
+                    height: 57.dm,
+                    width: 300.dm,
+                    decoration:
+                        BoxDecoration(border: Border.all(color: kwhite)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Level Sharing'),
-                        Text(
-                          'Professional, Emergency, Company',
-                          style: TextStyle(fontSize: 10.sp),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Level Sharing',
+                              style: TextStyle(fontSize: kwidth * 0.037),
+                            ),
+                            Text(
+                              'Professional, Emergency, Company',
+                              style: TextStyle(
+                                fontSize: kwidth * 0.027,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Icon(
+                          Icons.keyboard_arrow_down_outlined,
+                          color: kwhite,
+                          size: 30,
                         ),
                       ],
                     ),
-                    const Icon(
-                      Icons.keyboard_arrow_down_outlined,
-                      color: kwhite,
-                      size: 30,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-              adjustHieght(khieght * .04),
-              const SwitchButtons(),
-              const Spacer(),
-              AuthButton(
-                wdth: 100,
-                text: 'Save',
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              //adjustHieght(khieght * .04),
-            ],
+                adjustHieght(khieght * .04),
+                const SwitchButtons(),
+                adjustHieght(khieght * .02),
+                AuthButton(
+                  wdth: 100,
+                  text: 'Save',
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                adjustHieght(khieght * .04),
+              ],
+            ),
           ),
         ),
       ),
@@ -187,13 +194,20 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             }
           });
         }),
+        buildSwitch("Licence", businessDetals5, (value) {
+          setState(() {
+            if (businessDetals) {
+              businessDetals4 = value;
+            }
+          });
+        }),
       ],
     );
   }
 
   Widget buildSwitch(String label, bool value, Function(bool) onChanged) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 1.0),
+      padding: const EdgeInsets.only(bottom: 5),
       child: Container(
         padding: const EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
@@ -207,13 +221,16 @@ class _SwitchButtonsState extends State<SwitchButtons> {
                 ? Text(
                     label,
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: kwidth * 0.043,
                       fontWeight: FontWeight.w600,
                     ),
                   )
                 : Text(
                     label,
-                    style: TextStyle(fontSize: 12.sp),
+                    style: TextStyle(
+                      color: klightgrey,
+                      fontSize: kwidth * 0.033,
+                    ),
                   ),
             Switch(
               inactiveTrackColor: textFieldFillColr,

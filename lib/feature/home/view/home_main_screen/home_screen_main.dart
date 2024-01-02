@@ -89,12 +89,6 @@ class _SplitScreenState extends State<SplitScreen>
                   ),
                 ],
               );
-              // } else if (value == HomeScreensList.second) {
-              //   //    _homeFirstAnimationController.
-              //   //Future.delayed(Duration(seconds: 1));
-              //   return const SecondAnimation();
-              // } else {
-              //   return const SecondHomeScreenPAgeviewMeetingScreen();
             }
             return const SizedBox();
           },

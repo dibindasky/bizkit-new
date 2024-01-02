@@ -20,7 +20,7 @@ List tabBarNames = [
 ];
 
 class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, ChangeNotifier {
   int selectedIndex = 0;
   late AnimationController _animationController;
 

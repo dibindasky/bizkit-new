@@ -105,13 +105,7 @@ class CardShareMainScreen extends StatelessWidget {
                                   width: 100,
                                   height: 30,
                                   child: Center(
-                                    child: Text(
-                                      'Share',
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
+                                    child: Text('Share', style: textStyle1),
                                   ),
                                 ),
                               ),

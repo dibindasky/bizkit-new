@@ -1,13 +1,11 @@
 import 'dart:io';
-
 import 'package:bizkit/commen/widgets/textform_field.dart';
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/fade_transition/fade_transition.dart';
 import 'package:bizkit/feature/card_share/view/widgets/card_sharing.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 
+// ignore: must_be_immutable
 class CustomBottomSheet extends StatelessWidget {
   CustomBottomSheet({
     Key? key,
@@ -50,7 +48,7 @@ class CustomBottomSheet extends StatelessWidget {
               Text(
                 'Business card',
                 style: custumText(
-                  fontSize: 16.sp,
+                  fontSize: kwidth * 0.033,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -87,8 +85,11 @@ class CustomBottomSheet extends StatelessWidget {
               ),
               adjustWidth(kwidth * .02),
               GestureDetector(
-                onTap: () async {
-                  await _pickImage(context);
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    fadePageRoute(const CardSharingScreen()),
+                  );
                 },
                 child: SizedBox(
                   child: Column(
@@ -122,40 +123,24 @@ class CustomBottomSheet extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                width: kwidth * .2,
-                height: kwidth * .2,
+              shareMethods(
+                'asset/images/bottom sheet/logos_whatsapp-icon.png',
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
                   color: smallBigGrey,
-                ),
-                child: Image.asset(
-                  'asset/images/bottom sheet/logos_whatsapp-icon.png',
+                  borderRadius: BorderRadius.circular(18),
                 ),
               ),
-              SizedBox(
-                width: kwidth * .2,
-                height: kwidth * .2,
-                child: Image.asset(
-                  'asset/images/bottom sheet/face book bottom sheet image.png',
-                  fit: BoxFit.cover,
-                ),
+              shareMethods(
+                'asset/images/bottom sheet/face book bottom sheet image.png',
+                fit: BoxFit.cover,
               ),
-              SizedBox(
-                width: kwidth * .2,
-                height: kwidth * .2,
-                child: Image.asset(
-                  'asset/images/bottom sheet/linkedin bottom sheet image.png',
-                  fit: BoxFit.cover,
-                ),
+              shareMethods(
+                'asset/images/bottom sheet/linkedin bottom sheet image.png',
+                fit: BoxFit.cover,
               ),
-              SizedBox(
-                width: kwidth * .2,
-                height: kwidth * .2,
-                child: Image.asset(
-                  'asset/images/bottom sheet/x bottom sheet image.png',
-                  fit: BoxFit.cover,
-                ),
+              shareMethods(
+                'asset/images/bottom sheet/x bottom sheet image.png',
+                fit: BoxFit.cover,
               ),
             ],
           ),
@@ -164,30 +149,44 @@ class CustomBottomSheet extends StatelessWidget {
             text: 'Copy link',
             controller: textEditingController,
             inputType: TextInputType.name,
-            suffix: const Icon(Icons.copy),
+            suffix: const Icon(
+              Icons.copy,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Future<void> _pickImage(BuildContext context) async {
-    try {
-      final pickedFile =
-          await ImagePicker().pickImage(source: ImageSource.camera);
-      if (pickedFile != null) {
-        File image = File(pickedFile.path);
-        selectedImage = image;
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-          context,
-          fadePageRoute(CardSharingScreen(image: image)),
-        );
-      } else {
-        print('No image selected.');
-      }
-    } catch (e) {
-      print('Error picking image: $e');
-    }
+  Widget shareMethods(String image, {BoxDecoration? decoration, BoxFit? fit}) {
+    return Container(
+      width: kwidth * .2,
+      height: kwidth * .2,
+      decoration: decoration,
+      child: Image.asset(
+        image,
+        fit: fit,
+      ),
+    );
   }
+
+  // Future<void> _pickImage(BuildContext context) async {
+  //   try {
+  //     final pickedFile =
+  //         await ImagePicker().pickImage(source: ImageSource.camera);
+  //     if (pickedFile != null) {
+  //       File image = File(pickedFile.path);
+  //       selectedImage = image;
+  //       // ignore: use_build_context_synchronously
+  //       Navigator.push(
+  //         context,
+  //         fadePageRoute(CardSharingScreen(image: image)),
+  //       );
+  //     } else {
+  //       print('No image selected.');
+  //     }
+  //   } catch (e) {
+  //     print('Error picking image: $e');
+  //   }
+  // }
 }

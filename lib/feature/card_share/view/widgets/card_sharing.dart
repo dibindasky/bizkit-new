@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/fade_transition/fade_transition.dart';
 import 'package:bizkit/feature/authentication/view/widgets/auth_button.dart';
@@ -8,8 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class CardSharingScreen extends StatelessWidget {
-  CardSharingScreen({super.key, required this.image});
-  File? image;
+  const CardSharingScreen({super.key});
+  final String image =
+      'https://www.online-qrcode-generator.com/QR-Code/qrcode-generator.png';
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +20,15 @@ class CardSharingScreen extends StatelessWidget {
             Navigator.of(context).pop();
           },
           icon: const Icon(
-            Icons.arrow_back_ios_new,
-            size: 17,
+            Icons.arrow_back_ios,
+            size: 18,
             color: kwhite,
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: knill,
         title: Text(
           'QR Code',
-          style: TextStyle(color: kwhite, fontSize: 16.sp),
+          style: appBarHeading1,
         ),
       ),
       body: Center(
@@ -38,46 +38,52 @@ class CardSharingScreen extends StatelessWidget {
             SizedBox(
               width: 199.dm,
               height: 200.dm,
-              child: Image.file(
-                image!,
+              child: Image.network(
+                image,
                 fit: BoxFit.cover,
               ),
             ),
             adjustHieght(khieght * .09),
             GestureDetector(
+              child: Hero(
+                tag: 'i',
+                child: Container(
+                  padding: const EdgeInsets.only(left: 15, right: 10),
+                  height: 57.dm,
+                  width: 300.dm,
+                  decoration: BoxDecoration(border: Border.all(color: kwhite)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            'Level Sharing',
+                            style: TextStyle(
+                              fontSize: kwidth * 0.037,
+                            ),
+                          ),
+                          Text(
+                            'Professional, Emergency, Company',
+                            style: TextStyle(
+                              fontSize: kwidth * 0.027,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Icon(
+                        Icons.keyboard_arrow_up_rounded,
+                        color: kwhite,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               onTap: () => Navigator.of(context).push(
                 fadePageRoute(const LevelSharing()),
-              ),
-              child: Container(
-                padding: const EdgeInsets.only(left: 15, right: 10),
-                height: 57.dm,
-                width: 300.dm,
-                decoration: BoxDecoration(border: Border.all(color: kwhite)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Hero(
-                          transitionOnUserGestures: true,
-                          tag: 'Level Sharing',
-                          child: Text('Level Sharing'),
-                        ),
-                        Text(
-                          'Professional, Emergency, Company',
-                          style: TextStyle(fontSize: 10.sp),
-                        ),
-                      ],
-                    ),
-                    const Icon(
-                      Icons.keyboard_arrow_up_rounded,
-                      color: kwhite,
-                      size: 30,
-                    ),
-                  ],
-                ),
               ),
             ),
             const Spacer(),

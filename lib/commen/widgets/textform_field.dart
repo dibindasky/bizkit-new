@@ -42,7 +42,10 @@ class TTextFormField extends StatelessWidget {
         focusNode: focusNode,
         onTap: onTap,
         maxLines: maxLines ?? 1,
-        style: const TextStyle(color: kwhite),
+        style: TextStyle(
+          color: kwhite,
+          fontSize: kwidth * 0.033,
+        ),
         maxLength: maxlegth,
         onChanged: onChanaged,
         validator: (value) {

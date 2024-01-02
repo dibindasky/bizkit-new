@@ -62,3 +62,8 @@ TextStyle custumText({
     color: colr,
   );
 }
+
+TextStyle appBarHeading1 = TextStyle(
+  color: kwhite,
+  fontSize: kwidth * 0.042,
+);

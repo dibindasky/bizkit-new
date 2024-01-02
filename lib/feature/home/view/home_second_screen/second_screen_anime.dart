@@ -23,8 +23,10 @@ class _SecondAnimationState extends State<SecondAnimation>
     with TickerProviderStateMixin {
   late AnimationController _firstFadeController;
   late AnimationController _secondFadeController;
+  late AnimationController _listSlideController;
   late Animation<double> _firstOpacityAnimation;
   late Animation<double> _secondOpacityAnimation;
+  late Animation<Offset> _listSlideAnimation;
   bool _showFirstScreen = true;
 
   @override
@@ -35,15 +37,25 @@ class _SecondAnimationState extends State<SecondAnimation>
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-
-
     _secondFadeController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
+    _listSlideController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
 
-    _firstOpacityAnimation = Tween<double>(begin: 0, end: 1).animate(_firstFadeController);
-    _secondOpacityAnimation = Tween<double>(begin: 1, end: 0).animate(_secondFadeController);
+    _firstOpacityAnimation =
+        Tween<double>(begin: 0, end: 1).animate(_firstFadeController);
+    _secondOpacityAnimation =
+        Tween<double>(begin: 1, end: 0).animate(_secondFadeController);
+    _listSlideAnimation =
+        Tween<Offset>(begin: const Offset(0, 0), end: const Offset(0, 1.1))
+            .animate(
+      CurvedAnimation(
+        parent: _listSlideController,
+        curve: Curves.linear,
+      ),
+    );
   }
 
   @override
@@ -61,9 +73,11 @@ class _SecondAnimationState extends State<SecondAnimation>
     if (_showFirstScreen) {
       _firstFadeController.reverse(); // Fade in
       _secondFadeController.reverse();
+      _listSlideController.reverse();
     } else {
       _firstFadeController.forward(); // Fade out
       _secondFadeController.forward();
+      _listSlideController.forward();
     }
   }
 
@@ -97,32 +111,34 @@ class _SecondAnimationState extends State<SecondAnimation>
                       height: 20,
                     ),
                     Expanded(
-                      flex: 1,
                       child: Padding(
                         padding: const EdgeInsets.all(20),
-                        child: Column(
-                          children: [
-                            const TabButtonsSecondAnimation(),
-                            adjustHieght(khieght * .02),
-                            Expanded(
-                              child: ValueListenableBuilder(
-                                valueListenable: selectedTabNotifier,
-                                builder: (context, value, _) {
-                                  count++;
-                                  value;
-                                  // only SecondAnimationPageListView is needed TestSecondAnimationPageListView is for demo
-                                  if (value != 'Reminders') {
-                                    return TestSecondAnimationPageListView(
+                        child: SlideTransition(
+                          position: _listSlideAnimation,
+                          child: Column(
+                            children: [
+                              const TabButtonsSecondAnimation(),
+                              adjustHieght(khieght * .02),
+                              Expanded(
+                                child: ValueListenableBuilder(
+                                  valueListenable: selectedTabNotifier,
+                                  builder: (context, value, _) {
+                                    count++;
+                                    value;
+                                    // only SecondAnimationPageListView is needed TestSecondAnimationPageListView is for demo
+                                    if (value != 'Reminders') {
+                                      return TestSecondAnimationPageListView(
+                                        doTransition: count > 1,
+                                      );
+                                    }
+                                    return SecondAnimationPageListView(
                                       doTransition: count > 1,
                                     );
-                                  }
-                                  return SecondAnimationPageListView(
-                                    doTransition: count > 1,
-                                  );
-                                },
+                                  },
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

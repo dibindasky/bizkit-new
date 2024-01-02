@@ -17,11 +17,12 @@ class HelpSupport extends StatelessWidget {
             Navigator.of(context).pop();
           },
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
+            size: 18,
             color: kwhite,
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: knill,
         title: Text(
           'Help & Support',
           style: TextStyle(color: kwhite, fontSize: 16.sp),

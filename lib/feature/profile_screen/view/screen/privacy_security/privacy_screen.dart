@@ -14,11 +14,12 @@ class PrivacyAndSecurityScreen extends StatelessWidget {
             Navigator.of(context).pop();
           },
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
+            size: 18,
             color: kwhite,
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: knill,
         title: const Text(
           'Privacy and Security',
           style: TextStyle(color: kwhite),

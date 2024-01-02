@@ -10,18 +10,16 @@ class AccountSettigsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
+            size: 20,
             color: kwhite,
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: knill,
         title: const Text(
           'Account Settings',
-          style: TextStyle(color: kwhite),
         ),
       ),
       body: const Padding(

@@ -13,17 +13,18 @@ class DataManagement extends StatelessWidget {
             Navigator.of(context).pop();
           },
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
+            size: 18,
             color: kwhite,
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: knill,
         title: const Text(
           'Data Management',
           style: TextStyle(color: kwhite),
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Data Management'),
       ),
     );

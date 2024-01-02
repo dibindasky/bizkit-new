@@ -98,6 +98,7 @@ class _SecondAnimationPageListViewState
                 bottomLeft: Radius.circular(12),
               ),
               color: kblack,
+              boxShadow: [BoxShadow(color: kblack)]
             ),
           ),
           adjustWidth(kwidth * .03),

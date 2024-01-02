@@ -31,10 +31,7 @@ class _TestSecondAnimationPageListViewState
 
     _animation = Tween<double>(begin: 1, end: 0).animate(_animationController);
 
-    _animationController.forward().whenComplete(() {
-      _animationController.dispose();
-      setState(() {});
-    });
+    _animationController.forward();
   }
 
   @override

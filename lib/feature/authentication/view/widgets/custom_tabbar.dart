@@ -20,7 +20,7 @@ class CustomtabBar extends StatefulWidget implements PreferredSizeWidget {
 class _CustomTabBarState extends State<CustomtabBar>
     with TickerProviderStateMixin {
   late AnimationController _fadeController;
- // late Animation<double> _fadeAnimation;
+  // late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
@@ -29,8 +29,6 @@ class _CustomTabBarState extends State<CustomtabBar>
       vsync: this,
       duration: const Duration(milliseconds: 900),
     );
-    // _fadeAnimation =
-    //     AnimationController(vsync: this,duration: const Duration(milliseconds: 500));
     _fadeController.forward(from: 0.5);
   }
 
@@ -43,7 +41,7 @@ class _CustomTabBarState extends State<CustomtabBar>
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity:_fadeController,
+      opacity: _fadeController,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: const BoxDecoration(color: textFieldFillColr),
@@ -61,23 +59,33 @@ class _CustomTabBarState extends State<CustomtabBar>
           labelColor: kwhite,
           tabs: [
             Expanded(
-                child: Container(
-                    width: kwidth * 0.5,
-                    decoration: widget._tabController.index == 0
-                        ? const BoxDecoration(
-                            color: neonShade,
-                            borderRadius: BorderRadius.all(Radius.circular(10)))
-                        : null,
-                    child: const Tab(text: 'Individuel'))),
+              child: Container(
+                width: kwidth * 0.5,
+                decoration: widget._tabController.index == 0
+                    ? const BoxDecoration(
+                        color: neonShade,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      )
+                    : null,
+                child: const Tab(text: 'Individuel'),
+              ),
+            ),
             Expanded(
-                child: Container(
-                    width: kwidth * 0.5,
-                    decoration: widget._tabController.index == 1
-                        ? const BoxDecoration(
-                            color: neonShade,
-                            borderRadius: BorderRadius.all(Radius.circular(10)))
-                        : null,
-                    child: const Tab(text: 'Business'))),
+              child: Container(
+                width: kwidth * 0.5,
+                decoration: widget._tabController.index == 1
+                    ? const BoxDecoration(
+                        color: neonShade,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      )
+                    : null,
+                child: const Tab(text: 'Business'),
+              ),
+            ),
           ],
         ),
       ),

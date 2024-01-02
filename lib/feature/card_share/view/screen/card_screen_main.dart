@@ -130,7 +130,7 @@ class CardShareMainScreen extends StatelessWidget {
                                   ),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       adjustWidth(kwidth * .01),
                                       const Icon(
@@ -139,9 +139,9 @@ class CardShareMainScreen extends StatelessWidget {
                                         color: kwhite,
                                       ),
                                       adjustWidth(kwidth * .01),
-                                      const Expanded(child: Text('3,24,300')),
-                                      const Text('views'),
+                                      const Text('3,24,300'),
                                       adjustWidth(kwidth * .01),
+                                      const Expanded(child: Text('views')),
                                     ],
                                   ),
                                 ),
@@ -154,8 +154,6 @@ class CardShareMainScreen extends StatelessWidget {
                                     border: Border.all(color: kwhite),
                                   ),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       adjustWidth(kwidth * .01),
                                       const Icon(

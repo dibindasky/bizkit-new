@@ -110,54 +110,38 @@ class ListTileDetailView extends StatelessWidget {
   }
 }
 
-class VerticalScroll extends StatefulWidget {
+class VerticalScroll extends StatelessWidget {
   const VerticalScroll({super.key});
 
   @override
-  State<VerticalScroll> createState() => _VerticalScrollState();
-}
-
-class _VerticalScrollState extends State<VerticalScroll> {
-  double scrollPosition = 0.0;
-  @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollUpdateNotification>(
-      onNotification: (notification) {
-        setState(() {
-          scrollPosition = notification.metrics.pixels;
-        });
-        return true;
-      },
-      child: Scrollbar(
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          child: ColoredBox(
-            color: bottomsheetContainerclr,
-            child: Column(
-              children: [
-                historyLog(
-                  'asset/images/meeting profile png1.png',
-                  '1-10-23 | 11:40 AM',
-                  'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
-                ),
-                historyLog(
-                  'asset/images/meeting profile png2.png',
-                  '22-10-23 | 1:40 PM',
-                  'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
-                ),
-                historyLog(
-                  'asset/images/meeting profile png3.png',
-                  '16-10-23 | 7:40 PM',
-                  'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
-                ),
-                historyLog(
-                  'asset/images/meeting profile png4.png',
-                  '19-10-23 | 5:40 PM',
-                  'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
-                ),
-              ],
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(10)),
+      child: ColoredBox(
+        color: bottomsheetContainerclr,
+        child: Column(
+          children: [
+            historyLog(
+              'asset/images/meeting profile png1.png',
+              '1-10-23 | 11:40 AM',
+              'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
             ),
-          ),
+            historyLog(
+              'asset/images/meeting profile png2.png',
+              '22-10-23 | 1:40 PM',
+              'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+            ),
+            historyLog(
+              'asset/images/meeting profile png3.png',
+              '16-10-23 | 7:40 PM',
+              'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+            ),
+            historyLog(
+              'asset/images/meeting profile png4.png',
+              '19-10-23 | 5:40 PM',
+              'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
+            ),
+          ],
         ),
       ),
     );
@@ -170,7 +154,10 @@ class _VerticalScrollState extends State<VerticalScroll> {
         children: [
           Row(
             children: [
-              Image.asset(image),
+              Image.asset(
+                image,
+                fit: BoxFit.cover,
+              ),
               adjustWidth(kwidth * .004),
               Text(
                 date,
@@ -196,42 +183,42 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(7),
-            ),
-            border: Border.all(
-              color: textFieldFillColr,
-            ),
-          ),
-          height: 70,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CircleAvatar(
-                radius: 10,
-                backgroundImage: AssetImage(
-                  'asset/images/addButtunIconImage.png',
-                ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              fadePageRoute(AddReminderScreen()),
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(7),
               ),
-              adjustWidth(kwidth * .03),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    fadePageRoute(AddReminderScreen()),
-                  );
-                },
-                child: Text(
+              border: Border.all(
+                color: textFieldFillColr,
+              ),
+            ),
+            height: 70,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  radius: 10,
+                  backgroundImage: AssetImage(
+                    'asset/images/addButtunIconImage.png',
+                  ),
+                ),
+                adjustWidth(kwidth * .03),
+                Text(
                   'Add Reminder',
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Row(
@@ -272,7 +259,7 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
                 padding: EdgeInsets.only(left: 10.0),
                 child: Text('Products / Brands'),
               ),
-              adjustHieght(khieght * .01),
+              adjustHieght(khieght * .02),
               Padding(
                 padding: const EdgeInsets.only(left: 10.0),
                 child: SizedBox(

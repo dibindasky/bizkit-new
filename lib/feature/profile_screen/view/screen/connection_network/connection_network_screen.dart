@@ -14,14 +14,14 @@ class ConnectionNetworkScreen extends StatelessWidget {
             Navigator.of(context).pop();
           },
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
+            size: 18,
             color: kwhite,
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: knill,
         title: const Text(
           'Connections & Networking',
-          style: TextStyle(color: kwhite),
         ),
       ),
       body: const Padding(

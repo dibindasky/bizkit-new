@@ -28,7 +28,7 @@ class BankPersonAchivedRows extends StatelessWidget {
               child: Container(
                 height: 45,
                 decoration: BoxDecoration(
-                  color: klightgrey,
+                  color: lightColr,
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   border: Border.all(color: Colors.grey),
                 ),

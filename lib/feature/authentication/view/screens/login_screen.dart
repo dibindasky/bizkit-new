@@ -26,8 +26,6 @@ class _LoGInScreenState extends State<LoGInScreen>
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  FocusNode nameFocusNode = FocusNode();
-  FocusNode passwordFocusNode = FocusNode();
 
   final alignments = [
     Alignment.center,
@@ -39,25 +37,6 @@ class _LoGInScreenState extends State<LoGInScreen>
 
   @override
   void initState() {
-    nameFocusNode.addListener(() {
-      if (!nameFocusNode.hasFocus) {
-        // Center the eye when focus is lost
-        setState(() {
-          animate(0, 0);
-          indexOfEye = 0;
-        });
-      }
-    });
-
-    passwordFocusNode.addListener(() {
-      if (!passwordFocusNode.hasFocus) {
-        // Center the eye when focus is lost
-        setState(() {
-          animate(0, 0);
-          indexOfEye = 0;
-        });
-      }
-    });
     super.initState();
     _controller = AnimationController(
       vsync: this,
@@ -112,6 +91,10 @@ class _LoGInScreenState extends State<LoGInScreen>
         FocusScopeNode focusScope = FocusScope.of(context);
         if (!focusScope.hasPrimaryFocus) {
           focusScope.unfocus();
+          setState(() {
+            animate(0, 0);
+            indexOfEye = 0;
+          });
         }
       },
       child: Scaffold(
@@ -147,7 +130,6 @@ class _LoGInScreenState extends State<LoGInScreen>
               ),
               adjustHieght(khieght * .02),
               TTextFormField(
-                focusNode: nameFocusNode,
                 onTap: () {
                   setState(() {
                     if (nameController.text.isEmpty) {
@@ -177,7 +159,6 @@ class _LoGInScreenState extends State<LoGInScreen>
                 obscureText: false,
               ),
               TTextFormField(
-                focusNode: passwordFocusNode,
                 onTap: () {
                   setState(() {
                     indexOfEye = 3;

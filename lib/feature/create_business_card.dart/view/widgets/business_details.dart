@@ -15,57 +15,66 @@ class BusinessDetails extends StatelessWidget {
     return FadeIn(
       duration: const Duration(milliseconds: 900),
       delay: const Duration(milliseconds: 600),
-      child: ListView(
-        children: [
-          adjustHieght(khieght * .03),
-          const Text(
-            'Business Details',
-            style: TextStyle(fontSize: 20),
-          ),
-          adjustHieght(khieght * .02),
-          TTextFormField(
-            text: 'Name',
-            controller: textEditingController,
-            inputType: TextInputType.name,
-          ),
-          TTextFormField(
-            text: 'Designation',
-            controller: textEditingController,
-            inputType: TextInputType.name,
-          ),
-          TTextFormField(
-            text: 'Company',
-            controller: textEditingController,
-            inputType: TextInputType.name,
-          ),
-          TTextFormField(
-            text: 'Mail ID',
-            controller: textEditingController,
-            inputType: TextInputType.name,
-          ),
-          TTextFormField(
-            text: 'Mobile number',
-            controller: textEditingController,
-            inputType: TextInputType.name,
-          ),
-          TTextFormField(
-            text: 'Address',
-            controller: textEditingController,
-            inputType: TextInputType.name,
-          ),
-          TTextFormField(
-            text: 'Website link',
-            controller: textEditingController,
-            inputType: TextInputType.name,
-          ),
-          TTextFormField(
-            text: 'Name',
-            controller: textEditingController,
-            inputType: TextInputType.name,
-          ),
-          adjustHieght(khieght * .02),
-          SkipContinueIndicator(pageController: pageController),
-        ],
+      child: GestureDetector(
+        onTap: () {
+          FocusScopeNode focusScope = FocusScope.of(context);
+          if (!focusScope.hasPrimaryFocus) {
+            focusScope.unfocus();
+          }
+        },
+        child: ListView(
+          children: [
+            adjustHieght(khieght * .03),
+            const Text(
+              'Business Details',
+              style: TextStyle(fontSize: 20),
+            ),
+            adjustHieght(khieght * .02),
+            TTextFormField(
+              text: 'Name',
+              controller: textEditingController,
+              inputType: TextInputType.name,
+            ),
+            TTextFormField(
+              text: 'Designation',
+              controller: textEditingController,
+              inputType: TextInputType.name,
+            ),
+            TTextFormField(
+              text: 'Company',
+              controller: textEditingController,
+              inputType: TextInputType.name,
+            ),
+            TTextFormField(
+              text: 'Mail ID',
+              controller: textEditingController,
+              inputType: TextInputType.name,
+            ),
+            TTextFormField(
+              text: 'Mobile number',
+              controller: textEditingController,
+              inputType: TextInputType.name,
+            ),
+            TTextFormField(
+              text: 'Address',
+              controller: textEditingController,
+              inputType: TextInputType.name,
+            ),
+            TTextFormField(
+              text: 'Website link',
+              controller: textEditingController,
+              inputType: TextInputType.name,
+            ),
+            TTextFormField(
+              text: 'Name',
+              controller: textEditingController,
+              inputType: TextInputType.name,
+            ),
+            adjustHieght(khieght * .02),
+            SkipContinueIndicator(pageController: pageController),
+            adjustHieght(khieght * .02),
+          ],
+        ),
       ),
     );
   }

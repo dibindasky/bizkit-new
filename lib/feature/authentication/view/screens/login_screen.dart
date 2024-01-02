@@ -26,6 +26,8 @@ class _LoGInScreenState extends State<LoGInScreen>
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  FocusNode nameFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
 
   final alignments = [
     Alignment.center,
@@ -37,6 +39,25 @@ class _LoGInScreenState extends State<LoGInScreen>
 
   @override
   void initState() {
+    nameFocusNode.addListener(() {
+      if (!nameFocusNode.hasFocus) {
+        // Center the eye when focus is lost
+        setState(() {
+          animate(0, 0);
+          indexOfEye = 0;
+        });
+      }
+    });
+
+    passwordFocusNode.addListener(() {
+      if (!passwordFocusNode.hasFocus) {
+        // Center the eye when focus is lost
+        setState(() {
+          animate(0, 0);
+          indexOfEye = 0;
+        });
+      }
+    });
     super.initState();
     _controller = AnimationController(
       vsync: this,
@@ -95,7 +116,7 @@ class _LoGInScreenState extends State<LoGInScreen>
       },
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -124,7 +145,9 @@ class _LoGInScreenState extends State<LoGInScreen>
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              adjustHieght(khieght * .02),
               TTextFormField(
+                focusNode: nameFocusNode,
                 onTap: () {
                   setState(() {
                     if (nameController.text.isEmpty) {
@@ -154,6 +177,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                 obscureText: false,
               ),
               TTextFormField(
+                focusNode: passwordFocusNode,
                 onTap: () {
                   setState(() {
                     indexOfEye = 3;

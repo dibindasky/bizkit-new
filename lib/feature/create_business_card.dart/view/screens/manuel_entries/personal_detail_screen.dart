@@ -17,91 +17,65 @@ class PersonlDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        adjustHieght(khieght * .04),
-        const Text(
-          'Personal Details',
-          style: TextStyle(fontSize: 20),
-        ),
-        adjustHieght(khieght * .02),
-        TTextFormField(
-          text: 'Home address',
-          controller: homeAddress,
-          inputType: TextInputType.name,
-        ),
-        TTextFormField(
-          text: 'Blood Group',
-          controller: bloodGroup,
-          inputType: TextInputType.name,
-        ),
-        TTextFormField(
-          text: 'Birthday',
-          controller: birthDaycontroller,
-          inputType: TextInputType.name,
-        ),
-        TTextFormField(
-          text: 'Accolades',
-          controller: accoladesController,
-          inputType: TextInputType.name,
-        ),
-        TTextFormField(
-          text: 'Dates To Remember',
-          controller: datesToReminderController,
-          inputType: TextInputType.name,
-        ),
-        adjustHieght(khieght * .01),
-        Container(
-          decoration: const BoxDecoration(
-            color: textFieldFillColr,
-            borderRadius: BorderRadius.all(
-              Radius.circular(8),
+    return GestureDetector(
+      onTap: () {
+        // Unfocus the text fields when tapping outside
+        FocusScopeNode focusScope = FocusScope.of(context);
+        if (!focusScope.hasPrimaryFocus) {
+          focusScope.unfocus();
+        }
+      },
+      child: ListView(
+        children: [
+          adjustHieght(khieght * .04),
+          const Text(
+            'Personal Details',
+            style: TextStyle(fontSize: 20),
+          ),
+          adjustHieght(khieght * .02),
+          TTextFormField(
+            text: 'Home address',
+            controller: homeAddress,
+            inputType: TextInputType.name,
+          ),
+          TTextFormField(
+            text: 'Blood Group',
+            controller: bloodGroup,
+            inputType: TextInputType.name,
+          ),
+          TTextFormField(
+            text: 'Birthday',
+            controller: birthDaycontroller,
+            inputType: TextInputType.name,
+          ),
+          TTextFormField(
+            text: 'Accolades',
+            controller: accoladesController,
+            inputType: TextInputType.name,
+          ),
+          TTextFormField(
+            text: 'Dates To Remember',
+            controller: datesToReminderController,
+            inputType: TextInputType.name,
+          ),
+          TTextFormField(
+            text: 'ICE Details',
+            controller: datesToReminderController,
+            inputType: TextInputType.name,
+            suffix: const Icon(
+              Icons.keyboard_arrow_right,
             ),
           ),
-          padding: const EdgeInsets.only(left: 14),
-          width: double.infinity,
-          height: 50,
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'ICE Details',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: klightgrey,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Icon(
-                Icons.arrow_right,
-                color: klightgrey,
-              )
-            ],
+          TTextFormField(
+            text: 'Photos',
+            controller: datesToReminderController,
+            inputType: TextInputType.name,
           ),
-        ),
-        adjustHieght(khieght * .02),
-        Container(
-          padding: const EdgeInsets.only(left: 14, top: 15),
-          decoration: const BoxDecoration(
-            color: textFieldFillColr,
-            borderRadius: BorderRadius.all(
-              Radius.circular(8),
-            ),
-          ),
-          width: double.infinity,
-          height: 50,
-          child: const Text(
-            'Photos',
-            style: TextStyle(
-              color: klightgrey,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        adjustHieght(khieght * .05),
-        SkipContinueIndicator(pageController: pageController)
-      ],
+          adjustHieght(khieght * .05),
+          SkipContinueIndicator(pageController: pageController),
+          adjustHieght(khieght * .02),
+        ],
+      ),
     );
   }
 }

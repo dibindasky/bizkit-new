@@ -21,13 +21,16 @@ class ProfileScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 20,
+            ),
             onPressed: () {
               Navigator.of(context).pop();
             },
             color: kwhite,
           ),
-          backgroundColor: Colors.transparent,
+          backgroundColor: knill,
           title: const Text(
             'Make a Bizkit Card',
             style: TextStyle(color: kwhite),
@@ -55,7 +58,8 @@ class ProfileScreen extends StatelessWidget {
                           radius: 13,
                           backgroundImage: AssetImage(
                             'asset/images/profilestackcircle.png',
-                          ),child: Icon(Icons.add),
+                          ),
+                          child: Icon(Icons.add),
                         ),
                       ),
                     ],

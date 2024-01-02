@@ -112,7 +112,11 @@ class ProfileTiles extends StatelessWidget {
                       ? const SizedBox()
                       : Text(
                           subtittle!,
-                          style: TextStyle(fontSize: 10.sp),
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w200,
+                            color: klightgrey,
+                          ),
                         ),
                 ],
               ),

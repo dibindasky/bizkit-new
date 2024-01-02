@@ -4,6 +4,7 @@ import 'package:bizkit/core/const.dart';
 import 'package:bizkit/feature/authentication/view/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BusinessSignIn extends StatelessWidget {
   BusinessSignIn({super.key});
 
@@ -20,7 +21,7 @@ class BusinessSignIn extends StatelessWidget {
       delay: const Duration(milliseconds: 200),
       child: Column(
         children: [
-          adjustHieght(khieght * .02),
+          adjustHieght(khieght * .04),
           Text(
             'Create your key to your business kit',
             style: custumText(
@@ -28,7 +29,7 @@ class BusinessSignIn extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          adjustHieght(khieght * .02),
+          adjustHieght(khieght * .04),
           TTextFormField(
             text: 'Name',
             controller: nameController,
@@ -59,7 +60,7 @@ class BusinessSignIn extends StatelessWidget {
             inputType: TextInputType.emailAddress,
             obscureText: false,
           ),
-          adjustHieght(khieght * .02),
+          adjustHieght(khieght * .04),
           AuthButton(
             text: 'SignUp',
             onTap: () => Navigator.of(context).pop(),

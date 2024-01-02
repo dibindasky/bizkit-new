@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class SecondAnimationPageListView extends StatefulWidget {
   const SecondAnimationPageListView({
-    this.scrollController,this.doTransition=false,
+    this.scrollController,
+    this.doTransition = false,
     super.key,
   });
   final ScrollController? scrollController;
@@ -24,9 +25,16 @@ class _SecondAnimationPageListViewState
   void initState() {
     super.initState();
 
+    if (widget.scrollController != null) {
+      widget.scrollController!.addListener(() {
+        widget.scrollController!.animateTo(.1,
+            duration: const Duration(milliseconds: 500), curve: Curves.fastEaseInToSlowEaseOut);
+      });
+    }
+
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
 
     _animation = Tween<double>(begin: 1, end: 0).animate(_animationController);
@@ -87,19 +95,18 @@ class _SecondAnimationPageListViewState
           Container(
             width: 95,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  image[index],
+                image: DecorationImage(
+                  image: NetworkImage(
+                    image[index],
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-              ),
-              color: kblack,
-              boxShadow: [BoxShadow(color: kblack)]
-            ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12),
+                ),
+                color: klightgrey,
+                boxShadow: const [BoxShadow(color: kblack)]),
           ),
           adjustWidth(kwidth * .03),
           Column(

@@ -15,7 +15,7 @@ PreferredSizeWidget homeAppbarSecondAndThird({AnimationController? animationCont
       },
       child: AppBar(
         foregroundColor: kwhite,
-        leadingWidth: kwidth * 0.25,
+        leadingWidth: kwidth * 0.30,
         leading: Row(
           children: [
             SizedBox(width: kwidth * 0.05),

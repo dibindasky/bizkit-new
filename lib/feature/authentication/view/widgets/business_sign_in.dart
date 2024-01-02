@@ -15,58 +15,56 @@ class BusinessSignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: FadeIn(
-        duration: const Duration(milliseconds: 700),
-        delay: const Duration(milliseconds: 200),
-        child: Column(
-          children: [
-            adjustHieght(khieght * .02),
-            Text(
-              'Create your key to your business kit',
-              style: custumText(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+    return FadeIn(
+      duration: const Duration(milliseconds: 700),
+      delay: const Duration(milliseconds: 200),
+      child: Column(
+        children: [
+          adjustHieght(khieght * .02),
+          Text(
+            'Create your key to your business kit',
+            style: custumText(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
-            adjustHieght(khieght * .02),
-            TTextFormField(
-              text: 'Name',
-              controller: nameController,
-              inputType: TextInputType.name,
-              obscureText: false,
-            ),
-            TTextFormField(
-              text: 'Company name',
-              controller: companyname,
-              inputType: TextInputType.emailAddress,
-              obscureText: false,
-            ),
-            TTextFormField(
-              text: 'Company mail',
-              controller: companyMail,
-              inputType: TextInputType.emailAddress,
-              obscureText: false,
-            ),
-            TTextFormField(
-              text: 'Address',
-              controller: companyMail,
-              inputType: TextInputType.emailAddress,
-              obscureText: false,
-            ),
-            TTextFormField(
-              text: 'License',
-              controller: companyMail,
-              inputType: TextInputType.emailAddress,
-              obscureText: false,
-            ),
-            adjustHieght(khieght * .02),
-            AuthButton(
-              text: 'SignUp',
-              onTap: () => Navigator.of(context).pop(),
-            ),
-          ],
-        ),
+          ),
+          adjustHieght(khieght * .02),
+          TTextFormField(
+            text: 'Name',
+            controller: nameController,
+            inputType: TextInputType.name,
+            obscureText: false,
+          ),
+          TTextFormField(
+            text: 'Company name',
+            controller: companyname,
+            inputType: TextInputType.emailAddress,
+            obscureText: false,
+          ),
+          TTextFormField(
+            text: 'Company mail',
+            controller: companyMail,
+            inputType: TextInputType.emailAddress,
+            obscureText: false,
+          ),
+          TTextFormField(
+            text: 'Address',
+            controller: companyMail,
+            inputType: TextInputType.emailAddress,
+            obscureText: false,
+          ),
+          TTextFormField(
+            text: 'License',
+            controller: companyMail,
+            inputType: TextInputType.emailAddress,
+            obscureText: false,
+          ),
+          adjustHieght(khieght * .02),
+          AuthButton(
+            text: 'SignUp',
+            onTap: () => Navigator.of(context).pop(),
+          ),
+        ],
       ),
     );
   }

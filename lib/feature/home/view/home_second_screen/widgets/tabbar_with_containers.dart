@@ -14,44 +14,44 @@ class TabBarHomeScreen extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            Container(
-              height: 60,
-              decoration: const BoxDecoration(),
-              child: TabBar(
-                dividerHeight: 0,
-                isScrollable: true,
-                labelPadding: const EdgeInsets.symmetric(horizontal: 30),
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color.fromRGBO(6, 199, 172, 1),
-                      Color.fromRGBO(6, 199, 172, 1),
-                      Color.fromRGBO(6, 199, 172, .34),
-                    ],
-                  ),
+            TabBar(
+              dividerHeight: 0,
+              isScrollable: true,tabAlignment: TabAlignment.center,
+              labelPadding: const EdgeInsets.symmetric(horizontal: 30),
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color.fromRGBO(6, 199, 172, 1),
+                    Color.fromRGBO(6, 199, 172, 1),
+                    Color.fromRGBO(6, 199, 172, .34),
+                  ],
                 ),
-                tabs: const [
-                  SizedBox(
-                    width: 120,
-                    child: Tab(
-                      child: Text(
-                        "History/Log",
-                        style: TextStyle(color: kwhite),
+              ),
+              tabs: [
+                SizedBox(
+                  child: Tab(
+                    child: SizedBox(width: kwidth * 0.3,
+                      child: const Center(
+                        child: Text(
+                          "History/Log",
+                          style: TextStyle(color: kwhite),
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 100,
-                    child: Tab(
+                ),
+                Tab(
+                  child: SizedBox(width: kwidth * 0.3,
+                    child: const Center(
                       child: Text(
                         "Profile",
                         style: TextStyle(color: kwhite),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Expanded(
               child: TabBarView(

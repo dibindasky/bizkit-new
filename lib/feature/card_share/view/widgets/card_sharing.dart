@@ -45,46 +45,44 @@ class CardSharingScreen extends StatelessWidget {
             ),
             adjustHieght(khieght * .09),
             GestureDetector(
-              child: Hero(
-                tag: 'i',
-                child: Container(
-                  padding: const EdgeInsets.only(left: 15, right: 10),
-                  height: 57.dm,
-                  width: 300.dm,
-                  decoration: BoxDecoration(border: Border.all(color: kwhite)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            'Level Sharing',
-                            style: TextStyle(
-                              fontSize: kwidth * 0.037,
-                            ),
-                          ),
-                          Text(
-                            'Professional, Emergency, Company',
-                            style: TextStyle(
-                              fontSize: kwidth * 0.027,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Icon(
-                        Icons.keyboard_arrow_up_rounded,
-                        color: kwhite,
-                        size: 30,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               onTap: () => Navigator.of(context).push(
                 fadePageRoute(const LevelSharing()),
               ),
+              child: Container(
+                padding: const EdgeInsets.only(left: 15, right: 10),
+                height: 57.dm,
+                width: 300.dm,
+                decoration: BoxDecoration(border: Border.all(color: kwhite)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Level Sharing',
+                          style: TextStyle(
+                            fontSize: kwidth * 0.037,
+                          ),
+                        ),
+                        Text(
+                          'Professional, Emergency, Company',
+                          style: TextStyle(
+                            fontSize: kwidth * 0.027,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Icon(
+                      Icons.keyboard_arrow_up_rounded,
+                      color: kwhite,
+                      size: 30,
+                    ),
+                  ],
+                ),
+              ),
+              
             ),
             const Spacer(),
             AuthButton(

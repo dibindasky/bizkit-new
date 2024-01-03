@@ -20,7 +20,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
   final List _widgetOptions = [
     const SplitScreen(),
     const CardShareMainScreen(),
-    SelfieScreen(),
+    const SelfieScreen(),
     const ProfileScreen()
   ];
 

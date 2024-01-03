@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const Color textFieldFillColr = Color.fromRGBO(49, 49, 49, 0.5);
 const Color smallBigGrey = Color.fromRGBO(255, 255, 255, 0.1);
@@ -31,7 +30,7 @@ adjustHieght(double height) {
 
 TextStyle textHeadStyle1 = TextStyle(
   color: kwhite,
-  fontSize: 16.sp,
+  fontSize: kwidth * .044,
   fontWeight: FontWeight.w700,
 );
 
@@ -39,6 +38,7 @@ TextStyle textStyle1 = const TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w400,
 );
+
 LinearGradient neonShadeGradient = const LinearGradient(
   colors: [
     Color.fromRGBO(6, 199, 172, 1),

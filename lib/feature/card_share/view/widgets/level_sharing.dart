@@ -39,8 +39,9 @@ class LevelSharing extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 15, right: 10),
                     height: 57.dm,
                     width: 300.dm,
-                    decoration:
-                        BoxDecoration(border: Border.all(color: kwhite)),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: kwhite),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

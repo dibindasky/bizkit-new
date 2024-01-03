@@ -2,7 +2,6 @@ import 'package:bizkit/core/const.dart';
 import 'package:bizkit/feature/home/view/home_main_screen/home_screen_main.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/pageview_offset_settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreenPageviewAnimatedContaner extends StatefulWidget {
   const HomeScreenPageviewAnimatedContaner(

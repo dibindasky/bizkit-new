@@ -107,7 +107,7 @@ class _SecondAnimationPageListViewState
                   bottomLeft: Radius.circular(12),
                 ),
                 color: klightgrey,
-                boxShadow: const [BoxShadow(color: kblack)]),
+            ),
           ),
           adjustWidth(kwidth * .03),
           Column(
@@ -116,14 +116,11 @@ class _SecondAnimationPageListViewState
             children: [
               Text(
                 'Archived Discussion with \n${names[index]}',
-                style: TextStyle(fontSize: kwidth * .038),
+                style: textHeadStyle1,
               ),
-              Row(
-                children: [
-                  const Text('11 Nov'),
-                  adjustWidth(kwidth * .02),
-                  const Text('11:45 AM'),
-                ],
+              Text(
+                '11 Nov  11:45 AM',
+                style: textStyle1,
               ),
             ],
           ),

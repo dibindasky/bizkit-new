@@ -65,7 +65,6 @@ class _SecondAnimationState extends State<SecondAnimation>
   }
 
   void _toggleScreen() {
-    print('fade main function call ');
     setState(() {
       _showFirstScreen = !_showFirstScreen;
     });
@@ -84,6 +83,67 @@ class _SecondAnimationState extends State<SecondAnimation>
   @override
   Widget build(BuildContext context) {
     int count = 0;
+    List<Widget> stackChild = [
+      Align(
+        alignment: Alignment.topLeft,
+        child: FadeTransition(
+          opacity: _firstOpacityAnimation,
+          child: SecondHomeScreenPAgeviewMeetingScreen(
+            fadeCallBack: _toggleScreen,
+          ),
+        ),
+      ),
+      FadeTransition(
+        opacity: _secondOpacityAnimation,
+        child: Column(
+          children: [
+            HomeScreenPageviewAnimatedContaner(
+              fadeCallBack: _toggleScreen,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: SlideTransition(
+                  position: _listSlideAnimation,
+                  child: Column(
+                    children: [
+                      const TabButtonsSecondAnimation(),
+                      adjustHieght(khieght * .02),
+                      Expanded(
+                        child: ValueListenableBuilder(
+                          valueListenable: selectedTabNotifier,
+                          builder: (context, value, _) {
+                            count++;
+                            value;
+                            // only SecondAnimationPageListView is needed TestSecondAnimationPageListView is for demo
+                            if (value != 'Reminders') {
+                              return TestSecondAnimationPageListView(
+                                doTransition: count > 1,
+                              );
+                            }
+                            return SecondAnimationPageListView(
+                              doTransition: count > 1,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ];
+    if(!_showFirstScreen){
+      final temp=stackChild[0];
+      stackChild[0]=stackChild[1];
+      stackChild[1]=temp;
+    }
     return Scaffold(
       appBar: homeAppbarSecondAndThird(
           animationController: widget.animationController),
@@ -92,62 +152,7 @@ class _SecondAnimationState extends State<SecondAnimation>
           height: khieght,
           width: kwidth,
           child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: FadeTransition(
-                  opacity: _firstOpacityAnimation,
-                  child: SecondHomeScreenPAgeviewMeetingScreen(
-                    fadeCallBack: _toggleScreen,
-                  ),
-                ),
-              ),
-              FadeTransition(
-                opacity: _secondOpacityAnimation,
-                child: Column(
-                  children: [
-                    HomeScreenPageviewAnimatedContaner(
-                      fadeCallBack: _toggleScreen,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: SlideTransition(
-                          position: _listSlideAnimation,
-                          child: Column(
-                            children: [
-                              const TabButtonsSecondAnimation(),
-                              adjustHieght(khieght * .02),
-                              Expanded(
-                                child: ValueListenableBuilder(
-                                  valueListenable: selectedTabNotifier,
-                                  builder: (context, value, _) {
-                                    count++;
-                                    value;
-                                    // only SecondAnimationPageListView is needed TestSecondAnimationPageListView is for demo
-                                    if (value != 'Reminders') {
-                                      return TestSecondAnimationPageListView(
-                                        doTransition: count > 1,
-                                      );
-                                    }
-                                    return SecondAnimationPageListView(
-                                      doTransition: count > 1,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            children: stackChild,
           ),
         ),
       ),

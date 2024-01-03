@@ -53,6 +53,7 @@ class TabBarHomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+            adjustHieght(khieght * 0.02),
             Expanded(
               child: TabBarView(
                 children: [

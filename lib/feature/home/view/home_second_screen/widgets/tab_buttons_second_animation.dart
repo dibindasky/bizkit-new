@@ -22,16 +22,21 @@ class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
     with TickerProviderStateMixin, ChangeNotifier {
   int selectedIndex = 0;
   late AnimationController _animationController;
-  late Animation<double> _animation;
+  // late Animation<double> _animation;
 
   @override
   void initState() {
-    super.initState();
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
     _animationController.forward();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -64,7 +69,7 @@ class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
         child: Text(
           tabBarNames[index],
           style: TextStyle(
-            fontSize: index == 1 ? kwidth * .040 : kwidth * .030,
+            fontSize: index == 1 ? kwidth * .045 : kwidth * .035,
             fontWeight: FontWeight.w700,
             color: index == 1 ? kwhite : klightgrey,
           ),

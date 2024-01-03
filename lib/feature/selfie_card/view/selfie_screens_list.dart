@@ -8,8 +8,8 @@ class SelfieScreensList extends StatefulWidget {
   State<SelfieScreensList> createState() => _SelfieScreensListState();
 }
 
- List<Widget> screensSelfi = [
-  SelfieScreen(),
+List<Widget> screensSelfi = [
+  const SelfieScreen(),
 ];
 
 class _SelfieScreensListState extends State<SelfieScreensList> {

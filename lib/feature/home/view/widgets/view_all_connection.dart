@@ -1,209 +1,232 @@
+import 'package:alphabet_scroll_view/alphabet_scroll_view.dart';
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/fade_transition/fade_transition.dart';
 import 'package:bizkit/feature/home/view/widgets/connection_detail_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: must_be_immutable
 class ViewAllConnections extends StatelessWidget {
-  const ViewAllConnections({super.key});
+  ViewAllConnections({super.key});
+
+  List<String> list = [
+    'Angel',
+    'Bubbles',
+    'Shimmer',
+    'Angelic',
+    'Bubbly',
+    'Glimmer',
+    'Baby',
+    'Pink',
+    'Little',
+    'Butterfly',
+    'Sparkly',
+    'Doll',
+    'Sweet',
+    'Sparkles',
+    'Dolly',
+    'Sweetie',
+    'Sprinkles',
+    'Lolly',
+    'Princess',
+    'Dairy',
+    'Honey',
+    'Snowflake',
+    'Pretty',
+    'Sugar',
+    'Cherub',
+    'Lovely',
+    'Blossom',
+    'Ecophobia',
+    'Hippophobia',
+    'Scolionophobia',
+    'Ergophobia',
+    'Musophobia',
+    'Zemmiphobia',
+    'Geliophobia',
+    'Tachophobia',
+    'Hadephobia',
+    'Radiophobia',
+    'Turbo Slayer',
+    'Cryptic Hatter',
+    'Crash TV',
+    'W',
+    'Blue Defender',
+    'Toxic Headshot'
+  ];
+
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode focusScope = FocusScope.of(context);
-        if (!focusScope.hasPrimaryFocus) {
-          focusScope.unfocus();
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: kwhite,
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-          title: Text(
-            'My Connections',
-            style: textHeadStyle1,
+    list.sort();
+    Map<String, List<String>> groupedNames = {};
+
+    for (String name in list) {
+      String firstLetter = name[0].toUpperCase();
+      if (!groupedNames.containsKey(firstLetter)) {
+        groupedNames[firstLetter] = [];
+      }
+      groupedNames[firstLetter]?.add(name);
+    }
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kwhite,
+            size: 18,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            children: [
-              CupertinoTextField(
-                prefix: const Icon(
-                  Icons.search,
-                  color: kwhite,
+        backgroundColor: knill,
+        title: Text(
+          'My Connections',
+          style: textHeadStyle1,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          children: [
+            CupertinoTextField(
+              prefix: const Icon(
+                Icons.search,
+                color: kwhite,
+              ),
+              style: const TextStyle(
+                color: kwhite,
+              ),
+              placeholder: 'Search Connection',
+              placeholderStyle: const TextStyle(
+                fontSize: 16,
+                color: klightgrey,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: textFieldFillColr,
+              ),
+              cursorColor: kwhite,
+              suffix: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.mic),
+                    color: kwhite,
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.vertical_align_bottom),
+                    color: kwhite,
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.filter_alt),
+                    color: kwhite,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+            adjustHieght(kwidth * .02),
+            Container(
+              height: 20,
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(5),
                 ),
-                style: const TextStyle(
-                  color: kwhite,
+                gradient: neonShadeGradient,
+              ),
+              child: const Row(
+                children: [
+                  Text("A"),
+                ],
+              ),
+            ),
+            adjustHieght(kwidth * .05),
+            Expanded(
+              child: AlphabetScrollView(
+                list: list.map((e) => AlphaModel(e)).toList(),
+                alignment: LetterAlignment.right,
+                itemExtent: 50,
+                unselectedTextStyle: TextStyle(
+                  fontSize: kwidth * .042,
+                  color: smallBigGrey,
                 ),
-                placeholder: 'Search Connection',
-                placeholderStyle: const TextStyle(
-                  fontSize: 16,
-                  color: klightgrey,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: textFieldFillColr,
-                ),
-                cursorColor: kwhite,
-                suffix: Row(
+                selectedTextStyle:
+                    TextStyle(fontSize: kwidth * .049, color: kwhite),
+                overlayWidget: (value) => Stack(
+                  alignment: Alignment.center,
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.mic),
-                      color: kwhite,
-                      onPressed: () {},
+                    const Icon(
+                      Icons.star_border_sharp,
+                      size: 50,
+                      color: neonShade,
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.vertical_align_bottom),
-                      color: kwhite,
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.hiking),
-                      color: kwhite,
-                      onPressed: () {},
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        value.toUpperCase(),
+                        style: const TextStyle(fontSize: 18),
+                      ),
                     ),
                   ],
                 ),
-              ),
-              Expanded(
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: kwidth * .86,
-                      child: Column(
+                itemBuilder: (context, index, __) {
+                  return GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      fadePageRoute(ListTileDetailView(name: list[index])),
+                    ),
+                    child: ListTile(
+                      leading: const Stack(
                         children: [
-                          Container(
-                            height: 20,
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              gradient: neonShadeGradient,
-                            ),
-                            child: const Row(
-                              children: [
-                                Text('F'),
-                              ],
+                          CircleAvatar(
+                            radius: 18,
+                            backgroundImage: AssetImage(
+                              'asset/images/person2.jpeg',
                             ),
                           ),
-                          Expanded(
-                            child: ListView.builder(
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () => Navigator.of(context).push(
-                                    fadePageRoute(const ListTileDetailView()),
-                                  ),
-                                  child: ListTile(
-                                    leading: const Stack(
-                                      children: [
-                                        CircleAvatar(
-                                          radius: 18,
-                                          backgroundImage: AssetImage(
-                                            'asset/images/person2.jpeg',
-                                          ),
-                                        ),
-                                        Positioned(
-                                          right: 0,
-                                          child: Icon(
-                                            Icons.circle,
-                                            size: 10,
-                                            color: kgreen,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    title: Row(
-                                      children: [
-                                        Text(
-                                          'Febin $index',
-                                          style: TextStyle(
-                                            color: kwhite,
-                                            fontSize: 17.sp,
-                                          ),
-                                        ),
-                                        adjustWidth(kwidth * .03),
-                                        Text(
-                                          'Developer ${index + 1}',
-                                          style: TextStyle(
-                                            color: kwhite,
-                                            fontSize: 12.sp,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                              itemCount: 12,
+                          Positioned(
+                            right: 0,
+                            child: Icon(
+                              Icons.circle,
+                              size: 10,
+                              color: kgreen,
                             ),
                           ),
-                          Container(
-                            height: 20,
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              gradient: neonShadeGradient,
+                        ],
+                      ),
+                      title: Row(
+                        children: [
+                          Text(
+                            list[index],
+                            style: TextStyle(
+                              fontSize: kwidth * .040,
                             ),
-                            child: const Row(
-                              children: [
-                                Text('G'),
-                              ],
+                          ),
+                          adjustWidth(kwidth * .03),
+                          Text(
+                            'Developer',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w200,
+                              fontSize: kwidth * .031,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Expanded(
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: const [
-                          Text('A'),
-                          Text('B'),
-                          Text('C'),
-                          Text('D'),
-                          Text('E'),
-                          Text('F'),
-                          Text('G'),
-                          Text('H'),
-                          Text('I'),
-                          Text('J'),
-                          Text('K'),
-                          Text('L'),
-                          Text('M'),
-                          Text('N'),
-                          Text('O'),
-                          Text('P'),
-                          Text('Q'),
-                          Text('R'),
-                          Text('S'),
-                          Text('T'),
-                          Text('U'),
-                          Text('W'),
-                          Text('X'),
-                          Text('Y'),
-                          Text('Z'),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

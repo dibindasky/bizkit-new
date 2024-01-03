@@ -4,9 +4,7 @@ import 'package:bizkit/feature/home/view/home_second_screen/widgets/second_anima
 import 'package:flutter/material.dart';
 
 class HomeScreenSecondPart extends StatefulWidget {
-  const HomeScreenSecondPart({
-    super.key,required this.animationController
-  });
+  const HomeScreenSecondPart({super.key, required this.animationController});
 
   final AnimationController animationController;
 
@@ -27,8 +25,8 @@ class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> {
   _scrollCallBack() {
     if (scrollController.offset > 0) {
       widget.animationController.forward().whenComplete(() {
-       showCardsNotifier.value=HomeScreensList.second;
-       showCardsNotifier.notifyListeners();
+        showCardsNotifier.value = HomeScreensList.second;
+        showCardsNotifier.notifyListeners();
       });
     }
   }
@@ -37,26 +35,20 @@ class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  'Reminders',
-                  style: TextStyle(
-                    color: kwhite,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                Text('Reminders', style: textHeadStyle1),
               ],
             ),
-            adjustHieght(khieght * .02),
+            adjustHieght(kwidth * .035),
             Expanded(
               child: SecondAnimationPageListView(
-                  scrollController: scrollController),
+                scrollController: scrollController,
+              ),
             ),
           ],
         ),

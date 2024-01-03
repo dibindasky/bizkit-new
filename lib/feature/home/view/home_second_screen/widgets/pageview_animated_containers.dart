@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreenPageviewAnimatedContaner extends StatefulWidget {
-  const HomeScreenPageviewAnimatedContaner({super.key,required this.fadeCallBack});
+  const HomeScreenPageviewAnimatedContaner(
+      {super.key, required this.fadeCallBack});
 
   final VoidCallback fadeCallBack;
 
@@ -41,7 +42,8 @@ class _HomeScreenPageviewAnimatedContanerState
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: kwidth *0.6,
+    return SizedBox(
+      height: kwidth * 0.6,
       child: HomeScreenPagviewAnimatedWidget(
         pageController: pageController,
         pageValue: pageValue,
@@ -55,8 +57,8 @@ class _HomeScreenPageviewAnimatedContanerState
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onTap: (){
-                showCardsNotifier.value=HomeScreensList.third;
+              onTap: () {
+                showCardsNotifier.value = HomeScreensList.third;
                 widget.fadeCallBack();
               },
               child: Container(
@@ -67,7 +69,8 @@ class _HomeScreenPageviewAnimatedContanerState
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Column(mainAxisAlignment: MainAxisAlignment.end,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     const SizedBox(height: 20),
                     Row(
@@ -87,7 +90,7 @@ class _HomeScreenPageviewAnimatedContanerState
                         Text(
                           'Meeting With \nMarcopolo',
                           style: TextStyle(
-                            fontSize: 19.sp,
+                            fontSize: kwidth * .047,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -97,57 +100,12 @@ class _HomeScreenPageviewAnimatedContanerState
                     SizedBox(
                       width: kwidth * 0.8,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
                           children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Venue :',
-                                  style: TextStyle(fontSize: 9.sp),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  'Central Mall, Jayanagar',
-                                  style: TextStyle(
-                                    fontSize: 9.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Created :',
-                                  style: TextStyle(fontSize: 9.sp),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  '2nd October, 11:45 AM',
-                                  style: TextStyle(
-                                    fontSize: 9.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Occasion :',
-                                  style: TextStyle(fontSize: 9.sp),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  'International Film Festival',
-                                  style: TextStyle(
-                                    fontSize: 9.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            rowTil('Venue :', 'Central Mall, Jayanagar'),
+                            rowTil('Created :', '2nd October, 11:45 AM'),
+                            rowTil('Occasion :', 'International Film Festival'),
                           ],
                         ),
                       ),
@@ -194,6 +152,25 @@ class _HomeScreenPageviewAnimatedContanerState
           );
         },
       ),
+    );
+  }
+
+  Widget rowTil(String f, String s) {
+    return Row(
+      children: [
+        Text(
+          f,
+          style: TextStyle(fontSize: kwidth * .028),
+        ),
+        const Spacer(),
+        Text(
+          s,
+          style: TextStyle(
+            fontSize: kwidth * .028,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -28,7 +28,8 @@ class _SecondAnimationPageListViewState
     if (widget.scrollController != null) {
       widget.scrollController!.addListener(() {
         widget.scrollController!.animateTo(.1,
-            duration: const Duration(milliseconds: 500), curve: Curves.fastEaseInToSlowEaseOut);
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.fastEaseInToSlowEaseOut);
       });
     }
 
@@ -115,11 +116,7 @@ class _SecondAnimationPageListViewState
             children: [
               Text(
                 'Archived Discussion with \n${names[index]}',
-                style: const TextStyle(
-                  color: kwhite,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                ),
+                style: TextStyle(fontSize: kwidth * .038),
               ),
               Row(
                 children: [

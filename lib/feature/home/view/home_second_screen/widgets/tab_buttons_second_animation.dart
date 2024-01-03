@@ -1,7 +1,6 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/feature/home/view/home_second_screen/second_screen_anime.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TabButtonsSecondAnimation extends StatefulWidget {
   const TabButtonsSecondAnimation({
@@ -23,6 +22,7 @@ class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
     with TickerProviderStateMixin, ChangeNotifier {
   int selectedIndex = 0;
   late AnimationController _animationController;
+  late Animation<double> _animation;
 
   @override
   void initState() {
@@ -55,6 +55,7 @@ class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
             String temp = tabBarNames[index];
             tabBarNames[index] = tabBarNames[1];
             tabBarNames[1] = temp;
+
             _animationController.forward(from: 0);
             selectedTabNotifier.value = tabBarNames[1];
             selectedTabNotifier.notifyListeners();
@@ -63,7 +64,7 @@ class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
         child: Text(
           tabBarNames[index],
           style: TextStyle(
-            fontSize: index == 1 ? 16.sp : 14.sp,
+            fontSize: index == 1 ? kwidth * .040 : kwidth * .030,
             fontWeight: FontWeight.w700,
             color: index == 1 ? kwhite : klightgrey,
           ),
@@ -71,7 +72,4 @@ class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
       ),
     );
   }
-
-  // void animate(AnimationController controller1, AnimationController controller2,
-  //     Animation<Offset> offset1, Animation<Offset> offset2) {}
 }

@@ -96,17 +96,19 @@ class _SecondAnimationState extends State<SecondAnimation>
               Align(
                 alignment: Alignment.topLeft,
                 child: FadeTransition(
-                    opacity: _firstOpacityAnimation,
-                    child: SecondHomeScreenPAgeviewMeetingScreen(
-                      fadeCallBack: _toggleScreen,
-                    )),
+                  opacity: _firstOpacityAnimation,
+                  child: SecondHomeScreenPAgeviewMeetingScreen(
+                    fadeCallBack: _toggleScreen,
+                  ),
+                ),
               ),
               FadeTransition(
                 opacity: _secondOpacityAnimation,
                 child: Column(
                   children: [
                     HomeScreenPageviewAnimatedContaner(
-                        fadeCallBack: _toggleScreen),
+                      fadeCallBack: _toggleScreen,
+                    ),
                     const SizedBox(
                       height: 20,
                     ),

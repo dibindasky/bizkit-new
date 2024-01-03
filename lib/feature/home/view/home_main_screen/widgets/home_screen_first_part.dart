@@ -3,7 +3,6 @@ import 'package:bizkit/fade_transition/fade_transition.dart';
 import 'package:bizkit/feature/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/feature/home/view/widgets/view_all_connection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreenFirstPart extends StatelessWidget {
   const HomeScreenFirstPart({
@@ -15,31 +14,24 @@ class HomeScreenFirstPart extends StatelessWidget {
     return SizedBox(
       height: kwidth * 1.1,
       child: Padding(
-      padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 children: [
-                  Text(
-                    'Hello,\nJoi',
-                    style: TextStyle(
-                      color: kwhite,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text('Hello,\nJoi', style: textHeadStyle1),
                   const Spacer(),
-                   CircleAvatar(
-                     radius: kwidth * 0.080,
-                     backgroundColor: textFieldFillColr,
-                     child: Padding(
-                       padding: const EdgeInsets.all(10.0),
-                       child: Image.asset('asset/images/bizkitIcon.png'),
-                     ),
-                   )
+                  CircleAvatar(
+                    radius: kwidth * 0.080,
+                    backgroundColor: textFieldFillColr,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Image.asset('asset/images/bizkitIcon.png'),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -47,19 +39,12 @@ class HomeScreenFirstPart extends StatelessWidget {
               height: 30,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'My Cards',
-                style: TextStyle(
-                  color: kwhite,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text('My Cards', style: textHeadStyle1),
             ),
             adjustHieght(khieght * .02),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -81,16 +66,10 @@ class HomeScreenFirstPart extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                              'Jaisai Gopisetty',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            Text('Jaisai Gopisetty', style: textHeadStyle1),
                             Text(
                               'UIxUX Designer',
-                              style: TextStyle(fontSize: 14.sp),
+                              style: TextStyle(fontSize: kwidth * .037),
                             ),
                             Image.asset('asset/images/home logo 1.png'),
                           ],
@@ -119,6 +98,7 @@ class HomeScreenFirstPart extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             CircleAvatar(
+                              radius: 16,
                               backgroundImage: AssetImage(
                                 'asset/images/home add circl.png',
                               ),
@@ -134,18 +114,11 @@ class HomeScreenFirstPart extends StatelessWidget {
             ),
             adjustHieght(khieght * .03),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'My connections',
-                    style: TextStyle(
-                      color: kwhite,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text('My connections', style: textHeadStyle1),
                   GestureDetector(
                     onTap: () => Navigator.of(context).push(
                       fadePageRoute(const ViewAllConnections()),
@@ -157,7 +130,7 @@ class HomeScreenFirstPart extends StatelessWidget {
                         decorationColor: kwhite,
                         decorationThickness: 1.5,
                         color: kwhite,
-                        fontSize: 11.sp,
+                        fontSize: kwidth * .029,
                       ),
                     ),
                   ),
@@ -168,54 +141,52 @@ class HomeScreenFirstPart extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               height: 60,
-              child: Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
-                    height: 60,
-                    width: 70,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: textFieldFillColr),
-                    child: const Center(
-                      child: Icon(
-                        Icons.add,
-                        size: 20,
-                        color: kwhite,
+              child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                // shrinkWrap: true,
+                separatorBuilder: (context, index) => adjustWidth(kwidth * .02),
+                itemCount: 6,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  List image = [
+                    'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&usqp=CAU',
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2fU6VWMdDDAYhNv6NQiHuGeXP3KKtPwVHew&usqp=CAU',
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKJPxxwPeNvISnBbZsZHe887Ws0FnrL7o0w&usqp=CAU',
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
+                  ];
+                  if (index == 0) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 0,
                       ),
+                      height: 40,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: textFieldFillColr,
+                      ),
+                      child: const Center(
+                        child: Icon(
+                          Icons.add,
+                          size: 20,
+                          color: kwhite,
+                        ),
+                      ),
+                    );
+                  }
+                  return Container(
+                    height: 40,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(image[index - 1]),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                  ),
-                  Expanded(
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) =>
-                          adjustWidth(kwidth * .02),
-                      itemCount: 5,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        List image = [
-                          'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&usqp=CAU',
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2fU6VWMdDDAYhNv6NQiHuGeXP3KKtPwVHew&usqp=CAU',
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKJPxxwPeNvISnBbZsZHe887Ws0FnrL7o0w&usqp=CAU',
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
-                        ];
-                        return Container(
-                          height: 40,
-                          width: 60,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(image[index]),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
             ),
           ],

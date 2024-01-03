@@ -52,11 +52,11 @@ class _SplitScreenState extends State<SplitScreen>
     );
   }
 
-  // @override
-  // void dispose() {
-  //   _homeFirstAnimationController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _homeFirstAnimationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

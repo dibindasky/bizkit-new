@@ -156,21 +156,21 @@ class HomeScreenFirstPart extends StatelessWidget {
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
                   ];
                   if (index == 0) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 0,
-                      ),
-                      height: 40,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: textFieldFillColr,
-                      ),
-                      child: const Center(
-                        child: Icon(
-                          Icons.add,
-                          size: 20,
-                          color: kwhite,
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: ClipRRect(borderRadius:BorderRadius.circular(12),
+                        child: const ColoredBox(color: textFieldFillColr,
+                          child: SizedBox(
+                            height: 40,
+                            width: 60,
+                            child: Center(
+                              child: Icon(
+                                Icons.add,
+                                size: 20,
+                                color: kwhite,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     );

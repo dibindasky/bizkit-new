@@ -11,8 +11,32 @@ import 'package:flutter/material.dart';
 import 'package:bizkit/core/const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+  late Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    animation = Tween<double>(begin: 0, end: 1).animate(animationController);
+    animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,51 +48,54 @@ class ProfileScreen extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              const CircleAvatar(
-                radius: 75,
-                backgroundColor: neonShade,
-                child: CircleAvatar(
-                  radius: 73,
-                  backgroundColor: kblack,
+          child: FadeTransition(
+            opacity: animation,
+            child: Column(
+              children: [
+                const CircleAvatar(
+                  radius: 75,
+                  backgroundColor: neonShade,
                   child: CircleAvatar(
-                    radius: 67,
-                    backgroundImage: AssetImage('asset/images/person.jpeg'),
+                    radius: 73,
+                    backgroundColor: kblack,
+                    child: CircleAvatar(
+                      radius: 67,
+                      backgroundImage: AssetImage('asset/images/person.jpeg'),
+                    ),
                   ),
                 ),
-              ),
-              adjustHieght(khieght * .04),
-              const ProfileTiles(
-                heading: 'Account Settings',
-                subtittle: 'Profile, Password, Email Etc.',
-                widget: AccountSettigsScreen(),
-              ),
-              const ProfileTiles(
-                heading: 'Privacy and Security',
-                subtittle: 'Level, Security Preferences Etc.',
-                widget: PrivacyAndSecurityScreen(),
-              ),
-              const ProfileTiles(
-                heading: 'Data Management',
-                subtittle: 'Data Export, delete etc.',
-                widget: DataManagement(),
-              ),
-              const ProfileTiles(
-                heading: 'Connections & Networking',
-                subtittle: 'Blocked, Restricted, Report Connections',
-                widget: ConnectionNetworkScreen(),
-              ),
-              ProfileTiles(
-                heading: 'Help & Support',
-                subtittle: 'Contact, Faq etc.',
-                widget: HelpSupport(),
-              ),
-              const ProfileTiles(
-                heading: 'Logout',
-                widget: LogOutScreen(),
-              ),
-            ],
+                adjustHieght(khieght * .04),
+                const ProfileTiles(
+                  heading: 'Account Settings',
+                  subtittle: 'Profile, Password, Email Etc.',
+                  widget: AccountSettigsScreen(),
+                ),
+                const ProfileTiles(
+                  heading: 'Privacy and Security',
+                  subtittle: 'Level, Security Preferences Etc.',
+                  widget: PrivacyAndSecurityScreen(),
+                ),
+                const ProfileTiles(
+                  heading: 'Data Management',
+                  subtittle: 'Data Export, delete etc.',
+                  widget: DataManagement(),
+                ),
+                const ProfileTiles(
+                  heading: 'Connections & Networking',
+                  subtittle: 'Blocked, Restricted, Report Connections',
+                  widget: ConnectionNetworkScreen(),
+                ),
+                ProfileTiles(
+                  heading: 'Help & Support',
+                  subtittle: 'Contact, Faq etc.',
+                  widget: HelpSupport(),
+                ),
+                const ProfileTiles(
+                  heading: 'Logout',
+                  widget: LogOutScreen(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -4,7 +4,12 @@ import 'package:bizkit/feature/home/view/home_second_screen/second_screen_anime.
 import 'package:flutter/material.dart';
 
 // enum and notifier below are used to shift the screens in home page without shifting home bottom bar
-enum HomeScreensList { first, second, third }
+enum HomeScreensList {
+  first,
+  second,
+  third,
+}
+
 ValueNotifier<HomeScreensList> showCardsNotifier =
     ValueNotifier(HomeScreensList.first);
 
@@ -20,6 +25,8 @@ class _SplitScreenState extends State<SplitScreen>
   late AnimationController _homeFirstAnimationController;
   late Animation<Offset> _slideAnimation;
 
+  //late Animation<double> animation;
+
   @override
   void initState() {
     super.initState();
@@ -28,6 +35,11 @@ class _SplitScreenState extends State<SplitScreen>
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
+
+    //This is for full screen fade effect
+    // animation =
+    //     Tween<double>(end: 1, begin: 0).animate(_homeFirstAnimationController);
+    // _homeFirstAnimationController.forward();
 
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0),
@@ -40,11 +52,11 @@ class _SplitScreenState extends State<SplitScreen>
     );
   }
 
-  @override
-  void dispose() {
-    _homeFirstAnimationController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _homeFirstAnimationController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +75,8 @@ class _SplitScreenState extends State<SplitScreen>
                     child: Visibility(
                       visible: _homeFirstAnimationController.isCompleted,
                       child: SecondAnimation(
-                          animationController: _homeFirstAnimationController),
+                        animationController: _homeFirstAnimationController,
+                      ),
                     ),
                   ),
                   Align(
@@ -72,12 +85,14 @@ class _SplitScreenState extends State<SplitScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AnimatedBuilder(
-                            animation: _homeFirstAnimationController,
-                            builder: (context, child) {
-                              return SlideTransition(
-                                  position: _slideAnimation,
-                                  child: const HomeScreenFirstPart());
-                            }),
+                          animation: _homeFirstAnimationController,
+                          builder: (context, child) {
+                            return SlideTransition(
+                              position: _slideAnimation,
+                              child: const HomeScreenFirstPart(),
+                            );
+                          },
+                        ),
                         Visibility(
                           visible: !_homeFirstAnimationController.isCompleted,
                           child: HomeScreenSecondPart(

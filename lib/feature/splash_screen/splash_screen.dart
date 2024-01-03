@@ -13,8 +13,8 @@ class SplashScreen extends StatelessWidget {
     );
     return Scaffold(
       body: FadeInUp(
-        duration: const Duration(milliseconds: 600),
-        delay: const Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 800),
+        delay: const Duration(milliseconds: 800),
         child: Center(
           child: Image.asset('asset/images/Bizkit.png'),
         ),

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class TestSecondAnimationPageListView extends StatefulWidget {
   const TestSecondAnimationPageListView({
-    this.scrollController,this.doTransition=false,
+    this.scrollController,
+    this.doTransition = false,
     super.key,
   });
   final ScrollController? scrollController;
@@ -26,7 +27,7 @@ class _TestSecondAnimationPageListViewState
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
 
     _animation = Tween<double>(begin: 1, end: 0).animate(_animationController);
@@ -104,11 +105,7 @@ class _TestSecondAnimationPageListViewState
             children: [
               Text(
                 'Archived Discussion with \n${names[index]}',
-                style: const TextStyle(
-                  color: kwhite,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                ),
+                style: TextStyle(fontSize: kwidth * .038),
               ),
               Row(
                 children: [

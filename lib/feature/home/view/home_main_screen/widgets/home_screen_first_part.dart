@@ -121,7 +121,7 @@ class HomeScreenFirstPart extends StatelessWidget {
                   Text('My connections', style: textHeadStyle1),
                   GestureDetector(
                     onTap: () => Navigator.of(context).push(
-                      fadePageRoute(const ViewAllConnections()),
+                      fadePageRoute(ViewAllConnections()),
                     ),
                     child: Text(
                       'view all',

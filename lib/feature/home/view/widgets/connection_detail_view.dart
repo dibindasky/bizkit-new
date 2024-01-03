@@ -13,8 +13,8 @@ enum Changing { first, second }
 ValueNotifier changeScreenNotifier = ValueNotifier(Changing.first);
 
 class ListTileDetailView extends StatelessWidget {
-  const ListTileDetailView({super.key});
-
+  const ListTileDetailView({super.key, this.name});
+  final String? name;
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -34,9 +34,9 @@ class ListTileDetailView extends StatelessWidget {
           ),
         ),
         backgroundColor: knill,
-        title: const Text(
-          'Alex adams',
-          style: TextStyle(color: kwhite, fontSize: 16),
+        title: Text(
+          name ?? 'Alex Tyler',
+          style: textHeadStyle1,
         ),
         actions: [
           PopupMenuButton<String>(
@@ -88,8 +88,8 @@ class ListTileDetailView extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                'Alex Adams',
-                style: TextStyle(color: kwhite, fontSize: 26.sp),
+                name ?? "Alex Tyler",
+                style: textHeadStyle1,
               ),
               const Text('Mobile app developer - Flutter'),
               adjustHieght(khieght * .02),
@@ -161,14 +161,14 @@ class VerticalScroll extends StatelessWidget {
               adjustWidth(kwidth * .004),
               Text(
                 date,
-                style: TextStyle(fontSize: 11.sp),
+                style: TextStyle(fontSize: kwidth * .035),
               ),
             ],
           ),
           adjustHieght(khieght * .006),
           Text(
             detail,
-            style: TextStyle(fontSize: 11.sp),
+            style: TextStyle(fontSize: kwidth * .035),
           ),
         ],
       ),
@@ -210,13 +210,7 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
                   ),
                 ),
                 adjustWidth(kwidth * .03),
-                Text(
-                  'Add Reminder',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('Add Reminder', style: textHeadStyle1),
               ],
             ),
           ),

@@ -66,7 +66,7 @@ class HomeScreenFirstPart extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text('Jaisai Gopisetty', style: textHeadStyle1),
+                            Text('Alex Tyler', style: textHeadStyle1),
                             Text(
                               'UIxUX Designer',
                               style: TextStyle(fontSize: kwidth * .037),

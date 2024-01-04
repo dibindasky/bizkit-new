@@ -65,6 +65,9 @@ class CompanyAndBankingDetails extends StatelessWidget {
               text: 'Products',
               controller: textEditingController,
               inputType: TextInputType.name,
+              suffix: const Icon(
+                Icons.keyboard_arrow_right,
+              ),
             ),
             adjustHieght(khieght * .05),
             SkipContinueIndicator(pageController: pageController),

@@ -61,7 +61,7 @@ class _SplitScreenState extends State<SplitScreen>
 
     _slideAnimation2 = Tween<Offset>(
       begin: const Offset(0, 0),
-      end: const Offset(0, -0.20),
+      end: const Offset(0, -0.22),
     ).animate(
       CurvedAnimation(
         parent: _homeSecondAnimationController,
@@ -135,13 +135,6 @@ class _SplitScreenState extends State<SplitScreen>
                           },
                         ),
                         Expanded(
-                          // child: Visibility(
-                          //   visible: !_homeFirstAnimationController.isCompleted,
-                          //   child: HomeScreenSecondPart(animationController: [
-                          //     _homeFirstAnimationController,
-                          //     _homeSecondAnimationController
-                          //   ]),
-                          // ),
                           child: AnimatedBuilder(
                             animation: Listenable.merge([
                               _homeSecondAnimationController,

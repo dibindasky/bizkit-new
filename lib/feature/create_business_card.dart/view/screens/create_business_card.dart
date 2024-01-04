@@ -19,6 +19,7 @@ class _StartingBusinessCardCreationState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: backgroundColour,title: Text('Business Card',style: textHeadStyle1,),),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -35,18 +36,18 @@ class _StartingBusinessCardCreationState
                       strokeWidth: 2.5,
                       child: GestureDetector(
                         child: SizedBox(
-                          width: 290.dm,
-                          height: 150.dm,
+                          width: kwidth *0.8,
+                          height: kwidth * 0.5,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
                                 width: 32.dm,
                                 height: 32.dm,
-                                child: const CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                    'asset/images/carbon_add-filled.png',
-                                  ),
+                                child: CircleAvatar(
+                                  child: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.add)),
                                 ),
                               ),
                               Text(

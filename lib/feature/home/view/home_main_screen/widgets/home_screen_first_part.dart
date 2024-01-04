@@ -12,7 +12,7 @@ class HomeScreenFirstPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: kwidth * 1.1,
+      height: kwidth * 1.123,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -91,7 +91,8 @@ class HomeScreenFirstPart extends StatelessWidget {
                         height: kwidth * 0.35,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: textFieldFillColr,
+                          color: backgroundColour,
+                          boxShadow: const [BoxShadow(color: kblack,blurRadius: 2,blurStyle: BlurStyle.outer)]
                         ),
                         width: 140,
                         child: const Column(
@@ -123,14 +124,22 @@ class HomeScreenFirstPart extends StatelessWidget {
                     onTap: () => Navigator.of(context).push(
                       fadePageRoute(ViewAllConnections()),
                     ),
-                    child: Text(
-                      'view all',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        decorationColor: kwhite,
-                        decorationThickness: 1.5,
-                        color: kwhite,
-                        fontSize: kwidth * .029,
+                    child: ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      child: Card(elevation: 4,
+                        child: ColoredBox(color: backgroundColour,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
+                            child: Text(
+                              'View All',
+                              style: TextStyle(
+                                decorationColor: kwhite,
+                                decorationThickness: 1.5,
+                                color: kwhite,
+                                fontSize: kwidth * .029,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),

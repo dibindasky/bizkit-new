@@ -9,7 +9,6 @@ import 'package:bizkit/feature/profile_screen/view/screen/privacy_security/priva
 import 'package:flutter/material.dart';
 
 import 'package:bizkit/core/const.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -118,45 +117,47 @@ class ProfileTiles extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(fadePageRoute(widget!)),
-      child: SizedBox(
-        height: 70,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    heading,
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  subtittle == null
-                      ? const SizedBox()
-                      : Text(
-                          subtittle!,
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w200,
-                            color: klightgrey,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: ColoredBox(
+          color: textFieldFillColr,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+            child: Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(heading,
+                        style: TextStyle(
+                          fontSize: kwidth * 0.045,
+                          fontWeight: FontWeight.w200,
+                          color: kwhite,
+                        )),
+                    subtittle == null
+                        ? const SizedBox()
+                        : Text(
+                            subtittle!,
+                            style: TextStyle(
+                              fontSize: kwidth * 0.03,
+                              fontWeight: FontWeight.w200,
+                              color: klightgrey,
+                            ),
                           ),
-                        ),
-                ],
-              ),
-              const Spacer(),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_forward_ios_sharp,
-                  color: kwhite,
-                  size: 17,
+                  ],
                 ),
-              )
-            ],
+                const Spacer(),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.arrow_forward_ios_sharp,
+                    color: kwhite,
+                    size: 17,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

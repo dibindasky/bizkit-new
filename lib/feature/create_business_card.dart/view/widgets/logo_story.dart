@@ -61,8 +61,8 @@ class _LogoStoryState extends State<LogoStory> {
                   color: neonShade,
                   strokeWidth: 2.5,
                   child: SizedBox(
-                    width: 290.dm,
-                    height: 91.dm,
+                    width: kwidth * 0.8,
+                    height: kwidth * 0.25,
                     child: selectedImage != null
                         ? Image.file(selectedImage!, fit: BoxFit.cover)
                         : Column(
@@ -71,10 +71,10 @@ class _LogoStoryState extends State<LogoStory> {
                               SizedBox(
                                 width: 32.dm,
                                 height: 32.dm,
-                                child: const CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                    'asset/images/carbon_add-filled.png',
-                                  ),
+                                child: CircleAvatar(
+                                  child: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.add)),
                                 ),
                               ),
                               Text(

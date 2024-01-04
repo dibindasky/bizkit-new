@@ -13,7 +13,7 @@ ValueNotifier<String> selectedTabNotifier = ValueNotifier(tabBarNames[1]);
 class SecondAnimation extends StatefulWidget {
   const SecondAnimation({super.key, required this.animationController});
 
-  final AnimationController animationController;
+  final List<AnimationController> animationController;
 
   @override
   State<SecondAnimation> createState() => _SecondAnimationState();

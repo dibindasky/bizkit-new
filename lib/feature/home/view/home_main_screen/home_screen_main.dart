@@ -24,9 +24,11 @@ class _SplitScreenState extends State<SplitScreen>
     with TickerProviderStateMixin {
   late AnimationController _homeFirstAnimationController;
   late AnimationController _homeSecondAnimationController;
+  late AnimationController _homeSecondAnimationController2;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation2;
+  late Animation<Offset> _slideAnimation2Move;
 
   //late Animation<double> animation;
 
@@ -41,6 +43,10 @@ class _SplitScreenState extends State<SplitScreen>
     _homeSecondAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
+    );
+    _homeSecondAnimationController2 = AnimationController(
+      vsync: this,
+      duration: const Duration(microseconds: 1),
     );
 
     _slideAnimation = Tween<Offset>(
@@ -62,7 +68,17 @@ class _SplitScreenState extends State<SplitScreen>
         curve: Curves.linear,
       ),
     );
-    
+
+    _slideAnimation2Move = Tween<Offset>(
+      begin: const Offset(0, 0),
+      end: const Offset(0, 1.5),
+    ).animate(
+      CurvedAnimation(
+        parent: _homeSecondAnimationController2,
+        curve: Curves.fastLinearToSlowEaseIn,
+      ),
+    );
+
     //fade the first half while scroll
     _fadeAnimation =
         Tween<double>(begin: 1, end: 0).animate(_homeFirstAnimationController);
@@ -72,6 +88,7 @@ class _SplitScreenState extends State<SplitScreen>
   void dispose() {
     _homeFirstAnimationController.dispose();
     _homeSecondAnimationController.dispose();
+    _homeSecondAnimationController2.dispose();
     super.dispose();
   }
 
@@ -92,7 +109,11 @@ class _SplitScreenState extends State<SplitScreen>
                     child: Visibility(
                       visible: _homeFirstAnimationController.isCompleted,
                       child: SecondAnimation(
-                        animationController: _homeFirstAnimationController,
+                        animationController: [
+                          _homeFirstAnimationController,
+                          _homeSecondAnimationController,
+                          _homeSecondAnimationController2
+                        ],
                       ),
                     ),
                   ),
@@ -114,25 +135,33 @@ class _SplitScreenState extends State<SplitScreen>
                           },
                         ),
                         Expanded(
-                          child: Visibility(
-                            visible: !_homeFirstAnimationController.isCompleted,
-                            child: HomeScreenSecondPart(animationController: [
-                              _homeFirstAnimationController,
-                              _homeSecondAnimationController
-                            ]),
-                          ),
-                          // child: AnimatedBuilder(
-                          //   animation: _homeSecondAnimationController,
-                          //   builder: (context, child) {
-                          //     return SlideTransition(
-                          //       position: _slideAnimation2,
-                          //       child: HomeScreenSecondPart(animationController: [
-                          //         _homeFirstAnimationController,
-                          //         _homeSecondAnimationController
-                          //       ]),
-                          //     );
-                          //   },
+                          // child: Visibility(
+                          //   visible: !_homeFirstAnimationController.isCompleted,
+                          //   child: HomeScreenSecondPart(animationController: [
+                          //     _homeFirstAnimationController,
+                          //     _homeSecondAnimationController
+                          //   ]),
                           // ),
+                          child: AnimatedBuilder(
+                            animation: Listenable.merge([
+                              _homeSecondAnimationController,
+                              _homeSecondAnimationController2
+                            ]),
+                            builder: (context, child) {
+                              return SlideTransition(
+                                position: _slideAnimation2Move,
+                                child: SlideTransition(
+                                  position: _slideAnimation2,
+                                  child: HomeScreenSecondPart(
+                                      animationController: [
+                                        _homeFirstAnimationController,
+                                        _homeSecondAnimationController,
+                                        _homeSecondAnimationController2
+                                      ]),
+                                ),
+                              );
+                            },
+                          ),
                         )
                       ],
                     ),

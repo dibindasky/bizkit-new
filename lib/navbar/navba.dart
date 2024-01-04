@@ -35,6 +35,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomBarBubble(
+        color: neonShade,
         height: 55,
         backgroundColor: backgroundColour,
         selectedIndex: _selectedIndex,
@@ -84,15 +85,3 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
   }
 }
 
-class HomeScreenn extends StatelessWidget {
-  const HomeScreenn({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('HomeScreen'),
-      ),
-    );
-  }
-}

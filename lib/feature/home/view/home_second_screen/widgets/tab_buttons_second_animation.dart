@@ -19,30 +19,12 @@ List tabBarNames = [
 ];
 
 class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
-    with TickerProviderStateMixin, ChangeNotifier {
-  int selectedIndex = 0;
-  late AnimationController _animationController;
-  // late Animation<double> _animation;
-
-  @override
-  void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-    _animationController.forward();
-    super.initState();
-  }
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
+    with ChangeNotifier {
+  List align = [Alignment.centerLeft, Alignment.center, Alignment.centerRight];
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Stack(
       children: [
         textButton(index: 0),
         textButton(index: 1),
@@ -52,26 +34,35 @@ class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
   }
 
   Widget textButton({required int index}) {
-    return FadeTransition(
-      opacity: _animationController,
+    return AnimatedAlign(
+      duration: const Duration(milliseconds: 500),
+      alignment: align[index],
+      curve: Curves.fastOutSlowIn,
       child: TextButton(
         onPressed: () {
           setState(() {
-            String temp = tabBarNames[index];
-            tabBarNames[index] = tabBarNames[1];
-            tabBarNames[1] = temp;
-
-            _animationController.forward(from: 0);
-            selectedTabNotifier.value = tabBarNames[1];
+            if (align[index] == Alignment.centerLeft) {
+              align[align.indexWhere((e) => e == Alignment.center)] =
+                  Alignment.centerLeft;
+              align[index] = Alignment.center;
+            } else if (align[index] == Alignment.centerRight) {
+              align[align.indexWhere((e) => e == Alignment.center)] =
+                  Alignment.centerRight;
+              align[index] = Alignment.center;
+            }
+            selectedTabNotifier.value =
+                tabBarNames[align.indexWhere((e) => e == Alignment.center)];
             selectedTabNotifier.notifyListeners();
           });
         },
         child: Text(
           tabBarNames[index],
           style: TextStyle(
-            fontSize: index == 1 ? kwidth * .045 : kwidth * .035,
+            fontSize: align[index] == Alignment.center
+                ? kwidth * 0.045
+                : kwidth * 0.035,
             fontWeight: FontWeight.w700,
-            color: index == 1 ? kwhite : klightgrey,
+            color: align[index] == Alignment.center ? kwhite : klightgrey,
           ),
         ),
       ),

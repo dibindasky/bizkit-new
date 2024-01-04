@@ -46,18 +46,18 @@ class _TestSecondAnimationPageListViewState
             itemCount: 5,
             itemBuilder: (context, index) {
               List names = [
-                'Febin',
-                'Dibin',
+                'Joshua',
                 'Anagh',
                 'Santhosh',
-                'Joshua',
+                'Febin',
+                'Dibin',
               ];
               List image = [
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKJPxxwPeNvISnBbZsZHe887Ws0FnrL7o0w&usqp=CAU',
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
                 'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&usqp=CAU',
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2fU6VWMdDDAYhNv6NQiHuGeXP3KKtPwVHew&usqp=CAU',
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3gg3rbRr7rpvpYvr5viM9Bi1L3LglCYQ7w&usqp=CAU',
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKJPxxwPeNvISnBbZsZHe887Ws0FnrL7o0w&usqp=CAU',
               ];
               if (widget.doTransition && index == 0) {
                 return Transform.translate(
@@ -85,17 +85,17 @@ class _TestSecondAnimationPageListViewState
           Container(
             width: 95,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  image[index],
+                image: DecorationImage(
+                  image: NetworkImage(
+                    image[index],
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-              ),
-              color: kblack,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12),
+                ),
+                color: klightgrey,
             ),
           ),
           adjustWidth(kwidth * .03),
@@ -105,14 +105,11 @@ class _TestSecondAnimationPageListViewState
             children: [
               Text(
                 'Archived Discussion with \n${names[index]}',
-                style: TextStyle(fontSize: kwidth * .038),
+                style: textHeadStyle1,
               ),
-              Row(
-                children: [
-                  const Text('11 Nov'),
-                  adjustWidth(kwidth * .02),
-                  const Text('11:45 AM'),
-                ],
+              Text(
+                '11 Nov  11:45 AM',
+                style: textStyle1,
               ),
             ],
           ),

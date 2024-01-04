@@ -21,9 +21,12 @@ class SplitScreen extends StatefulWidget {
 }
 
 class _SplitScreenState extends State<SplitScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController _homeFirstAnimationController;
+  late AnimationController _homeSecondAnimationController;
   late Animation<Offset> _slideAnimation;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation2;
 
   //late Animation<double> animation;
 
@@ -35,11 +38,10 @@ class _SplitScreenState extends State<SplitScreen>
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-
-    //This is for full screen fade effect
-    // animation =
-    //     Tween<double>(end: 1, begin: 0).animate(_homeFirstAnimationController);
-    // _homeFirstAnimationController.forward();
+    _homeSecondAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
 
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0),
@@ -50,11 +52,26 @@ class _SplitScreenState extends State<SplitScreen>
         curve: Curves.linear,
       ),
     );
+
+    _slideAnimation2 = Tween<Offset>(
+      begin: const Offset(0, 0),
+      end: const Offset(0, -0.20),
+    ).animate(
+      CurvedAnimation(
+        parent: _homeSecondAnimationController,
+        curve: Curves.linear,
+      ),
+    );
+    
+    //fade the first half while scroll
+    _fadeAnimation =
+        Tween<double>(begin: 1, end: 0).animate(_homeFirstAnimationController);
   }
 
   @override
   void dispose() {
     _homeFirstAnimationController.dispose();
+    _homeSecondAnimationController.dispose();
     super.dispose();
   }
 
@@ -87,17 +104,35 @@ class _SplitScreenState extends State<SplitScreen>
                         AnimatedBuilder(
                           animation: _homeFirstAnimationController,
                           builder: (context, child) {
-                            return SlideTransition(
-                              position: _slideAnimation,
-                              child: const HomeScreenFirstPart(),
+                            return FadeTransition(
+                              opacity: _fadeAnimation,
+                              child: SlideTransition(
+                                position: _slideAnimation,
+                                child: const HomeScreenFirstPart(),
+                              ),
                             );
                           },
                         ),
-                        Visibility(
-                          visible: !_homeFirstAnimationController.isCompleted,
-                          child: HomeScreenSecondPart(
-                            animationController: _homeFirstAnimationController,
+                        Expanded(
+                          child: Visibility(
+                            visible: !_homeFirstAnimationController.isCompleted,
+                            child: HomeScreenSecondPart(animationController: [
+                              _homeFirstAnimationController,
+                              _homeSecondAnimationController
+                            ]),
                           ),
+                          // child: AnimatedBuilder(
+                          //   animation: _homeSecondAnimationController,
+                          //   builder: (context, child) {
+                          //     return SlideTransition(
+                          //       position: _slideAnimation2,
+                          //       child: HomeScreenSecondPart(animationController: [
+                          //         _homeFirstAnimationController,
+                          //         _homeSecondAnimationController
+                          //       ]),
+                          //     );
+                          //   },
+                          // ),
                         )
                       ],
                     ),

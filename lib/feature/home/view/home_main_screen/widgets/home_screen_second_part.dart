@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class HomeScreenSecondPart extends StatefulWidget {
   const HomeScreenSecondPart({super.key, required this.animationController});
 
-  final AnimationController animationController;
+  final List<AnimationController> animationController;
 
   @override
   State<HomeScreenSecondPart> createState() => _HomeScreenSecondPartState();
@@ -24,34 +24,33 @@ class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> {
 
   _scrollCallBack() {
     if (scrollController.offset > 0) {
-      widget.animationController.forward().whenComplete(() {
+      widget.animationController[0].forward().whenComplete(() {
         showCardsNotifier.value = HomeScreensList.second;
         showCardsNotifier.notifyListeners();
       });
+       widget.animationController[1].forward();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text('Reminders', style: textHeadStyle1),
-              ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text('Reminders', style: textHeadStyle1),
+            ],
+          ),
+          adjustHieght(kwidth * .035),
+          Expanded(
+            child: SecondAnimationPageListView(
+              scrollController: scrollController,
             ),
-            adjustHieght(kwidth * .035),
-            Expanded(
-              child: SecondAnimationPageListView(
-                scrollController: scrollController,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

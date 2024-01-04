@@ -12,7 +12,7 @@ class HomeScreenSecondPart extends StatefulWidget {
   State<HomeScreenSecondPart> createState() => _HomeScreenSecondPartState();
 }
 
-class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> {
+class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> with ChangeNotifier{
   final scrollController = ScrollController();
   @override
   void initState() {
@@ -28,7 +28,9 @@ class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> {
         showCardsNotifier.value = HomeScreensList.second;
         showCardsNotifier.notifyListeners();
       });
-       widget.animationController[1].forward();
+      widget.animationController[1]
+          .forward()
+          .whenComplete(() => widget.animationController[2].forward());
     }
   }
 

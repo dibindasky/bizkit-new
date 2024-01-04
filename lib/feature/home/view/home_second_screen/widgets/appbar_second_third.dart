@@ -3,13 +3,16 @@ import 'package:bizkit/feature/home/view/home_main_screen/home_screen_main.dart'
 import 'package:flutter/material.dart';
 
 PreferredSizeWidget homeAppbarSecondAndThird(
-    {AnimationController? animationController}) {
+    {List<AnimationController>? animationController}) {
   return PreferredSize(
     preferredSize: Size(kwidth, kwidth * 0.15),
     child: GestureDetector(
       onVerticalDragDown: (details) {
         if (animationController == null) return;
-        animationController.reverse();
+        animationController[0].reverse();
+        animationController[2]
+            .reverse()
+            .whenComplete(() => animationController[1].reverse());
         showCardsNotifier.value = HomeScreensList.first;
         showCardsNotifier.notifyListeners();
       },

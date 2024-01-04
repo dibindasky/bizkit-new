@@ -116,10 +116,12 @@ class ViewAllConnections extends StatelessWidget {
                     color: kwhite,
                     onPressed: () {},
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.vertical_align_bottom),
-                    color: kwhite,
-                    onPressed: () {},
+                  RotatedBox(quarterTurns: 1,
+                    child: IconButton(
+                      icon: const Icon(Icons.compare_arrows_rounded),
+                      color: kwhite,
+                      onPressed: () {},
+                    ),
                   ),
                   IconButton(
                     icon: const Icon(Icons.filter_alt),

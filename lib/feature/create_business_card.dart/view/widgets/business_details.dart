@@ -54,6 +54,13 @@ class BusinessDetails extends StatelessWidget {
               text: 'Mobile number',
               controller: textEditingController,
               inputType: TextInputType.name,
+            ),TTextFormField(
+              text: 'Social Media Handles',
+              controller: textEditingController,
+              inputType: TextInputType.name,
+              suffix: const Icon(
+              Icons.keyboard_arrow_right,
+            ),
             ),
             TTextFormField(
               text: 'Address',
@@ -62,11 +69,6 @@ class BusinessDetails extends StatelessWidget {
             ),
             TTextFormField(
               text: 'Website link',
-              controller: textEditingController,
-              inputType: TextInputType.name,
-            ),
-            TTextFormField(
-              text: 'Name',
               controller: textEditingController,
               inputType: TextInputType.name,
             ),

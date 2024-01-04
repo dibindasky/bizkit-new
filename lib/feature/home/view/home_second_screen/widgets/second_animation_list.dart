@@ -87,26 +87,35 @@ class _SecondAnimationPageListViewState
 
   Container listTileCard(List<dynamic> image, int index, List<dynamic> names) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 5,
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 3),
+      padding: const EdgeInsets.only(right: 8),
       height: 100,
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 5.0,
+              offset: Offset(3.0, 3.0),
+              spreadRadius: -2.0,
+            )
+          ],
+          color: backgroundColour),
       child: Row(
         children: [
           Container(
-            width: 95,
+            width: kwidth * 0.25,
             decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                    image[index],
-                  ),
-                  fit: BoxFit.cover,
+              image: DecorationImage(
+                image: NetworkImage(
+                  image[index],
                 ),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12),
-                ),
-                color: klightgrey,
+                fit: BoxFit.cover,
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+              ),
+              color: klightgrey,
             ),
           ),
           adjustWidth(kwidth * .03),

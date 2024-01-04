@@ -16,7 +16,7 @@ PreferredSizeWidget homeAppbarSecondAndThird(
         showCardsNotifier.value = HomeScreensList.first;
         showCardsNotifier.notifyListeners();
       },
-      child: AppBar(
+      child: AppBar(backgroundColor: backgroundColour,
         foregroundColor: kwhite,
         leadingWidth: kwidth * 0.30,
         leading: Row(

@@ -58,10 +58,9 @@ class BrochersAndProducts extends StatelessWidget {
                       SizedBox(
                         width: 32.dm,
                         height: 32.dm,
-                        child: const CircleAvatar(
-                          backgroundImage: AssetImage(
-                            'asset/images/carbon_add-filled.png',
-                          ),
+                        child: CircleAvatar(
+                          child: IconButton(
+                              onPressed: () {}, icon: const Icon(Icons.add)),
                         ),
                       ),
                       Text(

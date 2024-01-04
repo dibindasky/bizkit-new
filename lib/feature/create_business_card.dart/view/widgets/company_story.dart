@@ -35,10 +35,8 @@ class CompanyStory extends StatelessWidget {
                     SizedBox(
                       width: 32.dm,
                       height: 32.dm,
-                      child: const CircleAvatar(
-                        backgroundImage: AssetImage(
-                          'asset/images/carbon_add-filled.png',
-                        ),
+                      child: CircleAvatar(
+                        child: IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
                       ),
                     ),
                     Text(
@@ -58,21 +56,21 @@ class CompanyStory extends StatelessWidget {
           adjustHieght(khieght * .02),
           Container(
             color: textFieldFillColr,
-            child: TextFormField(
-              maxLines: 13,
-              decoration: InputDecoration(
-                fillColor: textFieldFillColr,
-                filled: true,
-                hintText:
-                    "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
-                hintStyle: const TextStyle(color: klightgrey),
-                border: UnderlineInputBorder(
-                  borderRadius: BorderRadius.circular(7),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7),
-                  borderSide: const BorderSide(
-                    color: kwhite,
+            child: Hero(tag: 'information',
+              child: TextFormField(
+                maxLines: 13,
+                decoration: InputDecoration(
+                  fillColor: textFieldFillColr,
+                  filled: true,
+                  hintText:
+                      "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
+                  hintStyle: const TextStyle(color: klightgrey),
+                  border: InputBorder.none,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(7),
+                    borderSide: const BorderSide(
+                      color: kwhite,
+                    ),
                   ),
                 ),
               ),

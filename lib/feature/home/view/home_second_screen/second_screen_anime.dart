@@ -61,6 +61,8 @@ class _SecondAnimationState extends State<SecondAnimation>
   @override
   void dispose() {
     _firstFadeController.dispose();
+    _secondFadeController.dispose();
+    _listSlideController.dispose();
     super.dispose();
   }
 

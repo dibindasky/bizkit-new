@@ -19,7 +19,7 @@ PageRouteBuilder fadePageRoute(Widget page) {
         child: child,
       );
     },
-    transitionDuration: const Duration(milliseconds: 800),
-    reverseTransitionDuration: const Duration(milliseconds: 800),
+    transitionDuration: const Duration(milliseconds: 500),
+    reverseTransitionDuration: const Duration(milliseconds: 500),
   );
 }

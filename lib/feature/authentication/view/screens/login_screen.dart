@@ -31,7 +31,8 @@ class _LoGInScreenState extends State<LoGInScreen>
     Alignment.center,
     Alignment.bottomLeft,
     Alignment.bottomCenter,
-    Alignment.topRight
+    Alignment.topRight,
+    Alignment.bottomRight
   ];
   int indexOfEye = 0;
 
@@ -148,9 +149,22 @@ class _LoGInScreenState extends State<LoGInScreen>
                 onChanaged: (name) {
                   double newXPosition = -28 + (name.length * 1.5);
                   double newYPosition = 20 + (name.length * 0.5);
+                   if(newXPosition>12 && newYPosition>33){
+                    setState(() {
+                      indexOfEye=4;
+                    });
+                    return;
+                   }
+                  print(' $newYPosition $newXPosition ${name.length}');
                   setState(() {
+                    
                     animate(newXPosition, newYPosition);
-                    indexOfEye = 1;
+                    if(name.length>=17){
+                      indexOfEye=2;
+                    }else{
+                      indexOfEye = 1;
+                    }
+                    
                   });
                 },
                 text: 'Name',
@@ -230,7 +244,8 @@ class _LoGInScreenState extends State<LoGInScreen>
                   color: kblack,
                   shape: BoxShape.circle,
                 ),
-                child: Align(
+                child: AnimatedAlign(
+                  duration: const Duration(milliseconds: 500),
                   alignment: alignments[indexOfEye],
                   child: const SizedBox(
                     height: 10,

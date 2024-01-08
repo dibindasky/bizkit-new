@@ -27,17 +27,25 @@ class HomeScreenPagviewAnimatedWidget extends StatefulWidget {
 class HomeScreenPagviewAnimatedWidgetState
     extends State<HomeScreenPagviewAnimatedWidget> {
   late Timer _timer;
+  bool next = false;
 
   @override
   void initState() {
     super.initState();
 
     // Auto-scroll every 3 seconds
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (widget.pageController.page == widget.pageCount - 1) {
-        widget.pageController.jumpToPage(0);
-      } else {
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      if (widget.pageController.page == widget.pageCount - 1 ||
+          widget.pageController.page == 0) {
+        next = !next;
+      }
+      if (next) {
         widget.pageController.nextPage(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      } else {
+        widget.pageController.previousPage(
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOut,
         );

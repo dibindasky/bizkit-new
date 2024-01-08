@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:bizkit/core/const.dart';
+import 'package:bizkit/feature/home/view/home_second_screen/widgets/pageview_offset_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -38,8 +39,7 @@ class _ImageOffsetContainersState extends State<ImageOffsetContainers> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedWidget(
-      autoSlideDuration: const Duration(seconds: 5),
+    return HomeScreenPagviewAnimatedWidget(
       pageController: pageController,
       pageValue: pageValue,
       pageCount: image.length,
@@ -139,93 +139,6 @@ class _ImageOffsetContainersState extends State<ImageOffsetContainers> {
           ],
         ),
       ),
-    );
-  }
-}
-
-typedef ChildBuilder = Widget Function(int index, BuildContext context);
-typedef OnPageCallBack = void Function(int index);
-
-class AnimatedWidget extends StatefulWidget {
-  const AnimatedWidget({
-    Key? key,
-    required this.pageController,
-    required this.pageValue,
-    required this.child,
-    required this.pageCount,
-    required this.onpageCallBack,
-    required this.autoSlideDuration,
-    this.slideDuration = const Duration(milliseconds: 700),
-  }) : super(key: key);
-  final PageController pageController;
-  final double pageValue;
-  final ChildBuilder child;
-  final int pageCount;
-  final OnPageCallBack onpageCallBack;
-  final Duration autoSlideDuration;
-  final Duration slideDuration;
-
-  @override
-  State<AnimatedWidget> createState() => _AnimatedWidgetState();
-}
-
-class _AnimatedWidgetState extends State<AnimatedWidget> {
-  late Timer _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    _startAutoSlide();
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  void _startAutoSlide() {
-    _timer = Timer.periodic(widget.autoSlideDuration, (timer) {
-      if (widget.pageController.page == widget.pageCount - 1) {
-        widget.pageController.jumpToPage(0);
-      } else {
-        widget.pageController.nextPage(
-          duration: widget.slideDuration,
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PageView.builder(
-      onPageChanged: widget.onpageCallBack,
-      controller: widget.pageController,
-      itemCount: widget.pageCount,
-      itemBuilder: (context, index) {
-        if (index == widget.pageValue.floor() + 1 ||
-            index == widget.pageValue.floor() + 2) {
-          return Transform.translate(
-            offset: Offset(
-              0.0,
-              100 * (index - widget.pageValue),
-            ),
-            child: widget.child(index, context),
-          );
-        } else if (index == widget.pageValue.floor() ||
-            index == widget.pageValue.floor() - 1) {
-          return Transform.translate(
-            offset: Offset(
-              0.0,
-              100 * (widget.pageValue - index),
-            ),
-            child: widget.child(index, context),
-          );
-        } else {
-          return widget.child(index, context);
-        }
-      },
     );
   }
 }

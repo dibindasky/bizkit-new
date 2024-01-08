@@ -303,7 +303,7 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
         borderRadius: BorderRadius.all(
           Radius.circular(6),
         ),
-        color: Color.fromRGBO(53, 53, 53, 0.42),
+        color: backgroundColour,
       ),
       height: 40,
       child: Image.asset(asset),

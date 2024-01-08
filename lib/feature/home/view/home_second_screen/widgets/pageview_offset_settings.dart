@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 typedef ChildBuilder = Widget Function(int index, BuildContext context);
 typedef OnPageCallBack = void Function(int index);
 
-class HomeScreenPagviewAnimatedWidget extends StatelessWidget {
+class HomeScreenPagviewAnimatedWidget extends StatefulWidget {
   const HomeScreenPagviewAnimatedWidget({
     Key? key,
     required this.pageController,
@@ -19,34 +20,67 @@ class HomeScreenPagviewAnimatedWidget extends StatelessWidget {
   final OnPageCallBack onpageCallBack;
 
   @override
+  HomeScreenPagviewAnimatedWidgetState createState() =>
+      HomeScreenPagviewAnimatedWidgetState();
+}
+
+class HomeScreenPagviewAnimatedWidgetState
+    extends State<HomeScreenPagviewAnimatedWidget> {
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Auto-scroll every 3 seconds
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (widget.pageController.page == widget.pageCount - 1) {
+        widget.pageController.jumpToPage(0);
+      } else {
+        widget.pageController.nextPage(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    // Cancel the timer to prevent memory leaks
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return PageView.builder(
-      onPageChanged: onpageCallBack,
-      controller: pageController,
-      itemCount: pageCount,
+      onPageChanged: widget.onpageCallBack,
+      controller: widget.pageController,
+      itemCount: widget.pageCount,
       itemBuilder: (context, index) {
         double translation = 50.0;
 
-        if (index == pageValue.floor() + 1 || index == pageValue.floor() + 2) {
+        if (index == widget.pageValue.floor() + 1 ||
+            index == widget.pageValue.floor() + 2) {
           return Transform.translate(
             offset: Offset(
               0.0,
-              translation *
-                  (index - pageValue), // Linear translation for next pages
+              translation * (index - widget.pageValue),
             ),
-            child: child(index, context),
+            child: widget.child(index, context),
           );
-        } else if (index == pageValue.floor() ||
-            index == pageValue.floor() - 1) {
+        } else if (index == widget.pageValue.floor() ||
+            index == widget.pageValue.floor() - 1) {
           return Transform.translate(
             offset: Offset(
               0,
-              translation * (pageValue - index),
+              translation * (widget.pageValue - index),
             ),
-            child: child(index, context),
+            child: widget.child(index, context),
           );
         } else {
-          return child(index, context);
+          return widget.child(index, context);
         }
       },
     );

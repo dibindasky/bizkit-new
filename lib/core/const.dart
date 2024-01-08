@@ -30,12 +30,12 @@ adjustHieght(double height) {
 
 TextStyle textHeadStyle1 = TextStyle(
   color: kwhite,
-  fontSize: kwidth * .044,
+  fontSize: kwidth * 0.04,
   fontWeight: FontWeight.w700,
 );
 
-TextStyle textStyle1 = const TextStyle(
-  fontSize: 14,
+TextStyle textStyle1 = TextStyle(
+  fontSize: kwidth * 0.035,
   fontWeight: FontWeight.w400,
 );
 

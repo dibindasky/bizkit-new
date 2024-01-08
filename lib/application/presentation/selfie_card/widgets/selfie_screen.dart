@@ -1,5 +1,5 @@
 import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/selfie_card/view/selfie_screens_list.dart';
+import 'package:bizkit/application/presentation/card_share/view/widgets/card_sharing.dart';
 import 'package:bizkit/application/presentation/selfie_card/widgets/selfie_preview_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -57,12 +57,18 @@ class _SelfieScreenState extends State<SelfieScreen>
                 alignment: Alignment.centerRight,
                 child: Padding(
                   padding: const EdgeInsets.only(right: 20),
-                  child: CircleAvatar(
-                    radius: kwidth * 0.080,
-                    backgroundColor: textFieldFillColr,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.asset('asset/images/bizkitIcon.png'),
+                  child: InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CardSharingScreen())),
+                    child: CircleAvatar(
+                      radius: kwidth * 0.080,
+                      backgroundColor: textFieldFillColr,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Image.asset('asset/images/bizkitIcon.png'),
+                      ),
                     ),
                   ),
                 ),
@@ -89,8 +95,6 @@ class _SelfieScreenState extends State<SelfieScreen>
                           builder: (context) => const SelfiePreviewScreen(),
                         ),
                       );
-                      //screensSelfi.add(const SelfiePreviewScreen());
-                      print(screensSelfi);
                     },
                     customBorder: const CircleBorder(),
                     child: FadeTransition(

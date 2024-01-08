@@ -62,19 +62,19 @@ class _TestSecondAnimationPageListViewState
               if (widget.doTransition && index == 0) {
                 return Transform.translate(
                     offset: Offset(0, 100 * _animation.value),
-                    child: listTileCard(image, index, names));
+                    child: listTileCard(image[index], names[index]));
               } else if (widget.doTransition && index == 1) {
                 return Transform.translate(
                     offset: Offset(0, -100 * _animation.value),
-                    child: listTileCard(image, index, names));
+                    child: listTileCard(image[index], names[index]));
               }
-              return listTileCard(image, index, names);
+              return listTileCard(image[index], names[index]);
             },
           );
         });
   }
 
-  Container listTileCard(List<dynamic> image, int index, List<dynamic> names) {
+  Container listTileCard(String image, String names) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 3),
       padding: const EdgeInsets.only(right: 8),
@@ -96,7 +96,7 @@ class _TestSecondAnimationPageListViewState
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                  image[index],
+                  image,
                 ),
                 fit: BoxFit.cover,
               ),
@@ -113,7 +113,7 @@ class _TestSecondAnimationPageListViewState
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                'Archived Discussion with \n${names[index]}',
+                'Archived Discussion with \n$names',
                 style: textHeadStyle1,
               ),
               Text(

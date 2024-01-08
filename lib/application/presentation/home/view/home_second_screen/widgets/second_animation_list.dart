@@ -1,4 +1,6 @@
 import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/home/view/home_second_screen/widgets/pageview_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class SecondAnimationPageListView extends StatefulWidget {
@@ -73,77 +75,82 @@ class _SecondAnimationPageListViewState
               if (widget.doTransition && index == 0) {
                 return Transform.translate(
                     offset: Offset(0, 100 * _animation.value),
-                    child: listTileCard(image, index, names));
+                    child: listTileCard(image[index], names[index]));
               } else if (widget.doTransition && index == 1) {
                 return Transform.translate(
                     offset: Offset(0, -100 * _animation.value),
-                    child: listTileCard(image, index, names));
+                    child: listTileCard(image[index], names[index]));
               }
-              return listTileCard(image, index, names);
+              return listTileCard(image[index], names[index]);
             },
           );
         });
   }
 
-  Container listTileCard(List<dynamic> image, int index, List<dynamic> names) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 3),
-      padding: const EdgeInsets.only(right: 8),
-      height: 100,
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 5.0,
-              offset: Offset(3.0, 3.0),
-              spreadRadius: -2.0,
-            )
-          ],
-          color: backgroundColour),
-      child: Row(
-        children: [
-          Container(
-            width: kwidth * 0.25,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  image[index],
-                ),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-              ),
-              color: klightgrey,
-            ),
-          ),
-          adjustWidth(kwidth * .03),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                'Archived Discussion with \n${names[index]}',
-                style: textHeadStyle1,
-              ),
-              Text(
-                '11 Nov  11:45 AM',
-                style: textStyle1,
-              ),
+  Widget listTileCard(String image, String names) {
+    return InkWell(
+      onTap: () => Navigator.push(
+          context,
+          fadePageRoute(const SecondHomeScreenPAgeviewMeetingScreen())),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 3),
+        padding: const EdgeInsets.only(right: 8),
+        height: 100,
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 5.0,
+                offset: Offset(3.0, 3.0),
+                spreadRadius: -2.0,
+              )
             ],
-          ),
-          const Spacer(),
-          const CircleAvatar(
-            radius: 15,
-            backgroundColor: neonShade,
-            child: Icon(
-              Icons.keyboard_arrow_right,
-              size: 25,
-              color: kblack,
+            color: backgroundColour),
+        child: Row(
+          children: [
+            Container(
+              width: kwidth * 0.25,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    image,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12),
+                ),
+                color: klightgrey,
+              ),
             ),
-          ),
-        ],
+            adjustWidth(kwidth * .03),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  'Archived Discussion with \n$names',
+                  style: textHeadStyle1,
+                ),
+                Text(
+                  '11 Nov  11:45 AM',
+                  style: textStyle1,
+                ),
+              ],
+            ),
+            const Spacer(),
+            const CircleAvatar(
+              radius: 15,
+              backgroundColor: neonShade,
+              child: Icon(
+                Icons.keyboard_arrow_right,
+                size: 25,
+                color: kblack,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

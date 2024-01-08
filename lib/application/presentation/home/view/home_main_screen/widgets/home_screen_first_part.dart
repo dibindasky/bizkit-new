@@ -1,5 +1,6 @@
 import 'package:bizkit/application/commen/const.dart';
 import 'package:bizkit/application/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/card_share/view/widgets/card_sharing.dart';
 import 'package:bizkit/application/presentation/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/application/presentation/home/view/widgets/view_all_connection.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +23,23 @@ class HomeScreenFirstPart extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 children: [
-                  Text('Hello,\nJoi', style: textHeadStyle1),
+                  Text('Hello,\nJoi',
+                      style: custumText(
+                          fontSize: kwidth * 0.05,
+                          fontWeight: FontWeight.w700)),
                   const Spacer(),
-                  CircleAvatar(
-                    radius: kwidth * 0.080,
-                    backgroundColor: textFieldFillColr,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.asset('asset/images/bizkitIcon.png'),
+                  InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CardSharingScreen())),
+                    child: CircleAvatar(
+                      radius: kwidth * 0.080,
+                      backgroundColor: textFieldFillColr,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Image.asset('asset/images/bizkitIcon.png'),
+                      ),
                     ),
                   )
                 ],

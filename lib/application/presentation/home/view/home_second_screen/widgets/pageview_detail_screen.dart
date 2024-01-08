@@ -6,9 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
   const SecondHomeScreenPAgeviewMeetingScreen(
-      {super.key, required this.fadeCallBack});
+      {super.key, this.fadeCallBack});
 
-  final VoidCallback fadeCallBack;
+  final VoidCallback? fadeCallBack;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            adjustHieght(khieght * .02),
+            fadeCallBack!=null?adjustHieght(khieght * .02):adjustHieght(khieght*0.1),
             Stack(
               children: [
                 Container(
@@ -63,52 +63,54 @@ class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
                               ),
                               adjustHieght(khieght * .03),
                               SizedBox(
-                                width: 280,
-                                child: Column(
+                                width: kwidth * 0.8,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Row(
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Venue :',
-                                          style: TextStyle(fontSize: 9.sp),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          'Central Mall, Jayanagar',
                                           style: TextStyle(
-                                            fontSize: 9.sp,
-                                            fontWeight: FontWeight.w700,
-                                          ),
+                                              fontSize: kwidth * 0.03),
+                                        ),
+                                        Text(
+                                          'Created :',
+                                          style: TextStyle(
+                                              fontSize: kwidth * 0.03),
+                                        ),
+                                        Text(
+                                          'Occation :',
+                                          style: TextStyle(
+                                              fontSize: kwidth * 0.03),
                                         ),
                                       ],
                                     ),
-                                    Row(
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Created :',
-                                          style: TextStyle(fontSize: 9.sp),
+                                          'Central mall, Jaynagar',
+                                          style: TextStyle(
+                                            fontSize: kwidth * 0.03,
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                         ),
-                                        const Spacer(),
                                         Text(
                                           '2nd October, 11:45 AM',
                                           style: TextStyle(
-                                            fontSize: 9.sp,
+                                            fontSize: kwidth * 0.03,
                                             fontWeight: FontWeight.w700,
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
                                         Text(
-                                          'Occasion :',
-                                          style: TextStyle(fontSize: 9.sp),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          'International Film Festival',
+                                          'International Filim Festival',
                                           style: TextStyle(
-                                            fontSize: 9.sp,
+                                            fontSize: kwidth * 0.03,
                                             fontWeight: FontWeight.w700,
                                           ),
                                         ),
@@ -168,10 +170,13 @@ class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: InkWell(
                     onTap: () {
-                      print('fade call back meeting screen');
-                      showCardsNotifier.value = HomeScreensList.second;
-                      showCardsNotifier.notifyListeners();
-                      fadeCallBack();
+                      if (fadeCallBack != null) {
+                        showCardsNotifier.value = HomeScreensList.second;
+                        showCardsNotifier.notifyListeners();
+                        fadeCallBack!();
+                      }else{
+                        Navigator.pop(context);
+                      }
                     },
                     child: const CircleAvatar(
                       radius: 15,

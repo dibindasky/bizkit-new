@@ -30,8 +30,6 @@ class _SplitScreenState extends State<SplitScreen>
   late Animation<Offset> _slideAnimation2;
   late Animation<Offset> _slideAnimation2Move;
 
-  //late Animation<double> animation;
-
   @override
   void initState() {
     super.initState();

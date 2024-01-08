@@ -6,7 +6,6 @@ import 'package:bizkit/feature/business_card_preview/view/widgets/show_model_ite
 import 'package:bizkit/feature/home/view/home_second_screen/widgets/add_tag_screen.dart';
 import 'package:bizkit/feature/home/view/widgets/reminder_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum Changing { first, second }
 

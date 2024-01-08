@@ -17,7 +17,7 @@ class BizkitBottomNavigationBar extends StatefulWidget {
 
 class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
   int _selectedIndex = 0;
-  final List _widgetOptions = [
+  final List<Widget> _widgetOptions = [
     const SplitScreen(),
     const CardShareMainScreen(),
     const SelfieScreen(),

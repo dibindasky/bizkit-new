@@ -90,10 +90,14 @@ class HomeScreenFirstPart extends StatelessWidget {
                       child: Container(
                         height: kwidth * 0.35,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: backgroundColour,
-                          boxShadow: const [BoxShadow(color: kblack,blurRadius: 2,blurStyle: BlurStyle.outer)]
-                        ),
+                            borderRadius: BorderRadius.circular(8),
+                            color: backgroundColour,
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: kblack,
+                                  blurRadius: 2,
+                                  blurStyle: BlurStyle.outer)
+                            ]),
                         width: 140,
                         child: const Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -124,11 +128,15 @@ class HomeScreenFirstPart extends StatelessWidget {
                     onTap: () => Navigator.of(context).push(
                       fadePageRoute(ViewAllConnections()),
                     ),
-                    child: ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      child: Card(elevation: 4,
-                        child: ColoredBox(color: backgroundColour,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      child: Card(
+                        elevation: 4,
+                        child: ColoredBox(
+                          color: backgroundColour,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 8),
                             child: Text(
                               'View All',
                               style: TextStyle(
@@ -167,8 +175,10 @@ class HomeScreenFirstPart extends StatelessWidget {
                   if (index == 0) {
                     return Padding(
                       padding: const EdgeInsets.only(left: 15),
-                      child: ClipRRect(borderRadius:BorderRadius.circular(12),
-                        child: const ColoredBox(color: textFieldFillColr,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: const ColoredBox(
+                          color: textFieldFillColr,
                           child: SizedBox(
                             height: 40,
                             width: 60,

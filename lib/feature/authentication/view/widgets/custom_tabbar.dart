@@ -57,33 +57,29 @@ class _CustomTabBarState extends State<CustomtabBar>
           controller: widget._tabController,
           labelColor: kwhite,
           tabs: [
-            Expanded(
-              child: Container(
-                width: kwidth * 0.5,
-                decoration: widget._tabController.index == 0
-                    ? const BoxDecoration(
-                        color: neonShade,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      )
-                    : null,
-                child: const Tab(text: 'Individuel'),
-              ),
+            Container(
+              width: kwidth * 0.5,
+              decoration: widget._tabController.index == 0
+                  ? const BoxDecoration(
+                      color: neonShade,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    )
+                  : null,
+              child: const Tab(text: 'Individuel'),
             ),
-            Expanded(
-              child: Container(
-                width: kwidth * 0.5,
-                decoration: widget._tabController.index == 1
-                    ? const BoxDecoration(
-                        color: neonShade,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      )
-                    : null,
-                child: const Tab(text: 'Business'),
-              ),
+            Container(
+              width: kwidth * 0.5,
+              decoration: widget._tabController.index == 1
+                  ? const BoxDecoration(
+                      color: neonShade,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    )
+                  : null,
+              child: const Tab(text: 'Business'),
             ),
           ],
         ),

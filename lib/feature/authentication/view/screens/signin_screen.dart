@@ -1,7 +1,8 @@
 import 'package:bizkit/core/const.dart';
 import 'package:bizkit/feature/authentication/view/widgets/business_sign_in.dart';
 import 'package:bizkit/feature/authentication/view/widgets/custom_tabbar.dart';
-import 'package:bizkit/feature/authentication/view/widgets/individuel_sign)in.dart';
+import 'package:bizkit/feature/authentication/view/widgets/individuel_signin.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SignInscreeen extends StatefulWidget {
@@ -37,18 +38,15 @@ class _SignInscreeenState extends State<SignInscreeen>
           backgroundColor: knill,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(100),
-            child: Material(
-              color: knill,
-              child: CustomtabBar(
-                tabController: _tabController,
-              ),
+            child: CustomtabBar(
+              tabController: _tabController,
             ),
           ),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: TabBarView(
-            physics: const BouncingScrollPhysics(),
+          child: TabBarView(dragStartBehavior: DragStartBehavior.down,
+            physics: const NeverScrollableScrollPhysics(),
             controller: _tabController,
             children: [
               IndividuelSignIn(),

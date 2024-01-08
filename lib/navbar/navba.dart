@@ -34,52 +34,55 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomBarBubble(
-        color: neonShade,
-        height: 55,
-        backgroundColor: backgroundColour,
-        selectedIndex: _selectedIndex,
-        items: [
-          BottomBarItem(
-            iconBuilder: (color) => Image.asset(
-              'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png',
-              fit: BoxFit.cover,
-              color: _selectedIndex == 0 ? neonShade : color,
-              height: _selectedIndex == 0 ? 38 : 30,
-              width: _selectedIndex == 0 ? 38 : 30,
+      bottomNavigationBar: Material(
+        elevation: 5,shadowColor: kblack,
+        child: BottomBarBubble(
+          color: neonShade,
+          height: 55,
+          backgroundColor: backgroundColour,
+          selectedIndex: _selectedIndex,
+          items: [
+            BottomBarItem(
+              iconBuilder: (color) => Image.asset(
+                'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png',
+                fit: BoxFit.cover,
+                color: _selectedIndex == 0 ? neonShade : color,
+                height: _selectedIndex == 0 ? 38 : 30,
+                width: _selectedIndex == 0 ? 38 : 30,
+              ),
             ),
-          ),
-          BottomBarItem(
-            iconBuilder: (color) => Image.asset(
-              'asset/images/NavPngs/my connection selected.png',
-              fit: BoxFit.cover,
-              color: _selectedIndex == 1 ? neonShade : color,
-              height: _selectedIndex == 1 ? 32 : 26,
-              width: _selectedIndex == 1 ? 32 : 26,
+            BottomBarItem(
+              iconBuilder: (color) => Image.asset(
+                'asset/images/NavPngs/my connection selected.png',
+                fit: BoxFit.cover,
+                color: _selectedIndex == 1 ? neonShade : color,
+                height: _selectedIndex == 1 ? 32 : 26,
+                width: _selectedIndex == 1 ? 32 : 26,
+              ),
             ),
-          ),
-          BottomBarItem(
-            iconBuilder: (color) => Image.asset(
-              'asset/images/NavPngs/selfie selected.png',
-              fit: BoxFit.cover,
-              color: _selectedIndex == 2 ? neonShade : color,
-              height: _selectedIndex == 2 ? 27 : 22,
-              width: _selectedIndex == 2 ? 27 : 22,
+            BottomBarItem(
+              iconBuilder: (color) => Image.asset(
+                'asset/images/NavPngs/selfie selected.png',
+                fit: BoxFit.cover,
+                color: _selectedIndex == 2 ? neonShade : color,
+                height: _selectedIndex == 2 ? 27 : 22,
+                width: _selectedIndex == 2 ? 27 : 22,
+              ),
             ),
-          ),
-          BottomBarItem(
-            iconBuilder: (color) => Image.asset(
-              'asset/images/NavPngs/account un selected.png',
-              fit: BoxFit.cover,
-              color: _selectedIndex == 3 ? neonShade : color,
-              height: _selectedIndex == 3 ? 30 : 26,
-              width: _selectedIndex == 3 ? 30 : 26,
+            BottomBarItem(
+              iconBuilder: (color) => Image.asset(
+                'asset/images/NavPngs/account un selected.png',
+                fit: BoxFit.cover,
+                color: _selectedIndex == 3 ? neonShade : color,
+                height: _selectedIndex == 3 ? 30 : 26,
+                width: _selectedIndex == 3 ? 30 : 26,
+              ),
             ),
-          ),
-        ],
-        onSelect: (index) {
-          _onItemTapped(index);
-        },
+          ],
+          onSelect: (index) {
+            _onItemTapped(index);
+          },
+        ),
       ),
     );
   }

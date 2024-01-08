@@ -141,30 +141,45 @@ class _LoGInScreenState extends State<LoGInScreen>
                           -28 + (nameController.text.length * 1.5);
                       double newYPosition =
                           20 + (nameController.text.length * 0.5);
+                      if (newXPosition > 12 && newYPosition > 33) {
+                        setState(() {
+                          newXPosition = 12.0;
+                          newYPosition = 33.0;
+                          animate(newXPosition, newYPosition);
+                          indexOfEye = 4;
+                        });
+                        return;
+                      }
                       animate(newXPosition, newYPosition);
-                      indexOfEye = 1;
+                      if (nameController.text.length > 22) {
+                        indexOfEye = 4;
+                      } else if (nameController.text.length >= 17) {
+                        indexOfEye = 2;
+                      } else {
+                        indexOfEye = 1;
+                      }
                     }
                   });
                 },
                 onChanaged: (name) {
                   double newXPosition = -28 + (name.length * 1.5);
                   double newYPosition = 20 + (name.length * 0.5);
-                   if(newXPosition>12 && newYPosition>33){
+                  if (newXPosition > 12 && newYPosition > 33) {
                     setState(() {
-                      indexOfEye=4;
+                      newXPosition = 12.0;
+                      newYPosition = 33.0;
+                      indexOfEye = 4;
                     });
                     return;
-                   }
+                  }
                   print(' $newYPosition $newXPosition ${name.length}');
                   setState(() {
-                    
                     animate(newXPosition, newYPosition);
-                    if(name.length>=17){
-                      indexOfEye=2;
-                    }else{
+                    if (name.length >= 17) {
+                      indexOfEye = 2;
+                    } else {
                       indexOfEye = 1;
                     }
-                    
                   });
                 },
                 text: 'Name',

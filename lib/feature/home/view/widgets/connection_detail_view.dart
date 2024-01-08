@@ -49,7 +49,6 @@ class ListTileDetailView extends StatelessWidget {
                 changeScreenNotifier.value = Changing.second;
                 changeScreenNotifier.notifyListeners();
               }
-              print('Selected: $value');
             },
             itemBuilder: (context) => [
               const PopupMenuItem(

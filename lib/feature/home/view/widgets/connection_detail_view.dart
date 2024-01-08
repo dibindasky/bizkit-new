@@ -35,7 +35,7 @@ class ListTileDetailView extends StatelessWidget {
         backgroundColor: knill,
         title: Text(
           name ?? 'Alex Tyler',
-          style: textHeadStyle1,
+          style:  custumText(fontSize: kwidth * 0.06),
         ),
         actions: [
           PopupMenuButton<String>(
@@ -88,7 +88,7 @@ class ListTileDetailView extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 name ?? "Alex Tyler",
-                style: textHeadStyle1,
+                style: custumText(fontSize: kwidth * 0.06),
               ),
               const Text('Mobile app developer - Flutter'),
               adjustHieght(khieght * .02),
@@ -215,15 +215,9 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
           ),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(
-              onTap: () => numberBottomSheet(context),
-              child: SizedBox(
-                height: kwidth * .17,
-                child: Image.asset('asset/images/preview phone.png'),
-              ),
-            ),
+            rowItems(asset: 'asset/images/preview phone.png', ctx: context),
             rowItems(asset: 'asset/images/preview messages gif.gif'),
             rowItems(asset: 'asset/images/preview globe.gif'),
             rowItems(asset: 'asset/images/preview_spinner.png'),
@@ -297,16 +291,25 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
     );
   }
 
-  Widget rowItems({required String asset}) {
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(6),
+  Widget rowItems(
+      {required String asset, VoidCallback? ontap, BuildContext? ctx}) {
+    return InkWell(
+      onTap: () {
+        if (ctx != null) {
+          numberBottomSheet(ctx);
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(6),
+          ),
+          color: kblack.withOpacity(0.3),
         ),
-        color: backgroundColour,
+        height: kwidth * 0.13,
+        child: Image.asset(asset),
       ),
-      height: 40,
-      child: Image.asset(asset),
     );
   }
 

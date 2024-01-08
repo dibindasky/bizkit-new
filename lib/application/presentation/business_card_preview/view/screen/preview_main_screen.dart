@@ -1,3 +1,4 @@
+import 'package:bizkit/application/commen/widgets/detail_sharing_icon.dart';
 import 'package:bizkit/application/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/business_card_preview/view/widgets/bank_person_achived.dart';
 import 'package:bizkit/application/presentation/business_card_preview/view/widgets/image_offset_container.dart';
@@ -76,19 +77,17 @@ class PreviewMainScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
-                  onTap: () => bottomSheet(context),
-                  child: Container(
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      color: Color.fromRGBO(53, 53, 53, 0.42),
-                    ),
-                    child: Image.asset('asset/images/preview phone.png'),
-                  ),
-                ),
-                rowItems(asset: 'asset/images/preview messages gif.gif'),
-                rowItems(asset: 'asset/images/preview globe.gif'),
-                rowItems(asset: 'asset/images/preview_spinner.png'),
-                rowItems(asset: 'asset/images/preview location gif.gif'),
+                    onTap: () => bottomSheet(context),
+                    child: const DetailSharingIconWidget(
+                        image: 'asset/images/preview phone.png')),
+                const DetailSharingIconWidget(
+                    image: 'asset/images/preview messages gif.gif'),
+                const DetailSharingIconWidget(
+                    image: 'asset/images/preview globe.gif'),
+                const DetailSharingIconWidget(
+                    image: 'asset/images/preview_spinner.png'),
+                const DetailSharingIconWidget(
+                    image: 'asset/images/preview location gif.gif'),
               ],
             ),
             adjustHieght(khieght * .02),

@@ -1,4 +1,5 @@
 import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/commen/widgets/detail_sharing_icon.dart';
 import 'package:bizkit/application/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/business_card_preview/view/widgets/bank_person_achived.dart';
 import 'package:bizkit/application/presentation/business_card_preview/view/widgets/image_offset_container.dart';
@@ -291,24 +292,14 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
   }
 
   Widget rowItems(
-      {required String asset, VoidCallback? ontap, BuildContext? ctx}) {
+      {required String asset, BuildContext? ctx}) {
     return InkWell(
       onTap: () {
         if (ctx != null) {
           numberBottomSheet(ctx);
         }
       },
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(6),
-          ),
-          color: kblack.withOpacity(0.3),
-        ),
-        height: kwidth * 0.13,
-        child: Image.asset(asset),
-      ),
+      child: DetailSharingIconWidget(image: asset),
     );
   }
 
@@ -319,3 +310,4 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
     );
   }
 }
+

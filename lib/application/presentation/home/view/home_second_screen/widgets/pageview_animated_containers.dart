@@ -100,11 +100,50 @@ class _HomeScreenPageviewAnimatedContanerState
                       width: kwidth * 0.8,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            rowTil('Venue :', 'Central Mall, Jayanagar'),
-                            rowTil('Created :', '2nd October, 11:45 AM'),
-                            rowTil('Occasion :', 'International Film Festival'),
+                            Column(crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Venue :',
+                                  style: TextStyle(fontSize: kwidth * 0.03),
+                                ),
+                                Text(
+                                  'Created :',
+                                  style: TextStyle(fontSize: kwidth * 0.03),
+                                ),
+                                Text(
+                                  'Occation :',
+                                  style: TextStyle(fontSize: kwidth * 0.03),
+                                ),
+                              ],
+                            ),
+                            Column(crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Central mall, Jaynagar',
+                                  style: TextStyle(
+                                    fontSize: kwidth * 0.03,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Text(
+                                  '2nd October, 11:45 AM',
+                                  style: TextStyle(
+                                    fontSize: kwidth * 0.03,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Text(
+                                  'International Filim Festival',
+                                  style: TextStyle(
+                                    fontSize: kwidth * 0.03,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -151,25 +190,6 @@ class _HomeScreenPageviewAnimatedContanerState
           );
         },
       ),
-    );
-  }
-
-  Widget rowTil(String f, String s) {
-    return Row(
-      children: [
-        Text(
-          f,
-          style: TextStyle(fontSize: kwidth * .028),
-        ),
-        const Spacer(),
-        Text(
-          s,
-          style: TextStyle(
-            fontSize: kwidth * .028,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ],
     );
   }
 }

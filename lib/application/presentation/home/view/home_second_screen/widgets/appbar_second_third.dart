@@ -16,15 +16,17 @@ PreferredSizeWidget homeAppbarSecondAndThird(
         showCardsNotifier.value = HomeScreensList.first;
         showCardsNotifier.notifyListeners();
       },
-      child: AppBar(backgroundColor: backgroundColour,
+      child: AppBar(
+        backgroundColor: backgroundColour,
         foregroundColor: kwhite,
-        leadingWidth: kwidth * 0.30,
+        leadingWidth: kwidth * 0.35,
         leading: Row(
           children: [
             SizedBox(width: kwidth * 0.05),
             Text(
               'Todays\nReminders',
-              style: textHeadStyle1,
+              style: custumText(
+                  fontSize: kwidth * 0.05, fontWeight: FontWeight.w700),
             ),
           ],
         ),

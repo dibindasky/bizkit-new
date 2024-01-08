@@ -1,4 +1,5 @@
 import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/commen/widgets/detail_sharing_icon.dart';
 import 'package:bizkit/application/presentation/business_card_preview/view/widgets/bank_person_achived.dart';
 import 'package:bizkit/application/presentation/business_card_preview/view/widgets/show_model_items.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,8 @@ class TabBarHomeScreen extends StatelessWidget {
           children: [
             TabBar(
               dividerHeight: 0,
-              isScrollable: true,tabAlignment: TabAlignment.center,
+              isScrollable: true,
+              tabAlignment: TabAlignment.center,
               labelPadding: const EdgeInsets.symmetric(horizontal: 30),
               indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
@@ -31,7 +33,8 @@ class TabBarHomeScreen extends StatelessWidget {
               tabs: [
                 SizedBox(
                   child: Tab(
-                    child: SizedBox(width: kwidth * 0.3,
+                    child: SizedBox(
+                      width: kwidth * 0.3,
                       child: const Center(
                         child: Text(
                           "History/Log",
@@ -42,7 +45,8 @@ class TabBarHomeScreen extends StatelessWidget {
                   ),
                 ),
                 Tab(
-                  child: SizedBox(width: kwidth * 0.3,
+                  child: SizedBox(
+                    width: kwidth * 0.3,
                     child: const Center(
                       child: Text(
                         "Profile",
@@ -95,23 +99,18 @@ class TabBarHomeScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InkWell(
-                                onTap: () => bottomSheet(context),
-                                child: Container(
-                                  height: 40,
-                                  decoration: const BoxDecoration(
-                                      color: textFieldFillColr),
-                                  child: Image.asset(
-                                      'asset/images/preview phone.png'),
-                                ),
-                              ),
-                              rowItems(
-                                  asset:
+                                  onTap: () => bottomSheet(context),
+                                  child: const DetailSharingIconWidget(
+                                      image: 'asset/images/preview phone.png')),
+                              const DetailSharingIconWidget(
+                                  image:
                                       'asset/images/preview messages gif.gif'),
-                              rowItems(asset: 'asset/images/preview globe.gif'),
-                              rowItems(
-                                  asset: 'asset/images/preview_spinner.png'),
-                              rowItems(
-                                  asset:
+                              const DetailSharingIconWidget(
+                                  image: 'asset/images/preview globe.gif'),
+                              const DetailSharingIconWidget(
+                                  image: 'asset/images/preview_spinner.png'),
+                              const DetailSharingIconWidget(
+                                  image:
                                       'asset/images/preview location gif.gif'),
                             ],
                           ),
@@ -194,20 +193,6 @@ class TabBarHomeScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget rowItems({required String asset}) {
-    return Container(
-      padding: const EdgeInsets.only(top: 10),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(6),
-        ),
-        color: Color.fromRGBO(53, 53, 53, 0.42),
-      ),
-      height: 40,
-      child: Image.asset(asset),
     );
   }
 

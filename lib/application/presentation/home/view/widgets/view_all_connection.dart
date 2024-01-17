@@ -1,6 +1,7 @@
 import 'package:alphabet_scroll_view/alphabet_scroll_view.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/commen/snackbar/snackbar.dart';
 import 'package:bizkit/application/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/home/view/widgets/connection_detail_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -98,7 +99,11 @@ class ViewAllConnections extends StatelessWidget {
             Expanded(
               child: BlocConsumer<ContactsBloc, ContactsState>(
                 listener: (context, state) {
-                  // TODO: implement listener
+                  if (state.hasError || state.message != null) {
+                    showSnackbar(context,
+                        message: state.message!,
+                        );
+                  }
                 },
                 builder: (context, state) {
                   if (state.loading) {
@@ -162,7 +167,12 @@ class ViewAllConnections extends StatelessWidget {
                                     : const CircleAvatar(
                                         radius: 18,
                                         backgroundColor: textFieldFillColr,
-                                        child: Center(child: Icon(Icons.person,color: neonShade,),),
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.person,
+                                            color: neonShade,
+                                          ),
+                                        ),
                                       ),
                                 const Positioned(
                                   right: 0,

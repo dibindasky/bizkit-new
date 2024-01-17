@@ -6,6 +6,7 @@ const Color bottomsheetContainerclr = Color.fromRGBO(49, 49, 49, 1);
 const Color klightgrey = Color.fromARGB(255, 169, 169, 169);
 const Color kwhite = Colors.white;
 const Color kgreen = Colors.green;
+const Color kred = Color.fromARGB(255, 255, 0, 0);
 const Color kblue = Colors.blue;
 const Color neonShade = Color.fromRGBO(6, 199, 172, 1);
 const Color kblack = Colors.black;

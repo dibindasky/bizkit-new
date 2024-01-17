@@ -15,9 +15,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   ContactsBloc({required this.contactsService})
       : super(ContactsState.initial()) {
     on<_GetContactsList>((event, emit) async {
-      if (state.contactList != null && state.contactList!.isNotEmpty) {
-        return;
-      }
+      if (state.contactList != null && state.contactList!.isNotEmpty) return;
       emit(state.copyWith(loading: true, hasError: false));
       final reult = await contactsService.getContactsList();
       reult.fold(

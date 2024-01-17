@@ -6,6 +6,7 @@ const Color bottomsheetContainerclr = Color.fromRGBO(49, 49, 49, 1);
 const Color klightgrey = Color.fromARGB(255, 169, 169, 169);
 const Color kwhite = Colors.white;
 const Color kgreen = Colors.green;
+const Color kred = Color.fromARGB(255, 255, 0, 0);
 const Color kblue = Colors.blue;
 const Color neonShade = Color.fromRGBO(6, 199, 172, 1);
 const Color kblack = Colors.black;
@@ -15,6 +16,14 @@ const Color lightColr = Color.fromRGBO(53, 53, 53, .42);
 
 late double khieght;
 late double kwidth;
+
+void sizeFinder(BuildContext context) {
+  final size = MediaQuery.of(context).size;
+  print(size.height);
+  print(size.width);
+  khieght = size.height > 900 ? 900 : size.height;
+  kwidth = size.width > 450 ? 450 : size.width;
+}
 
 adjustWidth(double width) {
   return SizedBox(

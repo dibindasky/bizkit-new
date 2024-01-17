@@ -1,7 +1,10 @@
+import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/commen/const.dart';
 import 'package:bizkit/application/presentation/splash_screen/splash_screen.dart';
+import 'package:bizkit/domain/core/di/dipendency_injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> main() async {
@@ -9,6 +12,7 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
+  await configuteInjection();
   runApp(const MyApp());
 }
 
@@ -17,23 +21,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    kwidth = MediaQuery.of(context).size.width;
-    khieght = MediaQuery.of(context).size.height;
+    sizeFinder(context);
     return ScreenUtilInit(
-      child: MaterialApp(
-        debugShowMaterialGrid: false,
-        theme: ThemeData(
-          primaryColor: kblack,
-          colorScheme: const ColorScheme.dark(primary: neonShade),
-          scaffoldBackgroundColor: backgroundColour,
-          textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: kwhite,
-                displayColor: kwhite,
-                fontFamily: 'Euclid',
-              ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => getIt<ContactsBloc>(),
+          )
+        ],
+        child: MaterialApp(
+          debugShowMaterialGrid: false,
+          theme: ThemeData(
+            primaryColor: kblack,
+            colorScheme: const ColorScheme.dark(primary: neonShade),
+            scaffoldBackgroundColor: backgroundColour,
+            textTheme: Theme.of(context).textTheme.apply(
+                  bodyColor: kwhite,
+                  displayColor: kwhite,
+                  fontFamily: 'Euclid',
+                ),
+          ),
+          debugShowCheckedModeBanner: false,
+          home: const SplashScreen(),
         ),
-        debugShowCheckedModeBanner: false,
-        home: const SplashScreen(),
       ),
     );
   }

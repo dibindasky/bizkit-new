@@ -16,6 +16,14 @@ const Color lightColr = Color.fromRGBO(53, 53, 53, .42);
 late double khieght;
 late double kwidth;
 
+void sizeFinder(BuildContext context) {
+  final size = MediaQuery.of(context).size;
+  print(size.height);
+  print(size.width);
+  khieght = size.height > 900 ? 900 : size.height;
+  kwidth = size.width > 450 ? 450 : size.width;
+}
+
 adjustWidth(double width) {
   return SizedBox(
     width: width,

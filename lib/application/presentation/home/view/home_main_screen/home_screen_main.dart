@@ -22,7 +22,9 @@ class SplitScreen extends StatefulWidget {
 
 class _SplitScreenState extends State<SplitScreen>
     with TickerProviderStateMixin {
+  // for fade trancition and slide trancition of home screen first part
   late AnimationController _homeFirstAnimationController;
+  // for list animation in home screen first part sliding part
   late AnimationController _homeSecondAnimationController;
   late AnimationController _homeSecondAnimationController2;
   late Animation<Offset> _slideAnimation;

@@ -1,7 +1,6 @@
 import 'package:bizkit/application/commen/const.dart';
 import 'package:bizkit/application/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/selfie_card/widgets/make_bizkit_card_screen.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 class SelfiePreviewScreen extends StatefulWidget {
@@ -12,36 +11,6 @@ class SelfiePreviewScreen extends StatefulWidget {
 }
 
 class _SelfiePreviewScreenState extends State<SelfiePreviewScreen> {
-  late CameraController controller;
-  late List<CameraDescription> cameras;
-  bool hasError=true;
-
-  @override
-  void initState() {
-    super.initState();
-    initilizeCamera();
-  }
-
-  initilizeCamera() async {
-    cameras = await availableCameras();
-    controller = CameraController(cameras[1], ResolutionPreset.max);
-    controller.initialize().then((_) {
-      if (!mounted) {
-        return;
-      }
-      hasError=false;
-      setState(() {});
-    }).catchError((Object e) {
-      if (e is CameraException) {
-        switch (e.code) {
-          case 'CameraAcessDenied':
-            break;
-          default:
-            break;
-        }
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +20,7 @@ class _SelfiePreviewScreenState extends State<SelfiePreviewScreen> {
         height: khieght,
         child: Stack(
           children: [
-            !hasError
-                ? CameraPreview(controller)
-                : const SizedBox(),
+                const SizedBox(),
             Align(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

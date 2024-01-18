@@ -1,5 +1,8 @@
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+<<<<<<< HEAD:lib/application/presentation/screens/create_business_card.dart/view/screens/manuel_entries/profile_creation.dart
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
+=======
+>>>>>>> code:lib/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -100,7 +103,8 @@ class ProfileScreen extends StatelessWidget {
                   adjustHieght(khieght * .05),
                   LastSkipContinueButtons(
                     onTap: () => Navigator.of(context).push(
-                        fadePageRoute(const LinearProgressIndicatorStarting())),
+                      fadePageRoute(const LinearProgressIndicatorStarting()),
+                    ),
                   ),
                 ],
               ),

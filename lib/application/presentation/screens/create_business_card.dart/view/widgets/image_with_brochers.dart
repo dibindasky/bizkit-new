@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImageDetailsScreen extends StatefulWidget {
-  final File image;
+  final File? image;
 
   const ImageDetailsScreen({
     Key? key,
-    required this.image,
+    this.image,
   }) : super(key: key);
 
   @override
@@ -47,10 +47,10 @@ class _ImageDetailsScreenState extends State<ImageDetailsScreen> {
                   SizedBox(
                     width: 270.dm,
                     height: 170.dm,
-                    child: Image.file(
-                      widget.image,
-                      fit: BoxFit.cover,
-                    ),
+                    // child: Image.file(
+                    //   widget.image??'',
+                    //   fit: BoxFit.cover,
+                    // ),
                   ),
                   adjustHieght(khieght * .02),
                   TTextFormField(

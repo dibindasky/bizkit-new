@@ -5,11 +5,7 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personal_detail_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personality.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-<<<<<<< HEAD
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/brocers_and_products.dart';
-=======
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/brocers_and_products.dart';
->>>>>>> code
 import 'package:flutter/material.dart';
 
 class LinearProgressIndicatorStarting extends StatefulWidget {
@@ -76,9 +72,7 @@ class _LinearProgressIndicatorStartingState
                   LogoStory(pageController: _pageController),
                   CompanyStory(pageController: _pageController),
                   Personality(pageController: _pageController),
-                  BrochersAndProducts(
-                    pageController: _pageController,
-                  ),
+                  BrochersAndProducts(),
                 ],
               ),
             ),

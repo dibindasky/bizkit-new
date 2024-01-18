@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen>
           backgroundColor: knill,
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: FadeTransition(
             opacity: animation,
             child: Column(

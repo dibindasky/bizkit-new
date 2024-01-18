@@ -12,7 +12,8 @@ class HomeScreenSecondPart extends StatefulWidget {
   State<HomeScreenSecondPart> createState() => _HomeScreenSecondPartState();
 }
 
-class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> with ChangeNotifier{
+class _HomeScreenSecondPartState extends State<HomeScreenSecondPart>
+    with ChangeNotifier {
   final scrollController = ScrollController();
   @override
   void initState() {

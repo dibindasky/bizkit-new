@@ -4,16 +4,26 @@ import 'package:bizkit/application/commen/const.dart';
 import 'package:bizkit/application/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/card_share/view/widgets/card_sharing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // ignore: must_be_immutable
-class CustomBottomSheet extends StatelessWidget {
-  CustomBottomSheet({
+class CustomBottomSheet extends StatefulWidget {
+  const CustomBottomSheet({
     Key? key,
     required this.image,
   }) : super(key: key);
 
   final String image;
-  final TextEditingController textEditingController = TextEditingController();
+
+  @override
+  State<CustomBottomSheet> createState() => _CustomBottomSheetState();
+}
+
+class _CustomBottomSheetState extends State<CustomBottomSheet> {
+  String name = 'Febin';
+
+  TextEditingController textEditingController = TextEditingController();
+
   File? selectedImage;
 
   @override
@@ -39,7 +49,7 @@ class CustomBottomSheet extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Image.asset(
-                    image,
+                    widget.image,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -145,17 +155,52 @@ class CustomBottomSheet extends StatelessWidget {
             ],
           ),
           adjustHieght(khieght * .03),
-          TTextFormField(
-            text: 'Copy link',
-            controller: textEditingController,
-            inputType: TextInputType.name,
-            suffix: const Icon(
-              Icons.copy,
+          SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: ColoredBox(
+                color: textFieldFillColr,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Copy link',
+                        style: TextStyle(color: klightgrey),
+                      ),
+                      GestureDetector(
+                        onTap: () => _copyToClipboard(name),
+                        child: const Icon(
+                          Icons.copy,
+                          color: klightgrey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  void _copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    const snackBar = SnackBar(
+      duration: Duration(milliseconds: 2000),
+      content: Text(
+        'Link copied to clipboard',
+        style: TextStyle(color: kwhite),
+      ),
+      backgroundColor: neonShade,
+      behavior: SnackBarBehavior.floating,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   Widget shareMethods(String image, {BoxDecoration? decoration, BoxFit? fit}) {
@@ -169,24 +214,4 @@ class CustomBottomSheet extends StatelessWidget {
       ),
     );
   }
-
-  // Future<void> _pickImage(BuildContext context) async {
-  //   try {
-  //     final pickedFile =
-  //         await ImagePicker().pickImage(source: ImageSource.camera);
-  //     if (pickedFile != null) {
-  //       File image = File(pickedFile.path);
-  //       selectedImage = image;
-  //       // ignore: use_build_context_synchronously
-  //       Navigator.push(
-  //         context,
-  //         fadePageRoute(CardSharingScreen(image: image)),
-  //       );
-  //     } else {
-  //       print('No image selected.');
-  //     }
-  //   } catch (e) {
-  //     print('Error picking image: $e');
-  //   }
-  // }
 }

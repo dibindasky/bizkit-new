@@ -1,6 +1,6 @@
-import 'package:bizkit/application/commen/widgets/textform_field.dart';
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/indicator_skip_continue.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
+import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -19,7 +19,6 @@ class PersonlDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Unfocus the text fields when tapping outside
         FocusScopeNode focusScope = FocusScope.of(context);
         if (!focusScope.hasPrimaryFocus) {
           focusScope.unfocus();
@@ -72,7 +71,12 @@ class PersonlDetails extends StatelessWidget {
             inputType: TextInputType.name,
           ),
           adjustHieght(khieght * .05),
-          SkipContinueIndicator(pageController: pageController),
+          LastSkipContinueButtons(
+            onTap: () => pageController.nextPage(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.ease,
+            ),
+          ),
           adjustHieght(khieght * .02),
         ],
       ),

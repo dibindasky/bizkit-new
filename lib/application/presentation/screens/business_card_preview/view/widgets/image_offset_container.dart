@@ -1,5 +1,5 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/home/view/home_second_screen/widgets/pageview_offset_settings.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/pageview_offset_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

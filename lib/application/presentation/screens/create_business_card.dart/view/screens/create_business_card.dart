@@ -1,6 +1,6 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/screens/manuel_entries/card_creation_first.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/manuel_entries/profile_creation.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -26,13 +26,14 @@ class _StartingBusinessCardCreationState
           style: textHeadStyle1,
         ),
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 18,
-            )),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            size: 18,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(

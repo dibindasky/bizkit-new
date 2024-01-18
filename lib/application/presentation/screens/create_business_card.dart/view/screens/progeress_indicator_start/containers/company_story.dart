@@ -1,13 +1,15 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/indicator_skip_continue.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompanyStory extends StatelessWidget {
   const CompanyStory({super.key, required this.pageController});
+
   final PageController pageController;
+
   @override
   Widget build(BuildContext context) {
     return FadeIn(
@@ -36,7 +38,10 @@ class CompanyStory extends StatelessWidget {
                       width: 32.dm,
                       height: 32.dm,
                       child: CircleAvatar(
-                        child: IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.add),
+                        ),
                       ),
                     ),
                     Text(
@@ -56,7 +61,8 @@ class CompanyStory extends StatelessWidget {
           adjustHieght(khieght * .02),
           Container(
             color: textFieldFillColr,
-            child: Hero(tag: 'information',
+            child: Hero(
+              tag: 'information',
               child: TextFormField(
                 maxLines: 13,
                 decoration: InputDecoration(
@@ -77,7 +83,13 @@ class CompanyStory extends StatelessWidget {
             ),
           ),
           adjustHieght(khieght * .04),
-          SkipContinueIndicator(pageController: pageController)
+          LastSkipContinueButtons(
+            onTap: () => pageController.nextPage(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.ease,
+            ),
+          ),
+          //SkipContinueIndicator(pageController: pageController)
         ],
       ),
     );

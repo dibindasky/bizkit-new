@@ -1,6 +1,6 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/home/view/home_main_screen/home_screen_main.dart';
-import 'package:bizkit/application/presentation/home/view/home_second_screen/widgets/pageview_offset_settings.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_main_screen/home_screen_main.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/pageview_offset_settings.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenPageviewAnimatedContaner extends StatefulWidget {
@@ -103,7 +103,8 @@ class _HomeScreenPageviewAnimatedContanerState
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Column(crossAxisAlignment: CrossAxisAlignment.start,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Venue :',
@@ -119,7 +120,8 @@ class _HomeScreenPageviewAnimatedContanerState
                                 ),
                               ],
                             ),
-                            Column(crossAxisAlignment: CrossAxisAlignment.start,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Central mall, Jaynagar',

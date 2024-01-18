@@ -1,6 +1,6 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/card_share/view/widgets/card_sharing.dart';
-import 'package:bizkit/application/presentation/selfie_card/widgets/selfie_preview_screen.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selfie_preview_screen.dart';
 import 'package:flutter/material.dart';
 
 class SelfieScreen extends StatefulWidget {

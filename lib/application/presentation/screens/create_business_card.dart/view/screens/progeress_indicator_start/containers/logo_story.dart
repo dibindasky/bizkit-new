@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:animate_do/animate_do.dart';
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/indicator_skip_continue.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 
 class LogoStory extends StatefulWidget {
   const LogoStory({super.key, required this.pageController});
@@ -21,17 +19,6 @@ class _LogoStoryState extends State<LogoStory> {
   TextEditingController textEditingController = TextEditingController();
 
   File? selectedImage;
-
-  Future<void> _pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        selectedImage = File(pickedFile.path);
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +42,7 @@ class _LogoStoryState extends State<LogoStory> {
             adjustHieght(khieght * .02),
             Center(
               child: InkResponse(
-                onTap: () => _pickImage(),
+                // onTap: () => _pickImage(),
                 child: DottedBorder(
                   dashPattern: const [8, 8],
                   color: neonShade,
@@ -116,7 +103,13 @@ class _LogoStoryState extends State<LogoStory> {
               ),
             ),
             adjustHieght(khieght * .04),
-            SkipContinueIndicator(pageController: widget.pageController),
+            LastSkipContinueButtons(
+              onTap: () => widget.pageController.nextPage(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.ease,
+              ),
+            ),
+            //SkipContinueIndicator(pageController: widget.pageController),
           ],
         ),
       ),

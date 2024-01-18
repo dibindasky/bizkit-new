@@ -1,14 +1,15 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LastSkipContinueButtons extends StatelessWidget {
   const LastSkipContinueButtons({
-    required this.widget,
     super.key,
+    this.onTap,
   });
-  final Widget widget;
+
+  final Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,10 +24,12 @@ class LastSkipContinueButtons extends StatelessWidget {
           ),
           width: 123.dm,
           height: 45.dm,
-          child: const Center(child: Text('Skip')),
+          child: const Center(
+            child: Text('Skip'),
+          ),
         ),
         InkWell(
-          onTap: () => Navigator.of(context).push(fadePageRoute(widget)),
+          onTap: onTap,
           child: Container(
             decoration: const BoxDecoration(
               color: neonShade,

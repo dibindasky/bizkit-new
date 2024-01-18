@@ -1,10 +1,8 @@
-import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class DetailSharingIconWidget extends StatelessWidget {
-  const DetailSharingIconWidget({
-    super.key,required this.image
-  });
+  const DetailSharingIconWidget({super.key, required this.image});
   final String image;
 
   @override

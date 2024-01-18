@@ -1,4 +1,4 @@
-import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/business_sign_in.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/custom_tabbar.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/individuel_signin.dart';

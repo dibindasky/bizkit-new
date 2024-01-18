@@ -1,4 +1,4 @@
-import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:bizkit/application/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/account_settings_scree.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/connection_network_screen.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
@@ -8,7 +8,7 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

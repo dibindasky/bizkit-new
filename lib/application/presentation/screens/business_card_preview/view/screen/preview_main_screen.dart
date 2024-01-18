@@ -1,12 +1,12 @@
-import 'package:bizkit/application/commen/widgets/detail_sharing_icon.dart';
-import 'package:bizkit/application/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/utils/previewscreen_icons/detail_sharing_icon.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/bank_person_achived.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/image_offset_container.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/show_model_items.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 
 class PreviewMainScreen extends StatelessWidget {

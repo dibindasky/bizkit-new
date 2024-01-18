@@ -1,7 +1,9 @@
-import 'package:bizkit/application/commen/widgets/textform_field.dart';
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/screens/manuel_entries/progress_indicator_start.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/manuel_entries/progress_indicator_start.dart';
+import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -23,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios,
-              size: 20,
+              size: 18,
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -31,9 +33,9 @@ class ProfileScreen extends StatelessWidget {
             color: kwhite,
           ),
           backgroundColor: knill,
-          title: const Text(
+          title: Text(
             'Make a Bizkit Card',
-            style: TextStyle(color: kwhite),
+            style: textHeadStyle1,
           ),
         ),
         body: SingleChildScrollView(
@@ -96,8 +98,9 @@ class ProfileScreen extends StatelessWidget {
                     obscureText: false,
                   ),
                   adjustHieght(khieght * .05),
-                  const LastSkipContinueButtons(
-                    widget: LinearProgressIndicatorStarting(),
+                  LastSkipContinueButtons(
+                    onTap: () => Navigator.of(context).push(
+                        fadePageRoute(const LinearProgressIndicatorStarting())),
                   ),
                 ],
               ),

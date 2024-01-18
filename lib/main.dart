@@ -1,6 +1,6 @@
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/splash_screen/splash_screen.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/domain/core/di/dipendency_injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

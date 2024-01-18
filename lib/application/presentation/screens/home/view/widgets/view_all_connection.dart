@@ -1,9 +1,9 @@
 import 'package:alphabet_scroll_view/alphabet_scroll_view.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/commen/snackbar/snackbar.dart';
-import 'package:bizkit/application/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/home/view/widgets/connection_detail_view.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/home/view/widgets/connection_detail_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,9 +100,10 @@ class ViewAllConnections extends StatelessWidget {
               child: BlocConsumer<ContactsBloc, ContactsState>(
                 listener: (context, state) {
                   if (state.hasError || state.message != null) {
-                    showSnackbar(context,
-                        message: state.message!,
-                        );
+                    showSnackbar(
+                      context,
+                      message: state.message!,
+                    );
                   }
                 },
                 builder: (context, state) {

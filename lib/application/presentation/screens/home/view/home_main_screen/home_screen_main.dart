@@ -1,6 +1,6 @@
-import 'package:bizkit/application/presentation/home/view/home_main_screen/widgets/home_screen_first_part.dart';
-import 'package:bizkit/application/presentation/home/view/home_main_screen/widgets/home_screen_second_part.dart';
-import 'package:bizkit/application/presentation/home/view/home_second_screen/second_screen_anime.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_main_screen/widgets/home_screen_first_part.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_main_screen/widgets/home_screen_second_part.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/second_screen_anime.dart';
 import 'package:flutter/material.dart';
 
 // enum and notifier below are used to shift the screens in home page without shifting home bottom bar

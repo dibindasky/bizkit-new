@@ -1,10 +1,10 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/home/view/home_second_screen/widgets/appbar_second_third.dart';
-import 'package:bizkit/application/presentation/home/view/home_second_screen/widgets/pageview_detail_screen.dart';
-import 'package:bizkit/application/presentation/home/view/home_second_screen/widgets/second_animation_list.dart';
-import 'package:bizkit/application/presentation/home/view/home_second_screen/widgets/pageview_animated_containers.dart';
-import 'package:bizkit/application/presentation/home/view/home_second_screen/widgets/tab_buttons_second_animation.dart';
-import 'package:bizkit/application/presentation/home/view/home_second_screen/widgets/test+list.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/appbar_second_third.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/pageview_detail_screen.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/second_animation_list.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/pageview_animated_containers.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/tab_buttons_second_animation.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/test+list.dart';
 import 'package:flutter/material.dart';
 
 //used to shift the tab bar
@@ -141,10 +141,10 @@ class _SecondAnimationState extends State<SecondAnimation>
         ),
       ),
     ];
-    if(!_showFirstScreen){
-      final temp=stackChild[0];
-      stackChild[0]=stackChild[1];
-      stackChild[1]=temp;
+    if (!_showFirstScreen) {
+      final temp = stackChild[0];
+      stackChild[0] = stackChild[1];
+      stackChild[1] = temp;
     }
     return Scaffold(
       appBar: homeAppbarSecondAndThird(

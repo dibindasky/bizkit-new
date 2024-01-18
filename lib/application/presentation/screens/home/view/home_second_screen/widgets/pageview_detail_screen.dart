@@ -1,12 +1,11 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/home/view/home_main_screen/home_screen_main.dart';
-import 'package:bizkit/application/presentation/home/view/home_second_screen/widgets/tabbar_with_containers.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_main_screen/home_screen_main.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/tabbar_with_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
-  const SecondHomeScreenPAgeviewMeetingScreen(
-      {super.key, this.fadeCallBack});
+  const SecondHomeScreenPAgeviewMeetingScreen({super.key, this.fadeCallBack});
 
   final VoidCallback? fadeCallBack;
 
@@ -17,7 +16,9 @@ class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            fadeCallBack!=null?adjustHieght(khieght * .02):adjustHieght(khieght*0.1),
+            fadeCallBack != null
+                ? adjustHieght(khieght * .02)
+                : adjustHieght(khieght * 0.1),
             Stack(
               children: [
                 Container(
@@ -174,7 +175,7 @@ class SecondHomeScreenPAgeviewMeetingScreen extends StatelessWidget {
                         showCardsNotifier.value = HomeScreensList.second;
                         showCardsNotifier.notifyListeners();
                         fadeCallBack!();
-                      }else{
+                      } else {
                         Navigator.pop(context);
                       }
                     },

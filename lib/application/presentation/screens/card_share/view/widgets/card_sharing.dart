@@ -1,7 +1,7 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
-import 'package:bizkit/application/presentation/card_share/view/widgets/level_sharing.dart';
+import 'package:bizkit/application/presentation/screens/card_share/view/widgets/level_sharing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

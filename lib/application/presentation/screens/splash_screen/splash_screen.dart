@@ -1,5 +1,5 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:bizkit/application/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 

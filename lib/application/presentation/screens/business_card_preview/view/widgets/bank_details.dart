@@ -1,5 +1,5 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/business_card_preview/view/widgets/bank_detail_container.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/bank_detail_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

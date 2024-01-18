@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:bizkit/application/commen/widgets/textform_field.dart';
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/indicator_skip_continue.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
+import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -54,13 +54,14 @@ class BusinessDetails extends StatelessWidget {
               text: 'Mobile number',
               controller: textEditingController,
               inputType: TextInputType.name,
-            ),TTextFormField(
+            ),
+            TTextFormField(
               text: 'Social Media Handles',
               controller: textEditingController,
               inputType: TextInputType.name,
               suffix: const Icon(
-              Icons.keyboard_arrow_right,
-            ),
+                Icons.keyboard_arrow_right,
+              ),
             ),
             TTextFormField(
               text: 'Address',
@@ -73,7 +74,13 @@ class BusinessDetails extends StatelessWidget {
               inputType: TextInputType.name,
             ),
             adjustHieght(khieght * .02),
-            SkipContinueIndicator(pageController: pageController),
+            LastSkipContinueButtons(
+              onTap: () => pageController.nextPage(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.ease,
+              ),
+            ),
+            //SkipContinueIndicator(pageController: pageController),
             adjustHieght(khieght * .02),
           ],
         ),

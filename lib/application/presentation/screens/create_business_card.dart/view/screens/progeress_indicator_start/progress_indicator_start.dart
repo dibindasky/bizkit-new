@@ -1,11 +1,11 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/screens/manuel_entries/personal_detail_screen.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/brocers_and_products.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/business_details.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/company_and_bankdetails.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/company_story.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/logo_story.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/widgets/personality.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/manuel_entries/personal_detail_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/brocers_and_products.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/business_details.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/company_and_bankdetails.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/company_story.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/logo_story.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/personality.dart';
 import 'package:flutter/material.dart';
 
 class LinearProgressIndicatorStarting extends StatefulWidget {
@@ -30,7 +30,7 @@ class _LinearProgressIndicatorStartingState
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
-            size: 20,
+            size: 18,
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -38,8 +38,9 @@ class _LinearProgressIndicatorStartingState
           color: kwhite,
         ),
         backgroundColor: knill,
-        title: const Text(
+        title: Text(
           'Make a Bizkit card',
+          style: textHeadStyle1,
         ),
       ),
       body: Padding(
@@ -71,7 +72,7 @@ class _LinearProgressIndicatorStartingState
                   LogoStory(pageController: _pageController),
                   CompanyStory(pageController: _pageController),
                   Personality(pageController: _pageController),
-                  BrochersAndProducts(pageController: _pageController),
+                  BrochersAndProducts(),
                 ],
               ),
             ),

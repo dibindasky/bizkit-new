@@ -1,8 +1,8 @@
-import 'package:bizkit/application/commen/const.dart';
-import 'package:bizkit/application/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/card_share/view/widgets/card_sharing.dart';
-import 'package:bizkit/application/presentation/create_business_card.dart/view/screens/create_business_card.dart';
-import 'package:bizkit/application/presentation/home/view/widgets/view_all_connection.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
+import 'package:bizkit/application/presentation/screens/home/view/widgets/view_all_connection.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenFirstPart extends StatelessWidget {
@@ -136,7 +136,7 @@ class HomeScreenFirstPart extends StatelessWidget {
                   Text('My connections', style: textHeadStyle1),
                   GestureDetector(
                     onTap: () => Navigator.of(context).push(
-                      fadePageRoute(ViewAllConnections()),
+                      fadePageRoute(const ViewAllConnections()),
                     ),
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(8)),

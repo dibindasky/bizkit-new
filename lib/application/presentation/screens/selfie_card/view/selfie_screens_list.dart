@@ -1,4 +1,4 @@
-import 'package:bizkit/application/presentation/selfie_card/widgets/selfie_screen.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selfie_screen.dart';
 import 'package:flutter/material.dart';
 
 class SelfieScreensList extends StatefulWidget {

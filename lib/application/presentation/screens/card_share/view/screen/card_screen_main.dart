@@ -1,7 +1,7 @@
-import 'package:bizkit/application/presentation/card_share/view/widgets/custom_bottom_sheet.dart';
+import 'package:bizkit/application/presentation/screens/card_share/view/widgets/custom_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 
 class CardShareMainScreen extends StatefulWidget {
   const CardShareMainScreen({super.key});

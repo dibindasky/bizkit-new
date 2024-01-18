@@ -1,4 +1,4 @@
-import 'package:bizkit/application/commen/const.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 void showSnackbar(BuildContext context,
@@ -11,6 +11,6 @@ void showSnackbar(BuildContext context,
       style: textStyle1.copyWith(color: textColor),
     ),
     backgroundColor: backgroundColor,
-    duration:const Duration(seconds: 2),
+    duration: const Duration(seconds: 2),
   ));
 }

@@ -1,11 +1,11 @@
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/business_details.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/company_and_bankdetails.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/company_story.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/logo_story.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personal_detail_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personality.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/manuel_entries/personal_detail_screen.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/brocers_and_products.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/business_details.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/company_and_bankdetails.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/company_story.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/logo_story.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/personality.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/brocers_and_products.dart';
 import 'package:flutter/material.dart';
 
 class LinearProgressIndicatorStarting extends StatefulWidget {

@@ -3,12 +3,16 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/screen/preview_main_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/image_with_brochers.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
+
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:image_picker/image_picker.dart';
 
+// ignore: must_be_immutable
 class BrochersAndProducts extends StatelessWidget {
   BrochersAndProducts({
     Key? key,
@@ -39,7 +43,16 @@ class BrochersAndProducts extends StatelessWidget {
           Center(
             child: InkWell(
               onTap: () async {
-                //await _pickImage(context);
+                await _pickImage(context);
+                if (selectedImage != null) {
+                  // ignore: use_build_context_synchronously
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ImageDetailsScreen(),
+                    ),
+                  );
+                }
               },
               child: DottedBorder(
                 dashPattern: const [8, 8],
@@ -74,9 +87,25 @@ class BrochersAndProducts extends StatelessWidget {
             onTap: () => Navigator.of(context).push(
               fadePageRoute(const PreviewMainScreen()),
             ),
-          ),
+          )
         ],
       ),
     );
+  }
+
+  Future<void> _pickImage(BuildContext context) async {
+    try {
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        File image = File(pickedFile.path);
+        selectedImage = image;
+        // ignore: use_build_context_synchronously
+      } else {
+        print('No image selected.');
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
   }
 }

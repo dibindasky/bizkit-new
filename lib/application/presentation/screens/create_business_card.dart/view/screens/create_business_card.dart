@@ -1,3 +1,4 @@
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/card_scanning_showdialogue/card_uploading_showdailogue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
@@ -45,11 +46,14 @@ class _StartingBusinessCardCreationState
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    DottedBorder(
-                      dashPattern: const [8, 8],
-                      color: neonShade,
-                      strokeWidth: 2.5,
-                      child: GestureDetector(
+                    GestureDetector(
+                      onTap: () {
+                        cardscanimagesSelectingDailogue(context);
+                      },
+                      child: DottedBorder(
+                        dashPattern: const [8, 8],
+                        color: neonShade,
+                        strokeWidth: 2.5,
                         child: SizedBox(
                           width: kwidth * 0.8,
                           height: kwidth * 0.5,
@@ -61,8 +65,9 @@ class _StartingBusinessCardCreationState
                                 height: 32.dm,
                                 child: CircleAvatar(
                                   child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.add)),
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.add),
+                                  ),
                                 ),
                               ),
                               Text(
@@ -76,7 +81,7 @@ class _StartingBusinessCardCreationState
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).push(
-                        fadePageRoute(ProfileScreen()),
+                        fadePageRoute(const ProfileScreen()),
                       ),
                       child: Text(
                         'Create Card manually',

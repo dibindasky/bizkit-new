@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class TTextFormField extends StatelessWidget {
   final String text;
-  final TextEditingController controller;
-  final TextInputType inputType;
+  final TextEditingController? controller;
+  final TextInputType? inputType;
   final bool obscureText;
   final VoidCallback? function;
   final int? maxlegth;
@@ -22,8 +22,8 @@ class TTextFormField extends StatelessWidget {
     required this.text,
     this.su,
     this.suffix,
-    required this.controller,
-    required this.inputType,
+    this.controller,
+    this.inputType,
     this.obscureText = false,
     this.maxlegth,
     this.height,
@@ -82,7 +82,7 @@ class TTextFormField extends StatelessWidget {
           },
           obscureText: obscureText,
           controller: controller,
-          keyboardType: inputType,
+          keyboardType: inputType ?? TextInputType.name,
           decoration: InputDecoration(
             suffixIcon: suffix,
             suffixIconColor: klightgrey,
@@ -121,5 +121,146 @@ class TTextFormField extends StatelessWidget {
     final passwordRegExp =
         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
     return passwordRegExp.hasMatch(value);
+  }
+}
+
+class AutocompleteTextField extends StatefulWidget {
+  final String label;
+  final TextEditingController? controller;
+  final TextInputType? inputType;
+  final bool obscureText;
+  final int? maxLength;
+  final int? maxLines;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final Color? hintColor;
+  final Function(String)? onChanged;
+  final VoidCallback? onTap;
+  final FocusNode? focusNode;
+  final List<String>? autocompleteItems;
+
+  const AutocompleteTextField({
+    Key? key,
+    required this.label,
+    this.controller,
+    this.inputType,
+    this.obscureText = false,
+    this.maxLength,
+    this.maxLines,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.hintColor,
+    this.onChanged,
+    this.onTap,
+    this.focusNode,
+    this.autocompleteItems,
+  }) : super(key: key);
+
+  @override
+  _AutocompleteTextFieldState createState() => _AutocompleteTextFieldState();
+}
+
+class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
+  List<String> filteredAutocompleteItems = [];
+  bool isDropdownVisible = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Material(
+        elevation: 3,
+        color: textFieldFillColr,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextFormField(
+              focusNode: widget.focusNode,
+              onTap: () {
+                if (widget.autocompleteItems!.isNotEmpty) {
+                  setState(() {
+                    isDropdownVisible = !isDropdownVisible;
+                  });
+                  widget.onTap?.call();
+                }
+              },
+              maxLines: widget.maxLines ?? 1,
+              style: TextStyle(
+                color: kwhite,
+                fontSize: kwidth * 0.033,
+              ),
+              maxLength: widget.maxLength,
+              onChanged: (value) {
+                setState(() {
+                  print('onChangeds etState $filteredAutocompleteItems');
+                  filteredAutocompleteItems = value.isEmpty
+                      ? []
+                      : widget.autocompleteItems
+                              ?.where((item) => item
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()))
+                              .toList() ??
+                          [];
+                });
+
+                if (widget.onChanged != null) {
+                  widget.onChanged!(value);
+                }
+              },
+              obscureText: widget.obscureText,
+              controller: widget.controller,
+              keyboardType: widget.inputType ?? TextInputType.name,
+              decoration: InputDecoration(
+                suffixIcon: widget.suffixIcon,
+                suffixIconColor: klightgrey,
+                prefixIcon: widget.prefixIcon,
+                prefixIconColor: kwhite,
+                fillColor: textFieldFillColr,
+                filled: true,
+                hintText: widget.label,
+                hintStyle: custumText(
+                  colr: widget.hintColor ?? klightgrey,
+                ),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(7),
+                  borderSide: const BorderSide(
+                    color: kwhite,
+                  ),
+                ),
+              ),
+            ),
+            if (isDropdownVisible && filteredAutocompleteItems.isNotEmpty)
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: filteredAutocompleteItems.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(filteredAutocompleteItems[index]),
+                      onTap: () {
+                        setState(() {
+                          widget.controller?.text =
+                              filteredAutocompleteItems[index];
+                          filteredAutocompleteItems = [];
+                        });
+                      },
+                    );
+                  },
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }

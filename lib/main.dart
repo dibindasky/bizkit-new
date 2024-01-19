@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/card_creation/card_screation_bloc.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
@@ -21,13 +22,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    sizeFinder(context);
+    print('Main');
+
+    final size = MediaQuery.of(context).size;
+    print(size.height);
+    print(size.width);
+    khieght = size.height;
+    kwidth = size.width;
+
     return ScreenUtilInit(
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => getIt<ContactsBloc>(),
-          )
+          BlocProvider(create: (context) => getIt<ContactsBloc>()),
+          BlocProvider(create: (context) => CardScreationBloc()),
         ],
         child: MaterialApp(
           debugShowMaterialGrid: false,

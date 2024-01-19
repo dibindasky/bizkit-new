@@ -1,18 +1,46 @@
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-<<<<<<< HEAD:lib/application/presentation/screens/create_business_card.dart/view/screens/manuel_entries/profile_creation.dart
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
-=======
->>>>>>> code:lib/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
-  ProfileScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController technolegyController = TextEditingController();
+  final TextEditingController companylController = TextEditingController();
+
+  String selectedValue = '';
+
+  List<String> names = ['Febin', 'sebin', 'Jibin', 'ranjith'];
+  List<String> numbers = [
+    '7563367457',
+    '9846327537',
+    '976375374',
+    '7253874137',
+    '062633'
+  ];
+  List<String> emailsdatas = [
+    'An@gmail.com',
+    'supriya@gmail.com',
+    'An@gmail.com',
+    'An@gmail.com'
+  ];
+
+  List<String> technolegydatas = ['Developent', 'Creativity', 'Social media'];
+  List<String> companydatas = ['Zikrabyte', 'Zicky', 'TCS', 'TATA'];
+
+  bool isVisibility = false;
+  List<String> filteredDropdownItems = [];
 
   @override
   Widget build(BuildContext context) {
@@ -70,35 +98,35 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                   adjustHieght(khieght * .04),
-                  TTextFormField(
-                    text: 'Name',
+                  AutocompleteTextField(
+                    label: 'Name',
                     controller: nameController,
-                    inputType: TextInputType.emailAddress,
-                    obscureText: false,
+                    inputType: TextInputType.text,
+                    autocompleteItems: names,
                   ),
-                  TTextFormField(
-                    text: 'Email ID',
-                    controller: nameController,
-                    inputType: TextInputType.emailAddress,
-                    obscureText: false,
+                  AutocompleteTextField(
+                    label: 'Phone number',
+                    controller: phoneController,
+                    inputType: TextInputType.number,
+                    autocompleteItems: numbers,
                   ),
-                  TTextFormField(
-                    text: 'Phone number',
-                    controller: nameController,
-                    inputType: TextInputType.emailAddress,
-                    obscureText: false,
+                  AutocompleteTextField(
+                    label: 'Email',
+                    controller: emailController,
+                    inputType: TextInputType.number,
+                    autocompleteItems: emailsdatas,
                   ),
-                  TTextFormField(
-                    text: 'Technolegy',
-                    controller: nameController,
-                    inputType: TextInputType.emailAddress,
-                    obscureText: false,
+                  AutocompleteTextField(
+                    label: 'Technolegy',
+                    controller: technolegyController,
+                    inputType: TextInputType.number,
+                    autocompleteItems: technolegydatas,
                   ),
-                  TTextFormField(
-                    text: 'Campany',
-                    controller: nameController,
-                    inputType: TextInputType.emailAddress,
-                    obscureText: false,
+                  AutocompleteTextField(
+                    label: 'Company',
+                    controller: companylController,
+                    inputType: TextInputType.number,
+                    autocompleteItems: companydatas,
                   ),
                   adjustHieght(khieght * .05),
                   LastSkipContinueButtons(
@@ -106,6 +134,7 @@ class ProfileScreen extends StatelessWidget {
                       fadePageRoute(const LinearProgressIndicatorStarting()),
                     ),
                   ),
+                  adjustHieght(khieght * .02),
                 ],
               ),
             ),
@@ -115,3 +144,72 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
+// class DropdownWidget extends StatefulWidget {
+//   final List<String> items;
+//   final TextEditingController controller;
+//   final Function(String) onChanged;
+
+//   const DropdownWidget({
+//     super.key,
+//     required this.items,
+//     required this.controller,
+//     required this.onChanged,
+//   });
+
+//   @override
+//   _DropdownWidgetState createState() => _DropdownWidgetState();
+// }
+
+// class _DropdownWidgetState extends State<DropdownWidget> {
+//   bool isDropdownVisible = false;
+//   List<String> filteredItems = [];
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     filteredItems = widget.items;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         if (widget.items.isNotEmpty) {
+//           setState(() {
+//             isDropdownVisible = !isDropdownVisible;
+//           });
+//         }
+//       },
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.stretch,
+//         children: [
+//           Container(
+//             margin: const EdgeInsets.only(top: 8),
+//             padding: const EdgeInsets.all(8),
+//             decoration: BoxDecoration(
+//               border: Border.all(color: Colors.grey),
+//               borderRadius: BorderRadius.circular(8),
+//             ),
+//             child: ListView.builder(
+//               shrinkWrap: true,
+//               itemCount: filteredItems.length,
+//               itemBuilder: (context, index) {
+//                 return ListTile(
+//                   title: Text(filteredItems[index]),
+//                   onTap: () {
+//                     setState(() {
+//                       widget.controller.text = filteredItems[index];
+//                       isDropdownVisible = false;
+//                     });
+//                     widget.onChanged(filteredItems[index]);
+//                   },
+//                 );
+//               },
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

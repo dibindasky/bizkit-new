@@ -1,9 +1,8 @@
-import 'dart:io';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
+import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // ignore: must_be_immutable
 class CustomBottomSheet extends StatefulWidget {
@@ -19,11 +18,7 @@ class CustomBottomSheet extends StatefulWidget {
 }
 
 class _CustomBottomSheetState extends State<CustomBottomSheet> {
-  String name = 'Febin';
-
   TextEditingController textEditingController = TextEditingController();
-
-  File? selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +166,10 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                         style: TextStyle(color: klightgrey),
                       ),
                       GestureDetector(
-                        onTap: () => _copyToClipboard(name),
+                        onTap: () => copyToClipboard(
+                          text: 'Link',
+                          context: context,
+                        ),
                         child: const Icon(
                           Icons.copy,
                           color: klightgrey,
@@ -186,20 +184,6 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
         ],
       ),
     );
-  }
-
-  void _copyToClipboard(String text) {
-    Clipboard.setData(ClipboardData(text: text));
-    const snackBar = SnackBar(
-      duration: Duration(milliseconds: 2000),
-      content: Text(
-        'Link copied to clipboard',
-        style: TextStyle(color: kwhite),
-      ),
-      backgroundColor: neonShade,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   Widget shareMethods(String image, {BoxDecoration? decoration, BoxFit? fit}) {

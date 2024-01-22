@@ -23,10 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('Main');
-
     final size = MediaQuery.of(context).size;
-    print(size.height);
-    print(size.width);
     khieght = size.height;
     kwidth = size.width;
 
@@ -34,7 +31,7 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => getIt<ContactsBloc>()),
-          BlocProvider(create: (context) => CardScreationBloc()),
+          BlocProvider(create: (context) => getIt<CardScreationBloc>()),
         ],
         child: MaterialApp(
           debugShowMaterialGrid: false,

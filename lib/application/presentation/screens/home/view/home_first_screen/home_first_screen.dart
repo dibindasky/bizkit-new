@@ -1,6 +1,6 @@
-import 'package:bizkit/application/presentation/screens/home/view/home_main_screen/widgets/home_screen_first_part.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_main_screen/widgets/home_screen_second_part.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/second_screen_anime.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_screen_first_part.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_screen_second_part.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
 import 'package:flutter/material.dart';
 
 // enum and notifier below are used to shift the screens in home page without shifting home bottom bar
@@ -13,14 +13,16 @@ enum HomeScreensList {
 ValueNotifier<HomeScreensList> showCardsNotifier =
     ValueNotifier(HomeScreensList.first);
 
-class SplitScreen extends StatefulWidget {
-  const SplitScreen({super.key});
+class HomeScreenFirstAnimationScreen extends StatefulWidget {
+  const HomeScreenFirstAnimationScreen({super.key});
 
   @override
-  State<SplitScreen> createState() => _SplitScreenState();
+  State<HomeScreenFirstAnimationScreen> createState() =>
+      _HomeScreenFirstAnimationScreenState();
 }
 
-class _SplitScreenState extends State<SplitScreen>
+class _HomeScreenFirstAnimationScreenState
+    extends State<HomeScreenFirstAnimationScreen>
     with TickerProviderStateMixin {
   // for fade trancition and slide trancition of home screen first part
   late AnimationController _homeFirstAnimationController;
@@ -79,7 +81,6 @@ class _SplitScreenState extends State<SplitScreen>
       ),
     );
 
-    //fade the first half while scroll
     _fadeAnimation =
         Tween<double>(begin: 1, end: 0).animate(_homeFirstAnimationController);
   }
@@ -129,7 +130,8 @@ class _SplitScreenState extends State<SplitScreen>
                               opacity: _fadeAnimation,
                               child: SlideTransition(
                                 position: _slideAnimation,
-                                child: const HomeScreenFirstPart(),
+                                child: const HomeFirstMainScreen(),
+                                //Here The starting Page of main Screen
                               ),
                             );
                           },
@@ -146,16 +148,17 @@ class _SplitScreenState extends State<SplitScreen>
                                 child: SlideTransition(
                                   position: _slideAnimation2,
                                   child: HomeScreenSecondPart(
-                                      animationController: [
-                                        _homeFirstAnimationController,
-                                        _homeSecondAnimationController,
-                                        _homeSecondAnimationController2
-                                      ]),
+                                    animationController: [
+                                      _homeFirstAnimationController,
+                                      _homeSecondAnimationController,
+                                      _homeSecondAnimationController2
+                                    ],
+                                  ),
                                 ),
                               );
                             },
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

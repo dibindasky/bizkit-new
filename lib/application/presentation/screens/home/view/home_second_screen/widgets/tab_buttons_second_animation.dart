@@ -1,5 +1,5 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/second_screen_anime.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
 import 'package:flutter/material.dart';
 
 class TabButtonsSecondAnimation extends StatefulWidget {

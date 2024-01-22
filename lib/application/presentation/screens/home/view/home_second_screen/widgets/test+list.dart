@@ -92,7 +92,7 @@ class _TestSecondAnimationPageListViewState
       child: Row(
         children: [
           Container(
-            width: kwidth * 0.25,
+            width: kwidth * 0.23,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
@@ -124,11 +124,11 @@ class _TestSecondAnimationPageListViewState
           ),
           const Spacer(),
           const CircleAvatar(
-            radius: 15,
+            radius: 13,
             backgroundColor: neonShade,
             child: Icon(
               Icons.keyboard_arrow_right,
-              size: 25,
+              size: 23,
               color: kblack,
             ),
           ),

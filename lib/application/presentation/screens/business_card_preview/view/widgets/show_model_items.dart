@@ -1,11 +1,17 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ModelSheetItems extends StatelessWidget {
-  const ModelSheetItems({
+class PreviewScreenRowIconsModelSheetItems extends StatelessWidget {
+  const PreviewScreenRowIconsModelSheetItems({
     super.key,
+    required this.isPhone,
+    this.items,
   });
+
+  final List<String>? items;
+  final bool isPhone;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +38,9 @@ class ModelSheetItems extends StatelessWidget {
           ),
           adjustHieght(khieght * .03),
           SizedBox(
-            height: 250,
+            height: 270,
             child: ListView.builder(
-              itemCount: 5,
+              itemCount: items?.length ?? 4,
               itemBuilder: (context, index) {
                 return Container(
                   height: 70,
@@ -48,27 +54,36 @@ class ModelSheetItems extends StatelessWidget {
                   child: Row(
                     children: [
                       adjustWidth(kwidth * .03),
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text('Mobile number'),
-                          Text('+91 0000 0000 00'),
+                          Text(isPhone ? 'Mobile number' : 'Facebook'),
+                          Text(isPhone
+                              ? '+91 0000 0000 00'
+                              : 'www.facebook.com/....'),
                         ],
                       ),
                       const Spacer(),
-                      const CircleAvatar(
-                        backgroundColor: textFieldFillColr,
-                        radius: 10,
-                        backgroundImage:
-                            AssetImage('asset/images/copy number image.png'),
+                      InkWell(
+                        onTap: () => copyToClipboard(
+                            text: '+91 000000000', context: context),
+                        child: const CircleAvatar(
+                          backgroundColor: textFieldFillColr,
+                          radius: 10,
+                          backgroundImage:
+                              AssetImage('asset/images/copy number image.png'),
+                        ),
                       ),
                       adjustWidth(kwidth * .08),
-                      const CircleAvatar(
+                      CircleAvatar(
                         backgroundColor: textFieldFillColr,
                         radius: 10,
-                        backgroundImage:
-                            AssetImage('asset/images/phone image.png'),
+                        backgroundImage: AssetImage(
+                          isPhone
+                              ? 'asset/images/phone image.png'
+                              : 'asset/images/accoutn share_icon copy.png',
+                        ),
                       ),
                       adjustWidth(kwidth * .04),
                     ],

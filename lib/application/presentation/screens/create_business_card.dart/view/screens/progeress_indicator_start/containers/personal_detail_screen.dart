@@ -47,10 +47,17 @@ class PersonlDetails extends StatelessWidget {
             controller: birthDaycontroller,
             inputType: TextInputType.name,
           ),
-          TTextFormField(
-            text: 'Accolades',
-            controller: accoladesController,
-            inputType: TextInputType.name,
+          Container(
+            margin: const EdgeInsets.only(left: 12),
+            height: 48.0,
+            color: textFieldFillColr,
+            child: const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Accolades',
+                style: TextStyle(color: klightgrey),
+              ),
+            ),
           ),
           TTextFormField(
             text: 'Dates To Remember',

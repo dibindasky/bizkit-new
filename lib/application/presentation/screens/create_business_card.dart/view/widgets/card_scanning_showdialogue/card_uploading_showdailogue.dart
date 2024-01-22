@@ -15,7 +15,7 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
             context
                 .read<CardScreationBloc>()
                 .add(CardScreationEvent.pickImage(camera: false));
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => const PickCardsScreen(),
             ));
           },
@@ -32,7 +32,7 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
             context
                 .read<CardScreationBloc>()
                 .add(CardScreationEvent.pickImage(camera: true));
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => const PickCardsScreen(),
             ));
           },
@@ -43,7 +43,7 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
           child: const Text('Camera'),
         )
       ],
-      title: const Text('Select Source'),
+      title: const Text('Create scanning images'),
     ),
   );
 }

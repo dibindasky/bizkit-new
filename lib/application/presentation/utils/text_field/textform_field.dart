@@ -179,7 +179,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
               onTap: () {
                 if (widget.autocompleteItems!.isNotEmpty) {
                   setState(() {
-                    isDropdownVisible = !isDropdownVisible;
+                    isDropdownVisible = true;
                   });
                   widget.onTap?.call();
                 }
@@ -192,7 +192,6 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
               maxLength: widget.maxLength,
               onChanged: (value) {
                 setState(() {
-                  print('onChangeds etState $filteredAutocompleteItems');
                   filteredAutocompleteItems = value.isEmpty
                       ? []
                       : widget.autocompleteItems
@@ -241,21 +240,27 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: filteredAutocompleteItems.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(filteredAutocompleteItems[index]),
-                      onTap: () {
-                        setState(() {
-                          widget.controller?.text =
-                              filteredAutocompleteItems[index];
-                          filteredAutocompleteItems = [];
-                        });
-                      },
-                    );
-                  },
+                child: SizedBox(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: filteredAutocompleteItems.length,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        height: 50,
+                        child: ListTile(
+                          title: Text(filteredAutocompleteItems[index]),
+                          onTap: () {
+                            setState(() {
+                              widget.controller?.text =
+                                  filteredAutocompleteItems[index];
+                              filteredAutocompleteItems = [];
+                            });
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
           ],

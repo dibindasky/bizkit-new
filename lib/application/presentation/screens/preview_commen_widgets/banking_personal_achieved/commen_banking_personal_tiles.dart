@@ -2,8 +2,12 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BankItemWidget extends StatelessWidget {
-  const BankItemWidget({super.key, required this.first, required this.second});
+class CommenbankingPersnalTiles extends StatelessWidget {
+  const CommenbankingPersnalTiles({
+    super.key,
+    required this.first,
+    required this.second,
+  });
 
   final String first;
   final String second;

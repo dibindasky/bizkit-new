@@ -5,19 +5,21 @@ import 'package:bizkit/application/presentation/screens/authentication/view/widg
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ImageDetailsScreen extends StatefulWidget {
+class AddBrchersAndPrductsScreen extends StatefulWidget {
   final File? image;
 
-  const ImageDetailsScreen({
+  const AddBrchersAndPrductsScreen({
     Key? key,
     this.image,
   }) : super(key: key);
 
   @override
-  State<ImageDetailsScreen> createState() => _ImageDetailsScreenState();
+  State<AddBrchersAndPrductsScreen> createState() =>
+      _AddBrchersAndPrductsScreenState();
 }
 
-class _ImageDetailsScreenState extends State<ImageDetailsScreen> {
+class _AddBrchersAndPrductsScreenState
+    extends State<AddBrchersAndPrductsScreen> {
   TextEditingController textEditingController = TextEditingController();
 
   String selectedOption = '';
@@ -34,7 +36,7 @@ class _ImageDetailsScreenState extends State<ImageDetailsScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: knill,
           title: const Text('Add Product / Brochure'),
         ),
         body: SingleChildScrollView(

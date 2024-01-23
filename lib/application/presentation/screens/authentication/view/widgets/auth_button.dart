@@ -7,10 +7,13 @@ class AuthButton extends StatelessWidget {
     required this.text,
     required this.onTap,
     this.wdth,
+    this.hieght,
   });
+
   final String text;
   final VoidCallback onTap;
   final double? wdth;
+  final double? hieght;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class AuthButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: wdth ?? 150,
-        height: 45,
+        height: hieght ?? 45,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
             Radius.circular(9),

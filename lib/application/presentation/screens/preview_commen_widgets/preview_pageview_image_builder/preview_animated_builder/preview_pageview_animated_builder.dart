@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 typedef ChildBuilder = Widget Function(int index, BuildContext context);
 typedef OnPageCallBack = void Function(int index);
 
-class AnimatedWidget extends StatelessWidget {
-  const AnimatedWidget({
+class PreviewAnimatedBuilder extends StatelessWidget {
+  const PreviewAnimatedBuilder({
     Key? key,
     required this.pageController,
     required this.pageValue,

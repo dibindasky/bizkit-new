@@ -2,8 +2,8 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class AddReminderScreen extends StatelessWidget {
-  AddReminderScreen({super.key});
+class PreviewHomeAddReminderScreen extends StatelessWidget {
+  PreviewHomeAddReminderScreen({super.key});
 
   final dateController = TextEditingController();
 
@@ -56,9 +56,10 @@ class AddReminderScreen extends StatelessWidget {
                     Text(
                       'Message',
                       style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: klightgrey,
-                          fontSize: kwidth * 0.04),
+                        fontWeight: FontWeight.w500,
+                        color: klightgrey,
+                        fontSize: kwidth * 0.04,
+                      ),
                     ),
                     TextField(
                       controller: TextEditingController(),
@@ -66,7 +67,9 @@ class AddReminderScreen extends StatelessWidget {
                         border: InputBorder.none,
                         hintText: 'Write here',
                         hintStyle: TextStyle(
-                            color: klightgrey, fontSize: kwidth * 0.03),
+                          color: klightgrey,
+                          fontSize: kwidth * 0.03,
+                        ),
                       ),
                     ),
                   ],
@@ -85,9 +88,13 @@ class AddReminderScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Select the Date',
-                        style: TextStyle(
-                            color: klightgrey, fontSize: kwidth * 0.03)),
+                    Text(
+                      'Select the Date',
+                      style: TextStyle(
+                        color: klightgrey,
+                        fontSize: kwidth * 0.03,
+                      ),
+                    ),
                     const Icon(
                       Icons.calendar_month_outlined,
                       color: neonShade,
@@ -102,12 +109,13 @@ class AddReminderScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       CalendarDatePicker(
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime.now().add(
-                            const Duration(days: 365 * 100),
-                          ),
-                          onDateChanged: (date) {}),
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime.now().add(
+                          const Duration(days: 365 * 100),
+                        ),
+                        onDateChanged: (date) {},
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -120,7 +128,7 @@ class AddReminderScreen extends StatelessWidget {
                             child: const Text('ok'),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -130,25 +138,34 @@ class AddReminderScreen extends StatelessWidget {
                 children: [
                   adjustWidth(kwidth * 0.30),
                   Expanded(
-                      child: Container(
-                    height: kwidth * 0.1,
-                    decoration: BoxDecoration(
+                    child: Container(
+                      height: kwidth * 0.1,
+                      decoration: BoxDecoration(
                         border: Border.all(color: neonShade),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8))),
-                    child: const Center(child: Text('Cancel')),
-                  )),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                      ),
+                      child: const Center(child: Text('Cancel')),
+                    ),
+                  ),
                   adjustWidth(kwidth * 0.10),
                   Expanded(
-                      child: Container(
-                    height: kwidth * 0.1,
-                    decoration: const BoxDecoration(
+                    child: Container(
+                      height: kwidth * 0.1,
+                      decoration: const BoxDecoration(
                         color: textFieldFillColr,
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: const Center(child: Text('Save & Notify')),
-                  ))
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                      ),
+                      child: const Center(
+                        child: Text('Save & Notify'),
+                      ),
+                    ),
+                  )
                 ],
-              )
+              ),
             ],
           ),
         ),

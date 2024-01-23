@@ -29,9 +29,9 @@ class _HomeScreenSecondPartState extends State<HomeScreenSecondPart>
         showCardsNotifier.value = HomeScreensList.second;
         showCardsNotifier.notifyListeners();
       });
-      widget.animationController[1]
-          .forward()
-          .whenComplete(() => widget.animationController[2].forward());
+      widget.animationController[1].forward().whenComplete(
+            () => widget.animationController[2].forward(),
+          );
     }
   }
 
@@ -40,13 +40,9 @@ class _HomeScreenSecondPartState extends State<HomeScreenSecondPart>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text('Reminders', style: textHeadStyle1),
-            ],
-          ),
+          Text('Reminders', style: textHeadStyle1),
           adjustHieght(kwidth * .035),
           Expanded(
             child: SecondAnimationPageListView(

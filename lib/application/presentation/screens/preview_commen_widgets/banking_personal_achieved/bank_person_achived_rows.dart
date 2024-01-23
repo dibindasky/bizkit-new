@@ -1,3 +1,4 @@
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personal_detail_screen/accolades/add_accolades.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/achieved_screen.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/banking_and_presonal_screens.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -5,8 +6,8 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BankPersonAchivedRows extends StatelessWidget {
-  const BankPersonAchivedRows({
+class PreviewBankPersonAchivedRows extends StatelessWidget {
+  const PreviewBankPersonAchivedRows({
     super.key,
   });
 
@@ -48,8 +49,9 @@ class BankPersonAchivedRows extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 5, right: 7),
             child: InkWell(
-              onTap: () => Navigator.of(context)
-                  .push(fadePageRoute(const AchievedScreen())),
+              onTap: () => Navigator.of(context).push(
+                fadePageRoute(const AccolodesScreen()),
+              ),
               child: containerStyle(third, 'Achieved'),
             ),
           ),

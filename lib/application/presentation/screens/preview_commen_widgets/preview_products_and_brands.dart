@@ -30,6 +30,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
               width: double.infinity,
               height: kwidth * .2,
               child: ListView.separated(
+                shrinkWrap: true,
                 separatorBuilder: (context, index) => adjustWidth(
                   kwidth * .01,
                 ),

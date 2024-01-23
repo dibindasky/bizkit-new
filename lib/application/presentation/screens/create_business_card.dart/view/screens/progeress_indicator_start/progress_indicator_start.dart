@@ -2,10 +2,11 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/company_and_bankdetails.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/company_story.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/logo_story.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personal_detail_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personal_detail_screen/personal_detail_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personality.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/brocers_and_products.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personal_detail_screen/brochers_and_products/brocers_and_products.dart';
 import 'package:flutter/material.dart';
 
 class LinearProgressIndicatorStarting extends StatefulWidget {
@@ -26,21 +27,10 @@ class _LinearProgressIndicatorStartingState
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 18,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          color: kwhite,
-        ),
-        backgroundColor: knill,
-        title: Text(
-          'Make a Bizkit card',
-          style: textHeadStyle1,
+      appBar: PreferredSize(
+        preferredSize: Size(kwidth, 70),
+        child: const CardCreationBusinessCardAppbar(
+          tittle: 'Make a Bizkit Card',
         ),
       ),
       body: Padding(
@@ -72,7 +62,7 @@ class _LinearProgressIndicatorStartingState
                   LogoStory(pageController: _pageController),
                   CompanyStory(pageController: _pageController),
                   Personality(pageController: _pageController),
-                  BrochersAndProducts(),
+                  const BrochersAndProductsScreen()
                 ],
               ),
             ),

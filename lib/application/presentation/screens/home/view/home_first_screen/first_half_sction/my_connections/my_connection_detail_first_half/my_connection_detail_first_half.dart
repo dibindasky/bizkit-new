@@ -1,15 +1,18 @@
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_second_half_setions/my_connection_detail_second_half_first.dart';
+import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/image_offset_container.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/add_tag/add_tag_screen.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/add_tag/add_tag_screen.dart';
 import 'package:flutter/material.dart';
 
-enum Changing { first, second }
+enum Changing {
+  first,
+  second,
+}
 
 ValueNotifier changeScreenNotifier = ValueNotifier(Changing.first);
 
-class ListTileDetailView extends StatelessWidget {
-  const ListTileDetailView({super.key, this.name});
+class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
+  const HomeFirstViewAllContactTileDetailView({super.key, this.name});
   final String? name;
   @override
   Widget build(BuildContext context) {
@@ -30,10 +33,7 @@ class ListTileDetailView extends StatelessWidget {
           ),
         ),
         backgroundColor: knill,
-        title: Text(
-          name ?? 'Alex Tyler',
-          style: custumText(fontSize: kwidth * 0.06),
-        ),
+        title: Text(name ?? 'Alex Tyler', style: textHeadStyle1),
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(
@@ -79,7 +79,7 @@ class ListTileDetailView extends StatelessWidget {
             children: [
               const SizedBox(
                 height: 200,
-                child: ImageOffsetContainers(),
+                child: PreviewPageviewImageBuilder(),
               ),
               const SizedBox(height: 20),
               Text(

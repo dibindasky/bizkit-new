@@ -1,10 +1,10 @@
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/home/view/widgets/reminder_screen.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_second_half_setions/reminder_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class ReminderSection extends StatelessWidget {
-  const ReminderSection({
+class PreviewHomeContactDetailAddReminderContainer extends StatelessWidget {
+  const PreviewHomeContactDetailAddReminderContainer({
     super.key,
   });
 
@@ -14,7 +14,7 @@ class ReminderSection extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          fadePageRoute(AddReminderScreen()),
+          fadePageRoute(PreviewHomeAddReminderScreen()),
         );
       },
       child: Container(

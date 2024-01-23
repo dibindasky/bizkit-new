@@ -1,3 +1,5 @@
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personal_detail_screen/accolades/add_accolades.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -47,15 +49,20 @@ class PersonlDetails extends StatelessWidget {
             controller: birthDaycontroller,
             inputType: TextInputType.name,
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 12),
-            height: 48.0,
-            color: textFieldFillColr,
-            child: const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Accolades',
-                style: TextStyle(color: klightgrey),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              fadePageRoute(const AccolodesScreen()),
+            ),
+            child: Container(
+              color: textFieldFillColr,
+              padding: const EdgeInsets.only(left: 12),
+              height: 48.0,
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Accolades',
+                  style: TextStyle(color: klightgrey),
+                ),
               ),
             ),
           ),
@@ -72,10 +79,17 @@ class PersonlDetails extends StatelessWidget {
               Icons.keyboard_arrow_right,
             ),
           ),
-          TTextFormField(
-            text: 'Photos',
-            controller: datesToReminderController,
-            inputType: TextInputType.name,
+          Container(
+            color: textFieldFillColr,
+            padding: const EdgeInsets.only(left: 12),
+            height: 48.0,
+            child: const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Photos',
+                style: TextStyle(color: klightgrey),
+              ),
+            ),
           ),
           adjustHieght(khieght * .05),
           LastSkipContinueButtons(

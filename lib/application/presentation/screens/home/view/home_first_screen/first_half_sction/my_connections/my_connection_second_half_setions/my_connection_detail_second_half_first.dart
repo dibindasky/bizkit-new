@@ -1,4 +1,4 @@
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/widgets/reminder_section.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_second_half_setions/add_reminder_container/reminder_section.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/bank_person_achived_rows.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_products_and_brands.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_wice_icons.dart';
@@ -13,10 +13,10 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const ReminderSection(),
+        const PreviewHomeContactDetailAddReminderContainer(),
         const PreviewRowWiceIcons(),
         adjustHieght(khieght * .02),
-        const BankPersonAchivedRows(),
+        const PreviewBankPersonAchivedRows(),
         adjustHieght(khieght * .02),
         const PreviewProductsBrandsLists(),
         adjustHieght(khieght * .02),

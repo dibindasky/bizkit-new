@@ -61,7 +61,7 @@ class PreviewScreenDetailMeetingTabBarHomeScreen extends StatelessWidget {
                         children: [
                           const PreviewRowWiceIcons(),
                           adjustHieght(khieght * .01),
-                          const BankPersonAchivedRows(),
+                          const PreviewBankPersonAchivedRows(),
                           adjustHieght(khieght * .02),
                           const PreviewProductsBrandsLists(),
                           adjustHieght(khieght * .02),

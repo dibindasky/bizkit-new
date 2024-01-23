@@ -1,6 +1,6 @@
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/screens/home/view/widgets/connection_detail_view.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +68,7 @@ class MakeABizkitCardScreen extends StatelessWidget {
                       inputType: TextInputType.name),
                   adjustHieght(khieght * .02),
                   const CustomButtonSelfie(
-                    navigate: ListTileDetailView(),
+                    navigate: HomeFirstViewAllContactTileDetailView(),
                   ) //should give next navigation here i add SelfieScreen For demo
                 ],
               ),

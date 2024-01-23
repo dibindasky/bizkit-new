@@ -3,7 +3,7 @@ import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/home/view/widgets/connection_detail_view.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -154,7 +154,7 @@ class ViewAllConnections extends StatelessWidget {
                         final data = state.contactList![index];
                         return GestureDetector(
                           onTap: () => Navigator.of(context).push(
-                            fadePageRoute(ListTileDetailView(
+                            fadePageRoute(HomeFirstViewAllContactTileDetailView(
                                 name: data.displayName ?? 'Name')),
                           ),
                           child: ListTile(

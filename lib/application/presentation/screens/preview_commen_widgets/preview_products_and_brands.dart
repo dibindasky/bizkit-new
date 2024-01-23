@@ -1,3 +1,5 @@
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_view-all/brochers_view_all.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +21,26 @@ class PreviewProductsBrandsLists extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           adjustHieght(khieght * .01),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0),
-            child: Text('Products / Brands'),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Products / Brands'),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(fadePageRoute(
+                    const BrochersAndProductsScreenlists(),
+                  )),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: neonShade,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: const Icon(Icons.arrow_right),
+                  ),
+                ),
+              ],
+            ),
           ),
           adjustHieght(khieght * .02),
           Padding(

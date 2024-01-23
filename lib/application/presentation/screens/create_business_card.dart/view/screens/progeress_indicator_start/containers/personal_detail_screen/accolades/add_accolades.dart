@@ -1,6 +1,6 @@
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personal_detail_screen/accolades/accolades_create_screen.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/appbar.dart';
+import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -15,7 +15,7 @@ class AccolodesScreen extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
-        child: const CardCreationBusinessCardAppbar(
+        child: const AppbarCommen(
           tittle: 'Accolades',
         ),
       ),
@@ -88,7 +88,10 @@ class AccolodesScreen extends StatelessWidget {
                   onTap: () async {
                     await PickImage.getImage();
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const AccoladesCreateScreen(),
+                      builder: (context) =>
+                          const AccoladesBrochersAddSreateScreen(
+                        isFromAccolades: true,
+                      ),
                     ));
                   },
                   child: DottedBorder(

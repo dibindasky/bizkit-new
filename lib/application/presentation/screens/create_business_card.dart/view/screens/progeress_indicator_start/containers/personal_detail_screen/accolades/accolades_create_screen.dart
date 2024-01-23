@@ -1,12 +1,12 @@
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/appbar.dart';
+import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AccoladesCreateScreen extends StatelessWidget {
-  const AccoladesCreateScreen({
+class AccoladesBrochersAddSreateScreen extends StatelessWidget {
+  const AccoladesBrochersAddSreateScreen({
     super.key,
     required this.isFromAccolades,
   });
@@ -18,7 +18,7 @@ class AccoladesCreateScreen extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
-        child: CardCreationBusinessCardAppbar(
+        child: AppbarCommen(
           tittle: isFromAccolades ? 'Accolades' : 'Brochers',
         ),
       ),
@@ -40,13 +40,11 @@ class AccoladesCreateScreen extends StatelessWidget {
                 adjustHieght(khieght * .02),
                 const TTextFormField(
                   text: 'Name',
-                  //controller: textEditingController,
                   inputType: TextInputType.name,
                 ),
                 const TTextFormField(
                   text: 'Description',
                   maxLines: 10,
-                  //controller: textEditingController,
                   inputType: TextInputType.name,
                 ),
                 adjustHieght(khieght * .02),

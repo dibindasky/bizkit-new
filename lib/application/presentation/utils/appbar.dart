@@ -1,8 +1,8 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class CardCreationBusinessCardAppbar extends StatelessWidget {
-  const CardCreationBusinessCardAppbar({
+class AppbarCommen extends StatelessWidget {
+  const AppbarCommen({
     super.key,
     this.tittle,
   });

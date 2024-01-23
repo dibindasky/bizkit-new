@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,7 +37,7 @@ class _LogoStoryState extends State<LogoStory> {
           children: [
             adjustHieght(khieght * .03),
             const Text(
-              'Logo Story',
+              'Logo',
               style: TextStyle(fontSize: 20),
             ),
             adjustHieght(khieght * .02),
@@ -80,27 +81,10 @@ class _LogoStoryState extends State<LogoStory> {
               style: TextStyle(fontSize: 20),
             ),
             adjustHieght(khieght * .02),
-            Container(
-              color: textFieldFillColr,
-              child: TextField(
-                maxLines: 13,
-                decoration: InputDecoration(
-                  fillColor: textFieldFillColr,
-                  filled: true,
-                  hintText:
-                      "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
-                  hintStyle: const TextStyle(color: klightgrey),
-                  border: UnderlineInputBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(
-                      color: kwhite,
-                    ),
-                  ),
-                ),
-              ),
+            const TTextFormField(
+              maxLines: 10,
+              text:
+                  "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
             ),
             adjustHieght(khieght * .04),
             LastSkipContinueButtons(
@@ -109,7 +93,6 @@ class _LogoStoryState extends State<LogoStory> {
                 curve: Curves.ease,
               ),
             ),
-            //SkipContinueIndicator(pageController: widget.pageController),
           ],
         ),
       ),

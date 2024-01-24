@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -6,6 +9,7 @@ import 'package:bizkit/application/presentation/screens/authentication/view/widg
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoGInScreen extends StatefulWidget {
   const LoGInScreen({super.key});
@@ -98,133 +102,162 @@ class _LoGInScreenState extends State<LoGInScreen>
           });
         }
       },
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 160,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    eyeCircleAnimated(),
-                    Container(
-                      width: kwidth * 0.05,
-                      height: kwidth * 0.02,
-                      decoration: BoxDecoration(
-                        gradient: neonShadeGradient,
-                      ),
-                    ),
-                    eyeCircleAnimated()
+      child: BlocListener<InternetConnectionCheckCubit,
+          InternetConnectionCheckState>(
+        listener: (context, state) {
+          if (state is InternetConnected) {
+            log('Internet is connected');
+          } else {
+            showDialog(
+              context: context,
+              builder: (ctx) {
+                return AlertDialog(
+                  title: const Text('No internet'),
+                  content: const Text(
+                    'Please turn on mobile data or connect to a wifi',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                      },
+                      child: const Text('Close'),
+                    )
                   ],
+                );
+              },
+            );
+            log('internet is disconnected');
+          }
+        },
+        child: Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 160,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      eyeCircleAnimated(),
+                      Container(
+                        width: kwidth * 0.05,
+                        height: kwidth * 0.02,
+                        decoration: BoxDecoration(
+                          gradient: neonShadeGradient,
+                        ),
+                      ),
+                      eyeCircleAnimated()
+                    ],
+                  ),
                 ),
-              ),
-              Text(
-                'Your key to your business',
-                style: custumText(
-                  fontSize: kwidth * 0.043,
-                  fontWeight: FontWeight.bold,
+                Text(
+                  'Your key to your business',
+                  style: custumText(
+                    fontSize: kwidth * 0.043,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              adjustHieght(khieght * .02),
-              TTextFormField(
-                onTap: () {
-                  setState(() {
-                    if (nameController.text.isEmpty) {
-                      animate(-28, 20);
-                      indexOfEye = 1;
-                    } else {
-                      double newXPosition =
-                          -28 + (nameController.text.length * 1.5);
-                      double newYPosition =
-                          20 + (nameController.text.length * 0.5);
-                      if (newXPosition > 12 && newYPosition > 33) {
-                        setState(() {
-                          newXPosition = 12.0;
-                          newYPosition = 33.0;
-                          animate(newXPosition, newYPosition);
+                adjustHieght(khieght * .02),
+                TTextFormField(
+                  onTap: () {
+                    setState(() {
+                      if (nameController.text.isEmpty) {
+                        animate(-28, 20);
+                        indexOfEye = 1;
+                      } else {
+                        double newXPosition =
+                            -28 + (nameController.text.length * 1.5);
+                        double newYPosition =
+                            20 + (nameController.text.length * 0.5);
+                        if (newXPosition > 12 && newYPosition > 33) {
+                          setState(() {
+                            newXPosition = 12.0;
+                            newYPosition = 33.0;
+                            animate(newXPosition, newYPosition);
+                            indexOfEye = 4;
+                          });
+                          return;
+                        }
+                        animate(newXPosition, newYPosition);
+                        if (nameController.text.length > 22) {
                           indexOfEye = 4;
-                        });
-                        return;
+                        } else if (nameController.text.length >= 17) {
+                          indexOfEye = 2;
+                        } else {
+                          indexOfEye = 1;
+                        }
                       }
-                      animate(newXPosition, newYPosition);
-                      if (nameController.text.length > 22) {
+                    });
+                  },
+                  onChanaged: (name) {
+                    double newXPosition = -28 + (name.length * 1.5);
+                    double newYPosition = 20 + (name.length * 0.5);
+                    if (newXPosition > 12 && newYPosition > 33) {
+                      setState(() {
+                        newXPosition = 12.0;
+                        newYPosition = 33.0;
                         indexOfEye = 4;
-                      } else if (nameController.text.length >= 17) {
+                      });
+                      return;
+                    }
+                    print(' $newYPosition $newXPosition ${name.length}');
+                    setState(() {
+                      animate(newXPosition, newYPosition);
+                      if (name.length >= 17) {
                         indexOfEye = 2;
                       } else {
                         indexOfEye = 1;
                       }
-                    }
-                  });
-                },
-                onChanaged: (name) {
-                  double newXPosition = -28 + (name.length * 1.5);
-                  double newYPosition = 20 + (name.length * 0.5);
-                  if (newXPosition > 12 && newYPosition > 33) {
-                    setState(() {
-                      newXPosition = 12.0;
-                      newYPosition = 33.0;
-                      indexOfEye = 4;
                     });
-                    return;
-                  }
-                  print(' $newYPosition $newXPosition ${name.length}');
-                  setState(() {
-                    animate(newXPosition, newYPosition);
-                    if (name.length >= 17) {
-                      indexOfEye = 2;
-                    } else {
-                      indexOfEye = 1;
-                    }
-                  });
-                },
-                text: 'Name',
-                controller: nameController,
-                inputType: TextInputType.name,
-                obscureText: false,
-              ),
-              TTextFormField(
-                onTap: () {
-                  setState(() {
-                    indexOfEye = 3;
-                    animate(30, -20);
-                  });
-                },
-                text: 'Password',
-                controller: passwordController,
-                inputType: TextInputType.emailAddress,
-                obscureText: true,
-              ),
-              Text(
-                'Don\'t have an acount?',
-                style: TextStyle(
-                  fontSize: kwidth * 0.026,
+                  },
+                  text: 'Name',
+                  controller: nameController,
+                  inputType: TextInputType.name,
+                  obscureText: false,
                 ),
-              ),
-              adjustHieght(khieght * .01),
-              InkWell(
-                onTap: () => Navigator.push(
-                    context, fadePageRoute(const SignInscreeen())),
-                child: Text(
-                  'Signup',
+                TTextFormField(
+                  onTap: () {
+                    setState(() {
+                      indexOfEye = 3;
+                      animate(30, -20);
+                    });
+                  },
+                  text: 'Password',
+                  controller: passwordController,
+                  inputType: TextInputType.emailAddress,
+                  obscureText: true,
+                ),
+                Text(
+                  'Don\'t have an acount?',
                   style: TextStyle(
-                    fontSize: kwidth * 0.037,
-                    decoration: TextDecoration.underline,
+                    fontSize: kwidth * 0.026,
                   ),
                 ),
-              ),
-              adjustHieght(khieght * .04),
-              AuthButton(
-                text: 'Login',
-                onTap: () => Navigator.of(context).push(
-                  fadePageRoute(const StartingBusinessCardCreation()),
+                adjustHieght(khieght * .01),
+                InkWell(
+                  onTap: () => Navigator.push(
+                      context, fadePageRoute(const SignInscreeen())),
+                  child: Text(
+                    'Signup',
+                    style: TextStyle(
+                      fontSize: kwidth * 0.037,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                adjustHieght(khieght * .04),
+                AuthButton(
+                  text: 'Login',
+                  onTap: () => Navigator.of(context).push(
+                    fadePageRoute(const StartingBusinessCardCreation()),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

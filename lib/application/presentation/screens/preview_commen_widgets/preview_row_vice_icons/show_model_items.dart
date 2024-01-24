@@ -3,8 +3,8 @@ import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipbo
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class PreviewScreenRowIconsModelSheetItems extends StatelessWidget {
-  const PreviewScreenRowIconsModelSheetItems({
+class PreviewScreenRowIconsModelSheet extends StatelessWidget {
+  const PreviewScreenRowIconsModelSheet({
     super.key,
     required this.isPhone,
     this.items,

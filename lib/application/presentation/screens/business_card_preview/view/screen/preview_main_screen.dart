@@ -1,8 +1,8 @@
-import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/business_card_creation_appbar.dart';
+import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/business_card_popupmenu_items.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/bank_person_achived_rows.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_products_and_brands.dart';
-import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_wice_icons.dart';
+import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_wice_icons.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,10 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            const SizedBox(height: 220, child: PreviewPageviewImageBuilder()),
+            const SizedBox(
+              height: 220,
+              child: PreviewPageviewImageBuilder(),
+            ),
             adjustHieght(khieght * .02),
             Text(
               'Alex Tyler',

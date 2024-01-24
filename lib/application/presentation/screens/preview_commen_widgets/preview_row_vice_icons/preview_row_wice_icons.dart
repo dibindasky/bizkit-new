@@ -1,4 +1,4 @@
-import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/show_model_items.dart';
+import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
 import 'package:bizkit/application/presentation/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class PreviewRowWiceIcons extends StatelessWidget {
         InkWell(
           onTap: () => showModalBottomSheet(
             context: context,
-            builder: (context) => const PreviewScreenRowIconsModelSheetItems(
+            builder: (context) => const PreviewScreenRowIconsModelSheet(
               isPhone: true,
             ),
           ),
@@ -32,7 +32,7 @@ class PreviewRowWiceIcons extends StatelessWidget {
         GestureDetector(
           onTap: () => showModalBottomSheet(
             context: context,
-            builder: (context) => const PreviewScreenRowIconsModelSheetItems(
+            builder: (context) => const PreviewScreenRowIconsModelSheet(
               isPhone: false,
             ),
           ),

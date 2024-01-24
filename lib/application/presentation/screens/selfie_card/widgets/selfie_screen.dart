@@ -46,7 +46,8 @@ class _SelfieScreenState extends State<SelfieScreen>
             ? const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('asset/images/connecting_iphone.gif'),
-                    fit: BoxFit.cover))
+                    fit: BoxFit.cover),
+              )
             : null,
         child: ColoredBox(
           color: indexofButton == 2 ? kblack.withOpacity(0.8) : knill,
@@ -59,9 +60,11 @@ class _SelfieScreenState extends State<SelfieScreen>
                   padding: const EdgeInsets.only(right: 20),
                   child: InkWell(
                     onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CardSharingScreen())),
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CardSharingScreen(),
+                      ),
+                    ),
                     child: CircleAvatar(
                       radius: kwidth * 0.080,
                       backgroundColor: textFieldFillColr,
@@ -104,13 +107,16 @@ class _SelfieScreenState extends State<SelfieScreen>
                         width: kwidth * 0.28,
                         height: kwidth * 0.28,
                         decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(kwidth * 0.2)),
-                            image: const DecorationImage(
-                              image: AssetImage(
-                                  'asset/images/cameraSelectBackground.png'),
-                              fit: BoxFit.contain,
-                            )),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(kwidth * 0.2),
+                          ),
+                          image: const DecorationImage(
+                            image: AssetImage(
+                              'asset/images/cameraSelectBackground.png',
+                            ),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
                         child: Image.asset(
                           centerButtons[indexofButton],
                         ),
@@ -129,8 +135,7 @@ class _SelfieScreenState extends State<SelfieScreen>
   }
 
   Widget scannerButton({required String image, required bool left}) {
-    return InkWell(
-      splashFactory: NoSplash.splashFactory,
+    return GestureDetector(
       onTap: () {
         setState(() {
           _controller.forward(from: 0.5);

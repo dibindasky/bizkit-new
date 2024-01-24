@@ -1,6 +1,6 @@
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/bank_person_achived_rows.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_products_and_brands.dart';
-import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_wice_icons.dart';
+import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_wice_icons.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_screen_meeting_time_description_section.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';

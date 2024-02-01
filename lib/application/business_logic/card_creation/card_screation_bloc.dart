@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
-import 'package:bizkit/domain/repository/card_scanning.dart';
-import 'package:bloc/bloc.dart';
+import 'package:bizkit/domain/repository/feature/card_scanning.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';

@@ -20,18 +20,35 @@ mixin _$AuthEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
     required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(EmailModel emailModel) sendOtp,
+    required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
     TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(EmailModel emailModel)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
     TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(EmailModel emailModel)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +56,33 @@ mixin _$AuthEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Login value) login,
     required TResult Function(_Register value) register,
+    required TResult Function(_SendOtp value) sendOtp,
+    required TResult Function(_VerifyOtp value) verifyOtp,
+    required TResult Function(_ForgotPassword value) forgotPassword,
+    required TResult Function(_VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(_ChangePassword value) changePassword,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Login value)? login,
     TResult? Function(_Register value)? register,
+    TResult? Function(_SendOtp value)? sendOtp,
+    TResult? Function(_VerifyOtp value)? verifyOtp,
+    TResult? Function(_ForgotPassword value)? forgotPassword,
+    TResult? Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(_ChangePassword value)? changePassword,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Login value)? login,
     TResult Function(_Register value)? register,
+    TResult Function(_SendOtp value)? sendOtp,
+    TResult Function(_VerifyOtp value)? verifyOtp,
+    TResult Function(_ForgotPassword value)? forgotPassword,
+    TResult Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -140,6 +172,13 @@ class _$LoginImpl implements _Login {
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
     required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(EmailModel emailModel) sendOtp,
+    required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
   }) {
     return login(loginModel);
   }
@@ -149,6 +188,11 @@ class _$LoginImpl implements _Login {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
     TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(EmailModel emailModel)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
   }) {
     return login?.call(loginModel);
   }
@@ -158,6 +202,11 @@ class _$LoginImpl implements _Login {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
     TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(EmailModel emailModel)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -171,6 +220,11 @@ class _$LoginImpl implements _Login {
   TResult map<TResult extends Object?>({
     required TResult Function(_Login value) login,
     required TResult Function(_Register value) register,
+    required TResult Function(_SendOtp value) sendOtp,
+    required TResult Function(_VerifyOtp value) verifyOtp,
+    required TResult Function(_ForgotPassword value) forgotPassword,
+    required TResult Function(_VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(_ChangePassword value) changePassword,
   }) {
     return login(this);
   }
@@ -180,6 +234,11 @@ class _$LoginImpl implements _Login {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Login value)? login,
     TResult? Function(_Register value)? register,
+    TResult? Function(_SendOtp value)? sendOtp,
+    TResult? Function(_VerifyOtp value)? verifyOtp,
+    TResult? Function(_ForgotPassword value)? forgotPassword,
+    TResult? Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(_ChangePassword value)? changePassword,
   }) {
     return login?.call(this);
   }
@@ -189,6 +248,11 @@ class _$LoginImpl implements _Login {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Login value)? login,
     TResult Function(_Register value)? register,
+    TResult Function(_SendOtp value)? sendOtp,
+    TResult Function(_VerifyOtp value)? verifyOtp,
+    TResult Function(_ForgotPassword value)? forgotPassword,
+    TResult Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -274,6 +338,13 @@ class _$RegisterImpl implements _Register {
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
     required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(EmailModel emailModel) sendOtp,
+    required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
   }) {
     return register(signUpModel);
   }
@@ -283,6 +354,11 @@ class _$RegisterImpl implements _Register {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
     TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(EmailModel emailModel)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
   }) {
     return register?.call(signUpModel);
   }
@@ -292,6 +368,11 @@ class _$RegisterImpl implements _Register {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
     TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(EmailModel emailModel)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -305,6 +386,11 @@ class _$RegisterImpl implements _Register {
   TResult map<TResult extends Object?>({
     required TResult Function(_Login value) login,
     required TResult Function(_Register value) register,
+    required TResult Function(_SendOtp value) sendOtp,
+    required TResult Function(_VerifyOtp value) verifyOtp,
+    required TResult Function(_ForgotPassword value) forgotPassword,
+    required TResult Function(_VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(_ChangePassword value) changePassword,
   }) {
     return register(this);
   }
@@ -314,6 +400,11 @@ class _$RegisterImpl implements _Register {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Login value)? login,
     TResult? Function(_Register value)? register,
+    TResult? Function(_SendOtp value)? sendOtp,
+    TResult? Function(_VerifyOtp value)? verifyOtp,
+    TResult? Function(_ForgotPassword value)? forgotPassword,
+    TResult? Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(_ChangePassword value)? changePassword,
   }) {
     return register?.call(this);
   }
@@ -323,6 +414,11 @@ class _$RegisterImpl implements _Register {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Login value)? login,
     TResult Function(_Register value)? register,
+    TResult Function(_SendOtp value)? sendOtp,
+    TResult Function(_VerifyOtp value)? verifyOtp,
+    TResult Function(_ForgotPassword value)? forgotPassword,
+    TResult Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(_ChangePassword value)? changePassword,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -343,9 +439,853 @@ abstract class _Register implements AuthEvent {
 }
 
 /// @nodoc
+abstract class _$$SendOtpImplCopyWith<$Res> {
+  factory _$$SendOtpImplCopyWith(
+          _$SendOtpImpl value, $Res Function(_$SendOtpImpl) then) =
+      __$$SendOtpImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({EmailModel emailModel});
+}
+
+/// @nodoc
+class __$$SendOtpImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$SendOtpImpl>
+    implements _$$SendOtpImplCopyWith<$Res> {
+  __$$SendOtpImplCopyWithImpl(
+      _$SendOtpImpl _value, $Res Function(_$SendOtpImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? emailModel = null,
+  }) {
+    return _then(_$SendOtpImpl(
+      emailModel: null == emailModel
+          ? _value.emailModel
+          : emailModel // ignore: cast_nullable_to_non_nullable
+              as EmailModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SendOtpImpl implements _SendOtp {
+  const _$SendOtpImpl({required this.emailModel});
+
+  @override
+  final EmailModel emailModel;
+
+  @override
+  String toString() {
+    return 'AuthEvent.sendOtp(emailModel: $emailModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SendOtpImpl &&
+            (identical(other.emailModel, emailModel) ||
+                other.emailModel == emailModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, emailModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SendOtpImplCopyWith<_$SendOtpImpl> get copyWith =>
+      __$$SendOtpImplCopyWithImpl<_$SendOtpImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(LoginModel loginModel) login,
+    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(EmailModel emailModel) sendOtp,
+    required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
+  }) {
+    return sendOtp(emailModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(LoginModel loginModel)? login,
+    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(EmailModel emailModel)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
+  }) {
+    return sendOtp?.call(emailModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(LoginModel loginModel)? login,
+    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(EmailModel emailModel)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (sendOtp != null) {
+      return sendOtp(emailModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Register value) register,
+    required TResult Function(_SendOtp value) sendOtp,
+    required TResult Function(_VerifyOtp value) verifyOtp,
+    required TResult Function(_ForgotPassword value) forgotPassword,
+    required TResult Function(_VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(_ChangePassword value) changePassword,
+  }) {
+    return sendOtp(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Register value)? register,
+    TResult? Function(_SendOtp value)? sendOtp,
+    TResult? Function(_VerifyOtp value)? verifyOtp,
+    TResult? Function(_ForgotPassword value)? forgotPassword,
+    TResult? Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(_ChangePassword value)? changePassword,
+  }) {
+    return sendOtp?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Register value)? register,
+    TResult Function(_SendOtp value)? sendOtp,
+    TResult Function(_VerifyOtp value)? verifyOtp,
+    TResult Function(_ForgotPassword value)? forgotPassword,
+    TResult Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(_ChangePassword value)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (sendOtp != null) {
+      return sendOtp(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendOtp implements AuthEvent {
+  const factory _SendOtp({required final EmailModel emailModel}) =
+      _$SendOtpImpl;
+
+  EmailModel get emailModel;
+  @JsonKey(ignore: true)
+  _$$SendOtpImplCopyWith<_$SendOtpImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$VerifyOtpImplCopyWith<$Res> {
+  factory _$$VerifyOtpImplCopyWith(
+          _$VerifyOtpImpl value, $Res Function(_$VerifyOtpImpl) then) =
+      __$$VerifyOtpImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({VerifyOtpModel verifyOtpModel});
+}
+
+/// @nodoc
+class __$$VerifyOtpImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$VerifyOtpImpl>
+    implements _$$VerifyOtpImplCopyWith<$Res> {
+  __$$VerifyOtpImplCopyWithImpl(
+      _$VerifyOtpImpl _value, $Res Function(_$VerifyOtpImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? verifyOtpModel = null,
+  }) {
+    return _then(_$VerifyOtpImpl(
+      verifyOtpModel: null == verifyOtpModel
+          ? _value.verifyOtpModel
+          : verifyOtpModel // ignore: cast_nullable_to_non_nullable
+              as VerifyOtpModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$VerifyOtpImpl implements _VerifyOtp {
+  const _$VerifyOtpImpl({required this.verifyOtpModel});
+
+  @override
+  final VerifyOtpModel verifyOtpModel;
+
+  @override
+  String toString() {
+    return 'AuthEvent.verifyOtp(verifyOtpModel: $verifyOtpModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VerifyOtpImpl &&
+            (identical(other.verifyOtpModel, verifyOtpModel) ||
+                other.verifyOtpModel == verifyOtpModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, verifyOtpModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerifyOtpImplCopyWith<_$VerifyOtpImpl> get copyWith =>
+      __$$VerifyOtpImplCopyWithImpl<_$VerifyOtpImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(LoginModel loginModel) login,
+    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(EmailModel emailModel) sendOtp,
+    required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
+  }) {
+    return verifyOtp(verifyOtpModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(LoginModel loginModel)? login,
+    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(EmailModel emailModel)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
+  }) {
+    return verifyOtp?.call(verifyOtpModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(LoginModel loginModel)? login,
+    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(EmailModel emailModel)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (verifyOtp != null) {
+      return verifyOtp(verifyOtpModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Register value) register,
+    required TResult Function(_SendOtp value) sendOtp,
+    required TResult Function(_VerifyOtp value) verifyOtp,
+    required TResult Function(_ForgotPassword value) forgotPassword,
+    required TResult Function(_VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(_ChangePassword value) changePassword,
+  }) {
+    return verifyOtp(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Register value)? register,
+    TResult? Function(_SendOtp value)? sendOtp,
+    TResult? Function(_VerifyOtp value)? verifyOtp,
+    TResult? Function(_ForgotPassword value)? forgotPassword,
+    TResult? Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(_ChangePassword value)? changePassword,
+  }) {
+    return verifyOtp?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Register value)? register,
+    TResult Function(_SendOtp value)? sendOtp,
+    TResult Function(_VerifyOtp value)? verifyOtp,
+    TResult Function(_ForgotPassword value)? forgotPassword,
+    TResult Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(_ChangePassword value)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (verifyOtp != null) {
+      return verifyOtp(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _VerifyOtp implements AuthEvent {
+  const factory _VerifyOtp({required final VerifyOtpModel verifyOtpModel}) =
+      _$VerifyOtpImpl;
+
+  VerifyOtpModel get verifyOtpModel;
+  @JsonKey(ignore: true)
+  _$$VerifyOtpImplCopyWith<_$VerifyOtpImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ForgotPasswordImplCopyWith<$Res> {
+  factory _$$ForgotPasswordImplCopyWith(_$ForgotPasswordImpl value,
+          $Res Function(_$ForgotPasswordImpl) then) =
+      __$$ForgotPasswordImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({EmailModel emailModel});
+}
+
+/// @nodoc
+class __$$ForgotPasswordImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$ForgotPasswordImpl>
+    implements _$$ForgotPasswordImplCopyWith<$Res> {
+  __$$ForgotPasswordImplCopyWithImpl(
+      _$ForgotPasswordImpl _value, $Res Function(_$ForgotPasswordImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? emailModel = null,
+  }) {
+    return _then(_$ForgotPasswordImpl(
+      emailModel: null == emailModel
+          ? _value.emailModel
+          : emailModel // ignore: cast_nullable_to_non_nullable
+              as EmailModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ForgotPasswordImpl implements _ForgotPassword {
+  const _$ForgotPasswordImpl({required this.emailModel});
+
+  @override
+  final EmailModel emailModel;
+
+  @override
+  String toString() {
+    return 'AuthEvent.forgotPassword(emailModel: $emailModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ForgotPasswordImpl &&
+            (identical(other.emailModel, emailModel) ||
+                other.emailModel == emailModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, emailModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ForgotPasswordImplCopyWith<_$ForgotPasswordImpl> get copyWith =>
+      __$$ForgotPasswordImplCopyWithImpl<_$ForgotPasswordImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(LoginModel loginModel) login,
+    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(EmailModel emailModel) sendOtp,
+    required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
+  }) {
+    return forgotPassword(emailModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(LoginModel loginModel)? login,
+    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(EmailModel emailModel)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
+  }) {
+    return forgotPassword?.call(emailModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(LoginModel loginModel)? login,
+    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(EmailModel emailModel)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (forgotPassword != null) {
+      return forgotPassword(emailModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Register value) register,
+    required TResult Function(_SendOtp value) sendOtp,
+    required TResult Function(_VerifyOtp value) verifyOtp,
+    required TResult Function(_ForgotPassword value) forgotPassword,
+    required TResult Function(_VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(_ChangePassword value) changePassword,
+  }) {
+    return forgotPassword(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Register value)? register,
+    TResult? Function(_SendOtp value)? sendOtp,
+    TResult? Function(_VerifyOtp value)? verifyOtp,
+    TResult? Function(_ForgotPassword value)? forgotPassword,
+    TResult? Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(_ChangePassword value)? changePassword,
+  }) {
+    return forgotPassword?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Register value)? register,
+    TResult Function(_SendOtp value)? sendOtp,
+    TResult Function(_VerifyOtp value)? verifyOtp,
+    TResult Function(_ForgotPassword value)? forgotPassword,
+    TResult Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(_ChangePassword value)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (forgotPassword != null) {
+      return forgotPassword(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ForgotPassword implements AuthEvent {
+  const factory _ForgotPassword({required final EmailModel emailModel}) =
+      _$ForgotPasswordImpl;
+
+  EmailModel get emailModel;
+  @JsonKey(ignore: true)
+  _$$ForgotPasswordImplCopyWith<_$ForgotPasswordImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$VerifyforgotPasswordImplCopyWith<$Res> {
+  factory _$$VerifyforgotPasswordImplCopyWith(_$VerifyforgotPasswordImpl value,
+          $Res Function(_$VerifyforgotPasswordImpl) then) =
+      __$$VerifyforgotPasswordImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({VerifyOtpModel verifyOtpModel});
+}
+
+/// @nodoc
+class __$$VerifyforgotPasswordImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$VerifyforgotPasswordImpl>
+    implements _$$VerifyforgotPasswordImplCopyWith<$Res> {
+  __$$VerifyforgotPasswordImplCopyWithImpl(_$VerifyforgotPasswordImpl _value,
+      $Res Function(_$VerifyforgotPasswordImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? verifyOtpModel = null,
+  }) {
+    return _then(_$VerifyforgotPasswordImpl(
+      verifyOtpModel: null == verifyOtpModel
+          ? _value.verifyOtpModel
+          : verifyOtpModel // ignore: cast_nullable_to_non_nullable
+              as VerifyOtpModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$VerifyforgotPasswordImpl implements _VerifyforgotPassword {
+  const _$VerifyforgotPasswordImpl({required this.verifyOtpModel});
+
+  @override
+  final VerifyOtpModel verifyOtpModel;
+
+  @override
+  String toString() {
+    return 'AuthEvent.verifyforgotPassword(verifyOtpModel: $verifyOtpModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VerifyforgotPasswordImpl &&
+            (identical(other.verifyOtpModel, verifyOtpModel) ||
+                other.verifyOtpModel == verifyOtpModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, verifyOtpModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerifyforgotPasswordImplCopyWith<_$VerifyforgotPasswordImpl>
+      get copyWith =>
+          __$$VerifyforgotPasswordImplCopyWithImpl<_$VerifyforgotPasswordImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(LoginModel loginModel) login,
+    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(EmailModel emailModel) sendOtp,
+    required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
+  }) {
+    return verifyforgotPassword(verifyOtpModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(LoginModel loginModel)? login,
+    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(EmailModel emailModel)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
+  }) {
+    return verifyforgotPassword?.call(verifyOtpModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(LoginModel loginModel)? login,
+    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(EmailModel emailModel)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (verifyforgotPassword != null) {
+      return verifyforgotPassword(verifyOtpModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Register value) register,
+    required TResult Function(_SendOtp value) sendOtp,
+    required TResult Function(_VerifyOtp value) verifyOtp,
+    required TResult Function(_ForgotPassword value) forgotPassword,
+    required TResult Function(_VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(_ChangePassword value) changePassword,
+  }) {
+    return verifyforgotPassword(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Register value)? register,
+    TResult? Function(_SendOtp value)? sendOtp,
+    TResult? Function(_VerifyOtp value)? verifyOtp,
+    TResult? Function(_ForgotPassword value)? forgotPassword,
+    TResult? Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(_ChangePassword value)? changePassword,
+  }) {
+    return verifyforgotPassword?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Register value)? register,
+    TResult Function(_SendOtp value)? sendOtp,
+    TResult Function(_VerifyOtp value)? verifyOtp,
+    TResult Function(_ForgotPassword value)? forgotPassword,
+    TResult Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(_ChangePassword value)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (verifyforgotPassword != null) {
+      return verifyforgotPassword(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _VerifyforgotPassword implements AuthEvent {
+  const factory _VerifyforgotPassword(
+          {required final VerifyOtpModel verifyOtpModel}) =
+      _$VerifyforgotPasswordImpl;
+
+  VerifyOtpModel get verifyOtpModel;
+  @JsonKey(ignore: true)
+  _$$VerifyforgotPasswordImplCopyWith<_$VerifyforgotPasswordImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ChangePasswordImplCopyWith<$Res> {
+  factory _$$ChangePasswordImplCopyWith(_$ChangePasswordImpl value,
+          $Res Function(_$ChangePasswordImpl) then) =
+      __$$ChangePasswordImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ChangePasswordModel changePasswordModel});
+}
+
+/// @nodoc
+class __$$ChangePasswordImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$ChangePasswordImpl>
+    implements _$$ChangePasswordImplCopyWith<$Res> {
+  __$$ChangePasswordImplCopyWithImpl(
+      _$ChangePasswordImpl _value, $Res Function(_$ChangePasswordImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? changePasswordModel = null,
+  }) {
+    return _then(_$ChangePasswordImpl(
+      changePasswordModel: null == changePasswordModel
+          ? _value.changePasswordModel
+          : changePasswordModel // ignore: cast_nullable_to_non_nullable
+              as ChangePasswordModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ChangePasswordImpl implements _ChangePassword {
+  const _$ChangePasswordImpl({required this.changePasswordModel});
+
+  @override
+  final ChangePasswordModel changePasswordModel;
+
+  @override
+  String toString() {
+    return 'AuthEvent.changePassword(changePasswordModel: $changePasswordModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ChangePasswordImpl &&
+            (identical(other.changePasswordModel, changePasswordModel) ||
+                other.changePasswordModel == changePasswordModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, changePasswordModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChangePasswordImplCopyWith<_$ChangePasswordImpl> get copyWith =>
+      __$$ChangePasswordImplCopyWithImpl<_$ChangePasswordImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(LoginModel loginModel) login,
+    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(EmailModel emailModel) sendOtp,
+    required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
+  }) {
+    return changePassword(changePasswordModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(LoginModel loginModel)? login,
+    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(EmailModel emailModel)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
+  }) {
+    return changePassword?.call(changePasswordModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(LoginModel loginModel)? login,
+    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(EmailModel emailModel)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (changePassword != null) {
+      return changePassword(changePasswordModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Register value) register,
+    required TResult Function(_SendOtp value) sendOtp,
+    required TResult Function(_VerifyOtp value) verifyOtp,
+    required TResult Function(_ForgotPassword value) forgotPassword,
+    required TResult Function(_VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(_ChangePassword value) changePassword,
+  }) {
+    return changePassword(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Register value)? register,
+    TResult? Function(_SendOtp value)? sendOtp,
+    TResult? Function(_VerifyOtp value)? verifyOtp,
+    TResult? Function(_ForgotPassword value)? forgotPassword,
+    TResult? Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(_ChangePassword value)? changePassword,
+  }) {
+    return changePassword?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Register value)? register,
+    TResult Function(_SendOtp value)? sendOtp,
+    TResult Function(_VerifyOtp value)? verifyOtp,
+    TResult Function(_ForgotPassword value)? forgotPassword,
+    TResult Function(_VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(_ChangePassword value)? changePassword,
+    required TResult orElse(),
+  }) {
+    if (changePassword != null) {
+      return changePassword(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangePassword implements AuthEvent {
+  const factory _ChangePassword(
+          {required final ChangePasswordModel changePasswordModel}) =
+      _$ChangePasswordImpl;
+
+  ChangePasswordModel get changePasswordModel;
+  @JsonKey(ignore: true)
+  _$$ChangePasswordImplCopyWith<_$ChangePasswordImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$AuthState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  bool get otpSend => throw _privateConstructorUsedError;
+  bool get otpVerified => throw _privateConstructorUsedError;
+  bool get otpVerifiedForgotPassword => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   SignUpResponseModel? get signUpResponseModel =>
       throw _privateConstructorUsedError;
@@ -365,6 +1305,9 @@ abstract class $AuthStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool hasError,
+      bool otpSend,
+      bool otpVerified,
+      bool otpVerifiedForgotPassword,
       String? message,
       SignUpResponseModel? signUpResponseModel,
       LoginResponseModel? loginResponseModel});
@@ -385,6 +1328,9 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? otpSend = null,
+    Object? otpVerified = null,
+    Object? otpVerifiedForgotPassword = null,
     Object? message = freezed,
     Object? signUpResponseModel = freezed,
     Object? loginResponseModel = freezed,
@@ -397,6 +1343,18 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      otpSend: null == otpSend
+          ? _value.otpSend
+          : otpSend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      otpVerified: null == otpVerified
+          ? _value.otpVerified
+          : otpVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      otpVerifiedForgotPassword: null == otpVerifiedForgotPassword
+          ? _value.otpVerifiedForgotPassword
+          : otpVerifiedForgotPassword // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -425,6 +1383,9 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       bool hasError,
+      bool otpSend,
+      bool otpVerified,
+      bool otpVerifiedForgotPassword,
       String? message,
       SignUpResponseModel? signUpResponseModel,
       LoginResponseModel? loginResponseModel});
@@ -443,6 +1404,9 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? otpSend = null,
+    Object? otpVerified = null,
+    Object? otpVerifiedForgotPassword = null,
     Object? message = freezed,
     Object? signUpResponseModel = freezed,
     Object? loginResponseModel = freezed,
@@ -455,6 +1419,18 @@ class __$$InitialImplCopyWithImpl<$Res>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      otpSend: null == otpSend
+          ? _value.otpSend
+          : otpSend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      otpVerified: null == otpVerified
+          ? _value.otpVerified
+          : otpVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      otpVerifiedForgotPassword: null == otpVerifiedForgotPassword
+          ? _value.otpVerifiedForgotPassword
+          : otpVerifiedForgotPassword // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -478,6 +1454,9 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
       required this.hasError,
+      required this.otpSend,
+      required this.otpVerified,
+      required this.otpVerifiedForgotPassword,
       this.message,
       this.signUpResponseModel,
       this.loginResponseModel});
@@ -487,6 +1466,12 @@ class _$InitialImpl implements _Initial {
   @override
   final bool hasError;
   @override
+  final bool otpSend;
+  @override
+  final bool otpVerified;
+  @override
+  final bool otpVerifiedForgotPassword;
+  @override
   final String? message;
   @override
   final SignUpResponseModel? signUpResponseModel;
@@ -495,7 +1480,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'AuthState(isLoading: $isLoading, hasError: $hasError, message: $message, signUpResponseModel: $signUpResponseModel, loginResponseModel: $loginResponseModel)';
+    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerified: $otpVerified, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, message: $message, signUpResponseModel: $signUpResponseModel, loginResponseModel: $loginResponseModel)';
   }
 
   @override
@@ -507,6 +1492,12 @@ class _$InitialImpl implements _Initial {
                 other.isLoading == isLoading) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
+            (identical(other.otpSend, otpSend) || other.otpSend == otpSend) &&
+            (identical(other.otpVerified, otpVerified) ||
+                other.otpVerified == otpVerified) &&
+            (identical(other.otpVerifiedForgotPassword,
+                    otpVerifiedForgotPassword) ||
+                other.otpVerifiedForgotPassword == otpVerifiedForgotPassword) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.signUpResponseModel, signUpResponseModel) ||
                 other.signUpResponseModel == signUpResponseModel) &&
@@ -515,8 +1506,16 @@ class _$InitialImpl implements _Initial {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, hasError, message,
-      signUpResponseModel, loginResponseModel);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      hasError,
+      otpSend,
+      otpVerified,
+      otpVerifiedForgotPassword,
+      message,
+      signUpResponseModel,
+      loginResponseModel);
 
   @JsonKey(ignore: true)
   @override
@@ -529,6 +1528,9 @@ abstract class _Initial implements AuthState {
   const factory _Initial(
       {required final bool isLoading,
       required final bool hasError,
+      required final bool otpSend,
+      required final bool otpVerified,
+      required final bool otpVerifiedForgotPassword,
       final String? message,
       final SignUpResponseModel? signUpResponseModel,
       final LoginResponseModel? loginResponseModel}) = _$InitialImpl;
@@ -537,6 +1539,12 @@ abstract class _Initial implements AuthState {
   bool get isLoading;
   @override
   bool get hasError;
+  @override
+  bool get otpSend;
+  @override
+  bool get otpVerified;
+  @override
+  bool get otpVerifiedForgotPassword;
   @override
   String? get message;
   @override

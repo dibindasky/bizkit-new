@@ -1,17 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'email_verification.dart';
+part of 'email_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-EmailModel _$EmailVerificationFromJson(Map<String, dynamic> json) =>
-    EmailModel(
+EmailModel _$EmailModelFromJson(Map<String, dynamic> json) => EmailModel(
       email: json['email'] as String?,
     );
 
-Map<String, dynamic> _$EmailVerificationToJson(EmailModel instance) =>
+Map<String, dynamic> _$EmailModelToJson(EmailModel instance) =>
     <String, dynamic>{
       'email': instance.email,
     };

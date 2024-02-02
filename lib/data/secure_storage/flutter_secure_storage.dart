@@ -24,4 +24,17 @@ class SecureStorage {
   static Future<void> setAccessToken({required String accessToken}) async {
     await secureStorage.write(key: accessKey, value: accessToken);
   }
+
+  static Future<void> setLogin() async {
+    await secureStorage.write(key: isLoged, value: '1');
+  }
+
+  static Future<void> clearLogin() async {
+    await secureStorage.write(key: isLoged, value: '');
+  }
+
+  static Future<bool> getLogin() async {
+    final login = await secureStorage.read(key: isLoged);
+    return login == '1';
+  }
 }

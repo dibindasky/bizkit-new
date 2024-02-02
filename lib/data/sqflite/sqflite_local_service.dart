@@ -35,7 +35,7 @@ class LocalService {
   }
 
   Future _onCreate(sql.Database db, int version) async {
-    const query = '''
+    const queryUserTableCreation = '''
       CREATE TABLE IF NOT EXISTS $_userTable (
         ${User.colId} INTEGER PRIMARY KEY AUTOINCREMENT,
         ${User.colName} TEXT,
@@ -43,15 +43,23 @@ class LocalService {
         ${User.colPhone} TEXT,
         ${User.colCompanyName} TEXT,
         ${User.colAddress} TEXT,
-        ${User.colIsBusiness} BOOLEAN DEFAULT FALSE
+        ${User.colIsBusiness} INTEGER DEFAULT 0
       )
     ''';
-    await userLocalService.onCreate(db, version, query);
+    await userLocalService.onCreate(db, version, queryUserTableCreation);
   }
 
   Future<Either<Failure, List<User>>> getUsers() async {
     final db = await database;
     const query = 'SELECT * FROM $_userTable';
     return await userLocalService.getUsers(db, query);
+  }
+
+  Future<void> addUser(User user) async {
+    final db = await database;
+    final map = user.toJson();
+    // while inserting convert bool to int
+    map[User.colIsBusiness] = user.isBusiness! ? 1 : 0;
+    db.insert(_userTable, map);
   }
 }

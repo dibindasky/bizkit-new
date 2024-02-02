@@ -7,19 +7,19 @@ class ApiService {
   final String baseUrl;
 
   ApiService({required this.dio, required this.baseUrl}) {
-      dio.options.connectTimeout=const Duration(seconds: 3);
-      dio.interceptors.add(InterceptorsWrapper(
-        onRequest: (options, handler) async {
-          final accessToken =
-              await SecureStorage.getToken().then((token) => token.accessToken);
-          dio.options.headers['Authorization'] = accessToken;
-          options.headers['Authorization'] = accessToken;
-          print(dio.options.headers);
-          print(options.headers);
-          return handler.next(options);
-        },
-        onError: (e, handler) async {},
-      ));
+    dio.options.connectTimeout = const Duration(seconds: 3);
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        final accessToken =
+            await SecureStorage.getToken().then((token) => token.accessToken);
+        dio.options.headers['Authorization'] = accessToken;
+        options.headers['Authorization'] = accessToken;
+        print(dio.options.headers);
+        print(options.headers);
+        return handler.next(options);
+      },
+      onError: (e, handler) async {},
+    ));
   }
 
   Future<Response<dynamic>> get(

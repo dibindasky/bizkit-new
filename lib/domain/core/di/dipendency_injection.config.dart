@@ -8,6 +8,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:bizkit/application/business_logic/Auth/auth_bloc.dart' as _i12;
 import 'package:bizkit/application/business_logic/card_creation/card_screation_bloc.dart'
     as _i5;
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart'
@@ -15,8 +16,12 @@ import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart'
 import 'package:bizkit/data/features/cards_scanning/card_scanning_data_fetching.dart'
     as _i4;
 import 'package:bizkit/data/features/contacts/contacts_fetch.dart' as _i7;
-import 'package:bizkit/domain/repository/card_scanning.dart' as _i3;
+import 'package:bizkit/data/sqflite/sqflite_local_service.dart' as _i11;
+import 'package:bizkit/data/sqflite/users/user_local_service.dart' as _i10;
+import 'package:bizkit/domain/repository/feature/card_scanning.dart' as _i3;
 import 'package:bizkit/domain/repository/feature/contact_repo.dart' as _i6;
+import 'package:bizkit/domain/repository/service/auth_repo.dart' as _i13;
+import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart' as _i9;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -39,6 +44,13 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i7.ContactFetchService());
     gh.factory<_i8.ContactsBloc>(() =>
         _i8.ContactsBloc(contactsService: gh<_i6.ContactFetchServiceRepo>()));
+    gh.lazySingleton<_i9.UserLocalRepo>(() => _i10.UserLocalService());
+    gh.lazySingleton<_i11.LocalService>(
+        () => _i11.LocalService(gh<_i9.UserLocalRepo>()));
+    gh.factory<_i12.AuthBloc>(() => _i12.AuthBloc(
+          gh<_i13.AuthRepo>(),
+          gh<_i11.LocalService>(),
+        ));
     return this;
   }
 }

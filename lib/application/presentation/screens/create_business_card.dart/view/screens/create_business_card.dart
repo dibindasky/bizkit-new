@@ -63,11 +63,8 @@ class _StartingBusinessCardCreationState
                               SizedBox(
                                 width: 32.dm,
                                 height: 32.dm,
-                                child: CircleAvatar(
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.add),
-                                  ),
+                                child: const CircleAvatar(
+                                  child: Icon(Icons.add),
                                 ),
                               ),
                               Text(

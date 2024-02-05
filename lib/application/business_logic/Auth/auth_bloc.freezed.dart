@@ -1472,6 +1472,7 @@ mixin _$AuthState {
   bool get hasError => throw _privateConstructorUsedError;
   bool get otpSend => throw _privateConstructorUsedError;
   bool get otpVerified => throw _privateConstructorUsedError;
+  bool get otpVerificationError => throw _privateConstructorUsedError;
   bool get otpVerifiedForgotPassword => throw _privateConstructorUsedError;
   bool get showValidateError => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
@@ -1495,6 +1496,7 @@ abstract class $AuthStateCopyWith<$Res> {
       bool hasError,
       bool otpSend,
       bool otpVerified,
+      bool otpVerificationError,
       bool otpVerifiedForgotPassword,
       bool showValidateError,
       String? message,
@@ -1519,6 +1521,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? hasError = null,
     Object? otpSend = null,
     Object? otpVerified = null,
+    Object? otpVerificationError = null,
     Object? otpVerifiedForgotPassword = null,
     Object? showValidateError = null,
     Object? message = freezed,
@@ -1541,6 +1544,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
       otpVerified: null == otpVerified
           ? _value.otpVerified
           : otpVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      otpVerificationError: null == otpVerificationError
+          ? _value.otpVerificationError
+          : otpVerificationError // ignore: cast_nullable_to_non_nullable
               as bool,
       otpVerifiedForgotPassword: null == otpVerifiedForgotPassword
           ? _value.otpVerifiedForgotPassword
@@ -1579,6 +1586,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool hasError,
       bool otpSend,
       bool otpVerified,
+      bool otpVerificationError,
       bool otpVerifiedForgotPassword,
       bool showValidateError,
       String? message,
@@ -1601,6 +1609,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? hasError = null,
     Object? otpSend = null,
     Object? otpVerified = null,
+    Object? otpVerificationError = null,
     Object? otpVerifiedForgotPassword = null,
     Object? showValidateError = null,
     Object? message = freezed,
@@ -1623,6 +1632,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       otpVerified: null == otpVerified
           ? _value.otpVerified
           : otpVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      otpVerificationError: null == otpVerificationError
+          ? _value.otpVerificationError
+          : otpVerificationError // ignore: cast_nullable_to_non_nullable
               as bool,
       otpVerifiedForgotPassword: null == otpVerifiedForgotPassword
           ? _value.otpVerifiedForgotPassword
@@ -1656,6 +1669,7 @@ class _$InitialImpl implements _Initial {
       required this.hasError,
       required this.otpSend,
       required this.otpVerified,
+      required this.otpVerificationError,
       required this.otpVerifiedForgotPassword,
       required this.showValidateError,
       this.message,
@@ -1671,6 +1685,8 @@ class _$InitialImpl implements _Initial {
   @override
   final bool otpVerified;
   @override
+  final bool otpVerificationError;
+  @override
   final bool otpVerifiedForgotPassword;
   @override
   final bool showValidateError;
@@ -1683,7 +1699,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerified: $otpVerified, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, showValidateError: $showValidateError, message: $message, signUpResponseModel: $signUpResponseModel, loginResponseModel: $loginResponseModel)';
+    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerified: $otpVerified, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, showValidateError: $showValidateError, message: $message, signUpResponseModel: $signUpResponseModel, loginResponseModel: $loginResponseModel)';
   }
 
   @override
@@ -1698,6 +1714,8 @@ class _$InitialImpl implements _Initial {
             (identical(other.otpSend, otpSend) || other.otpSend == otpSend) &&
             (identical(other.otpVerified, otpVerified) ||
                 other.otpVerified == otpVerified) &&
+            (identical(other.otpVerificationError, otpVerificationError) ||
+                other.otpVerificationError == otpVerificationError) &&
             (identical(other.otpVerifiedForgotPassword,
                     otpVerifiedForgotPassword) ||
                 other.otpVerifiedForgotPassword == otpVerifiedForgotPassword) &&
@@ -1717,6 +1735,7 @@ class _$InitialImpl implements _Initial {
       hasError,
       otpSend,
       otpVerified,
+      otpVerificationError,
       otpVerifiedForgotPassword,
       showValidateError,
       message,
@@ -1736,6 +1755,7 @@ abstract class _Initial implements AuthState {
       required final bool hasError,
       required final bool otpSend,
       required final bool otpVerified,
+      required final bool otpVerificationError,
       required final bool otpVerifiedForgotPassword,
       required final bool showValidateError,
       final String? message,
@@ -1750,6 +1770,8 @@ abstract class _Initial implements AuthState {
   bool get otpSend;
   @override
   bool get otpVerified;
+  @override
+  bool get otpVerificationError;
   @override
   bool get otpVerifiedForgotPassword;
   @override

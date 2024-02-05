@@ -1,5 +1,5 @@
 import 'package:bizkit/application/business_logic/Auth/auth_bloc.dart';
-import 'package:bizkit/application/business_logic/card_creation/card_screation_bloc.dart';
+import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
               create: (ctx) =>
                   InternetConnectionCheckCubit(connectivity: connectivity)),
           BlocProvider(create: (context) => getIt<ContactsBloc>()),
-          BlocProvider(create: (context) => getIt<CardScreationBloc>()),
+          BlocProvider(create: (context) => getIt<UserDataBloc>()),
           BlocProvider(create: (context) => getIt<AuthBloc>()),
         ],
         child: MaterialApp(

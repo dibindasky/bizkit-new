@@ -26,7 +26,7 @@ class LocalService {
     return _database!;
   }
 
-  _initDatabase() async {
+  Future<sql.Database?> _initDatabase() async {
     var databasesPath = await sql.getDatabasesPath();
     String path = join(databasesPath, _databaseName);
 

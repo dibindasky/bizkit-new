@@ -1,4 +1,4 @@
-import 'package:bizkit/application/business_logic/card_creation/card_screation_bloc.dart';
+import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/selected_cards/pick_cards_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -8,20 +8,21 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
+      backgroundColor: neonShade,
       actions: [
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
             context
-                .read<CardScreationBloc>()
-                .add(CardScreationEvent.pickImage(camera: false));
+                .read<UserDataBloc>()
+                .add(UserDataEvent.pickImage(camera: false));
             Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => const PickCardsScreen(),
             ));
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: neonShade,
-            foregroundColor: kwhite,
+            backgroundColor: kwhite,
+            foregroundColor: neonShade,
           ),
           child: const Text('Gallery'),
         ),
@@ -30,20 +31,20 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
           onPressed: () {
             Navigator.pop(context);
             context
-                .read<CardScreationBloc>()
-                .add(CardScreationEvent.pickImage(camera: true));
+                .read<UserDataBloc>()
+                .add(UserDataEvent.pickImage(camera: true));
             Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => const PickCardsScreen(),
             ));
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: kgreen,
-            foregroundColor: kwhite,
+            backgroundColor: kwhite,
+            foregroundColor: neonShade,
           ),
           child: const Text('Camera'),
         )
       ],
-      title: const Text('Create scanning images'),
+      title: const Text('Take a picture or upload an image'),
     ),
   );
 }

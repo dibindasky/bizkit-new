@@ -43,6 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           message: null,
           signUpResponseModel: null),
     );
+    print(event.signUpModel.toJson());
     final result = await authRepo.register(signUpModel: event.signUpModel);
     result.fold(
         (failure) => emit(
@@ -117,7 +118,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<FutureOr<void>> verifyOtp(
       VerifyOtp event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
-        isLoading: true, message: null, hasError: false, otpVerified: false,otpSend: false));
+        isLoading: true, message: null, hasError: false, otpVerified: false,otpVerificationError: false));
     final result =
         await authRepo.verifyOtp(verifyOtpModel: event.verifyOtpModel);
     result.fold(
@@ -125,6 +126,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         state.copyWith(
             isLoading: false,
             hasError: true,
+            otpVerificationError: true,
             message: failure.message ?? errorMessage),
       ),
       (successResponseModel) => emit(
@@ -162,6 +164,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(
         isLoading: true,
         message: null,
+        otpVerificationError: false,
         hasError: false,
         otpVerifiedForgotPassword: false));
     final result = await authRepo.verifyOtpForgotPassword(
@@ -169,6 +172,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     result.fold(
       (failure) => emit(
         state.copyWith(
+          otpVerificationError: true,
             isLoading: false,
             hasError: true,
             message: failure.message ?? errorMessage),

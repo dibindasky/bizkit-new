@@ -86,7 +86,7 @@ class AccolodesScreen extends StatelessWidget {
               Center(
                 child: GestureDetector(
                   onTap: () async {
-                    await PickImage.getImage();
+                    await ImagePickerClass.getImage();
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
                           const AccoladesBrochersAddSreateScreen(

@@ -17,7 +17,7 @@ class TTextFormField extends StatefulWidget {
   final Color? clr;
   final Function(String)? onChanaged;
   final VoidCallback? onTap;
-  final String? password;
+  final TextEditingController? password;
   final FocusNode? focusNode;
   final bool showUnderline;
   final Validate validate;
@@ -106,22 +106,24 @@ class _TTextFormFieldState extends State<TTextFormField> {
            validator: (value) {
             if (Validate.none == widget.validate) {
               return null;
-            } else if (value == null || value.isEmpty || widget.validate == Validate.notNull) {
+            } else if ((value == null || value.isEmpty) && widget.validate == Validate.notNull) {
               return 'Please enter ${widget.text}';
-            } else if (widget.validate == Validate.email && !isValidEmail(value)) {
+            } else if (widget.validate == Validate.email && !isValidEmail(value!)) {
               return 'Please enter a valid email address';
-            } else if (widget.validate == Validate.password && value.length < 8) {
+            } else if (widget.validate == Validate.password && value!.length < 8) {
               return 'Password must contain at least 8 characters';
             } else if (widget.validate == Validate.password &&
-                !isValidPassword(value)) {
+                !isValidPassword(value!)) {
               return 'password must contains one uppercase letter, one lowercase letter, and one digit.';
             } else if (Validate.phone == widget.validate) {
-              if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+              if (!RegExp(r'^[0-9]+$').hasMatch(value!)) {
                 return 'Enter valid phone number (numeric characters only)';
               } else if (value.length != 10) {
                 return 'Phone number should have exactly 10 digits';
+              }else{
+                return null;
               }
-            }else if(Validate.rePassword == widget.validate && widget.password != value){
+            }else if(Validate.rePassword == widget.validate && widget.password!.text.trim() != value){
               return 'Password must be same';
             }
             return null;

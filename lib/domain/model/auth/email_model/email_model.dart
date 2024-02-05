@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'email_verification.g.dart';
+part 'email_model.g.dart';
 
 @JsonSerializable()
 class EmailModel {
@@ -9,8 +9,8 @@ class EmailModel {
   EmailModel({this.email});
 
   factory EmailModel.fromJson(Map<String, dynamic> json) {
-    return _$EmailVerificationFromJson(json);
+    return _$EmailModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$EmailVerificationToJson(this);
+  Map<String, dynamic> toJson() => _$EmailModelToJson(this);
 }

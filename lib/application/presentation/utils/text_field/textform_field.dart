@@ -1,7 +1,9 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class TTextFormField extends StatelessWidget {
+enum Validate { phone, email, password, none, rePassword, notNull }
+
+class TTextFormField extends StatefulWidget {
   final String text;
   final TextEditingController? controller;
   final TextInputType? inputType;
@@ -15,15 +17,21 @@ class TTextFormField extends StatelessWidget {
   final Color? clr;
   final Function(String)? onChanaged;
   final VoidCallback? onTap;
+  final String? password;
   final FocusNode? focusNode;
+  final bool showUnderline;
+  final Validate validate;
   const TTextFormField({
     Key? key,
+    this.validate = Validate.none,
+    this.password,
+    this.showUnderline =false,
     this.clr,
     required this.text,
     this.su,
     this.suffix,
     this.controller,
-    this.inputType,
+    this.inputType = TextInputType.name,
     this.obscureText = false,
     this.maxlegth,
     this.height,
@@ -35,6 +43,25 @@ class TTextFormField extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<TTextFormField> createState() => _TTextFormFieldState();
+}
+
+class _TTextFormFieldState extends State<TTextFormField> {
+  final FocusNode _focusNode = FocusNode();
+    @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -42,60 +69,31 @@ class TTextFormField extends StatelessWidget {
         elevation: 3,
         color: textFieldFillColr,
         child: TextFormField(
-          focusNode: focusNode,
-          onTap: onTap,
-          maxLines: maxLines ?? 1,
+          focusNode: widget.focusNode,
+          onTap: widget.onTap,
+          maxLines: widget.maxLines ?? 1,
           style: TextStyle(
             color: kwhite,
             fontSize: kwidth * 0.033,
           ),
-          maxLength: maxlegth,
-          onChanged: onChanaged,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please $text';
-            }
-            if (text == 'Enter Your name' && value.length < 4) {
-              return 'Name must contain at least 4 letters';
-            }
-            if (text == 'Enter Your email' && !isValidEmail(value)) {
-              return 'Please enter a valid email address';
-            }
-            if (text == 'Enter Your password' && !isValidPassword(value)) {
-              return 'Password must contain at least 8 characters, \none uppercase letter, one lowercase letter, \nand one digit.';
-            }
-            if (text == 'Enter your phone number') {
-              if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                return 'Enter valid phone number (numeric characters only)';
-              } else if (value.length != 10) {
-                return 'Phone number should have exactly 10 digits';
-              }
-            }
-            if (text == 'Enter your Zipcode') {
-              if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                return 'Enter valid zipcode (numeric characters only)';
-              } else if (value.length < 6) {
-                return 'Zipcode should have 6 digits or more than 6 digits';
-              }
-            }
-            return null;
-          },
-          obscureText: obscureText,
-          controller: controller,
-          keyboardType: inputType ?? TextInputType.name,
+          maxLength: widget.maxlegth,
+          onChanged: widget.onChanaged,
+          obscureText: widget.obscureText && !_focusNode.hasFocus,
+          controller: widget.controller,
+          keyboardType: widget.inputType,
           decoration: InputDecoration(
-            suffixIcon: suffix,
+            suffixIcon: widget.suffix,
             suffixIconColor: klightgrey,
-            prefixIcon: su,
+            prefixIcon: widget.su,
             prefixIconColor: kwhite,
             fillColor: textFieldFillColr,
             filled: true,
-            hintText: text,
+            hintText: widget.text,
             hintStyle: custumText(
-              colr: clr ?? klightgrey,
+              colr: widget.clr ?? klightgrey,
             ),
             border: UnderlineInputBorder(
-              borderSide: BorderSide.none,
+              borderSide:widget.showUnderline?const BorderSide(): BorderSide.none,
               borderRadius: BorderRadius.circular(7),
             ),
             focusedBorder: OutlineInputBorder(
@@ -105,11 +103,35 @@ class TTextFormField extends StatelessWidget {
               ),
             ),
           ),
+           validator: (value) {
+            if (Validate.none == widget.validate) {
+              return null;
+            } else if (value == null || value.isEmpty || widget.validate == Validate.notNull) {
+              return 'Please enter ${widget.text}';
+            } else if (widget.validate == Validate.email && !isValidEmail(value)) {
+              return 'Please enter a valid email address';
+            } else if (widget.validate == Validate.password && value.length < 8) {
+              return 'Password must contain at least 8 characters';
+            } else if (widget.validate == Validate.password &&
+                !isValidPassword(value)) {
+              return 'password must contains one uppercase letter, one lowercase letter, and one digit.';
+            } else if (Validate.phone == widget.validate) {
+              if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                return 'Enter valid phone number (numeric characters only)';
+              } else if (value.length != 10) {
+                return 'Phone number should have exactly 10 digits';
+              }
+            }else if(Validate.rePassword == widget.validate && widget.password != value){
+              return 'Password must be same';
+            }
+            return null;
+          },
         ),
       ),
     );
   }
 
+}
   // Regular expression for email validation
   bool isValidEmail(String value) {
     final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
@@ -122,7 +144,6 @@ class TTextFormField extends StatelessWidget {
         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
     return passwordRegExp.hasMatch(value);
   }
-}
 
 class AutocompleteTextField extends StatefulWidget {
   final String label;

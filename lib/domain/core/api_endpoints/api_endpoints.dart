@@ -4,5 +4,9 @@ class ApiEndPoints {
   static String refreshUrl = '';
   static String login = '/accounts/login/';
   static String register = '/accounts/register/';
-  static String verifyMail = '/verifications/send_verification_email/';
+  static String sendOtpMail = '/verifications/send_verification_email/';
+  static String verifyOtp = '/verifications/verify_email/';
+  static String forgotPassword = '/verifications/forgot_password/';
+  static String verifyforgotPassword = '/verifications/verify_forgot_password/';
+  static String changePassword = '/verifications/change_password/';
 }

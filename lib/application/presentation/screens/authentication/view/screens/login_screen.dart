@@ -1,12 +1,15 @@
 import 'dart:developer';
 
+import 'package:bizkit/application/business_logic/Auth/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/signin_screen.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
+import 'package:bizkit/domain/model/auth/login_model/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,8 +31,9 @@ class _LoGInScreenState extends State<LoGInScreen>
   double target = 0.0;
   double targetx = 0.0;
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> loginKey = GlobalKey();
 
   final alignments = [
     Alignment.center,
@@ -133,130 +137,154 @@ class _LoGInScreenState extends State<LoGInScreen>
         child: Scaffold(
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 160,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      eyeCircleAnimated(),
-                      Container(
-                        width: kwidth * 0.05,
-                        height: kwidth * 0.02,
-                        decoration: BoxDecoration(
-                          gradient: neonShadeGradient,
+            child: Form(
+              key: loginKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: 160,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        eyeCircleAnimated(),
+                        Container(
+                          width: kwidth * 0.05,
+                          height: kwidth * 0.02,
+                          decoration: BoxDecoration(
+                            gradient: neonShadeGradient,
+                          ),
                         ),
-                      ),
-                      eyeCircleAnimated()
-                    ],
+                        eyeCircleAnimated()
+                      ],
+                    ),
                   ),
-                ),
-                Text(
-                  'Your key to your business',
-                  style: custumText(
-                    fontSize: kwidth * 0.043,
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    'Your key to your business',
+                    style: custumText(
+                      fontSize: kwidth * 0.043,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                adjustHieght(khieght * .02),
-                TTextFormField(
-                  onTap: () {
-                    setState(() {
-                      if (nameController.text.isEmpty) {
-                        animate(-28, 20);
-                        indexOfEye = 1;
-                      } else {
-                        double newXPosition =
-                            -28 + (nameController.text.length * 1.5);
-                        double newYPosition =
-                            20 + (nameController.text.length * 0.5);
-                        if (newXPosition > 12 && newYPosition > 33) {
-                          setState(() {
-                            newXPosition = 12.0;
-                            newYPosition = 33.0;
-                            animate(newXPosition, newYPosition);
+                  adjustHieght(khieght * .02),
+                  TTextFormField(
+                    onTap: () {
+                      setState(() {
+                        if (emailController.text.isEmpty) {
+                          animate(-28, 20);
+                          indexOfEye = 1;
+                        } else {
+                          double newXPosition =
+                              -28 + (emailController.text.length * 1.5);
+                          double newYPosition =
+                              20 + (emailController.text.length * 0.5);
+                          if (newXPosition > 12 && newYPosition > 33) {
+                            setState(() {
+                              newXPosition = 12.0;
+                              newYPosition = 33.0;
+                              animate(newXPosition, newYPosition);
+                              indexOfEye = 4;
+                            });
+                            return;
+                          }
+                          animate(newXPosition, newYPosition);
+                          if (emailController.text.length > 22) {
                             indexOfEye = 4;
-                          });
-                          return;
+                          } else if (emailController.text.length >= 17) {
+                            indexOfEye = 2;
+                          } else {
+                            indexOfEye = 1;
+                          }
                         }
-                        animate(newXPosition, newYPosition);
-                        if (nameController.text.length > 22) {
+                      });
+                    },
+                    onChanaged: (name) {
+                      double newXPosition = -28 + (name.length * 1.5);
+                      double newYPosition = 20 + (name.length * 0.5);
+                      if (newXPosition > 12 && newYPosition > 33) {
+                        setState(() {
+                          newXPosition = 12.0;
+                          newYPosition = 33.0;
                           indexOfEye = 4;
-                        } else if (nameController.text.length >= 17) {
+                        });
+                        return;
+                      }
+                      setState(() {
+                        animate(newXPosition, newYPosition);
+                        if (name.length >= 17) {
                           indexOfEye = 2;
                         } else {
                           indexOfEye = 1;
                         }
-                      }
-                    });
-                  },
-                  onChanaged: (name) {
-                    double newXPosition = -28 + (name.length * 1.5);
-                    double newYPosition = 20 + (name.length * 0.5);
-                    if (newXPosition > 12 && newYPosition > 33) {
-                      setState(() {
-                        newXPosition = 12.0;
-                        newYPosition = 33.0;
-                        indexOfEye = 4;
                       });
-                      return;
-                    }
-                    print(' $newYPosition $newXPosition ${name.length}');
-                    setState(() {
-                      animate(newXPosition, newYPosition);
-                      if (name.length >= 17) {
-                        indexOfEye = 2;
-                      } else {
-                        indexOfEye = 1;
-                      }
-                    });
-                  },
-                  text: 'Name',
-                  controller: nameController,
-                  inputType: TextInputType.name,
-                  obscureText: false,
-                ),
-                TTextFormField(
-                  onTap: () {
-                    setState(() {
-                      indexOfEye = 3;
-                      animate(30, -20);
-                    });
-                  },
-                  text: 'Password',
-                  controller: passwordController,
-                  inputType: TextInputType.emailAddress,
-                  obscureText: true,
-                ),
-                Text(
-                  'Don\'t have an acount?',
-                  style: TextStyle(
-                    fontSize: kwidth * 0.026,
+                    },
+                    validate: Validate.email,
+                    text: 'Email',
+                    controller: emailController,
+                    inputType: TextInputType.name,
                   ),
-                ),
-                adjustHieght(khieght * .01),
-                InkWell(
-                  onTap: () => Navigator.push(
-                      context, fadePageRoute(const SignInscreeen())),
-                  child: Text(
-                    'Signup',
+                  TTextFormField(
+                    onTap: () {
+                      setState(() {
+                        indexOfEye = 3;
+                        animate(30, -20);
+                      });
+                    },
+                    validate: Validate.password,
+                    text: 'Password',
+                    controller: passwordController,
+                    inputType: TextInputType.emailAddress,
+                    obscureText: true,
+                  ),
+                  Text(
+                    'Don\'t have an acount?',
                     style: TextStyle(
-                      fontSize: kwidth * 0.037,
-                      decoration: TextDecoration.underline,
+                      fontSize: kwidth * 0.026,
                     ),
                   ),
-                ),
-                adjustHieght(khieght * .04),
-                AuthButton(
-                  text: 'Login',
-                  onTap: () => Navigator.of(context).push(
-                    fadePageRoute(const StartingBusinessCardCreation()),
+                  adjustHieght(khieght * .01),
+                  InkWell(
+                    onTap: () => Navigator.push(
+                        context, fadePageRoute(const SignInscreeen())),
+                    child: Text(
+                      'Signup',
+                      style: TextStyle(
+                        fontSize: kwidth * 0.037,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  adjustHieght(khieght * .04),
+                  BlocConsumer<AuthBloc, AuthState>(
+                    listener: (context, state) {
+                      if (state.hasError || state.message != null) {
+                        showSnackbar(context,
+                            message: state.message!,
+                            backgroundColor: state.hasError ? kred : neonShade,
+                            textColor: kwhite);
+                      } else if (state.loginResponseModel != null) {
+                        Navigator.of(context).push(
+                          fadePageRoute(const StartingBusinessCardCreation()),
+                        );
+                      }
+                    },
+                    builder: (context, state) {
+                      return AuthButton(
+                        text: 'Login',
+                        onTap: () {
+                          if (loginKey.currentState!.validate()) {
+                            context.read<AuthBloc>().add(AuthEvent.login(
+                                loginModel: LoginModel(
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text.trim())));
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

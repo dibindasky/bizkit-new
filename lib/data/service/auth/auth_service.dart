@@ -12,7 +12,10 @@ import 'package:bizkit/domain/model/success_response_model/success_response_mode
 import 'package:bizkit/domain/repository/service/auth_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: AuthRepo)
+@injectable
 class AuthService implements AuthRepo {
   final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
 

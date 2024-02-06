@@ -271,7 +271,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                       }
                     },
                     builder: (context, state) {
-                      if(state.isLoading){
+                      if (state.isLoading) {
                         return const LoadingAnimation();
                       }
                       return AuthButton(

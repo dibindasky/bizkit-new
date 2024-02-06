@@ -12,5 +12,4 @@ class ScannedImageDatasModel {
     this.names,
     this.unknown,
   });
-
 }

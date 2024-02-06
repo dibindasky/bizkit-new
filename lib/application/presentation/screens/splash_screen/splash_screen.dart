@@ -27,10 +27,7 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(const Duration(milliseconds: 2000), () {
       Navigator.pushReplacement(
         context,
-        fadePageRoute(
-          // const LoGInScreen()
-          const StartingBusinessCardCreation()
-          ),
+        fadePageRoute(const LoGInScreen()),
       );
     });
   }

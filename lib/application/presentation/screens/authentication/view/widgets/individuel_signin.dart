@@ -7,7 +7,7 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/domain/model/auth/email_model/email_model.dart';
-import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
+import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,6 +54,7 @@ class IndividuelSignIn extends StatelessWidget {
               BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
                   if (state.otpSend) {
+                    // navigate to otp screen when send
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -134,15 +135,14 @@ class IndividuelSignIn extends StatelessWidget {
                             context
                                 .read<AuthBloc>()
                                 .add(const AuthEvent.showValidateError());
-                          } else
-                          if (personalSignup.currentState!.validate()) {
-                            final SignUpModel signUpModel = SignUpModel(
+                          } else if (personalSignup.currentState!.validate()) {
+                            final SignUpIndivudalModel signUpModel = SignUpIndivudalModel(
                                 name: nameController.text.trim(),
                                 email: emailIdController.text.trim(),
                                 password: passwordController.text.trim(),
                                 phoneNumber: mobileController.text.trim());
                             context.read<AuthBloc>().add(
-                                  AuthEvent.register(signUpModel: signUpModel),
+                                  AuthEvent.registerIndividual(signUpIndivudalModel: signUpModel),
                                 );
                           }
                         },

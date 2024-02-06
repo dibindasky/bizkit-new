@@ -67,7 +67,15 @@ class ScreenOtpValidation extends StatelessWidget {
                 ),
               ),
               adjustHieght(20),
-              BlocBuilder<AuthBloc, AuthState>(
+              BlocConsumer<AuthBloc, AuthState>(
+                listenWhen: (previous, current) =>
+                    previous.otpVerificationError !=
+                    current.otpVerificationError,
+                listener: (context, state) {
+                  if (state.otpVerificationError) {
+                    Navigator.pop(context);
+                  }
+                },
                 builder: (context, state) {
                   if (state.isLoading) {
                     return const LoadingAnimation();

@@ -25,7 +25,7 @@ class TTextFormField extends StatefulWidget {
     Key? key,
     this.validate = Validate.none,
     this.password,
-    this.showUnderline =false,
+    this.showUnderline = false,
     this.clr,
     required this.text,
     this.su,
@@ -48,7 +48,7 @@ class TTextFormField extends StatefulWidget {
 
 class _TTextFormFieldState extends State<TTextFormField> {
   final FocusNode _focusNode = FocusNode();
-    @override
+  @override
   void initState() {
     super.initState();
     _focusNode.addListener(() {
@@ -61,6 +61,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
     _focusNode.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -93,7 +94,8 @@ class _TTextFormFieldState extends State<TTextFormField> {
               colr: widget.clr ?? klightgrey,
             ),
             border: UnderlineInputBorder(
-              borderSide:widget.showUnderline?const BorderSide(): BorderSide.none,
+              borderSide:
+                  widget.showUnderline ? const BorderSide() : BorderSide.none,
               borderRadius: BorderRadius.circular(7),
             ),
             focusedBorder: OutlineInputBorder(
@@ -103,14 +105,17 @@ class _TTextFormFieldState extends State<TTextFormField> {
               ),
             ),
           ),
-           validator: (value) {
+          validator: (value) {
             if (Validate.none == widget.validate) {
               return null;
-            } else if ((value == null || value.isEmpty) && widget.validate == Validate.notNull) {
+            } else if ((value == null || value.isEmpty) &&
+                widget.validate == Validate.notNull) {
               return 'Please enter ${widget.text}';
-            } else if (widget.validate == Validate.email && !isValidEmail(value!)) {
+            } else if (widget.validate == Validate.email &&
+                !isValidEmail(value!)) {
               return 'Please enter a valid email address';
-            } else if (widget.validate == Validate.password && value!.length < 8) {
+            } else if (widget.validate == Validate.password &&
+                value!.length < 8) {
               return 'Password must contain at least 8 characters';
             } else if (widget.validate == Validate.password &&
                 !isValidPassword(value!)) {
@@ -120,10 +125,11 @@ class _TTextFormFieldState extends State<TTextFormField> {
                 return 'Enter valid phone number (numeric characters only)';
               } else if (value.length != 10) {
                 return 'Phone number should have exactly 10 digits';
-              }else{
+              } else {
                 return null;
               }
-            }else if(Validate.rePassword == widget.validate && widget.password!.text.trim() != value){
+            } else if (Validate.rePassword == widget.validate &&
+                widget.password!.text.trim() != value) {
               return 'Password must be same';
             }
             return null;
@@ -132,20 +138,19 @@ class _TTextFormFieldState extends State<TTextFormField> {
       ),
     );
   }
-
 }
-  // Regular expression for email validation
-  bool isValidEmail(String value) {
-    final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    return emailRegExp.hasMatch(value);
-  }
 
-  // Regular expression for password validation
-  bool isValidPassword(String value) {
-    final passwordRegExp =
-        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
-    return passwordRegExp.hasMatch(value);
-  }
+// Regular expression for email validation
+bool isValidEmail(String value) {
+  final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  return emailRegExp.hasMatch(value);
+}
+
+// Regular expression for password validation
+bool isValidPassword(String value) {
+  final passwordRegExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+  return passwordRegExp.hasMatch(value);
+}
 
 class AutocompleteTextField extends StatefulWidget {
   final String label;

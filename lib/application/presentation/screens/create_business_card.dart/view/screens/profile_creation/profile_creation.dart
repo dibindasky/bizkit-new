@@ -77,25 +77,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           AutocompleteTextField(
                             label: 'Name',
-                            controller: context
-                                .read<UserDataBloc>()
-                                .nameController,
+                            controller:
+                                context.read<UserDataBloc>().nameController,
                             inputType: TextInputType.text,
-                            autocompleteItems: state.scannedImageDatasModel?.names ?? [],
+                            autocompleteItems:
+                                state.scannedImageDatasModel?.names ?? [],
                           ),
                           AutocompleteTextField(
                             label: 'Phone number',
-                            controller: context
-                                .read<UserDataBloc>()
-                                .phoneController,
+                            controller:
+                                context.read<UserDataBloc>().phoneController,
                             inputType: TextInputType.name,
-                            autocompleteItems: state.scannedImageDatasModel?.phone ?? [],
+                            autocompleteItems:
+                                state.scannedImageDatasModel?.phone ?? [],
                           ),
                           AutocompleteTextField(
                             label: 'Email',
-                            controller: context
-                                .read<UserDataBloc>()
-                                .emailController,
+                            controller:
+                                context.read<UserDataBloc>().emailController,
                             inputType: TextInputType.emailAddress,
                             autocompleteItems:
                                 state.scannedImageDatasModel?.emails ?? [],
@@ -111,9 +110,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           AutocompleteTextField(
                             label: 'Company',
-                            controller: context
-                                .read<UserDataBloc>()
-                                .companylController,
+                            controller:
+                                context.read<UserDataBloc>().companylController,
                             inputType: TextInputType.name,
                             autocompleteItems:
                                 state.scannedImageDatasModel?.unknown ?? [],

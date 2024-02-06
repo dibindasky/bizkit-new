@@ -19,7 +19,9 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
     required TResult Function(EmailModel emailModel) sendOtp,
     required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
     required TResult Function(EmailModel emailModel) forgotPassword,
@@ -28,67 +30,80 @@ mixin _$AuthEvent {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() showValidateError,
+    required TResult Function() log,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult? Function(EmailModel emailModel)? sendOtp,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? showValidateError,
+    TResult? Function()? log,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult Function(EmailModel emailModel)? sendOtp,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? showValidateError,
+    TResult Function()? log,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Login value) login,
-    required TResult Function(Register value) register,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Login value)? login,
-    TResult? Function(Register value)? register,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Login value)? login,
-    TResult Function(Register value)? register,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -177,7 +192,9 @@ class _$LoginImpl implements Login {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
     required TResult Function(EmailModel emailModel) sendOtp,
     required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
     required TResult Function(EmailModel emailModel) forgotPassword,
@@ -186,6 +203,7 @@ class _$LoginImpl implements Login {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() showValidateError,
+    required TResult Function() log,
   }) {
     return login(loginModel);
   }
@@ -194,13 +212,16 @@ class _$LoginImpl implements Login {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult? Function(EmailModel emailModel)? sendOtp,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? showValidateError,
+    TResult? Function()? log,
   }) {
     return login?.call(loginModel);
   }
@@ -209,13 +230,16 @@ class _$LoginImpl implements Login {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult Function(EmailModel emailModel)? sendOtp,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? showValidateError,
+    TResult Function()? log,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -228,13 +252,15 @@ class _$LoginImpl implements Login {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Login value) login,
-    required TResult Function(Register value) register,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
   }) {
     return login(this);
   }
@@ -243,13 +269,15 @@ class _$LoginImpl implements Login {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Login value)? login,
-    TResult? Function(Register value)? register,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
   }) {
     return login?.call(this);
   }
@@ -258,13 +286,15 @@ class _$LoginImpl implements Login {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Login value)? login,
-    TResult Function(Register value)? register,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -284,20 +314,20 @@ abstract class Login implements AuthEvent {
 }
 
 /// @nodoc
-abstract class _$$RegisterImplCopyWith<$Res> {
-  factory _$$RegisterImplCopyWith(
-          _$RegisterImpl value, $Res Function(_$RegisterImpl) then) =
-      __$$RegisterImplCopyWithImpl<$Res>;
+abstract class _$$RegisterBusinessImplCopyWith<$Res> {
+  factory _$$RegisterBusinessImplCopyWith(_$RegisterBusinessImpl value,
+          $Res Function(_$RegisterBusinessImpl) then) =
+      __$$RegisterBusinessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({SignUpModel signUpModel});
 }
 
 /// @nodoc
-class __$$RegisterImplCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$RegisterImpl>
-    implements _$$RegisterImplCopyWith<$Res> {
-  __$$RegisterImplCopyWithImpl(
-      _$RegisterImpl _value, $Res Function(_$RegisterImpl) _then)
+class __$$RegisterBusinessImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$RegisterBusinessImpl>
+    implements _$$RegisterBusinessImplCopyWith<$Res> {
+  __$$RegisterBusinessImplCopyWithImpl(_$RegisterBusinessImpl _value,
+      $Res Function(_$RegisterBusinessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -305,7 +335,7 @@ class __$$RegisterImplCopyWithImpl<$Res>
   $Res call({
     Object? signUpModel = null,
   }) {
-    return _then(_$RegisterImpl(
+    return _then(_$RegisterBusinessImpl(
       signUpModel: null == signUpModel
           ? _value.signUpModel
           : signUpModel // ignore: cast_nullable_to_non_nullable
@@ -316,22 +346,22 @@ class __$$RegisterImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RegisterImpl implements Register {
-  const _$RegisterImpl({required this.signUpModel});
+class _$RegisterBusinessImpl implements RegisterBusiness {
+  const _$RegisterBusinessImpl({required this.signUpModel});
 
   @override
   final SignUpModel signUpModel;
 
   @override
   String toString() {
-    return 'AuthEvent.register(signUpModel: $signUpModel)';
+    return 'AuthEvent.registerBusiness(signUpModel: $signUpModel)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RegisterImpl &&
+            other is _$RegisterBusinessImpl &&
             (identical(other.signUpModel, signUpModel) ||
                 other.signUpModel == signUpModel));
   }
@@ -342,14 +372,17 @@ class _$RegisterImpl implements Register {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RegisterImplCopyWith<_$RegisterImpl> get copyWith =>
-      __$$RegisterImplCopyWithImpl<_$RegisterImpl>(this, _$identity);
+  _$$RegisterBusinessImplCopyWith<_$RegisterBusinessImpl> get copyWith =>
+      __$$RegisterBusinessImplCopyWithImpl<_$RegisterBusinessImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
     required TResult Function(EmailModel emailModel) sendOtp,
     required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
     required TResult Function(EmailModel emailModel) forgotPassword,
@@ -358,40 +391,47 @@ class _$RegisterImpl implements Register {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() showValidateError,
+    required TResult Function() log,
   }) {
-    return register(signUpModel);
+    return registerBusiness(signUpModel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult? Function(EmailModel emailModel)? sendOtp,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? showValidateError,
+    TResult? Function()? log,
   }) {
-    return register?.call(signUpModel);
+    return registerBusiness?.call(signUpModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult Function(EmailModel emailModel)? sendOtp,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? showValidateError,
+    TResult Function()? log,
     required TResult orElse(),
   }) {
-    if (register != null) {
-      return register(signUpModel);
+    if (registerBusiness != null) {
+      return registerBusiness(signUpModel);
     }
     return orElse();
   }
@@ -400,59 +440,255 @@ class _$RegisterImpl implements Register {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Login value) login,
-    required TResult Function(Register value) register,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
   }) {
-    return register(this);
+    return registerBusiness(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Login value)? login,
-    TResult? Function(Register value)? register,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
   }) {
-    return register?.call(this);
+    return registerBusiness?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Login value)? login,
-    TResult Function(Register value)? register,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
     required TResult orElse(),
   }) {
-    if (register != null) {
-      return register(this);
+    if (registerBusiness != null) {
+      return registerBusiness(this);
     }
     return orElse();
   }
 }
 
-abstract class Register implements AuthEvent {
-  const factory Register({required final SignUpModel signUpModel}) =
-      _$RegisterImpl;
+abstract class RegisterBusiness implements AuthEvent {
+  const factory RegisterBusiness({required final SignUpModel signUpModel}) =
+      _$RegisterBusinessImpl;
 
   SignUpModel get signUpModel;
   @JsonKey(ignore: true)
-  _$$RegisterImplCopyWith<_$RegisterImpl> get copyWith =>
+  _$$RegisterBusinessImplCopyWith<_$RegisterBusinessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RegisterIndividualImplCopyWith<$Res> {
+  factory _$$RegisterIndividualImplCopyWith(_$RegisterIndividualImpl value,
+          $Res Function(_$RegisterIndividualImpl) then) =
+      __$$RegisterIndividualImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SignUpIndivudalModel signUpIndivudalModel});
+}
+
+/// @nodoc
+class __$$RegisterIndividualImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$RegisterIndividualImpl>
+    implements _$$RegisterIndividualImplCopyWith<$Res> {
+  __$$RegisterIndividualImplCopyWithImpl(_$RegisterIndividualImpl _value,
+      $Res Function(_$RegisterIndividualImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? signUpIndivudalModel = null,
+  }) {
+    return _then(_$RegisterIndividualImpl(
+      signUpIndivudalModel: null == signUpIndivudalModel
+          ? _value.signUpIndivudalModel
+          : signUpIndivudalModel // ignore: cast_nullable_to_non_nullable
+              as SignUpIndivudalModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RegisterIndividualImpl implements RegisterIndividual {
+  const _$RegisterIndividualImpl({required this.signUpIndivudalModel});
+
+  @override
+  final SignUpIndivudalModel signUpIndivudalModel;
+
+  @override
+  String toString() {
+    return 'AuthEvent.registerIndividual(signUpIndivudalModel: $signUpIndivudalModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RegisterIndividualImpl &&
+            (identical(other.signUpIndivudalModel, signUpIndivudalModel) ||
+                other.signUpIndivudalModel == signUpIndivudalModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, signUpIndivudalModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RegisterIndividualImplCopyWith<_$RegisterIndividualImpl> get copyWith =>
+      __$$RegisterIndividualImplCopyWithImpl<_$RegisterIndividualImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(LoginModel loginModel) login,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
+    required TResult Function(EmailModel emailModel) sendOtp,
+    required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
+    required TResult Function() showValidateError,
+    required TResult Function() log,
+  }) {
+    return registerIndividual(signUpIndivudalModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(LoginModel loginModel)? login,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
+    TResult? Function(EmailModel emailModel)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
+    TResult? Function()? showValidateError,
+    TResult? Function()? log,
+  }) {
+    return registerIndividual?.call(signUpIndivudalModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(LoginModel loginModel)? login,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
+    TResult Function(EmailModel emailModel)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
+    TResult Function()? showValidateError,
+    TResult Function()? log,
+    required TResult orElse(),
+  }) {
+    if (registerIndividual != null) {
+      return registerIndividual(signUpIndivudalModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Login value) login,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
+    required TResult Function(SendOtp value) sendOtp,
+    required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(ForgotPassword value) forgotPassword,
+    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(ChangePassword value) changePassword,
+    required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
+  }) {
+    return registerIndividual(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Login value)? login,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
+    TResult? Function(SendOtp value)? sendOtp,
+    TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(ForgotPassword value)? forgotPassword,
+    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(ChangePassword value)? changePassword,
+    TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
+  }) {
+    return registerIndividual?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Login value)? login,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
+    TResult Function(SendOtp value)? sendOtp,
+    TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(ForgotPassword value)? forgotPassword,
+    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(ChangePassword value)? changePassword,
+    TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
+    required TResult orElse(),
+  }) {
+    if (registerIndividual != null) {
+      return registerIndividual(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RegisterIndividual implements AuthEvent {
+  const factory RegisterIndividual(
+          {required final SignUpIndivudalModel signUpIndivudalModel}) =
+      _$RegisterIndividualImpl;
+
+  SignUpIndivudalModel get signUpIndivudalModel;
+  @JsonKey(ignore: true)
+  _$$RegisterIndividualImplCopyWith<_$RegisterIndividualImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -522,7 +758,9 @@ class _$SendOtpImpl implements SendOtp {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
     required TResult Function(EmailModel emailModel) sendOtp,
     required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
     required TResult Function(EmailModel emailModel) forgotPassword,
@@ -531,6 +769,7 @@ class _$SendOtpImpl implements SendOtp {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() showValidateError,
+    required TResult Function() log,
   }) {
     return sendOtp(emailModel);
   }
@@ -539,13 +778,16 @@ class _$SendOtpImpl implements SendOtp {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult? Function(EmailModel emailModel)? sendOtp,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? showValidateError,
+    TResult? Function()? log,
   }) {
     return sendOtp?.call(emailModel);
   }
@@ -554,13 +796,16 @@ class _$SendOtpImpl implements SendOtp {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult Function(EmailModel emailModel)? sendOtp,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? showValidateError,
+    TResult Function()? log,
     required TResult orElse(),
   }) {
     if (sendOtp != null) {
@@ -573,13 +818,15 @@ class _$SendOtpImpl implements SendOtp {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Login value) login,
-    required TResult Function(Register value) register,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
   }) {
     return sendOtp(this);
   }
@@ -588,13 +835,15 @@ class _$SendOtpImpl implements SendOtp {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Login value)? login,
-    TResult? Function(Register value)? register,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
   }) {
     return sendOtp?.call(this);
   }
@@ -603,13 +852,15 @@ class _$SendOtpImpl implements SendOtp {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Login value)? login,
-    TResult Function(Register value)? register,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
     required TResult orElse(),
   }) {
     if (sendOtp != null) {
@@ -694,7 +945,9 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
     required TResult Function(EmailModel emailModel) sendOtp,
     required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
     required TResult Function(EmailModel emailModel) forgotPassword,
@@ -703,6 +956,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() showValidateError,
+    required TResult Function() log,
   }) {
     return verifyOtp(verifyOtpModel);
   }
@@ -711,13 +965,16 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult? Function(EmailModel emailModel)? sendOtp,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? showValidateError,
+    TResult? Function()? log,
   }) {
     return verifyOtp?.call(verifyOtpModel);
   }
@@ -726,13 +983,16 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult Function(EmailModel emailModel)? sendOtp,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? showValidateError,
+    TResult Function()? log,
     required TResult orElse(),
   }) {
     if (verifyOtp != null) {
@@ -745,13 +1005,15 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Login value) login,
-    required TResult Function(Register value) register,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
   }) {
     return verifyOtp(this);
   }
@@ -760,13 +1022,15 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Login value)? login,
-    TResult? Function(Register value)? register,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
   }) {
     return verifyOtp?.call(this);
   }
@@ -775,13 +1039,15 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Login value)? login,
-    TResult Function(Register value)? register,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
     required TResult orElse(),
   }) {
     if (verifyOtp != null) {
@@ -868,7 +1134,9 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
     required TResult Function(EmailModel emailModel) sendOtp,
     required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
     required TResult Function(EmailModel emailModel) forgotPassword,
@@ -877,6 +1145,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() showValidateError,
+    required TResult Function() log,
   }) {
     return forgotPassword(emailModel);
   }
@@ -885,13 +1154,16 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult? Function(EmailModel emailModel)? sendOtp,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? showValidateError,
+    TResult? Function()? log,
   }) {
     return forgotPassword?.call(emailModel);
   }
@@ -900,13 +1172,16 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult Function(EmailModel emailModel)? sendOtp,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? showValidateError,
+    TResult Function()? log,
     required TResult orElse(),
   }) {
     if (forgotPassword != null) {
@@ -919,13 +1194,15 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Login value) login,
-    required TResult Function(Register value) register,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
   }) {
     return forgotPassword(this);
   }
@@ -934,13 +1211,15 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Login value)? login,
-    TResult? Function(Register value)? register,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
   }) {
     return forgotPassword?.call(this);
   }
@@ -949,13 +1228,15 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Login value)? login,
-    TResult Function(Register value)? register,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
     required TResult orElse(),
   }) {
     if (forgotPassword != null) {
@@ -1043,7 +1324,9 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
     required TResult Function(EmailModel emailModel) sendOtp,
     required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
     required TResult Function(EmailModel emailModel) forgotPassword,
@@ -1052,6 +1335,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() showValidateError,
+    required TResult Function() log,
   }) {
     return verifyforgotPassword(verifyOtpModel);
   }
@@ -1060,13 +1344,16 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult? Function(EmailModel emailModel)? sendOtp,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? showValidateError,
+    TResult? Function()? log,
   }) {
     return verifyforgotPassword?.call(verifyOtpModel);
   }
@@ -1075,13 +1362,16 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult Function(EmailModel emailModel)? sendOtp,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? showValidateError,
+    TResult Function()? log,
     required TResult orElse(),
   }) {
     if (verifyforgotPassword != null) {
@@ -1094,13 +1384,15 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Login value) login,
-    required TResult Function(Register value) register,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
   }) {
     return verifyforgotPassword(this);
   }
@@ -1109,13 +1401,15 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Login value)? login,
-    TResult? Function(Register value)? register,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
   }) {
     return verifyforgotPassword?.call(this);
   }
@@ -1124,13 +1418,15 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Login value)? login,
-    TResult Function(Register value)? register,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
     required TResult orElse(),
   }) {
     if (verifyforgotPassword != null) {
@@ -1218,7 +1514,9 @@ class _$ChangePasswordImpl implements ChangePassword {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
     required TResult Function(EmailModel emailModel) sendOtp,
     required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
     required TResult Function(EmailModel emailModel) forgotPassword,
@@ -1227,6 +1525,7 @@ class _$ChangePasswordImpl implements ChangePassword {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() showValidateError,
+    required TResult Function() log,
   }) {
     return changePassword(changePasswordModel);
   }
@@ -1235,13 +1534,16 @@ class _$ChangePasswordImpl implements ChangePassword {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult? Function(EmailModel emailModel)? sendOtp,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? showValidateError,
+    TResult? Function()? log,
   }) {
     return changePassword?.call(changePasswordModel);
   }
@@ -1250,13 +1552,16 @@ class _$ChangePasswordImpl implements ChangePassword {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult Function(EmailModel emailModel)? sendOtp,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? showValidateError,
+    TResult Function()? log,
     required TResult orElse(),
   }) {
     if (changePassword != null) {
@@ -1269,13 +1574,15 @@ class _$ChangePasswordImpl implements ChangePassword {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Login value) login,
-    required TResult Function(Register value) register,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
   }) {
     return changePassword(this);
   }
@@ -1284,13 +1591,15 @@ class _$ChangePasswordImpl implements ChangePassword {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Login value)? login,
-    TResult? Function(Register value)? register,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
   }) {
     return changePassword?.call(this);
   }
@@ -1299,13 +1608,15 @@ class _$ChangePasswordImpl implements ChangePassword {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Login value)? login,
-    TResult Function(Register value)? register,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
     required TResult orElse(),
   }) {
     if (changePassword != null) {
@@ -1365,7 +1676,9 @@ class _$ShowValidateErrorImpl implements ShowValidateError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(SignUpModel signUpModel) register,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
     required TResult Function(EmailModel emailModel) sendOtp,
     required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
     required TResult Function(EmailModel emailModel) forgotPassword,
@@ -1374,6 +1687,7 @@ class _$ShowValidateErrorImpl implements ShowValidateError {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() showValidateError,
+    required TResult Function() log,
   }) {
     return showValidateError();
   }
@@ -1382,13 +1696,16 @@ class _$ShowValidateErrorImpl implements ShowValidateError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(SignUpModel signUpModel)? register,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult? Function(EmailModel emailModel)? sendOtp,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? showValidateError,
+    TResult? Function()? log,
   }) {
     return showValidateError?.call();
   }
@@ -1397,13 +1714,16 @@ class _$ShowValidateErrorImpl implements ShowValidateError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(SignUpModel signUpModel)? register,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
     TResult Function(EmailModel emailModel)? sendOtp,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? showValidateError,
+    TResult Function()? log,
     required TResult orElse(),
   }) {
     if (showValidateError != null) {
@@ -1416,13 +1736,15 @@ class _$ShowValidateErrorImpl implements ShowValidateError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Login value) login,
-    required TResult Function(Register value) register,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
   }) {
     return showValidateError(this);
   }
@@ -1431,13 +1753,15 @@ class _$ShowValidateErrorImpl implements ShowValidateError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Login value)? login,
-    TResult? Function(Register value)? register,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
   }) {
     return showValidateError?.call(this);
   }
@@ -1446,13 +1770,15 @@ class _$ShowValidateErrorImpl implements ShowValidateError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Login value)? login,
-    TResult Function(Register value)? register,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
     required TResult orElse(),
   }) {
     if (showValidateError != null) {
@@ -1467,6 +1793,159 @@ abstract class ShowValidateError implements AuthEvent {
 }
 
 /// @nodoc
+abstract class _$$LogImplCopyWith<$Res> {
+  factory _$$LogImplCopyWith(_$LogImpl value, $Res Function(_$LogImpl) then) =
+      __$$LogImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LogImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$LogImpl>
+    implements _$$LogImplCopyWith<$Res> {
+  __$$LogImplCopyWithImpl(_$LogImpl _value, $Res Function(_$LogImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$LogImpl implements Log {
+  const _$LogImpl();
+
+  @override
+  String toString() {
+    return 'AuthEvent.log()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LogImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(LoginModel loginModel) login,
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
+    required TResult Function(EmailModel emailModel) sendOtp,
+    required TResult Function(VerifyOtpModel verifyOtpModel) verifyOtp,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
+    required TResult Function() showValidateError,
+    required TResult Function() log,
+  }) {
+    return log();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(LoginModel loginModel)? login,
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
+    TResult? Function(EmailModel emailModel)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
+    TResult? Function()? showValidateError,
+    TResult? Function()? log,
+  }) {
+    return log?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(LoginModel loginModel)? login,
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
+    TResult Function(EmailModel emailModel)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyOtp,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
+    TResult Function()? showValidateError,
+    TResult Function()? log,
+    required TResult orElse(),
+  }) {
+    if (log != null) {
+      return log();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Login value) login,
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
+    required TResult Function(SendOtp value) sendOtp,
+    required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(ForgotPassword value) forgotPassword,
+    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(ChangePassword value) changePassword,
+    required TResult Function(ShowValidateError value) showValidateError,
+    required TResult Function(Log value) log,
+  }) {
+    return log(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Login value)? login,
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
+    TResult? Function(SendOtp value)? sendOtp,
+    TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(ForgotPassword value)? forgotPassword,
+    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(ChangePassword value)? changePassword,
+    TResult? Function(ShowValidateError value)? showValidateError,
+    TResult? Function(Log value)? log,
+  }) {
+    return log?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Login value)? login,
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
+    TResult Function(SendOtp value)? sendOtp,
+    TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(ForgotPassword value)? forgotPassword,
+    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(ChangePassword value)? changePassword,
+    TResult Function(ShowValidateError value)? showValidateError,
+    TResult Function(Log value)? log,
+    required TResult orElse(),
+  }) {
+    if (log != null) {
+      return log(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Log implements AuthEvent {
+  const factory Log() = _$LogImpl;
+}
+
+/// @nodoc
 mixin _$AuthState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
@@ -1475,6 +1954,7 @@ mixin _$AuthState {
   bool get otpVerificationError => throw _privateConstructorUsedError;
   bool get otpVerifiedForgotPassword => throw _privateConstructorUsedError;
   bool get showValidateError => throw _privateConstructorUsedError;
+  bool get isLogin => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   SignUpResponseModel? get signUpResponseModel =>
       throw _privateConstructorUsedError;
@@ -1499,6 +1979,7 @@ abstract class $AuthStateCopyWith<$Res> {
       bool otpVerificationError,
       bool otpVerifiedForgotPassword,
       bool showValidateError,
+      bool isLogin,
       String? message,
       SignUpResponseModel? signUpResponseModel,
       LoginResponseModel? loginResponseModel});
@@ -1524,6 +2005,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? otpVerificationError = null,
     Object? otpVerifiedForgotPassword = null,
     Object? showValidateError = null,
+    Object? isLogin = null,
     Object? message = freezed,
     Object? signUpResponseModel = freezed,
     Object? loginResponseModel = freezed,
@@ -1557,6 +2039,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.showValidateError
           : showValidateError // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLogin: null == isLogin
+          ? _value.isLogin
+          : isLogin // ignore: cast_nullable_to_non_nullable
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1589,6 +2075,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool otpVerificationError,
       bool otpVerifiedForgotPassword,
       bool showValidateError,
+      bool isLogin,
       String? message,
       SignUpResponseModel? signUpResponseModel,
       LoginResponseModel? loginResponseModel});
@@ -1612,6 +2099,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? otpVerificationError = null,
     Object? otpVerifiedForgotPassword = null,
     Object? showValidateError = null,
+    Object? isLogin = null,
     Object? message = freezed,
     Object? signUpResponseModel = freezed,
     Object? loginResponseModel = freezed,
@@ -1645,6 +2133,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.showValidateError
           : showValidateError // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLogin: null == isLogin
+          ? _value.isLogin
+          : isLogin // ignore: cast_nullable_to_non_nullable
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1672,6 +2164,7 @@ class _$InitialImpl implements _Initial {
       required this.otpVerificationError,
       required this.otpVerifiedForgotPassword,
       required this.showValidateError,
+      required this.isLogin,
       this.message,
       this.signUpResponseModel,
       this.loginResponseModel});
@@ -1691,6 +2184,8 @@ class _$InitialImpl implements _Initial {
   @override
   final bool showValidateError;
   @override
+  final bool isLogin;
+  @override
   final String? message;
   @override
   final SignUpResponseModel? signUpResponseModel;
@@ -1699,7 +2194,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerified: $otpVerified, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, showValidateError: $showValidateError, message: $message, signUpResponseModel: $signUpResponseModel, loginResponseModel: $loginResponseModel)';
+    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerified: $otpVerified, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, showValidateError: $showValidateError, isLogin: $isLogin, message: $message, signUpResponseModel: $signUpResponseModel, loginResponseModel: $loginResponseModel)';
   }
 
   @override
@@ -1721,6 +2216,7 @@ class _$InitialImpl implements _Initial {
                 other.otpVerifiedForgotPassword == otpVerifiedForgotPassword) &&
             (identical(other.showValidateError, showValidateError) ||
                 other.showValidateError == showValidateError) &&
+            (identical(other.isLogin, isLogin) || other.isLogin == isLogin) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.signUpResponseModel, signUpResponseModel) ||
                 other.signUpResponseModel == signUpResponseModel) &&
@@ -1738,6 +2234,7 @@ class _$InitialImpl implements _Initial {
       otpVerificationError,
       otpVerifiedForgotPassword,
       showValidateError,
+      isLogin,
       message,
       signUpResponseModel,
       loginResponseModel);
@@ -1758,6 +2255,7 @@ abstract class _Initial implements AuthState {
       required final bool otpVerificationError,
       required final bool otpVerifiedForgotPassword,
       required final bool showValidateError,
+      required final bool isLogin,
       final String? message,
       final SignUpResponseModel? signUpResponseModel,
       final LoginResponseModel? loginResponseModel}) = _$InitialImpl;
@@ -1776,6 +2274,8 @@ abstract class _Initial implements AuthState {
   bool get otpVerifiedForgotPassword;
   @override
   bool get showValidateError;
+  @override
+  bool get isLogin;
   @override
   String? get message;
   @override

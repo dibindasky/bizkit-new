@@ -8,19 +8,19 @@ class SignUpModel {
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
   String? password;
-  String? name;
   @JsonKey(name: 'company_name')
   String? companyName;
   String? address;
+  @JsonKey(name: 'is_business')
+  bool isBusiness;
 
-  SignUpModel({
-    this.email,
-    this.phoneNumber,
-    this.password,
-    this.name,
-    this.companyName,
-    this.address,
-  });
+  SignUpModel(
+      {this.email,
+      this.phoneNumber,
+      this.password,
+      this.companyName,
+      this.address,
+      this.isBusiness = true});
 
   factory SignUpModel.fromJson(Map<String, dynamic> json) {
     return _$SignUpModelFromJson(json);

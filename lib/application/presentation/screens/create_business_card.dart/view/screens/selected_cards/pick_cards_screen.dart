@@ -1,5 +1,6 @@
 import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/card_scanning_showdialogue/card_uploading_showdailogue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
@@ -119,6 +120,11 @@ class PickCardsScreen extends StatelessWidget {
                                       images: state.images,
                                     ),
                                   );
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ProfileScreen()));
                             },
                           ),
                     adjustHieght(khieght * .02),

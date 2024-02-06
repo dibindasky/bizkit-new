@@ -10,5 +10,5 @@ class UserDataState with _$UserDataState {
       ScannedImageDatasModel? scannedImageDatasModel}) = _Initial;
 
   factory UserDataState.initial() =>
-      const UserDataState(hasError: false, isLoading: false,images: []);
+      const UserDataState(hasError: false, isLoading: false, images: []);
 }

@@ -7,6 +7,7 @@ void showSnackbar(BuildContext context,
     int duration = 2,
     Color textColor = kblack}) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    elevation: 5,
     content: Text(
       message,
       style: textStyle1.copyWith(color: textColor),

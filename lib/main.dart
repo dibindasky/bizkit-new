@@ -4,6 +4,7 @@ import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/screen/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
+import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/core/di/dipendency_injection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
                 ),
           ),
           debugShowCheckedModeBanner: false,
-          home: const StartingBusinessCardCreation(),
+          home: const SplashScreen(),
         ),
       ),
     );

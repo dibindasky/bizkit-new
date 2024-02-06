@@ -1,3 +1,4 @@
+import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_vice_accounts_bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
 import 'package:bizkit/application/presentation/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +33,8 @@ class PreviewRowWiceIcons extends StatelessWidget {
         GestureDetector(
           onTap: () => showModalBottomSheet(
             context: context,
-            builder: (context) => const PreviewScreenRowIconsModelSheet(
-              isPhone: false,
-            ),
+            builder: (context) =>
+                const ScreenPreviewRowiceAccountsBottomSheet(),
           ),
           child: const DetailSharingIconWidget(
             image: 'asset/images/preview_spinner.png',

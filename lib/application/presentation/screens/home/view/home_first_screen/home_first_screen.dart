@@ -1,7 +1,8 @@
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/home_first_app_bar.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/home_first_my_cnnection_listview_outer.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_cards_and_add_card.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_screen_second_part.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_first_app_bar.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connections_container.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/mycards_and_add_card/my_cards_and_add_card.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/notifications/notification_screen.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/second_half_section/home_screen_second_part.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,8 @@ class _HomeScreenFirstAnimationScreenState
   @override
   void initState() {
     super.initState();
+    notificationScreen.value = 0;
+    notificationScreen.notifyListeners();
 
     _homeFirstAnimationController = AnimationController(
       vsync: this,
@@ -88,6 +91,21 @@ class _HomeScreenFirstAnimationScreenState
         Tween<double>(begin: 1, end: 0).animate(_homeFirstAnimationController);
   }
 
+  bool isOPen = false;
+  void noti() {
+    setState(() {
+      if (isOPen) {
+        notificationScreen.value = 0;
+        notificationScreen.notifyListeners();
+        isOPen = !isOPen;
+      } else {
+        notificationScreen.value = 1;
+        notificationScreen.notifyListeners();
+        isOPen = !isOPen;
+      }
+    });
+  }
+
   @override
   void dispose() {
     _homeFirstAnimationController.dispose();
@@ -121,65 +139,69 @@ class _HomeScreenFirstAnimationScreenState
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AnimatedBuilder(
-                          animation: _homeFirstAnimationController,
-                          builder: (context, child) {
-                            return FadeTransition(
-                              opacity: _fadeAnimation,
-                              child: SlideTransition(
-                                position: _slideAnimation,
-                                child: SizedBox(
-                                  height: kwidth * 1.123,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const HomeFirstAppBar(),
-                                        adjustHieght(khieght * .02),
-                                        const HomeFirstMyCardsAndAddCardSection(),
-                                        adjustHieght(khieght * .03),
-                                        const HomeFirstMyConnectionListviewOuter(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                //Here The starting Page of main Screen
-                              ),
-                            );
-                          },
-                        ),
-                        Expanded(
-                          child: AnimatedBuilder(
-                            animation: Listenable.merge([
-                              _homeSecondAnimationController,
-                              _homeSecondAnimationController2
-                            ]),
+                  ValueListenableBuilder(
+                    valueListenable: notificationScreen,
+                    builder: (context, value, child) {
+                      if (value == 1) {
+                        return const NotificationScreen();
+                      }
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AnimatedBuilder(
+                            animation: _homeFirstAnimationController,
                             builder: (context, child) {
-                              return SlideTransition(
-                                position: _slideAnimation2Move,
+                              return FadeTransition(
+                                opacity: _fadeAnimation,
                                 child: SlideTransition(
-                                  position: _slideAnimation2,
-                                  child: HomeScreenSecondPart(
-                                    animationController: [
-                                      _homeFirstAnimationController,
-                                      _homeSecondAnimationController,
-                                      _homeSecondAnimationController2
-                                    ],
+                                  position: _slideAnimation,
+                                  child: SizedBox(
+                                    height: kwidth * 1.123,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const HomeFirstAppBar(),
+                                          adjustHieght(khieght * .02),
+                                          const MyCardsAndAddCardSection(),
+                                          adjustHieght(khieght * .03),
+                                          const MyConnectionContainer(),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               );
                             },
                           ),
-                        ),
-                      ],
-                    ),
+                          Expanded(
+                            child: AnimatedBuilder(
+                              animation: Listenable.merge([
+                                _homeSecondAnimationController,
+                                _homeSecondAnimationController2
+                              ]),
+                              builder: (context, child) {
+                                return SlideTransition(
+                                  position: _slideAnimation2Move,
+                                  child: SlideTransition(
+                                    position: _slideAnimation2,
+                                    child: HomeScreenSecondPart(
+                                      animationController: [
+                                        _homeFirstAnimationController,
+                                        _homeSecondAnimationController,
+                                        _homeSecondAnimationController2
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               );

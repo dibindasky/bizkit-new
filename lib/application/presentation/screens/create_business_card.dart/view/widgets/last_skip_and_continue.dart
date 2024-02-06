@@ -3,31 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LastSkipContinueButtons extends StatelessWidget {
-  const LastSkipContinueButtons({
+  LastSkipContinueButtons({
     super.key,
     this.onTap,
+    this.isAvoidSkip,
   });
 
+  bool? isAvoidSkip = false;
   final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: isAvoidSkip == true
+          ? MainAxisAlignment.center
+          : MainAxisAlignment.spaceAround,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: neonShade),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(5),
-            ),
-          ),
-          width: 123.dm,
-          height: 45.dm,
-          child: const Center(
-            child: Text('Skip'),
-          ),
-        ),
+        isAvoidSkip == true
+            ? const SizedBox()
+            : Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: neonShade),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                ),
+                width: 123.dm,
+                height: 45.dm,
+                child: const Center(
+                  child: Text('Skip'),
+                ),
+              ),
         InkWell(
           onTap: onTap,
           child: Container(

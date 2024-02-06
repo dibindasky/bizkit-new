@@ -6,6 +6,7 @@ import 'package:bizkit/domain/model/auth/change_password_model/change_password_m
 import 'package:bizkit/domain/model/auth/email_model/email_model.dart';
 import 'package:bizkit/domain/model/auth/login_model/login_model.dart';
 import 'package:bizkit/domain/model/auth/login_response_model/login_response_model.dart';
+import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_response_model/sign_up_response_model.dart';
 import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
@@ -26,24 +27,60 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc(this.authRepo, this.localService) : super(AuthState.initial()) {
     on<Login>(login);
-    on<Register>(register);
+    on<RegisterBusiness>(registerBusiness);
+    on<RegisterIndividual>(registerIndividual);
     on<SendOtp>(sendOtp);
     on<VerifyOtp>(verifyOtp);
     on<ForgotPassword>(forgotPassword);
     on<ChangePassword>(changePassword);
     on<VerifyforgotPassword>(verifyForgotPassword);
     on<ShowValidateError>(showValidateError);
+    on<Log>(log);
   }
 
-  FutureOr<void> register(Register event, Emitter<AuthState> emit) async {
+  FutureOr<void> log(Log event, emit) async =>
+      emit(state.copyWith(isLogin: await SecureStorage.getLogin()));
+
+  FutureOr<void> registerBusiness(
+      RegisterBusiness event, Emitter<AuthState> emit) async {
     emit(
       state.copyWith(
           isLoading: true,
+          otpVerificationError: false,
           hasError: false,
           message: null,
           signUpResponseModel: null),
     );
-    final result = await authRepo.register(signUpModel: event.signUpModel);
+    print(event.signUpModel.toJson());
+    final result =
+        await authRepo.registerBusiness(signUpModel: event.signUpModel);
+    result.fold(
+        (failure) => emit(
+              state.copyWith(
+                  isLoading: false,
+                  hasError: true,
+                  message: failure.message ?? errorMessage),
+            ), (signUpResponseModel) {
+      emit(
+        state.copyWith(
+            isLoading: false, signUpResponseModel: signUpResponseModel),
+      );
+    });
+  }
+
+  FutureOr<void> registerIndividual(
+      RegisterIndividual event, Emitter<AuthState> emit) async {
+    emit(
+      state.copyWith(
+          isLoading: true,
+          otpVerificationError: false,
+          hasError: false,
+          message: null,
+          signUpResponseModel: null),
+    );
+    print(event.signUpIndivudalModel.toJson());
+    final result = await authRepo.registerIndivudual(
+        signUpIndivudalModel: event.signUpIndivudalModel);
     result.fold(
         (failure) => emit(
               state.copyWith(
@@ -95,7 +132,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> sendOtp(SendOtp event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
-        isLoading: true, message: null, hasError: false, otpSend: false));
+        isLoading: true,
+        otpVerificationError: false,
+        message: null,
+        hasError: false,
+        otpSend: false,
+        otpVerified: false));
     final result = await authRepo.sendOtp(emailModel: event.emailModel);
     result.fold(
       (failure) => emit(
@@ -117,7 +159,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<FutureOr<void>> verifyOtp(
       VerifyOtp event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
-        isLoading: true, message: null, hasError: false, otpVerified: false,otpSend: false));
+        isLoading: true,
+        message: null,
+        hasError: false,
+        otpVerified: false,
+        otpVerificationError: false,
+        otpSend: false));
     final result =
         await authRepo.verifyOtp(verifyOtpModel: event.verifyOtpModel);
     result.fold(
@@ -125,6 +172,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         state.copyWith(
             isLoading: false,
             hasError: true,
+            otpVerificationError: true,
             message: failure.message ?? errorMessage),
       ),
       (successResponseModel) => emit(
@@ -139,7 +187,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FutureOr<void> forgotPassword(
       ForgotPassword event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
-        isLoading: true, message: null, hasError: false, otpSend: false));
+        isLoading: true,
+        message: null,
+        hasError: false,
+        otpVerificationError: false,
+        otpSend: false,
+        otpVerified: false));
     final result = await authRepo.forgotPassword(emailModel: event.emailModel);
     result.fold(
       (failure) => emit(
@@ -162,13 +215,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(
         isLoading: true,
         message: null,
+        otpVerificationError: false,
         hasError: false,
+        otpSend: false,
         otpVerifiedForgotPassword: false));
     final result = await authRepo.verifyOtpForgotPassword(
         verifyOtpModel: event.verifyOtpModel);
     result.fold(
       (failure) => emit(
         state.copyWith(
+            otpVerificationError: true,
             isLoading: false,
             hasError: true,
             message: failure.message ?? errorMessage),
@@ -185,7 +241,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FutureOr<void> changePassword(
       ChangePassword event, Emitter<AuthState> emit) async {
     emit(
-      state.copyWith(isLoading: true, message: null, hasError: false),
+      state.copyWith(
+          isLoading: true,
+          message: null,
+          hasError: false,
+          otpVerificationError: false),
     );
     final result = await authRepo.changePassword(
         changePasswordModel: event.changePasswordModel);

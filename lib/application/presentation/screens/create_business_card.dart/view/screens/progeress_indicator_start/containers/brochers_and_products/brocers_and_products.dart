@@ -3,7 +3,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/screen/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/brochere_add_screen/image_with_brochers.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -62,7 +62,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
                 Center(
                   child: InkWell(
                     onTap: () async {
-                      final result = await PickImage.getImage();
+                      final result = await ImagePickerClass.getImage();
                       if (result != null) {
                         // ignore: use_build_context_synchronously
                         Navigator.push(

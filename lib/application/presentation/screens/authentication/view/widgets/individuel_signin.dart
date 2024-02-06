@@ -1,12 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/Auth/auth_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/otp_screen.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/domain/model/auth/email_model/email_model.dart';
-import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
+import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,10 +54,17 @@ class IndividuelSignIn extends StatelessWidget {
               BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
                   if (state.otpSend) {
+                    // navigate to otp screen when send
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ScreenOtpValidation()));
+                            builder: (context) => ScreenOtpValidation(
+                                  email: emailIdController.text.trim(),
+                                )));
+                  } else if (state.otpVerified) {
+                    Navigator.pop(context);
+                  } else if (state.otpVerificationError) {
+                    print('otp verification error');
                   }
                 },
                 builder: (context, state) {
@@ -69,6 +77,7 @@ class IndividuelSignIn extends StatelessWidget {
                     suffix: TextButton(
                       onPressed: () {
                         if (isValidEmail(emailIdController.text.trim())) {
+                          print('otp send individual');
                           context.read<AuthBloc>().add(AuthEvent.sendOtp(
                               emailModel: EmailModel(
                                   email: emailIdController.text.trim())));
@@ -99,7 +108,7 @@ class IndividuelSignIn extends StatelessWidget {
               ),
               TTextFormField(
                 validate: Validate.rePassword,
-                password: passwordController.text,
+                password: passwordController,
                 text: 'Re-enter password',
                 controller: rePasswordController,
                 obscureText: true,
@@ -107,6 +116,9 @@ class IndividuelSignIn extends StatelessWidget {
               adjustHieght(khieght * .09),
               BlocBuilder<AuthBloc, AuthState>(
                 builder: (context, state) {
+                  if (state.isLoading) {
+                    return const LoadingAnimation();
+                  }
                   return Column(
                     children: [
                       state.showValidateError
@@ -124,12 +136,13 @@ class IndividuelSignIn extends StatelessWidget {
                                 .read<AuthBloc>()
                                 .add(const AuthEvent.showValidateError());
                           } else if (personalSignup.currentState!.validate()) {
-                            final SignUpModel signUpModel = SignUpModel(
+                            final SignUpIndivudalModel signUpModel = SignUpIndivudalModel(
+                                name: nameController.text.trim(),
                                 email: emailIdController.text.trim(),
                                 password: passwordController.text.trim(),
                                 phoneNumber: mobileController.text.trim());
                             context.read<AuthBloc>().add(
-                                  AuthEvent.register(signUpModel: signUpModel),
+                                  AuthEvent.registerIndividual(signUpIndivudalModel: signUpModel),
                                 );
                           }
                         },

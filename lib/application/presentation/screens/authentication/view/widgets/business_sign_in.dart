@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/Auth/auth_bloc.dart';
-import 'package:bizkit/application/presentation/screens/authentication/view/screens/otp_screen.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -98,7 +98,7 @@ class BusinessSignIn extends StatelessWidget {
               TTextFormField(
                 text: 'ReEnter Password',
                 controller: rePasswordController,
-                password: passwordController.text.trim(),
+                password: passwordController,
                 validate: Validate.rePassword,
                 obscureText: true,
               ),
@@ -110,18 +110,22 @@ class BusinessSignIn extends StatelessWidget {
                         message: state.message!,
                         backgroundColor: state.hasError ? kred : neonShade);
                   }
-                  if (state.otpSend) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ScreenOtpValidation(),
-                      ),
-                    );
-                  }
+                  // if (state.otpSend) {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => ScreenOtpValidation(
+                  //           email: companyMailController.text.trim()),
+                  //     ),
+                  //   );
+                  // }
                 },
                 buildWhen: (previous, current) =>
                     previous.showValidateError != current.showValidateError,
                 builder: (context, state) {
+                  if (state.isLoading) {
+                    return const LoadingAnimation();
+                  }
                   return Column(
                     children: [
                       state.showValidateError
@@ -140,6 +144,7 @@ class BusinessSignIn extends StatelessWidget {
                                 .add(const AuthEvent.showValidateError());
                           } else if (businessSignup.currentState!.validate()) {
                             final SignUpModel signUpModel = SignUpModel(
+                                isBusiness: true,
                                 address: addressController.text.trim(),
                                 companyName: companynameController.text.trim(),
                                 email: companyMailController.text.trim(),
@@ -147,7 +152,7 @@ class BusinessSignIn extends StatelessWidget {
                                 phoneNumber:
                                     companyPhoneController.text.trim());
                             context.read<AuthBloc>().add(
-                                AuthEvent.register(signUpModel: signUpModel));
+                                AuthEvent.registerBusiness(signUpModel: signUpModel));
                           }
                         },
                       ),

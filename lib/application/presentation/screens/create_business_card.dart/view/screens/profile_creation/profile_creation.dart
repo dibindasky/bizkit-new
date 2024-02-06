@@ -1,10 +1,9 @@
-import 'package:bizkit/application/business_logic/card_creation/card_screation_bloc.dart';
+import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/progress_indicator_start.dart';
-import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_aontinue.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -72,59 +71,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                   adjustHieght(khieght * .04),
-                  BlocConsumer<CardScreationBloc, CardScreationState>(
-                    listener: (context, state) {
-                      if (state.success == true) {
-                        showSnackbar(
-                            message: 'Converting text from image is success',
-                            context);
-                      }
-                    },
+                  BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return Column(
                         children: [
                           AutocompleteTextField(
                             label: 'Name',
-                            controller: context
-                                .read<CardScreationBloc>()
-                                .nameController,
+                            controller:
+                                context.read<UserDataBloc>().nameController,
                             inputType: TextInputType.text,
-                            autocompleteItems: state.convertedText?.names ?? [],
+                            autocompleteItems:
+                                state.scannedImageDatasModel?.names ?? [],
                           ),
                           AutocompleteTextField(
                             label: 'Phone number',
-                            controller: context
-                                .read<CardScreationBloc>()
-                                .phoneController,
+                            controller:
+                                context.read<UserDataBloc>().phoneController,
                             inputType: TextInputType.name,
-                            autocompleteItems: state.convertedText?.phone ?? [],
+                            autocompleteItems:
+                                state.scannedImageDatasModel?.phone ?? [],
                           ),
                           AutocompleteTextField(
                             label: 'Email',
-                            controller: context
-                                .read<CardScreationBloc>()
-                                .emailController,
+                            controller:
+                                context.read<UserDataBloc>().emailController,
                             inputType: TextInputType.emailAddress,
                             autocompleteItems:
-                                state.convertedText?.emails ?? [],
+                                state.scannedImageDatasModel?.emails ?? [],
                           ),
                           AutocompleteTextField(
                             label: 'Technolegy',
                             controller: context
-                                .read<CardScreationBloc>()
+                                .read<UserDataBloc>()
                                 .technolegyController,
                             inputType: TextInputType.name,
                             autocompleteItems:
-                                state.convertedText?.unKnown ?? [],
+                                state.scannedImageDatasModel?.unknown ?? [],
                           ),
                           AutocompleteTextField(
                             label: 'Company',
-                            controller: context
-                                .read<CardScreationBloc>()
-                                .companylController,
+                            controller:
+                                context.read<UserDataBloc>().companylController,
                             inputType: TextInputType.name,
                             autocompleteItems:
-                                state.convertedText?.unKnown ?? [],
+                                state.scannedImageDatasModel?.unknown ?? [],
                           ),
                           adjustHieght(khieght * .05),
                         ],

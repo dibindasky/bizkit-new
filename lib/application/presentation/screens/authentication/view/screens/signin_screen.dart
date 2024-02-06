@@ -27,10 +27,10 @@ class _SignInscreeenState extends State<SignInscreeen>
     return GestureDetector(
       onTap: () {
         //for textfield unfocus
-        FocusScopeNode focusScope = FocusScope.of(context);
-        if (!focusScope.hasPrimaryFocus) {
-          focusScope.unfocus();
-        }
+        // FocusScopeNode focusScope = FocusScope.of(context);
+        // if (!focusScope.hasPrimaryFocus) {
+        //   focusScope.unfocus();
+        // }
       },
       child: Scaffold(
         appBar: AppBar(

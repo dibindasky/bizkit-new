@@ -7,8 +7,10 @@ class AuthState with _$AuthState {
       required bool hasError,
       required bool otpSend,
       required bool otpVerified,
+      required bool otpVerificationError,
       required bool otpVerifiedForgotPassword,
       required bool showValidateError,
+      required bool isLogin,
       String? message,
       SignUpResponseModel? signUpResponseModel,
       LoginResponseModel? loginResponseModel}) = _Initial;
@@ -18,6 +20,8 @@ class AuthState with _$AuthState {
       hasError: false,
       otpSend: false,
       otpVerified: false,
+      otpVerificationError: false,
       showValidateError: false,
+      isLogin: false,
       otpVerifiedForgotPassword: false);
 }

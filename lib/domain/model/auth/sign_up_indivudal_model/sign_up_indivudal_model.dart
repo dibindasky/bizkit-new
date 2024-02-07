@@ -8,9 +8,12 @@ class SignUpIndivudalModel {
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
   String? password;
+  @JsonKey(name: 'company_name')
+  String? companyName;
   String? name;
+  String? address;
   @JsonKey(name: 'is_business')
-  bool? isBusiness;
+  bool isBusiness;
 
   SignUpIndivudalModel({
     this.email,

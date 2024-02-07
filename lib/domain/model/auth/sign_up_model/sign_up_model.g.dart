@@ -13,7 +13,7 @@ SignUpModel _$SignUpModelFromJson(Map<String, dynamic> json) => SignUpModel(
       companyName: json['company_name'] as String?,
       address: json['address'] as String?,
       isBusiness: json['is_business'] as bool? ?? true,
-    );
+    )..name = json['name'] as String?;
 
 Map<String, dynamic> _$SignUpModelToJson(SignUpModel instance) =>
     <String, dynamic>{
@@ -21,6 +21,7 @@ Map<String, dynamic> _$SignUpModelToJson(SignUpModel instance) =>
       'phone_number': instance.phoneNumber,
       'password': instance.password,
       'company_name': instance.companyName,
+      'name': instance.name,
       'address': instance.address,
       'is_business': instance.isBusiness,
     };

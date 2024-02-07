@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:bizkit/application/business_logic/Auth/auth_bloc.dart';
+import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
+import 'package:bizkit/application/presentation/screens/authentication/view/screens/otp_screen.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -45,36 +46,14 @@ class BusinessSignIn extends StatelessWidget {
                 text: 'Company Name',
                 controller: companynameController,
               ),
-              BlocBuilder<AuthBloc, AuthState>(
+              BlocBuilder<SignUpBloc, SignUpState>(
                 builder: (context, state) {
                   return TTextFormField(
-                    showUnderline: state.showValidateError,
+                    showUnderline: state.otpBusinessError,
                     validate: Validate.email,
                     text: 'Company mail',
                     controller: companyMailController,
                     inputType: TextInputType.emailAddress,
-                    suffix: TextButton(
-                      onPressed: () {
-                        if (isValidEmail(companyMailController.text.trim())) {
-                          context.read<AuthBloc>().add(AuthEvent.sendOtp(
-                              emailModel: EmailModel(
-                                  email: companyMailController.text.trim())));
-                        } else {
-                          showSnackbar(context,
-                              message: 'enter a valid email',
-                              textColor: kwhite,
-                              backgroundColor: kred,
-                              duration: 1);
-                        }
-                      },
-                      child: Text(
-                        'Verify',
-                        style: TextStyle(
-                            fontWeight: state.showValidateError
-                                ? FontWeight.w700
-                                : null),
-                      ),
-                    ),
                   );
                 },
               ),
@@ -103,59 +82,62 @@ class BusinessSignIn extends StatelessWidget {
                 obscureText: true,
               ),
               adjustHieght(khieght * .04),
-              BlocConsumer<AuthBloc, AuthState>(
+              BlocConsumer<SignUpBloc, SignUpState>(
                 listener: (context, state) {
                   if (state.hasError || state.message != null) {
                     showSnackbar(context,
                         message: state.message!,
                         backgroundColor: state.hasError ? kred : neonShade);
                   }
-                  // if (state.otpSend) {
-                  //   Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) => ScreenOtpValidation(
-                  //           email: companyMailController.text.trim()),
-                  //     ),
-                  //   );
-                  // }
+                  if (state.otpBusinessError || state.otpIndividualError) {
+                    Navigator.pop(context);
+                  } else if (state.otpSendBusiness) {
+                    final SignUpModel signUpModel = SignUpModel(
+                        isBusiness: true,
+                        address: addressController.text.trim(),
+                        companyName: companynameController.text.trim(),
+                        email: companyMailController.text.trim(),
+                        password: passwordController.text.trim(),
+                        phoneNumber: companyPhoneController.text.trim());
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ScreenOtpValidation(
+                            signUpModel: signUpModel,
+                            fromBusiness: true,
+                            email: companyMailController.text.trim()),
+                      ),
+                    );
+                  }
                 },
-                buildWhen: (previous, current) =>
-                    previous.showValidateError != current.showValidateError,
                 builder: (context, state) {
                   if (state.isLoading) {
                     return const LoadingAnimation();
                   }
                   return Column(
                     children: [
-                      state.showValidateError
+                      state.otpBusinessError
                           ? const Text(
                               'Need to verify email before sign-up',
                               style: TextStyle(color: kred),
                             )
                           : const SizedBox(),
                       adjustHieght(10),
-                      AuthButton(
-                        text: 'Sign-Up',
-                        onTap: () {
-                          if (!state.otpVerified) {
-                            context
-                                .read<AuthBloc>()
-                                .add(const AuthEvent.showValidateError());
-                          } else if (businessSignup.currentState!.validate()) {
-                            final SignUpModel signUpModel = SignUpModel(
-                                isBusiness: true,
-                                address: addressController.text.trim(),
-                                companyName: companynameController.text.trim(),
-                                email: companyMailController.text.trim(),
-                                password: passwordController.text.trim(),
-                                phoneNumber:
-                                    companyPhoneController.text.trim());
-                            context.read<AuthBloc>().add(
-                                AuthEvent.registerBusiness(signUpModel: signUpModel));
-                          }
-                        },
-                      ),
+                      state.isLoading
+                          ? const LoadingAnimation()
+                          : AuthButton(
+                              text: 'Verify',
+                              onTap: () {
+                                if (businessSignup.currentState!.validate()) {
+                                  context.read<SignUpBloc>().add(
+                                      SignUpEvent.sendOtp(
+                                          isBusiness: true,
+                                          emailModel: EmailModel(
+                                              email: companyMailController.text
+                                                  .trim())));
+                                }
+                              },
+                            ),
                     ],
                   );
                 },

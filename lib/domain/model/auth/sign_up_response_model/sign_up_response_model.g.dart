@@ -8,21 +8,19 @@ part of 'sign_up_response_model.dart';
 
 SignUpResponseModel _$SignUpResponseModelFromJson(Map<String, dynamic> json) =>
     SignUpResponseModel(
+      message: json['message'] as String?,
+      id: json['id'] as int?,
       email: json['email'] as String?,
       phoneNumber: json['phone_number'] as String?,
-      password: json['password'] as String?,
-      name: json['name'] as String?,
-      companyName: json['company_name'] as String?,
-      address: json['address'] as String?,
+      business: json['business'] as bool?,
     );
 
 Map<String, dynamic> _$SignUpResponseModelToJson(
         SignUpResponseModel instance) =>
     <String, dynamic>{
+      'message': instance.message,
+      'id': instance.id,
       'email': instance.email,
       'phone_number': instance.phoneNumber,
-      'password': instance.password,
-      'name': instance.name,
-      'company_name': instance.companyName,
-      'address': instance.address,
+      'business': instance.business,
     };

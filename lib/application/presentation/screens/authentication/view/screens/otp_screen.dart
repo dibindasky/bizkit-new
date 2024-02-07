@@ -1,15 +1,28 @@
-import 'package:bizkit/application/business_logic/Auth/auth_bloc.dart';
+import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
+import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
+import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
+import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
 import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 
 class ScreenOtpValidation extends StatelessWidget {
-  const ScreenOtpValidation({super.key, required this.email});
+  const ScreenOtpValidation(
+      {super.key,
+      required this.email,
+      this.fromBusiness,
+      this.signUpModel,
+      this.signUpIndivudalModel});
 
   final String email;
+  final bool? fromBusiness;
+  final SignUpModel? signUpModel;
+  final SignUpIndivudalModel? signUpIndivudalModel;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +54,14 @@ class ScreenOtpValidation extends StatelessWidget {
               Pinput(
                 mainAxisAlignment: MainAxisAlignment.start,
                 onCompleted: (value) {
-                  context.read<AuthBloc>().add(AuthEvent.verifyOtp(
-                      verifyOtpModel:
-                          VerifyOtpModel(email: email, otp: value)));
+                  if (fromBusiness != null) {
+                    context.read<SignUpBloc>().add(SignUpEvent.verifyOtp(
+                        isBusiness: fromBusiness!,
+                        signUpIndivudalModel: signUpIndivudalModel,
+                        signUpModel: signUpModel,
+                        verifyOtpModel:
+                            VerifyOtpModel(email: email, otp: value)));
+                  }
                 },
                 length: 4,
                 defaultPinTheme: PinTheme(
@@ -66,23 +84,44 @@ class ScreenOtpValidation extends StatelessWidget {
                   ),
                 ),
               ),
-              adjustHieght(20),
-              BlocConsumer<AuthBloc, AuthState>(
-                listenWhen: (previous, current) =>
-                    previous.otpVerificationError !=
-                    current.otpVerificationError,
+              const Spacer(),
+              BlocConsumer<SignUpBloc, SignUpState>(
                 listener: (context, state) {
-                  if (state.otpVerificationError) {
+                  if (state.otpBusinessError || state.otpIndividualError) {
                     Navigator.pop(context);
                   }
-                },
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return const LoadingAnimation();
+
+                  if (state.message != null) {
+                    showSnackbar(context,
+                        message: state.message!,
+                        backgroundColor: state.hasError ? kred : neonShade);
                   }
-                  return const SizedBox();
+                  if (state.signUpResponseModel != null) {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoGInScreen()),
+                        (route) => false);
+                  }
                 },
-              )
+                builder: (context, state1) {
+                  return BlocConsumer<AuthBloc, AuthState>(
+                    listener: (context, state) {
+                      if (state.otpVerificationError) {
+                        Navigator.pop(context);
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state.isLoading || state1.isLoading) {
+                        return const LoadingAnimation();
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
+                  );
+                },
+              ),
+              const Spacer()
             ],
           ),
         ),

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:bizkit/application/business_logic/Auth/auth_bloc.dart';
+import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
@@ -259,13 +259,14 @@ class _LoGInScreenState extends State<LoGInScreen>
                   adjustHieght(khieght * .04),
                   BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
+                      print(state.message);
                       if (state.hasError || state.message != null) {
                         showSnackbar(context,
                             message: state.message!,
                             backgroundColor: state.hasError ? kred : neonShade,
                             textColor: kwhite);
-                      } else if (state.loginResponseModel != null) {
-                        Navigator.of(context).push(
+                      } if (state.loginResponseModel != null) {
+                        Navigator.of(context).pushReplacement(
                           fadePageRoute(const StartingBusinessCardCreation()),
                         );
                       }

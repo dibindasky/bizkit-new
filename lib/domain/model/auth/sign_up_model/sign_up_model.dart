@@ -10,6 +10,7 @@ class SignUpModel {
   String? password;
   @JsonKey(name: 'company_name')
   String? companyName;
+  String? name;
   String? address;
   @JsonKey(name: 'is_business')
   bool isBusiness;

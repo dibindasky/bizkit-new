@@ -4,22 +4,19 @@ part 'sign_up_response_model.g.dart';
 
 @JsonSerializable()
 class SignUpResponseModel {
+  String? message;
+  int? id;
   String? email;
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
-  String? password;
-  String? name;
-  @JsonKey(name: 'company_name')
-  String? companyName;
-  String? address;
+  bool? business;
 
   SignUpResponseModel({
+    this.message,
+    this.id,
     this.email,
     this.phoneNumber,
-    this.password,
-    this.name,
-    this.companyName,
-    this.address,
+    this.business,
   });
 
   factory SignUpResponseModel.fromJson(Map<String, dynamic> json) {

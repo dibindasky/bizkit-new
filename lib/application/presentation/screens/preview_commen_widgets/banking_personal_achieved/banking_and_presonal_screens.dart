@@ -17,7 +17,7 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
       'BankHeading': [
         'Bank',
         'Account Number',
-        'FSC Code',
+        'IFSC Code',
         'GST No.',
       ],
       'Personalheading': [

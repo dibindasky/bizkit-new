@@ -1,9 +1,15 @@
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
 import 'package:flutter/material.dart';
 
-class ScreenPreviewRowiceAccountsBottomSheet extends StatelessWidget {
-  const ScreenPreviewRowiceAccountsBottomSheet({super.key});
+class AccountsListsBottomSheet extends StatelessWidget {
+  const AccountsListsBottomSheet({super.key});
+
+  void handleCopyToClipboard(BuildContext context, String text) {
+    copyToClipboard(text: text, context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +32,16 @@ class ScreenPreviewRowiceAccountsBottomSheet extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  AccountsListviewBuilder(acountIsCompany: true),
-                  AccountsListviewBuilder(acountIsCompany: false),
+                  AccountsListviewBuilder(
+                    acountIsCompany: true,
+                    onCopyToClipboard: (text) =>
+                        handleCopyToClipboard(context, text),
+                  ),
+                  AccountsListviewBuilder(
+                    acountIsCompany: false,
+                    onCopyToClipboard: (text) =>
+                        handleCopyToClipboard(context, text),
+                  ),
                 ],
               ),
             ),
@@ -42,8 +56,9 @@ class AccountsListviewBuilder extends StatelessWidget {
   AccountsListviewBuilder({
     super.key,
     required this.acountIsCompany,
+    required this.onCopyToClipboard,
   });
-
+  final Function(String) onCopyToClipboard;
   final bool acountIsCompany;
   final List<String> accountIages = [
     'asset/images/watsapp account icon.png',
@@ -61,27 +76,31 @@ class AccountsListviewBuilder extends StatelessWidget {
         ),
         Column(
           children: [
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 8.0),
-              height: 70,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                child: ColoredBox(
-                  color: lightColr,
-                  child: Row(
-                    children: [
-                      adjustWidth(kwidth * .03),
-                      const CircleAvatar(
-                        radius: 14,
-                        backgroundImage: AssetImage(
-                          'asset/images/addButtunIconImage.png',
+            GestureDetector(
+              onTap: () => Navigator.of(context)
+                  .push(fadePageRoute(const SocialMediahandles())),
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 8.0),
+                height: 70,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  child: ColoredBox(
+                    color: lightColr,
+                    child: Row(
+                      children: [
+                        adjustWidth(kwidth * .03),
+                        const CircleAvatar(
+                          radius: 14,
+                          backgroundImage: AssetImage(
+                            'asset/images/addButtunIconImage.png',
+                          ),
                         ),
-                      ),
-                      adjustWidth(kwidth * .03),
-                      const Text('Add new')
-                    ],
+                        adjustWidth(kwidth * .03),
+                        const Text('Add new')
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -113,7 +132,8 @@ class AccountsListviewBuilder extends StatelessWidget {
                         const Spacer(),
                         TextButton(
                           onPressed: () {
-                            copyToClipboard(text: 'text', context: context);
+                            onCopyToClipboard('text');
+                            // copyToClipboard(text: 'text', context: context);
                           },
                           child: Text(
                             'Link',

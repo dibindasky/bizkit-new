@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:bizkit/application/presentation/utils/appbar.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
@@ -21,7 +23,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
   TextEditingController textEditingController = TextEditingController();
 
   String selectedOption = '';
-  bool switchValue = false;
+  bool? switchValue;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,9 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: knill,
-          title: const Text('Add Product / Brochure'),
+        appBar: PreferredSize(
+          preferredSize: Size(kwidth, 70),
+          child: const AppbarCommen(tittle: 'Add product contents'),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -47,10 +49,10 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                   SizedBox(
                     width: 270.dm,
                     height: 170.dm,
-                    // child: Image.file(
-                    //   widget.image??'',
-                    //   fit: BoxFit.cover,
-                    // ),
+                    child: Image.asset(
+                      dummyPersonImage,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   adjustHieght(khieght * .02),
                   TTextFormField(
@@ -76,7 +78,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                       children: [
                         const Text('Add Enquire Button'),
                         Switch(
-                          value: switchValue,
+                          value: switchValue ?? false,
                           onChanged: (value) {
                             setState(() {
                               switchValue = value;
@@ -91,6 +93,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                     text: 'Save product',
                     onTap: () => Navigator.of(context).pop(),
                   ),
+                  adjustHieght(khieght * .04),
                 ],
               ),
             ),

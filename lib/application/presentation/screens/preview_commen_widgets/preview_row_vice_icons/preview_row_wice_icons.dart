@@ -33,8 +33,7 @@ class PreviewRowWiceIcons extends StatelessWidget {
         GestureDetector(
           onTap: () => showModalBottomSheet(
             context: context,
-            builder: (context) =>
-                const ScreenPreviewRowiceAccountsBottomSheet(),
+            builder: (context) => const AccountsListsBottomSheet(),
           ),
           child: const DetailSharingIconWidget(
             image: 'asset/images/preview_spinner.png',

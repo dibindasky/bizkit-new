@@ -35,7 +35,10 @@ class _DatesToRememberState extends State<DatesToRemember> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Text('Selected date'),
+              adjustHieght(20),
               InkWell(
                 onTap: () => showModalBottomSheet(
                   context: context,
@@ -79,6 +82,8 @@ class _DatesToRememberState extends State<DatesToRemember> {
                   ),
                 ),
               ),
+              adjustHieght(20),
+              const Text('Message'),
               const TTextFormField(
                 maxLines: 7,
                 text: 'Write your message here',
@@ -86,9 +91,11 @@ class _DatesToRememberState extends State<DatesToRemember> {
                 inputType: TextInputType.name,
               ),
               const Spacer(),
-              AuthButton(
-                text: 'Save',
-                onTap: () => Navigator.of(context).pop(),
+              Center(
+                child: AuthButton(
+                  text: 'Save',
+                  onTap: () => Navigator.of(context).pop(),
+                ),
               ),
               adjustHieght(40)
             ],

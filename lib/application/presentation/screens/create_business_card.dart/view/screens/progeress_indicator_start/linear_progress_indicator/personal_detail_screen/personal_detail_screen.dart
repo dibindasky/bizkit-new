@@ -8,15 +8,15 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class PersonlDetails extends StatelessWidget {
   PersonlDetails({super.key, required this.pageController});
 
-  TextEditingController bloodGroup = TextEditingController();
-  TextEditingController homeAddress = TextEditingController();
-  TextEditingController birthDaycontroller = TextEditingController();
-  TextEditingController accoladesController = TextEditingController();
-  TextEditingController datesToReminderController = TextEditingController();
+  final TextEditingController bloodGroup = TextEditingController();
+  final TextEditingController homeAddress = TextEditingController();
+  final TextEditingController birthDaycontroller = TextEditingController();
+  final TextEditingController accoladesController = TextEditingController();
+  final TextEditingController datesToReminderController =
+      TextEditingController();
 
   final PageController pageController;
 
@@ -40,6 +40,7 @@ class PersonlDetails extends StatelessWidget {
             ),
             adjustHieght(khieght * .02),
             TTextFormField(
+              maxLines: 2,
               text: 'Home address',
               controller: homeAddress,
               inputType: TextInputType.name,

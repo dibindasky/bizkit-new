@@ -1,13 +1,16 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/screen/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brocher_builder.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_builder.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_adding_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_builder.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -75,16 +78,12 @@ class BrochersAndProductsScreen extends StatelessWidget {
               adjustHieght(30),
               Center(
                 child: InkWell(
-                  // onTap: () async {
-                  //   final result = await PickImage.getImage();
-                  //   if (result != null) {
-                  //     // ignore: use_build_context_synchronously
-                  //     Navigator.push(
-                  //       context,
-                  //       fadePageRoute(const AddPrductsScreen()),
-                  //     );
-                  //   }
-                  // },
+                  onTap: () async {
+                    final String? name = await pickPDFFile();
+                    if (name != null) {
+                      Image.asset(dummyPersonImage);
+                    }
+                  },
                   child: DottedBorder(
                     dashPattern: const [8, 8],
                     color: neonShade,
@@ -145,5 +144,27 @@ class BrochersAndProductsScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<String?> pickPDFFile() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowMultiple: true,
+        allowedExtensions: ['pdf'],
+      );
+      if (result != null) {
+        PlatformFile file = result.files.first;
+        String filePath = file.path!;
+        return filePath;
+        // Use the filePath as needed, such as displaying or processing the PDF file
+      } else {
+        log('File not selected');
+        // User canceled the picker
+      }
+    } catch (e) {
+      log('Error picking PDF file: $e');
+    }
+    return null;
   }
 }

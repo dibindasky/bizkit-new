@@ -1,12 +1,10 @@
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/business_details.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/company_and_bankdetails.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/company_story.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/logo_story.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personal_detail_screen/personal_detail_screen.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/personality.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/business_details.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/company_and_bankdetails.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/logo_story.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/personal_detail_screen.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/containers/brochers_and_products/brocers_and_products.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brocers_and_products.dart';
 import 'package:flutter/material.dart';
 
 class LinearProgressIndicatorStarting extends StatefulWidget {
@@ -41,7 +39,7 @@ class _LinearProgressIndicatorStartingState
               borderRadius: BorderRadius.circular(12),
               child: LinearProgressIndicator(
                 minHeight: 13,
-                value: (_currentPage + 1) / 7,
+                value: (_currentPage + 1) / 5,
                 backgroundColor: smallBigGrey,
                 valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
               ),
@@ -60,8 +58,6 @@ class _LinearProgressIndicatorStartingState
                   BusinessDetails(pageController: _pageController),
                   CompanyAndBankingDetails(pageController: _pageController),
                   LogoStory(pageController: _pageController),
-                  CompanyStory(pageController: _pageController),
-                  Personality(pageController: _pageController),
                   BrochersAndProductsScreen()
                 ],
               ),

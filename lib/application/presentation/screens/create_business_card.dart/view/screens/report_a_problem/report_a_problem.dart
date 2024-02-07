@@ -1,4 +1,5 @@
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -8,18 +9,10 @@ class ReportProblemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: knill,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 18,
-          ),
-        ),
-        title: Text(
-          'Report a Problem',
-          style: textHeadStyle1,
+      appBar: PreferredSize(
+        preferredSize: Size(kwidth, 70),
+        child: const AppbarCommen(
+          tittle: 'Report a Problem',
         ),
       ),
       body: Padding(
@@ -40,45 +33,16 @@ class ReportProblemPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: 40,
-                        width: 40,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: ColoredBox(
-                            color: neonShade,
-                            child: Image.asset(
-                                'asset/images/roport_problem_camera_icon.png'),
-                          ),
-                        ),
+                      iconContainer(
+                        'asset/images/roport_problem_camera_icon.png',
                       ),
                       adjustWidth(kwidth * .03),
-                      SizedBox(
-                        height: 40,
-                        width: 40,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: ColoredBox(
-                            color: neonShade,
-                            child: Image.asset(
-                              'asset/images/report_problem_gallery_icon.png',
-                            ),
-                          ),
-                        ),
+                      iconContainer(
+                        'asset/images/report_problem_gallery_icon.png',
                       ),
                       adjustWidth(kwidth * .03),
-                      SizedBox(
-                        height: 40,
-                        width: 40,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: ColoredBox(
-                            color: neonShade,
-                            child: Image.asset(
-                              'asset/images/reprort_problem_file_icon.png',
-                            ),
-                          ),
-                        ),
+                      iconContainer(
+                        'asset/images/reprort_problem_file_icon.png',
                       ),
                     ],
                   )
@@ -91,6 +55,25 @@ class ReportProblemPage extends StatelessWidget {
               },
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  SizedBox iconContainer(String icon) {
+    return SizedBox(
+      height: 40,
+      width: 40,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: ColoredBox(
+          color: neonShade,
+          child: Padding(
+            padding: const EdgeInsets.all(13.0),
+            child: Image.asset(
+              icon,
+            ),
+          ),
         ),
       ),
     );

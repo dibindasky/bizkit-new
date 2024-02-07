@@ -3,8 +3,9 @@ import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart'
 import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
-import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/core/di/dipendency_injection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +41,10 @@ class MyApp extends StatelessWidget {
               create: (ctx) =>
                   InternetConnectionCheckCubit(connectivity: connectivity)),
           BlocProvider(create: (context) => getIt<ContactsBloc>()),
-          BlocProvider(create: (context) => getIt<UserDataBloc>()),
           BlocProvider(create: (context) => getIt<AuthBloc>()),
           BlocProvider(create: (context) => getIt<SignUpBloc>()),
+          BlocProvider(create: (context) => getIt<UserDataBloc>()),
+
         ],
         child: MaterialApp(
           debugShowMaterialGrid: false,
@@ -57,7 +59,7 @@ class MyApp extends StatelessWidget {
                 ),
           ),
           debugShowCheckedModeBanner: false,
-          home: const SplashScreen(),
+          home: const ProfileScreen(),
         ),
       ),
     );

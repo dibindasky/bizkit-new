@@ -14,6 +14,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       isBusiness: json['is_business'] as bool?,
       phoneNumber: json['phone_number'] as String?,
       id: json['id'] as int?,
+      localId: json['localId'] as int?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -24,4 +25,5 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'is_business': instance.isBusiness,
       'phone_number': instance.phoneNumber,
       'id': instance.id,
+      'localId': instance.localId,
     };

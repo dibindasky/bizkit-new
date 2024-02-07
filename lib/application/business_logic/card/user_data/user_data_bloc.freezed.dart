@@ -21,6 +21,7 @@ mixin _$UserDataEvent {
     required TResult Function(bool camera) pickImage,
     required TResult Function(int index) removeImage,
     required TResult Function(List<ImageModel> images) processImage,
+    required TResult Function() getUserDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$UserDataEvent {
     TResult? Function(bool camera)? pickImage,
     TResult? Function(int index)? removeImage,
     TResult? Function(List<ImageModel> images)? processImage,
+    TResult? Function()? getUserDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$UserDataEvent {
     TResult Function(bool camera)? pickImage,
     TResult Function(int index)? removeImage,
     TResult Function(List<ImageModel> images)? processImage,
+    TResult Function()? getUserDetail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$UserDataEvent {
     required TResult Function(PickImage value) pickImage,
     required TResult Function(RemoveImage value) removeImage,
     required TResult Function(ProcessImage value) processImage,
+    required TResult Function(GetUserDetail value) getUserDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$UserDataEvent {
     TResult? Function(PickImage value)? pickImage,
     TResult? Function(RemoveImage value)? removeImage,
     TResult? Function(ProcessImage value)? processImage,
+    TResult? Function(GetUserDetail value)? getUserDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$UserDataEvent {
     TResult Function(PickImage value)? pickImage,
     TResult Function(RemoveImage value)? removeImage,
     TResult Function(ProcessImage value)? processImage,
+    TResult Function(GetUserDetail value)? getUserDetail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -147,6 +153,7 @@ class _$PickImageImpl implements PickImage {
     required TResult Function(bool camera) pickImage,
     required TResult Function(int index) removeImage,
     required TResult Function(List<ImageModel> images) processImage,
+    required TResult Function() getUserDetail,
   }) {
     return pickImage(camera);
   }
@@ -157,6 +164,7 @@ class _$PickImageImpl implements PickImage {
     TResult? Function(bool camera)? pickImage,
     TResult? Function(int index)? removeImage,
     TResult? Function(List<ImageModel> images)? processImage,
+    TResult? Function()? getUserDetail,
   }) {
     return pickImage?.call(camera);
   }
@@ -167,6 +175,7 @@ class _$PickImageImpl implements PickImage {
     TResult Function(bool camera)? pickImage,
     TResult Function(int index)? removeImage,
     TResult Function(List<ImageModel> images)? processImage,
+    TResult Function()? getUserDetail,
     required TResult orElse(),
   }) {
     if (pickImage != null) {
@@ -181,6 +190,7 @@ class _$PickImageImpl implements PickImage {
     required TResult Function(PickImage value) pickImage,
     required TResult Function(RemoveImage value) removeImage,
     required TResult Function(ProcessImage value) processImage,
+    required TResult Function(GetUserDetail value) getUserDetail,
   }) {
     return pickImage(this);
   }
@@ -191,6 +201,7 @@ class _$PickImageImpl implements PickImage {
     TResult? Function(PickImage value)? pickImage,
     TResult? Function(RemoveImage value)? removeImage,
     TResult? Function(ProcessImage value)? processImage,
+    TResult? Function(GetUserDetail value)? getUserDetail,
   }) {
     return pickImage?.call(this);
   }
@@ -201,6 +212,7 @@ class _$PickImageImpl implements PickImage {
     TResult Function(PickImage value)? pickImage,
     TResult Function(RemoveImage value)? removeImage,
     TResult Function(ProcessImage value)? processImage,
+    TResult Function(GetUserDetail value)? getUserDetail,
     required TResult orElse(),
   }) {
     if (pickImage != null) {
@@ -286,6 +298,7 @@ class _$RemoveImageImpl implements RemoveImage {
     required TResult Function(bool camera) pickImage,
     required TResult Function(int index) removeImage,
     required TResult Function(List<ImageModel> images) processImage,
+    required TResult Function() getUserDetail,
   }) {
     return removeImage(index);
   }
@@ -296,6 +309,7 @@ class _$RemoveImageImpl implements RemoveImage {
     TResult? Function(bool camera)? pickImage,
     TResult? Function(int index)? removeImage,
     TResult? Function(List<ImageModel> images)? processImage,
+    TResult? Function()? getUserDetail,
   }) {
     return removeImage?.call(index);
   }
@@ -306,6 +320,7 @@ class _$RemoveImageImpl implements RemoveImage {
     TResult Function(bool camera)? pickImage,
     TResult Function(int index)? removeImage,
     TResult Function(List<ImageModel> images)? processImage,
+    TResult Function()? getUserDetail,
     required TResult orElse(),
   }) {
     if (removeImage != null) {
@@ -320,6 +335,7 @@ class _$RemoveImageImpl implements RemoveImage {
     required TResult Function(PickImage value) pickImage,
     required TResult Function(RemoveImage value) removeImage,
     required TResult Function(ProcessImage value) processImage,
+    required TResult Function(GetUserDetail value) getUserDetail,
   }) {
     return removeImage(this);
   }
@@ -330,6 +346,7 @@ class _$RemoveImageImpl implements RemoveImage {
     TResult? Function(PickImage value)? pickImage,
     TResult? Function(RemoveImage value)? removeImage,
     TResult? Function(ProcessImage value)? processImage,
+    TResult? Function(GetUserDetail value)? getUserDetail,
   }) {
     return removeImage?.call(this);
   }
@@ -340,6 +357,7 @@ class _$RemoveImageImpl implements RemoveImage {
     TResult Function(PickImage value)? pickImage,
     TResult Function(RemoveImage value)? removeImage,
     TResult Function(ProcessImage value)? processImage,
+    TResult Function(GetUserDetail value)? getUserDetail,
     required TResult orElse(),
   }) {
     if (removeImage != null) {
@@ -432,6 +450,7 @@ class _$ProcessImageImpl implements ProcessImage {
     required TResult Function(bool camera) pickImage,
     required TResult Function(int index) removeImage,
     required TResult Function(List<ImageModel> images) processImage,
+    required TResult Function() getUserDetail,
   }) {
     return processImage(images);
   }
@@ -442,6 +461,7 @@ class _$ProcessImageImpl implements ProcessImage {
     TResult? Function(bool camera)? pickImage,
     TResult? Function(int index)? removeImage,
     TResult? Function(List<ImageModel> images)? processImage,
+    TResult? Function()? getUserDetail,
   }) {
     return processImage?.call(images);
   }
@@ -452,6 +472,7 @@ class _$ProcessImageImpl implements ProcessImage {
     TResult Function(bool camera)? pickImage,
     TResult Function(int index)? removeImage,
     TResult Function(List<ImageModel> images)? processImage,
+    TResult Function()? getUserDetail,
     required TResult orElse(),
   }) {
     if (processImage != null) {
@@ -466,6 +487,7 @@ class _$ProcessImageImpl implements ProcessImage {
     required TResult Function(PickImage value) pickImage,
     required TResult Function(RemoveImage value) removeImage,
     required TResult Function(ProcessImage value) processImage,
+    required TResult Function(GetUserDetail value) getUserDetail,
   }) {
     return processImage(this);
   }
@@ -476,6 +498,7 @@ class _$ProcessImageImpl implements ProcessImage {
     TResult? Function(PickImage value)? pickImage,
     TResult? Function(RemoveImage value)? removeImage,
     TResult? Function(ProcessImage value)? processImage,
+    TResult? Function(GetUserDetail value)? getUserDetail,
   }) {
     return processImage?.call(this);
   }
@@ -486,6 +509,7 @@ class _$ProcessImageImpl implements ProcessImage {
     TResult Function(PickImage value)? pickImage,
     TResult Function(RemoveImage value)? removeImage,
     TResult Function(ProcessImage value)? processImage,
+    TResult Function(GetUserDetail value)? getUserDetail,
     required TResult orElse(),
   }) {
     if (processImage != null) {
@@ -506,11 +530,126 @@ abstract class ProcessImage implements UserDataEvent {
 }
 
 /// @nodoc
+abstract class _$$GetUserDetailImplCopyWith<$Res> {
+  factory _$$GetUserDetailImplCopyWith(
+          _$GetUserDetailImpl value, $Res Function(_$GetUserDetailImpl) then) =
+      __$$GetUserDetailImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetUserDetailImplCopyWithImpl<$Res>
+    extends _$UserDataEventCopyWithImpl<$Res, _$GetUserDetailImpl>
+    implements _$$GetUserDetailImplCopyWith<$Res> {
+  __$$GetUserDetailImplCopyWithImpl(
+      _$GetUserDetailImpl _value, $Res Function(_$GetUserDetailImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetUserDetailImpl implements GetUserDetail {
+  _$GetUserDetailImpl();
+
+  @override
+  String toString() {
+    return 'UserDataEvent.getUserDetail()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetUserDetailImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImage,
+    required TResult Function(int index) removeImage,
+    required TResult Function(List<ImageModel> images) processImage,
+    required TResult Function() getUserDetail,
+  }) {
+    return getUserDetail();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImage,
+    TResult? Function(int index)? removeImage,
+    TResult? Function(List<ImageModel> images)? processImage,
+    TResult? Function()? getUserDetail,
+  }) {
+    return getUserDetail?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImage,
+    TResult Function(int index)? removeImage,
+    TResult Function(List<ImageModel> images)? processImage,
+    TResult Function()? getUserDetail,
+    required TResult orElse(),
+  }) {
+    if (getUserDetail != null) {
+      return getUserDetail();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(RemoveImage value) removeImage,
+    required TResult Function(ProcessImage value) processImage,
+    required TResult Function(GetUserDetail value) getUserDetail,
+  }) {
+    return getUserDetail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(RemoveImage value)? removeImage,
+    TResult? Function(ProcessImage value)? processImage,
+    TResult? Function(GetUserDetail value)? getUserDetail,
+  }) {
+    return getUserDetail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(RemoveImage value)? removeImage,
+    TResult Function(ProcessImage value)? processImage,
+    TResult Function(GetUserDetail value)? getUserDetail,
+    required TResult orElse(),
+  }) {
+    if (getUserDetail != null) {
+      return getUserDetail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetUserDetail implements UserDataEvent {
+  factory GetUserDetail() = _$GetUserDetailImpl;
+}
+
+/// @nodoc
 mixin _$UserDataState {
   bool get hasError => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
-  List<ImageModel> get images => throw _privateConstructorUsedError;
+  List<ImageModel> get scannedImagesCardCreation =>
+      throw _privateConstructorUsedError;
   ScannedImageDatasModel? get scannedImageDatasModel =>
       throw _privateConstructorUsedError;
 
@@ -529,7 +668,7 @@ abstract class $UserDataStateCopyWith<$Res> {
       {bool hasError,
       bool isLoading,
       String? message,
-      List<ImageModel> images,
+      List<ImageModel> scannedImagesCardCreation,
       ScannedImageDatasModel? scannedImageDatasModel});
 }
 
@@ -549,7 +688,7 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
     Object? hasError = null,
     Object? isLoading = null,
     Object? message = freezed,
-    Object? images = null,
+    Object? scannedImagesCardCreation = null,
     Object? scannedImageDatasModel = freezed,
   }) {
     return _then(_value.copyWith(
@@ -565,9 +704,9 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      images: null == images
-          ? _value.images
-          : images // ignore: cast_nullable_to_non_nullable
+      scannedImagesCardCreation: null == scannedImagesCardCreation
+          ? _value.scannedImagesCardCreation
+          : scannedImagesCardCreation // ignore: cast_nullable_to_non_nullable
               as List<ImageModel>,
       scannedImageDatasModel: freezed == scannedImageDatasModel
           ? _value.scannedImageDatasModel
@@ -589,7 +728,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       {bool hasError,
       bool isLoading,
       String? message,
-      List<ImageModel> images,
+      List<ImageModel> scannedImagesCardCreation,
       ScannedImageDatasModel? scannedImageDatasModel});
 }
 
@@ -607,7 +746,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? hasError = null,
     Object? isLoading = null,
     Object? message = freezed,
-    Object? images = null,
+    Object? scannedImagesCardCreation = null,
     Object? scannedImageDatasModel = freezed,
   }) {
     return _then(_$InitialImpl(
@@ -623,9 +762,9 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      images: null == images
-          ? _value._images
-          : images // ignore: cast_nullable_to_non_nullable
+      scannedImagesCardCreation: null == scannedImagesCardCreation
+          ? _value._scannedImagesCardCreation
+          : scannedImagesCardCreation // ignore: cast_nullable_to_non_nullable
               as List<ImageModel>,
       scannedImageDatasModel: freezed == scannedImageDatasModel
           ? _value.scannedImageDatasModel
@@ -642,9 +781,9 @@ class _$InitialImpl implements _Initial {
       {required this.hasError,
       required this.isLoading,
       this.message,
-      required final List<ImageModel> images,
+      required final List<ImageModel> scannedImagesCardCreation,
       this.scannedImageDatasModel})
-      : _images = images;
+      : _scannedImagesCardCreation = scannedImagesCardCreation;
 
   @override
   final bool hasError;
@@ -652,12 +791,13 @@ class _$InitialImpl implements _Initial {
   final bool isLoading;
   @override
   final String? message;
-  final List<ImageModel> _images;
+  final List<ImageModel> _scannedImagesCardCreation;
   @override
-  List<ImageModel> get images {
-    if (_images is EqualUnmodifiableListView) return _images;
+  List<ImageModel> get scannedImagesCardCreation {
+    if (_scannedImagesCardCreation is EqualUnmodifiableListView)
+      return _scannedImagesCardCreation;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
+    return EqualUnmodifiableListView(_scannedImagesCardCreation);
   }
 
   @override
@@ -665,7 +805,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, message: $message, images: $images, scannedImageDatasModel: $scannedImageDatasModel)';
+    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, message: $message, scannedImagesCardCreation: $scannedImagesCardCreation, scannedImageDatasModel: $scannedImageDatasModel)';
   }
 
   @override
@@ -678,14 +818,20 @@ class _$InitialImpl implements _Initial {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.message, message) || other.message == message) &&
-            const DeepCollectionEquality().equals(other._images, _images) &&
+            const DeepCollectionEquality().equals(
+                other._scannedImagesCardCreation, _scannedImagesCardCreation) &&
             (identical(other.scannedImageDatasModel, scannedImageDatasModel) ||
                 other.scannedImageDatasModel == scannedImageDatasModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, hasError, isLoading, message,
-      const DeepCollectionEquality().hash(_images), scannedImageDatasModel);
+  int get hashCode => Object.hash(
+      runtimeType,
+      hasError,
+      isLoading,
+      message,
+      const DeepCollectionEquality().hash(_scannedImagesCardCreation),
+      scannedImageDatasModel);
 
   @JsonKey(ignore: true)
   @override
@@ -699,7 +845,7 @@ abstract class _Initial implements UserDataState {
       {required final bool hasError,
       required final bool isLoading,
       final String? message,
-      required final List<ImageModel> images,
+      required final List<ImageModel> scannedImagesCardCreation,
       final ScannedImageDatasModel? scannedImageDatasModel}) = _$InitialImpl;
 
   @override
@@ -709,7 +855,7 @@ abstract class _Initial implements UserDataState {
   @override
   String? get message;
   @override
-  List<ImageModel> get images;
+  List<ImageModel> get scannedImagesCardCreation;
   @override
   ScannedImageDatasModel? get scannedImageDatasModel;
   @override

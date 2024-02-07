@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<AuthBloc>()),
           BlocProvider(create: (context) => getIt<SignUpBloc>()),
           BlocProvider(create: (context) => getIt<UserDataBloc>()),
-
         ],
         child: MaterialApp(
           debugShowMaterialGrid: false,

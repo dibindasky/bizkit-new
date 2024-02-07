@@ -22,7 +22,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<RegisterBusiness>(registerBusiness);
     on<RegisterIndividual>(registerIndividual);
     on<SendOtp>(sendOtp);
-    on<VerifyOtp>(verifyOtp);  }
+    on<VerifyOtp>(verifyOtp);
+  }
 
   FutureOr<void> registerBusiness(
       RegisterBusiness event, Emitter<SignUpState> emit) async {
@@ -130,13 +131,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             message: failure.message ?? errorMessage),
       ),
       (successResponseModel) {
-        if(event.isBusiness){
+        if (event.isBusiness) {
           add(SignUpEvent.registerBusiness(signUpModel: event.signUpModel!));
-        }else{
-          add(SignUpEvent.registerIndividual(signUpIndivudalModel: event.signUpIndivudalModel!));
+        } else {
+          add(SignUpEvent.registerIndividual(
+              signUpIndivudalModel: event.signUpIndivudalModel!));
         }
       },
     );
   }
-
 }

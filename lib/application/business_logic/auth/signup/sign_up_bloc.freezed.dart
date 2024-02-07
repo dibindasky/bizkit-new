@@ -22,8 +22,6 @@ mixin _$SignUpEvent {
     required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
         registerIndividual,
     required TResult Function(EmailModel emailModel, bool isBusiness) sendOtp,
-    required TResult Function() showIndividualValidation,
-    required TResult Function() showBusinessValidation,
     required TResult Function(
             VerifyOtpModel verifyOtpModel,
             SignUpModel? signUpModel,
@@ -38,8 +36,6 @@ mixin _$SignUpEvent {
     TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
         registerIndividual,
     TResult? Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult? Function()? showIndividualValidation,
-    TResult? Function()? showBusinessValidation,
     TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
@@ -51,8 +47,6 @@ mixin _$SignUpEvent {
     TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
         registerIndividual,
     TResult Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult Function()? showIndividualValidation,
-    TResult Function()? showBusinessValidation,
     TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
@@ -64,10 +58,6 @@ mixin _$SignUpEvent {
     required TResult Function(RegisterBusiness value) registerBusiness,
     required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
-    required TResult Function(ShowIndividualValidation value)
-        showIndividualValidation,
-    required TResult Function(ShowBusinessValidation value)
-        showBusinessValidation,
     required TResult Function(VerifyOtp value) verifyOtp,
   }) =>
       throw _privateConstructorUsedError;
@@ -76,8 +66,6 @@ mixin _$SignUpEvent {
     TResult? Function(RegisterBusiness value)? registerBusiness,
     TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
-    TResult? Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult? Function(ShowBusinessValidation value)? showBusinessValidation,
     TResult? Function(VerifyOtp value)? verifyOtp,
   }) =>
       throw _privateConstructorUsedError;
@@ -86,8 +74,6 @@ mixin _$SignUpEvent {
     TResult Function(RegisterBusiness value)? registerBusiness,
     TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
-    TResult Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult Function(ShowBusinessValidation value)? showBusinessValidation,
     TResult Function(VerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) =>
@@ -182,8 +168,6 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
         registerIndividual,
     required TResult Function(EmailModel emailModel, bool isBusiness) sendOtp,
-    required TResult Function() showIndividualValidation,
-    required TResult Function() showBusinessValidation,
     required TResult Function(
             VerifyOtpModel verifyOtpModel,
             SignUpModel? signUpModel,
@@ -201,8 +185,6 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
         registerIndividual,
     TResult? Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult? Function()? showIndividualValidation,
-    TResult? Function()? showBusinessValidation,
     TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
@@ -217,8 +199,6 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
         registerIndividual,
     TResult Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult Function()? showIndividualValidation,
-    TResult Function()? showBusinessValidation,
     TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
@@ -236,10 +216,6 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     required TResult Function(RegisterBusiness value) registerBusiness,
     required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
-    required TResult Function(ShowIndividualValidation value)
-        showIndividualValidation,
-    required TResult Function(ShowBusinessValidation value)
-        showBusinessValidation,
     required TResult Function(VerifyOtp value) verifyOtp,
   }) {
     return registerBusiness(this);
@@ -251,8 +227,6 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     TResult? Function(RegisterBusiness value)? registerBusiness,
     TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
-    TResult? Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult? Function(ShowBusinessValidation value)? showBusinessValidation,
     TResult? Function(VerifyOtp value)? verifyOtp,
   }) {
     return registerBusiness?.call(this);
@@ -264,8 +238,6 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     TResult Function(RegisterBusiness value)? registerBusiness,
     TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
-    TResult Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult Function(ShowBusinessValidation value)? showBusinessValidation,
     TResult Function(VerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) {
@@ -356,8 +328,6 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
         registerIndividual,
     required TResult Function(EmailModel emailModel, bool isBusiness) sendOtp,
-    required TResult Function() showIndividualValidation,
-    required TResult Function() showBusinessValidation,
     required TResult Function(
             VerifyOtpModel verifyOtpModel,
             SignUpModel? signUpModel,
@@ -375,8 +345,6 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
         registerIndividual,
     TResult? Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult? Function()? showIndividualValidation,
-    TResult? Function()? showBusinessValidation,
     TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
@@ -391,8 +359,6 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
         registerIndividual,
     TResult Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult Function()? showIndividualValidation,
-    TResult Function()? showBusinessValidation,
     TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
@@ -410,10 +376,6 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     required TResult Function(RegisterBusiness value) registerBusiness,
     required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
-    required TResult Function(ShowIndividualValidation value)
-        showIndividualValidation,
-    required TResult Function(ShowBusinessValidation value)
-        showBusinessValidation,
     required TResult Function(VerifyOtp value) verifyOtp,
   }) {
     return registerIndividual(this);
@@ -425,8 +387,6 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     TResult? Function(RegisterBusiness value)? registerBusiness,
     TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
-    TResult? Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult? Function(ShowBusinessValidation value)? showBusinessValidation,
     TResult? Function(VerifyOtp value)? verifyOtp,
   }) {
     return registerIndividual?.call(this);
@@ -438,8 +398,6 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     TResult Function(RegisterBusiness value)? registerBusiness,
     TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
-    TResult Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult Function(ShowBusinessValidation value)? showBusinessValidation,
     TResult Function(VerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) {
@@ -539,8 +497,6 @@ class _$SendOtpImpl implements SendOtp {
     required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
         registerIndividual,
     required TResult Function(EmailModel emailModel, bool isBusiness) sendOtp,
-    required TResult Function() showIndividualValidation,
-    required TResult Function() showBusinessValidation,
     required TResult Function(
             VerifyOtpModel verifyOtpModel,
             SignUpModel? signUpModel,
@@ -558,8 +514,6 @@ class _$SendOtpImpl implements SendOtp {
     TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
         registerIndividual,
     TResult? Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult? Function()? showIndividualValidation,
-    TResult? Function()? showBusinessValidation,
     TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
@@ -574,8 +528,6 @@ class _$SendOtpImpl implements SendOtp {
     TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
         registerIndividual,
     TResult Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult Function()? showIndividualValidation,
-    TResult Function()? showBusinessValidation,
     TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
@@ -593,10 +545,6 @@ class _$SendOtpImpl implements SendOtp {
     required TResult Function(RegisterBusiness value) registerBusiness,
     required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
-    required TResult Function(ShowIndividualValidation value)
-        showIndividualValidation,
-    required TResult Function(ShowBusinessValidation value)
-        showBusinessValidation,
     required TResult Function(VerifyOtp value) verifyOtp,
   }) {
     return sendOtp(this);
@@ -608,8 +556,6 @@ class _$SendOtpImpl implements SendOtp {
     TResult? Function(RegisterBusiness value)? registerBusiness,
     TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
-    TResult? Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult? Function(ShowBusinessValidation value)? showBusinessValidation,
     TResult? Function(VerifyOtp value)? verifyOtp,
   }) {
     return sendOtp?.call(this);
@@ -621,8 +567,6 @@ class _$SendOtpImpl implements SendOtp {
     TResult Function(RegisterBusiness value)? registerBusiness,
     TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
-    TResult Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult Function(ShowBusinessValidation value)? showBusinessValidation,
     TResult Function(VerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) {
@@ -643,292 +587,6 @@ abstract class SendOtp implements SignUpEvent {
   @JsonKey(ignore: true)
   _$$SendOtpImplCopyWith<_$SendOtpImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ShowIndividualValidationImplCopyWith<$Res> {
-  factory _$$ShowIndividualValidationImplCopyWith(
-          _$ShowIndividualValidationImpl value,
-          $Res Function(_$ShowIndividualValidationImpl) then) =
-      __$$ShowIndividualValidationImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$ShowIndividualValidationImplCopyWithImpl<$Res>
-    extends _$SignUpEventCopyWithImpl<$Res, _$ShowIndividualValidationImpl>
-    implements _$$ShowIndividualValidationImplCopyWith<$Res> {
-  __$$ShowIndividualValidationImplCopyWithImpl(
-      _$ShowIndividualValidationImpl _value,
-      $Res Function(_$ShowIndividualValidationImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$ShowIndividualValidationImpl implements ShowIndividualValidation {
-  const _$ShowIndividualValidationImpl();
-
-  @override
-  String toString() {
-    return 'SignUpEvent.showIndividualValidation()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ShowIndividualValidationImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(SignUpModel signUpModel) registerBusiness,
-    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
-        registerIndividual,
-    required TResult Function(EmailModel emailModel, bool isBusiness) sendOtp,
-    required TResult Function() showIndividualValidation,
-    required TResult Function() showBusinessValidation,
-    required TResult Function(
-            VerifyOtpModel verifyOtpModel,
-            SignUpModel? signUpModel,
-            SignUpIndivudalModel? signUpIndivudalModel,
-            bool isBusiness)
-        verifyOtp,
-  }) {
-    return showIndividualValidation();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SignUpModel signUpModel)? registerBusiness,
-    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
-        registerIndividual,
-    TResult? Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult? Function()? showIndividualValidation,
-    TResult? Function()? showBusinessValidation,
-    TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
-            SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
-        verifyOtp,
-  }) {
-    return showIndividualValidation?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SignUpModel signUpModel)? registerBusiness,
-    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
-        registerIndividual,
-    TResult Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult Function()? showIndividualValidation,
-    TResult Function()? showBusinessValidation,
-    TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
-            SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
-        verifyOtp,
-    required TResult orElse(),
-  }) {
-    if (showIndividualValidation != null) {
-      return showIndividualValidation();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RegisterBusiness value) registerBusiness,
-    required TResult Function(RegisterIndividual value) registerIndividual,
-    required TResult Function(SendOtp value) sendOtp,
-    required TResult Function(ShowIndividualValidation value)
-        showIndividualValidation,
-    required TResult Function(ShowBusinessValidation value)
-        showBusinessValidation,
-    required TResult Function(VerifyOtp value) verifyOtp,
-  }) {
-    return showIndividualValidation(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(RegisterBusiness value)? registerBusiness,
-    TResult? Function(RegisterIndividual value)? registerIndividual,
-    TResult? Function(SendOtp value)? sendOtp,
-    TResult? Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult? Function(ShowBusinessValidation value)? showBusinessValidation,
-    TResult? Function(VerifyOtp value)? verifyOtp,
-  }) {
-    return showIndividualValidation?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RegisterBusiness value)? registerBusiness,
-    TResult Function(RegisterIndividual value)? registerIndividual,
-    TResult Function(SendOtp value)? sendOtp,
-    TResult Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult Function(ShowBusinessValidation value)? showBusinessValidation,
-    TResult Function(VerifyOtp value)? verifyOtp,
-    required TResult orElse(),
-  }) {
-    if (showIndividualValidation != null) {
-      return showIndividualValidation(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ShowIndividualValidation implements SignUpEvent {
-  const factory ShowIndividualValidation() = _$ShowIndividualValidationImpl;
-}
-
-/// @nodoc
-abstract class _$$ShowBusinessValidationImplCopyWith<$Res> {
-  factory _$$ShowBusinessValidationImplCopyWith(
-          _$ShowBusinessValidationImpl value,
-          $Res Function(_$ShowBusinessValidationImpl) then) =
-      __$$ShowBusinessValidationImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$ShowBusinessValidationImplCopyWithImpl<$Res>
-    extends _$SignUpEventCopyWithImpl<$Res, _$ShowBusinessValidationImpl>
-    implements _$$ShowBusinessValidationImplCopyWith<$Res> {
-  __$$ShowBusinessValidationImplCopyWithImpl(
-      _$ShowBusinessValidationImpl _value,
-      $Res Function(_$ShowBusinessValidationImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$ShowBusinessValidationImpl implements ShowBusinessValidation {
-  const _$ShowBusinessValidationImpl();
-
-  @override
-  String toString() {
-    return 'SignUpEvent.showBusinessValidation()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ShowBusinessValidationImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(SignUpModel signUpModel) registerBusiness,
-    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
-        registerIndividual,
-    required TResult Function(EmailModel emailModel, bool isBusiness) sendOtp,
-    required TResult Function() showIndividualValidation,
-    required TResult Function() showBusinessValidation,
-    required TResult Function(
-            VerifyOtpModel verifyOtpModel,
-            SignUpModel? signUpModel,
-            SignUpIndivudalModel? signUpIndivudalModel,
-            bool isBusiness)
-        verifyOtp,
-  }) {
-    return showBusinessValidation();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SignUpModel signUpModel)? registerBusiness,
-    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
-        registerIndividual,
-    TResult? Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult? Function()? showIndividualValidation,
-    TResult? Function()? showBusinessValidation,
-    TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
-            SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
-        verifyOtp,
-  }) {
-    return showBusinessValidation?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SignUpModel signUpModel)? registerBusiness,
-    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
-        registerIndividual,
-    TResult Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult Function()? showIndividualValidation,
-    TResult Function()? showBusinessValidation,
-    TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
-            SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
-        verifyOtp,
-    required TResult orElse(),
-  }) {
-    if (showBusinessValidation != null) {
-      return showBusinessValidation();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RegisterBusiness value) registerBusiness,
-    required TResult Function(RegisterIndividual value) registerIndividual,
-    required TResult Function(SendOtp value) sendOtp,
-    required TResult Function(ShowIndividualValidation value)
-        showIndividualValidation,
-    required TResult Function(ShowBusinessValidation value)
-        showBusinessValidation,
-    required TResult Function(VerifyOtp value) verifyOtp,
-  }) {
-    return showBusinessValidation(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(RegisterBusiness value)? registerBusiness,
-    TResult? Function(RegisterIndividual value)? registerIndividual,
-    TResult? Function(SendOtp value)? sendOtp,
-    TResult? Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult? Function(ShowBusinessValidation value)? showBusinessValidation,
-    TResult? Function(VerifyOtp value)? verifyOtp,
-  }) {
-    return showBusinessValidation?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RegisterBusiness value)? registerBusiness,
-    TResult Function(RegisterIndividual value)? registerIndividual,
-    TResult Function(SendOtp value)? sendOtp,
-    TResult Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult Function(ShowBusinessValidation value)? showBusinessValidation,
-    TResult Function(VerifyOtp value)? verifyOtp,
-    required TResult orElse(),
-  }) {
-    if (showBusinessValidation != null) {
-      return showBusinessValidation(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ShowBusinessValidation implements SignUpEvent {
-  const factory ShowBusinessValidation() = _$ShowBusinessValidationImpl;
 }
 
 /// @nodoc
@@ -1036,8 +694,6 @@ class _$VerifyOtpImpl implements VerifyOtp {
     required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
         registerIndividual,
     required TResult Function(EmailModel emailModel, bool isBusiness) sendOtp,
-    required TResult Function() showIndividualValidation,
-    required TResult Function() showBusinessValidation,
     required TResult Function(
             VerifyOtpModel verifyOtpModel,
             SignUpModel? signUpModel,
@@ -1056,8 +712,6 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
         registerIndividual,
     TResult? Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult? Function()? showIndividualValidation,
-    TResult? Function()? showBusinessValidation,
     TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
@@ -1073,8 +727,6 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
         registerIndividual,
     TResult Function(EmailModel emailModel, bool isBusiness)? sendOtp,
-    TResult Function()? showIndividualValidation,
-    TResult Function()? showBusinessValidation,
     TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
@@ -1093,10 +745,6 @@ class _$VerifyOtpImpl implements VerifyOtp {
     required TResult Function(RegisterBusiness value) registerBusiness,
     required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
-    required TResult Function(ShowIndividualValidation value)
-        showIndividualValidation,
-    required TResult Function(ShowBusinessValidation value)
-        showBusinessValidation,
     required TResult Function(VerifyOtp value) verifyOtp,
   }) {
     return verifyOtp(this);
@@ -1108,8 +756,6 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult? Function(RegisterBusiness value)? registerBusiness,
     TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
-    TResult? Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult? Function(ShowBusinessValidation value)? showBusinessValidation,
     TResult? Function(VerifyOtp value)? verifyOtp,
   }) {
     return verifyOtp?.call(this);
@@ -1121,8 +767,6 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult Function(RegisterBusiness value)? registerBusiness,
     TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
-    TResult Function(ShowIndividualValidation value)? showIndividualValidation,
-    TResult Function(ShowBusinessValidation value)? showBusinessValidation,
     TResult Function(VerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) {

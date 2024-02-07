@@ -6,4 +6,5 @@ class UserDataEvent with _$UserDataEvent {
   factory UserDataEvent.removeImage({required int index}) = RemoveImage;
   factory UserDataEvent.processImage({required List<ImageModel> images}) =
       ProcessImage;
+  factory UserDataEvent.getUserDetail() = GetUserDetail;
 }

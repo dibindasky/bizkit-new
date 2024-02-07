@@ -6,9 +6,9 @@ class UserDataState with _$UserDataState {
       {required bool hasError,
       required bool isLoading,
       String? message,
-      required List<ImageModel> images,
+      required List<ImageModel> scannedImagesCardCreation,
       ScannedImageDatasModel? scannedImageDatasModel}) = _Initial;
 
-  factory UserDataState.initial() =>
-      const UserDataState(hasError: false, isLoading: false, images: []);
+  factory UserDataState.initial() => const UserDataState(
+      hasError: false, isLoading: false, scannedImagesCardCreation: []);
 }

@@ -28,10 +28,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ChangePassword>(changePassword);
     on<VerifyforgotPassword>(verifyForgotPassword);
     on<Log>(log);
+    on<LogOut>(logOut);
   }
 
   FutureOr<void> log(Log event, emit) async =>
       emit(state.copyWith(isLogin: await SecureStorage.getLogin()));
+  FutureOr<void> logOut(LogOut event, emit) async =>
+      await SecureStorage.clearLogin();
 
   FutureOr<void> login(Login event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
@@ -41,13 +44,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         loginResponseModel: null));
     final result = await authRepo.login(loginModel: event.loginModel);
     result.fold(
-      (failure) => emit(
-        state.copyWith(
-            isLoading: false,
-            hasError: true,
-            message: failure.message ?? errorMessage),
-      ),
+      (failure) {
+        emit(
+          state.copyWith(
+              isLoading: false,
+              hasError: true,
+              message: failure.message ?? errorMessage),
+        );
+      },
       (loginResponseModel) async {
+        print(loginResponseModel.toJson());
         emit(
           state.copyWith(
             isLoading: false,
@@ -58,6 +64,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         print('saveToken');
         await SecureStorage.saveToken(
           tokenModel: TokenModel(
+              id: loginResponseModel.user?.id,
               accessToken: loginResponseModel.accessToken,
               refreshToken: loginResponseModel.refreshToken),
         );

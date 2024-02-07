@@ -10,4 +10,5 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.changePassword(
       {required ChangePasswordModel changePasswordModel}) = ChangePassword;
   const factory AuthEvent.log() = Log;
+  const factory AuthEvent.logOut() = LogOut;
 }

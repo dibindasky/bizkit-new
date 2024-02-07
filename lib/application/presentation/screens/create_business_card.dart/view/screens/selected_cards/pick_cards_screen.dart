@@ -40,7 +40,7 @@ class PickCardsScreen extends StatelessWidget {
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: state.images.length,
+                      itemCount: state.scannedImagesCardCreation.length,
                       itemBuilder: (context, index) {
                         return Stack(
                           children: [
@@ -50,7 +50,8 @@ class PickCardsScreen extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.file(
-                                  state.images[index].fileImage,
+                                  state.scannedImagesCardCreation[index]
+                                      .fileImage,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -69,7 +70,7 @@ class PickCardsScreen extends StatelessWidget {
                       },
                     ),
                     adjustHieght(khieght * .02),
-                    state.images.length < 2
+                    state.scannedImagesCardCreation.length < 2
                         ? DottedBorder(
                             dashPattern: const [8, 8],
                             color: neonShade,
@@ -79,7 +80,7 @@ class PickCardsScreen extends StatelessWidget {
                               height: 110.dm,
                               child: GestureDetector(
                                 onTap: () {
-                                  state.images.length >= 2
+                                  state.scannedImagesCardCreation.length >= 2
                                       ? showSnackbar(
                                           message:
                                               "You can't add more than 2 files",
@@ -117,7 +118,7 @@ class PickCardsScreen extends StatelessWidget {
                             onTap: () {
                               context.read<UserDataBloc>().add(
                                     UserDataEvent.processImage(
-                                      images: state.images,
+                                      images: state.scannedImagesCardCreation,
                                     ),
                                   );
                               Navigator.pushReplacement(

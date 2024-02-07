@@ -7,16 +7,13 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) =>
+        context.read<UserDataBloc>().add(UserDataEvent.getUserDetail()));
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScope = FocusScope.of(context);

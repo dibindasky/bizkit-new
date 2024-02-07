@@ -5,6 +5,6 @@ import 'package:sqflite/sqflite.dart';
 
 abstract class UserLocalRepo {
   Future<void> onCreate(Database db, int version, String query);
-  Future<Either<Failure, List<User>>> getUsers(Database db, String sql);
+  Future<Either<Failure, List<User>>> getUserData(Database db, String sql);
   Future<void> addUser(Database db, String qurey);
 }

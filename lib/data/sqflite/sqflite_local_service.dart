@@ -1,3 +1,4 @@
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
 import 'package:bizkit/domain/model/user/user.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
@@ -37,7 +38,8 @@ class LocalService {
   Future _onCreate(sql.Database db, int version) async {
     const queryUserTableCreation = '''
       CREATE TABLE IF NOT EXISTS $_userTable (
-        ${User.colId} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${User.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${User.colId} INTEGER,
         ${User.colName} TEXT,
         ${User.colEmail} TEXT,
         ${User.colPhone} TEXT,
@@ -49,10 +51,15 @@ class LocalService {
     await userLocalService.onCreate(db, version, queryUserTableCreation);
   }
 
-  Future<Either<Failure, List<User>>> getUsers() async {
+  Future<Either<Failure, List<User>>> getUserData() async {
+    final id = await SecureStorage.getUSerId();
+    print('user id => $id');
+    if (id == null) {
+      return Left(Failure());
+    }
     final db = await database;
-    const query = 'SELECT * FROM $_userTable';
-    return await userLocalService.getUsers(db, query);
+    final String query = 'SELECT * FROM $_userTable WHERE ${User.colId} = $id';
+    return await userLocalService.getUserData(db, query);
   }
 
   Future<void> addUser(User user) async {

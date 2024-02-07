@@ -25,6 +25,7 @@ mixin _$AuthEvent {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() log,
+    required TResult Function() logOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +35,7 @@ mixin _$AuthEvent {
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
+    TResult? Function()? logOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,6 +45,7 @@ mixin _$AuthEvent {
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
+    TResult Function()? logOut,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -53,6 +56,7 @@ mixin _$AuthEvent {
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
+    required TResult Function(LogOut value) logOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,6 +66,7 @@ mixin _$AuthEvent {
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
+    TResult? Function(LogOut value)? logOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,6 +76,7 @@ mixin _$AuthEvent {
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
+    TResult Function(LogOut value)? logOut,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -165,6 +171,7 @@ class _$LoginImpl implements Login {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() log,
+    required TResult Function() logOut,
   }) {
     return login(loginModel);
   }
@@ -177,6 +184,7 @@ class _$LoginImpl implements Login {
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
+    TResult? Function()? logOut,
   }) {
     return login?.call(loginModel);
   }
@@ -189,6 +197,7 @@ class _$LoginImpl implements Login {
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
+    TResult Function()? logOut,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -205,6 +214,7 @@ class _$LoginImpl implements Login {
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
+    required TResult Function(LogOut value) logOut,
   }) {
     return login(this);
   }
@@ -217,6 +227,7 @@ class _$LoginImpl implements Login {
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
+    TResult? Function(LogOut value)? logOut,
   }) {
     return login?.call(this);
   }
@@ -229,6 +240,7 @@ class _$LoginImpl implements Login {
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
+    TResult Function(LogOut value)? logOut,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -320,6 +332,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() log,
+    required TResult Function() logOut,
   }) {
     return forgotPassword(emailModel);
   }
@@ -332,6 +345,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
+    TResult? Function()? logOut,
   }) {
     return forgotPassword?.call(emailModel);
   }
@@ -344,6 +358,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
+    TResult Function()? logOut,
     required TResult orElse(),
   }) {
     if (forgotPassword != null) {
@@ -360,6 +375,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
+    required TResult Function(LogOut value) logOut,
   }) {
     return forgotPassword(this);
   }
@@ -372,6 +388,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
+    TResult? Function(LogOut value)? logOut,
   }) {
     return forgotPassword?.call(this);
   }
@@ -384,6 +401,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
+    TResult Function(LogOut value)? logOut,
     required TResult orElse(),
   }) {
     if (forgotPassword != null) {
@@ -477,6 +495,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() log,
+    required TResult Function() logOut,
   }) {
     return verifyforgotPassword(verifyOtpModel);
   }
@@ -489,6 +508,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
+    TResult? Function()? logOut,
   }) {
     return verifyforgotPassword?.call(verifyOtpModel);
   }
@@ -501,6 +521,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
+    TResult Function()? logOut,
     required TResult orElse(),
   }) {
     if (verifyforgotPassword != null) {
@@ -517,6 +538,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
+    required TResult Function(LogOut value) logOut,
   }) {
     return verifyforgotPassword(this);
   }
@@ -529,6 +551,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
+    TResult? Function(LogOut value)? logOut,
   }) {
     return verifyforgotPassword?.call(this);
   }
@@ -541,6 +564,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
+    TResult Function(LogOut value)? logOut,
     required TResult orElse(),
   }) {
     if (verifyforgotPassword != null) {
@@ -634,6 +658,7 @@ class _$ChangePasswordImpl implements ChangePassword {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() log,
+    required TResult Function() logOut,
   }) {
     return changePassword(changePasswordModel);
   }
@@ -646,6 +671,7 @@ class _$ChangePasswordImpl implements ChangePassword {
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
+    TResult? Function()? logOut,
   }) {
     return changePassword?.call(changePasswordModel);
   }
@@ -658,6 +684,7 @@ class _$ChangePasswordImpl implements ChangePassword {
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
+    TResult Function()? logOut,
     required TResult orElse(),
   }) {
     if (changePassword != null) {
@@ -674,6 +701,7 @@ class _$ChangePasswordImpl implements ChangePassword {
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
+    required TResult Function(LogOut value) logOut,
   }) {
     return changePassword(this);
   }
@@ -686,6 +714,7 @@ class _$ChangePasswordImpl implements ChangePassword {
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
+    TResult? Function(LogOut value)? logOut,
   }) {
     return changePassword?.call(this);
   }
@@ -698,6 +727,7 @@ class _$ChangePasswordImpl implements ChangePassword {
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
+    TResult Function(LogOut value)? logOut,
     required TResult orElse(),
   }) {
     if (changePassword != null) {
@@ -761,6 +791,7 @@ class _$LogImpl implements Log {
     required TResult Function(ChangePasswordModel changePasswordModel)
         changePassword,
     required TResult Function() log,
+    required TResult Function() logOut,
   }) {
     return log();
   }
@@ -773,6 +804,7 @@ class _$LogImpl implements Log {
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
+    TResult? Function()? logOut,
   }) {
     return log?.call();
   }
@@ -785,6 +817,7 @@ class _$LogImpl implements Log {
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
     TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
+    TResult Function()? logOut,
     required TResult orElse(),
   }) {
     if (log != null) {
@@ -801,6 +834,7 @@ class _$LogImpl implements Log {
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
     required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
+    required TResult Function(LogOut value) logOut,
   }) {
     return log(this);
   }
@@ -813,6 +847,7 @@ class _$LogImpl implements Log {
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
+    TResult? Function(LogOut value)? logOut,
   }) {
     return log?.call(this);
   }
@@ -825,6 +860,7 @@ class _$LogImpl implements Log {
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
     TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
+    TResult Function(LogOut value)? logOut,
     required TResult orElse(),
   }) {
     if (log != null) {
@@ -836,6 +872,134 @@ class _$LogImpl implements Log {
 
 abstract class Log implements AuthEvent {
   const factory Log() = _$LogImpl;
+}
+
+/// @nodoc
+abstract class _$$LogOutImplCopyWith<$Res> {
+  factory _$$LogOutImplCopyWith(
+          _$LogOutImpl value, $Res Function(_$LogOutImpl) then) =
+      __$$LogOutImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LogOutImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$LogOutImpl>
+    implements _$$LogOutImplCopyWith<$Res> {
+  __$$LogOutImplCopyWithImpl(
+      _$LogOutImpl _value, $Res Function(_$LogOutImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$LogOutImpl implements LogOut {
+  const _$LogOutImpl();
+
+  @override
+  String toString() {
+    return 'AuthEvent.logOut()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LogOutImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(LoginModel loginModel) login,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
+    required TResult Function() log,
+    required TResult Function() logOut,
+  }) {
+    return logOut();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(LoginModel loginModel)? login,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
+    TResult? Function()? log,
+    TResult? Function()? logOut,
+  }) {
+    return logOut?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(LoginModel loginModel)? login,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
+    TResult Function()? log,
+    TResult Function()? logOut,
+    required TResult orElse(),
+  }) {
+    if (logOut != null) {
+      return logOut();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Login value) login,
+    required TResult Function(ForgotPassword value) forgotPassword,
+    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(ChangePassword value) changePassword,
+    required TResult Function(Log value) log,
+    required TResult Function(LogOut value) logOut,
+  }) {
+    return logOut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Login value)? login,
+    TResult? Function(ForgotPassword value)? forgotPassword,
+    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(ChangePassword value)? changePassword,
+    TResult? Function(Log value)? log,
+    TResult? Function(LogOut value)? logOut,
+  }) {
+    return logOut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Login value)? login,
+    TResult Function(ForgotPassword value)? forgotPassword,
+    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(ChangePassword value)? changePassword,
+    TResult Function(Log value)? log,
+    TResult Function(LogOut value)? logOut,
+    required TResult orElse(),
+  }) {
+    if (logOut != null) {
+      return logOut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LogOut implements AuthEvent {
+  const factory LogOut() = _$LogOutImpl;
 }
 
 /// @nodoc

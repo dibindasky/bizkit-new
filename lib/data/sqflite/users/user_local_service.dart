@@ -17,17 +17,20 @@ class UserLocalService implements UserLocalRepo {
   }
 
   @override
-  Future<Either<Failure, List<User>>> getUsers(Database db, String sql) async {
+  Future<Either<Failure, List<User>>> getUserData(
+      Database db, String sql) async {
     try {
-      List<Map<String, dynamic>> maps = await db.rawQuery(sql);
+      List<Map<String, Object?>> maps = await db.rawQuery(sql);
       return Right(List.generate(maps.length, (i) {
-        final map = maps[i];
+        final Map<String, Object?> map = Map.from(maps[i]);
         // bool conversion from int
         map[User.colIsBusiness] =
             map[User.colIsBusiness] as int == 1 ? true : false;
+        print('user details from sql \n ${map}');
         return User.fromJson(map);
       }));
     } catch (e) {
+      print('userget exception => $e');
       return Left(Failure(message: errorMessage));
     }
   }

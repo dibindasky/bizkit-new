@@ -14,6 +14,7 @@ class User {
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
   int? id;
+  int? localId;
 
   User(
       {this.email,
@@ -22,9 +23,11 @@ class User {
       this.address,
       this.isBusiness,
       this.phoneNumber,
-      this.id});
+      this.id,
+      this.localId});
 
   static const String colId = 'id';
+  static const String colLocalId = 'LocalId';
   static const String colName = 'name';
   static const String colEmail = 'email';
   static const String colPhone = 'phone_number';

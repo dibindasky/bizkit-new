@@ -114,15 +114,16 @@ class AuthService implements AuthRepo {
       {required SignUpModel signUpModel}) async {
     try {
       print(signUpModel.toJson());
-      final response = await _dio.post(ApiEndPoints.register,
-          data: signUpModel.toJson());
-          print('api response signup ${response.data}');
+      final response =
+          await _dio.post(ApiEndPoints.register, data: signUpModel.toJson());
+      print('api response signup ${response.data}');
       return Right(SignUpResponseModel.fromJson(response.data));
     } on DioException catch (e) {
-      print('api dio exc => $e');
+      print('api dio exception => $e');
       // need to get exact error msg
-      return Left(Failure(message: errorMessage));
-    } catch (e) {print('api exc => $e');
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      print('api exception => $e');
       return Left(Failure(message: errorMessage));
     }
   }
@@ -134,13 +135,14 @@ class AuthService implements AuthRepo {
       print(signUpIndivudalModel.toJson());
       final response = await _dio.post(ApiEndPoints.register,
           data: signUpIndivudalModel.toJson());
-          print('api response signup ${response.data}');
+      print('api response signup ${response.data}');
       return Right(SignUpResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       print('api dio exc => $e');
       // need to get exact error msg
-      return Left(Failure(message: errorMessage));
-    } catch (e) {print('api exc => $e');
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      print('api exc => $e');
       return Left(Failure(message: errorMessage));
     }
   }

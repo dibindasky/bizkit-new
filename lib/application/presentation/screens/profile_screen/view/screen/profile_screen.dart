@@ -1,14 +1,16 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/account_settings_scree.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/connection_network_screen.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
-import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/log_out/log_out_screen.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
+import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -89,9 +91,16 @@ class _ProfileScreenState extends State<ProfileScreen>
                   subtittle: 'Contact, Faq etc.',
                   widget: HelpSupport(),
                 ),
-                const ProfileTiles(
+                ProfileTiles(
                   heading: 'Logout',
-                  widget: LogOutScreen(),
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SplashScreen()),
+                        (route) => false);
+                    context.read<AuthBloc>().add(const AuthEvent.logOut());
+                  },
                 ),
               ],
             ),
@@ -108,15 +117,23 @@ class ProfileTiles extends StatelessWidget {
     this.widget,
     required this.heading,
     this.subtittle,
+    this.onTap,
   }) : super(key: key);
   final Widget? widget;
   final String heading;
   final String? subtittle;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(fadePageRoute(widget!)),
+      onTap: () {
+        if (onTap != null) {
+          onTap!();
+        } else {
+          Navigator.of(context).push(fadePageRoute(widget!));
+        }
+      },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: ColoredBox(

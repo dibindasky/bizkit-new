@@ -265,7 +265,8 @@ class _LoGInScreenState extends State<LoGInScreen>
                             message: state.message!,
                             backgroundColor: state.hasError ? kred : neonShade,
                             textColor: kwhite);
-                      } if (state.loginResponseModel != null) {
+                      }
+                      if (state.loginResponseModel != null) {
                         Navigator.of(context).pushReplacement(
                           fadePageRoute(const StartingBusinessCardCreation()),
                         );

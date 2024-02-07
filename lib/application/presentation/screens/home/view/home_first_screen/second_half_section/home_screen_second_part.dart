@@ -23,6 +23,12 @@ class _HomeScreenSecondPartState extends State<HomeScreenSecondPart>
     super.initState();
   }
 
+  @override
+  dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
   _scrollCallBack() {
     if (scrollController.offset > 0) {
       widget.animationController[0].forward().whenComplete(() {

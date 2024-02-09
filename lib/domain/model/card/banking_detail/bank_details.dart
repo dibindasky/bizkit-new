@@ -7,17 +7,17 @@ part 'bank_details.g.dart';
 class BankDetails {
   List<Accredition>? accredition;
   @JsonKey(name: 'name_of_company')
-  dynamic nameOfCompany;
+  String? nameOfCompany;
   @JsonKey(name: 'acccount_number')
-  dynamic acccountNumber;
+  String? acccountNumber;
   @JsonKey(name: 'ifsc_code')
-  dynamic ifscCode;
+  String? ifscCode;
   @JsonKey(name: 'upi_details')
-  dynamic upiDetails;
+  String? upiDetails;
   @JsonKey(name: 'gst_membership_details')
-  dynamic gstMembershipDetails;
+  String? gstMembershipDetails;
   @JsonKey(name: 'branch_offices')
-  dynamic branchOffices;
+  String? branchOffices;
 
   BankDetails({
     this.accredition,
@@ -37,12 +37,12 @@ class BankDetails {
 
   BankDetails copyWith({
     List<Accredition>? accredition,
-    dynamic nameOfCompany,
-    dynamic acccountNumber,
-    dynamic ifscCode,
-    dynamic upiDetails,
-    dynamic gstMembershipDetails,
-    dynamic branchOffices,
+    String? nameOfCompany,
+    String? acccountNumber,
+    String? ifscCode,
+    String? upiDetails,
+    String? gstMembershipDetails,
+    String? branchOffices,
   }) {
     return BankDetails(
       accredition: accredition ?? this.accredition,

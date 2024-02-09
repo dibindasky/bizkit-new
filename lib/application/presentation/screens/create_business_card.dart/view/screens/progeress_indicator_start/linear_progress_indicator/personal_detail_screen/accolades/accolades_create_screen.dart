@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
@@ -6,13 +7,16 @@ import 'package:bizkit/application/presentation/utils/image_picker/image_picker.
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/card/accolades/accolade.dart';
+import 'package:bizkit/domain/model/card/accridition/accredition.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccoladesAddCreateScreen extends StatefulWidget {
-  const AccoladesAddCreateScreen({super.key});
+  const AccoladesAddCreateScreen({super.key, required this.accolade});
+
+  final bool accolade;
 
   @override
   State<AccoladesAddCreateScreen> createState() =>
@@ -28,8 +32,8 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
-        child: const AppbarCommen(
-          tittle: 'Accolades',
+        child: AppbarCommen(
+          tittle: widget.accolade ? 'Accolades' : 'Accredition',
         ),
       ),
       body: SingleChildScrollView(
@@ -84,12 +88,19 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                           backgroundColor: kred);
                       return;
                     } else {
-                      context.read<UserDataBloc>().add(
-                          UserDataEvent.addAccolade(
-                              accolade: Accolade(
-                                  accolades: title,
-                                  accoladesDescription: description,
-                                  accoladesImage: image)));
+                      widget.accolade
+                          ? context.read<UserDataBloc>().add(
+                              UserDataEvent.addAccolade(
+                                  accolade: Accolade(
+                                      accolades: title,
+                                      accoladesDescription: description,
+                                      accoladesImage: image)))
+                          : context.read<BusinessDataBloc>().add(
+                              BusinessDataEvent.addAccredition(
+                                  accredition: Accredition(
+                                      description: description,
+                                      label: title,
+                                      image: image)));
                       Navigator.of(context).pop();
                     }
                   },

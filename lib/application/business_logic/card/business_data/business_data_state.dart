@@ -7,9 +7,20 @@ class BusinessDataState with _$BusinessDataState {
       required bool hasError,
       required List<SocialMediaHandle> socialMedias,
       required List<Accredition> accreditions,
-      String? message
-      }) = _Initial;
+      required BusinessDetails businessDetails,
+      required BankDetails bankDetails,
+      required List<Product> products,
+      required List<Brochure> brochures,
+      ImageModel? logo,
+      String? message}) = _Initial;
 
-  factory BusinessDataState.initial() => const BusinessDataState(
-      isLoading: false, hasError: false, socialMedias: [], accreditions: []);
+  factory BusinessDataState.initial() => BusinessDataState(
+      businessDetails: BusinessDetails(),
+      bankDetails: BankDetails(),
+      products: [],
+      isLoading: false,
+      hasError: false,
+      socialMedias: [],
+      brochures: [],
+      accreditions: []);
 }

@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:animate_do/animate_do.dart';
+import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LogoStory extends StatefulWidget {
@@ -18,8 +20,6 @@ class LogoStory extends StatefulWidget {
 
 class _LogoStoryState extends State<LogoStory> {
   TextEditingController textEditingController = TextEditingController();
-
-  File? selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -43,35 +43,40 @@ class _LogoStoryState extends State<LogoStory> {
             adjustHieght(khieght * .02),
             Center(
               child: InkResponse(
-                // onTap: () => _pickImage(),
-                child: DottedBorder(
-                  dashPattern: const [8, 8],
-                  color: neonShade,
-                  strokeWidth: 2.5,
-                  child: SizedBox(
-                    width: kwidth * 0.8,
-                    height: kwidth * 0.25,
-                    child: selectedImage != null
-                        ? Image.file(selectedImage!, fit: BoxFit.cover)
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 32.dm,
-                                height: 32.dm,
-                                child: CircleAvatar(
-                                  child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.add)),
-                                ),
+                onTap: () => context
+                    .read<BusinessDataBloc>()
+                    .add(const BusinessDataEvent.addLogo()),
+                child: BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                  builder: (context, state) {
+                    return DottedBorder(
+                      dashPattern: const [8, 8],
+                      color: neonShade,
+                      strokeWidth: 2.5,
+                      child: SizedBox(
+                        width: kwidth * 0.8,
+                        height: kwidth * 0.25,
+                        child: state.logo != null
+                            ? Image.file(state.logo!.fileImage,
+                                fit: BoxFit.contain)
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 32.dm,
+                                    height: 32.dm,
+                                    child: const CircleAvatar(
+                                      child: Icon(Icons.add),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Add logo from file',
+                                    style: TextStyle(fontSize: 10.sp),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                'Add logo from file',
-                                style: TextStyle(fontSize: 10.sp),
-                              ),
-                            ],
-                          ),
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

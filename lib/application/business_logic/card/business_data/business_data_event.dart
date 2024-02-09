@@ -10,4 +10,11 @@ class BusinessDataEvent with _$BusinessDataEvent {
       {required Accredition accredition}) = AddAccredition;
   const factory BusinessDataEvent.removeAccredition({required int index}) =
       RemoveAccredition;
+  const factory BusinessDataEvent.createBusinessData() = CreateBusinessData;
+  const factory BusinessDataEvent.createBankingData() = CreateBankingData;
+  const factory BusinessDataEvent.addLogo() = AddLogo;
+  const factory BusinessDataEvent.addProduct({required Product product}) = AddProduct;
+  const factory BusinessDataEvent.removeProduct({required int index}) = RemoveProduct;
+  const factory BusinessDataEvent.addBrochures() = AddBrochures;
+  const factory BusinessDataEvent.removeBrochure({required int index}) = RemoveBrochure;
 }

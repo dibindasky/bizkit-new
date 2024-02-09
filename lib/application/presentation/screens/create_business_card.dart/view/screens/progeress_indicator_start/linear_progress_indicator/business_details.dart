@@ -8,8 +8,8 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BusinessDetails extends StatelessWidget {
-  const BusinessDetails({super.key, required this.pageController});
+class BusinessDetailsScreen extends StatelessWidget {
+  const BusinessDetailsScreen({super.key, required this.pageController});
 
   final PageController pageController;
   

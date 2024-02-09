@@ -1,5 +1,4 @@
-import 'dart:developer';
-import 'dart:io';
+import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/screen/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brocher_builder.dart';
@@ -7,18 +6,13 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_builder.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
-import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-// ignore: must_be_immutable
 class BrochersAndProductsScreen extends StatelessWidget {
-  BrochersAndProductsScreen({Key? key}) : super(key: key);
-
-  File? selectedImage;
+  const BrochersAndProductsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +31,10 @@ class BrochersAndProductsScreen extends StatelessWidget {
               Center(
                 child: InkWell(
                   onTap: () async {
-                    final result = await ImagePickerClass.getImage();
-                    if (result != null) {
-                      // ignore: use_build_context_synchronously
-                      Navigator.push(
-                        context,
-                        fadePageRoute(const AddPrductsScreen()),
-                      );
-                    }
+                    Navigator.push(
+                      context,
+                      fadePageRoute(const AddPrductsScreen()),
+                    );
                   },
                   child: DottedBorder(
                     dashPattern: const [8, 8],
@@ -52,7 +42,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
                     strokeWidth: 2.5,
                     child: SizedBox(
                       width: 290.dm,
-                      height: 91.dm,
+                      height: 81.dm,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -79,10 +69,9 @@ class BrochersAndProductsScreen extends StatelessWidget {
               Center(
                 child: InkWell(
                   onTap: () async {
-                    final String? name = await pickPDFFile();
-                    if (name != null) {
-                      Image.asset(dummyPersonImage);
-                    }
+                    context
+                        .read<BusinessDataBloc>()
+                        .add(const BusinessDataEvent.addBrochures());
                   },
                   child: DottedBorder(
                     dashPattern: const [8, 8],
@@ -90,7 +79,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
                     strokeWidth: 2.5,
                     child: SizedBox(
                       width: 290.dm,
-                      height: 91.dm,
+                      height: 81.dm,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -120,18 +109,6 @@ class BrochersAndProductsScreen extends StatelessWidget {
               const Text('Added Brochers'),
               adjustHieght(10),
               const BrocherBuilder(),
-              adjustHieght(khieght * .03),
-              selectedImage == null
-                  ? const SizedBox()
-                  : SizedBox(
-                      width: 100.dm,
-                      height: 100.dm,
-                      child: Image.file(
-                        File(
-                          selectedImage!.path,
-                        ),
-                      ),
-                    ),
             ],
           ),
           adjustHieght(khieght * .03),
@@ -144,27 +121,5 @@ class BrochersAndProductsScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Future<String?> pickPDFFile() async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowMultiple: true,
-        allowedExtensions: ['pdf'],
-      );
-      if (result != null) {
-        PlatformFile file = result.files.first;
-        String filePath = file.path!;
-        return filePath;
-        // Use the filePath as needed, such as displaying or processing the PDF file
-      } else {
-        log('File not selected');
-        // User canceled the picker
-      }
-    } catch (e) {
-      log('Error picking PDF file: $e');
-    }
-    return null;
   }
 }

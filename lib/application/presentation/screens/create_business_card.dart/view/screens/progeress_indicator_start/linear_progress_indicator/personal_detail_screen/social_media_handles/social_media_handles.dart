@@ -108,7 +108,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                               : linkController.text;
                           final model = SocialMediaHandle(
                               label: selectedCategory, socialMedia: link);
-                          widget.fromBusiness
+                          !widget.fromBusiness
                               ? context.read<UserDataBloc>().add(
                                   UserDataEvent.addSocialMedia(
                                       socialMediaHandle: model))
@@ -147,9 +147,13 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                 top: 0,
                                 child: InkWell(
                                   onTap: () {
-                                    context.read<UserDataBloc>().add(
-                                        UserDataEvent.removeSocialMedia(
-                                            index: index));
+                                    widget.fromBusiness
+                                        ? context.read<BusinessDataBloc>().add(
+                                            BusinessDataEvent.removeSocialMedia(
+                                                index: index))
+                                        : context.read<UserDataBloc>().add(
+                                            UserDataEvent.removeSocialMedia(
+                                                index: index));
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),

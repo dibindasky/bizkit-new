@@ -55,7 +55,7 @@ class _LinearProgressIndicatorStartingState
                 },
                 children: [
                   PersonlDetails(pageController: _pageController),
-                  BusinessDetails(pageController: _pageController),
+                  BusinessDetailsScreen(pageController: _pageController),
                   CompanyAndBankingDetails(pageController: _pageController),
                   LogoStory(pageController: _pageController),
                   BrochersAndProductsScreen()

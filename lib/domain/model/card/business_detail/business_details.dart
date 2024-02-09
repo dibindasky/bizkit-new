@@ -20,12 +20,12 @@ class BusinessDetails {
   String? businessName;
   String? designation;
   String? company;
-  dynamic address;
+  String? address;
   @JsonKey(name: 'website_link')
-  dynamic websiteLink;
+  String? websiteLink;
   dynamic logo;
   @JsonKey(name: 'logo_story')
-  dynamic logoStory;
+  String? logoStory;
 
   BusinessDetails({
     this.socialMediaHandles,
@@ -57,10 +57,10 @@ class BusinessDetails {
     String? businessName,
     String? designation,
     String? company,
-    dynamic address,
-    dynamic websiteLink,
+    String? address,
+    String? websiteLink,
     dynamic logo,
-    dynamic logoStory,
+    String? logoStory,
   }) {
     return BusinessDetails(
       socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,

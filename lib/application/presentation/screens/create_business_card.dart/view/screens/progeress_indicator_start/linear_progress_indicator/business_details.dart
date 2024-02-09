@@ -1,17 +1,18 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-// ignore: must_be_immutable
 class BusinessDetails extends StatelessWidget {
-  BusinessDetails({super.key, required this.pageController});
-  final PageController pageController;
+  const BusinessDetails({super.key, required this.pageController});
 
-  TextEditingController textEditingController = TextEditingController();
+  final PageController pageController;
+  
   @override
   Widget build(BuildContext context) {
     return FadeIn(
@@ -33,35 +34,35 @@ class BusinessDetails extends StatelessWidget {
             ),
             adjustHieght(khieght * .02),
             TTextFormField(
-              text: 'Name',
-              controller: textEditingController,
+              text: 'Business Name',
+              controller: context.read<BusinessDataBloc>().businessNameController,
               inputType: TextInputType.name,
             ),
             TTextFormField(
               text: 'Designation',
-              controller: textEditingController,
+              controller: context.read<BusinessDataBloc>().designationController,
               inputType: TextInputType.name,
             ),
             TTextFormField(
               text: 'Company',
-              controller: textEditingController,
+              controller: context.read<BusinessDataBloc>().companyController,
               inputType: TextInputType.name,
             ),
             TTextFormField(
               text: 'Mail ID',
-              controller: textEditingController,
+              controller: context.read<BusinessDataBloc>().mailController,
               inputType: TextInputType.name,
             ),
             TTextFormField(
               text: 'Mobile number',
-              controller: textEditingController,
+              controller: context.read<BusinessDataBloc>().mobileController,
               inputType: TextInputType.name,
             ),
             adjustHieght(10),
-            GestureDetector(
+            InkWell(
               onTap: () {
                 Navigator.of(context)
-                    .push(fadePageRoute(const SocialMediahandles()));
+                    .push(fadePageRoute(const SocialMediahandlesScreen(fromBusiness: true,)));
               },
               child: Container(
                 decoration: const BoxDecoration(
@@ -97,12 +98,12 @@ class BusinessDetails extends StatelessWidget {
             TTextFormField(
               maxLines: 4,
               text: 'Address',
-              controller: textEditingController,
+              controller: context.read<BusinessDataBloc>().addressController,
               inputType: TextInputType.name,
             ),
             TTextFormField(
               text: 'Website link',
-              controller: textEditingController,
+              controller: context.read<BusinessDataBloc>().websiteLinkController,
               inputType: TextInputType.name,
             ),
             adjustHieght(khieght * .02),

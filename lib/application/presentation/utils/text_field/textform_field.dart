@@ -21,8 +21,10 @@ class TTextFormField extends StatefulWidget {
   final FocusNode? focusNode;
   final bool showUnderline;
   final Validate validate;
+  final bool enabled;
   const TTextFormField({
     Key? key,
+    this.enabled=true,
     this.validate = Validate.none,
     this.password,
     this.showUnderline = false,
@@ -70,7 +72,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
       child: Material(
         elevation: 3,
         color: textFieldFillColr,
-        child: TextFormField(
+        child: TextFormField(enabled: widget.enabled,
           focusNode: widget.focusNode,
           onTap: widget.onTap,
           maxLines: widget.maxLines ?? 1,

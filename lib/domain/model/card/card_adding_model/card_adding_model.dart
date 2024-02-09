@@ -1,8 +1,7 @@
+import 'package:bizkit/domain/model/card/banking_detail/bank_details.dart';
+import 'package:bizkit/domain/model/card/business_detail/business_details.dart';
+import 'package:bizkit/domain/model/card/personal_details/personal_details.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'bank_details.dart';
-import 'business_details.dart';
-import 'personal_details.dart';
 
 part 'card_adding_model.g.dart';
 
@@ -28,4 +27,18 @@ class CardAddingModel {
   }
 
   Map<String, dynamic> toJson() => _$CardAddingModelToJson(this);
+
+  CardAddingModel copyWith({
+    PersonalDetails? personalDetails,
+    BusinessDetails? businessDetails,
+    BankDetails? bankDetails,
+    int? user,
+  }) {
+    return CardAddingModel(
+      personalDetails: personalDetails ?? this.personalDetails,
+      businessDetails: businessDetails ?? this.businessDetails,
+      bankDetails: bankDetails ?? this.bankDetails,
+      user: user ?? this.user,
+    );
+  }
 }

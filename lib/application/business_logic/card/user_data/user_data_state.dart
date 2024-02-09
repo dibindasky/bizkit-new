@@ -6,9 +6,21 @@ class UserDataState with _$UserDataState {
       {required bool hasError,
       required bool isLoading,
       String? message,
+      required PersonalDetails personalDetails,
       required List<ImageModel> scannedImagesCardCreation,
+      required List<ImageModel> userPhotos,
+      required List<Accolade> accolades,
+      required List<DatesToRemember> datesToRemember,
+      required List<SocialMediaHandle> socialMedias,
       ScannedImageDatasModel? scannedImageDatasModel}) = _Initial;
 
-  factory UserDataState.initial() => const UserDataState(
-      hasError: false, isLoading: false, scannedImagesCardCreation: []);
+  factory UserDataState.initial() => UserDataState(
+      personalDetails: PersonalDetails(),
+      hasError: false,
+      isLoading: false,
+      userPhotos: [],
+      accolades: [],
+      socialMedias: [],
+      datesToRemember: [],
+      scannedImagesCardCreation: []);
 }

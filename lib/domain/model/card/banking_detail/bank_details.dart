@@ -1,6 +1,5 @@
-import 'package:bizkit/domain/model/card/accredition/accredition.dart';
+import 'package:bizkit/domain/model/card/accridition/accredition.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 
 part 'bank_details.g.dart';
 
@@ -35,4 +34,24 @@ class BankDetails {
   }
 
   Map<String, dynamic> toJson() => _$BankDetailsToJson(this);
+
+  BankDetails copyWith({
+    List<Accredition>? accredition,
+    dynamic nameOfCompany,
+    dynamic acccountNumber,
+    dynamic ifscCode,
+    dynamic upiDetails,
+    dynamic gstMembershipDetails,
+    dynamic branchOffices,
+  }) {
+    return BankDetails(
+      accredition: accredition ?? this.accredition,
+      nameOfCompany: nameOfCompany ?? this.nameOfCompany,
+      acccountNumber: acccountNumber ?? this.acccountNumber,
+      ifscCode: ifscCode ?? this.ifscCode,
+      upiDetails: upiDetails ?? this.upiDetails,
+      gstMembershipDetails: gstMembershipDetails ?? this.gstMembershipDetails,
+      branchOffices: branchOffices ?? this.branchOffices,
+    );
+  }
 }

@@ -47,7 +47,7 @@ class _LinearProgressIndicatorStartingState
             Expanded(
               child: PageView(
                 controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
+                // physics: const NeverScrollableScrollPhysics(),
                 onPageChanged: (index) {
                   setState(() {
                     _currentPage = index;

@@ -61,7 +61,7 @@ class PickCardsScreen extends StatelessWidget {
                                 child: IconButton(
                                     onPressed: () {
                                       context.read<UserDataBloc>().add(
-                                          UserDataEvent.removeImage(
+                                          UserDataEvent.removeImageScanning(
                                               index: index));
                                     },
                                     icon: const Icon(Icons.delete)))
@@ -117,7 +117,7 @@ class PickCardsScreen extends StatelessWidget {
                             text: 'Continue',
                             onTap: () {
                               context.read<UserDataBloc>().add(
-                                    UserDataEvent.processImage(
+                                    UserDataEvent.processImageScanning(
                                       images: state.scannedImagesCardCreation,
                                     ),
                                   );

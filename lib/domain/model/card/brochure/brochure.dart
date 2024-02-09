@@ -4,7 +4,7 @@ part 'brochure.g.dart';
 
 @JsonSerializable()
 class Brochure {
-  String? file;
+  dynamic file;
 
   Brochure({this.file});
 
@@ -13,4 +13,12 @@ class Brochure {
   }
 
   Map<String, dynamic> toJson() => _$BrochureToJson(this);
+
+  Brochure copyWith({
+    dynamic file,
+  }) {
+    return Brochure(
+      file: file ?? this.file,
+    );
+  }
 }

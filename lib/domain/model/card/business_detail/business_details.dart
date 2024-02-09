@@ -1,10 +1,9 @@
 import 'package:bizkit/domain/model/card/brochure/brochure.dart';
+import 'package:bizkit/domain/model/card/email/email.dart';
+import 'package:bizkit/domain/model/card/mobile_number/mobile_number.dart';
 import 'package:bizkit/domain/model/card/product/product.dart';
 import 'package:bizkit/domain/model/card/social_media_handle/social_media_handle.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'email.dart';
-import 'mobile_number.dart';
 
 part 'business_details.g.dart';
 
@@ -48,4 +47,34 @@ class BusinessDetails {
   }
 
   Map<String, dynamic> toJson() => _$BusinessDetailsToJson(this);
+
+  BusinessDetails copyWith({
+    List<SocialMediaHandle>? socialMediaHandles,
+    List<Product>? product,
+    List<Brochure>? brochure,
+    List<Email>? email,
+    List<MobileNumber>? mobileNumber,
+    String? businessName,
+    String? designation,
+    String? company,
+    dynamic address,
+    dynamic websiteLink,
+    dynamic logo,
+    dynamic logoStory,
+  }) {
+    return BusinessDetails(
+      socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
+      product: product ?? this.product,
+      brochure: brochure ?? this.brochure,
+      email: email ?? this.email,
+      mobileNumber: mobileNumber ?? this.mobileNumber,
+      businessName: businessName ?? this.businessName,
+      designation: designation ?? this.designation,
+      company: company ?? this.company,
+      address: address ?? this.address,
+      websiteLink: websiteLink ?? this.websiteLink,
+      logo: logo ?? this.logo,
+      logoStory: logoStory ?? this.logoStory,
+    );
+  }
 }

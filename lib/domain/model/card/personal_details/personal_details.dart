@@ -1,9 +1,8 @@
 import 'package:bizkit/domain/model/card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/dates_to_remember/dates_to_remember.dart';
+import 'package:bizkit/domain/model/card/photo/photo.dart';
 import 'package:bizkit/domain/model/card/social_media_handle/social_media_handle.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'photo.dart';
 
 part 'personal_details.g.dart';
 
@@ -49,4 +48,35 @@ class PersonalDetails {
   }
 
   Map<String, dynamic> toJson() => _$PersonalDetailsToJson(this);
+
+  PersonalDetails copyWith({
+    List<Accolade>? accolades,
+    List<SocialMediaHandle>? personalSocialMedia,
+    List<DatesToRemember>? datesToRemember,
+    List<Photo>? photos,
+    String? name,
+    String? phoneNumber,
+    String? email,
+    String? company,
+    String? businessCategory,
+    String? homeAddress,
+    String? bloodGroup,
+    String? dateOfBirth,
+  }) {
+    return PersonalDetails(
+      accolades: accolades ?? this.accolades,
+      personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
+      datesToRemember: datesToRemember ?? this.datesToRemember,
+      photos: photos ?? this.photos,
+      name: name ?? this.name,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+      company: company ?? this.company,
+      businessCategory: businessCategory ?? this.businessCategory,
+      homeAddress: homeAddress ?? this.homeAddress,
+      bloodGroup: bloodGroup ?? this.bloodGroup,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+    );
+  }
 }
+

@@ -8,7 +8,7 @@ class BankDetails {
   List<Accredition>? accredition;
   @JsonKey(name: 'name_of_company')
   String? nameOfCompany;
-  @JsonKey(name: 'acccount_number')
+  @JsonKey(name: 'account_number')
   String? acccountNumber;
   @JsonKey(name: 'ifsc_code')
   String? ifscCode;

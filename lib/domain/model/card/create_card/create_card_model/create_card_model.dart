@@ -21,10 +21,10 @@ class CreateCardModel {
   });
 
   factory CreateCardModel.fromJson(Map<String, dynamic> json) {
-    return _$CardAddingModelFromJson(json);
+    return _$CreateCardModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$CardAddingModelToJson(this);
+  Map<String, dynamic> toJson() => _$CreateCardModelToJson(this);
 
   CreateCardModel copyWith({
     PersonalDetails? personalDetails,

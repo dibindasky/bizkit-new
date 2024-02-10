@@ -8,19 +8,19 @@ class ApiService {
 
   ApiService({required this.dio, required this.baseUrl}) {
     dio.options.baseUrl=baseUrl;
-    dio.options.connectTimeout = const Duration(seconds: 3);
-    dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        final accessToken =
-            await SecureStorage.getToken().then((token) => token.accessToken);
-        dio.options.headers['Authorization'] = accessToken;
-        options.headers['Authorization'] = accessToken;
-        print(dio.options.headers);
-        print(options.headers);
-        return handler.next(options);
-      },
-      onError: (e, handler) async {},
-    ));
+    // dio.options.connectTimeout = const Duration(seconds: 3);
+    // dio.interceptors.add(InterceptorsWrapper(
+    //   onRequest: (options, handler) async {
+    //     final accessToken =
+    //         await SecureStorage.getToken().then((token) => token.accessToken);
+    //     dio.options.headers['Authorization'] = accessToken;
+    //     options.headers['Authorization'] = accessToken;
+    //     print(dio.options.headers);
+    //     print(options.headers);
+    //     return handler.next(options);
+    //   },
+    //   onError: (e, handler) async {},
+    // ));
   }
 
   Future<Response<dynamic>> get(
@@ -60,14 +60,15 @@ class ApiService {
     dynamic data,
   }) async {
     try {
-      // final accessToken =
-      //     await SecureStorage.getToken().then((token) => token.accessToken);
-      // dio.options.headers.addAll(
-      //   {
-      //     'Authorization': accessToken,
-      //     ...headers ?? {'content-Type': 'application/json'}
-      //   },
-      // );
+      final accessToken =
+          await SecureStorage.getToken().then((token) => token.accessToken);
+      dio.options.headers.addAll(
+        {
+          'Authorization': "Bearer $accessToken",
+          ...headers ?? {'content-Type': 'application/json'}
+        },
+      );
+      print('api uri ==>  ${dio.options.baseUrl + url}');
       final response = await dio.post(
         url,
         data: data is FormData ? data : data as Map<String, dynamic>?,
@@ -149,6 +150,9 @@ class ApiService {
 
   _refreshAccessToken() async {
     try {
+      print('=====================================================');
+      print('=======================refresh=======================');
+      print('=====================================================');
       final token =
           await SecureStorage.getToken().then((token) => token.refreshToken);
       final response = await Dio(

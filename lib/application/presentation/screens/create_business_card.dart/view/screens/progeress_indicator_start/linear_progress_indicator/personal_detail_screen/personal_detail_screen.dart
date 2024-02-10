@@ -237,9 +237,6 @@ class PersonlDetails extends StatelessWidget {
             ),
             adjustHieght(khieght * .05),
             LastSkipContinueButtons(
-              onSkipTap: () => context
-                  .read<UserDataBloc>()
-                  .add(UserDataEvent.createPersonalData()),
               onTap: () => pageController.nextPage(
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.ease,

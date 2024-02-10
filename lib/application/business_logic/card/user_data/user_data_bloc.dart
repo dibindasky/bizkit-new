@@ -26,14 +26,14 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final CardScanningRepo cardScanningRepo;
   final LocalService localService;
   final CardService cardService;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController companylController = TextEditingController();
   final TextEditingController businessCategoryController =
       TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController bloodGroup = TextEditingController();
   final TextEditingController homeAddress = TextEditingController();
+  final TextEditingController bloodGroup = TextEditingController();
   final TextEditingController birthDaycontroller = TextEditingController();
 
   UserDataBloc(this.cardScanningRepo, this.localService, this.cardService)
@@ -55,36 +55,50 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> createCard(CreateCard event, emit) async {
-    emit(state.copyWith(isLoading: false, hasError: false, message: null,cardAdded:null));
+    emit(state.copyWith(
+        isLoading: true, hasError: false, message: null, cardAdded: null));
+    print(event.createCardModel.toJson());
+    print('card creation requested');
     final result =
         await cardService.createCard(createCardModel: event.createCardModel);
-    result.fold(
-        (l) => emit(state.copyWith(
-            isLoading: false, hasError: true, message: l.message)),
-        (r) => emit(state.copyWith(isLoading: false, message: r.message,cardAdded:r)));
+    result.fold((l) {
+      print('card creation request failed');
+      return emit(
+          state.copyWith(isLoading: false, hasError: true, message: l.message));
+    }, (r) {
+      print('card creation success');
+      return emit(
+          state.copyWith(isLoading: false, message: r.message, cardAdded: r));
+    });
   }
 
   FutureOr<void> createPersonalData(CreatePersonalData event, emit) async {
     final personalData = state.personalDetails.copyWith(
-        bloodGroup: bloodGroup.text,
         name: nameController.text,
         phoneNumber: phoneController.text,
+        email: emailController.text,
         company: companylController.text,
         businessCategory: businessCategoryController.text,
-        email: emailController.text,
         homeAddress: homeAddress.text,
+        bloodGroup: bloodGroup.text,
         dateOfBirth: birthDaycontroller.text,
-        datesToRemember: state.datesToRemember,
-        accolades: state.accolades
-            .map((e) => Accolade(
-                accolades: e.accolades,
-                accoladesDescription: e.accoladesDescription,
-                accoladesImage: e.accoladesImage.multipartIamge))
-            .toList(),
-        photos: state.userPhotos
-            .map((e) => Photo(photos: e.multipartIamge))
-            .toList(),
-        personalSocialMedia: state.socialMedias);
+        datesToRemember:
+            state.datesToRemember.isEmpty ? [] : state.datesToRemember,
+        accolades: state.accolades.isEmpty
+            ? []
+            : state.accolades
+                .map((e) => Accolade(
+                    accolades: e.accolades,
+                    accoladesDescription: e.accoladesDescription,
+                    accoladesImage: e.accoladesImage.multipartIamge))
+                .toList(),
+        photos: state.userPhotos.isEmpty
+            ? []
+            : state.userPhotos
+                .map((e) => Photo(photos: e.multipartIamge))
+                .toList(),
+        personalSocialMedia:
+            state.socialMedias.isEmpty ? [] : state.socialMedias);
     print(personalData.toJson());
     emit(state.copyWith(personalDetails: personalData));
   }

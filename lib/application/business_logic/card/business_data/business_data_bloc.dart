@@ -52,12 +52,14 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
 
   FutureOr<void> createBankingData(CreateBankingData event, emit) async {
     final BankDetails bankDetails = state.bankDetails.copyWith(
-        accredition: state.accreditions
-            .map((e) => Accredition(
-                description: e.description,
-                label: e.label,
-                image: e.image.multipartFile))
-            .toList(),
+        accredition: state.accreditions.isEmpty
+            ? []
+            : state.accreditions
+                .map((e) => Accredition(
+                    description: e.description,
+                    label: e.label,
+                    image: e.image.multipartIamge))
+                .toList(),
         nameOfCompany: nameOfCompanyController.text.trim(),
         acccountNumber: accountNumber,
         ifscCode: ifsc,
@@ -87,14 +89,20 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             : [],
         logo: state.logo?.multipartIamge,
         socialMediaHandles: state.socialMedias,
-        product: state.products
-            .map((e) => Product(
-                enquiry: e.enquiry,
-                label: e.label,
-                description: e.description,
-                product: e.product.multipartIamge))
-            .toList(),
-        brochure: state.brochures);
+        product: state.products.isEmpty
+            ? []
+            : state.products
+                .map((e) => Product(
+                    enquiry: e.enquiry,
+                    label: e.label,
+                    description: e.description,
+                    product: e.product.multipartIamge))
+                .toList(),
+        brochure: state.brochures.isEmpty
+            ? []
+            : state.brochures
+                .map((e) => Brochure(file: e.file.multipartFile))
+                .toList());
     emit(state.copyWith(businessDetails: businessDetails));
   }
 

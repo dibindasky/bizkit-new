@@ -1,5 +1,6 @@
 class ApiEndPoints {
-  static String baseUrl = 'http://44.212.19.127';
+  static String baseUrl = 'http://192.168.152.241:8000';
+  // static String baseUrl = 'http://44.212.19.127';
 
   static String refreshUrl = '/accounts/api/token/refresh/';
   static String login = '/accounts/login/';

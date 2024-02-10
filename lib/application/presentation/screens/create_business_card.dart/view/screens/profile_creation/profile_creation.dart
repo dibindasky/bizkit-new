@@ -46,26 +46,38 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 children: [
                   adjustHieght(khieght * .03),
-                  const Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: 70,
-                        backgroundImage: AssetImage(
-                          'asset/images/profileCircle.png',
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 17,
-                        right: 3,
-                        child: CircleAvatar(
-                          radius: 13,
-                          backgroundImage: AssetImage(
-                            'asset/images/profilestackcircle.png',
+                  BlocBuilder<UserDataBloc, UserDataState>(
+                    builder: (context, state) {
+                      return Stack(
+                        children: [
+                          state.userPhotos.isEmpty
+                              ? const CircleAvatar(
+                                  radius: 70,
+                                  backgroundImage: AssetImage(
+                                    'asset/images/profileCircle.png',
+                                  ),
+                                )
+                              : CircleAvatar(
+                                  radius: 70,
+                                  backgroundImage: FileImage(
+                                      state.userPhotos.first.fileImage),
+                                ),
+                          Positioned(
+                            bottom: 17,
+                            right: 3,
+                            child: InkWell(
+                              onTap: () => context
+                                  .read<UserDataBloc>()
+                                  .add(UserDataEvent.pickUserPhotos()),
+                              child: const CircleAvatar(
+                                radius: 13,
+                                child: Icon(Icons.add),
+                              ),
+                            ),
                           ),
-                          child: Icon(Icons.add),
-                        ),
-                      ),
-                    ],
+                        ],
+                      );
+                    },
                   ),
                   adjustHieght(khieght * .04),
                   BlocBuilder<UserDataBloc, UserDataState>(
@@ -97,18 +109,18 @@ class ProfileScreen extends StatelessWidget {
                                 state.scannedImageDatasModel?.emails ?? [],
                           ),
                           AutocompleteTextField(
-                            label: 'Technolegy',
-                            controller: context
-                                .read<UserDataBloc>()
-                                .technolegyController,
+                            label: 'Company',
+                            controller:
+                                context.read<UserDataBloc>().companylController,
                             inputType: TextInputType.name,
                             autocompleteItems:
                                 state.scannedImageDatasModel?.unknown ?? [],
                           ),
                           AutocompleteTextField(
-                            label: 'Company',
-                            controller:
-                                context.read<UserDataBloc>().companylController,
+                            label: 'BusinessCategory',
+                            controller: context
+                                .read<UserDataBloc>()
+                                .businessCategoryController,
                             inputType: TextInputType.name,
                             autocompleteItems:
                                 state.scannedImageDatasModel?.unknown ?? [],

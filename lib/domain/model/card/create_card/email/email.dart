@@ -11,4 +11,12 @@ class Email {
   factory Email.fromJson(Map<String, dynamic> json) => _$EmailFromJson(json);
 
   Map<String, dynamic> toJson() => _$EmailToJson(this);
+
+  Email copyWith({
+    String? email,
+  }) {
+    return Email(
+      email: email ?? this.email,
+    );
+  }
 }

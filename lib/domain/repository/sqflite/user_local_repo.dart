@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class UserLocalRepo {
-  Future<void> onCreate(Database db, int version, String query);
-  Future<Either<Failure, List<User>>> getUserData(Database db, String sql);
-  Future<void> addUser(Database db, String qurey);
+  Future<void> onCreate(Database db);
+  Future<Either<Failure, List<User>>> getUserData(Database db);
+  Future<void> addUser(Database db, User qurey);
 }

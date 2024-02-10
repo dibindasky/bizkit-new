@@ -4,7 +4,7 @@ part 'accredition.g.dart';
 
 @JsonSerializable()
 class Accredition {
-  String? image;
+  dynamic image;
   String? label;
   String? description;
 
@@ -15,4 +15,16 @@ class Accredition {
   }
 
   Map<String, dynamic> toJson() => _$AccreditionToJson(this);
+
+  Accredition copyWith({
+    dynamic image,
+    String? label,
+    String? description,
+  }) {
+    return Accredition(
+      image: image ?? this.image,
+      label: label ?? this.label,
+      description: description ?? this.description,
+    );
+  }
 }

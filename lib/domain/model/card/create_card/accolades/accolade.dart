@@ -21,4 +21,16 @@ class Accolade {
   }
 
   Map<String, dynamic> toJson() => _$AccoladeToJson(this);
+
+  Accolade copyWith({
+    String? accolades,
+    dynamic accoladesImage,
+    String? accoladesDescription,
+  }) {
+    return Accolade(
+      accolades: accolades ?? this.accolades,
+      accoladesImage: accoladesImage ?? this.accoladesImage,
+      accoladesDescription: accoladesDescription ?? this.accoladesDescription,
+    );
+  }
 }

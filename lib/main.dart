@@ -1,4 +1,6 @@
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
+import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
+import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
@@ -41,6 +43,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<ContactsBloc>()),
           BlocProvider(create: (context) => getIt<AuthBloc>()),
           BlocProvider(create: (context) => getIt<UserDataBloc>()),
+          BlocProvider(create: (context) => getIt<BusinessDataBloc>()),
         ],
         child: MaterialApp(
           debugShowMaterialGrid: false,

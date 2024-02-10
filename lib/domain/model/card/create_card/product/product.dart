@@ -7,7 +7,7 @@ class Product {
   bool? enquiry;
   String? label;
   String? description;
-  String? product;
+  dynamic product;
 
   Product({this.enquiry, this.label, this.description, this.product});
 
@@ -16,4 +16,18 @@ class Product {
   }
 
   Map<String, dynamic> toJson() => _$ProductToJson(this);
+
+  Product copyWith({
+    bool? enquiry,
+    String? label,
+    String? description,
+    dynamic product,
+  }) {
+    return Product(
+      enquiry: enquiry ?? this.enquiry,
+      label: label ?? this.label,
+      description: description ?? this.description,
+      product: product ?? this.product,
+    );
+  }
 }

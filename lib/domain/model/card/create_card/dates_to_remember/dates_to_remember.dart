@@ -14,4 +14,14 @@ class DatesToRemember {
   }
 
   Map<String, dynamic> toJson() => _$DatesToRememberToJson(this);
+
+  DatesToRemember copyWith({
+    String? date,
+    String? label,
+  }) {
+    return DatesToRemember(
+      date: date ?? this.date,
+      label: label ?? this.label,
+    );
+  }
 }

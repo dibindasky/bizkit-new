@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'card_adding_model.dart';
+part of 'create_card_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CardAddingModel _$CardAddingModelFromJson(Map<String, dynamic> json) =>
-    CardAddingModel(
+CreateCardModel _$CreateCardModelFromJson(Map<String, dynamic> json) =>
+    CreateCardModel(
       personalDetails: json['personal_details'] == null
           ? null
           : PersonalDetails.fromJson(
@@ -19,13 +19,11 @@ CardAddingModel _$CardAddingModelFromJson(Map<String, dynamic> json) =>
       bankDetails: json['bank_details'] == null
           ? null
           : BankDetails.fromJson(json['bank_details'] as Map<String, dynamic>),
-      user: json['user'] as int?,
     );
 
-Map<String, dynamic> _$CardAddingModelToJson(CardAddingModel instance) =>
+Map<String, dynamic> _$CreateCardModelToJson(CreateCardModel instance) =>
     <String, dynamic>{
       'personal_details': instance.personalDetails,
       'business_details': instance.businessDetails,
       'bank_details': instance.bankDetails,
-      'user': instance.user,
     };

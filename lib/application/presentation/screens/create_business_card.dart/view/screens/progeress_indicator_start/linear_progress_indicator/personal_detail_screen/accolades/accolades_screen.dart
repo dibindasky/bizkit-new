@@ -1,22 +1,26 @@
+import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_create_screen.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccolodesScreen extends StatelessWidget {
-  const AccolodesScreen({super.key});
+  const AccolodesScreen({super.key, this.accolade = true});
+
+  final bool accolade;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
-        child: const AppbarCommen(
-          tittle: 'Accolades',
+        child: AppbarCommen(
+          tittle: accolade ? 'Accolades' : 'Accredition',
         ),
       ),
       body: Padding(
@@ -31,11 +35,11 @@ class AccolodesScreen extends StatelessWidget {
               ),
               adjustHieght(khieght * .02),
               Center(
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () async {
-                    await ImagePickerClass.getImage();
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const AccoladesAddCreateScreen(),
+                      builder: (context) =>
+                          AccoladesAddCreateScreen(accolade: accolade),
                     ));
                   },
                   child: DottedBorder(
@@ -66,55 +70,107 @@ class AccolodesScreen extends StatelessWidget {
                 ),
               ),
               adjustHieght(khieght * .04),
-              ListView.separated(
-                separatorBuilder: (context, index) =>
-                    adjustHieght(kwidth * .03),
-                itemCount: 3,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return SizedBox(
-                    height: 260,
-                    width: double.infinity,
-                    child: Stack(
-                      children: [
-                        SizedBox(
-                          height: 200,
-                          width: double.infinity,
-                          child: Image.asset(
-                            'asset/images/person3.jpeg',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Positioned(
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 10),
-                            color: klightgrey.withOpacity(.1),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+              BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                builder: (context, business) {
+                  return BlocBuilder<UserDataBloc, UserDataState>(
+                    builder: (context, user) {
+                      return ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            adjustHieght(kwidth * .03),
+                        itemCount: accolade
+                            ? user.accolades.length
+                            : business.accreditions.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return SizedBox(
+                            height: 260,
+                            width: double.infinity,
+                            child: Stack(
                               children: [
-                                Text(
-                                  'Best Employee Award',
-                                  style: textStyle1.copyWith(
-                                    fontSize: kwidth * .04,
-                                    fontWeight: FontWeight.w700,
+                                SizedBox(
+                                  height: 200,
+                                  width: double.infinity,
+                                  child: Image.file(
+                                    accolade
+                                        ? user.accolades[index].accoladesImage
+                                            .fileImage
+                                        : business.accreditions[index].image
+                                            .fileImage,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                                Text(
-                                  'Lorem Ipsum Sic Mundus Creatus Est. Lorem Ipsum Sic Mundus Creatus Est.',
-                                  style: textStyle1.copyWith(
-                                    fontSize: kwidth * .03,
+                                Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    color: klightgrey.withOpacity(.1),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          accolade
+                                              ? user.accolades[index]
+                                                      .accolades ??
+                                                  ''
+                                              : business.accreditions[index]
+                                                      .label ??
+                                                  '',
+                                          style: textStyle1.copyWith(
+                                            fontSize: kwidth * .04,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        Text(
+                                          accolade
+                                              ? user.accolades[index]
+                                                      .accoladesDescription ??
+                                                  ''
+                                              : business.accreditions[index]
+                                                      .description ??
+                                                  '',
+                                          style: textStyle1.copyWith(
+                                            fontSize: kwidth * .03,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
+                                Positioned(
+                                  right: 10,
+                                  top: 10,
+                                  child: CircleAvatar(
+                                    child: IconButton(
+                                      onPressed: () {
+                                        accolade
+                                            ? context.read<UserDataBloc>().add(
+                                                  UserDataEvent.removeAccolade(
+                                                      index: index),
+                                                )
+                                            : context
+                                                .read<BusinessDataBloc>()
+                                                .add(
+                                                  BusinessDataEvent
+                                                      .removeAccredition(
+                                                          index: index),
+                                                );
+                                      },
+                                      icon: const Icon(
+                                        Icons.delete,
+                                      ),
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
+                          );
+                        },
+                      );
+                    },
                   );
                 },
               ),

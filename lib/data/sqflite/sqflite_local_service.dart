@@ -1,4 +1,3 @@
-import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
 import 'package:bizkit/domain/model/user/user.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
@@ -16,7 +15,6 @@ class LocalService {
 
   static const _databaseName = "bizkit.db";
   static const _databaseVersion = 1;
-  static const _userTable = "users";
 
   static sql.Database? _database;
 
@@ -36,37 +34,16 @@ class LocalService {
   }
 
   Future _onCreate(sql.Database db, int version) async {
-    const queryUserTableCreation = '''
-      CREATE TABLE IF NOT EXISTS $_userTable (
-        ${User.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
-        ${User.colId} INTEGER,
-        ${User.colName} TEXT,
-        ${User.colEmail} TEXT,
-        ${User.colPhone} TEXT,
-        ${User.colCompanyName} TEXT,
-        ${User.colAddress} TEXT,
-        ${User.colIsBusiness} INTEGER DEFAULT 0
-      )
-    ''';
-    await userLocalService.onCreate(db, version, queryUserTableCreation);
+    await userLocalService.onCreate(db);
   }
 
   Future<Either<Failure, List<User>>> getUserData() async {
-    final id = await SecureStorage.getUSerId();
-    print('user id => $id');
-    if (id == null) {
-      return Left(Failure());
-    }
     final db = await database;
-    final String query = 'SELECT * FROM $_userTable WHERE ${User.colId} = $id';
-    return await userLocalService.getUserData(db, query);
+    return await userLocalService.getUserData(db);
   }
 
   Future<void> addUser(User user) async {
     final db = await database;
-    final map = user.toJson();
-    // while inserting convert bool to int
-    map[User.colIsBusiness] = user.isBusiness! ? 1 : 0;
-    db.insert(_userTable, map);
+    userLocalService.addUser(db, user);
   }
 }

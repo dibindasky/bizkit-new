@@ -15,4 +15,14 @@ class SocialMediaHandle {
   }
 
   Map<String, dynamic> toJson() => _$SocialMediaHandleToJson(this);
+
+  SocialMediaHandle copyWith({
+    String? label,
+    String? socialMedia,
+  }) {
+    return SocialMediaHandle(
+      label: label ?? this.label,
+      socialMedia: socialMedia ?? this.socialMedia,
+    );
+  }
 }

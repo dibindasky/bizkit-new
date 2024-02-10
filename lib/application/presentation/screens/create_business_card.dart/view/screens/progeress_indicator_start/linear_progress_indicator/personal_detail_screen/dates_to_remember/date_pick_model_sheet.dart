@@ -6,10 +6,12 @@ class DatePickingBottomSheet extends StatelessWidget {
     super.key,
     required this.datePicker,
     required this.onPressed,
+    this.year = 0,
   });
 
   final TextEditingController datePicker;
   final void Function(String) onPressed;
+  final int year;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class DatePickingBottomSheet extends StatelessWidget {
             children: [
               CalendarDatePicker(
                 initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
+                firstDate: DateTime.now().subtract(Duration(days: year * 365)),
                 lastDate: DateTime.now().add(
                   const Duration(days: 365 * 100),
                 ),

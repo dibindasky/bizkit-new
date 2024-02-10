@@ -26,10 +26,10 @@ BusinessDetails _$BusinessDetailsFromJson(Map<String, dynamic> json) =>
       businessName: json['business_name'] as String?,
       designation: json['designation'] as String?,
       company: json['company'] as String?,
-      address: json['address'],
-      websiteLink: json['website_link'],
+      address: json['address'] as String?,
+      websiteLink: json['website_link'] as String?,
       logo: json['logo'],
-      logoStory: json['logo_story'],
+      logoStory: json['logo_story'] as String?,
     );
 
 Map<String, dynamic> _$BusinessDetailsToJson(BusinessDetails instance) =>

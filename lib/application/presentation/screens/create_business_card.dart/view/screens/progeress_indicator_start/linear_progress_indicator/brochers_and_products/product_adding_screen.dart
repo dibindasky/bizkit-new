@@ -1,18 +1,19 @@
-import 'dart:io';
+import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/domain/model/card/create_card/product/product.dart';
+import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddPrductsScreen extends StatefulWidget {
-  final File? image;
-
   const AddPrductsScreen({
     Key? key,
-    this.image,
   }) : super(key: key);
 
   @override
@@ -20,10 +21,11 @@ class AddPrductsScreen extends StatefulWidget {
 }
 
 class _AddPrductsScreenState extends State<AddPrductsScreen> {
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController productTitleController = TextEditingController();
+  TextEditingController productDescriptionController = TextEditingController();
+  ImageModel? image;
 
-  String selectedOption = '';
-  bool? switchValue;
+  bool switchValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,24 +48,29 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
               child: Column(
                 children: [
                   adjustHieght(khieght * .05),
-                  SizedBox(
-                    width: 270.dm,
-                    height: 170.dm,
-                    child: Image.asset(
-                      dummyPersonImage,
-                      fit: BoxFit.cover,
+                  ColoredBox(
+                    color: neonShade.withOpacity(0.1),
+                    child: InkWell(
+                      onTap: () async => image =
+                          await ImagePickerClass.getImage(camera: false),
+                      child: SizedBox(
+                          width: 270.dm,
+                          height: 170.dm,
+                          child: image != null
+                              ? Image.file(image!.fileImage, fit: BoxFit.cover)
+                              : const Icon(Icons.add_a_photo_rounded)),
                     ),
                   ),
                   adjustHieght(khieght * .02),
                   TTextFormField(
                     text: 'Name',
-                    controller: textEditingController,
+                    controller: productTitleController,
                     inputType: TextInputType.name,
                   ),
                   TTextFormField(
                     text: 'Description',
                     maxLines: 10,
-                    controller: textEditingController,
+                    controller: productDescriptionController,
                     inputType: TextInputType.name,
                   ),
                   adjustHieght(khieght * .02),
@@ -78,7 +85,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                       children: [
                         const Text('Add Enquire Button'),
                         Switch(
-                          value: switchValue ?? false,
+                          value: switchValue,
                           onChanged: (value) {
                             setState(() {
                               switchValue = value;
@@ -91,7 +98,30 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                   adjustHieght(khieght * .03),
                   AuthButton(
                     text: 'Save product',
-                    onTap: () => Navigator.of(context).pop(),
+                    onTap: () {
+                      if (productDescriptionController.text.isEmpty ||
+                          productTitleController.text.isEmpty ||
+                          image == null) {
+                        showSnackbar(context,
+                            message: image == null
+                                ? 'Add Image'
+                                : productTitleController.text.isEmpty
+                                    ? 'Add title'
+                                    : 'Add Description',
+                            textColor: kwhite,
+                            backgroundColor: kred);
+                        return;
+                      }
+                      final product = Product(
+                          description: productDescriptionController.text.trim(),
+                          label: productTitleController.text.trim(),
+                          product: image,
+                          enquiry: switchValue);
+                      context
+                          .read<BusinessDataBloc>()
+                          .add(BusinessDataEvent.addProduct(product: product));
+                      Navigator.pop(context);
+                    },
                   ),
                   adjustHieght(khieght * .04),
                 ],

@@ -14,4 +14,12 @@ class MobileNumber {
   }
 
   Map<String, dynamic> toJson() => _$MobileNumberToJson(this);
+
+  MobileNumber copyWith({
+    String? mobileNumber,
+  }) {
+    return MobileNumber(
+      mobileNumber: mobileNumber ?? this.mobileNumber,
+    );
+  }
 }

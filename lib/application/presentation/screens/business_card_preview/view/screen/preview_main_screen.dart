@@ -1,3 +1,5 @@
+import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/business_card_popupmenu_items.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/bank_person_achived_rows.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
@@ -5,7 +7,10 @@ import 'package:bizkit/application/presentation/screens/preview_commen_widgets/b
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_wice_icons.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/domain/model/card/create_card/create_card_model/create_card_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
@@ -41,12 +46,34 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
             adjustHieght(khieght * .02),
             const PreviewProductsBrandsLists(),
             adjustHieght(khieght * .04),
-            AuthButton(
-              wdth: 180,
-              text: 'Create business card',
-              onTap: () {
-                Navigator.of(context).push(
-                  fadePageRoute(const BizkitBottomNavigationBar()),
+            BlocBuilder<BusinessDataBloc, BusinessDataState>(
+              builder: (context, businessSate) {
+                return BlocConsumer<UserDataBloc, UserDataState>(
+                  listener: (context, state) {
+                    if(state.message != null){
+                      showSnackbar(context, message: state.message!,backgroundColor: state.hasError?kred:neonShade);
+
+                    }if()
+                  },
+                  builder: (context, userState) {
+                    return AuthButton(
+                      wdth: 180,
+                      text: 'Create business card',
+                      onTap: () {
+                        final CreateCardModel createCardModel = CreateCardModel(
+                          personalDetails: userState.personalDetails,
+                          bankDetails: businessSate.bankDetails,
+                          businessDetails: businessSate.businessDetails,
+                        );
+                        context.read<UserDataBloc>().add(
+                            UserDataEvent.createCard(
+                                createCardModel: createCardModel));
+                        // Navigator.of(context).push(
+                        //   fadePageRoute(const BizkitBottomNavigationBar()),
+                        // );
+                      },
+                    );
+                  },
                 );
               },
             ),

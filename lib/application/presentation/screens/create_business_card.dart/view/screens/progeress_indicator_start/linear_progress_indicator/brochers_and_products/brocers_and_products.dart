@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/screen/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brocher_builder.dart';
@@ -113,9 +114,14 @@ class BrochersAndProductsScreen extends StatelessWidget {
           ),
           adjustHieght(khieght * .03),
           LastSkipContinueButtons(
-            onTap: () => Navigator.of(context).push(
+            onTap: () {
+              context.read<UserDataBloc>().add(UserDataEvent.createPersonalData());
+              context.read<BusinessDataBloc>().add(const BusinessDataEvent.createBusinessData());
+              context.read<BusinessDataBloc>().add(const BusinessDataEvent.createBankingData());
+              Navigator.of(context).push(
               fadePageRoute(const BusinessCardCreationPreviewScreen()),
-            ),
+            );
+            },
           ),
           adjustHieght(30),
         ],

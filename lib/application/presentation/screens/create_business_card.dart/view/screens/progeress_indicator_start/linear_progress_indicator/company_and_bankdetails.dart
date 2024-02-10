@@ -38,7 +38,8 @@ class CompanyAndBankingDetails extends StatelessWidget {
             adjustHieght(khieght * .02),
             TTextFormField(
               text: 'Name of the company',
-              controller: context.read<BusinessDataBloc>().nameOfCompanyController,
+              controller:
+                  context.read<BusinessDataBloc>().nameOfCompanyController,
               inputType: TextInputType.name,
             ),
             InkWell(
@@ -139,7 +140,8 @@ class CompanyAndBankingDetails extends StatelessWidget {
             adjustHieght(10),
             TTextFormField(
               text: 'Branch Offices',
-              controller: context.read<BusinessDataBloc>().branchOfficeController,
+              controller:
+                  context.read<BusinessDataBloc>().branchOfficeController,
               inputType: TextInputType.name,
             ),
             adjustHieght(khieght * .05),

@@ -5,6 +5,7 @@ class UserDataState with _$UserDataState {
   const factory UserDataState(
       {required bool hasError,
       required bool isLoading,
+      SuccessResponseModel? cardAdded,
       String? message,
       required PersonalDetails personalDetails,
       required List<ImageModel> scannedImagesCardCreation,

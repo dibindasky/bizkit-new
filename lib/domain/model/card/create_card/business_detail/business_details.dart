@@ -1,8 +1,8 @@
-import 'package:bizkit/domain/model/card/brochure/brochure.dart';
-import 'package:bizkit/domain/model/card/email/email.dart';
-import 'package:bizkit/domain/model/card/mobile_number/mobile_number.dart';
-import 'package:bizkit/domain/model/card/product/product.dart';
-import 'package:bizkit/domain/model/card/social_media_handle/social_media_handle.dart';
+import 'package:bizkit/domain/model/card/create_card/brochure/brochure.dart';
+import 'package:bizkit/domain/model/card/create_card/email/email.dart';
+import 'package:bizkit/domain/model/card/create_card/mobile_number/mobile_number.dart';
+import 'package:bizkit/domain/model/card/create_card/product/product.dart';
+import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'business_details.g.dart';

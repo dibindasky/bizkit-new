@@ -77,8 +77,8 @@ class AccountsListviewBuilder extends StatelessWidget {
         Column(
           children: [
             GestureDetector(
-              onTap: () => Navigator.of(context)
-                  .push(fadePageRoute(const SocialMediahandlesScreen(fromBusiness: false))),
+              onTap: () => Navigator.of(context).push(fadePageRoute(
+                  const SocialMediahandlesScreen(fromBusiness: false))),
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 8.0),
                 height: 70,

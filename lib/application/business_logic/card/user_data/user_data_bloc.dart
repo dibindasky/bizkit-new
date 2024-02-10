@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
+import 'package:bizkit/data/service/card/card_api.dart';
 import 'package:bizkit/data/sqflite/sqflite_local_service.dart';
-import 'package:bizkit/domain/model/card/accolades/accolade.dart';
-import 'package:bizkit/domain/model/card/dates_to_remember/dates_to_remember.dart';
-import 'package:bizkit/domain/model/card/personal_details/personal_details.dart';
-import 'package:bizkit/domain/model/card/photo/photo.dart';
-import 'package:bizkit/domain/model/card/social_media_handle/social_media_handle.dart';
+import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
+import 'package:bizkit/domain/model/card/create_card/create_card_model/create_card_model.dart';
+import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
+import 'package:bizkit/domain/model/card/create_card/personal_details/personal_details.dart';
+import 'package:bizkit/domain/model/card/create_card/photo/photo.dart';
+import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
+import 'package:bizkit/domain/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/feature/card_scanning.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +25,7 @@ part 'user_data_bloc.freezed.dart';
 class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final CardScanningRepo cardScanningRepo;
   final LocalService localService;
+  final CardService cardService;
   final TextEditingController companylController = TextEditingController();
   final TextEditingController businessCategoryController =
       TextEditingController();
@@ -32,7 +36,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final TextEditingController homeAddress = TextEditingController();
   final TextEditingController birthDaycontroller = TextEditingController();
 
-  UserDataBloc(this.cardScanningRepo, this.localService)
+  UserDataBloc(this.cardScanningRepo, this.localService, this.cardService)
       : super(UserDataState.initial()) {
     on<PickImageScanning>(pickImageScanning);
     on<ProcessImageScanning>(processImageScanning);
@@ -47,6 +51,17 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<AddDateToRemember>(addDateToRemember);
     on<RemoveDateToRemember>(removeDateToRemember);
     on<CreatePersonalData>(createPersonalData);
+    on<CreateCard>(createCard);
+  }
+
+  FutureOr<void> createCard(CreateCard event, emit) async {
+    emit(state.copyWith(isLoading: false, hasError: false, message: null,cardAdded:null));
+    final result =
+        await cardService.createCard(createCardModel: event.createCardModel);
+    result.fold(
+        (l) => emit(state.copyWith(
+            isLoading: false, hasError: true, message: l.message)),
+        (r) => emit(state.copyWith(isLoading: false, message: r.message,cardAdded:r)));
   }
 
   FutureOr<void> createPersonalData(CreatePersonalData event, emit) async {
@@ -71,7 +86,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
             .toList(),
         personalSocialMedia: state.socialMedias);
     print(personalData.toJson());
-    emit(state.copyWith(personalDetails:personalData));
+    emit(state.copyWith(personalDetails: personalData));
   }
 
   FutureOr<void> addDateToRemember(AddDateToRemember event, emit) async {

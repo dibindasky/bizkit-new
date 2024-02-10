@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
-import 'package:bizkit/domain/model/card/accridition/accredition.dart';
-import 'package:bizkit/domain/model/card/banking_detail/bank_details.dart';
-import 'package:bizkit/domain/model/card/brochure/brochure.dart';
-import 'package:bizkit/domain/model/card/business_detail/business_details.dart';
-import 'package:bizkit/domain/model/card/email/email.dart';
-import 'package:bizkit/domain/model/card/mobile_number/mobile_number.dart';
-import 'package:bizkit/domain/model/card/product/product.dart';
-import 'package:bizkit/domain/model/card/social_media_handle/social_media_handle.dart';
+import 'package:bizkit/domain/model/card/create_card/accridition/accredition.dart';
+import 'package:bizkit/domain/model/card/create_card/banking_detail/bank_details.dart';
+import 'package:bizkit/domain/model/card/create_card/brochure/brochure.dart';
+import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
+import 'package:bizkit/domain/model/card/create_card/email/email.dart';
+import 'package:bizkit/domain/model/card/create_card/mobile_number/mobile_number.dart';
+import 'package:bizkit/domain/model/card/create_card/product/product.dart';
+import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,7 +64,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         upiDetails: upiDetailController.text.trim(),
         gstMembershipDetails: gstNumberController.text.trim(),
         branchOffices: branchOfficeController.text.trim());
-        emit(state.copyWith(bankDetails:bankDetails));
+    emit(state.copyWith(bankDetails: bankDetails));
   }
 
   FutureOr<void> createBusinessData(CreateBusinessData event, emit) async {

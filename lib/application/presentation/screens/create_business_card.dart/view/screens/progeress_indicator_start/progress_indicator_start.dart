@@ -58,7 +58,7 @@ class _LinearProgressIndicatorStartingState
                   BusinessDetailsScreen(pageController: _pageController),
                   CompanyAndBankingDetails(pageController: _pageController),
                   LogoStory(pageController: _pageController),
-                  BrochersAndProductsScreen()
+                  const BrochersAndProductsScreen()
                 ],
               ),
             ),

@@ -13,8 +13,11 @@ class BusinessDataEvent with _$BusinessDataEvent {
   const factory BusinessDataEvent.createBusinessData() = CreateBusinessData;
   const factory BusinessDataEvent.createBankingData() = CreateBankingData;
   const factory BusinessDataEvent.addLogo() = AddLogo;
-  const factory BusinessDataEvent.addProduct({required Product product}) = AddProduct;
-  const factory BusinessDataEvent.removeProduct({required int index}) = RemoveProduct;
+  const factory BusinessDataEvent.addProduct({required Product product}) =
+      AddProduct;
+  const factory BusinessDataEvent.removeProduct({required int index}) =
+      RemoveProduct;
   const factory BusinessDataEvent.addBrochures() = AddBrochures;
-  const factory BusinessDataEvent.removeBrochure({required int index}) = RemoveBrochure;
+  const factory BusinessDataEvent.removeBrochure({required int index}) =
+      RemoveBrochure;
 }

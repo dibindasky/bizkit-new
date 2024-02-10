@@ -3,7 +3,7 @@ import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
-import 'package:bizkit/domain/model/card/social_media_handle/social_media_handle.dart';
+import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

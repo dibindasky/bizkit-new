@@ -1,4 +1,4 @@
-import 'package:bizkit/domain/model/card/accridition/accredition.dart';
+import 'package:bizkit/domain/model/card/create_card/accridition/accredition.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'bank_details.g.dart';

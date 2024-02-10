@@ -7,6 +7,7 @@ class ApiService {
   final String baseUrl;
 
   ApiService({required this.dio, required this.baseUrl}) {
+    dio.options.baseUrl=baseUrl;
     dio.options.connectTimeout = const Duration(seconds: 3);
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
@@ -151,8 +152,8 @@ class ApiService {
       final token =
           await SecureStorage.getToken().then((token) => token.refreshToken);
       final response = await Dio(
-              BaseOptions(baseUrl: baseUrl, headers: {'RefreshToken': token}))
-          .get(ApiEndPoints.refreshUrl);
+              BaseOptions(baseUrl: baseUrl))
+          .get(ApiEndPoints.refreshUrl,data: {'refresh': token});
       await SecureStorage.setAccessToken(accessToken: response.data.toString());
     } catch (e) {
       rethrow;

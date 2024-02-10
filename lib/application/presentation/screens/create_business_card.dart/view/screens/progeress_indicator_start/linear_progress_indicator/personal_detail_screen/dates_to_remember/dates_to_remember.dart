@@ -5,7 +5,7 @@ import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
-import 'package:bizkit/domain/model/card/dates_to_remember/dates_to_remember.dart';
+import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,7 +1,7 @@
-import 'package:bizkit/domain/model/card/accolades/accolade.dart';
-import 'package:bizkit/domain/model/card/dates_to_remember/dates_to_remember.dart';
-import 'package:bizkit/domain/model/card/photo/photo.dart';
-import 'package:bizkit/domain/model/card/social_media_handle/social_media_handle.dart';
+import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
+import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
+import 'package:bizkit/domain/model/card/create_card/photo/photo.dart';
+import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'personal_details.g.dart';
@@ -79,4 +79,3 @@ class PersonalDetails {
     );
   }
 }
-

@@ -65,12 +65,12 @@ class PhotosAddingScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: state.userPhotos.length,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 100,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20
-                  ),
+                      maxCrossAxisExtent: 100,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20),
                   itemBuilder: (context, index) {
-                    return Image.file( state.userPhotos[index].fileImage,fit: BoxFit.cover);
+                    return Image.file(state.userPhotos[index].fileImage,
+                        fit: BoxFit.cover);
                   },
                 );
               },

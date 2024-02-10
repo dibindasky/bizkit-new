@@ -38,7 +38,8 @@ class AccolodesScreen extends StatelessWidget {
                 child: InkWell(
                   onTap: () async {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AccoladesAddCreateScreen(accolade: accolade),
+                      builder: (context) =>
+                          AccoladesAddCreateScreen(accolade: accolade),
                     ));
                   },
                   child: DottedBorder(
@@ -145,14 +146,18 @@ class AccolodesScreen extends StatelessWidget {
                                   child: CircleAvatar(
                                     child: IconButton(
                                       onPressed: () {
-                                        accolade ?
-                                        context.read<UserDataBloc>().add(
-                                              UserDataEvent.removeAccolade(
-                                                  index: index),
-                                            ):context.read<BusinessDataBloc>().add(
-                                              BusinessDataEvent.removeAccredition(
-                                                  index: index),
-                                            );
+                                        accolade
+                                            ? context.read<UserDataBloc>().add(
+                                                  UserDataEvent.removeAccolade(
+                                                      index: index),
+                                                )
+                                            : context
+                                                .read<BusinessDataBloc>()
+                                                .add(
+                                                  BusinessDataEvent
+                                                      .removeAccredition(
+                                                          index: index),
+                                                );
                                       },
                                       icon: const Icon(
                                         Icons.delete,

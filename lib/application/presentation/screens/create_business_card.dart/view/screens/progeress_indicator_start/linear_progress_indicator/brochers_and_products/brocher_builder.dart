@@ -24,7 +24,7 @@ class BrocherBuilder extends StatelessWidget {
               return Stack(
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(right: 10,left: 10),
+                    margin: const EdgeInsets.only(right: 10, left: 10),
                     width: kwidth * 0.2,
                     decoration: BoxDecoration(
                       border: Border.all(color: neonShade),

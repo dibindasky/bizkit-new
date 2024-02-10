@@ -21,9 +21,10 @@ class ProductBuilder extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               final data = state.products[index];
-              return Column(
+              return Stack(
                 children: [
                   Container(
+                    height: kwidth * 0.2,
                     margin: const EdgeInsets.only(right: 10, left: 10),
                     width: kwidth * 0.2,
                     decoration: BoxDecoration(

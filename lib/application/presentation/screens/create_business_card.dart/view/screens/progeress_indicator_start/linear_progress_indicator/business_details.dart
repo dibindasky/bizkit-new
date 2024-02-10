@@ -12,7 +12,7 @@ class BusinessDetailsScreen extends StatelessWidget {
   const BusinessDetailsScreen({super.key, required this.pageController});
 
   final PageController pageController;
-  
+
   @override
   Widget build(BuildContext context) {
     return FadeIn(
@@ -35,12 +35,14 @@ class BusinessDetailsScreen extends StatelessWidget {
             adjustHieght(khieght * .02),
             TTextFormField(
               text: 'Business Name',
-              controller: context.read<BusinessDataBloc>().businessNameController,
+              controller:
+                  context.read<BusinessDataBloc>().businessNameController,
               inputType: TextInputType.name,
             ),
             TTextFormField(
               text: 'Designation',
-              controller: context.read<BusinessDataBloc>().designationController,
+              controller:
+                  context.read<BusinessDataBloc>().designationController,
               inputType: TextInputType.name,
             ),
             TTextFormField(
@@ -62,7 +64,9 @@ class BusinessDetailsScreen extends StatelessWidget {
             InkWell(
               onTap: () {
                 Navigator.of(context)
-                    .push(fadePageRoute(const SocialMediahandlesScreen(fromBusiness: true,)));
+                    .push(fadePageRoute(const SocialMediahandlesScreen(
+                  fromBusiness: true,
+                )));
               },
               child: Container(
                 decoration: const BoxDecoration(
@@ -103,7 +107,8 @@ class BusinessDetailsScreen extends StatelessWidget {
             ),
             TTextFormField(
               text: 'Website link',
-              controller: context.read<BusinessDataBloc>().websiteLinkController,
+              controller:
+                  context.read<BusinessDataBloc>().websiteLinkController,
               inputType: TextInputType.name,
             ),
             adjustHieght(khieght * .02),

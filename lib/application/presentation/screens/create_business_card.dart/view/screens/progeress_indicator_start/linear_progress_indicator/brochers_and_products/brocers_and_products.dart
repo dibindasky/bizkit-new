@@ -25,7 +25,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
             children: [
               adjustHieght(khieght * .03),
               const Text(
-                'Brochures / Products',
+                'Products / Brochures',
                 style: TextStyle(fontSize: 20),
               ),
               adjustHieght(30),

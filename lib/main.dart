@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
                   InternetConnectionCheckCubit(connectivity: connectivity)),
           BlocProvider(create: (context) => getIt<ContactsBloc>()),
           BlocProvider(create: (context) => getIt<AuthBloc>()),
-          BlocProvider(create: (context) => getIt<SignUpBloc>()),
           BlocProvider(create: (context) => getIt<UserDataBloc>()),
           BlocProvider(create: (context) => getIt<BusinessDataBloc>()),
         ],

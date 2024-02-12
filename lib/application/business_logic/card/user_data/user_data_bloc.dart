@@ -26,14 +26,14 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final CardScanningRepo cardScanningRepo;
   final LocalService localService;
   final CardService cardService;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController companylController = TextEditingController();
   final TextEditingController businessCategoryController =
       TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController bloodGroup = TextEditingController();
   final TextEditingController homeAddress = TextEditingController();
+  final TextEditingController bloodGroup = TextEditingController();
   final TextEditingController birthDaycontroller = TextEditingController();
 
   UserDataBloc(this.cardScanningRepo, this.localService, this.cardService)
@@ -55,44 +55,63 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> createCard(CreateCard event, emit) async {
-    emit(state.copyWith(isLoading: false, hasError: false, message: null,cardAdded:null));
+    emit(state.copyWith(
+        isLoading: true, hasError: false, message: null, cardAdded: null));
+    print(event.createCardModel.toJson());
+    print('card creation requested');
     final result =
         await cardService.createCard(createCardModel: event.createCardModel);
-    result.fold(
-        (l) => emit(state.copyWith(
-            isLoading: false, hasError: true, message: l.message)),
-        (r) => emit(state.copyWith(isLoading: false, message: r.message,cardAdded:r)));
+    result.fold((l) {
+      print('card creation request failed');
+      return emit(
+          state.copyWith(isLoading: false, hasError: true, message: l.message));
+    }, (r) {
+      print('card creation success');
+      return emit(
+          state.copyWith(isLoading: false, message: r.message, cardAdded: r));
+    });
   }
 
   FutureOr<void> createPersonalData(CreatePersonalData event, emit) async {
-    final personalData = state.personalDetails.copyWith(
-        bloodGroup: bloodGroup.text,
-        name: nameController.text,
-        phoneNumber: phoneController.text,
-        company: companylController.text,
-        businessCategory: businessCategoryController.text,
-        email: emailController.text,
-        homeAddress: homeAddress.text,
-        dateOfBirth: birthDaycontroller.text,
-        datesToRemember: state.datesToRemember,
-        accolades: state.accolades
-            .map((e) => Accolade(
-                accolades: e.accolades,
-                accoladesDescription: e.accoladesDescription,
-                accoladesImage: e.accoladesImage.multipartIamge))
-            .toList(),
-        photos: state.userPhotos
-            .map((e) => Photo(photos: e.multipartIamge))
-            .toList(),
-        personalSocialMedia: state.socialMedias);
+    final personalData = PersonalDetails(
+        name: nameController.text.isEmpty ? null : nameController.text,
+        phoneNumber: phoneController.text.isEmpty ? null : phoneController.text,
+        email: emailController.text.isEmpty ? null : emailController.text,
+        company:
+            companylController.text.isEmpty ? null : companylController.text,
+        businessCategory: businessCategoryController.text.isEmpty
+            ? null
+            : businessCategoryController.text,
+        homeAddress: homeAddress.text.isEmpty ? null : homeAddress.text,
+        bloodGroup: bloodGroup.text.isEmpty ? null : bloodGroup.text,
+        dateOfBirth:
+            birthDaycontroller.text.isEmpty ? null : birthDaycontroller.text,
+        datesToRemember:
+            state.datesToRemember.isEmpty ? [] : state.datesToRemember,
+        accolades: state.accolades.isEmpty
+            ? []
+            : state.accolades
+                .map((e) => Accolade(
+                    accolades: e.accolades,
+                    accoladesDescription: e.accoladesDescription,
+                    accoladesImage: e.accoladesImage.base64))
+                .toList(),
+        photos: state.userPhotos.isEmpty
+            ? []
+            : state.userPhotos
+                .map((e) => Photo(photos: e.multipartIamge))
+                .toList(),
+        personalSocialMedia:
+            state.socialMedias.isEmpty ? [] : state.socialMedias);
     print(personalData.toJson());
+
     emit(state.copyWith(personalDetails: personalData));
   }
 
   FutureOr<void> addDateToRemember(AddDateToRemember event, emit) async {
     final List<DatesToRemember> list = List.from(state.datesToRemember);
     list.add(event.datesToRemember);
-    emit(state.copyWith(datesToRemember: list));
+    emit(state.copyWith(datesToRemember: list, cardAdded: null));
   }
 
   FutureOr<void> removeDateToRemember(RemoveDateToRemember event, emit) async {
@@ -102,13 +121,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         list.add(datesToRemember);
       }
     }
-    emit(state.copyWith(datesToRemember: list));
+    emit(state.copyWith(datesToRemember: list, cardAdded: null));
   }
 
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
     final List<SocialMediaHandle> list = List.from(state.socialMedias);
     list.add(event.socialMediaHandle);
-    emit(state.copyWith(socialMedias: list));
+    emit(state.copyWith(socialMedias: list, cardAdded: null));
   }
 
   FutureOr<void> removeSocialMedia(RemoveSocialMedia event, emit) async {
@@ -118,13 +137,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         list.add(socialMediaHandle);
       }
     }
-    emit(state.copyWith(socialMedias: list));
+    emit(state.copyWith(socialMedias: list, cardAdded: null));
   }
 
   FutureOr<void> addAccolade(AddAccolade event, emit) async {
     final List<Accolade> list = List.from(state.accolades);
     list.add(event.accolade);
-    emit(state.copyWith(accolades: list));
+    emit(state.copyWith(accolades: list, cardAdded: null));
   }
 
   FutureOr<void> removeAccolade(RemoveAccolade event, emit) async {
@@ -132,7 +151,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (Accolade accolade in state.accolades) {
       if (state.accolades[event.index] != accolade) list.add(accolade);
     }
-    emit(state.copyWith(accolades: list));
+    emit(state.copyWith(accolades: list, cardAdded: null));
   }
 
   FutureOr<void> pickUserPhotos(PickUserPhotos event, emit) async {
@@ -140,7 +159,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     final img = await ImagePickerClass.getImage(camera: false);
     if (img != null) {
       list.add(img);
-      emit(state.copyWith(userPhotos: list));
+      emit(state.copyWith(userPhotos: list, cardAdded: null));
     }
   }
 
@@ -149,7 +168,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (ImageModel img in state.userPhotos) {
       if (state.userPhotos[event.index] != img) list.add(img);
     }
-    emit(state.copyWith(userPhotos: list));
+    emit(state.copyWith(userPhotos: list, cardAdded: null));
   }
 
   FutureOr<void> removeImageScanning(RemoveImageScanning event, emit) async {
@@ -157,7 +176,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (ImageModel img in state.scannedImagesCardCreation) {
       if (state.scannedImagesCardCreation[event.index] != img) list.add(img);
     }
-    emit(state.copyWith(scannedImagesCardCreation: list));
+    emit(state.copyWith(scannedImagesCardCreation: list, cardAdded: null));
   }
 
   FutureOr<void> processImageScanning(ProcessImageScanning event, emit) async {
@@ -165,8 +184,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         .processAndSortFromImage(state.scannedImagesCardCreation);
     result.fold(
         (failure) => null,
-        (scannedImageText) =>
-            emit(state.copyWith(scannedImageDatasModel: scannedImageText)));
+        (scannedImageText) => emit(state.copyWith(
+            scannedImageDatasModel: scannedImageText, cardAdded: null)));
   }
 
   FutureOr<void> pickImageScanning(PickImageScanning event, emit) async {
@@ -175,7 +194,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       emit(state.copyWith(scannedImagesCardCreation: [
         ...state.scannedImagesCardCreation,
         image
-      ]));
+      ], cardAdded: null));
     }
   }
 
@@ -188,7 +207,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         emailController.text = userList.first.email ?? '';
         companylController.text = userList.first.companyName ?? '';
       }
-      emit(state);
+      emit(state.copyWith(cardAdded: null));
     });
   }
 }

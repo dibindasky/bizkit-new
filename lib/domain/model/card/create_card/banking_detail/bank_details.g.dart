@@ -11,7 +11,7 @@ BankDetails _$BankDetailsFromJson(Map<String, dynamic> json) => BankDetails(
           ?.map((e) => Accredition.fromJson(e as Map<String, dynamic>))
           .toList(),
       nameOfCompany: json['name_of_company'] as String?,
-      acccountNumber: json['acccount_number'] as String?,
+      acccountNumber: json['account_number'] as String?,
       ifscCode: json['ifsc_code'] as String?,
       upiDetails: json['upi_details'] as String?,
       gstMembershipDetails: json['gst_membership_details'] as String?,
@@ -22,7 +22,7 @@ Map<String, dynamic> _$BankDetailsToJson(BankDetails instance) =>
     <String, dynamic>{
       'accredition': instance.accredition,
       'name_of_company': instance.nameOfCompany,
-      'acccount_number': instance.acccountNumber,
+      'account_number': instance.acccountNumber,
       'ifsc_code': instance.ifscCode,
       'upi_details': instance.upiDetails,
       'gst_membership_details': instance.gstMembershipDetails,

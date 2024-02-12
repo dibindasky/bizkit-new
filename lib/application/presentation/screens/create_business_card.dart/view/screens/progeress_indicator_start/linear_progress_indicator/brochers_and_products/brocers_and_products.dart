@@ -115,12 +115,18 @@ class BrochersAndProductsScreen extends StatelessWidget {
           adjustHieght(khieght * .03),
           LastSkipContinueButtons(
             onTap: () {
-              context.read<UserDataBloc>().add(UserDataEvent.createPersonalData());
-              context.read<BusinessDataBloc>().add(const BusinessDataEvent.createBusinessData());
-              context.read<BusinessDataBloc>().add(const BusinessDataEvent.createBankingData());
+              context
+                  .read<UserDataBloc>()
+                  .add(UserDataEvent.createPersonalData());
+              context
+                  .read<BusinessDataBloc>()
+                  .add(const BusinessDataEvent.createBusinessData());
+              context
+                  .read<BusinessDataBloc>()
+                  .add(const BusinessDataEvent.createBankingData());
               Navigator.of(context).push(
-              fadePageRoute(const BusinessCardCreationPreviewScreen()),
-            );
+                fadePageRoute(const BusinessCardCreationPreviewScreen()),
+              );
             },
           ),
           adjustHieght(30),

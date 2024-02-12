@@ -71,6 +71,11 @@ class CompanyAndBankingDetails extends StatelessWidget {
                               context.read<BusinessDataBloc>().ifsc = ifsc;
                               context.read<BusinessDataBloc>().accountNumber =
                                   account;
+                              print('acccountnumber and ifsc');
+                              print(context.read<BusinessDataBloc>().ifsc);
+                              print(context
+                                  .read<BusinessDataBloc>()
+                                  .accountNumber);
                               Navigator.pop(context);
                             }),
                         adjustHieght(20)

@@ -5,5 +5,6 @@ import 'package:dio/dio.dart';
 class ImageModel {
   File fileImage;
   MultipartFile multipartIamge;
-  ImageModel({required this.fileImage, required this.multipartIamge});
+  String base64;
+  ImageModel({required this.fileImage, required this.multipartIamge,required this.base64});
 }

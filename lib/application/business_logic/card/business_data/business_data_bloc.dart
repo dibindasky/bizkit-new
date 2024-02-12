@@ -51,50 +51,85 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> createBankingData(CreateBankingData event, emit) async {
-    final BankDetails bankDetails = state.bankDetails.copyWith(
-        accredition: state.accreditions
-            .map((e) => Accredition(
-                description: e.description,
-                label: e.label,
-                image: e.image.multipartFile))
-            .toList(),
-        nameOfCompany: nameOfCompanyController.text.trim(),
+    final BankDetails bankDetails = BankDetails(
+        accredition: state.accreditions.isEmpty
+            ? []
+            : state.accreditions
+                .map((e) => Accredition(
+                    description: e.description,
+                    label: e.label,
+                    image: e.image.base64))
+                .toList(),
+        nameOfCompany: nameOfCompanyController.text.trim().isEmpty
+            ? null
+            : nameOfCompanyController.text,
         acccountNumber: accountNumber,
         ifscCode: ifsc,
-        upiDetails: upiDetailController.text.trim(),
-        gstMembershipDetails: gstNumberController.text.trim(),
-        branchOffices: branchOfficeController.text.trim());
+        upiDetails: upiDetailController.text.trim().isEmpty
+            ? null
+            : upiDetailController.text,
+        gstMembershipDetails: gstNumberController.text.trim().isEmpty
+            ? null
+            : gstNumberController.text,
+        branchOffices: branchOfficeController.text.trim().isEmpty
+            ? null
+            : branchOfficeController.text);
     emit(state.copyWith(bankDetails: bankDetails));
   }
 
   FutureOr<void> createBusinessData(CreateBusinessData event, emit) async {
-    final BusinessDetails businessDetails = state.businessDetails.copyWith(
-        address: addressController.text.trim(),
-        businessName: businessNameController.text.trim(),
-        company: companyController.text.trim(),
-        designation: designationController.text.trim(),
-        logoStory: logoStoryController.text.trim(),
-        websiteLink: websiteLinkController.text.trim(),
+    final BusinessDetails businessDetails = BusinessDetails(
+        address: addressController.text.trim().isEmpty
+            ? null
+            : addressController.text,
+        businessName: businessNameController.text.trim().isEmpty
+            ? null
+            : businessNameController.text,
+        company: companyController.text.trim().isEmpty
+            ? null
+            : companyController.text,
+        designation: designationController.text.trim().isEmpty
+            ? null
+            : designationController.text,
+        logoStory: logoStoryController.text.trim().isEmpty
+            ? null
+            : logoStoryController.text,
+        websiteLink: websiteLinkController.text.trim().isEmpty
+            ? null
+            : websiteLinkController.text,
         email: mailController.text.isNotEmpty
-            ? [Email(email: mailController.text.trim())]
+            ? [
+                Email(
+                    email: mailController.text.trim().isEmpty
+                        ? null
+                        : mailController.text)
+              ]
             : [],
         mobileNumber: mobileController.text.isNotEmpty
             ? [
                 MobileNumber(
-                  mobileNumber: mobileController.text.trim(),
+                  mobileNumber: mobileController.text.trim().isEmpty
+                      ? null
+                      : mobileController.text,
                 )
               ]
             : [],
         logo: state.logo?.multipartIamge,
         socialMediaHandles: state.socialMedias,
-        product: state.products
-            .map((e) => Product(
-                enquiry: e.enquiry,
-                label: e.label,
-                description: e.description,
-                product: e.product.multipartIamge))
-            .toList(),
-        brochure: state.brochures);
+        product: state.products.isEmpty
+            ? []
+            : state.products
+                .map((e) => Product(
+                    enquiry: e.enquiry,
+                    label: e.label,
+                    description: e.description,
+                    product: e.product.base64))
+                .toList(),
+        brochure: state.brochures.isEmpty
+            ? []
+            : state.brochures
+                .map((e) => Brochure(file: e.file.base64))
+                .toList());
     emit(state.copyWith(businessDetails: businessDetails));
   }
 

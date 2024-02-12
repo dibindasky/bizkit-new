@@ -14,15 +14,28 @@ class CardService {
   Future<Either<Failure, SuccessResponseModel>> createCard(
       {required CreateCardModel createCardModel}) async {
     try {
+      // final data=CreateCardModel(personalDetails: createCardModel.personalDetails);
       print('card creation api call');
+      print('=========================================================');
+      print('create card ${createCardModel.toJson()}');
+      print('=========================================================');
+      print('create card ${createCardModel.personalDetails!.toJson()}');
+      print('=========================================================');
+      print('create card ${createCardModel.bankDetails!.toJson()}');
+      print('=========================================================');
+      print('create card ${createCardModel.businessDetails!.toJson()}');
+      print('=========================================================');
       final response = await apiService.post(ApiEndPoints.createCard,
-          data: FormData.fromMap(createCardModel.toJson()));
+          data: createCardModel.toJson());
+          // data: FormData.fromMap(createCardModel.toJson()));
       print('card creation successfull $response');
       return Right(SuccessResponseModel(message: 'Card created successfully'));
     } on DioException catch (e) {
       print('card creation dio => $e');
       print(e.message);
+      print('card responce error');
       print(e.response?.data);
+      print('card scatus code => ${e.response?.statusCode}');
       return Left(Failure(message: 'Failed to create card'));
     } catch (e) {
       print('card creation => $e');

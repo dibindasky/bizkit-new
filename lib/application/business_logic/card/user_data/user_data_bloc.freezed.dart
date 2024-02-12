@@ -1539,10 +1539,10 @@ class __$$AddAccoladeImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? accolade = null,
+    Object? accolade = freezed,
   }) {
     return _then(_$AddAccoladeImpl(
-      accolade: null == accolade
+      accolade: freezed == accolade
           ? _value.accolade
           : accolade // ignore: cast_nullable_to_non_nullable
               as Accolade,
@@ -1568,12 +1568,12 @@ class _$AddAccoladeImpl implements AddAccolade {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddAccoladeImpl &&
-            (identical(other.accolade, accolade) ||
-                other.accolade == accolade));
+            const DeepCollectionEquality().equals(other.accolade, accolade));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, accolade);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(accolade));
 
   @JsonKey(ignore: true)
   @override
@@ -1955,10 +1955,10 @@ class __$$AddDateToRememberImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? datesToRemember = null,
+    Object? datesToRemember = freezed,
   }) {
     return _then(_$AddDateToRememberImpl(
-      datesToRemember: null == datesToRemember
+      datesToRemember: freezed == datesToRemember
           ? _value.datesToRemember
           : datesToRemember // ignore: cast_nullable_to_non_nullable
               as DatesToRemember,
@@ -1984,12 +1984,13 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddDateToRememberImpl &&
-            (identical(other.datesToRemember, datesToRemember) ||
-                other.datesToRemember == datesToRemember));
+            const DeepCollectionEquality()
+                .equals(other.datesToRemember, datesToRemember));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, datesToRemember);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(datesToRemember));
 
   @JsonKey(ignore: true)
   @override
@@ -2375,10 +2376,10 @@ class __$$AddSocialMediaImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? socialMediaHandle = null,
+    Object? socialMediaHandle = freezed,
   }) {
     return _then(_$AddSocialMediaImpl(
-      socialMediaHandle: null == socialMediaHandle
+      socialMediaHandle: freezed == socialMediaHandle
           ? _value.socialMediaHandle
           : socialMediaHandle // ignore: cast_nullable_to_non_nullable
               as SocialMediaHandle,
@@ -2404,12 +2405,13 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddSocialMediaImpl &&
-            (identical(other.socialMediaHandle, socialMediaHandle) ||
-                other.socialMediaHandle == socialMediaHandle));
+            const DeepCollectionEquality()
+                .equals(other.socialMediaHandle, socialMediaHandle));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, socialMediaHandle);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(socialMediaHandle));
 
   @JsonKey(ignore: true)
   @override
@@ -2794,10 +2796,10 @@ class __$$CreateCardImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createCardModel = null,
+    Object? createCardModel = freezed,
   }) {
     return _then(_$CreateCardImpl(
-      createCardModel: null == createCardModel
+      createCardModel: freezed == createCardModel
           ? _value.createCardModel
           : createCardModel // ignore: cast_nullable_to_non_nullable
               as CreateCardModel,
@@ -2823,12 +2825,13 @@ class _$CreateCardImpl implements CreateCard {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateCardImpl &&
-            (identical(other.createCardModel, createCardModel) ||
-                other.createCardModel == createCardModel));
+            const DeepCollectionEquality()
+                .equals(other.createCardModel, createCardModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, createCardModel);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(createCardModel));
 
   @JsonKey(ignore: true)
   @override
@@ -3043,7 +3046,7 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
     Object? isLoading = null,
     Object? cardAdded = freezed,
     Object? message = freezed,
-    Object? personalDetails = null,
+    Object? personalDetails = freezed,
     Object? scannedImagesCardCreation = null,
     Object? userPhotos = null,
     Object? accolades = null,
@@ -3068,7 +3071,7 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      personalDetails: null == personalDetails
+      personalDetails: freezed == personalDetails
           ? _value.personalDetails
           : personalDetails // ignore: cast_nullable_to_non_nullable
               as PersonalDetails,
@@ -3137,7 +3140,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? cardAdded = freezed,
     Object? message = freezed,
-    Object? personalDetails = null,
+    Object? personalDetails = freezed,
     Object? scannedImagesCardCreation = null,
     Object? userPhotos = null,
     Object? accolades = null,
@@ -3162,7 +3165,7 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      personalDetails: null == personalDetails
+      personalDetails: freezed == personalDetails
           ? _value.personalDetails
           : personalDetails // ignore: cast_nullable_to_non_nullable
               as PersonalDetails,
@@ -3286,8 +3289,8 @@ class _$InitialImpl implements _Initial {
             (identical(other.cardAdded, cardAdded) ||
                 other.cardAdded == cardAdded) &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.personalDetails, personalDetails) ||
-                other.personalDetails == personalDetails) &&
+            const DeepCollectionEquality()
+                .equals(other.personalDetails, personalDetails) &&
             const DeepCollectionEquality().equals(
                 other._scannedImagesCardCreation, _scannedImagesCardCreation) &&
             const DeepCollectionEquality()
@@ -3309,7 +3312,7 @@ class _$InitialImpl implements _Initial {
       isLoading,
       cardAdded,
       message,
-      personalDetails,
+      const DeepCollectionEquality().hash(personalDetails),
       const DeepCollectionEquality().hash(_scannedImagesCardCreation),
       const DeepCollectionEquality().hash(_userPhotos),
       const DeepCollectionEquality().hash(_accolades),

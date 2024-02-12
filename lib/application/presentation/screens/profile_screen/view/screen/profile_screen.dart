@@ -97,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const SplashScreen()),
+                            builder: (context) => const LoGInScreen()),
                         (route) => false);
                     context.read<AuthBloc>().add(const AuthEvent.logOut());
                   },

@@ -7,7 +7,7 @@ class ApiService {
   final String baseUrl;
 
   ApiService({required this.dio, required this.baseUrl}) {
-    dio.options.baseUrl=baseUrl;
+    dio.options.baseUrl = baseUrl;
     // dio.options.connectTimeout = const Duration(seconds: 3);
     // dio.interceptors.add(InterceptorsWrapper(
     //   onRequest: (options, handler) async {
@@ -30,14 +30,15 @@ class ApiService {
     Map<String, dynamic>? data,
   }) async {
     try {
-      // final accessToken =
-      //     await SharedPref.getToken().then((token) => token.accessToken);
-      // dio.options.headers.addAll(
-      //   {
-      //     'Authorization': accessToken,
-      //     ...headers ?? {'content-Type': 'application/json'}
-      //   },
-      // );
+      final accessToken =
+          await SecureStorage.getToken().then((token) => token.accessToken);
+      dio.options.headers.addAll(
+        {
+          'Authorization': "Bearer $accessToken",
+          ...headers ?? {'content-Type': 'application/json'}
+        },
+      );
+      print('api uri ==>  ${dio.options.baseUrl + url}');
       final response =
           await dio.get(url, data: data, queryParameters: queryParameters);
       return response;
@@ -94,14 +95,15 @@ class ApiService {
     dynamic data,
   }) async {
     try {
-      // final accessToken =
-      //     await SecureStorage.getToken().then((token) => token.accessToken);
-      // dio.options.headers.addAll(
-      //   {
-      //     'Authorization': accessToken,
-      //     ...headers ?? {'content-Type': 'application/json'}
-      //   },
-      // );
+      final accessToken =
+          await SecureStorage.getToken().then((token) => token.accessToken);
+      dio.options.headers.addAll(
+        {
+          'Authorization': "Bearer $accessToken",
+          ...headers ?? {'content-Type': 'application/json'}
+        },
+      );
+      print('api uri ==>  ${dio.options.baseUrl + url}');
       final response = await dio.put(url,
           data: data is FormData ? data : data as Map<String, dynamic>?,
           queryParameters: queryParameters);
@@ -125,14 +127,15 @@ class ApiService {
     Map<String, dynamic>? data,
   }) async {
     try {
-      // final accessToken =
-      //     await SecureStorage.getToken().then((token) => token.accessToken);
-      // dio.options.headers.addAll(
-      //   {
-      //     'Authorization': accessToken,
-      //     ...headers ?? {'content-Type': 'application/json'}
-      //   },
-      // );
+      final accessToken =
+          await SecureStorage.getToken().then((token) => token.accessToken);
+      dio.options.headers.addAll(
+        {
+          'Authorization': "Bearer $accessToken",
+          ...headers ?? {'content-Type': 'application/json'}
+        },
+      );
+      print('api uri ==>  ${dio.options.baseUrl + url}');
       final response =
           await dio.delete(url, data: data, queryParameters: queryParameters);
       return response;
@@ -155,9 +158,8 @@ class ApiService {
       print('=====================================================');
       final token =
           await SecureStorage.getToken().then((token) => token.refreshToken);
-      final response = await Dio(
-              BaseOptions(baseUrl: baseUrl))
-          .get(ApiEndPoints.refreshUrl,data: {'refresh': token});
+      final response = await Dio(BaseOptions(baseUrl: baseUrl))
+          .get(ApiEndPoints.refreshUrl, data: {'refresh': token});
       await SecureStorage.setAccessToken(accessToken: response.data.toString());
     } catch (e) {
       rethrow;

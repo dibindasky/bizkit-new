@@ -93,8 +93,9 @@ class _TTextFormFieldState extends State<TTextFormField> {
             prefixIconColor: kwhite,
             fillColor: textFieldFillColr,
             filled: true,
-            hintText: widget.text,
-            hintStyle: custumText(
+            // hintText: widget.text,
+            labelText: widget.text,
+            labelStyle: custumText(
               colr: widget.clr ?? klightgrey,
             ),
             border: UnderlineInputBorder(
@@ -248,8 +249,8 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 prefixIconColor: kwhite,
                 fillColor: textFieldFillColr,
                 filled: true,
-                hintText: widget.label,
-                hintStyle: custumText(
+                labelText: widget.label,
+                labelStyle: custumText(
                   colr: widget.hintColor ?? klightgrey,
                 ),
                 border: UnderlineInputBorder(

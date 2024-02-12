@@ -111,7 +111,7 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                         }
                         print(
                             'bank details ()=> ${createCardModel.bankDetails!.toJson()}');
-                            
+
                         context.read<UserDataBloc>().add(
                             UserDataEvent.createCard(
                                 createCardModel: createCardModel));

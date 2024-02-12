@@ -5,5 +5,6 @@ import 'package:dio/dio.dart';
 class PdfModel {
   File? file;
   MultipartFile? multipartFile;
-  PdfModel({this.file, this.multipartFile});
+  String? base64;
+  PdfModel({this.file, this.multipartFile, this.base64});
 }

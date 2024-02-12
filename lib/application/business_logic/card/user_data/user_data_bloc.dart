@@ -73,15 +73,19 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> createPersonalData(CreatePersonalData event, emit) async {
-    final personalData = state.personalDetails.copyWith(
-        name: nameController.text,
-        phoneNumber: phoneController.text,
-        email: emailController.text,
-        company: companylController.text,
-        businessCategory: businessCategoryController.text,
-        homeAddress: homeAddress.text,
-        bloodGroup: bloodGroup.text,
-        dateOfBirth: birthDaycontroller.text,
+    final personalData = PersonalDetails(
+        name: nameController.text.isEmpty ? null : nameController.text,
+        phoneNumber: phoneController.text.isEmpty ? null : phoneController.text,
+        email: emailController.text.isEmpty ? null : emailController.text,
+        company:
+            companylController.text.isEmpty ? null : companylController.text,
+        businessCategory: businessCategoryController.text.isEmpty
+            ? null
+            : businessCategoryController.text,
+        homeAddress: homeAddress.text.isEmpty ? null : homeAddress.text,
+        bloodGroup: bloodGroup.text.isEmpty ? null : bloodGroup.text,
+        dateOfBirth:
+            birthDaycontroller.text.isEmpty ? null : birthDaycontroller.text,
         datesToRemember:
             state.datesToRemember.isEmpty ? [] : state.datesToRemember,
         accolades: state.accolades.isEmpty
@@ -90,7 +94,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
                 .map((e) => Accolade(
                     accolades: e.accolades,
                     accoladesDescription: e.accoladesDescription,
-                    accoladesImage: e.accoladesImage.multipartIamge))
+                    accoladesImage: e.accoladesImage.base64))
                 .toList(),
         photos: state.userPhotos.isEmpty
             ? []
@@ -100,13 +104,14 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         personalSocialMedia:
             state.socialMedias.isEmpty ? [] : state.socialMedias);
     print(personalData.toJson());
+
     emit(state.copyWith(personalDetails: personalData));
   }
 
   FutureOr<void> addDateToRemember(AddDateToRemember event, emit) async {
     final List<DatesToRemember> list = List.from(state.datesToRemember);
     list.add(event.datesToRemember);
-    emit(state.copyWith(datesToRemember: list));
+    emit(state.copyWith(datesToRemember: list, cardAdded: null));
   }
 
   FutureOr<void> removeDateToRemember(RemoveDateToRemember event, emit) async {
@@ -116,13 +121,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         list.add(datesToRemember);
       }
     }
-    emit(state.copyWith(datesToRemember: list));
+    emit(state.copyWith(datesToRemember: list, cardAdded: null));
   }
 
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
     final List<SocialMediaHandle> list = List.from(state.socialMedias);
     list.add(event.socialMediaHandle);
-    emit(state.copyWith(socialMedias: list));
+    emit(state.copyWith(socialMedias: list, cardAdded: null));
   }
 
   FutureOr<void> removeSocialMedia(RemoveSocialMedia event, emit) async {
@@ -132,13 +137,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         list.add(socialMediaHandle);
       }
     }
-    emit(state.copyWith(socialMedias: list));
+    emit(state.copyWith(socialMedias: list, cardAdded: null));
   }
 
   FutureOr<void> addAccolade(AddAccolade event, emit) async {
     final List<Accolade> list = List.from(state.accolades);
     list.add(event.accolade);
-    emit(state.copyWith(accolades: list));
+    emit(state.copyWith(accolades: list, cardAdded: null));
   }
 
   FutureOr<void> removeAccolade(RemoveAccolade event, emit) async {
@@ -146,7 +151,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (Accolade accolade in state.accolades) {
       if (state.accolades[event.index] != accolade) list.add(accolade);
     }
-    emit(state.copyWith(accolades: list));
+    emit(state.copyWith(accolades: list, cardAdded: null));
   }
 
   FutureOr<void> pickUserPhotos(PickUserPhotos event, emit) async {
@@ -154,7 +159,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     final img = await ImagePickerClass.getImage(camera: false);
     if (img != null) {
       list.add(img);
-      emit(state.copyWith(userPhotos: list));
+      emit(state.copyWith(userPhotos: list, cardAdded: null));
     }
   }
 
@@ -163,7 +168,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (ImageModel img in state.userPhotos) {
       if (state.userPhotos[event.index] != img) list.add(img);
     }
-    emit(state.copyWith(userPhotos: list));
+    emit(state.copyWith(userPhotos: list, cardAdded: null));
   }
 
   FutureOr<void> removeImageScanning(RemoveImageScanning event, emit) async {
@@ -171,7 +176,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (ImageModel img in state.scannedImagesCardCreation) {
       if (state.scannedImagesCardCreation[event.index] != img) list.add(img);
     }
-    emit(state.copyWith(scannedImagesCardCreation: list));
+    emit(state.copyWith(scannedImagesCardCreation: list, cardAdded: null));
   }
 
   FutureOr<void> processImageScanning(ProcessImageScanning event, emit) async {
@@ -179,8 +184,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         .processAndSortFromImage(state.scannedImagesCardCreation);
     result.fold(
         (failure) => null,
-        (scannedImageText) =>
-            emit(state.copyWith(scannedImageDatasModel: scannedImageText)));
+        (scannedImageText) => emit(state.copyWith(
+            scannedImageDatasModel: scannedImageText, cardAdded: null)));
   }
 
   FutureOr<void> pickImageScanning(PickImageScanning event, emit) async {
@@ -189,7 +194,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       emit(state.copyWith(scannedImagesCardCreation: [
         ...state.scannedImagesCardCreation,
         image
-      ]));
+      ], cardAdded: null));
     }
   }
 
@@ -202,7 +207,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         emailController.text = userList.first.email ?? '';
         companylController.text = userList.first.companyName ?? '';
       }
-      emit(state);
+      emit(state.copyWith(cardAdded: null));
     });
   }
 }

@@ -149,10 +149,10 @@ class __$$AddSocialMediaImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? socialMediaHandle = null,
+    Object? socialMediaHandle = freezed,
   }) {
     return _then(_$AddSocialMediaImpl(
-      socialMediaHandle: null == socialMediaHandle
+      socialMediaHandle: freezed == socialMediaHandle
           ? _value.socialMediaHandle
           : socialMediaHandle // ignore: cast_nullable_to_non_nullable
               as SocialMediaHandle,
@@ -178,12 +178,13 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddSocialMediaImpl &&
-            (identical(other.socialMediaHandle, socialMediaHandle) ||
-                other.socialMediaHandle == socialMediaHandle));
+            const DeepCollectionEquality()
+                .equals(other.socialMediaHandle, socialMediaHandle));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, socialMediaHandle);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(socialMediaHandle));
 
   @JsonKey(ignore: true)
   @override
@@ -1383,10 +1384,10 @@ class __$$AddProductImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? product = null,
+    Object? product = freezed,
   }) {
     return _then(_$AddProductImpl(
-      product: null == product
+      product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
               as Product,
@@ -1412,11 +1413,12 @@ class _$AddProductImpl implements AddProduct {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddProductImpl &&
-            (identical(other.product, product) || other.product == product));
+            const DeepCollectionEquality().equals(other.product, product));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, product);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(product));
 
   @JsonKey(ignore: true)
   @override

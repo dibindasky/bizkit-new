@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -22,8 +23,12 @@ class PdfPickerImpl {
         PlatformFile file = result.files.first;
         String filePath = file.path!;
         MultipartFile multipartFile = await MultipartFile.fromFile(filePath);
-        return Right(
-            PdfModel(file: File(filePath), multipartFile: multipartFile));
+        final bytes = await File(filePath).readAsBytes();
+        final base64 = base64Encode(bytes);
+        return Right(PdfModel(
+            file: File(filePath),
+            multipartFile: multipartFile,
+            base64: base64));
       } else {
         log('File not selected');
         return Left(Failure());

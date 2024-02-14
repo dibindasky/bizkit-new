@@ -8,9 +8,6 @@ import 'package:path/path.dart';
 @LazySingleton()
 @injectable
 class LocalService {
-  final UserLocalRepo userLocalService;
-
-  LocalService(this.userLocalService);
 
   static const _databaseName = "bizkit.db";
   static const _databaseVersion = 1;

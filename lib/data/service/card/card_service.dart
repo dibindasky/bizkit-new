@@ -16,10 +16,8 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: CardRepo)
 @injectable
 class CardService implements CardRepo {
-  final ApiService apiService ;
-  // =ApiService(dio: Dio(), baseUrl: ApiEndPoints.baseUrl);
-
-  CardService(this.apiService);
+  final ApiService apiService =
+      ApiService(Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl)));
 
   @override
   Future<Either<Failure, SuccessResponseModel>> createCard(

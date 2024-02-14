@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/domain/core/failure/failure.dart';
-import 'package:bizkit/domain/repository/feature/contact_repo.dart';
+import 'package:bizkit/domain/repository/feature/contact_feature_repo.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -10,6 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 @LazySingleton(as: ContactFetchServiceRepo)
 @injectable
 class ContactFetchService implements ContactFetchServiceRepo {
+  
   @override
   Future<Either<Failure, List<Contact>>> getContactsList() async {
     List<Contact> contactsList = [];

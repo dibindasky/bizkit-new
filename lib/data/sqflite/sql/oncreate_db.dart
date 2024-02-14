@@ -13,10 +13,11 @@ class Sql {
 
   static const String queryContactTableCreation = '''
       CREATE TABLE IF NOT EXISTS $contactTable (
-        ${Contact.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
-        ${Contact.colUserId} INTEGER,
-        ${Contact.colName} TEXT,
-        ${Contact.colPhone} TEXT,
+        ${ContactModel.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${ContactModel.colUserId} INTEGER,
+        ${ContactModel.colName} TEXT,
+        ${ContactModel.colPhone} TEXT,
+        ${ContactModel.colPhoto} TEXT,
       )
     ''';
     

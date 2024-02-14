@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../card/create_card/social_media_handle/social_media_handle.dart';
+part of 'social_media_handle.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

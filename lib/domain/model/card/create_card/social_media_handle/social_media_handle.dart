@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part '../../../commen/social_media_handle.g.dart';
+part 'social_media_handle.g.dart';
 
 @JsonSerializable()
 class SocialMediaHandleCreate {
@@ -11,10 +11,10 @@ class SocialMediaHandleCreate {
   SocialMediaHandleCreate({this.label, this.socialMedia});
 
   factory SocialMediaHandleCreate.fromJson(Map<String, dynamic> json) {
-    return _$ocialMediaHandleCreateFromJson(json);
+    return _$SocialMediaHandleCreateFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ocialMediaHandleCreateToJson(this);
+  Map<String, dynamic> toJson() => _$SocialMediaHandleCreateToJson(this);
 
   SocialMediaHandleCreate copyWith({
     String? label,

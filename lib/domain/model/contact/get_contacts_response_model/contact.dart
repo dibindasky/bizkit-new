@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'contact.g.dart';
 
 @JsonSerializable()
-class Contact {
+class ContactModel {
   int? id;
   String? email;
   String? name;
@@ -15,9 +15,11 @@ class Contact {
   String? password;
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
+  @JsonKey(name: 'photo_url')
+  String? photo;
   int? localId;
 
-  Contact({
+  ContactModel({
     this.id,
     this.email,
     this.name,
@@ -26,6 +28,7 @@ class Contact {
     this.isBusiness,
     this.password,
     this.phoneNumber,
+    this.photo,
     this.localId,
   });
 
@@ -33,11 +36,11 @@ class Contact {
   static const String colLocalId = 'Local_id';
   static const String colPhone = 'phone_number';
   static const String colName = 'user_name';
-  static const String colAvatar = 'user_avatar';
+  static const String colPhoto = 'user_photo';
 
-  factory Contact.fromJson(Map<String, dynamic> json) {
-    return _$ContactFromJson(json);
+  factory ContactModel.fromJson(Map<String, dynamic> json) {
+    return _$ContactModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ContactToJson(this);
+  Map<String, dynamic> toJson() => _$ContactModelToJson(this);
 }

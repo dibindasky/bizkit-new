@@ -9,11 +9,13 @@ import 'package:bizkit/domain/model/contact/get_contacts_response_model/get_cont
 import 'package:bizkit/domain/repository/service/contact_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: ContactsRepo)
+@injectable
 class ContactServiceImpl implements ContactsRepo {
-  final ApiService apiService;
-
-  ContactServiceImpl(this.apiService);
+  final ApiService apiService =
+      ApiService(Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl)));
 
   @override
   Future<Either<Failure, GetContactsResponseModel>> getBizkitUserByContact(

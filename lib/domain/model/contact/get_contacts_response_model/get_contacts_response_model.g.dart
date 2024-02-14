@@ -13,7 +13,7 @@ GetContactsResponseModel _$GetContactsResponseModelFromJson(
       next: json['next'],
       previous: json['previous'],
       results: (json['results'] as List<dynamic>?)
-          ?.map((e) => Contact.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ContactModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

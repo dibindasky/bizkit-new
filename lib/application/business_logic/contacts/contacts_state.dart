@@ -6,7 +6,7 @@ class ContactsState with _$ContactsState {
       {required bool loading,
       required bool hasError,
       String? message,
-      List<Contact>? contactList}) = _Initial;
+      List<ContactModel>? contactList}) = _Initial;
   factory ContactsState.initial() =>
       const ContactsState(loading: false, hasError: false);
 }

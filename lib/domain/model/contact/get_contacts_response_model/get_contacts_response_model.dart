@@ -9,7 +9,7 @@ class GetContactsResponseModel {
   int? count;
   dynamic next;
   dynamic previous;
-  List<Contact>? results;
+  List<ContactModel>? results;
 
   GetContactsResponseModel({
     this.count,

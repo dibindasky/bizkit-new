@@ -6,7 +6,7 @@ part of 'contact.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Contact _$ContactFromJson(Map<String, dynamic> json) => Contact(
+ContactModel _$ContactModelFromJson(Map<String, dynamic> json) => ContactModel(
       id: json['id'] as int?,
       email: json['email'] as String?,
       name: json['name'] as String?,
@@ -15,10 +15,12 @@ Contact _$ContactFromJson(Map<String, dynamic> json) => Contact(
       isBusiness: json['is_business'] as bool?,
       password: json['password'] as String?,
       phoneNumber: json['phone_number'] as String?,
+      photo: json['photo_url'] as String?,
       localId: json['localId'] as int?,
     );
 
-Map<String, dynamic> _$ContactToJson(Contact instance) => <String, dynamic>{
+Map<String, dynamic> _$ContactModelToJson(ContactModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'email': instance.email,
       'name': instance.name,
@@ -27,5 +29,6 @@ Map<String, dynamic> _$ContactToJson(Contact instance) => <String, dynamic>{
       'is_business': instance.isBusiness,
       'password': instance.password,
       'phone_number': instance.phoneNumber,
+      'photo_url': instance.photo,
       'localId': instance.localId,
     };

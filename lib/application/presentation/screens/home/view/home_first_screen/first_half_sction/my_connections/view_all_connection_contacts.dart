@@ -137,23 +137,24 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                         ],
                       ),
                       itemBuilder: (context, index, __) {
-                        final data = state.contactList![index];
+                        // final data = state.contactList![index];
                         return GestureDetector(
                           onTap: () => Navigator.of(context).push(
-                            fadePageRoute(HomeFirstViewAllContactTileDetailView(
+                            fadePageRoute(const HomeFirstViewAllContactTileDetailView(
                                 name:
                                 //  data.displayName ?? 
                                  'Name')),
                           ),
                           child: ListTile(
-                            leading: Stack(
+                            leading: const Stack(
                               children: [
-                                data.avatar != null && data.avatar!.isNotEmpty
-                                    ? CircleAvatar(
-                                        radius: 18,
-                                        backgroundImage:
-                                            MemoryImage(data.avatar!))
-                                    : const CircleAvatar(
+                                // data.avatar != null && data.avatar!.isNotEmpty
+                                //     ? CircleAvatar(
+                                //         radius: 18,
+                                //         backgroundImage:
+                                //             MemoryImage(data.avatar!))
+                                //     : 
+                                    CircleAvatar(
                                         radius: 18,
                                         backgroundColor: textFieldFillColr,
                                         child: Center(
@@ -163,7 +164,7 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                const Positioned(
+                                Positioned(
                                   right: 0,
                                   child: Icon(
                                     Icons.circle,

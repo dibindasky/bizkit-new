@@ -9,6 +9,7 @@ import 'package:bizkit/domain/repository/sqflite/contact_local_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: ContactLocalRepo)
 @injectable
 class ContactLocalService implements ContactLocalRepo {
   final LocalService localService;
@@ -17,12 +18,13 @@ class ContactLocalService implements ContactLocalRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>> addContactToLocalStorage(
-      {required Contact contact}) async {
+      {required ContactModel contact}) async {
     try {
       final map = {
-        Contact.colName: contact.name ?? '',
-        Contact.colPhone: contact.phoneNumber,
-        Contact.colUserId: contact.id
+        ContactModel.colName: contact.name ?? '',
+        ContactModel.colPhone: contact.phoneNumber,
+        ContactModel.colUserId: contact.id,
+        ContactModel.colPhoto: contact.photo??''
       };
       await localService.insert(Sql.contactTable, map);
       return Right(SuccessResponseModel());
@@ -32,13 +34,14 @@ class ContactLocalService implements ContactLocalRepo {
   }
 
   @override
-  Future<Either<Failure, List<Contact>>> getContactFromLocalStorage() async {
+  Future<Either<Failure, List<ContactModel>>>
+      getContactFromLocalStorage() async {
     try {
       const String query = 'SELECT * FROM ${Sql.contactTable}';
       final data = await localService.rawQuery(query);
-      List<Contact> contacts = [];
+      List<ContactModel> contacts = [];
       for (var x in data) {
-        contacts.add(Contact.fromJson(x));
+        contacts.add(ContactModel.fromJson(x));
       }
       return Right(contacts);
     } catch (e) {
@@ -49,10 +52,10 @@ class ContactLocalService implements ContactLocalRepo {
 
   Future<Either<Failure, SuccessResponseModel>>
       addContactToLocalStorageIfNotPresentInStorage(
-          {required Contact contact}) async {
+          {required ContactModel contact}) async {
     try {
       final String query =
-          'SELECT COUNT(*) FROM ${Sql.contactTable} WHERE ${Contact.colPhone} = ${contact.phoneNumber!}';
+          '''SELECT COUNT(*) FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ${contact.phoneNumber!}''';
       final bool present = await localService.presetOrNot(query);
       if (!present) return Left(Failure());
       return await addContactToLocalStorage(contact: contact);
@@ -60,5 +63,4 @@ class ContactLocalService implements ContactLocalRepo {
       return Left(Failure());
     }
   }
-  
 }

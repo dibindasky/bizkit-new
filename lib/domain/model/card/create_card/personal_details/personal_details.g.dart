@@ -6,19 +6,22 @@ part of 'personal_details.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PersonalDetails _$PersonalDetailsFromJson(Map<String, dynamic> json) =>
-    PersonalDetails(
+PersonalDetailsCreate _$PersonalDetailsCreateFromJson(
+        Map<String, dynamic> json) =>
+    PersonalDetailsCreate(
       accolades: (json['accolades'] as List<dynamic>?)
-          ?.map((e) => Accolade.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => AccoladeCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
       personalSocialMedia: (json['personal_social_media'] as List<dynamic>?)
-          ?.map((e) => SocialMediaHandle.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              SocialMediaHandleCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
       datesToRemember: (json['dates_to_remember'] as List<dynamic>?)
-          ?.map((e) => DatesToRemember.fromJson(e as Map<String, dynamic>))
+          ?.map(
+              (e) => DatesToRememberCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
       photos: (json['photos'] as List<dynamic>?)
-          ?.map((e) => Photo.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => PhotoCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['name'] as String?,
       phoneNumber: json['phone_number'] as String?,
@@ -30,7 +33,8 @@ PersonalDetails _$PersonalDetailsFromJson(Map<String, dynamic> json) =>
       dateOfBirth: json['date_of_birth'] as String?,
     );
 
-Map<String, dynamic> _$PersonalDetailsToJson(PersonalDetails instance) =>
+Map<String, dynamic> _$PersonalDetailsCreateToJson(
+        PersonalDetailsCreate instance) =>
     <String, dynamic>{
       'accolades': instance.accolades,
       'personal_social_media': instance.personalSocialMedia,

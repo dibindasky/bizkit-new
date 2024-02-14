@@ -1,5 +1,6 @@
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
@@ -44,6 +45,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<AuthBloc>()),
           BlocProvider(create: (context) => getIt<UserDataBloc>()),
           BlocProvider(create: (context) => getIt<BusinessDataBloc>()),
+          BlocProvider(create: (context) => getIt<SignUpBloc>()),
+          BlocProvider(create: (context) => getIt<CardBloc>()),
         ],
         child: MaterialApp(
           debugShowMaterialGrid: false,

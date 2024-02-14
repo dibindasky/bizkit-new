@@ -9,7 +9,7 @@ import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivud
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_response_model/sign_up_response_model.dart';
 import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
-import 'package:bizkit/domain/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/service/auth_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -18,7 +18,10 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: AuthRepo)
 @injectable
 class AuthService implements AuthRepo {
-  final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
+  final Dio _dio ;
+  // = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
+
+  AuthService(this._dio);
 
   @override
   Future<Either<Failure, LoginResponseModel>> login(

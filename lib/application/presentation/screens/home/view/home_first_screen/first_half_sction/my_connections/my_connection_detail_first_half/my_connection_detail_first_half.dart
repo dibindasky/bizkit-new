@@ -79,7 +79,7 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
             children: [
               const SizedBox(
                 height: 200,
-                child: PreviewPageviewImageBuilder(),
+                child: PreviewPageviewImageBuilder(images: []),
               ),
               const SizedBox(height: 20),
               Text(

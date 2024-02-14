@@ -3,19 +3,20 @@ import 'package:json_annotation/json_annotation.dart';
 part 'email.g.dart';
 
 @JsonSerializable()
-class Email {
+class EmailCreate {
   String? email;
 
-  Email({this.email});
+  EmailCreate({this.email});
 
-  factory Email.fromJson(Map<String, dynamic> json) => _$EmailFromJson(json);
+  factory EmailCreate.fromJson(Map<String, dynamic> json) =>
+      _$EmailCreateFromJson(json);
 
-  Map<String, dynamic> toJson() => _$EmailToJson(this);
+  Map<String, dynamic> toJson() => _$EmailCreateToJson(this);
 
-  Email copyWith({
+  EmailCreate copyWith({
     String? email,
   }) {
-    return Email(
+    return EmailCreate(
       email: email ?? this.email,
     );
   }

@@ -6,10 +6,12 @@ part of 'brochure.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Brochure _$BrochureFromJson(Map<String, dynamic> json) => Brochure(
+BrochureCreate _$BrochureCreateFromJson(Map<String, dynamic> json) =>
+    BrochureCreate(
       file: json['file'],
     );
 
-Map<String, dynamic> _$BrochureToJson(Brochure instance) => <String, dynamic>{
+Map<String, dynamic> _$BrochureCreateToJson(BrochureCreate instance) =>
+    <String, dynamic>{
       'file': instance.file,
     };

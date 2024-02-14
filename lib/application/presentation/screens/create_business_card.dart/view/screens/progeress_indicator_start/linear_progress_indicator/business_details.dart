@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -33,83 +34,92 @@ class BusinessDetailsScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
             adjustHieght(khieght * .02),
+            // business name
             TTextFormField(
               text: 'Business Name',
               controller:
                   context.read<BusinessDataBloc>().businessNameController,
-              inputType: TextInputType.name,
             ),
+            // designation
             TTextFormField(
               text: 'Designation',
               controller:
                   context.read<BusinessDataBloc>().designationController,
-              inputType: TextInputType.name,
             ),
+            // company name
             TTextFormField(
               text: 'Company',
               controller: context.read<BusinessDataBloc>().companyController,
               inputType: TextInputType.name,
             ),
+            // company mail id
             TTextFormField(
               text: 'Mail ID',
               controller: context.read<BusinessDataBloc>().mailController,
-              inputType: TextInputType.name,
             ),
+            // mobile number business
             TTextFormField(
               text: 'Mobile number',
               controller: context.read<BusinessDataBloc>().mobileController,
-              inputType: TextInputType.name,
+              inputType: TextInputType.number,
             ),
             adjustHieght(10),
-            InkWell(
-              onTap: () {
-                Navigator.of(context)
-                    .push(fadePageRoute(const SocialMediahandlesScreen(
-                  fromBusiness: true,
-                )));
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: textFieldFillColr,
-                  boxShadow: [
-                    BoxShadow(
+            // social media handles
+            BlocBuilder<BusinessDataBloc, BusinessDataState>(
+              builder: (context, state) {
+                return ImagePreviewUnderTextField(
+                  listString: state.socialMedias
+                      .map((e) => e.socialMedia ?? 'Social Media')
+                      .toList(),
+                  ontap: () => Navigator.of(context).push(fadePageRoute(
+                      const SocialMediahandlesScreen(fromBusiness: true))),
+                  child: Container(
+                    decoration: const BoxDecoration(
                       color: textFieldFillColr,
-                      spreadRadius: 0.4,
-                      blurRadius: 4,
-                      offset: Offset(0.4, .2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: textFieldFillColr,
+                          spreadRadius: 0.4,
+                          blurRadius: 4,
+                          offset: Offset(0.4, .2),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                padding: const EdgeInsets.only(left: 12, right: 12),
-                height: 48.0,
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Social Media Handles',
-                      style: TextStyle(color: klightgrey),
+                    padding: const EdgeInsets.only(left: 12, right: 12),
+                    height: 48.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Social Media Handles',
+                          style: TextStyle(
+                              color: state.socialMedias.isNotEmpty
+                                  ? kwhite
+                                  : klightgrey),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 16,
+                          color: klightgrey,
+                        )
+                      ],
                     ),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 16,
-                      color: klightgrey,
-                    )
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
             adjustHieght(10),
+            // address field
             TTextFormField(
               maxLines: 4,
               text: 'Address',
               controller: context.read<BusinessDataBloc>().addressController,
-              inputType: TextInputType.name,
             ),
+            // website link business
             TTextFormField(
               text: 'Website link',
               controller:
                   context.read<BusinessDataBloc>().websiteLinkController,
-              inputType: TextInputType.name,
             ),
             adjustHieght(khieght * .02),
             LastSkipContinueButtons(

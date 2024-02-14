@@ -42,15 +42,16 @@ class DatePickingBottomSheet extends StatelessWidget {
               CalendarDatePicker(
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now().subtract(Duration(days: year * 365)),
-                lastDate: DateTime.now().add(
-                  const Duration(days: 365 * 100),
-                ),
+                lastDate: year == 0
+                    ? DateTime.now().add(
+                        const Duration(days: 365 * 100),
+                      )
+                    : DateTime.now(),
                 onDateChanged: (date) {
                   int year = date.year;
                   int month = date.month;
                   int day = date.day;
-                  print(date);
-                  onPressed('$day-$month-$year');
+                  onPressed('$year-$month-$day');
                 },
               ),
               Row(

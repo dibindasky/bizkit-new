@@ -35,13 +35,57 @@ class CompanyAndBankingDetails extends StatelessWidget {
               'Company & Banking Details',
               style: TextStyle(fontSize: 20),
             ),
+            adjustHieght(10),
+            // accredition data
+            BlocBuilder<BusinessDataBloc, BusinessDataState>(
+              builder: (context, state) {
+                return ImagePreviewUnderTextField(
+                  ontap: () => Navigator.of(context).push(
+                    fadePageRoute(const AccolodesScreen(accolade: false)),
+                  ),
+                  list: state.accreditions
+                      .map((e) => e.image as ImageModel)
+                      .toList(),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: textFieldFillColr,
+                      boxShadow: [
+                        BoxShadow(
+                          color: textFieldFillColr,
+                          spreadRadius: 0.4,
+                          blurRadius: 4,
+                          offset: Offset(0.4, .2),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.only(left: 12, right: 12),
+                    height: 48.0,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Accredition Details',
+                          style: TextStyle(color: klightgrey),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 16,
+                          color: klightgrey,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
             adjustHieght(khieght * .02),
+            // company banking name
             TTextFormField(
-              text: 'Name of the company',
+              text: 'company banking name',
               controller:
                   context.read<BusinessDataBloc>().nameOfCompanyController,
-              inputType: TextInputType.name,
             ),
+            // banking details accound number ifsc popup
             InkWell(
               onTap: () => showDialog(
                 context: context,
@@ -90,64 +134,22 @@ class CompanyAndBankingDetails extends StatelessWidget {
                 inputType: TextInputType.name,
               ),
             ),
+            // upi details
             TTextFormField(
               text: 'UPI Details',
               controller: context.read<BusinessDataBloc>().upiDetailController,
-              inputType: TextInputType.name,
             ),
+            // gst number
             TTextFormField(
               text: 'GST Number',
               controller: context.read<BusinessDataBloc>().gstNumberController,
-              inputType: TextInputType.name,
             ),
-            adjustHieght(10),
-            BlocBuilder<BusinessDataBloc, BusinessDataState>(
-              builder: (context, state) {
-                return ImagePreviewUnderTextField(
-                  ontap: () => Navigator.of(context).push(
-                    fadePageRoute(const AccolodesScreen(accolade: false)),
-                  ),
-                  list: state.accreditions
-                      .map((e) => e.image as ImageModel)
-                      .toList(),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: textFieldFillColr,
-                      boxShadow: [
-                        BoxShadow(
-                          color: textFieldFillColr,
-                          spreadRadius: 0.4,
-                          blurRadius: 4,
-                          offset: Offset(0.4, .2),
-                        ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.only(left: 12, right: 12),
-                    height: 48.0,
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Accredition Details',
-                          style: TextStyle(color: klightgrey),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 16,
-                          color: klightgrey,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+            // company branch
             adjustHieght(10),
             TTextFormField(
               text: 'Branch Offices',
               controller:
                   context.read<BusinessDataBloc>().branchOfficeController,
-              inputType: TextInputType.name,
             ),
             adjustHieght(khieght * .05),
             LastSkipContinueButtons(

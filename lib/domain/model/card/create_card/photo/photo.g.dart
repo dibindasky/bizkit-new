@@ -6,10 +6,11 @@ part of 'photo.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Photo _$PhotoFromJson(Map<String, dynamic> json) => Photo(
+PhotoCreate _$PhotoCreateFromJson(Map<String, dynamic> json) => PhotoCreate(
       photos: json['photos'],
     );
 
-Map<String, dynamic> _$PhotoToJson(Photo instance) => <String, dynamic>{
+Map<String, dynamic> _$PhotoCreateToJson(PhotoCreate instance) =>
+    <String, dynamic>{
       'photos': instance.photos,
     };

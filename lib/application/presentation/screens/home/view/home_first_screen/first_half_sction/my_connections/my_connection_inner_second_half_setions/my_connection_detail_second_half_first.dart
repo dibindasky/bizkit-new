@@ -18,7 +18,7 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
         adjustHieght(khieght * .02),
         const PreviewBankPersonAchivedRows(),
         adjustHieght(khieght * .02),
-        const PreviewProductsBrandsLists(),
+        const PreviewProductsBrandsLists(fileImages: []),
         adjustHieght(khieght * .02),
         const MeetingDetailHistoryLogTabBuilder()
       ],

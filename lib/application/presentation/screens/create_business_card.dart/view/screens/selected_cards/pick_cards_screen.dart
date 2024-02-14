@@ -121,6 +121,9 @@ class PickCardsScreen extends StatelessWidget {
                                       images: state.scannedImagesCardCreation,
                                     ),
                                   );
+                              context
+                                  .read<UserDataBloc>()
+                                  .add(UserDataEvent.getUserDetail());
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(

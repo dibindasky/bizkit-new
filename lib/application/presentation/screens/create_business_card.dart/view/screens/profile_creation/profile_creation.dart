@@ -12,8 +12,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) =>
-        context.read<UserDataBloc>().add(UserDataEvent.getUserDetail()));
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScope = FocusScope.of(context);

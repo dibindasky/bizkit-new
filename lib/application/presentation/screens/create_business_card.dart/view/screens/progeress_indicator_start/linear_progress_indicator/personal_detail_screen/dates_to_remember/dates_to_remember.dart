@@ -110,9 +110,10 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                                 backgroundColor: kred);
                             return;
                           }
-                          final DatesToRemember model = DatesToRemember(
-                              label: labelController.text,
-                              date: dateController.text);
+                          final DatesToRememberCreate model =
+                              DatesToRememberCreate(
+                                  label: labelController.text,
+                                  date: dateController.text);
                           context.read<UserDataBloc>().add(
                               UserDataEvent.addDateToRemember(
                                   datesToRemember: model));

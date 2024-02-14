@@ -3,48 +3,74 @@ import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 
 class ImagePreviewUnderTextField extends StatelessWidget {
-  const ImagePreviewUnderTextField({
-    super.key,
-    required this.ontap,
-    required this.child,
-    required this.list,
-  });
+  const ImagePreviewUnderTextField(
+      {super.key,
+      required this.ontap,
+      required this.child,
+      this.list,
+      this.listString});
 
   final VoidCallback ontap;
   final Widget child;
-  final List<ImageModel> list;
+  final List<ImageModel>? list;
+  final List<String>? listString;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        InkWell(onTap: ontap, child: child),
-        list.isNotEmpty ? adjustHieght(10) : adjustHieght(0),
-        list.isNotEmpty
-            ? SizedBox(
-                height: 50,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: list.length,
-                  itemBuilder: (context, index) {
-                    final image = list[index];
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      height: 50,
-                      width: 60,
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          image: DecorationImage(
-                              image: FileImage(image.fileImage),
-                              fit: BoxFit.cover)),
-                    );
-                  },
-                ),
-              )
-            : const SizedBox()
-      ],
-    );
+        mainAxisSize: MainAxisSize.min,
+        children: list != null
+            ? [
+                InkWell(onTap: ontap, child: child),
+                list!.isNotEmpty ? adjustHieght(10) : adjustHieght(0),
+                list!.isNotEmpty
+                    ? SizedBox(
+                        height: 50,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: list!.length,
+                          itemBuilder: (context, index) {
+                            final image = list![index];
+                            return Container(
+                              margin: const EdgeInsets.only(right: 10),
+                              height: 50,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
+                                  image: DecorationImage(
+                                      image: FileImage(image.fileImage),
+                                      fit: BoxFit.cover)),
+                            );
+                          },
+                        ),
+                      )
+                    : const SizedBox()
+              ]
+            : [
+                InkWell(onTap: ontap, child: child),
+                listString!.isNotEmpty ? adjustHieght(10) : adjustHieght(0),
+                listString!.isNotEmpty
+                    ? SizedBox(
+                        height: 30,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: listString!.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: const EdgeInsets.all(8),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 8),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: neonShade),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10))),
+                              child: Text(listString![index]),
+                            );
+                          },
+                        ),
+                      )
+                    : SizedBox()
+              ]);
   }
 }

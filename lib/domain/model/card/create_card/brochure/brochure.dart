@@ -3,21 +3,21 @@ import 'package:json_annotation/json_annotation.dart';
 part 'brochure.g.dart';
 
 @JsonSerializable()
-class Brochure {
+class BrochureCreate {
   dynamic file;
 
-  Brochure({this.file});
+  BrochureCreate({this.file});
 
-  factory Brochure.fromJson(Map<String, dynamic> json) {
-    return _$BrochureFromJson(json);
+  factory BrochureCreate.fromJson(Map<String, dynamic> json) {
+    return _$BrochureCreateFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$BrochureToJson(this);
+  Map<String, dynamic> toJson() => _$BrochureCreateToJson(this);
 
-  Brochure copyWith({
+  BrochureCreate copyWith({
     dynamic file,
   }) {
-    return Brochure(
+    return BrochureCreate(
       file: file ?? this.file,
     );
   }

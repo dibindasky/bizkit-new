@@ -16,7 +16,7 @@ class PdfPickerImpl {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowMultiple: true,
+        allowMultiple: false,
         allowedExtensions: ['pdf'],
       );
       if (result != null) {
@@ -24,7 +24,9 @@ class PdfPickerImpl {
         String filePath = file.path!;
         MultipartFile multipartFile = await MultipartFile.fromFile(filePath);
         final bytes = await File(filePath).readAsBytes();
-        final base64 = base64Encode(bytes);
+        String base64 = base64Encode(bytes);
+        base64 = 'data:application/pdf;base64,$base64';
+        print('pdf file pickeer ==========> $base64');
         return Right(PdfModel(
             file: File(filePath),
             multipartFile: multipartFile,

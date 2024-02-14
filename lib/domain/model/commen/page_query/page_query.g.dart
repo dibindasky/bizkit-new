@@ -1,0 +1,15 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'page_query.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+PageQuery _$PageQueryFromJson(Map<String, dynamic> json) => PageQuery(
+      page: json['page'] as int?,
+    );
+
+Map<String, dynamic> _$PageQueryToJson(PageQuery instance) => <String, dynamic>{
+      'page': instance.page,
+    };

@@ -106,7 +106,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                           final link = selectedCategory == 'Whatsapp'
                               ? 'https://wa.me/${linkController.text}'
                               : linkController.text;
-                          final model = SocialMediaHandle(
+                          final model = SocialMediaHandleCreate(
                               label: selectedCategory, socialMedia: link);
                           !widget.fromBusiness
                               ? context.read<UserDataBloc>().add(

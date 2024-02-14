@@ -3,27 +3,27 @@ import 'package:json_annotation/json_annotation.dart';
 part 'product.g.dart';
 
 @JsonSerializable()
-class Product {
+class ProductCreate {
   bool? enquiry;
   String? label;
   String? description;
   dynamic product;
 
-  Product({this.enquiry, this.label, this.description, this.product});
+  ProductCreate({this.enquiry, this.label, this.description, this.product});
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return _$ProductFromJson(json);
+  factory ProductCreate.fromJson(Map<String, dynamic> json) {
+    return _$ProductCreateFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ProductToJson(this);
+  Map<String, dynamic> toJson() => _$ProductCreateToJson(this);
 
-  Product copyWith({
+  ProductCreate copyWith({
     bool? enquiry,
     String? label,
     String? description,
     dynamic product,
   }) {
-    return Product(
+    return ProductCreate(
       enquiry: enquiry ?? this.enquiry,
       label: label ?? this.label,
       description: description ?? this.description,

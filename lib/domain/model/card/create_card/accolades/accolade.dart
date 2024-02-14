@@ -3,31 +3,31 @@ import 'package:json_annotation/json_annotation.dart';
 part 'accolade.g.dart';
 
 @JsonSerializable()
-class Accolade {
+class AccoladeCreate {
   String? accolades;
   @JsonKey(name: 'accolades_image')
   dynamic accoladesImage;
   @JsonKey(name: 'accolades_description')
   String? accoladesDescription;
 
-  Accolade({
+  AccoladeCreate({
     this.accolades,
     this.accoladesImage,
     this.accoladesDescription,
   });
 
-  factory Accolade.fromJson(Map<String, dynamic> json) {
-    return _$AccoladeFromJson(json);
+  factory AccoladeCreate.fromJson(Map<String, dynamic> json) {
+    return _$AccoladeCreateFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$AccoladeToJson(this);
+  Map<String, dynamic> toJson() => _$AccoladeCreateToJson(this);
 
-  Accolade copyWith({
+  AccoladeCreate copyWith({
     String? accolades,
     dynamic accoladesImage,
     String? accoladesDescription,
   }) {
-    return Accolade(
+    return AccoladeCreate(
       accolades: accolades ?? this.accolades,
       accoladesImage: accoladesImage ?? this.accoladesImage,
       accoladesDescription: accoladesDescription ?? this.accoladesDescription,

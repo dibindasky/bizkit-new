@@ -112,7 +112,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                             backgroundColor: kred);
                         return;
                       }
-                      final product = Product(
+                      final product = ProductCreate(
                           description: productDescriptionController.text.trim(),
                           label: productTitleController.text.trim(),
                           product: image,

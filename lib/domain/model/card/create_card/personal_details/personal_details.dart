@@ -7,13 +7,13 @@ import 'package:json_annotation/json_annotation.dart';
 part 'personal_details.g.dart';
 
 @JsonSerializable()
-class PersonalDetails {
-  List<Accolade>? accolades;
+class PersonalDetailsCreate {
+  List<AccoladeCreate>? accolades;
   @JsonKey(name: 'personal_social_media')
-  List<SocialMediaHandle>? personalSocialMedia;
+  List<SocialMediaHandleCreate>? personalSocialMedia;
   @JsonKey(name: 'dates_to_remember')
-  List<DatesToRemember>? datesToRemember;
-  List<Photo>? photos;
+  List<DatesToRememberCreate>? datesToRemember;
+  List<PhotoCreate>? photos;
   String? name;
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
@@ -28,7 +28,7 @@ class PersonalDetails {
   @JsonKey(name: 'date_of_birth')
   String? dateOfBirth;
 
-  PersonalDetails({
+  PersonalDetailsCreate({
     this.accolades,
     this.personalSocialMedia,
     this.datesToRemember,
@@ -43,17 +43,17 @@ class PersonalDetails {
     this.dateOfBirth,
   });
 
-  factory PersonalDetails.fromJson(Map<String, dynamic> json) {
-    return _$PersonalDetailsFromJson(json);
+  factory PersonalDetailsCreate.fromJson(Map<String, dynamic> json) {
+    return _$PersonalDetailsCreateFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$PersonalDetailsToJson(this);
+  Map<String, dynamic> toJson() => _$PersonalDetailsCreateToJson(this);
 
-  PersonalDetails copyWith({
-    List<Accolade>? accolades,
-    List<SocialMediaHandle>? personalSocialMedia,
-    List<DatesToRemember>? datesToRemember,
-    List<Photo>? photos,
+  PersonalDetailsCreate copyWith({
+    List<AccoladeCreate>? accolades,
+    List<SocialMediaHandleCreate>? personalSocialMedia,
+    List<DatesToRememberCreate>? datesToRemember,
+    List<PhotoCreate>? photos,
     String? name,
     String? phoneNumber,
     String? email,
@@ -63,7 +63,7 @@ class PersonalDetails {
     String? bloodGroup,
     String? dateOfBirth,
   }) {
-    return PersonalDetails(
+    return PersonalDetailsCreate(
       accolades: accolades ?? this.accolades,
       personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
       datesToRemember: datesToRemember ?? this.datesToRemember,

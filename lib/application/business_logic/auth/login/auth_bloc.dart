@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/data/sqflite/sqflite_local_service.dart';
 import 'package:bizkit/domain/model/auth/change_password_model/change_password_model.dart';
 import 'package:bizkit/domain/model/auth/email_model/email_model.dart';
 import 'package:bizkit/domain/model/auth/login_model/login_model.dart';
@@ -9,6 +8,7 @@ import 'package:bizkit/domain/model/auth/login_response_model/login_response_mod
 import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
 import 'package:bizkit/domain/model/token/token_model.dart';
 import 'package:bizkit/domain/repository/service/auth_repo.dart';
+import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -20,9 +20,9 @@ part 'auth_bloc.freezed.dart';
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepo authRepo;
-  final LocalService localService;
+  final UserLocalRepo userLocalService;
 
-  AuthBloc(this.authRepo, this.localService) : super(AuthState.initial()) {
+  AuthBloc(this.authRepo, this.userLocalService) : super(AuthState.initial()) {
     on<Login>(login);
     on<ForgotPassword>(forgotPassword);
     on<ChangePassword>(changePassword);
@@ -33,6 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> log(Log event, emit) async =>
       emit(state.copyWith(isLogin: await SecureStorage.getLogin()));
+      
   FutureOr<void> logOut(LogOut event, emit) async =>
       await SecureStorage.clearLogin();
 
@@ -70,7 +71,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
         print('sqflite');
         if (loginResponseModel.user != null) {
-          await localService.addUser(loginResponseModel.user!);
+          await userLocalService.addUser(loginResponseModel.user!);
         }
         print('setLogin');
         await SecureStorage.setLogin();

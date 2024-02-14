@@ -91,13 +91,13 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                       widget.accolade
                           ? context.read<UserDataBloc>().add(
                               UserDataEvent.addAccolade(
-                                  accolade: Accolade(
+                                  accolade: AccoladeCreate(
                                       accolades: title,
                                       accoladesDescription: description,
                                       accoladesImage: image)))
                           : context.read<BusinessDataBloc>().add(
                               BusinessDataEvent.addAccredition(
-                                  accredition: Accredition(
+                                  accredition: AccreditionCreate(
                                       description: description,
                                       label: title,
                                       image: image)));

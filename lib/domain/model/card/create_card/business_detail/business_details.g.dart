@@ -6,22 +6,24 @@ part of 'business_details.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BusinessDetails _$BusinessDetailsFromJson(Map<String, dynamic> json) =>
-    BusinessDetails(
+BusinessDetailsCreate _$BusinessDetailsCreateFromJson(
+        Map<String, dynamic> json) =>
+    BusinessDetailsCreate(
       socialMediaHandles: (json['social_media_handles'] as List<dynamic>?)
-          ?.map((e) => SocialMediaHandle.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              SocialMediaHandleCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
       product: (json['product'] as List<dynamic>?)
-          ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ProductCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
       brochure: (json['brochure'] as List<dynamic>?)
-          ?.map((e) => Brochure.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => BrochureCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
       email: (json['email'] as List<dynamic>?)
-          ?.map((e) => Email.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => EmailCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
       mobileNumber: (json['mobile_number'] as List<dynamic>?)
-          ?.map((e) => MobileNumber.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => MobileNumberCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
       businessName: json['business_name'] as String?,
       designation: json['designation'] as String?,
@@ -32,7 +34,8 @@ BusinessDetails _$BusinessDetailsFromJson(Map<String, dynamic> json) =>
       logoStory: json['logo_story'] as String?,
     );
 
-Map<String, dynamic> _$BusinessDetailsToJson(BusinessDetails instance) =>
+Map<String, dynamic> _$BusinessDetailsCreateToJson(
+        BusinessDetailsCreate instance) =>
     <String, dynamic>{
       'social_media_handles': instance.socialMediaHandles,
       'product': instance.product,

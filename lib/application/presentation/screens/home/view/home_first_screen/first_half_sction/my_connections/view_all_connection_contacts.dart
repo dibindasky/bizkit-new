@@ -102,7 +102,9 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                   } else {
                     return AlphabetScrollView(
                       list: state.contactList!
-                          .map((e) => AlphaModel(e.displayName ?? 'Name'))
+                          .map((e) => AlphaModel(
+                            // e.displayName ??
+                             'Name'))
                           .toList(),
                       alignment: LetterAlignment.right,
                       itemExtent: 50,
@@ -139,7 +141,9 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                         return GestureDetector(
                           onTap: () => Navigator.of(context).push(
                             fadePageRoute(HomeFirstViewAllContactTileDetailView(
-                                name: data.displayName ?? 'Name')),
+                                name:
+                                //  data.displayName ?? 
+                                 'Name')),
                           ),
                           child: ListTile(
                             leading: Stack(
@@ -172,14 +176,16 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                             title: Row(
                               children: [
                                 Text(
-                                  data.displayName ?? 'Name',
+                                  // data.displayName ??
+                                   'Name',
                                   style: TextStyle(
                                     fontSize: kwidth * .040,
                                   ),
                                 ),
                                 adjustWidth(kwidth * .03),
                                 Text(
-                                  data.jobTitle ?? 'Job Title',
+                                  // data.jobTitle ?? 
+                                  'Job Title',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w200,
                                     fontSize: kwidth * .031,

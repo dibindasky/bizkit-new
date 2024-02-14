@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
@@ -47,6 +46,8 @@ class _LogoStoryState extends State<LogoStory> {
                     .read<BusinessDataBloc>()
                     .add(const BusinessDataEvent.addLogo()),
                 child: BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                  buildWhen: (previous, current) =>
+                      previous.logo != current.logo,
                   builder: (context, state) {
                     return DottedBorder(
                       dashPattern: const [8, 8],
@@ -86,9 +87,11 @@ class _LogoStoryState extends State<LogoStory> {
               style: TextStyle(fontSize: 20),
             ),
             adjustHieght(khieght * .02),
-            const TTextFormField(
+            TTextFormField(
+              controller: context.read<BusinessDataBloc>().logoStoryController,
               maxLines: 10,
-              text:
+              text: 'logoStory',
+              hintText:
                   "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
             ),
             adjustHieght(khieght * .04),

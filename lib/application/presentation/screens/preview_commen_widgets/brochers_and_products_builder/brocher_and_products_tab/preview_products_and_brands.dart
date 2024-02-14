@@ -1,12 +1,14 @@
+import 'dart:io';
+
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/brocher_and_products_tab.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class PreviewProductsBrandsLists extends StatelessWidget {
-  const PreviewProductsBrandsLists({
-    super.key,
-  });
+  const PreviewProductsBrandsLists({super.key, required this.fileImages});
+
+  final List<File> fileImages;
 
   @override
   Widget build(BuildContext context) {
@@ -58,25 +60,17 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  List listImages = [
-                    'asset/images/carbon_add-filled.png',
-                    'asset/images/preview list image 2.png',
-                    'asset/images/preview list image 3.png',
-                    'asset/images/previewlist image 1.png',
-                    'asset/images/preview list image 3.png',
-                    'asset/images/preview list image 2.png',
-                  ];
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: ColoredBox(
                       color: smallBigGrey,
-                      child: Image.asset(
-                        listImages[index],
+                      child: Image.file(
+                        fileImages[index],
                       ),
                     ),
                   );
                 },
-                itemCount: 6,
+                itemCount: fileImages.length,
               ),
             ),
           ),

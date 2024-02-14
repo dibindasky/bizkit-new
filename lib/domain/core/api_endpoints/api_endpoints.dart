@@ -1,6 +1,6 @@
 class ApiEndPoints {
-  static String baseUrl = 'http://192.168.29.216:8000';
-  // static String baseUrl = 'http://44.212.19.127';
+  // static String baseUrl = 'http://192.168.29.216:8000';
+  static String baseUrl = 'http://44.212.19.127';
 
   static String refreshUrl = '/accounts/api/token/refresh/';
   static String login = '/accounts/login/';
@@ -11,4 +11,6 @@ class ApiEndPoints {
   static String verifyforgotPassword = '/verifications/verify_forgot_password/';
   static String changePassword = '/verifications/change_password/';
   static String createCard = '/card/card/';
+  static String card = '/card/card_individual/';
+  static String contacts = '/card/registered_contacts/';
 }

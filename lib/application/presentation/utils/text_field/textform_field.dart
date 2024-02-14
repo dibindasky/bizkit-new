@@ -5,6 +5,7 @@ enum Validate { phone, email, password, none, rePassword, notNull }
 
 class TTextFormField extends StatefulWidget {
   final String text;
+  final String? hintText;
   final TextEditingController? controller;
   final TextInputType? inputType;
   final bool obscureText;
@@ -42,6 +43,7 @@ class TTextFormField extends StatefulWidget {
     this.onTap,
     this.onChanaged,
     this.focusNode,
+    this.hintText,
   }) : super(key: key);
 
   @override
@@ -93,8 +95,8 @@ class _TTextFormFieldState extends State<TTextFormField> {
             prefixIconColor: kwhite,
             fillColor: textFieldFillColr,
             filled: true,
-            // hintText: widget.text,
-            labelText: widget.text,
+            hintText: widget.hintText,
+            labelText: widget.hintText != null ? null : widget.text,
             labelStyle: custumText(
               colr: widget.clr ?? klightgrey,
             ),
@@ -162,6 +164,7 @@ class AutocompleteTextField extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType? inputType;
   final bool obscureText;
+  final bool showDropdown;
   final int? maxLength;
   final int? maxLines;
   final Widget? prefixIcon;
@@ -174,6 +177,7 @@ class AutocompleteTextField extends StatefulWidget {
 
   const AutocompleteTextField({
     Key? key,
+    this.showDropdown = false,
     required this.label,
     this.controller,
     this.inputType,
@@ -210,7 +214,8 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
             TextFormField(
               focusNode: widget.focusNode,
               onTap: () {
-                if (widget.autocompleteItems!.isNotEmpty) {
+                if (widget.autocompleteItems!.isNotEmpty ||
+                    widget.showDropdown) {
                   setState(() {
                     isDropdownVisible = true;
                   });

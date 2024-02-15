@@ -21,7 +21,7 @@ class UserLocalService implements UserLocalRepo {
   @override
   Future<Either<Failure, List<User>>> getUserData() async {
     try {
-      final id = await SecureStorage.getUSerId();
+      final id = await SecureStorage.getUserId();
       if (id == null) {
         return Left(Failure());
       }

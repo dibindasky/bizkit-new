@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/domain/model/contact/get_contacts_response_model/contact.dart';
 import 'package:bizkit/domain/model/user/user.dart';
 import 'package:sqflite/sqflite.dart' as sql;
@@ -7,8 +9,13 @@ class Sql {
   static const contactTable = 'Contact';
 
   static Future onCreate(sql.Database db) async {
-    await db.execute(queryUserTableCreation);
-    await db.execute(queryContactTableCreation);
+    try {
+      log('-----------------oncreate database---------------------');
+      await db.execute(queryUserTableCreation);
+      await db.execute(queryContactTableCreation);
+    } catch (e) {
+      log('onCreate ==> ${e.toString()}');
+    }
   }
 
   static const String queryContactTableCreation = '''
@@ -17,10 +24,10 @@ class Sql {
         ${ContactModel.colUserId} INTEGER,
         ${ContactModel.colName} TEXT,
         ${ContactModel.colPhone} TEXT,
-        ${ContactModel.colPhoto} TEXT,
+        ${ContactModel.colPhoto} TEXT
       )
     ''';
-    
+
   static const String queryUserTableCreation = '''
       CREATE TABLE IF NOT EXISTS $userTable (
         ${User.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,

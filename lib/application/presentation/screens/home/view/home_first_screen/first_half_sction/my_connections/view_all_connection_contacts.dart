@@ -14,7 +14,7 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<ContactsBloc>().add(const ContactsEvent.getContactsList());
+      context.read<ContactsBloc>().add(const ContactsEvent.getConnections());
     });
     return Scaffold(
       appBar: AppBar(
@@ -83,7 +83,7 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
             Expanded(
               child: BlocConsumer<ContactsBloc, ContactsState>(
                 listener: (context, state) {
-                  if (state.hasError || state.message != null) {
+                  if (state.message != null) {
                     showSnackbar(
                       context,
                       message: state.message!,
@@ -91,7 +91,9 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  if (state.loading) {
+                  print(
+                      'contacts list length ==> (${state.contactList?.length})');
+                  if (state.isLoading) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
@@ -102,9 +104,7 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                   } else {
                     return AlphabetScrollView(
                       list: state.contactList!
-                          .map((e) => AlphaModel(
-                            // e.displayName ??
-                             'Name'))
+                          .map((e) => AlphaModel(e.name ?? 'Names'))
                           .toList(),
                       alignment: LetterAlignment.right,
                       itemExtent: 50,
@@ -137,24 +137,21 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                         ],
                       ),
                       itemBuilder: (context, index, __) {
-                        // final data = state.contactList![index];
+                        final data = state.contactList![index];
                         return GestureDetector(
                           onTap: () => Navigator.of(context).push(
-                            fadePageRoute(const HomeFirstViewAllContactTileDetailView(
-                                name:
-                                //  data.displayName ?? 
-                                 'Name')),
+                            fadePageRoute(HomeFirstViewAllContactTileDetailView(
+                                name: data.name ?? data.phoneNumber ?? 'Name')),
                           ),
                           child: ListTile(
-                            leading: const Stack(
+                            leading: Stack(
                               children: [
-                                // data.avatar != null && data.avatar!.isNotEmpty
-                                //     ? CircleAvatar(
-                                //         radius: 18,
-                                //         backgroundImage:
-                                //             MemoryImage(data.avatar!))
-                                //     : 
-                                    CircleAvatar(
+                                data.photo != null && data.photo!.isNotEmpty
+                                    ? CircleAvatar(
+                                        radius: 18,
+                                        backgroundImage:
+                                            NetworkImage(data.photo!))
+                                    : const CircleAvatar(
                                         radius: 18,
                                         backgroundColor: textFieldFillColr,
                                         child: Center(
@@ -164,7 +161,7 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                Positioned(
+                                const Positioned(
                                   right: 0,
                                   child: Icon(
                                     Icons.circle,
@@ -177,21 +174,20 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                             title: Row(
                               children: [
                                 Text(
-                                  // data.displayName ??
-                                   'Name',
+                                  data.name ?? data.phoneNumber ?? 'data',
                                   style: TextStyle(
                                     fontSize: kwidth * .040,
                                   ),
                                 ),
-                                adjustWidth(kwidth * .03),
-                                Text(
-                                  // data.jobTitle ?? 
-                                  'Job Title',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: kwidth * .031,
-                                  ),
-                                ),
+                                //   adjustWidth(kwidth * .03),
+                                //   Text(
+                                //     // data.jobTitle ??
+                                //     'Job Title',
+                                //     style: TextStyle(
+                                //       fontWeight: FontWeight.w200,
+                                //       fontSize: kwidth * .031,
+                                //     ),
+                                //   ),
                               ],
                             ),
                           ),

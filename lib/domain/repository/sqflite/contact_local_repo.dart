@@ -7,4 +7,9 @@ abstract class ContactLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addContactToLocalStorage(
       {required ContactModel contact});
   Future<Either<Failure, List<ContactModel>>> getContactFromLocalStorage();
+  Future<Either<Failure, SuccessResponseModel>>
+      addContactToLocalStorageIfNotPresentInStorage(
+          {required ContactModel contact});
+  Future<Either<Failure, SuccessResponseModel>>
+      removeExistingContactAndAddAsNew({required ContactModel contact});
 }

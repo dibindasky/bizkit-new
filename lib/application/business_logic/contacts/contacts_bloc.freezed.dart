@@ -19,18 +19,24 @@ mixin _$ContactsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getContactsList,
+    required TResult Function() getConnections,
+    required TResult Function() getConnectionsFromLocalStorage,
     required TResult Function(List<Contact> contactList) checkContactsInBizkit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getContactsList,
+    TResult? Function()? getConnections,
+    TResult? Function()? getConnectionsFromLocalStorage,
     TResult? Function(List<Contact> contactList)? checkContactsInBizkit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getContactsList,
+    TResult Function()? getConnections,
+    TResult Function()? getConnectionsFromLocalStorage,
     TResult Function(List<Contact> contactList)? checkContactsInBizkit,
     required TResult orElse(),
   }) =>
@@ -38,6 +44,9 @@ mixin _$ContactsEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetContactsList value) getContactsList,
+    required TResult Function(GetConnections value) getConnections,
+    required TResult Function(GetConnectionsFromLocalStorage value)
+        getConnectionsFromLocalStorage,
     required TResult Function(CheckContactsInBizkit value)
         checkContactsInBizkit,
   }) =>
@@ -45,12 +54,18 @@ mixin _$ContactsEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetContactsList value)? getContactsList,
+    TResult? Function(GetConnections value)? getConnections,
+    TResult? Function(GetConnectionsFromLocalStorage value)?
+        getConnectionsFromLocalStorage,
     TResult? Function(CheckContactsInBizkit value)? checkContactsInBizkit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetContactsList value)? getContactsList,
+    TResult Function(GetConnections value)? getConnections,
+    TResult Function(GetConnectionsFromLocalStorage value)?
+        getConnectionsFromLocalStorage,
     TResult Function(CheckContactsInBizkit value)? checkContactsInBizkit,
     required TResult orElse(),
   }) =>
@@ -114,6 +129,8 @@ class _$GetContactsListImpl implements GetContactsList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getContactsList,
+    required TResult Function() getConnections,
+    required TResult Function() getConnectionsFromLocalStorage,
     required TResult Function(List<Contact> contactList) checkContactsInBizkit,
   }) {
     return getContactsList();
@@ -123,6 +140,8 @@ class _$GetContactsListImpl implements GetContactsList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getContactsList,
+    TResult? Function()? getConnections,
+    TResult? Function()? getConnectionsFromLocalStorage,
     TResult? Function(List<Contact> contactList)? checkContactsInBizkit,
   }) {
     return getContactsList?.call();
@@ -132,6 +151,8 @@ class _$GetContactsListImpl implements GetContactsList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getContactsList,
+    TResult Function()? getConnections,
+    TResult Function()? getConnectionsFromLocalStorage,
     TResult Function(List<Contact> contactList)? checkContactsInBizkit,
     required TResult orElse(),
   }) {
@@ -145,6 +166,9 @@ class _$GetContactsListImpl implements GetContactsList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetContactsList value) getContactsList,
+    required TResult Function(GetConnections value) getConnections,
+    required TResult Function(GetConnectionsFromLocalStorage value)
+        getConnectionsFromLocalStorage,
     required TResult Function(CheckContactsInBizkit value)
         checkContactsInBizkit,
   }) {
@@ -155,6 +179,9 @@ class _$GetContactsListImpl implements GetContactsList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetContactsList value)? getContactsList,
+    TResult? Function(GetConnections value)? getConnections,
+    TResult? Function(GetConnectionsFromLocalStorage value)?
+        getConnectionsFromLocalStorage,
     TResult? Function(CheckContactsInBizkit value)? checkContactsInBizkit,
   }) {
     return getContactsList?.call(this);
@@ -164,6 +191,9 @@ class _$GetContactsListImpl implements GetContactsList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetContactsList value)? getContactsList,
+    TResult Function(GetConnections value)? getConnections,
+    TResult Function(GetConnectionsFromLocalStorage value)?
+        getConnectionsFromLocalStorage,
     TResult Function(CheckContactsInBizkit value)? checkContactsInBizkit,
     required TResult orElse(),
   }) {
@@ -176,6 +206,248 @@ class _$GetContactsListImpl implements GetContactsList {
 
 abstract class GetContactsList implements ContactsEvent {
   const factory GetContactsList() = _$GetContactsListImpl;
+}
+
+/// @nodoc
+abstract class _$$GetConnectionsImplCopyWith<$Res> {
+  factory _$$GetConnectionsImplCopyWith(_$GetConnectionsImpl value,
+          $Res Function(_$GetConnectionsImpl) then) =
+      __$$GetConnectionsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetConnectionsImplCopyWithImpl<$Res>
+    extends _$ContactsEventCopyWithImpl<$Res, _$GetConnectionsImpl>
+    implements _$$GetConnectionsImplCopyWith<$Res> {
+  __$$GetConnectionsImplCopyWithImpl(
+      _$GetConnectionsImpl _value, $Res Function(_$GetConnectionsImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetConnectionsImpl implements GetConnections {
+  const _$GetConnectionsImpl();
+
+  @override
+  String toString() {
+    return 'ContactsEvent.getConnections()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetConnectionsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getContactsList,
+    required TResult Function() getConnections,
+    required TResult Function() getConnectionsFromLocalStorage,
+    required TResult Function(List<Contact> contactList) checkContactsInBizkit,
+  }) {
+    return getConnections();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getContactsList,
+    TResult? Function()? getConnections,
+    TResult? Function()? getConnectionsFromLocalStorage,
+    TResult? Function(List<Contact> contactList)? checkContactsInBizkit,
+  }) {
+    return getConnections?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getContactsList,
+    TResult Function()? getConnections,
+    TResult Function()? getConnectionsFromLocalStorage,
+    TResult Function(List<Contact> contactList)? checkContactsInBizkit,
+    required TResult orElse(),
+  }) {
+    if (getConnections != null) {
+      return getConnections();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetContactsList value) getContactsList,
+    required TResult Function(GetConnections value) getConnections,
+    required TResult Function(GetConnectionsFromLocalStorage value)
+        getConnectionsFromLocalStorage,
+    required TResult Function(CheckContactsInBizkit value)
+        checkContactsInBizkit,
+  }) {
+    return getConnections(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetContactsList value)? getContactsList,
+    TResult? Function(GetConnections value)? getConnections,
+    TResult? Function(GetConnectionsFromLocalStorage value)?
+        getConnectionsFromLocalStorage,
+    TResult? Function(CheckContactsInBizkit value)? checkContactsInBizkit,
+  }) {
+    return getConnections?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetContactsList value)? getContactsList,
+    TResult Function(GetConnections value)? getConnections,
+    TResult Function(GetConnectionsFromLocalStorage value)?
+        getConnectionsFromLocalStorage,
+    TResult Function(CheckContactsInBizkit value)? checkContactsInBizkit,
+    required TResult orElse(),
+  }) {
+    if (getConnections != null) {
+      return getConnections(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetConnections implements ContactsEvent {
+  const factory GetConnections() = _$GetConnectionsImpl;
+}
+
+/// @nodoc
+abstract class _$$GetConnectionsFromLocalStorageImplCopyWith<$Res> {
+  factory _$$GetConnectionsFromLocalStorageImplCopyWith(
+          _$GetConnectionsFromLocalStorageImpl value,
+          $Res Function(_$GetConnectionsFromLocalStorageImpl) then) =
+      __$$GetConnectionsFromLocalStorageImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetConnectionsFromLocalStorageImplCopyWithImpl<$Res>
+    extends _$ContactsEventCopyWithImpl<$Res,
+        _$GetConnectionsFromLocalStorageImpl>
+    implements _$$GetConnectionsFromLocalStorageImplCopyWith<$Res> {
+  __$$GetConnectionsFromLocalStorageImplCopyWithImpl(
+      _$GetConnectionsFromLocalStorageImpl _value,
+      $Res Function(_$GetConnectionsFromLocalStorageImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetConnectionsFromLocalStorageImpl
+    implements GetConnectionsFromLocalStorage {
+  const _$GetConnectionsFromLocalStorageImpl();
+
+  @override
+  String toString() {
+    return 'ContactsEvent.getConnectionsFromLocalStorage()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetConnectionsFromLocalStorageImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getContactsList,
+    required TResult Function() getConnections,
+    required TResult Function() getConnectionsFromLocalStorage,
+    required TResult Function(List<Contact> contactList) checkContactsInBizkit,
+  }) {
+    return getConnectionsFromLocalStorage();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getContactsList,
+    TResult? Function()? getConnections,
+    TResult? Function()? getConnectionsFromLocalStorage,
+    TResult? Function(List<Contact> contactList)? checkContactsInBizkit,
+  }) {
+    return getConnectionsFromLocalStorage?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getContactsList,
+    TResult Function()? getConnections,
+    TResult Function()? getConnectionsFromLocalStorage,
+    TResult Function(List<Contact> contactList)? checkContactsInBizkit,
+    required TResult orElse(),
+  }) {
+    if (getConnectionsFromLocalStorage != null) {
+      return getConnectionsFromLocalStorage();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetContactsList value) getContactsList,
+    required TResult Function(GetConnections value) getConnections,
+    required TResult Function(GetConnectionsFromLocalStorage value)
+        getConnectionsFromLocalStorage,
+    required TResult Function(CheckContactsInBizkit value)
+        checkContactsInBizkit,
+  }) {
+    return getConnectionsFromLocalStorage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetContactsList value)? getContactsList,
+    TResult? Function(GetConnections value)? getConnections,
+    TResult? Function(GetConnectionsFromLocalStorage value)?
+        getConnectionsFromLocalStorage,
+    TResult? Function(CheckContactsInBizkit value)? checkContactsInBizkit,
+  }) {
+    return getConnectionsFromLocalStorage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetContactsList value)? getContactsList,
+    TResult Function(GetConnections value)? getConnections,
+    TResult Function(GetConnectionsFromLocalStorage value)?
+        getConnectionsFromLocalStorage,
+    TResult Function(CheckContactsInBizkit value)? checkContactsInBizkit,
+    required TResult orElse(),
+  }) {
+    if (getConnectionsFromLocalStorage != null) {
+      return getConnectionsFromLocalStorage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetConnectionsFromLocalStorage implements ContactsEvent {
+  const factory GetConnectionsFromLocalStorage() =
+      _$GetConnectionsFromLocalStorageImpl;
 }
 
 /// @nodoc
@@ -253,6 +525,8 @@ class _$CheckContactsInBizkitImpl implements CheckContactsInBizkit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getContactsList,
+    required TResult Function() getConnections,
+    required TResult Function() getConnectionsFromLocalStorage,
     required TResult Function(List<Contact> contactList) checkContactsInBizkit,
   }) {
     return checkContactsInBizkit(contactList);
@@ -262,6 +536,8 @@ class _$CheckContactsInBizkitImpl implements CheckContactsInBizkit {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getContactsList,
+    TResult? Function()? getConnections,
+    TResult? Function()? getConnectionsFromLocalStorage,
     TResult? Function(List<Contact> contactList)? checkContactsInBizkit,
   }) {
     return checkContactsInBizkit?.call(contactList);
@@ -271,6 +547,8 @@ class _$CheckContactsInBizkitImpl implements CheckContactsInBizkit {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getContactsList,
+    TResult Function()? getConnections,
+    TResult Function()? getConnectionsFromLocalStorage,
     TResult Function(List<Contact> contactList)? checkContactsInBizkit,
     required TResult orElse(),
   }) {
@@ -284,6 +562,9 @@ class _$CheckContactsInBizkitImpl implements CheckContactsInBizkit {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetContactsList value) getContactsList,
+    required TResult Function(GetConnections value) getConnections,
+    required TResult Function(GetConnectionsFromLocalStorage value)
+        getConnectionsFromLocalStorage,
     required TResult Function(CheckContactsInBizkit value)
         checkContactsInBizkit,
   }) {
@@ -294,6 +575,9 @@ class _$CheckContactsInBizkitImpl implements CheckContactsInBizkit {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetContactsList value)? getContactsList,
+    TResult? Function(GetConnections value)? getConnections,
+    TResult? Function(GetConnectionsFromLocalStorage value)?
+        getConnectionsFromLocalStorage,
     TResult? Function(CheckContactsInBizkit value)? checkContactsInBizkit,
   }) {
     return checkContactsInBizkit?.call(this);
@@ -303,6 +587,9 @@ class _$CheckContactsInBizkitImpl implements CheckContactsInBizkit {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetContactsList value)? getContactsList,
+    TResult Function(GetConnections value)? getConnections,
+    TResult Function(GetConnectionsFromLocalStorage value)?
+        getConnectionsFromLocalStorage,
     TResult Function(CheckContactsInBizkit value)? checkContactsInBizkit,
     required TResult orElse(),
   }) {
@@ -325,7 +612,7 @@ abstract class CheckContactsInBizkit implements ContactsEvent {
 
 /// @nodoc
 mixin _$ContactsState {
-  bool get loading => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   List<ContactModel>? get contactList => throw _privateConstructorUsedError;
@@ -342,7 +629,7 @@ abstract class $ContactsStateCopyWith<$Res> {
       _$ContactsStateCopyWithImpl<$Res, ContactsState>;
   @useResult
   $Res call(
-      {bool loading,
+      {bool isLoading,
       bool hasError,
       String? message,
       List<ContactModel>? contactList});
@@ -361,15 +648,15 @@ class _$ContactsStateCopyWithImpl<$Res, $Val extends ContactsState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? loading = null,
+    Object? isLoading = null,
     Object? hasError = null,
     Object? message = freezed,
     Object? contactList = freezed,
   }) {
     return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       hasError: null == hasError
           ? _value.hasError
@@ -396,7 +683,7 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool loading,
+      {bool isLoading,
       bool hasError,
       String? message,
       List<ContactModel>? contactList});
@@ -413,15 +700,15 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? loading = null,
+    Object? isLoading = null,
     Object? hasError = null,
     Object? message = freezed,
     Object? contactList = freezed,
   }) {
     return _then(_$InitialImpl(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       hasError: null == hasError
           ? _value.hasError
@@ -443,14 +730,14 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {required this.loading,
+      {required this.isLoading,
       required this.hasError,
       this.message,
       final List<ContactModel>? contactList})
       : _contactList = contactList;
 
   @override
-  final bool loading;
+  final bool isLoading;
   @override
   final bool hasError;
   @override
@@ -467,7 +754,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ContactsState(loading: $loading, hasError: $hasError, message: $message, contactList: $contactList)';
+    return 'ContactsState(isLoading: $isLoading, hasError: $hasError, message: $message, contactList: $contactList)';
   }
 
   @override
@@ -475,7 +762,8 @@ class _$InitialImpl implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
-            (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
             (identical(other.message, message) || other.message == message) &&
@@ -484,7 +772,7 @@ class _$InitialImpl implements _Initial {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, hasError, message,
+  int get hashCode => Object.hash(runtimeType, isLoading, hasError, message,
       const DeepCollectionEquality().hash(_contactList));
 
   @JsonKey(ignore: true)
@@ -496,13 +784,13 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements ContactsState {
   const factory _Initial(
-      {required final bool loading,
+      {required final bool isLoading,
       required final bool hasError,
       final String? message,
       final List<ContactModel>? contactList}) = _$InitialImpl;
 
   @override
-  bool get loading;
+  bool get isLoading;
   @override
   bool get hasError;
   @override

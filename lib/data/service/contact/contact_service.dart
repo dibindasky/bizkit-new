@@ -21,11 +21,16 @@ class ContactServiceImpl implements ContactsRepo {
   Future<Either<Failure, GetContactsResponseModel>> getBizkitUserByContact(
       {required GetContactModel getContactModel}) async {
     try {
-      final response = await apiService.get(ApiEndPoints.card,
+      print(getContactModel.toJson());
+      final response = await apiService.get(ApiEndPoints.contacts,
           data: getContactModel.toJson());
+      log('getBizkitUserByContact success==> ${response.statusCode.toString()}');
+      log('getBizkitUserByContact success==> ${response.data.toString()}');
       return Right(GetContactsResponseModel.fromJson(response.data));
     } on DioException catch (e) {
-      log(e.toString());
+      log('getBizkitUserByContact dioException==> ${e.toString()}');
+      log('getBizkitUserByContact dioException==> ${e.response?.statusCode.toString()}');
+      log('getBizkitUserByContact dioException==> ${e.response?.data['error'].toString()}');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       return Left(Failure(message: errorMessage));

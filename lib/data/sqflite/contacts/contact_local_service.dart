@@ -20,15 +20,24 @@ class ContactLocalService implements ContactLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addContactToLocalStorage(
       {required ContactModel contact}) async {
     try {
-      final map = {
-        ContactModel.colName: contact.name ?? '',
-        ContactModel.colPhone: contact.phoneNumber,
-        ContactModel.colUserId: contact.id,
-        ContactModel.colPhoto: contact.photo??''
-      };
-      await localService.insert(Sql.contactTable, map);
+      print('in local adding sql => name--> ${contact.name}');
+      const query = '''
+          INSERT INTO ${Sql.contactTable} (
+            ${ContactModel.colName},
+            ${ContactModel.colPhone},
+            ${ContactModel.colPhoto},
+            ${ContactModel.colUserId}) 
+          VALUES (?,?,?,?)
+          ''';
+      await localService.rawInsert(query, [
+        contact.name ?? '',
+        contact.phoneNumber ?? '',
+        contact.photo ?? '',
+        contact.id ?? 0
+      ]);
       return Right(SuccessResponseModel());
     } catch (e) {
+      log('addContactToLocalStorage =====> ${e.toString()}');
       return Left(Failure());
     }
   }
@@ -39,27 +48,48 @@ class ContactLocalService implements ContactLocalRepo {
     try {
       const String query = 'SELECT * FROM ${Sql.contactTable}';
       final data = await localService.rawQuery(query);
+      log('getContactFromLocalStorage => length => ${data.length}');
       List<ContactModel> contacts = [];
+      print('====================================names in contact=====================================');
       for (var x in data) {
+        print('contact name in sql get => ${x['name']}');
         contacts.add(ContactModel.fromJson(x));
       }
       return Right(contacts);
     } catch (e) {
-      log('get contacts => ${e.toString()}');
+      log('getContactFromLocalStorage =====> ${e.toString()}');
       return Left(Failure());
     }
   }
 
+  @override
   Future<Either<Failure, SuccessResponseModel>>
       addContactToLocalStorageIfNotPresentInStorage(
           {required ContactModel contact}) async {
     try {
-      final String query =
-          '''SELECT COUNT(*) FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ${contact.phoneNumber!}''';
-      final bool present = await localService.presetOrNot(query);
-      if (!present) return Left(Failure());
+      const String query =
+          '''SELECT COUNT(*) FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ?''';
+      final bool present =
+          await localService.presentOrNot(query, [contact.phoneNumber!]);
+          log('contact present in db => $present');
+      if (present) return Left(Failure());
       return await addContactToLocalStorage(contact: contact);
     } catch (e) {
+      log('addContactToLocalStorageIfNotPresentInStorage ======> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>>
+      removeExistingContactAndAddAsNew({required ContactModel contact}) async {
+    try {
+      String sql =
+          'DELETE FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ?';
+      await localService.rawDelete(sql, [contact.phoneNumber!]);
+      return await addContactToLocalStorage(contact: contact);
+    } catch (e) {
+      log('removeExistingContactAndAddAsNew =====> ${e.toString()}');
       return Left(Failure());
     }
   }

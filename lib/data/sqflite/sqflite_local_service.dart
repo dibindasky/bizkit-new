@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:bizkit/data/sqflite/sql/oncreate_db.dart';
-import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart';
@@ -8,7 +7,6 @@ import 'package:path/path.dart';
 @LazySingleton()
 @injectable
 class LocalService {
-
   static const _databaseName = "bizkit.db";
   static const _databaseVersion = 1;
 
@@ -31,7 +29,7 @@ class LocalService {
             await Sql.onCreate(db));
   }
 
-  // get data in sql
+  // get data from sql
   Future<List<Map<String, Object?>>> rawQuery(String query) async {
     try {
       final db = await database;
@@ -43,12 +41,25 @@ class LocalService {
   }
 
   // insert data
-  Future insert(String table, Map<String, dynamic> map) async {
+  Future insert(String table, Map<String,dynamic> map) async {
     try {
       final db = await database;
-      return await db.insert(table, map);
+      final id= await db.insert(table, map);
+      log('inserted connecton id-> $id');
     } catch (e) {
-      log(e.toString());
+      log('insert = > ${e.toString()}');
+      rethrow;
+    }
+  }
+
+  // insert data
+  Future rawInsert(String query, List listParams) async {
+    try {
+      final db = await database;
+      final id= await db.rawInsert(query,listParams);
+      log('inserted connecton id-> $id');
+    } catch (e) {
+      log('insert = > ${e.toString()}');
       rethrow;
     }
   }
@@ -59,16 +70,26 @@ class LocalService {
       final db = await database;
       return await db.update(table, map);
     } catch (e) {
-      log(e.toString());
+      log('update = > ${e.toString()}');
+      rethrow;
+    }
+  }
+
+  Future<void> rawDelete(String query, List<String> listParams) async {
+    try {
+      final db = await database;
+      await db.rawDelete(query, listParams);
+    } catch (e) {
+      log('rawDelete = > ${e.toString()}');
       rethrow;
     }
   }
 
   // check a value is present or not in table
-  Future<bool> presetOrNot(String query) async {
+  Future<bool> presentOrNot(String query,List<String> listParams) async {
     try {
       final db = await database;
-      final count = sql.Sqflite.firstIntValue(await db.rawQuery(query));
+      final count = sql.Sqflite.firstIntValue(await db.rawQuery(query,listParams));
       if (count! > 0) {
         return true;
       } else {

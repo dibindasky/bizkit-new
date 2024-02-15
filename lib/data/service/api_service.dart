@@ -39,11 +39,13 @@ class ApiService {
         },
       );
       print('api uri ==>  ${_dio.options.baseUrl + url}');
+      print('accessToken ==>  ${_dio.options.headers['Authorization']}');
       final response =
           await _dio.get(url, data: data, queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401) {
+      if (exception.response?.statusCode == 401 ||
+          exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
       } else {
@@ -110,7 +112,8 @@ class ApiService {
           queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401) {
+      if (exception.response?.statusCode == 401 ||
+          exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
       } else {
@@ -141,7 +144,40 @@ class ApiService {
           await _dio.delete(url, data: data, queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401) {
+      if (exception.response?.statusCode == 401 ||
+          exception.response?.statusCode == 403) {
+        await _refreshAccessToken();
+        return await _retry(exception.requestOptions);
+      } else {
+        rethrow;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Response<dynamic>> patch(
+    String url, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? data,
+  }) async {
+    try {
+      final accessToken =
+          await SecureStorage.getToken().then((token) => token.accessToken);
+      _dio.options.headers.addAll(
+        {
+          'Authorization': "Bearer $accessToken",
+          ...headers ?? {'content-Type': 'application/json'}
+        },
+      );
+      print('api uri ==>  ${_dio.options.baseUrl + url}');
+      final response =
+          await _dio.patch(url, data: data, queryParameters: queryParameters);
+      return response;
+    } on DioException catch (exception) {
+      if (exception.response?.statusCode == 401 ||
+          exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
       } else {
@@ -171,6 +207,8 @@ class ApiService {
     try {
       final accessToken =
           await SecureStorage.getToken().then((token) => token.accessToken);
+          print('accessToken ======================================================');
+          print(accessToken);
       _dio.options.headers['Authorization'] = "Bearer $accessToken";
       return await _dio.request(requestOptions.path,
           queryParameters: requestOptions.queryParameters,

@@ -32,11 +32,11 @@ class ContactModel {
     this.localId,
   });
 
-  static const String colUserId = 'user_id';
-  static const String colLocalId = 'Local_id';
+  static const String colUserId = 'id';
+  static const String colLocalId = 'localId';
   static const String colPhone = 'phone_number';
-  static const String colName = 'user_name';
-  static const String colPhoto = 'user_photo';
+  static const String colName = 'name';
+  static const String colPhoto = 'photo_url';
 
   factory ContactModel.fromJson(Map<String, dynamic> json) {
     return _$ContactModelFromJson(json);

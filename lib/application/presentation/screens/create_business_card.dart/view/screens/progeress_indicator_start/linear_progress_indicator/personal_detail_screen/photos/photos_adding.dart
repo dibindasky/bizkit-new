@@ -1,4 +1,4 @@
-import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -22,35 +22,33 @@ class PhotosAddingScreen extends StatelessWidget {
       body: Column(
         children: [
           Center(
-            child: DottedBorder(
-              dashPattern: const [8, 8],
-              color: neonShade,
-              strokeWidth: 2.5,
-              child: SizedBox(
-                width: 290.dm,
-                height: 91.dm,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 32.dm,
-                      height: 32.dm,
-                      child: CircleAvatar(
-                        child: IconButton(
-                          onPressed: () {
-                            context
-                                .read<UserDataBloc>()
-                                .add(UserDataEvent.pickUserPhotos());
-                          },
-                          icon: const Icon(Icons.add),
+            child: InkWell(
+              onTap: () => context
+                  .read<UserDataBloc>()
+                  .add(UserDataEvent.pickUserPhotos()),
+              child: DottedBorder(
+                dashPattern: const [8, 8],
+                color: neonShade,
+                strokeWidth: 2.5,
+                child: SizedBox(
+                  width: 290.dm,
+                  height: 91.dm,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 32.dm,
+                        height: 32.dm,
+                        child: const CircleAvatar(
+                          child: Icon(Icons.add),
                         ),
                       ),
-                    ),
-                    Text(
-                      'Add photos',
-                      style: TextStyle(fontSize: 10.sp),
-                    ),
-                  ],
+                      Text(
+                        'Add photos',
+                        style: TextStyle(fontSize: 10.sp),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -69,8 +67,21 @@ class PhotosAddingScreen extends StatelessWidget {
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 20),
                   itemBuilder: (context, index) {
-                    return Image.file(state.userPhotos[index].fileImage,
-                        fit: BoxFit.cover);
+                    return Stack(
+                      children: [
+                        Image.file(state.userPhotos[index].fileImage,
+                            fit: BoxFit.cover),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () => context.read<UserDataBloc>().add(
+                                  UserDataEvent.removeUserPhoto(index: index),
+                                ),
+                          ),
+                        )
+                      ],
+                    );
                   },
                 );
               },

@@ -1,4 +1,4 @@
-import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
@@ -112,7 +112,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                             backgroundColor: kred);
                         return;
                       }
-                      final product = Product(
+                      final product = ProductCreate(
                           description: productDescriptionController.text.trim(),
                           label: productTitleController.text.trim(),
                           product: image,

@@ -1,4 +1,4 @@
-import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:flutter/material.dart';

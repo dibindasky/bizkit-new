@@ -8,14 +8,14 @@ import 'package:json_annotation/json_annotation.dart';
 part 'business_details.g.dart';
 
 @JsonSerializable()
-class BusinessDetails {
+class BusinessDetailsCreate {
   @JsonKey(name: 'social_media_handles')
-  List<SocialMediaHandle>? socialMediaHandles;
-  List<Product>? product;
-  List<Brochure>? brochure;
-  List<Email>? email;
+  List<SocialMediaHandleCreate>? socialMediaHandles;
+  List<ProductCreate>? product;
+  List<BrochureCreate>? brochure;
+  List<EmailCreate>? email;
   @JsonKey(name: 'mobile_number')
-  List<MobileNumber>? mobileNumber;
+  List<MobileNumberCreate>? mobileNumber;
   @JsonKey(name: 'business_name')
   String? businessName;
   String? designation;
@@ -27,7 +27,7 @@ class BusinessDetails {
   @JsonKey(name: 'logo_story')
   String? logoStory;
 
-  BusinessDetails({
+  BusinessDetailsCreate({
     this.socialMediaHandles,
     this.product,
     this.brochure,
@@ -42,18 +42,18 @@ class BusinessDetails {
     this.logoStory,
   });
 
-  factory BusinessDetails.fromJson(Map<String, dynamic> json) {
-    return _$BusinessDetailsFromJson(json);
+  factory BusinessDetailsCreate.fromJson(Map<String, dynamic> json) {
+    return _$BusinessDetailsCreateFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$BusinessDetailsToJson(this);
+  Map<String, dynamic> toJson() => _$BusinessDetailsCreateToJson(this);
 
-  BusinessDetails copyWith({
-    List<SocialMediaHandle>? socialMediaHandles,
-    List<Product>? product,
-    List<Brochure>? brochure,
-    List<Email>? email,
-    List<MobileNumber>? mobileNumber,
+  BusinessDetailsCreate copyWith({
+    List<SocialMediaHandleCreate>? socialMediaHandles,
+    List<ProductCreate>? product,
+    List<BrochureCreate>? brochure,
+    List<EmailCreate>? email,
+    List<MobileNumberCreate>? mobileNumber,
     String? businessName,
     String? designation,
     String? company,
@@ -62,7 +62,7 @@ class BusinessDetails {
     dynamic logo,
     String? logoStory,
   }) {
-    return BusinessDetails(
+    return BusinessDetailsCreate(
       socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
       product: product ?? this.product,
       brochure: brochure ?? this.brochure,

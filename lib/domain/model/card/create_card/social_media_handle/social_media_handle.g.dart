@@ -6,13 +6,15 @@ part of 'social_media_handle.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SocialMediaHandle _$SocialMediaHandleFromJson(Map<String, dynamic> json) =>
-    SocialMediaHandle(
+SocialMediaHandleCreate _$SocialMediaHandleCreateFromJson(
+        Map<String, dynamic> json) =>
+    SocialMediaHandleCreate(
       label: json['label'] as String?,
       socialMedia: json['social_media'] as String?,
     );
 
-Map<String, dynamic> _$SocialMediaHandleToJson(SocialMediaHandle instance) =>
+Map<String, dynamic> _$SocialMediaHandleCreateToJson(
+        SocialMediaHandleCreate instance) =>
     <String, dynamic>{
       'label': instance.label,
       'social_media': instance.socialMedia,

@@ -1,5 +1,5 @@
-import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
-import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -106,7 +106,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                           final link = selectedCategory == 'Whatsapp'
                               ? 'https://wa.me/${linkController.text}'
                               : linkController.text;
-                          final model = SocialMediaHandle(
+                          final model = SocialMediaHandleCreate(
                               label: selectedCategory, socialMedia: link);
                           !widget.fromBusiness
                               ? context.read<UserDataBloc>().add(

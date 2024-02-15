@@ -10,15 +10,16 @@ CreateCardModel _$CreateCardModelFromJson(Map<String, dynamic> json) =>
     CreateCardModel(
       personalDetails: json['personal_details'] == null
           ? null
-          : PersonalDetails.fromJson(
+          : PersonalDetailsCreate.fromJson(
               json['personal_details'] as Map<String, dynamic>),
       businessDetails: json['business_details'] == null
           ? null
-          : BusinessDetails.fromJson(
+          : BusinessDetailsCreate.fromJson(
               json['business_details'] as Map<String, dynamic>),
       bankDetails: json['bank_details'] == null
           ? null
-          : BankDetails.fromJson(json['bank_details'] as Map<String, dynamic>),
+          : BankDetailsCreate.fromJson(
+              json['bank_details'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CreateCardModelToJson(CreateCardModel instance) =>

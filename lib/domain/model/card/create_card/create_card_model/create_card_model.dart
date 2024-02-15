@@ -8,11 +8,11 @@ part 'create_card_model.g.dart';
 @JsonSerializable()
 class CreateCardModel {
   @JsonKey(name: 'personal_details')
-  PersonalDetails? personalDetails;
+  PersonalDetailsCreate? personalDetails;
   @JsonKey(name: 'business_details')
-  BusinessDetails? businessDetails;
+  BusinessDetailsCreate? businessDetails;
   @JsonKey(name: 'bank_details')
-  BankDetails? bankDetails;
+  BankDetailsCreate? bankDetails;
 
   CreateCardModel({
     this.personalDetails,
@@ -27,9 +27,9 @@ class CreateCardModel {
   Map<String, dynamic> toJson() => _$CreateCardModelToJson(this);
 
   CreateCardModel copyWith({
-    PersonalDetails? personalDetails,
-    BusinessDetails? businessDetails,
-    BankDetails? bankDetails,
+    PersonalDetailsCreate? personalDetails,
+    BusinessDetailsCreate? businessDetails,
+    BankDetailsCreate? bankDetails,
     int? user,
   }) {
     return CreateCardModel(

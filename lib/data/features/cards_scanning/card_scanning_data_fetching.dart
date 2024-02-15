@@ -2,14 +2,15 @@ import 'package:bizkit/application/presentation/utils/validators/validators.dart
 import 'package:bizkit/domain/core/failure/failure.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
-import 'package:bizkit/domain/repository/feature/card_scanning.dart';
+import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: CardScanningRepo)
+@LazySingleton()
 @injectable
-class CardScanningImpl implements CardScanningRepo {
+class CardScanningImpl implements CardScanningRepo{
+
   @override
   Future<Either<Failure, ScannedImageDatasModel>> processAndSortFromImage(
     List<ImageModel>? processingImages,

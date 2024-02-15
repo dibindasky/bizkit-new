@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +10,7 @@ class PreviewPageViewBottomSheet extends StatelessWidget {
     required this.image,
   });
 
-  final String image;
+  final File image;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class PreviewPageViewBottomSheet extends StatelessWidget {
           SizedBox(
             height: 250,
             width: double.infinity,
-            child: Image.asset(
+            child: Image.file(
               image,
               fit: BoxFit.cover,
             ),

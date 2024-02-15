@@ -11,4 +11,6 @@ class ApiEndPoints {
   static String verifyforgotPassword = '/verifications/verify_forgot_password/';
   static String changePassword = '/verifications/change_password/';
   static String createCard = '/card/card/';
+  static String card = '/card/card_individual/';
+  static String contacts = '/card/registered_contacts/';
 }

@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print
 
-import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
-import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
+import 'dart:io';
+
+import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/business_card_popupmenu_items.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/bank_person_achived_rows.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
@@ -31,23 +33,66 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            const SizedBox(
+            // image slide view
+            SizedBox(
               height: 220,
-              child: PreviewPageviewImageBuilder(),
+              child: BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                builder: (context, business) {
+                  return BlocBuilder<UserDataBloc, UserDataState>(
+                    builder: (context, user) {
+                      List<File> images = user.userPhotos
+                              .map((e) => e.fileImage)
+                              .toList() +
+                          business.accreditions
+                              .map((e) => e.image.fileImage as File)
+                              .toList() +
+                          user.accolades
+                              .map((e) => e.accoladesImage.fileImage as File)
+                              .toList();
+                      return PreviewPageviewImageBuilder(images: images);
+                    },
+                  );
+                },
+              ),
             ),
             adjustHieght(khieght * .02),
-            Text(
-              'Alex Tyler',
-              style: TextStyle(fontSize: 26.sp),
+            // user name and designation
+            BlocBuilder<BusinessDataBloc, BusinessDataState>(
+              builder: (context, business) {
+                return BlocBuilder<UserDataBloc, UserDataState>(
+                  builder: (context, user) {
+                    return Column(
+                      children: [
+                        Text(
+                          user.personalDetails.name ?? 'Name',
+                          style: TextStyle(fontSize: 26.sp),
+                        ),
+                        Text(business.businessDetails.designation ??
+                            'Designation'),
+                      ],
+                    );
+                  },
+                );
+              },
             ),
-            const Text('Mobile app developer - Flutter'),
             adjustHieght(khieght * .02),
+            // contact,social,web details icon button row
             const PreviewRowWiceIcons(),
             adjustHieght(khieght * .02),
+            // banking, personal, achivements row icons
             const PreviewBankPersonAchivedRows(),
             adjustHieght(khieght * .02),
-            const PreviewProductsBrandsLists(),
+            // products and brochers horizontal List view
+            BlocBuilder<BusinessDataBloc, BusinessDataState>(
+              builder: (context, business) {
+                final images = business.products
+                    .map((e) => e.product.fileImage as File)
+                    .toList();
+                return PreviewProductsBrandsLists(fileImages: images);
+              },
+            ),
             adjustHieght(khieght * .04),
+            // card create button
             BlocBuilder<BusinessDataBloc, BusinessDataState>(
               builder: (context, businessSate) {
                 return BlocConsumer<UserDataBloc, UserDataState>(

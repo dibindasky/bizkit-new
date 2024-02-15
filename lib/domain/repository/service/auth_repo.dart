@@ -7,7 +7,7 @@ import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivud
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_response_model/sign_up_response_model.dart';
 import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
-import 'package:bizkit/domain/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class AuthRepo {

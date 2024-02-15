@@ -1,13 +1,13 @@
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class ApiService {
-  final Dio dio;
-  final String baseUrl;
+  final Dio _dio;
 
-  ApiService({required this.dio, required this.baseUrl}) {
-    dio.options.baseUrl = baseUrl;
+  ApiService(this._dio) {
     // dio.options.connectTimeout = const Duration(seconds: 3);
     // dio.interceptors.add(InterceptorsWrapper(
     //   onRequest: (options, handler) async {
@@ -32,18 +32,20 @@ class ApiService {
     try {
       final accessToken =
           await SecureStorage.getToken().then((token) => token.accessToken);
-      dio.options.headers.addAll(
+      _dio.options.headers.addAll(
         {
           'Authorization': "Bearer $accessToken",
           ...headers ?? {'content-Type': 'application/json'}
         },
       );
-      print('api uri ==>  ${dio.options.baseUrl + url}');
+      print('api uri ==>  ${_dio.options.baseUrl + url}');
+      print('accessToken ==>  ${_dio.options.headers['Authorization']}');
       final response =
-          await dio.get(url, data: data, queryParameters: queryParameters);
+          await _dio.get(url, data: data, queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401) {
+      if (exception.response?.statusCode == 401 ||
+          exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
       } else {
@@ -63,21 +65,22 @@ class ApiService {
     try {
       final accessToken =
           await SecureStorage.getToken().then((token) => token.accessToken);
-      dio.options.headers.addAll(
+      _dio.options.headers.addAll(
         {
           'Authorization': "Bearer $accessToken",
           ...headers ?? {'content-Type': 'application/json'}
         },
       );
-      print('api uri ==>  ${dio.options.baseUrl + url}');
-      final response = await dio.post(
+      print('api uri ==>  ${_dio.options.baseUrl + url}');
+      final response = await _dio.post(
         url,
         data: data is FormData ? data : data as Map<String, dynamic>?,
         queryParameters: queryParameters,
       );
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401) {
+      if (exception.response?.statusCode == 401 ||
+          exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
       } else {
@@ -97,19 +100,20 @@ class ApiService {
     try {
       final accessToken =
           await SecureStorage.getToken().then((token) => token.accessToken);
-      dio.options.headers.addAll(
+      _dio.options.headers.addAll(
         {
           'Authorization': "Bearer $accessToken",
           ...headers ?? {'content-Type': 'application/json'}
         },
       );
-      print('api uri ==>  ${dio.options.baseUrl + url}');
-      final response = await dio.put(url,
+      print('api uri ==>  ${_dio.options.baseUrl + url}');
+      final response = await _dio.put(url,
           data: data is FormData ? data : data as Map<String, dynamic>?,
           queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401) {
+      if (exception.response?.statusCode == 401 ||
+          exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
       } else {
@@ -129,18 +133,51 @@ class ApiService {
     try {
       final accessToken =
           await SecureStorage.getToken().then((token) => token.accessToken);
-      dio.options.headers.addAll(
+      _dio.options.headers.addAll(
         {
           'Authorization': "Bearer $accessToken",
           ...headers ?? {'content-Type': 'application/json'}
         },
       );
-      print('api uri ==>  ${dio.options.baseUrl + url}');
+      print('api uri ==>  ${_dio.options.baseUrl + url}');
       final response =
-          await dio.delete(url, data: data, queryParameters: queryParameters);
+          await _dio.delete(url, data: data, queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401) {
+      if (exception.response?.statusCode == 401 ||
+          exception.response?.statusCode == 403) {
+        await _refreshAccessToken();
+        return await _retry(exception.requestOptions);
+      } else {
+        rethrow;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Response<dynamic>> patch(
+    String url, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? data,
+  }) async {
+    try {
+      final accessToken =
+          await SecureStorage.getToken().then((token) => token.accessToken);
+      _dio.options.headers.addAll(
+        {
+          'Authorization': "Bearer $accessToken",
+          ...headers ?? {'content-Type': 'application/json'}
+        },
+      );
+      print('api uri ==>  ${_dio.options.baseUrl + url}');
+      final response =
+          await _dio.patch(url, data: data, queryParameters: queryParameters);
+      return response;
+    } on DioException catch (exception) {
+      if (exception.response?.statusCode == 401 ||
+          exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
       } else {
@@ -158,8 +195,8 @@ class ApiService {
       print('=====================================================');
       final token =
           await SecureStorage.getToken().then((token) => token.refreshToken);
-      final response = await Dio(BaseOptions(baseUrl: baseUrl))
-          .get(ApiEndPoints.refreshUrl, data: {'refresh': token});
+      final response = await Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl))
+          .post(ApiEndPoints.refreshUrl, data: {'refresh': token});
       await SecureStorage.setAccessToken(accessToken: response.data.toString());
     } catch (e) {
       rethrow;
@@ -167,11 +204,17 @@ class ApiService {
   }
 
   Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {
-    final accessToken =
-        await SecureStorage.getToken().then((token) => token.accessToken);
-    dio.options.headers['Authorization'] = accessToken;
-    return await dio.request(requestOptions.path,
-        queryParameters: requestOptions.queryParameters,
-        data: requestOptions.data);
+    try {
+      final accessToken =
+          await SecureStorage.getToken().then((token) => token.accessToken);
+          print('accessToken ======================================================');
+          print(accessToken);
+      _dio.options.headers['Authorization'] = "Bearer $accessToken";
+      return await _dio.request(requestOptions.path,
+          queryParameters: requestOptions.queryParameters,
+          data: requestOptions.data);
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -1,5 +1,5 @@
-import 'package:bizkit/application/business_logic/card/business_data/business_data_bloc.dart';
-import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -91,13 +91,13 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                       widget.accolade
                           ? context.read<UserDataBloc>().add(
                               UserDataEvent.addAccolade(
-                                  accolade: Accolade(
+                                  accolade: AccoladeCreate(
                                       accolades: title,
                                       accoladesDescription: description,
                                       accoladesImage: image)))
                           : context.read<BusinessDataBloc>().add(
                               BusinessDataEvent.addAccredition(
-                                  accredition: Accredition(
+                                  accredition: AccreditionCreate(
                                       description: description,
                                       label: title,
                                       image: image)));

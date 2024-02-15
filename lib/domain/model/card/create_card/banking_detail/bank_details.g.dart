@@ -6,9 +6,10 @@ part of 'bank_details.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BankDetails _$BankDetailsFromJson(Map<String, dynamic> json) => BankDetails(
+BankDetailsCreate _$BankDetailsCreateFromJson(Map<String, dynamic> json) =>
+    BankDetailsCreate(
       accredition: (json['accredition'] as List<dynamic>?)
-          ?.map((e) => Accredition.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => AccreditionCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
       nameOfCompany: json['name_of_company'] as String?,
       acccountNumber: json['account_number'] as String?,
@@ -18,7 +19,7 @@ BankDetails _$BankDetailsFromJson(Map<String, dynamic> json) => BankDetails(
       branchOffices: json['branch_offices'] as String?,
     );
 
-Map<String, dynamic> _$BankDetailsToJson(BankDetails instance) =>
+Map<String, dynamic> _$BankDetailsCreateToJson(BankDetailsCreate instance) =>
     <String, dynamic>{
       'accredition': instance.accredition,
       'name_of_company': instance.nameOfCompany,

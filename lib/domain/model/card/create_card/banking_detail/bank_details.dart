@@ -4,8 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'bank_details.g.dart';
 
 @JsonSerializable()
-class BankDetails {
-  List<Accredition>? accredition;
+class BankDetailsCreate {
+  List<AccreditionCreate>? accredition;
   @JsonKey(name: 'name_of_company')
   String? nameOfCompany;
   @JsonKey(name: 'account_number')
@@ -19,7 +19,7 @@ class BankDetails {
   @JsonKey(name: 'branch_offices')
   String? branchOffices;
 
-  BankDetails({
+  BankDetailsCreate({
     this.accredition,
     this.nameOfCompany,
     this.acccountNumber,
@@ -29,14 +29,14 @@ class BankDetails {
     this.branchOffices,
   });
 
-  factory BankDetails.fromJson(Map<String, dynamic> json) {
-    return _$BankDetailsFromJson(json);
+  factory BankDetailsCreate.fromJson(Map<String, dynamic> json) {
+    return _$BankDetailsCreateFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$BankDetailsToJson(this);
+  Map<String, dynamic> toJson() => _$BankDetailsCreateToJson(this);
 
-  BankDetails copyWith({
-    List<Accredition>? accredition,
+  BankDetailsCreate copyWith({
+    List<AccreditionCreate>? accredition,
     String? nameOfCompany,
     String? acccountNumber,
     String? ifscCode,
@@ -44,7 +44,7 @@ class BankDetails {
     String? gstMembershipDetails,
     String? branchOffices,
   }) {
-    return BankDetails(
+    return BankDetailsCreate(
       accredition: accredition ?? this.accredition,
       nameOfCompany: nameOfCompany ?? this.nameOfCompany,
       acccountNumber: acccountNumber ?? this.acccountNumber,

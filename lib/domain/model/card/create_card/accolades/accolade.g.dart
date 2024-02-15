@@ -6,13 +6,15 @@ part of 'accolade.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Accolade _$AccoladeFromJson(Map<String, dynamic> json) => Accolade(
+AccoladeCreate _$AccoladeCreateFromJson(Map<String, dynamic> json) =>
+    AccoladeCreate(
       accolades: json['accolades'] as String?,
       accoladesImage: json['accolades_image'],
       accoladesDescription: json['accolades_description'] as String?,
     );
 
-Map<String, dynamic> _$AccoladeToJson(Accolade instance) => <String, dynamic>{
+Map<String, dynamic> _$AccoladeCreateToJson(AccoladeCreate instance) =>
+    <String, dynamic>{
       'accolades': instance.accolades,
       'accolades_image': instance.accoladesImage,
       'accolades_description': instance.accoladesDescription,

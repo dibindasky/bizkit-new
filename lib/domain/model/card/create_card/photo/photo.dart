@@ -3,19 +3,20 @@ import 'package:json_annotation/json_annotation.dart';
 part 'photo.g.dart';
 
 @JsonSerializable()
-class Photo {
+class PhotoCreate {
   dynamic photos;
 
-  Photo({this.photos});
+  PhotoCreate({this.photos});
 
-  factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
+  factory PhotoCreate.fromJson(Map<String, dynamic> json) =>
+      _$PhotoCreateFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PhotoToJson(this);
+  Map<String, dynamic> toJson() => _$PhotoCreateToJson(this);
 
-  Photo copyWith({
+  PhotoCreate copyWith({
     dynamic photos,
   }) {
-    return Photo(
+    return PhotoCreate(
       photos: photos ?? this.photos,
     );
   }

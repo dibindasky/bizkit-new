@@ -238,6 +238,13 @@ class _LoGInScreenState extends State<LoGInScreen>
                     inputType: TextInputType.emailAddress,
                     obscureText: true,
                   ),
+                  // Align(alignment: Alignment.centerRight,
+                  //   child: InkWell(onTap:(){
+                  //     context.read<AuthBloc>().add(AuthEvent.changePassword(changePasswordModel: changePasswordModel))
+                  //   },
+                  //     child: const Text('forgot psssword!')),
+                  // ),
+                  // adjustHieght(khieght * .015),
                   Text(
                     'Don\'t have an acount?',
                     style: TextStyle(
@@ -259,7 +266,6 @@ class _LoGInScreenState extends State<LoGInScreen>
                   adjustHieght(khieght * .04),
                   BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
-                      print(state.message);
                       if (state.hasError || state.message != null) {
                         showSnackbar(context,
                             message: state.message!,

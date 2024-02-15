@@ -6,11 +6,12 @@ part of 'mobile_number.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MobileNumber _$MobileNumberFromJson(Map<String, dynamic> json) => MobileNumber(
+MobileNumberCreate _$MobileNumberCreateFromJson(Map<String, dynamic> json) =>
+    MobileNumberCreate(
       mobileNumber: json['mobile_number'] as String?,
     );
 
-Map<String, dynamic> _$MobileNumberToJson(MobileNumber instance) =>
+Map<String, dynamic> _$MobileNumberCreateToJson(MobileNumberCreate instance) =>
     <String, dynamic>{
       'mobile_number': instance.mobileNumber,
     };

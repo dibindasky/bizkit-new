@@ -3,23 +3,23 @@ import 'package:json_annotation/json_annotation.dart';
 part 'dates_to_remember.g.dart';
 
 @JsonSerializable()
-class DatesToRemember {
+class DatesToRememberCreate {
   String? date;
   String? label;
 
-  DatesToRemember({this.date, this.label});
+  DatesToRememberCreate({this.date, this.label});
 
-  factory DatesToRemember.fromJson(Map<String, dynamic> json) {
-    return _$DatesToRememberFromJson(json);
+  factory DatesToRememberCreate.fromJson(Map<String, dynamic> json) {
+    return _$DatesToRememberCreateFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$DatesToRememberToJson(this);
+  Map<String, dynamic> toJson() => _$DatesToRememberCreateToJson(this);
 
-  DatesToRemember copyWith({
+  DatesToRememberCreate copyWith({
     String? date,
     String? label,
   }) {
-    return DatesToRemember(
+    return DatesToRememberCreate(
       date: date ?? this.date,
       label: label ?? this.label,
     );

@@ -1,4 +1,4 @@
-import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
@@ -7,6 +7,7 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/image_preview_under_textField.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
@@ -37,27 +38,22 @@ class PersonlDetails extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
             adjustHieght(khieght * .02),
+            // home address text field
             TTextFormField(
               maxLines: 2,
               text: 'Home address',
               controller: context.read<UserDataBloc>().homeAddress,
               inputType: TextInputType.name,
             ),
+            // blood group selection
             AutocompleteTextField(
-              autocompleteItems: const [
-                'A+',
-                'A-',
-                'B+',
-                'B-',
-                'O+',
-                'O-',
-                'AB+',
-                'AB-'
-              ],
+              autocompleteItems: bloodGroups,
+              showDropdown: true,
               label: 'Blood Group',
               controller: context.read<UserDataBloc>().bloodGroup,
               inputType: TextInputType.name,
             ),
+            // date of birth
             InkWell(
               onTap: () => showModalBottomSheet(
                 context: context,
@@ -81,6 +77,7 @@ class PersonlDetails extends StatelessWidget {
               ),
             ),
             adjustHieght(10),
+            // accolades adding
             BlocBuilder<UserDataBloc, UserDataState>(
               buildWhen: (previous, current) =>
                   previous.accolades.length != current.accolades.length,
@@ -124,78 +121,98 @@ class PersonlDetails extends StatelessWidget {
               },
             ),
             adjustHieght(20),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(fadePageRoute(
-                    const SocialMediahandlesScreen(fromBusiness: false)));
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: textFieldFillColr,
-                  boxShadow: [
-                    BoxShadow(
+            // social media handles
+            BlocBuilder<UserDataBloc, UserDataState>(
+              builder: (context, state) {
+                return ImagePreviewUnderTextField(
+                  listString: state.socialMedias
+                      .map((e) => e.socialMedia ?? 'Social Media')
+                      .toList(),
+                  ontap: () => Navigator.of(context).push(fadePageRoute(
+                      const SocialMediahandlesScreen(fromBusiness: false))),
+                  child: Container(
+                    decoration: const BoxDecoration(
                       color: textFieldFillColr,
-                      spreadRadius: 0.4,
-                      blurRadius: 4,
-                      offset: Offset(0.4, .2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: textFieldFillColr,
+                          spreadRadius: 0.4,
+                          blurRadius: 4,
+                          offset: Offset(0.4, .2),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                padding: const EdgeInsets.only(left: 12, right: 12),
-                height: 48.0,
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Social Media Handles',
-                      style: TextStyle(color: klightgrey),
+                    padding: const EdgeInsets.only(left: 12, right: 12),
+                    height: 48.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Social Media Handles',
+                          style: TextStyle(
+                              color: state.socialMedias.isNotEmpty
+                                  ? kwhite
+                                  : klightgrey),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 16,
+                          color: klightgrey,
+                        )
+                      ],
                     ),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 16,
-                      color: klightgrey,
-                    )
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
             adjustHieght(20),
-            InkWell(
-              onTap: () {
-                Navigator.of(context)
-                    .push(fadePageRoute(const DatesToRememberScreen()));
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: textFieldFillColr,
-                  boxShadow: [
-                    BoxShadow(
+            // dates to remember
+            BlocBuilder<UserDataBloc, UserDataState>(
+              builder: (context, state) {
+                return ImagePreviewUnderTextField(
+                  listString:
+                      state.datesToRemember.map((e) => e.date!).toList(),
+                  ontap: () {
+                    Navigator.of(context)
+                        .push(fadePageRoute(const DatesToRememberScreen()));
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
                       color: textFieldFillColr,
-                      spreadRadius: 0.4,
-                      blurRadius: 4,
-                      offset: Offset(0.4, .2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: textFieldFillColr,
+                          spreadRadius: 0.4,
+                          blurRadius: 4,
+                          offset: Offset(0.4, .2),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                padding: const EdgeInsets.only(left: 12, right: 12),
-                height: 48.0,
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Dates To Remember',
-                      style: TextStyle(color: klightgrey),
+                    padding: const EdgeInsets.only(left: 12, right: 12),
+                    height: 48.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Dates To Remember',
+                          style: TextStyle(
+                              color: state.datesToRemember.isNotEmpty
+                                  ? kwhite
+                                  : klightgrey),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 16,
+                          color: klightgrey,
+                        )
+                      ],
                     ),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 16,
-                      color: klightgrey,
-                    )
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
             adjustHieght(20),
+            // personal photos
             BlocBuilder<UserDataBloc, UserDataState>(
               builder: (context, state) {
                 return ImagePreviewUnderTextField(

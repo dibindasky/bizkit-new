@@ -6,13 +6,15 @@ part of 'dates_to_remember.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DatesToRemember _$DatesToRememberFromJson(Map<String, dynamic> json) =>
-    DatesToRemember(
+DatesToRememberCreate _$DatesToRememberCreateFromJson(
+        Map<String, dynamic> json) =>
+    DatesToRememberCreate(
       date: json['date'] as String?,
       label: json['label'] as String?,
     );
 
-Map<String, dynamic> _$DatesToRememberToJson(DatesToRemember instance) =>
+Map<String, dynamic> _$DatesToRememberCreateToJson(
+        DatesToRememberCreate instance) =>
     <String, dynamic>{
       'date': instance.date,
       'label': instance.label,

@@ -1,4 +1,4 @@
-import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -12,8 +12,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) =>
-        context.read<UserDataBloc>().add(UserDataEvent.getUserDetail()));
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScope = FocusScope.of(context);

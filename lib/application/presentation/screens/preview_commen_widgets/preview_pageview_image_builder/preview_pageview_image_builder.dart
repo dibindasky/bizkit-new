@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
 import 'package:flutter/material.dart';
 
 class PreviewPageviewImageBuilder extends StatefulWidget {
-  const PreviewPageviewImageBuilder({super.key});
+  const PreviewPageviewImageBuilder({super.key, required this.images});
+
+  final List<File> images;
 
   @override
   State<PreviewPageviewImageBuilder> createState() =>
@@ -12,13 +16,6 @@ class PreviewPageviewImageBuilder extends StatefulWidget {
 
 class _PreviewPageviewImageBuilderState
     extends State<PreviewPageviewImageBuilder> {
-  List<String> image = [
-    'asset/images/previewiamge1.jpeg',
-    'asset/images/previewImage2.jpeg',
-    'asset/images/previewImage3.jpeg',
-    'asset/images/previewImage4.jpeg',
-    'asset/images/previewimage5.jpeg',
-  ];
   late PageController pageController;
   int currentIndex = 0;
   double pageValue = 0.0;
@@ -40,7 +37,7 @@ class _PreviewPageviewImageBuilderState
     return HomeScreenPagviewAnimateBuilder(
       pageController: pageController,
       pageValue: pageValue,
-      pageCount: image.length,
+      pageCount: widget.images.length,
       onpageCallBack: (index) {
         setState(() {
           currentIndex = index;
@@ -56,14 +53,14 @@ class _PreviewPageviewImageBuilderState
                 context: context,
                 isScrollControlled: true,
                 builder: (context) => PreviewPageViewBottomSheet(
-                  image: image[index],
+                  image: widget.images[index],
                 ),
               ),
               child: SizedBox(
                 width: double.infinity,
                 height: 200,
-                child: Image.asset(
-                  image[index],
+                child: Image.file(
+                  widget.images[index],
                   fit: BoxFit.cover,
                 ),
               ),

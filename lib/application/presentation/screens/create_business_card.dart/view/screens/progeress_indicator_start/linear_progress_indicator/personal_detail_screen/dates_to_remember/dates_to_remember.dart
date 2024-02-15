@@ -1,4 +1,4 @@
-import 'package:bizkit/application/business_logic/card/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
@@ -110,9 +110,10 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                                 backgroundColor: kred);
                             return;
                           }
-                          final DatesToRemember model = DatesToRemember(
-                              label: labelController.text,
-                              date: dateController.text);
+                          final DatesToRememberCreate model =
+                              DatesToRememberCreate(
+                                  label: labelController.text,
+                                  date: dateController.text);
                           context.read<UserDataBloc>().add(
                               UserDataEvent.addDateToRemember(
                                   datesToRemember: model));

@@ -3,22 +3,22 @@ import 'package:json_annotation/json_annotation.dart';
 part 'mobile_number.g.dart';
 
 @JsonSerializable()
-class MobileNumber {
+class MobileNumberCreate {
   @JsonKey(name: 'mobile_number')
   String? mobileNumber;
 
-  MobileNumber({this.mobileNumber});
+  MobileNumberCreate({this.mobileNumber});
 
-  factory MobileNumber.fromJson(Map<String, dynamic> json) {
-    return _$MobileNumberFromJson(json);
+  factory MobileNumberCreate.fromJson(Map<String, dynamic> json) {
+    return _$MobileNumberCreateFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$MobileNumberToJson(this);
+  Map<String, dynamic> toJson() => _$MobileNumberCreateToJson(this);
 
-  MobileNumber copyWith({
+  MobileNumberCreate copyWith({
     String? mobileNumber,
   }) {
-    return MobileNumber(
+    return MobileNumberCreate(
       mobileNumber: mobileNumber ?? this.mobileNumber,
     );
   }

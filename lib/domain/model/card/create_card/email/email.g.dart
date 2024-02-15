@@ -6,10 +6,11 @@ part of 'email.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Email _$EmailFromJson(Map<String, dynamic> json) => Email(
+EmailCreate _$EmailCreateFromJson(Map<String, dynamic> json) => EmailCreate(
       email: json['email'] as String?,
     );
 
-Map<String, dynamic> _$EmailToJson(Email instance) => <String, dynamic>{
+Map<String, dynamic> _$EmailCreateToJson(EmailCreate instance) =>
+    <String, dynamic>{
       'email': instance.email,
     };

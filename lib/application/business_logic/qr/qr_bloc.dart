@@ -13,6 +13,18 @@ part 'qr_bloc.freezed.dart';
 @injectable
 class QrBloc extends Bloc<QrEvent, QrState> {
   final QrServiceRepo qrServiceImpl;
+  CreateQrModel? createQrModel = CreateQrModel(
+      address: true,
+      businessDetailsEmail: true,
+      businessDetailsMobileNumber: true,
+      card: 1,
+      company: true,
+      email: true,
+      personalSocialMedia: true,
+      phoneNumber: true,
+      socialMediaHandles: true,
+      websiteLink: true);
+
   QrBloc(this.qrServiceImpl) : super(QrState.initial()) {
     on<AddNewLevelSharing>(addNewLevelSharing);
     on<GetLevelSharing>(getLevelSharing);

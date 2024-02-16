@@ -39,4 +39,31 @@ class CreateQrModel {
   }
 
   Map<String, dynamic> toJson() => _$CreateQrModelToJson(this);
+
+  CreateQrModel copyWith({
+    bool? email,
+    bool? phoneNumber,
+    bool? company,
+    bool? personalSocialMedia,
+    bool? businessDetailsEmail,
+    bool? businessDetailsMobileNumber,
+    bool? address,
+    bool? socialMediaHandles,
+    bool? websiteLink,
+    int? card,
+  }) {
+    return CreateQrModel(
+      email: email ?? this.email,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      company: company ?? this.company,
+      personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
+      businessDetailsEmail: businessDetailsEmail ?? this.businessDetailsEmail,
+      businessDetailsMobileNumber:
+          businessDetailsMobileNumber ?? this.businessDetailsMobileNumber,
+      address: address ?? this.address,
+      socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
+      websiteLink: websiteLink ?? this.websiteLink,
+      card: card ?? this.card,
+    );
+  }
 }

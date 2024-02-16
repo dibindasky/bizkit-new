@@ -5,6 +5,7 @@ import 'package:bizkit/application/business_logic/card/create/business_data/busi
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
+import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/core/di/dipendency_injection.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<BusinessDataBloc>()),
           BlocProvider(create: (context) => getIt<SignUpBloc>()),
           BlocProvider(create: (context) => getIt<CardBloc>()),
+          BlocProvider(create: (context) => getIt<QrBloc>()),
         ],
         child: MaterialApp(
           debugShowMaterialGrid: false,

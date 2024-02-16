@@ -69,6 +69,10 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                               adjustWidth(kwidth * .05),
                           itemBuilder: (context, index) {
                             final card = state.cards[index];
+                            print(
+                                '====================================================');
+                            print(card.businessDetails);
+                            print(card.businessDetails?.logo);
                             return Container(
                               decoration: BoxDecoration(
                                 color: textFieldFillColr,
@@ -87,8 +91,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             topLeft: Radius.circular(25),
                                             topRight: Radius.circular(20),
                                           ),
-                                          child: card.businessDetails?.logo ==
-                                                  null
+                                          child: card.businessDetails == null ||
+                                                  card.businessDetails!.logo ==
+                                                      null
                                               ? Image.network(imageDummyNetwork,
                                                   fit: BoxFit.cover)
                                               : Image.network(

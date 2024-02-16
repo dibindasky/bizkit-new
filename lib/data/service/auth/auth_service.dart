@@ -18,7 +18,9 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: AuthRepo)
 @injectable
 class AuthService implements AuthRepo {
-  final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
+  final Dio _dio;
+
+  AuthService(this._dio);
 
   @override
   Future<Either<Failure, LoginResponseModel>> login(
@@ -28,8 +30,10 @@ class AuthService implements AuthRepo {
           await _dio.post(ApiEndPoints.login, data: loginModel.toJson());
       return Right(LoginResponseModel.fromJson(response.data));
     } on DioException catch (e) {
+      print(e);
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
+      print(e);
       return Left(Failure(message: errorMessage));
     }
   }

@@ -10,6 +10,6 @@ class CardState with _$CardState {
       String? message,
       Card? defaultCard}) = _Initial;
 
-  factory CardState.initial() =>
-      const CardState(isLoading: false, hasError: false, cards: [],pageLoading: false);
+  factory CardState.initial() => const CardState(
+      isLoading: false, hasError: false, cards: [], pageLoading: false);
 }

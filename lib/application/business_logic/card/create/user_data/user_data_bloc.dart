@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
-import 'package:bizkit/data/service/card/card_service.dart';
 import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/create_card/create_card_model/create_card_model.dart';
 import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
@@ -11,6 +10,7 @@ import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart';
+import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,16 +25,17 @@ part 'user_data_bloc.freezed.dart';
 class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final CardScanningRepo cardScanningImpl;
   final UserLocalRepo userLocalService;
-  final CardService cardService;
+  final CardRepo cardService;
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController companylController = TextEditingController();
-  final TextEditingController businessCategoryController =
-      TextEditingController();
   final TextEditingController homeAddress = TextEditingController();
   final TextEditingController bloodGroup = TextEditingController();
   final TextEditingController birthDaycontroller = TextEditingController();
+  final TextEditingController businessCategoryController =
+      TextEditingController();
 
   UserDataBloc(this.cardScanningImpl, this.userLocalService, this.cardService)
       : super(UserDataState.initial()) {

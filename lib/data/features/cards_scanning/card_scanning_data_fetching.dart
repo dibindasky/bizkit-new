@@ -7,10 +7,9 @@ import 'package:dartz/dartz.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton()
+@LazySingleton(as: CardScanningRepo)
 @injectable
-class CardScanningImpl implements CardScanningRepo{
-
+class CardScanningImpl implements CardScanningRepo {
   @override
   Future<Either<Failure, ScannedImageDatasModel>> processAndSortFromImage(
     List<ImageModel>? processingImages,

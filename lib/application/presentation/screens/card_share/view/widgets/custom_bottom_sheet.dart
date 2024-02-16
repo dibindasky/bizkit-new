@@ -1,17 +1,18 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
+import 'package:bizkit/domain/model/card/card/card/card.dart' as c;
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class CustomBottomSheet extends StatefulWidget {
   const CustomBottomSheet({
     Key? key,
-    required this.image,
+    required this.card,
   }) : super(key: key);
 
-  final String image;
+  final c.Card card;
 
   @override
   State<CustomBottomSheet> createState() => _CustomBottomSheetState();
@@ -42,10 +43,12 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                 height: 50,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
-                  child: Image.asset(
-                    widget.image,
-                    fit: BoxFit.cover,
-                  ),
+                  child: widget.card.businessDetails?.logo == null
+                      ? Image.network(imageDummyNetwork, fit: BoxFit.cover)
+                      : Image.network(
+                          widget.card.businessDetails!.logo!,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
               adjustWidth(kwidth * .02),

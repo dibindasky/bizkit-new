@@ -13,4 +13,5 @@ class ApiEndPoints {
   static String createCard = '/card/card/';
   static String card = '/card/card_individual/';
   static String contacts = '/card/registered_contacts/';
+  static String getQr = '/qr/qr_data/';
 }

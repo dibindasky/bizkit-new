@@ -16,8 +16,9 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: CardRepo)
 @injectable
 class CardService implements CardRepo {
-  final ApiService apiService =
-      ApiService(Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl)));
+  final ApiService apiService;
+
+  CardService(this.apiService);
 
   @override
   Future<Either<Failure, SuccessResponseModel>> createCard(
@@ -38,13 +39,22 @@ class CardService implements CardRepo {
   Future<Either<Failure, GetCardResposnseModel>> getCards(
       {required PageQuery qurey}) async {
     try {
+      print('get card apiicall');
       final response = await apiService.get(ApiEndPoints.card,
           queryParameters: qurey.toJson());
+      print('get card api success');
+      print(response.data);
       return Right(GetCardResposnseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      if (e.response?.statusCode == 400) {
+        return Left(
+            Failure(message: e.response?.data['error'] ?? errorMessage));
+      } else {
+        return Left(Failure(message: errorMessage));
+      }
     } catch (e) {
+      log(e.toString());
       return Left(Failure(message: errorMessage));
     }
   }

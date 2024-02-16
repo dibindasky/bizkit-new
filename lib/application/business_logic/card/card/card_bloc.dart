@@ -29,22 +29,29 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   }
 
   FutureOr<void> getCards(GetCards event, emit) async {
+    if (state.cards.isNotEmpty) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     cardPage = 1;
+    print('get card bloc');
     final result = await cardService.getCards(qurey: PageQuery(page: cardPage));
     result.fold(
         (failure) => emit(state.copyWith(
             hasError: true,
             isLoading: false,
             message: failure.message)), (getCardResposnseModel) {
+      print('get card bloc success');
       Card? defaultCard;
       if (getCardResposnseModel.results != null) {
+        print('get default card');
         defaultCard = getCardResposnseModel.results!
             .firstWhere((card) => card.isDefault!);
       }
-      return emit(state.copyWith(
+      print('get card bloc success1');
+      emit(state.copyWith(
+          isLoading: false,
           cards: getCardResposnseModel.results ?? [],
           defaultCard: defaultCard));
+      print('get card bloc success2');
     });
   }
 }

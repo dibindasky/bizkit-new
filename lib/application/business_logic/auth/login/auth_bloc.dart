@@ -33,7 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> log(Log event, emit) async =>
       emit(state.copyWith(isLogin: await SecureStorage.getLogin()));
-      
+
   FutureOr<void> logOut(LogOut event, emit) async =>
       await SecureStorage.clearLogin();
 

@@ -52,7 +52,7 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                 listString!.isNotEmpty ? adjustHieght(10) : adjustHieght(0),
                 listString!.isNotEmpty
                     ? SizedBox(
-                        height: 30,
+                        height: 50,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: listString!.length,

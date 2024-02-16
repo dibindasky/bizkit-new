@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
     kwidth = size.width;
 
     return ScreenUtilInit(
+      designSize: Size(kwidth, khieght),
       child: MultiBlocProvider(
         providers: [
           BlocProvider<InternetConnectionCheckCubit>(

@@ -44,7 +44,7 @@ class _SecondAnimationPageListViewState
 
     _animationController.forward().whenComplete(() {
       _animationController.dispose();
-      setState(() {});
+      // setState(() {});
     });
   }
 

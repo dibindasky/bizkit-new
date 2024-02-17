@@ -10,4 +10,5 @@ abstract class CardRepo {
       {required CreateCardModel createCardModel});
   Future<Either<Failure, GetCardResposnseModel>> getCards(
       {required PageQuery qurey});
+  Future<Either<Failure, GetCardResposnseModel>> getCardById({required int id});
 }

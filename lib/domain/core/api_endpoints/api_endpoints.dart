@@ -1,7 +1,7 @@
 class ApiEndPoints {
-  static String baseUrl = 'http://192.168.29.216:8000';
-  // static String baseUrl = 'http://44.212.19.127';
-
+  // static String baseUrl = 'http://192.168.29.216:8000';
+  static String baseUrl = 'http://44.212.19.127';
+ 
   static String refreshUrl = '/accounts/api/token/refresh/';
   static String login = '/accounts/login/';
   static String register = '/accounts/register/';
@@ -14,4 +14,5 @@ class ApiEndPoints {
   static String card = '/card/card_individual/';
   static String contacts = '/card/registered_contacts/';
   static String getQr = '/qr/qr_data/';
+  static String getCardById = '/card/card_of_another_user/{id}/';
 }

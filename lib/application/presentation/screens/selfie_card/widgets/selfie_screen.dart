@@ -1,3 +1,4 @@
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/qr_scanner_view.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selfie_preview_screen.dart';
@@ -27,6 +28,7 @@ class _SelfieScreenState extends State<SelfieScreen>
   int rightButton = 2;
 
   late AnimationController _controller;
+
 
   @override
   void initState() {
@@ -82,6 +84,8 @@ class _SelfieScreenState extends State<SelfieScreen>
                       width: kwidth * 0.80,
                       height: kwidth * 0.60,
                       color: kwhite,
+                      // build qr code scanner
+                      child: const QrScannerView(),
                     )
                   : const SizedBox(),
               const Spacer(),
@@ -132,6 +136,12 @@ class _SelfieScreenState extends State<SelfieScreen>
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   Widget scannerButton({required String image, required bool left}) {

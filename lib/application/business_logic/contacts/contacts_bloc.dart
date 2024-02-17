@@ -145,6 +145,8 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       for (var x in connections) {
         print(x.name);
       }
+      print("connections.length");
+      print(connections.length);
       return emit(state.copyWith(isLoading: false, contactList: connections));
     });
   }

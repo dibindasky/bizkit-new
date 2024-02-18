@@ -120,13 +120,21 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                               value: 'Edit Card',
                                               child: Text('Edit Card'),
                                             ),
-                                            const PopupMenuItem(
+                                             PopupMenuItem(
+                                              onTap: () => context
+                                                  .read<CardBloc>()
+                                                  .add(CardEvent.archiveCard(
+                                                      id: card.id!)),
                                               value: 'Archive',
-                                              child: Text('Archive'),
+                                              child: const Text('Archive'),
                                             ),
-                                            const PopupMenuItem(
+                                            PopupMenuItem(
+                                              onTap: () => context
+                                                  .read<CardBloc>()
+                                                  .add(CardEvent.deleteCard(
+                                                      id: card.id!)),
                                               value: 'Delete Card',
-                                              child: Text('Delete Card'),
+                                              child: const Text('Delete Card'),
                                             ),
                                           ],
                                         ),

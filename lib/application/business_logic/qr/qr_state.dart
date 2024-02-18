@@ -2,13 +2,13 @@ part of 'qr_bloc.dart';
 
 @freezed
 class QrState with _$QrState {
-  const factory QrState({
-    required bool isLoading,
-    required bool hasError,
-    required List<QrResponse> qrList,
-    String? message,
-    int? selectedQr
-  }) = _Initial;
+  const factory QrState(
+      {required bool isLoading,
+      required bool hasError,
+      required List<QRModel> qrList,
+      String? message,
+      required int selectedQrIndex}) = _Initial;
 
-  factory QrState.initial()=>const QrState(isLoading: false, hasError: false, qrList: []);
+  factory QrState.initial() => const QrState(
+      isLoading: false, hasError: false, qrList: [], selectedQrIndex: 0);
 }

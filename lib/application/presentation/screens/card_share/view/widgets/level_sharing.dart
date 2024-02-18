@@ -1,12 +1,15 @@
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/domain/model/qr/get_qr_code_response_model/qr_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LevelSharing extends StatelessWidget {
-  const LevelSharing({super.key});
+  const LevelSharing({super.key, required this.qrModel});
+
+  final QRModel qrModel;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +83,8 @@ class LevelSharing extends StatelessWidget {
                   text: 'Save',
                   onTap: () {
                     context.read<QrBloc>().add(QrEvent.addNewLevelSharing(
-                        createQrModel: context.read<QrBloc>().createQrModel!));
+                        createQrModel: context.read<QrBloc>().createQrModel
+                        ));
                     Navigator.pop(context);
                   },
                 ),
@@ -116,7 +120,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             if (!value) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
-                  .createQrModel!
+                  .createQrModel
                   .copyWith(
                       email: false,
                       phoneNumber: false,
@@ -126,46 +130,46 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }, neonShade),
         adjustHieght(5),
-        buildSwitch("Email", context.read<QrBloc>().createQrModel!.email!,
+        buildSwitch("Email", context.read<QrBloc>().createQrModel.email!,
             (value) {
           setState(() {
             if (personalDetals) {
               context.read<QrBloc>().createQrModel =
-                  context.read<QrBloc>().createQrModel!.copyWith(email: value);
+                  context.read<QrBloc>().createQrModel.copyWith(email: value);
             }
           });
         }),
         buildSwitch(
-            "Phone Number", context.read<QrBloc>().createQrModel!.phoneNumber!,
+            "Phone Number", context.read<QrBloc>().createQrModel.phoneNumber!,
             (value) {
           setState(() {
             if (personalDetals) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
-                  .createQrModel!
+                  .createQrModel
                   .copyWith(phoneNumber: value);
             }
           });
         }),
-        buildSwitch("Company", context.read<QrBloc>().createQrModel!.company!,
+        buildSwitch("Company", context.read<QrBloc>().createQrModel.company!,
             (value) {
           setState(() {
             if (personalDetals) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
-                  .createQrModel!
+                  .createQrModel
                   .copyWith(company: value);
             }
           });
         }),
         buildSwitch("Personal SocialMedias",
-            context.read<QrBloc>().createQrModel!.personalSocialMedia!,
+            context.read<QrBloc>().createQrModel.personalSocialMedia!,
             (value) {
           setState(() {
             if (personalDetals) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
-                  .createQrModel!
+                  .createQrModel
                   .copyWith(personalSocialMedia: value);
             }
           });
@@ -178,7 +182,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             if (!value) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
-                  .createQrModel!
+                  .createQrModel
                   .copyWith(
                       businessDetailsEmail: false,
                       address: false,
@@ -190,59 +194,59 @@ class _SwitchButtonsState extends State<SwitchButtons> {
         }, neonShade),
         adjustHieght(5),
         buildSwitch("Business PhoneNumber",
-            context.read<QrBloc>().createQrModel!.businessDetailsMobileNumber!,
+            context.read<QrBloc>().createQrModel.businessDetailsMobileNumber!,
             (value) {
           setState(() {
             if (businessDetals) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
-                  .createQrModel!
+                  .createQrModel
                   .copyWith(businessDetailsMobileNumber: value);
             }
           });
         }),
         buildSwitch("Business Email",
-            context.read<QrBloc>().createQrModel!.businessDetailsEmail!,
+            context.read<QrBloc>().createQrModel.businessDetailsEmail!,
             (value) {
           setState(() {
             if (businessDetals) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
-                  .createQrModel!
+                  .createQrModel
                   .copyWith(businessDetailsEmail: value);
             }
           });
         }),
         buildSwitch(
-            "Website Link", context.read<QrBloc>().createQrModel!.websiteLink!,
+            "Website Link", context.read<QrBloc>().createQrModel.websiteLink!,
             (value) {
           setState(() {
             if (businessDetals) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
-                  .createQrModel!
+                  .createQrModel
                   .copyWith(websiteLink: value);
             }
           });
         }),
-        buildSwitch("Address", context.read<QrBloc>().createQrModel!.address!,
+        buildSwitch("Address", context.read<QrBloc>().createQrModel.address!,
             (value) {
           setState(() {
             if (businessDetals) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
-                  .createQrModel!
+                  .createQrModel
                   .copyWith(address: value);
             }
           });
         }),
         buildSwitch("Business SocialMedias",
-            context.read<QrBloc>().createQrModel!.socialMediaHandles!, (value) {
+            context.read<QrBloc>().createQrModel.socialMediaHandles!, (value) {
           setState(() {
             if (businessDetals) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
-                  .createQrModel!
+                  .createQrModel
                   .copyWith(socialMediaHandles: value);
             }
           });

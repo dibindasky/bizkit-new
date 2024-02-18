@@ -2,19 +2,19 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/banking_and_presonal_screens.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PreviewBankPersonAchivedRows extends StatelessWidget {
   const PreviewBankPersonAchivedRows({
-    super.key,
+    super.key, required this.fromPreview,
   });
+
+  final bool fromPreview;
 
   @override
   Widget build(BuildContext context) {
-    String first = 'asset/images/banking.png';
-    String scnd = 'asset/images/persona.png';
-    String third = 'asset/images/achieved.png';
 
     return Row(
       children: [
@@ -27,7 +27,7 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
                   isFromBankScreen: true,
                 )),
               ),
-              child: containerStyle(first, 'Banking'),
+              child: containerStyle(imageBanking, 'Banking'),
             ),
           ),
         ),
@@ -40,7 +40,7 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
                   isFromBankScreen: false,
                 ),
               )),
-              child: containerStyle(scnd, 'Personal'),
+              child: containerStyle(imagePerson, 'Personal'),
             ),
           ),
         ),
@@ -49,9 +49,9 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
             padding: const EdgeInsets.only(left: 5, right: 7),
             child: InkWell(
               onTap: () => Navigator.of(context).push(
-                fadePageRoute(const AccolodesScreen()),
+                fadePageRoute(const AccolodesScreen(accolade: null)),
               ),
-              child: containerStyle(third, 'Achieved'),
+              child: containerStyle(imageAchivement, 'Achieved'),
             ),
           ),
         )

@@ -11,4 +11,7 @@ abstract class CardRepo {
   Future<Either<Failure, GetCardResposnseModel>> getCards(
       {required PageQuery qurey});
   Future<Either<Failure, GetCardResposnseModel>> getCardById({required int id});
+  Future<Either<Failure, SuccessResponseModel>> setDefault({required int id});
+  Future<Either<Failure, SuccessResponseModel>> deleteCard({required int id});
+  Future<Either<Failure, SuccessResponseModel>> archiveCard({required int id});
 }

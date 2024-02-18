@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bizkit/domain/model/qr/create_qr_model/create_qr_model.dart';
-import 'package:bizkit/domain/model/qr/qr_response/qr_response.dart';
+import 'package:bizkit/domain/model/qr/get_qr_code_response_model/qr_model.dart';
 import 'package:bizkit/domain/repository/service/qr_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -13,35 +13,55 @@ part 'qr_bloc.freezed.dart';
 @injectable
 class QrBloc extends Bloc<QrEvent, QrState> {
   final QrServiceRepo qrServiceImpl;
-  CreateQrModel? createQrModel = CreateQrModel(
-      address: true,
-      businessDetailsEmail: true,
-      businessDetailsMobileNumber: true,
-      card: 1,
-      company: true,
-      email: true,
-      personalSocialMedia: true,
-      phoneNumber: true,
-      socialMediaHandles: true,
-      websiteLink: true);
+  CreateQrModel createQrModel = CreateQrModel();
 
   QrBloc(this.qrServiceImpl) : super(QrState.initial()) {
     on<AddNewLevelSharing>(addNewLevelSharing);
-    on<GetLevelSharing>(getLevelSharing);
     on<GetQrCodes>(getQrCodes);
     on<ChangeQRSelection>(changeQRSelection);
   }
 
-  FutureOr<void> addNewLevelSharing(AddNewLevelSharing event, emit) {
-    // TODO: implement event handler
+  FutureOr<void> addNewLevelSharing(AddNewLevelSharing event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final result = await qrServiceImpl.updateLevelSharing(
+        createQrModel: event.createQrModel);
+    result.fold(
+        (failure) => emit(state.copyWith(
+            isLoading: false,
+            hasError: true,
+            message: failure.message)), (response) {
+      List<QRModel> list = List.from(state.qrList);
+      list[state.selectedQrIndex] = response;
+      return emit(state.copyWith(isLoading: false, qrList: list));
+    });
   }
-  FutureOr<void> getLevelSharing(GetLevelSharing event, emit) {
-    // TODO: implement event handler
+
+  FutureOr<void> getQrCodes(GetQrCodes event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final result = await qrServiceImpl.getAllQrCode();
+    result.fold(
+        (failure) => emit(state.copyWith(
+            isLoading: false, hasError: true, message: failure.message)),
+        (response) {
+          emit(
+            state.copyWith(isLoading: false, qrList: response.results ?? []));
+            add(const QrEvent.changeQRSelection(index: 0));
+        });
   }
-  FutureOr<void> getQrCodes(GetQrCodes event, emit) {
-    // TODO: implement event handler
-  }
+
   FutureOr<void> changeQRSelection(ChangeQRSelection event, emit) {
-    emit(state.copyWith(selectedQr: event.index));
+    final model = state.qrList[event.index];
+    createQrModel = createQrModel.copyWith(
+        address: model.address,
+        businessDetailsEmail: model.businessDetailsEmail,
+        businessDetailsMobileNumber: model.businessDetailsMobileNumber,
+        company: model.company,
+        email: model.email,
+        personalSocialMedia: model.personalSocialMedia,
+        phoneNumber: model.phoneNumber,
+        socialMediaHandles: model.socialMediaHandles,
+        websiteLink: model.websiteLink,
+        card: model.card);
+    emit(state.copyWith(selectedQrIndex: event.index));
   }
 }

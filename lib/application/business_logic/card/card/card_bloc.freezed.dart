@@ -20,18 +20,30 @@ mixin _$CardEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getCards,
     required TResult Function() getCardsnextPage,
+    required TResult Function(int id) getCardyUserId,
+    required TResult Function(int id) setDefault,
+    required TResult Function(int id) deleteCard,
+    required TResult Function(int id) archiveCard,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCards,
     TResult? Function()? getCardsnextPage,
+    TResult? Function(int id)? getCardyUserId,
+    TResult? Function(int id)? setDefault,
+    TResult? Function(int id)? deleteCard,
+    TResult? Function(int id)? archiveCard,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCards,
     TResult Function()? getCardsnextPage,
+    TResult Function(int id)? getCardyUserId,
+    TResult Function(int id)? setDefault,
+    TResult Function(int id)? deleteCard,
+    TResult Function(int id)? archiveCard,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +51,30 @@ mixin _$CardEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(GetCards value) getCards,
     required TResult Function(GetCardsnextPage value) getCardsnextPage,
+    required TResult Function(GetCardyUserId value) getCardyUserId,
+    required TResult Function(SetDefault value) setDefault,
+    required TResult Function(DeleteCard value) deleteCard,
+    required TResult Function(ArchiveCard value) archiveCard,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetCards value)? getCards,
     TResult? Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult? Function(GetCardyUserId value)? getCardyUserId,
+    TResult? Function(SetDefault value)? setDefault,
+    TResult? Function(DeleteCard value)? deleteCard,
+    TResult? Function(ArchiveCard value)? archiveCard,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetCards value)? getCards,
     TResult Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult Function(GetCardyUserId value)? getCardyUserId,
+    TResult Function(SetDefault value)? setDefault,
+    TResult Function(DeleteCard value)? deleteCard,
+    TResult Function(ArchiveCard value)? archiveCard,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,6 +137,10 @@ class _$GetCardsImpl implements GetCards {
   TResult when<TResult extends Object?>({
     required TResult Function() getCards,
     required TResult Function() getCardsnextPage,
+    required TResult Function(int id) getCardyUserId,
+    required TResult Function(int id) setDefault,
+    required TResult Function(int id) deleteCard,
+    required TResult Function(int id) archiveCard,
   }) {
     return getCards();
   }
@@ -122,6 +150,10 @@ class _$GetCardsImpl implements GetCards {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCards,
     TResult? Function()? getCardsnextPage,
+    TResult? Function(int id)? getCardyUserId,
+    TResult? Function(int id)? setDefault,
+    TResult? Function(int id)? deleteCard,
+    TResult? Function(int id)? archiveCard,
   }) {
     return getCards?.call();
   }
@@ -131,6 +163,10 @@ class _$GetCardsImpl implements GetCards {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCards,
     TResult Function()? getCardsnextPage,
+    TResult Function(int id)? getCardyUserId,
+    TResult Function(int id)? setDefault,
+    TResult Function(int id)? deleteCard,
+    TResult Function(int id)? archiveCard,
     required TResult orElse(),
   }) {
     if (getCards != null) {
@@ -144,6 +180,10 @@ class _$GetCardsImpl implements GetCards {
   TResult map<TResult extends Object?>({
     required TResult Function(GetCards value) getCards,
     required TResult Function(GetCardsnextPage value) getCardsnextPage,
+    required TResult Function(GetCardyUserId value) getCardyUserId,
+    required TResult Function(SetDefault value) setDefault,
+    required TResult Function(DeleteCard value) deleteCard,
+    required TResult Function(ArchiveCard value) archiveCard,
   }) {
     return getCards(this);
   }
@@ -153,6 +193,10 @@ class _$GetCardsImpl implements GetCards {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetCards value)? getCards,
     TResult? Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult? Function(GetCardyUserId value)? getCardyUserId,
+    TResult? Function(SetDefault value)? setDefault,
+    TResult? Function(DeleteCard value)? deleteCard,
+    TResult? Function(ArchiveCard value)? archiveCard,
   }) {
     return getCards?.call(this);
   }
@@ -162,6 +206,10 @@ class _$GetCardsImpl implements GetCards {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetCards value)? getCards,
     TResult Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult Function(GetCardyUserId value)? getCardyUserId,
+    TResult Function(SetDefault value)? setDefault,
+    TResult Function(DeleteCard value)? deleteCard,
+    TResult Function(ArchiveCard value)? archiveCard,
     required TResult orElse(),
   }) {
     if (getCards != null) {
@@ -215,6 +263,10 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
   TResult when<TResult extends Object?>({
     required TResult Function() getCards,
     required TResult Function() getCardsnextPage,
+    required TResult Function(int id) getCardyUserId,
+    required TResult Function(int id) setDefault,
+    required TResult Function(int id) deleteCard,
+    required TResult Function(int id) archiveCard,
   }) {
     return getCardsnextPage();
   }
@@ -224,6 +276,10 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCards,
     TResult? Function()? getCardsnextPage,
+    TResult? Function(int id)? getCardyUserId,
+    TResult? Function(int id)? setDefault,
+    TResult? Function(int id)? deleteCard,
+    TResult? Function(int id)? archiveCard,
   }) {
     return getCardsnextPage?.call();
   }
@@ -233,6 +289,10 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCards,
     TResult Function()? getCardsnextPage,
+    TResult Function(int id)? getCardyUserId,
+    TResult Function(int id)? setDefault,
+    TResult Function(int id)? deleteCard,
+    TResult Function(int id)? archiveCard,
     required TResult orElse(),
   }) {
     if (getCardsnextPage != null) {
@@ -246,6 +306,10 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
   TResult map<TResult extends Object?>({
     required TResult Function(GetCards value) getCards,
     required TResult Function(GetCardsnextPage value) getCardsnextPage,
+    required TResult Function(GetCardyUserId value) getCardyUserId,
+    required TResult Function(SetDefault value) setDefault,
+    required TResult Function(DeleteCard value) deleteCard,
+    required TResult Function(ArchiveCard value) archiveCard,
   }) {
     return getCardsnextPage(this);
   }
@@ -255,6 +319,10 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetCards value)? getCards,
     TResult? Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult? Function(GetCardyUserId value)? getCardyUserId,
+    TResult? Function(SetDefault value)? setDefault,
+    TResult? Function(DeleteCard value)? deleteCard,
+    TResult? Function(ArchiveCard value)? archiveCard,
   }) {
     return getCardsnextPage?.call(this);
   }
@@ -264,6 +332,10 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetCards value)? getCards,
     TResult Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult Function(GetCardyUserId value)? getCardyUserId,
+    TResult Function(SetDefault value)? setDefault,
+    TResult Function(DeleteCard value)? deleteCard,
+    TResult Function(ArchiveCard value)? archiveCard,
     required TResult orElse(),
   }) {
     if (getCardsnextPage != null) {
@@ -278,6 +350,635 @@ abstract class GetCardsnextPage implements CardEvent {
 }
 
 /// @nodoc
+abstract class _$$GetCardyUserIdImplCopyWith<$Res> {
+  factory _$$GetCardyUserIdImplCopyWith(_$GetCardyUserIdImpl value,
+          $Res Function(_$GetCardyUserIdImpl) then) =
+      __$$GetCardyUserIdImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$GetCardyUserIdImplCopyWithImpl<$Res>
+    extends _$CardEventCopyWithImpl<$Res, _$GetCardyUserIdImpl>
+    implements _$$GetCardyUserIdImplCopyWith<$Res> {
+  __$$GetCardyUserIdImplCopyWithImpl(
+      _$GetCardyUserIdImpl _value, $Res Function(_$GetCardyUserIdImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$GetCardyUserIdImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetCardyUserIdImpl implements GetCardyUserId {
+  const _$GetCardyUserIdImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'CardEvent.getCardyUserId(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCardyUserIdImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCardyUserIdImplCopyWith<_$GetCardyUserIdImpl> get copyWith =>
+      __$$GetCardyUserIdImplCopyWithImpl<_$GetCardyUserIdImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCards,
+    required TResult Function() getCardsnextPage,
+    required TResult Function(int id) getCardyUserId,
+    required TResult Function(int id) setDefault,
+    required TResult Function(int id) deleteCard,
+    required TResult Function(int id) archiveCard,
+  }) {
+    return getCardyUserId(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCards,
+    TResult? Function()? getCardsnextPage,
+    TResult? Function(int id)? getCardyUserId,
+    TResult? Function(int id)? setDefault,
+    TResult? Function(int id)? deleteCard,
+    TResult? Function(int id)? archiveCard,
+  }) {
+    return getCardyUserId?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCards,
+    TResult Function()? getCardsnextPage,
+    TResult Function(int id)? getCardyUserId,
+    TResult Function(int id)? setDefault,
+    TResult Function(int id)? deleteCard,
+    TResult Function(int id)? archiveCard,
+    required TResult orElse(),
+  }) {
+    if (getCardyUserId != null) {
+      return getCardyUserId(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCards value) getCards,
+    required TResult Function(GetCardsnextPage value) getCardsnextPage,
+    required TResult Function(GetCardyUserId value) getCardyUserId,
+    required TResult Function(SetDefault value) setDefault,
+    required TResult Function(DeleteCard value) deleteCard,
+    required TResult Function(ArchiveCard value) archiveCard,
+  }) {
+    return getCardyUserId(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCards value)? getCards,
+    TResult? Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult? Function(GetCardyUserId value)? getCardyUserId,
+    TResult? Function(SetDefault value)? setDefault,
+    TResult? Function(DeleteCard value)? deleteCard,
+    TResult? Function(ArchiveCard value)? archiveCard,
+  }) {
+    return getCardyUserId?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCards value)? getCards,
+    TResult Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult Function(GetCardyUserId value)? getCardyUserId,
+    TResult Function(SetDefault value)? setDefault,
+    TResult Function(DeleteCard value)? deleteCard,
+    TResult Function(ArchiveCard value)? archiveCard,
+    required TResult orElse(),
+  }) {
+    if (getCardyUserId != null) {
+      return getCardyUserId(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetCardyUserId implements CardEvent {
+  const factory GetCardyUserId({required final int id}) = _$GetCardyUserIdImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$GetCardyUserIdImplCopyWith<_$GetCardyUserIdImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SetDefaultImplCopyWith<$Res> {
+  factory _$$SetDefaultImplCopyWith(
+          _$SetDefaultImpl value, $Res Function(_$SetDefaultImpl) then) =
+      __$$SetDefaultImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$SetDefaultImplCopyWithImpl<$Res>
+    extends _$CardEventCopyWithImpl<$Res, _$SetDefaultImpl>
+    implements _$$SetDefaultImplCopyWith<$Res> {
+  __$$SetDefaultImplCopyWithImpl(
+      _$SetDefaultImpl _value, $Res Function(_$SetDefaultImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$SetDefaultImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SetDefaultImpl implements SetDefault {
+  const _$SetDefaultImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'CardEvent.setDefault(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SetDefaultImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SetDefaultImplCopyWith<_$SetDefaultImpl> get copyWith =>
+      __$$SetDefaultImplCopyWithImpl<_$SetDefaultImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCards,
+    required TResult Function() getCardsnextPage,
+    required TResult Function(int id) getCardyUserId,
+    required TResult Function(int id) setDefault,
+    required TResult Function(int id) deleteCard,
+    required TResult Function(int id) archiveCard,
+  }) {
+    return setDefault(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCards,
+    TResult? Function()? getCardsnextPage,
+    TResult? Function(int id)? getCardyUserId,
+    TResult? Function(int id)? setDefault,
+    TResult? Function(int id)? deleteCard,
+    TResult? Function(int id)? archiveCard,
+  }) {
+    return setDefault?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCards,
+    TResult Function()? getCardsnextPage,
+    TResult Function(int id)? getCardyUserId,
+    TResult Function(int id)? setDefault,
+    TResult Function(int id)? deleteCard,
+    TResult Function(int id)? archiveCard,
+    required TResult orElse(),
+  }) {
+    if (setDefault != null) {
+      return setDefault(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCards value) getCards,
+    required TResult Function(GetCardsnextPage value) getCardsnextPage,
+    required TResult Function(GetCardyUserId value) getCardyUserId,
+    required TResult Function(SetDefault value) setDefault,
+    required TResult Function(DeleteCard value) deleteCard,
+    required TResult Function(ArchiveCard value) archiveCard,
+  }) {
+    return setDefault(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCards value)? getCards,
+    TResult? Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult? Function(GetCardyUserId value)? getCardyUserId,
+    TResult? Function(SetDefault value)? setDefault,
+    TResult? Function(DeleteCard value)? deleteCard,
+    TResult? Function(ArchiveCard value)? archiveCard,
+  }) {
+    return setDefault?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCards value)? getCards,
+    TResult Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult Function(GetCardyUserId value)? getCardyUserId,
+    TResult Function(SetDefault value)? setDefault,
+    TResult Function(DeleteCard value)? deleteCard,
+    TResult Function(ArchiveCard value)? archiveCard,
+    required TResult orElse(),
+  }) {
+    if (setDefault != null) {
+      return setDefault(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SetDefault implements CardEvent {
+  const factory SetDefault({required final int id}) = _$SetDefaultImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$SetDefaultImplCopyWith<_$SetDefaultImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteCardImplCopyWith<$Res> {
+  factory _$$DeleteCardImplCopyWith(
+          _$DeleteCardImpl value, $Res Function(_$DeleteCardImpl) then) =
+      __$$DeleteCardImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$DeleteCardImplCopyWithImpl<$Res>
+    extends _$CardEventCopyWithImpl<$Res, _$DeleteCardImpl>
+    implements _$$DeleteCardImplCopyWith<$Res> {
+  __$$DeleteCardImplCopyWithImpl(
+      _$DeleteCardImpl _value, $Res Function(_$DeleteCardImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$DeleteCardImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteCardImpl implements DeleteCard {
+  const _$DeleteCardImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'CardEvent.deleteCard(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteCardImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteCardImplCopyWith<_$DeleteCardImpl> get copyWith =>
+      __$$DeleteCardImplCopyWithImpl<_$DeleteCardImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCards,
+    required TResult Function() getCardsnextPage,
+    required TResult Function(int id) getCardyUserId,
+    required TResult Function(int id) setDefault,
+    required TResult Function(int id) deleteCard,
+    required TResult Function(int id) archiveCard,
+  }) {
+    return deleteCard(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCards,
+    TResult? Function()? getCardsnextPage,
+    TResult? Function(int id)? getCardyUserId,
+    TResult? Function(int id)? setDefault,
+    TResult? Function(int id)? deleteCard,
+    TResult? Function(int id)? archiveCard,
+  }) {
+    return deleteCard?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCards,
+    TResult Function()? getCardsnextPage,
+    TResult Function(int id)? getCardyUserId,
+    TResult Function(int id)? setDefault,
+    TResult Function(int id)? deleteCard,
+    TResult Function(int id)? archiveCard,
+    required TResult orElse(),
+  }) {
+    if (deleteCard != null) {
+      return deleteCard(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCards value) getCards,
+    required TResult Function(GetCardsnextPage value) getCardsnextPage,
+    required TResult Function(GetCardyUserId value) getCardyUserId,
+    required TResult Function(SetDefault value) setDefault,
+    required TResult Function(DeleteCard value) deleteCard,
+    required TResult Function(ArchiveCard value) archiveCard,
+  }) {
+    return deleteCard(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCards value)? getCards,
+    TResult? Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult? Function(GetCardyUserId value)? getCardyUserId,
+    TResult? Function(SetDefault value)? setDefault,
+    TResult? Function(DeleteCard value)? deleteCard,
+    TResult? Function(ArchiveCard value)? archiveCard,
+  }) {
+    return deleteCard?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCards value)? getCards,
+    TResult Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult Function(GetCardyUserId value)? getCardyUserId,
+    TResult Function(SetDefault value)? setDefault,
+    TResult Function(DeleteCard value)? deleteCard,
+    TResult Function(ArchiveCard value)? archiveCard,
+    required TResult orElse(),
+  }) {
+    if (deleteCard != null) {
+      return deleteCard(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DeleteCard implements CardEvent {
+  const factory DeleteCard({required final int id}) = _$DeleteCardImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$DeleteCardImplCopyWith<_$DeleteCardImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ArchiveCardImplCopyWith<$Res> {
+  factory _$$ArchiveCardImplCopyWith(
+          _$ArchiveCardImpl value, $Res Function(_$ArchiveCardImpl) then) =
+      __$$ArchiveCardImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$ArchiveCardImplCopyWithImpl<$Res>
+    extends _$CardEventCopyWithImpl<$Res, _$ArchiveCardImpl>
+    implements _$$ArchiveCardImplCopyWith<$Res> {
+  __$$ArchiveCardImplCopyWithImpl(
+      _$ArchiveCardImpl _value, $Res Function(_$ArchiveCardImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$ArchiveCardImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ArchiveCardImpl implements ArchiveCard {
+  const _$ArchiveCardImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'CardEvent.archiveCard(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ArchiveCardImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ArchiveCardImplCopyWith<_$ArchiveCardImpl> get copyWith =>
+      __$$ArchiveCardImplCopyWithImpl<_$ArchiveCardImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCards,
+    required TResult Function() getCardsnextPage,
+    required TResult Function(int id) getCardyUserId,
+    required TResult Function(int id) setDefault,
+    required TResult Function(int id) deleteCard,
+    required TResult Function(int id) archiveCard,
+  }) {
+    return archiveCard(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCards,
+    TResult? Function()? getCardsnextPage,
+    TResult? Function(int id)? getCardyUserId,
+    TResult? Function(int id)? setDefault,
+    TResult? Function(int id)? deleteCard,
+    TResult? Function(int id)? archiveCard,
+  }) {
+    return archiveCard?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCards,
+    TResult Function()? getCardsnextPage,
+    TResult Function(int id)? getCardyUserId,
+    TResult Function(int id)? setDefault,
+    TResult Function(int id)? deleteCard,
+    TResult Function(int id)? archiveCard,
+    required TResult orElse(),
+  }) {
+    if (archiveCard != null) {
+      return archiveCard(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCards value) getCards,
+    required TResult Function(GetCardsnextPage value) getCardsnextPage,
+    required TResult Function(GetCardyUserId value) getCardyUserId,
+    required TResult Function(SetDefault value) setDefault,
+    required TResult Function(DeleteCard value) deleteCard,
+    required TResult Function(ArchiveCard value) archiveCard,
+  }) {
+    return archiveCard(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCards value)? getCards,
+    TResult? Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult? Function(GetCardyUserId value)? getCardyUserId,
+    TResult? Function(SetDefault value)? setDefault,
+    TResult? Function(DeleteCard value)? deleteCard,
+    TResult? Function(ArchiveCard value)? archiveCard,
+  }) {
+    return archiveCard?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCards value)? getCards,
+    TResult Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult Function(GetCardyUserId value)? getCardyUserId,
+    TResult Function(SetDefault value)? setDefault,
+    TResult Function(DeleteCard value)? deleteCard,
+    TResult Function(ArchiveCard value)? archiveCard,
+    required TResult orElse(),
+  }) {
+    if (archiveCard != null) {
+      return archiveCard(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ArchiveCard implements CardEvent {
+  const factory ArchiveCard({required final int id}) = _$ArchiveCardImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$ArchiveCardImplCopyWith<_$ArchiveCardImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CardState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get pageLoading => throw _privateConstructorUsedError;
@@ -285,6 +986,7 @@ mixin _$CardState {
   List<Card> get cards => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Card? get defaultCard => throw _privateConstructorUsedError;
+  Card? get anotherCard => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CardStateCopyWith<CardState> get copyWith =>
@@ -302,7 +1004,8 @@ abstract class $CardStateCopyWith<$Res> {
       bool hasError,
       List<Card> cards,
       String? message,
-      Card? defaultCard});
+      Card? defaultCard,
+      Card? anotherCard});
 }
 
 /// @nodoc
@@ -324,6 +1027,7 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
     Object? cards = null,
     Object? message = freezed,
     Object? defaultCard = freezed,
+    Object? anotherCard = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -350,6 +1054,10 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
           ? _value.defaultCard
           : defaultCard // ignore: cast_nullable_to_non_nullable
               as Card?,
+      anotherCard: freezed == anotherCard
+          ? _value.anotherCard
+          : anotherCard // ignore: cast_nullable_to_non_nullable
+              as Card?,
     ) as $Val);
   }
 }
@@ -368,7 +1076,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool hasError,
       List<Card> cards,
       String? message,
-      Card? defaultCard});
+      Card? defaultCard,
+      Card? anotherCard});
 }
 
 /// @nodoc
@@ -388,6 +1097,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? cards = null,
     Object? message = freezed,
     Object? defaultCard = freezed,
+    Object? anotherCard = freezed,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -414,6 +1124,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.defaultCard
           : defaultCard // ignore: cast_nullable_to_non_nullable
               as Card?,
+      anotherCard: freezed == anotherCard
+          ? _value.anotherCard
+          : anotherCard // ignore: cast_nullable_to_non_nullable
+              as Card?,
     ));
   }
 }
@@ -427,7 +1141,8 @@ class _$InitialImpl implements _Initial {
       required this.hasError,
       required final List<Card> cards,
       this.message,
-      this.defaultCard})
+      this.defaultCard,
+      this.anotherCard})
       : _cards = cards;
 
   @override
@@ -448,10 +1163,12 @@ class _$InitialImpl implements _Initial {
   final String? message;
   @override
   final Card? defaultCard;
+  @override
+  final Card? anotherCard;
 
   @override
   String toString() {
-    return 'CardState(isLoading: $isLoading, pageLoading: $pageLoading, hasError: $hasError, cards: $cards, message: $message, defaultCard: $defaultCard)';
+    return 'CardState(isLoading: $isLoading, pageLoading: $pageLoading, hasError: $hasError, cards: $cards, message: $message, defaultCard: $defaultCard, anotherCard: $anotherCard)';
   }
 
   @override
@@ -468,12 +1185,21 @@ class _$InitialImpl implements _Initial {
             const DeepCollectionEquality().equals(other._cards, _cards) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.defaultCard, defaultCard) ||
-                other.defaultCard == defaultCard));
+                other.defaultCard == defaultCard) &&
+            (identical(other.anotherCard, anotherCard) ||
+                other.anotherCard == anotherCard));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, pageLoading, hasError,
-      const DeepCollectionEquality().hash(_cards), message, defaultCard);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      pageLoading,
+      hasError,
+      const DeepCollectionEquality().hash(_cards),
+      message,
+      defaultCard,
+      anotherCard);
 
   @JsonKey(ignore: true)
   @override
@@ -489,7 +1215,8 @@ abstract class _Initial implements CardState {
       required final bool hasError,
       required final List<Card> cards,
       final String? message,
-      final Card? defaultCard}) = _$InitialImpl;
+      final Card? defaultCard,
+      final Card? anotherCard}) = _$InitialImpl;
 
   @override
   bool get isLoading;
@@ -503,6 +1230,8 @@ abstract class _Initial implements CardState {
   String? get message;
   @override
   Card? get defaultCard;
+  @override
+  Card? get anotherCard;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

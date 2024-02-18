@@ -109,7 +109,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
             state.socialMedias.isEmpty ? [] : state.socialMedias);
     print(personalData.toJson());
 
-    emit(state.copyWith(personalDetails: personalData));
+    emit(state.copyWith(personalDetails: personalData,message: null));
   }
 
   FutureOr<void> clear(Clear event, emit) async {
@@ -119,7 +119,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> addDateToRemember(AddDateToRemember event, emit) async {
     final List<DatesToRememberCreate> list = List.from(state.datesToRemember);
     list.add(event.datesToRemember);
-    emit(state.copyWith(datesToRemember: list, cardAdded: null));
+    emit(state.copyWith(datesToRemember: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> removeDateToRemember(RemoveDateToRemember event, emit) async {
@@ -129,13 +129,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         list.add(datesToRemember);
       }
     }
-    emit(state.copyWith(datesToRemember: list, cardAdded: null));
+    emit(state.copyWith(datesToRemember: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
     final List<SocialMediaHandleCreate> list = List.from(state.socialMedias);
     list.add(event.socialMediaHandle);
-    emit(state.copyWith(socialMedias: list, cardAdded: null));
+    emit(state.copyWith(socialMedias: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> removeSocialMedia(RemoveSocialMedia event, emit) async {
@@ -145,13 +145,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         list.add(socialMediaHandle);
       }
     }
-    emit(state.copyWith(socialMedias: list, cardAdded: null));
+    emit(state.copyWith(socialMedias: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> addAccolade(AddAccolade event, emit) async {
     final List<AccoladeCreate> list = List.from(state.accolades);
     list.add(event.accolade);
-    emit(state.copyWith(accolades: list, cardAdded: null));
+    emit(state.copyWith(accolades: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> removeAccolade(RemoveAccolade event, emit) async {
@@ -159,7 +159,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (AccoladeCreate accolade in state.accolades) {
       if (state.accolades[event.index] != accolade) list.add(accolade);
     }
-    emit(state.copyWith(accolades: list, cardAdded: null));
+    emit(state.copyWith(accolades: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> pickUserPhotos(PickUserPhotos event, emit) async {
@@ -167,7 +167,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     final img = await ImagePickerClass.getImage(camera: false);
     if (img != null) {
       list.add(img);
-      emit(state.copyWith(userPhotos: list, cardAdded: null));
+      emit(state.copyWith(userPhotos: list, cardAdded: null,message: null));
     }
   }
 
@@ -176,7 +176,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (ImageModel img in state.userPhotos) {
       if (state.userPhotos[event.index] != img) list.add(img);
     }
-    emit(state.copyWith(userPhotos: list, cardAdded: null));
+    emit(state.copyWith(userPhotos: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> removeImageScanning(RemoveImageScanning event, emit) async {
@@ -184,7 +184,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (ImageModel img in state.scannedImagesCardCreation) {
       if (state.scannedImagesCardCreation[event.index] != img) list.add(img);
     }
-    emit(state.copyWith(scannedImagesCardCreation: list, cardAdded: null));
+    emit(state.copyWith(scannedImagesCardCreation: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> processImageScanning(ProcessImageScanning event, emit) async {
@@ -193,7 +193,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     result.fold(
         (failure) => null,
         (scannedImageText) => emit(state.copyWith(
-            scannedImageDatasModel: scannedImageText, cardAdded: null)));
+            scannedImageDatasModel: scannedImageText, cardAdded: null,message: null)));
   }
 
   FutureOr<void> pickImageScanning(PickImageScanning event, emit) async {
@@ -202,7 +202,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       emit(state.copyWith(scannedImagesCardCreation: [
         ...state.scannedImagesCardCreation,
         image
-      ], cardAdded: null));
+      ], cardAdded: null,message: null));
     }
   }
 

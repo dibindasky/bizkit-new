@@ -4,4 +4,8 @@ part of 'card_bloc.dart';
 class CardEvent with _$CardEvent {
   const factory CardEvent.getCards() = GetCards;
   const factory CardEvent.getCardsnextPage() = GetCardsnextPage;
+  const factory CardEvent.getCardyUserId({required int id}) = GetCardyUserId;
+  const factory CardEvent.setDefault({required int id}) = SetDefault;
+  const factory CardEvent.deleteCard({required int id}) = DeleteCard;
+  const factory CardEvent.archiveCard({required int id}) = ArchiveCard;
 }

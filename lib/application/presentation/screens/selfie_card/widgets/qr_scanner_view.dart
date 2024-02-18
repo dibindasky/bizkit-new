@@ -59,7 +59,7 @@ class _QrScannerViewState extends State<QrScannerView> {
   Future<void> _launchUrl(String url) async {
     print("inside url launcher");
     final uri = Uri.parse(url);
-    if (!await launchUrl(uri ,mode: LaunchMode.externalApplication)) {
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
   }

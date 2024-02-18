@@ -20,7 +20,6 @@ mixin _$QrEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getQrCodes,
     required TResult Function(int index) changeQRSelection,
-    required TResult Function() getLevelSharing,
     required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +27,6 @@ mixin _$QrEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getQrCodes,
     TResult? Function(int index)? changeQRSelection,
-    TResult? Function()? getLevelSharing,
     TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +34,6 @@ mixin _$QrEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getQrCodes,
     TResult Function(int index)? changeQRSelection,
-    TResult Function()? getLevelSharing,
     TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
     required TResult orElse(),
   }) =>
@@ -45,7 +42,6 @@ mixin _$QrEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(GetQrCodes value) getQrCodes,
     required TResult Function(ChangeQRSelection value) changeQRSelection,
-    required TResult Function(GetLevelSharing value) getLevelSharing,
     required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
   }) =>
       throw _privateConstructorUsedError;
@@ -53,7 +49,6 @@ mixin _$QrEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetQrCodes value)? getQrCodes,
     TResult? Function(ChangeQRSelection value)? changeQRSelection,
-    TResult? Function(GetLevelSharing value)? getLevelSharing,
     TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +56,6 @@ mixin _$QrEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetQrCodes value)? getQrCodes,
     TResult Function(ChangeQRSelection value)? changeQRSelection,
-    TResult Function(GetLevelSharing value)? getLevelSharing,
     TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
     required TResult orElse(),
   }) =>
@@ -125,7 +119,6 @@ class _$GetQrCodesImpl implements GetQrCodes {
   TResult when<TResult extends Object?>({
     required TResult Function() getQrCodes,
     required TResult Function(int index) changeQRSelection,
-    required TResult Function() getLevelSharing,
     required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
   }) {
     return getQrCodes();
@@ -136,7 +129,6 @@ class _$GetQrCodesImpl implements GetQrCodes {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getQrCodes,
     TResult? Function(int index)? changeQRSelection,
-    TResult? Function()? getLevelSharing,
     TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
   }) {
     return getQrCodes?.call();
@@ -147,7 +139,6 @@ class _$GetQrCodesImpl implements GetQrCodes {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getQrCodes,
     TResult Function(int index)? changeQRSelection,
-    TResult Function()? getLevelSharing,
     TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
     required TResult orElse(),
   }) {
@@ -162,7 +153,6 @@ class _$GetQrCodesImpl implements GetQrCodes {
   TResult map<TResult extends Object?>({
     required TResult Function(GetQrCodes value) getQrCodes,
     required TResult Function(ChangeQRSelection value) changeQRSelection,
-    required TResult Function(GetLevelSharing value) getLevelSharing,
     required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
   }) {
     return getQrCodes(this);
@@ -173,7 +163,6 @@ class _$GetQrCodesImpl implements GetQrCodes {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetQrCodes value)? getQrCodes,
     TResult? Function(ChangeQRSelection value)? changeQRSelection,
-    TResult? Function(GetLevelSharing value)? getLevelSharing,
     TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
   }) {
     return getQrCodes?.call(this);
@@ -184,7 +173,6 @@ class _$GetQrCodesImpl implements GetQrCodes {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetQrCodes value)? getQrCodes,
     TResult Function(ChangeQRSelection value)? changeQRSelection,
-    TResult Function(GetLevelSharing value)? getLevelSharing,
     TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
     required TResult orElse(),
   }) {
@@ -266,7 +254,6 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
   TResult when<TResult extends Object?>({
     required TResult Function() getQrCodes,
     required TResult Function(int index) changeQRSelection,
-    required TResult Function() getLevelSharing,
     required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
   }) {
     return changeQRSelection(index);
@@ -277,7 +264,6 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getQrCodes,
     TResult? Function(int index)? changeQRSelection,
-    TResult? Function()? getLevelSharing,
     TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
   }) {
     return changeQRSelection?.call(index);
@@ -288,7 +274,6 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getQrCodes,
     TResult Function(int index)? changeQRSelection,
-    TResult Function()? getLevelSharing,
     TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
     required TResult orElse(),
   }) {
@@ -303,7 +288,6 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
   TResult map<TResult extends Object?>({
     required TResult Function(GetQrCodes value) getQrCodes,
     required TResult Function(ChangeQRSelection value) changeQRSelection,
-    required TResult Function(GetLevelSharing value) getLevelSharing,
     required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
   }) {
     return changeQRSelection(this);
@@ -314,7 +298,6 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetQrCodes value)? getQrCodes,
     TResult? Function(ChangeQRSelection value)? changeQRSelection,
-    TResult? Function(GetLevelSharing value)? getLevelSharing,
     TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
   }) {
     return changeQRSelection?.call(this);
@@ -325,7 +308,6 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetQrCodes value)? getQrCodes,
     TResult Function(ChangeQRSelection value)? changeQRSelection,
-    TResult Function(GetLevelSharing value)? getLevelSharing,
     TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
     required TResult orElse(),
   }) {
@@ -344,120 +326,6 @@ abstract class ChangeQRSelection implements QrEvent {
   @JsonKey(ignore: true)
   _$$ChangeQRSelectionImplCopyWith<_$ChangeQRSelectionImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GetLevelSharingImplCopyWith<$Res> {
-  factory _$$GetLevelSharingImplCopyWith(_$GetLevelSharingImpl value,
-          $Res Function(_$GetLevelSharingImpl) then) =
-      __$$GetLevelSharingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GetLevelSharingImplCopyWithImpl<$Res>
-    extends _$QrEventCopyWithImpl<$Res, _$GetLevelSharingImpl>
-    implements _$$GetLevelSharingImplCopyWith<$Res> {
-  __$$GetLevelSharingImplCopyWithImpl(
-      _$GetLevelSharingImpl _value, $Res Function(_$GetLevelSharingImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$GetLevelSharingImpl implements GetLevelSharing {
-  const _$GetLevelSharingImpl();
-
-  @override
-  String toString() {
-    return 'QrEvent.getLevelSharing()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetLevelSharingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() getQrCodes,
-    required TResult Function(int index) changeQRSelection,
-    required TResult Function() getLevelSharing,
-    required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
-  }) {
-    return getLevelSharing();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getQrCodes,
-    TResult? Function(int index)? changeQRSelection,
-    TResult? Function()? getLevelSharing,
-    TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
-  }) {
-    return getLevelSharing?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getQrCodes,
-    TResult Function(int index)? changeQRSelection,
-    TResult Function()? getLevelSharing,
-    TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
-    required TResult orElse(),
-  }) {
-    if (getLevelSharing != null) {
-      return getLevelSharing();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(GetQrCodes value) getQrCodes,
-    required TResult Function(ChangeQRSelection value) changeQRSelection,
-    required TResult Function(GetLevelSharing value) getLevelSharing,
-    required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
-  }) {
-    return getLevelSharing(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(GetQrCodes value)? getQrCodes,
-    TResult? Function(ChangeQRSelection value)? changeQRSelection,
-    TResult? Function(GetLevelSharing value)? getLevelSharing,
-    TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
-  }) {
-    return getLevelSharing?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(GetQrCodes value)? getQrCodes,
-    TResult Function(ChangeQRSelection value)? changeQRSelection,
-    TResult Function(GetLevelSharing value)? getLevelSharing,
-    TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
-    required TResult orElse(),
-  }) {
-    if (getLevelSharing != null) {
-      return getLevelSharing(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class GetLevelSharing implements QrEvent {
-  const factory GetLevelSharing() = _$GetLevelSharingImpl;
 }
 
 /// @nodoc
@@ -528,7 +396,6 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
   TResult when<TResult extends Object?>({
     required TResult Function() getQrCodes,
     required TResult Function(int index) changeQRSelection,
-    required TResult Function() getLevelSharing,
     required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
   }) {
     return addNewLevelSharing(createQrModel);
@@ -539,7 +406,6 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getQrCodes,
     TResult? Function(int index)? changeQRSelection,
-    TResult? Function()? getLevelSharing,
     TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
   }) {
     return addNewLevelSharing?.call(createQrModel);
@@ -550,7 +416,6 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getQrCodes,
     TResult Function(int index)? changeQRSelection,
-    TResult Function()? getLevelSharing,
     TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
     required TResult orElse(),
   }) {
@@ -565,7 +430,6 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
   TResult map<TResult extends Object?>({
     required TResult Function(GetQrCodes value) getQrCodes,
     required TResult Function(ChangeQRSelection value) changeQRSelection,
-    required TResult Function(GetLevelSharing value) getLevelSharing,
     required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
   }) {
     return addNewLevelSharing(this);
@@ -576,7 +440,6 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetQrCodes value)? getQrCodes,
     TResult? Function(ChangeQRSelection value)? changeQRSelection,
-    TResult? Function(GetLevelSharing value)? getLevelSharing,
     TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
   }) {
     return addNewLevelSharing?.call(this);
@@ -587,7 +450,6 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetQrCodes value)? getQrCodes,
     TResult Function(ChangeQRSelection value)? changeQRSelection,
-    TResult Function(GetLevelSharing value)? getLevelSharing,
     TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
     required TResult orElse(),
   }) {
@@ -612,9 +474,9 @@ abstract class AddNewLevelSharing implements QrEvent {
 mixin _$QrState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
-  List<QrResponse> get qrList => throw _privateConstructorUsedError;
+  List<QRModel> get qrList => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
-  int? get selectedQr => throw _privateConstructorUsedError;
+  int get selectedQrIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QrStateCopyWith<QrState> get copyWith => throw _privateConstructorUsedError;
@@ -628,9 +490,9 @@ abstract class $QrStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool hasError,
-      List<QrResponse> qrList,
+      List<QRModel> qrList,
       String? message,
-      int? selectedQr});
+      int selectedQrIndex});
 }
 
 /// @nodoc
@@ -650,7 +512,7 @@ class _$QrStateCopyWithImpl<$Res, $Val extends QrState>
     Object? hasError = null,
     Object? qrList = null,
     Object? message = freezed,
-    Object? selectedQr = freezed,
+    Object? selectedQrIndex = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -664,15 +526,15 @@ class _$QrStateCopyWithImpl<$Res, $Val extends QrState>
       qrList: null == qrList
           ? _value.qrList
           : qrList // ignore: cast_nullable_to_non_nullable
-              as List<QrResponse>,
+              as List<QRModel>,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      selectedQr: freezed == selectedQr
-          ? _value.selectedQr
-          : selectedQr // ignore: cast_nullable_to_non_nullable
-              as int?,
+      selectedQrIndex: null == selectedQrIndex
+          ? _value.selectedQrIndex
+          : selectedQrIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -687,9 +549,9 @@ abstract class _$$InitialImplCopyWith<$Res> implements $QrStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool hasError,
-      List<QrResponse> qrList,
+      List<QRModel> qrList,
       String? message,
-      int? selectedQr});
+      int selectedQrIndex});
 }
 
 /// @nodoc
@@ -707,7 +569,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? hasError = null,
     Object? qrList = null,
     Object? message = freezed,
-    Object? selectedQr = freezed,
+    Object? selectedQrIndex = null,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -721,15 +583,15 @@ class __$$InitialImplCopyWithImpl<$Res>
       qrList: null == qrList
           ? _value._qrList
           : qrList // ignore: cast_nullable_to_non_nullable
-              as List<QrResponse>,
+              as List<QRModel>,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      selectedQr: freezed == selectedQr
-          ? _value.selectedQr
-          : selectedQr // ignore: cast_nullable_to_non_nullable
-              as int?,
+      selectedQrIndex: null == selectedQrIndex
+          ? _value.selectedQrIndex
+          : selectedQrIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -740,18 +602,18 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
       required this.hasError,
-      required final List<QrResponse> qrList,
+      required final List<QRModel> qrList,
       this.message,
-      this.selectedQr})
+      required this.selectedQrIndex})
       : _qrList = qrList;
 
   @override
   final bool isLoading;
   @override
   final bool hasError;
-  final List<QrResponse> _qrList;
+  final List<QRModel> _qrList;
   @override
-  List<QrResponse> get qrList {
+  List<QRModel> get qrList {
     if (_qrList is EqualUnmodifiableListView) return _qrList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_qrList);
@@ -760,11 +622,11 @@ class _$InitialImpl implements _Initial {
   @override
   final String? message;
   @override
-  final int? selectedQr;
+  final int selectedQrIndex;
 
   @override
   String toString() {
-    return 'QrState(isLoading: $isLoading, hasError: $hasError, qrList: $qrList, message: $message, selectedQr: $selectedQr)';
+    return 'QrState(isLoading: $isLoading, hasError: $hasError, qrList: $qrList, message: $message, selectedQrIndex: $selectedQrIndex)';
   }
 
   @override
@@ -778,13 +640,13 @@ class _$InitialImpl implements _Initial {
                 other.hasError == hasError) &&
             const DeepCollectionEquality().equals(other._qrList, _qrList) &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.selectedQr, selectedQr) ||
-                other.selectedQr == selectedQr));
+            (identical(other.selectedQrIndex, selectedQrIndex) ||
+                other.selectedQrIndex == selectedQrIndex));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading, hasError,
-      const DeepCollectionEquality().hash(_qrList), message, selectedQr);
+      const DeepCollectionEquality().hash(_qrList), message, selectedQrIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -797,20 +659,20 @@ abstract class _Initial implements QrState {
   const factory _Initial(
       {required final bool isLoading,
       required final bool hasError,
-      required final List<QrResponse> qrList,
+      required final List<QRModel> qrList,
       final String? message,
-      final int? selectedQr}) = _$InitialImpl;
+      required final int selectedQrIndex}) = _$InitialImpl;
 
   @override
   bool get isLoading;
   @override
   bool get hasError;
   @override
-  List<QrResponse> get qrList;
+  List<QRModel> get qrList;
   @override
   String? get message;
   @override
-  int? get selectedQr;
+  int get selectedQrIndex;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

@@ -29,7 +29,6 @@ class _SelfieScreenState extends State<SelfieScreen>
 
   late AnimationController _controller;
 
-
   @override
   void initState() {
     _controller = AnimationController(

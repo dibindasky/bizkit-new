@@ -16,9 +16,9 @@ class MeetingDetailProfileTabWidgets extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           children: [
-            const PreviewRowWiceIcons(),
+            const PreviewRowWiceIcons(fromPreview: false),
             adjustHieght(khieght * .01),
-            const PreviewBankPersonAchivedRows(),
+            const PreviewBankPersonAchivedRows(fromPreview: false),
             adjustHieght(khieght * .02),
             const PreviewProductsBrandsLists(fileImages: []),
             adjustHieght(khieght * .02),

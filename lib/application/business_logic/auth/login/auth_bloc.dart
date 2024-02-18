@@ -43,7 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         hasError: false,
         message: null,
         loginResponseModel: null));
-        print('login request send');
+    print('login request send');
     final result = await authRepo.login(loginModel: event.loginModel);
     result.fold(
       (failure) {

@@ -5,9 +5,10 @@ import 'package:bizkit/application/presentation/screens/home/view/first_and_seco
 import 'package:flutter/material.dart';
 
 class PreviewPageviewImageBuilder extends StatefulWidget {
-  const PreviewPageviewImageBuilder({super.key, required this.images});
+  const PreviewPageviewImageBuilder({super.key, this.images, this.imagesList});
 
-  final List<File> images;
+  final List<File>? images;
+  final List<String>? imagesList;
 
   @override
   State<PreviewPageviewImageBuilder> createState() =>
@@ -37,7 +38,9 @@ class _PreviewPageviewImageBuilderState
     return HomeScreenPagviewAnimateBuilder(
       pageController: pageController,
       pageValue: pageValue,
-      pageCount: widget.images.length,
+      pageCount: widget.images != null
+          ? widget.images!.length
+          : widget.imagesList!.length,
       onpageCallBack: (index) {
         setState(() {
           currentIndex = index;
@@ -53,16 +56,17 @@ class _PreviewPageviewImageBuilderState
                 context: context,
                 isScrollControlled: true,
                 builder: (context) => PreviewPageViewBottomSheet(
-                  image: widget.images[index],
+                  image: widget.images?[index],
+                  imageNetwork: widget.imagesList?[index],
                 ),
               ),
               child: SizedBox(
                 width: double.infinity,
                 height: 200,
-                child: Image.file(
-                  widget.images[index],
-                  fit: BoxFit.cover,
-                ),
+                child: widget.imagesList != null
+                    ? Image.network(widget.imagesList![index],
+                        fit: BoxFit.cover)
+                    : Image.file(widget.images![index], fit: BoxFit.cover),
               ),
             ),
           ),

@@ -18,6 +18,48 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   CardBloc(this.cardService) : super(CardState.initial()) {
     on<GetCards>(getCards);
     on<GetCardsnextPage>(getCardsnextPage);
+    on<GetCardyUserId>(getCardyUserId);
+    on<SetDefault>(setDefault);
+    on<DeleteCard>(deleteCard);
+    // on<ArchiveCard>(archiveCard);
+  }
+
+  // FutureOr<void> archiveCard(ArchiveCard event, emit) async {
+  //   retutn emit(state);
+  // }
+
+  FutureOr<void> deleteCard(DeleteCard event, emit) async {
+    emit(state.copyWith(isLoading: true,hasError: false,message: null));
+    final result = await cardService.deleteCard(id: event.id);
+    result.fold(
+        (failure) => emit(state.copyWith(isLoading: false,
+            message: 'failed to delete card', hasError: true)),
+        (success) {
+           emit(state.copyWith(message: 'card deleted successfully'));
+           add(const CardEvent.getCards());
+        });
+  }
+
+  FutureOr<void> setDefault(SetDefault event, emit) async {
+    final result = await cardService.setDefault(id: event.id);
+    result.fold(
+        (failure) => emit(state.copyWith(
+            message: 'failed to set default card', hasError: true)),
+        (success) => emit(state.copyWith(message: 'card set as default')));
+  }
+
+  FutureOr<void> getCardyUserId(GetCardyUserId event, emit) async {
+    emit(state.copyWith(
+        isLoading: true, hasError: false, message: null, anotherCard: null));
+    final result = await cardService.getCardById(id: event.id);
+    result.fold(
+        (left) => emit(state.copyWith(
+            isLoading: false, hasError: true, message: left.message)),
+        (right) => emit(state.copyWith(
+            isLoading: false,
+            anotherCard: right.results != null && right.results!.isNotEmpty
+                ? right.results!.first
+                : null)));
   }
 
   FutureOr<void> getCardsnextPage(GetCardsnextPage event, emit) async {
@@ -41,8 +83,11 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             message: failure.message)), (getCardResposnseModel) {
       print('get card bloc success');
       Card? defaultCard;
-      if (getCardResposnseModel.results != null) {
+      if (getCardResposnseModel.results != null && getCardResposnseModel.results!.isNotEmpty) {
         print('get default card');
+        for (var card in getCardResposnseModel.results!) {
+          print(card.isDefault);
+        }
         defaultCard = getCardResposnseModel.results!
             .firstWhere((card) => card.isDefault!);
       }

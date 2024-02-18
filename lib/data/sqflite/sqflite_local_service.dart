@@ -91,7 +91,7 @@ class LocalService {
       final db = await database;
       final count =
           sql.Sqflite.firstIntValue(await db.rawQuery(query, listParams));
-      if (count!=null && count > 0) {
+      if (count != null && count > 0) {
         return true;
       } else {
         return false;

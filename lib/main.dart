@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,6 +66,21 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           home: const SplashScreen(),
+          // routerConfig: GoRouter(routes: [
+          //   GoRoute(
+          //     path: "/",
+          //     builder: (context, state) => const SplashScreen(),
+          //   ),
+          //   // GoRoute(
+          //   //   path: "/red",
+          //   //   builder: (context, state) => const HomeFirstViewAllContactTileDetailView(),
+          //   // ),
+          //   // GoRoute(
+          //   //   path: "/blue",
+          //   //   builder: (context, state) =>
+          //   //       const ColorDetailPage(color: Colors.blue),
+          //   // ),
+          // ]),
         ),
       ),
     );

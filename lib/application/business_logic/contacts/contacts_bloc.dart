@@ -36,8 +36,10 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     if (state.contactList != null && state.contactList!.isNotEmpty) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final result = await contactLocalService.getContactFromLocalStorage();
-    result.fold((failure) => null, (connections) => emit(state.copyWith(
-          isLoading: false, contactList: connections, message: null)));
+    result.fold(
+        (failure) => null,
+        (connections) => emit(state.copyWith(
+            isLoading: false, contactList: connections, message: null)));
     add(const ContactsEvent.getContactsList());
   }
 
@@ -48,8 +50,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     final reult = await contactFetchFeature.getContactsList();
     print('fetch end');
     reult.fold(
-        (failure) => emit(state.copyWith(
-            isLoading: false, hasError: true)),
+        (failure) => emit(state.copyWith(isLoading: false, hasError: true)),
         (contactList) =>
             add(ContactsEvent.checkContactsInBizkit(contactList: contactList)));
   }
@@ -69,8 +70,8 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
           getContactModel: GetContactModel(phoneNumbers: data));
       GetContactsResponseModel? contactResponseModel;
       result.fold(
-          (failure) => emit(state.copyWith(
-              isLoading: false, hasError: true, message: null)),
+          (failure) => emit(
+              state.copyWith(isLoading: false, hasError: true, message: null)),
           (contactResponse) => contactResponseModel = contactResponse);
       // add every contact to the local storage if the user is present in bizkit store the id and photo also other wise add left over details
       if (contactResponseModel != null &&
@@ -126,15 +127,14 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       add(const ContactsEvent.getConnectionsFromLocalStorage());
     } catch (e) {
       print('fetch error =$e');
-      emit(state.copyWith(
-          isLoading: false, message: errorMessage, hasError: true));
+      add(const ContactsEvent.getConnectionsFromLocalStorage());
     }
   }
 
   // fetch connections form local storage
   FutureOr<void> getConnectionsFromLocalStorage(
       GetConnectionsFromLocalStorage event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    // emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final result = await contactLocalService.getContactFromLocalStorage();
     result.fold(
         (failure) => emit(state.copyWith(
@@ -145,6 +145,8 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       for (var x in connections) {
         print(x.name);
       }
+      print("connections.length");
+      print(connections.length);
       return emit(state.copyWith(isLoading: false, contactList: connections));
     });
   }

@@ -75,6 +75,9 @@ class _TTextFormFieldState extends State<TTextFormField> {
         elevation: 3,
         color: textFieldFillColr,
         child: TextFormField(
+          onTapOutside: (event) {
+            FocusScope.of(context).unfocus();
+          },
           enabled: widget.enabled,
           focusNode: widget.focusNode,
           onTap: widget.onTap,

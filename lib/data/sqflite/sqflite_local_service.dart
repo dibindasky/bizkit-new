@@ -41,10 +41,10 @@ class LocalService {
   }
 
   // insert data
-  Future insert(String table, Map<String,dynamic> map) async {
+  Future insert(String table, Map<String, dynamic> map) async {
     try {
       final db = await database;
-      final id= await db.insert(table, map);
+      final id = await db.insert(table, map);
       log('inserted connecton id-> $id');
     } catch (e) {
       log('insert = > ${e.toString()}');
@@ -56,7 +56,7 @@ class LocalService {
   Future rawInsert(String query, List listParams) async {
     try {
       final db = await database;
-      final id= await db.rawInsert(query,listParams);
+      final id = await db.rawInsert(query, listParams);
       log('inserted connecton id-> $id');
     } catch (e) {
       log('insert = > ${e.toString()}');
@@ -86,11 +86,12 @@ class LocalService {
   }
 
   // check a value is present or not in table
-  Future<bool> presentOrNot(String query,List<String> listParams) async {
+  Future<bool> presentOrNot(String query, List<dynamic> listParams) async {
     try {
       final db = await database;
-      final count = sql.Sqflite.firstIntValue(await db.rawQuery(query,listParams));
-      if (count! > 0) {
+      final count =
+          sql.Sqflite.firstIntValue(await db.rawQuery(query, listParams));
+      if (count != null && count > 0) {
         return true;
       } else {
         return false;

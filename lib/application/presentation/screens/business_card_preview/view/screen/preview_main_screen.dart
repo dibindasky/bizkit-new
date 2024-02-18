@@ -11,6 +11,7 @@ import 'package:bizkit/application/presentation/screens/preview_commen_widgets/b
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_wice_icons.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/card/create_card/create_card_model/create_card_model.dart';
 import 'package:flutter/material.dart';
@@ -77,10 +78,10 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
             ),
             adjustHieght(khieght * .02),
             // contact,social,web details icon button row
-            const PreviewRowWiceIcons(),
+            const PreviewRowWiceIcons(fromPreview: true),
             adjustHieght(khieght * .02),
             // banking, personal, achivements row icons
-            const PreviewBankPersonAchivedRows(),
+            const PreviewBankPersonAchivedRows(fromPreview: true),
             adjustHieght(khieght * .02),
             // products and brochers horizontal List view
             BlocBuilder<BusinessDataBloc, BusinessDataState>(
@@ -109,6 +110,9 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                     }
                   },
                   builder: (context, userState) {
+                    if (userState.isLoading) {
+                      return const LoadingAnimation();
+                    }
                     return AuthButton(
                       wdth: 180,
                       text: 'Create business card',

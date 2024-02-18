@@ -50,7 +50,8 @@ class ContactLocalService implements ContactLocalRepo {
       final data = await localService.rawQuery(query);
       log('getContactFromLocalStorage => length => ${data.length}');
       List<ContactModel> contacts = [];
-      print('====================================names in contact=====================================');
+      print(
+          '====================================names in contact=====================================');
       for (var x in data) {
         print('contact name in sql get => ${x['name']}');
         contacts.add(ContactModel.fromJson(x));
@@ -71,7 +72,7 @@ class ContactLocalService implements ContactLocalRepo {
           '''SELECT COUNT(*) FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ?''';
       final bool present =
           await localService.presentOrNot(query, [contact.phoneNumber!]);
-          log('contact present in db => $present');
+      log('contact present in db => $present');
       if (present) return Left(Failure());
       return await addContactToLocalStorage(contact: contact);
     } catch (e) {

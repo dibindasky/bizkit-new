@@ -1,13 +1,22 @@
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyCardsAndAddCardSection extends StatelessWidget {
   const MyCardsAndAddCardSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((t) {
+      print('time stamp === > $t');
+      context.read<CardBloc>().add(const CardEvent.getCards());
+    });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -18,38 +27,78 @@ class MyCardsAndAddCardSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                height: kwidth * 0.35,
-                width: kwidth * 0.55,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1,
-                    color: neonShade,
-                  ),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text('Alex Tyler', style: textHeadStyle1),
-                        Text(
-                          'UIxUX Designer',
-                          style: TextStyle(fontSize: kwidth * .037),
-                        ),
-                        Image.asset('asset/images/home logo 1.png'),
-                      ],
-                    ),
-                    const Icon(
-                      Icons.arrow_right,
-                      color: kwhite,
-                    )
-                  ],
-                ),
+              BlocBuilder<CardBloc, CardState>(
+                builder: (context, state) {
+                  if (state.isLoading) {
+                    return SizedBox(
+                        height: kwidth * 0.35,
+                        width: kwidth * 0.55,
+                        child: const LoadingAnimation());
+                  } else if (state.defaultCard == null) {
+                    return SizedBox(
+                        height: kwidth * 0.35,
+                        width: kwidth * 0.55,
+                        child: const Center(
+                            child: Text('Create Your BizKit Card')));
+                  } else {
+                    final data = state.defaultCard!;
+                    return Container(
+                      padding: const EdgeInsets.all(10),
+                      height: kwidth * 0.35,
+                      width: kwidth * 0.55,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: neonShade,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                          image: DecorationImage(
+                              image: NetworkImage(data.businessDetails?.logo ??
+                                  imageDummyNetwork),
+                              fit: BoxFit.cover)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(data.personalDetails?.name ?? 'Name',
+                                  style: textHeadStyle1.copyWith(shadows: [
+                                    const Shadow(
+                                        color: kblack,
+                                        offset: Offset(1, 2),
+                                        blurRadius: 5)
+                                  ])),
+                              Text(
+                                data.businessDetails?.designation ??
+                                    "Designation",
+                                style: TextStyle(
+                                    fontSize: kwidth * .037,
+                                    shadows: const [
+                                      Shadow(
+                                          color: kblack,
+                                          offset: Offset(0, 2),
+                                          blurRadius: 5)
+                                    ]),
+                              ),
+                              SizedBox(
+                                height: 40.dm,
+                                child: Image.network(
+                                    data.businessDetails?.logo ??
+                                        imageDummyNetwork),
+                              ),
+                            ],
+                          ),
+                          const Icon(
+                            Icons.arrow_right,
+                            color: kwhite,
+                          )
+                        ],
+                      ),
+                    );
+                  }
+                },
               ),
               adjustWidth(kwidth * .03),
               Expanded(

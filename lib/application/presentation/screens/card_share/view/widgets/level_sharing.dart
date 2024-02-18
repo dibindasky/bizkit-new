@@ -1,10 +1,15 @@
+import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/domain/model/qr/get_qr_code_response_model/qr_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LevelSharing extends StatelessWidget {
-  const LevelSharing({super.key});
+  const LevelSharing({super.key, required this.qrModel});
+
+  final QRModel qrModel;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +82,10 @@ class LevelSharing extends StatelessWidget {
                   wdth: 100,
                   text: 'Save',
                   onTap: () {
-                    Navigator.of(context).pop();
+                    context.read<QrBloc>().add(QrEvent.addNewLevelSharing(
+                        createQrModel: context.read<QrBloc>().createQrModel
+                        ));
+                    Navigator.pop(context);
                   },
                 ),
                 adjustHieght(khieght * .04),
@@ -98,17 +106,8 @@ class SwitchButtons extends StatefulWidget {
 }
 
 class _SwitchButtonsState extends State<SwitchButtons> {
-  bool personalDetals = false;
-  bool personalDetals1 = false;
-  bool personalDetals2 = false;
-  bool personalDetals3 = false;
-
-  bool businessDetals = false;
-  bool businessDetals1 = false;
-  bool businessDetals2 = false;
-  bool businessDetals3 = false;
-  bool businessDetals4 = false;
-  bool businessDetals5 = false;
+  bool personalDetals = true;
+  bool businessDetals = true;
 
   @override
   Widget build(BuildContext context) {
@@ -119,30 +118,59 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             personalDetals = value;
             // If "Personal Details" is false, disable other switches
             if (!value) {
-              personalDetals1 = false;
-              personalDetals2 = false;
-              personalDetals3 = false;
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(
+                      email: false,
+                      phoneNumber: false,
+                      personalSocialMedia: false,
+                      company: false);
+            }
+          });
+        }, neonShade),
+        adjustHieght(5),
+        buildSwitch("Email", context.read<QrBloc>().createQrModel.email!,
+            (value) {
+          setState(() {
+            if (personalDetals) {
+              context.read<QrBloc>().createQrModel =
+                  context.read<QrBloc>().createQrModel.copyWith(email: value);
             }
           });
         }),
-        buildSwitch("Name", personalDetals1, (value) {
+        buildSwitch(
+            "Phone Number", context.read<QrBloc>().createQrModel.phoneNumber!,
+            (value) {
           setState(() {
             if (personalDetals) {
-              personalDetals1 = value;
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(phoneNumber: value);
             }
           });
         }),
-        buildSwitch("Mail ID", personalDetals2, (value) {
+        buildSwitch("Company", context.read<QrBloc>().createQrModel.company!,
+            (value) {
           setState(() {
             if (personalDetals) {
-              personalDetals2 = value;
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(company: value);
             }
           });
         }),
-        buildSwitch("Personal Details three", personalDetals3, (value) {
+        buildSwitch("Personal SocialMedias",
+            context.read<QrBloc>().createQrModel.personalSocialMedia!,
+            (value) {
           setState(() {
             if (personalDetals) {
-              personalDetals3 = value;
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(personalSocialMedia: value);
             }
           });
         }),
@@ -152,53 +180,74 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             businessDetals = value;
             // If "Personal Details" is false, disable other switches
             if (!value) {
-              businessDetals1 = false;
-              businessDetals2 = false;
-              businessDetals3 = false;
-              businessDetals4 = false;
-              businessDetals5 = false;
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(
+                      businessDetailsEmail: false,
+                      address: false,
+                      socialMediaHandles: false,
+                      businessDetailsMobileNumber: false,
+                      websiteLink: false);
+            }
+          });
+        }, neonShade),
+        adjustHieght(5),
+        buildSwitch("Business PhoneNumber",
+            context.read<QrBloc>().createQrModel.businessDetailsMobileNumber!,
+            (value) {
+          setState(() {
+            if (businessDetals) {
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(businessDetailsMobileNumber: value);
             }
           });
         }),
-        buildSwitch("Name", businessDetals1, (value) {
+        buildSwitch("Business Email",
+            context.read<QrBloc>().createQrModel.businessDetailsEmail!,
+            (value) {
           setState(() {
             if (businessDetals) {
-              businessDetals1 = value;
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(businessDetailsEmail: value);
             }
           });
         }),
-        buildSwitch("Company name", businessDetals2, (value) {
+        buildSwitch(
+            "Website Link", context.read<QrBloc>().createQrModel.websiteLink!,
+            (value) {
           setState(() {
             if (businessDetals) {
-              businessDetals2 = value;
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(websiteLink: value);
             }
           });
         }),
-        buildSwitch("Company Mail", businessDetals3, (value) {
+        buildSwitch("Address", context.read<QrBloc>().createQrModel.address!,
+            (value) {
           setState(() {
             if (businessDetals) {
-              businessDetals3 = value;
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(address: value);
             }
           });
         }),
-        buildSwitch("Address", businessDetals4, (value) {
+        buildSwitch("Business SocialMedias",
+            context.read<QrBloc>().createQrModel.socialMediaHandles!, (value) {
           setState(() {
             if (businessDetals) {
-              businessDetals4 = value;
-            }
-          });
-        }),
-        buildSwitch("Licence", businessDetals5, (value) {
-          setState(() {
-            if (businessDetals) {
-              businessDetals4 = value;
-            }
-          });
-        }),
-        buildSwitch("Licence", businessDetals5, (value) {
-          setState(() {
-            if (businessDetals) {
-              businessDetals4 = value;
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(socialMediaHandles: value);
             }
           });
         }),
@@ -206,38 +255,31 @@ class _SwitchButtonsState extends State<SwitchButtons> {
     );
   }
 
-  Widget buildSwitch(String label, bool value, Function(bool) onChanged) {
+  Widget buildSwitch(String label, bool value, Function(bool) onChanged,
+      [Color color = textFieldFillColr]) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: Container(
         padding: const EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
-          color: textFieldFillColr,
+          color: color,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            label == "Personal Details" || label == "Business Details"
-                ? Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: kwidth * 0.043,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )
-                : Text(
-                    label,
-                    style: TextStyle(
-                      color: klightgrey,
-                      fontSize: kwidth * 0.033,
-                    ),
-                  ),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: kwidth * 0.043,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             Switch(
               inactiveTrackColor: textFieldFillColr,
               inactiveThumbColor: kwhite,
-              activeTrackColor: neonShade,
-              activeColor: kwhite,
+              activeTrackColor: color == neonShade ? kwhite : neonShade,
+              activeColor: color == neonShade ? neonShade : kwhite,
               value: value,
               onChanged: onChanged,
             ),

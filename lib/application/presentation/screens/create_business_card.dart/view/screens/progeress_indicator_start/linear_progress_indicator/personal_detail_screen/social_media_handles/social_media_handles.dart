@@ -26,7 +26,8 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
     'Whatsapp',
     'Telegram',
     'Youtube',
-    'Quora'
+    'Facebook',
+    'X',
   ];
   @override
   Widget build(BuildContext context) {

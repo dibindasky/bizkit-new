@@ -5,6 +5,7 @@ import 'package:bizkit/application/business_logic/card/create/business_data/busi
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
+import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/core/di/dipendency_injection.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
     kwidth = size.width;
 
     return ScreenUtilInit(
+      designSize: Size(kwidth, khieght),
       child: MultiBlocProvider(
         providers: [
           BlocProvider<InternetConnectionCheckCubit>(
@@ -47,6 +50,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<BusinessDataBloc>()),
           BlocProvider(create: (context) => getIt<SignUpBloc>()),
           BlocProvider(create: (context) => getIt<CardBloc>()),
+          BlocProvider(create: (context) => getIt<QrBloc>()),
         ],
         child: MaterialApp(
           debugShowMaterialGrid: false,
@@ -62,6 +66,21 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           home: const SplashScreen(),
+          // routerConfig: GoRouter(routes: [
+          //   GoRoute(
+          //     path: "/",
+          //     builder: (context, state) => const SplashScreen(),
+          //   ),
+          //   // GoRoute(
+          //   //   path: "/red",
+          //   //   builder: (context, state) => const HomeFirstViewAllContactTileDetailView(),
+          //   // ),
+          //   // GoRoute(
+          //   //   path: "/blue",
+          //   //   builder: (context, state) =>
+          //   //       const ColorDetailPage(color: Colors.blue),
+          //   // ),
+          // ]),
         ),
       ),
     );

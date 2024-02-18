@@ -6,9 +6,11 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class PreviewProductsBrandsLists extends StatelessWidget {
-  const PreviewProductsBrandsLists({super.key, required this.fileImages});
+  const PreviewProductsBrandsLists(
+      {super.key, this.fileImages, this.networkImages});
 
-  final List<File> fileImages;
+  final List<File>? fileImages;
+  final List<String>? networkImages;
 
   @override
   Widget build(BuildContext context) {
@@ -64,13 +66,17 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     child: ColoredBox(
                       color: smallBigGrey,
-                      child: Image.file(
-                        fileImages[index],
-                      ),
+                      child: networkImages != null
+                          ? Image.network(networkImages![index])
+                          : Image.file(
+                              fileImages![index],
+                            ),
                     ),
                   );
                 },
-                itemCount: fileImages.length,
+                itemCount: networkImages != null
+                    ? networkImages!.length
+                    : fileImages!.length,
               ),
             ),
           ),

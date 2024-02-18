@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
-import 'package:bizkit/data/service/card/card_service.dart';
 import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/create_card/create_card_model/create_card_model.dart';
 import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
@@ -11,6 +10,7 @@ import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart';
+import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,16 +25,17 @@ part 'user_data_bloc.freezed.dart';
 class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final CardScanningRepo cardScanningImpl;
   final UserLocalRepo userLocalService;
-  final CardService cardService;
+  final CardRepo cardService;
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController companylController = TextEditingController();
-  final TextEditingController businessCategoryController =
-      TextEditingController();
   final TextEditingController homeAddress = TextEditingController();
   final TextEditingController bloodGroup = TextEditingController();
   final TextEditingController birthDaycontroller = TextEditingController();
+  final TextEditingController businessCategoryController =
+      TextEditingController();
 
   UserDataBloc(this.cardScanningImpl, this.userLocalService, this.cardService)
       : super(UserDataState.initial()) {
@@ -58,7 +59,9 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> createCard(CreateCard event, emit) async {
     emit(state.copyWith(
         isLoading: true, hasError: false, message: null, cardAdded: null));
+    print('card creation requested');
     print(event.createCardModel.toJson());
+    print(event.createCardModel.businessDetails!.toJson());
     print('card creation requested');
     final result =
         await cardService.createCard(createCardModel: event.createCardModel);
@@ -106,7 +109,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
             state.socialMedias.isEmpty ? [] : state.socialMedias);
     print(personalData.toJson());
 
-    emit(state.copyWith(personalDetails: personalData));
+    emit(state.copyWith(personalDetails: personalData,message: null));
   }
 
   FutureOr<void> clear(Clear event, emit) async {
@@ -116,7 +119,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> addDateToRemember(AddDateToRemember event, emit) async {
     final List<DatesToRememberCreate> list = List.from(state.datesToRemember);
     list.add(event.datesToRemember);
-    emit(state.copyWith(datesToRemember: list, cardAdded: null));
+    emit(state.copyWith(datesToRemember: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> removeDateToRemember(RemoveDateToRemember event, emit) async {
@@ -126,13 +129,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         list.add(datesToRemember);
       }
     }
-    emit(state.copyWith(datesToRemember: list, cardAdded: null));
+    emit(state.copyWith(datesToRemember: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
     final List<SocialMediaHandleCreate> list = List.from(state.socialMedias);
     list.add(event.socialMediaHandle);
-    emit(state.copyWith(socialMedias: list, cardAdded: null));
+    emit(state.copyWith(socialMedias: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> removeSocialMedia(RemoveSocialMedia event, emit) async {
@@ -142,13 +145,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         list.add(socialMediaHandle);
       }
     }
-    emit(state.copyWith(socialMedias: list, cardAdded: null));
+    emit(state.copyWith(socialMedias: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> addAccolade(AddAccolade event, emit) async {
     final List<AccoladeCreate> list = List.from(state.accolades);
     list.add(event.accolade);
-    emit(state.copyWith(accolades: list, cardAdded: null));
+    emit(state.copyWith(accolades: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> removeAccolade(RemoveAccolade event, emit) async {
@@ -156,7 +159,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (AccoladeCreate accolade in state.accolades) {
       if (state.accolades[event.index] != accolade) list.add(accolade);
     }
-    emit(state.copyWith(accolades: list, cardAdded: null));
+    emit(state.copyWith(accolades: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> pickUserPhotos(PickUserPhotos event, emit) async {
@@ -164,7 +167,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     final img = await ImagePickerClass.getImage(camera: false);
     if (img != null) {
       list.add(img);
-      emit(state.copyWith(userPhotos: list, cardAdded: null));
+      emit(state.copyWith(userPhotos: list, cardAdded: null,message: null));
     }
   }
 
@@ -173,7 +176,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (ImageModel img in state.userPhotos) {
       if (state.userPhotos[event.index] != img) list.add(img);
     }
-    emit(state.copyWith(userPhotos: list, cardAdded: null));
+    emit(state.copyWith(userPhotos: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> removeImageScanning(RemoveImageScanning event, emit) async {
@@ -181,7 +184,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (ImageModel img in state.scannedImagesCardCreation) {
       if (state.scannedImagesCardCreation[event.index] != img) list.add(img);
     }
-    emit(state.copyWith(scannedImagesCardCreation: list, cardAdded: null));
+    emit(state.copyWith(scannedImagesCardCreation: list, cardAdded: null,message: null));
   }
 
   FutureOr<void> processImageScanning(ProcessImageScanning event, emit) async {
@@ -190,7 +193,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     result.fold(
         (failure) => null,
         (scannedImageText) => emit(state.copyWith(
-            scannedImageDatasModel: scannedImageText, cardAdded: null)));
+            scannedImageDatasModel: scannedImageText, cardAdded: null,message: null)));
   }
 
   FutureOr<void> pickImageScanning(PickImageScanning event, emit) async {
@@ -199,7 +202,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       emit(state.copyWith(scannedImagesCardCreation: [
         ...state.scannedImagesCardCreation,
         image
-      ], cardAdded: null));
+      ], cardAdded: null,message: null));
     }
   }
 

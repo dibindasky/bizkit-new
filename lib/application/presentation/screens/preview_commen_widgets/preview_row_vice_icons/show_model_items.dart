@@ -6,12 +6,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class PreviewScreenRowIconsModelSheet extends StatelessWidget {
   const PreviewScreenRowIconsModelSheet({
     super.key,
-    required this.isPhone,
+    required this.fromPreview,
+    required this.image,
     this.items,
   });
 
   final List<String>? items;
-  final bool isPhone;
+  final bool fromPreview;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -39,58 +41,53 @@ class PreviewScreenRowIconsModelSheet extends StatelessWidget {
           adjustHieght(khieght * .03),
           SizedBox(
             height: 270,
-            child: ListView.builder(
-              itemCount: items?.length ?? 4,
-              itemBuilder: (context, index) {
-                return Container(
-                  height: 70,
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(53, 53, 53, 0.42),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  margin: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    children: [
-                      adjustWidth(kwidth * .03),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(isPhone ? 'Mobile number' : 'Facebook'),
-                          Text(isPhone
-                              ? '+91 0000 0000 00'
-                              : 'www.facebook.com/....'),
-                        ],
-                      ),
-                      const Spacer(),
-                      InkWell(
-                        onTap: () => copyToClipboard(
-                            text: '+91 000000000', context: context),
-                        child: const CircleAvatar(
-                          backgroundColor: textFieldFillColr,
-                          radius: 10,
-                          backgroundImage:
-                              AssetImage('asset/images/copy number image.png'),
+            child: items == null || items!.isEmpty
+                ? const Center(
+                    child: Text('Nothing to show'),
+                  )
+                : ListView.builder(
+                    itemCount: items!.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        height: 70,
+                        decoration: const BoxDecoration(
+                          color: Color.fromRGBO(53, 53, 53, 0.42),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
                         ),
-                      ),
-                      adjustWidth(kwidth * .08),
-                      CircleAvatar(
-                        backgroundColor: textFieldFillColr,
-                        radius: 10,
-                        backgroundImage: AssetImage(
-                          isPhone
-                              ? 'asset/images/phone image.png'
-                              : 'asset/images/accoutn share_icon copy.png',
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          children: [
+                            adjustWidth(kwidth * .03),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(items![index]),
+                              ],
+                            ),
+                            const Spacer(),
+                            IconButton(
+                                onPressed: () => copyToClipboard(
+                                    text: items![index], context: context),
+                                icon: const Icon(Icons.copy, color: neonShade)),
+                            adjustWidth(kwidth * .04),
+                            InkWell(
+                              onTap: () => copyToClipboard(
+                                  text: items![index], context: context),
+                              child: CircleAvatar(
+                                backgroundColor: textFieldFillColr,
+                                // radius: 10,
+                                backgroundImage: AssetImage(image),
+                              ),
+                            ),
+                            adjustWidth(kwidth * .04),
+                          ],
                         ),
-                      ),
-                      adjustWidth(kwidth * .04),
-                    ],
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
         ],
       ),

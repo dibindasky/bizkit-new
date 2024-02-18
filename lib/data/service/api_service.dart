@@ -1,5 +1,6 @@
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
+import 'package:bizkit/domain/model/token/refresh_response/refresh_response.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
@@ -197,7 +198,8 @@ class ApiService {
           await SecureStorage.getToken().then((token) => token.refreshToken);
       final response = await Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl))
           .post(ApiEndPoints.refreshUrl, data: {'refresh': token});
-      await SecureStorage.setAccessToken(accessToken: response.data.toString());
+      final data = RefreshResponse.fromJson(response.data);
+      await SecureStorage.setAccessToken(accessToken: data.access!);
     } catch (e) {
       rethrow;
     }
@@ -207,9 +209,12 @@ class ApiService {
     try {
       final accessToken =
           await SecureStorage.getToken().then((token) => token.accessToken);
-          print('accessToken ======================================================');
-          print(accessToken);
+      print(
+          'accessToken ======================================================');
+      print(accessToken);
       _dio.options.headers['Authorization'] = "Bearer $accessToken";
+      print('headers');
+      print(_dio.options.headers);
       return await _dio.request(requestOptions.path,
           queryParameters: requestOptions.queryParameters,
           data: requestOptions.data);

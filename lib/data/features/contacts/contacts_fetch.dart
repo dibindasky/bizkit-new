@@ -10,7 +10,6 @@ import 'package:permission_handler/permission_handler.dart';
 @LazySingleton(as: ContactFetchServiceRepo)
 @injectable
 class ContactFetchService implements ContactFetchServiceRepo {
-  
   @override
   Future<Either<Failure, List<Contact>>> getContactsList() async {
     List<Contact> contactsList = [];

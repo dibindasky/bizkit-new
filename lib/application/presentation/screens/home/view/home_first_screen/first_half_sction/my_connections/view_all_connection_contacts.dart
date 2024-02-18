@@ -141,7 +141,8 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                         return GestureDetector(
                           onTap: () => Navigator.of(context).push(
                             fadePageRoute(HomeFirstViewAllContactTileDetailView(
-                                name: data.name ?? data.phoneNumber ?? 'Name')),
+                              userId: data.id,
+                            )),
                           ),
                           child: ListTile(
                             leading: Stack(

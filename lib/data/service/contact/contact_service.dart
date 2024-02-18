@@ -14,8 +14,9 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: ContactsRepo)
 @injectable
 class ContactServiceImpl implements ContactsRepo {
-  final ApiService apiService =
-      ApiService(Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl)));
+  final ApiService apiService;
+
+  ContactServiceImpl(this.apiService);
 
   @override
   Future<Either<Failure, GetContactsResponseModel>> getBizkitUserByContact(

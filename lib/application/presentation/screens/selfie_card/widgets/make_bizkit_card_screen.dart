@@ -68,7 +68,7 @@ class MakeABizkitCardScreen extends StatelessWidget {
                       inputType: TextInputType.name),
                   adjustHieght(khieght * .02),
                   const CustomButtonSelfie(
-                    navigate: HomeFirstViewAllContactTileDetailView(),
+                    navigate: HomeFirstViewAllContactTileDetailView(userId: null),
                   ) //should give next navigation here i add SelfieScreen For demo
                 ],
               ),

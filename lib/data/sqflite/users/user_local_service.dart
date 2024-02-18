@@ -13,7 +13,6 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: UserLocalRepo)
 @injectable
 class UserLocalService implements UserLocalRepo {
-
   final LocalService localService;
 
   UserLocalService(this.localService);
@@ -25,7 +24,8 @@ class UserLocalService implements UserLocalRepo {
       if (id == null) {
         return Left(Failure());
       }
-      final String query = 'SELECT * FROM ${Sql.userTable} WHERE ${User.colId} = $id';
+      final String query =
+          'SELECT * FROM ${Sql.userTable} WHERE ${User.colId} = $id';
       List<Map<String, Object?>> maps = await localService.rawQuery(query);
       return Right(List.generate(maps.length, (i) {
         final Map<String, Object?> map = Map.from(maps[i]);
@@ -42,9 +42,14 @@ class UserLocalService implements UserLocalRepo {
   @override
   Future<void> addUser(User user) async {
     try {
+      print(user.toJson());
+      const query = "SELECT * FROM ${Sql.userTable} WHERE ${User.colId} = ?";
+      final bool isPresent = await localService.presentOrNot(query, [user.id!]);
+      if (isPresent) return;
       final map = user.toJson();
       // while inserting convert bool to int
       map[User.colIsBusiness] = user.isBusiness! ? 1 : 0;
+      map.remove(User.colLocalId);
       await localService.insert(Sql.userTable, map);
     } catch (e) {
       log('cannot insert user data\n ${e.toString()}');

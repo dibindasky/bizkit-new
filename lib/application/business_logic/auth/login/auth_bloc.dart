@@ -33,7 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> log(Log event, emit) async =>
       emit(state.copyWith(isLogin: await SecureStorage.getLogin()));
-      
+
   FutureOr<void> logOut(LogOut event, emit) async =>
       await SecureStorage.clearLogin();
 
@@ -43,9 +43,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         hasError: false,
         message: null,
         loginResponseModel: null));
+    print('login request send');
     final result = await authRepo.login(loginModel: event.loginModel);
     result.fold(
       (failure) {
+        print('login failed');
         emit(
           state.copyWith(
               isLoading: false,
@@ -54,6 +56,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
       },
       (loginResponseModel) async {
+        print('login success');
         print(loginResponseModel.toJson());
         emit(
           state.copyWith(

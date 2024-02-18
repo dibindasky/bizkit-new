@@ -44,10 +44,10 @@ class _LinearProgressIndicatorStartingState
                 valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
               ),
             ),
+            adjustHieght(10),
             Expanded(
               child: PageView(
                 controller: _pageController,
-                // physics: const NeverScrollableScrollPhysics(),
                 onPageChanged: (index) {
                   setState(() {
                     _currentPage = index;

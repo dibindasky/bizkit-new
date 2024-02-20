@@ -130,11 +130,14 @@ class BusinessSignIn extends StatelessWidget {
                               onTap: () {
                                 if (businessSignup.currentState!.validate()) {
                                   context.read<SignUpBloc>().add(
-                                      SignUpEvent.sendOtp(
+                                        SignUpEvent.sendOtp(
                                           isBusiness: true,
                                           emailModel: EmailModel(
-                                              email: companyMailController.text
-                                                  .trim())));
+                                            email: companyMailController.text
+                                                .trim(),
+                                          ),
+                                        ),
+                                      );
                                 }
                               },
                             ),

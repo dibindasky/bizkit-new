@@ -273,8 +273,8 @@ class _LoGInScreenState extends State<LoGInScreen>
                             textColor: kwhite);
                       }
                       if (state.loginResponseModel != null) {
-                        Navigator.of(context).pushReplacement(
-                          fadePageRoute(const StartingBusinessCardCreation()),
+                        Navigator.of(context).pushAndRemoveUntil(
+                          fadePageRoute(const StartingBusinessCardCreation()),(route) => true,
                         );
                       }
                     },

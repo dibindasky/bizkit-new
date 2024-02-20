@@ -21,11 +21,32 @@ class CardService implements CardRepo {
   CardService(this.apiService);
 
   @override
-  Future<Either<Failure, GetCardResposnseModel>> getCardById(
+  Future<Either<Failure, GetCardResposnseModel>> getCardByUserId(
       {required int id}) async {
     try {
       final response = await apiService.get(
-          ApiEndPoints.getCardById.replaceFirst('{user_id}', id.toString()));
+          ApiEndPoints.getCardByUserId.replaceFirst('{user_id}', id.toString()));
+      return Right(GetCardResposnseModel.fromJson(response.data));
+    } on DioException catch (e) {
+      log(e.toString());
+      if (e.response?.statusCode == 400) {
+        return Left(
+            Failure(message: e.response?.data['error'] ?? errorMessage));
+      } else {
+        return Left(Failure(message: errorMessage));
+      }
+    } catch (e) {
+      log(e.toString());
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetCardResposnseModel>> getCardByCardId(
+      {required int id}) async {
+    try {
+      final response = await apiService.get(
+          ApiEndPoints.getCardByCardId.replaceFirst('{card_id}', id.toString()));
       return Right(GetCardResposnseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());

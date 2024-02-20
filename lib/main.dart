@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           // home: const SplashScreen(),
-          routerConfig: RouteGenerator.router
+          routerConfig: GoRouterConfig.router
         ),
       ),
     );

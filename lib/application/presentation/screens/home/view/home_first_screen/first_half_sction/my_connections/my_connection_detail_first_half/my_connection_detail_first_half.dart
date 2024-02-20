@@ -16,14 +16,16 @@ ValueNotifier changeScreenNotifier = ValueNotifier(Changing.first);
 
 class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
   const HomeFirstViewAllContactTileDetailView(
-      {super.key, required this.userId});
+      {super.key, this.userId, this.cardId});
   final int? userId;
+  final int? cardId;
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (userId != null ) {
+      if (userId != null) {
         context.read<CardBloc>().add(const CardEvent.getCardyUserId(id: 2));
-        // context.read<CardBloc>().add(CardEvent.getCardyUserId(id: userId!));
+      } else if (cardId != null) {
+        context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
       }
     });
     return BlocBuilder<CardBloc, CardState>(

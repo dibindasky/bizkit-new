@@ -101,7 +101,7 @@ class ScreenOtpValidation extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const LoGInScreen()),
-                        (route) => false);
+                        (route) => true);
                   }
                 },
                 builder: (context, state1) {

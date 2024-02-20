@@ -51,6 +51,7 @@ class CardService implements CardRepo {
     } on DioException catch (e) {
       log('card creation dio error');
       log(e.toString());
+      log('${e.response.toString()}');
       return Left(Failure(message: 'Failed to create card'));
     } catch (e) {
       log('card creation exception error');

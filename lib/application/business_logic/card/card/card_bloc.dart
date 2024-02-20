@@ -85,9 +85,6 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       Card? defaultCard;
       if (getCardResposnseModel.results != null && getCardResposnseModel.results!.isNotEmpty) {
         print('get default card');
-        for (var card in getCardResposnseModel.results!) {
-          print(card.isDefault);
-        }
         defaultCard = getCardResposnseModel.results!
             .firstWhere((card) => card.isDefault!);
       }

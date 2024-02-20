@@ -21,13 +21,19 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (userId != null) {
-        context.read<CardBloc>().add(CardEvent.getCardyUserId(id: 2));
+      if (userId != null ) {
+        context.read<CardBloc>().add(const CardEvent.getCardyUserId(id: 2));
+        // context.read<CardBloc>().add(CardEvent.getCardyUserId(id: userId!));
       }
     });
     return BlocBuilder<CardBloc, CardState>(
       buildWhen: (previous, current) => previous.isLoading != current.isLoading,
       builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(color: neonShade),
+          );
+        }
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
@@ -49,7 +55,8 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
               ),
             ),
             backgroundColor: knill,
-            title: Text('Alex Tyler', style: textHeadStyle1),
+            title: Text(state.anotherCard?.personalDetails?.name ?? 'Name',
+                style: textHeadStyle1),
             actions: [
               PopupMenuButton<String>(
                 icon: const Icon(

@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:flutter/material.dart';
@@ -31,11 +32,7 @@ class SplashScreen extends StatelessWidget {
 
   void _navigateToSignInPage(BuildContext context, bool toLogin) async {
     Future.delayed(const Duration(milliseconds: 2000), () {
-      Navigator.of(context).pushReplacement(
-        fadePageRoute(!toLogin
-            ? const LoGInScreen()
-            : const StartingBusinessCardCreation()),
-      );
+      Navigator.pushNamed(context,!toLogin? Routes.loginInPage:Routes.cardCreation);
     });
   }
 }

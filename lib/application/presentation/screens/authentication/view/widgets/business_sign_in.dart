@@ -59,6 +59,7 @@ class BusinessSignIn extends StatelessWidget {
               ),
               TTextFormField(
                 text: 'Company Mobile Number',
+                maxlegth: 10,
                 controller: companyPhoneController,
                 validate: Validate.phone,
                 inputType: TextInputType.phone,
@@ -116,25 +117,21 @@ class BusinessSignIn extends StatelessWidget {
                   }
                   return Column(
                     children: [
-                      state.otpBusinessError
-                          ? const Text(
-                              'Need to verify email before sign-up',
-                              style: TextStyle(color: kred),
-                            )
-                          : const SizedBox(),
-                      adjustHieght(10),
                       state.isLoading
                           ? const LoadingAnimation()
                           : AuthButton(
-                              text: 'Verify',
+                              text: 'Sign-Up',
                               onTap: () {
                                 if (businessSignup.currentState!.validate()) {
                                   context.read<SignUpBloc>().add(
-                                      SignUpEvent.sendOtp(
+                                        SignUpEvent.sendOtp(
                                           isBusiness: true,
                                           emailModel: EmailModel(
-                                              email: companyMailController.text
-                                                  .trim())));
+                                            email: companyMailController.text
+                                                .trim(),
+                                          ),
+                                        ),
+                                      );
                                 }
                               },
                             ),

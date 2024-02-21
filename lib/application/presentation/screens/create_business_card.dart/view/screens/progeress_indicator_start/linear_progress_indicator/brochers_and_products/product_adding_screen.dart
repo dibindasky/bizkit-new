@@ -51,8 +51,10 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                   ColoredBox(
                     color: neonShade.withOpacity(0.1),
                     child: InkWell(
-                      onTap: () async => image =
-                          await ImagePickerClass.getImage(camera: false),
+                      onTap: () async {
+                        image = await ImagePickerClass.getImage(camera: false);
+                        setState(() {});
+                      },
                       child: SizedBox(
                           width: 270.dm,
                           height: 170.dm,

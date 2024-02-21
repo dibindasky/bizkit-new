@@ -1,8 +1,10 @@
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
+import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'dart:io';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class QrScannerView extends StatefulWidget {
   const QrScannerView({super.key});
@@ -56,11 +58,16 @@ class _QrScannerViewState extends State<QrScannerView> {
     });
   }
 
+  // launch scanned url to the web page
   Future<void> _launchUrl(String url) async {
-    print("inside url launcher");
-    final uri = Uri.parse(url);
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      throw Exception('Could not launch $url');
+    if (url.contains('bizkit-frontend.netlify.app')) {
+      try {
+        final id = int.parse(url.split('/').last);
+        Navigator.push(context,
+            fadePageRoute(HomeFirstViewAllContactTileDetailView(cardId: id)));
+      } catch (e) {
+        await LaunchUrl.launchUrls(url: url);
+      }
     }
   }
 

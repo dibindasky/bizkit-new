@@ -41,12 +41,12 @@ class QrBloc extends Bloc<QrEvent, QrState> {
     final result = await qrServiceImpl.getAllQrCode();
     result.fold(
         (failure) => emit(state.copyWith(
-            isLoading: false, hasError: true, message: failure.message)),
-        (response) {
-          emit(
-            state.copyWith(isLoading: false, qrList: response.results ?? []));
-            add(const QrEvent.changeQRSelection(index: 0));
-        });
+            isLoading: false,
+            hasError: true,
+            message: failure.message)), (response) {
+      emit(state.copyWith(isLoading: false, qrList: response.results ?? []));
+      add(const QrEvent.changeQRSelection(index: 0));
+    });
   }
 
   FutureOr<void> changeQRSelection(ChangeQRSelection event, emit) {

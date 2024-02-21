@@ -2,7 +2,7 @@ import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/domain/model/card/card/card/card.dart' as card;
+import 'package:bizkit/domain/model/card/get_card_response/card_response.dart' as card;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,10 +69,6 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                               adjustWidth(kwidth * .05),
                           itemBuilder: (context, index) {
                             final card = state.cards[index];
-                            print(
-                                '====================================================');
-                            print(card.businessDetails);
-                            print(card.businessDetails?.logo);
                             return Container(
                               decoration: BoxDecoration(
                                 color: textFieldFillColr,
@@ -92,12 +88,12 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             topRight: Radius.circular(20),
                                           ),
                                           child: card.businessDetails == null ||
-                                                  card.businessDetails!.logo ==
+                                                  card.photo ==
                                                       null
                                               ? Image.network(imageDummyNetwork,
                                                   fit: BoxFit.cover)
                                               : Image.network(
-                                                  card.businessDetails!.logo!,
+                                                  card.photo!,
                                                   fit: BoxFit.cover,
                                                 ),
                                         ),
@@ -120,7 +116,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                               value: 'Edit Card',
                                               child: Text('Edit Card'),
                                             ),
-                                             PopupMenuItem(
+                                            PopupMenuItem(
                                               onTap: () => context
                                                   .read<CardBloc>()
                                                   .add(CardEvent.archiveCard(
@@ -257,7 +253,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
     );
   }
 
-  bottomSheet(BuildContext context, card.Card card) {
+  bottomSheet(BuildContext context, card.CardResponse card) {
     showBottomSheet(
       context: context,
       builder: (context) => CustomBottomSheet(

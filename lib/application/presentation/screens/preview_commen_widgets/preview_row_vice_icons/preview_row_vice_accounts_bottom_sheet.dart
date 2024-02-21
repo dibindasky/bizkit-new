@@ -87,35 +87,35 @@ class AccountsListviewBuilder extends StatelessWidget {
         ),
         Column(
           children: [
-            GestureDetector(
-              onTap: () => Navigator.of(context).push(fadePageRoute(
-                   SocialMediahandlesScreen(fromBusiness: !acountIsCompany))),
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 8.0),
-                height: 70,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  child: ColoredBox(
-                    color: lightColr,
-                    child: Row(
-                      children: [
-                        adjustWidth(kwidth * .03),
-                        const CircleAvatar(
-                          radius: 14,
-                          backgroundImage: AssetImage(
-                            'asset/images/addButtunIconImage.png',
-                          ),
-                        ),
-                        adjustWidth(kwidth * .03),
-                        const Text('Add new')
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () => Navigator.of(context).push(fadePageRoute(
+            //        SocialMediahandlesScreen(fromBusiness: !acountIsCompany))),
+            //   child: Container(
+            //     margin: const EdgeInsets.symmetric(vertical: 8.0),
+            //     height: 70,
+            //     child: ClipRRect(
+            //       borderRadius: const BorderRadius.all(
+            //         Radius.circular(10),
+            //       ),
+            //       child: ColoredBox(
+            //         color: lightColr,
+            //         child: Row(
+            //           children: [
+            //             adjustWidth(kwidth * .03),
+            //             const CircleAvatar(
+            //               radius: 14,
+            //               backgroundImage: AssetImage(
+            //                 'asset/images/addButtunIconImage.png',
+            //               ),
+            //             ),
+            //             adjustWidth(kwidth * .03),
+            //             const Text('Add new')
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 450,
               child: ListView.builder(

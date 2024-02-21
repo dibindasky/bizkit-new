@@ -7,8 +7,10 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileCreationScreen extends StatelessWidget {
+  ProfileCreationScreen({super.key});
+
+  final GlobalKey<FormState> personalDataFormKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 adjustHieght(khieght * .03),
+                // pick user photo
                 BlocBuilder<UserDataBloc, UserDataState>(
                   builder: (context, state) {
                     return Stack(
@@ -71,60 +74,79 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
                 adjustHieght(khieght * .04),
+                // user data form
                 BlocBuilder<UserDataBloc, UserDataState>(
                   builder: (context, state) {
-                    return Column(
-                      children: [
-                        AutocompleteTextField(
-                          label: 'Name',
-                          controller:
-                              context.read<UserDataBloc>().nameController,
-                          inputType: TextInputType.text,
-                          autocompleteItems:
-                              state.scannedImageDatasModel?.names ?? [],
-                        ),
-                        AutocompleteTextField(
-                          label: 'Phone number',
-                          controller:
-                              context.read<UserDataBloc>().phoneController,
-                          inputType: TextInputType.name,
-                          autocompleteItems:
-                              state.scannedImageDatasModel?.phone ?? [],
-                        ),
-                        AutocompleteTextField(
-                          label: 'Email',
-                          controller:
-                              context.read<UserDataBloc>().emailController,
-                          inputType: TextInputType.emailAddress,
-                          autocompleteItems:
-                              state.scannedImageDatasModel?.emails ?? [],
-                        ),
-                        AutocompleteTextField(
-                          label: 'Company',
-                          controller:
-                              context.read<UserDataBloc>().companylController,
-                          inputType: TextInputType.name,
-                          autocompleteItems:
-                              state.scannedImageDatasModel?.unknown ?? [],
-                        ),
-                        AutocompleteTextField(
-                          label: 'BusinessCategory',
-                          controller: context
-                              .read<UserDataBloc>()
-                              .businessCategoryController,
-                          inputType: TextInputType.name,
-                          autocompleteItems:
-                              state.scannedImageDatasModel?.unknown ?? [],
-                        ),
-                        adjustHieght(khieght * .05),
-                      ],
+                    return Form(
+                      key: personalDataFormKey,
+                      child: Column(
+                        children: [
+                          // personal name field
+                          AutocompleteTextField(
+                            validate: Validate.notNull,
+                            label: 'Name',
+                            controller:
+                                context.read<UserDataBloc>().nameController,
+                            inputType: TextInputType.text,
+                            autocompleteItems:
+                                state.scannedImageDatasModel?.names ?? [],
+                          ),
+                          // personal phone number
+                          AutocompleteTextField(
+                            validate: Validate.phone,
+                            maxLength: 10,
+                            label: 'Phone number',
+                            controller:
+                                context.read<UserDataBloc>().phoneController,
+                            inputType: TextInputType.phone,
+                            autocompleteItems:
+                                state.scannedImageDatasModel?.phone ?? [],
+                          ),
+                          // personal email
+                          AutocompleteTextField(
+                            validate: Validate.email,
+                            label: 'Email',
+                            controller:
+                                context.read<UserDataBloc>().emailController,
+                            inputType: TextInputType.emailAddress,
+                            autocompleteItems:
+                                state.scannedImageDatasModel?.emails ?? [],
+                          ),
+                          // company name
+                          AutocompleteTextField(
+                            validate: Validate.notNull,
+                            label: 'Company',
+                            controller:
+                                context.read<UserDataBloc>().companylController,
+                            inputType: TextInputType.name,
+                            autocompleteItems:
+                                state.scannedImageDatasModel?.unknown ?? [],
+                          ),
+                          // business category
+                          AutocompleteTextField(
+                            validate: Validate.notNull,
+                            label: 'BusinessCategory',
+                            controller: context
+                                .read<UserDataBloc>()
+                                .businessCategoryController,
+                            inputType: TextInputType.name,
+                            autocompleteItems:
+                                state.scannedImageDatasModel?.unknown ?? [],
+                          ),
+                          adjustHieght(khieght * .05),
+                        ],
+                      ),
                     );
                   },
                 ),
                 LastSkipContinueButtons(
-                  onTap: () => Navigator.of(context).push(
-                    fadePageRoute(const LinearProgressIndicatorStarting()),
-                  ),
+                  onTap: () {
+                    if (personalDataFormKey.currentState!.validate()) {
+                      Navigator.of(context).push(
+                        fadePageRoute(const LinearProgressIndicatorStarting()),
+                      );
+                    }
+                  },
                 ),
                 adjustHieght(khieght * .02),
               ],

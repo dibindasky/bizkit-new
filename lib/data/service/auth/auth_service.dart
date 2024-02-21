@@ -18,9 +18,7 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: AuthRepo)
 @injectable
 class AuthService implements AuthRepo {
-  final Dio _dio;
-
-  AuthService(this._dio);
+  final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
 
   @override
   Future<Either<Failure, LoginResponseModel>> login(

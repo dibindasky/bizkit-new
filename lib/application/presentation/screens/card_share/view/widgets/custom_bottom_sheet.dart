@@ -3,7 +3,7 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
-import 'package:bizkit/domain/model/card/card/card/card.dart' as c;
+import 'package:bizkit/domain/model/card/get_card_response/card_response.dart' as c;
 import 'package:flutter/material.dart';
 
 class CustomBottomSheet extends StatefulWidget {
@@ -12,7 +12,7 @@ class CustomBottomSheet extends StatefulWidget {
     required this.card,
   }) : super(key: key);
 
-  final c.Card card;
+  final c.CardResponse card;
 
   @override
   State<CustomBottomSheet> createState() => _CustomBottomSheetState();
@@ -43,10 +43,10 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                 height: 50,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
-                  child: widget.card.businessDetails?.logo == null
+                  child: widget.card.photo == null
                       ? Image.network(imageDummyNetwork, fit: BoxFit.cover)
                       : Image.network(
-                          widget.card.businessDetails!.logo!,
+                          widget.card.photo!,
                           fit: BoxFit.cover,
                         ),
                 ),

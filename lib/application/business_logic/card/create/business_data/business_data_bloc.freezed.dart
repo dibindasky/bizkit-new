@@ -2339,6 +2339,8 @@ abstract class RemoveBrochure implements BusinessDataEvent {
 mixin _$BusinessDataState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  int? get businessDetailsCreateId => throw _privateConstructorUsedError;
+  int? get bankDetailsCreateId => throw _privateConstructorUsedError;
   List<SocialMediaHandleCreate> get socialMedias =>
       throw _privateConstructorUsedError;
   List<AccreditionCreate> get accreditions =>
@@ -2365,6 +2367,8 @@ abstract class $BusinessDataStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool hasError,
+      int? businessDetailsCreateId,
+      int? bankDetailsCreateId,
       List<SocialMediaHandleCreate> socialMedias,
       List<AccreditionCreate> accreditions,
       BusinessDetailsCreate businessDetails,
@@ -2390,6 +2394,8 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? businessDetailsCreateId = freezed,
+    Object? bankDetailsCreateId = freezed,
     Object? socialMedias = null,
     Object? accreditions = null,
     Object? businessDetails = null,
@@ -2408,6 +2414,14 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
               as bool,
+      businessDetailsCreateId: freezed == businessDetailsCreateId
+          ? _value.businessDetailsCreateId
+          : businessDetailsCreateId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bankDetailsCreateId: freezed == bankDetailsCreateId
+          ? _value.bankDetailsCreateId
+          : bankDetailsCreateId // ignore: cast_nullable_to_non_nullable
+              as int?,
       socialMedias: null == socialMedias
           ? _value.socialMedias
           : socialMedias // ignore: cast_nullable_to_non_nullable
@@ -2455,6 +2469,8 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       bool hasError,
+      int? businessDetailsCreateId,
+      int? bankDetailsCreateId,
       List<SocialMediaHandleCreate> socialMedias,
       List<AccreditionCreate> accreditions,
       BusinessDetailsCreate businessDetails,
@@ -2478,6 +2494,8 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? businessDetailsCreateId = freezed,
+    Object? bankDetailsCreateId = freezed,
     Object? socialMedias = null,
     Object? accreditions = null,
     Object? businessDetails = null,
@@ -2496,6 +2514,14 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
               as bool,
+      businessDetailsCreateId: freezed == businessDetailsCreateId
+          ? _value.businessDetailsCreateId
+          : businessDetailsCreateId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bankDetailsCreateId: freezed == bankDetailsCreateId
+          ? _value.bankDetailsCreateId
+          : bankDetailsCreateId // ignore: cast_nullable_to_non_nullable
+              as int?,
       socialMedias: null == socialMedias
           ? _value._socialMedias
           : socialMedias // ignore: cast_nullable_to_non_nullable
@@ -2538,6 +2564,8 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
       required this.hasError,
+      this.businessDetailsCreateId,
+      this.bankDetailsCreateId,
       required final List<SocialMediaHandleCreate> socialMedias,
       required final List<AccreditionCreate> accreditions,
       required this.businessDetails,
@@ -2555,6 +2583,10 @@ class _$InitialImpl implements _Initial {
   final bool isLoading;
   @override
   final bool hasError;
+  @override
+  final int? businessDetailsCreateId;
+  @override
+  final int? bankDetailsCreateId;
   final List<SocialMediaHandleCreate> _socialMedias;
   @override
   List<SocialMediaHandleCreate> get socialMedias {
@@ -2598,7 +2630,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, socialMedias: $socialMedias, accreditions: $accreditions, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, message: $message)';
+    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, businessDetailsCreateId: $businessDetailsCreateId, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, message: $message)';
   }
 
   @override
@@ -2610,6 +2642,11 @@ class _$InitialImpl implements _Initial {
                 other.isLoading == isLoading) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
+            (identical(
+                    other.businessDetailsCreateId, businessDetailsCreateId) ||
+                other.businessDetailsCreateId == businessDetailsCreateId) &&
+            (identical(other.bankDetailsCreateId, bankDetailsCreateId) ||
+                other.bankDetailsCreateId == bankDetailsCreateId) &&
             const DeepCollectionEquality()
                 .equals(other._socialMedias, _socialMedias) &&
             const DeepCollectionEquality()
@@ -2630,6 +2667,8 @@ class _$InitialImpl implements _Initial {
       runtimeType,
       isLoading,
       hasError,
+      businessDetailsCreateId,
+      bankDetailsCreateId,
       const DeepCollectionEquality().hash(_socialMedias),
       const DeepCollectionEquality().hash(_accreditions),
       businessDetails,
@@ -2650,6 +2689,8 @@ abstract class _Initial implements BusinessDataState {
   const factory _Initial(
       {required final bool isLoading,
       required final bool hasError,
+      final int? businessDetailsCreateId,
+      final int? bankDetailsCreateId,
       required final List<SocialMediaHandleCreate> socialMedias,
       required final List<AccreditionCreate> accreditions,
       required final BusinessDetailsCreate businessDetails,
@@ -2663,6 +2704,10 @@ abstract class _Initial implements BusinessDataState {
   bool get isLoading;
   @override
   bool get hasError;
+  @override
+  int? get businessDetailsCreateId;
+  @override
+  int? get bankDetailsCreateId;
   @override
   List<SocialMediaHandleCreate> get socialMedias;
   @override

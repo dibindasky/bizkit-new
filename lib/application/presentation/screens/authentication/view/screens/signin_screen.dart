@@ -24,36 +24,27 @@ class _SignInscreeenState extends State<SignInscreeen>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        //for textfield unfocus
-        // FocusScopeNode focusScope = FocusScope.of(context);
-        // if (!focusScope.hasPrimaryFocus) {
-        //   focusScope.unfocus();
-        // }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: knill,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(100),
-            child: CustomtabBar(
-              tabController: _tabController,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: knill,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(100),
+          child: CustomtabBar(
+            tabController: _tabController,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: TabBarView(
-            dragStartBehavior: DragStartBehavior.down,
-            physics: const NeverScrollableScrollPhysics(),
-            controller: _tabController,
-            children: [
-              IndividuelSignIn(),
-              BusinessSignIn(),
-            ],
-          ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: TabBarView(
+          dragStartBehavior: DragStartBehavior.down,
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _tabController,
+          children: [
+            IndividuelSignIn(),
+            BusinessSignIn(),
+          ],
         ),
       ),
     );

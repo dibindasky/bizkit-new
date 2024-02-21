@@ -47,6 +47,7 @@ class _LinearProgressIndicatorStartingState
             adjustHieght(10),
             Expanded(
               child: PageView(
+                physics: const RangeMaintainingScrollPhysics(),
                 controller: _pageController,
                 onPageChanged: (index) {
                   setState(() {
@@ -56,9 +57,9 @@ class _LinearProgressIndicatorStartingState
                 children: [
                   PersonlDetails(pageController: _pageController),
                   BusinessDetailsScreen(pageController: _pageController),
-                  CompanyAndBankingDetails(pageController: _pageController),
                   LogoStory(pageController: _pageController),
-                  const BrochersAndProductsScreen()
+                  BrochersAndProductsScreen(pageController: _pageController),
+                  const CompanyAndBankingDetails()
                 ],
               ),
             ),

@@ -6,12 +6,12 @@ class CardState with _$CardState {
     required bool isLoading,
     required bool pageLoading,
     required bool hasError,
-    required List<Card> cards,
+    required List<CardResponse> cards,
     String? message,
-    Card? defaultCard,
-    Card? anotherCard,
+    CardResponse? defaultCard,
+    Card? anotherCard
   }) = _Initial;
 
-  factory CardState.initial() => const CardState(
-      isLoading: false, hasError: false, cards: [], pageLoading: false);
+  factory CardState.initial() =>  const CardState(cards: [],
+      isLoading: false, hasError: false, pageLoading: false);
 }

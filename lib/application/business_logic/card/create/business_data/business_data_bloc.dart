@@ -10,6 +10,7 @@ import 'package:bizkit/domain/model/card/create_card/mobile_number/mobile_number
 import 'package:bizkit/domain/model/card/create_card/product/product.dart';
 import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
+import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -35,8 +36,10 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   final TextEditingController branchOfficeController = TextEditingController();
   String? accountNumber, ifsc;
   final PdfPickerImpl pdfPicker;
+  final CardRepo cardService;
 
-  BusinessDataBloc(this.pdfPicker) : super(BusinessDataState.initial()) {
+  BusinessDataBloc(this.pdfPicker, this.cardService)
+      : super(BusinessDataState.initial()) {
     on<AddAccredition>(addAccredition);
     on<RemoveAccredition>(removeAccredition);
     on<AddSocialMedia>(addSocialMedia);
@@ -52,6 +55,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> createBankingData(CreateBankingData event, emit) async {
+    if (state.bankDetailsCreateId != null) return;
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final BankDetailsCreate bankDetails = BankDetailsCreate(
         accredition: state.accreditions.isEmpty
             ? []
@@ -75,10 +80,23 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         branchOffices: branchOfficeController.text.trim().isEmpty
             ? null
             : branchOfficeController.text);
-    emit(state.copyWith(bankDetails: bankDetails));
+    final result =
+        await cardService.createBankingDataCard(bankDetailsCreate: bankDetails);
+    result.fold(
+        (failure) => emit(state.copyWith(
+            isLoading: false,
+            hasError: true,
+            bankDetails: bankDetails,
+            bankDetailsCreateId: null)),
+        (bankDetail) => emit(state.copyWith(
+            isLoading: false,
+            bankDetails: bankDetails,
+            bankDetailsCreateId: bankDetail.id)));
   }
 
   FutureOr<void> createBusinessData(CreateBusinessData event, emit) async {
+    if (state.businessDetailsCreateId != null) return;
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final BusinessDetailsCreate businessDetails = BusinessDetailsCreate(
         address: addressController.text.trim().isEmpty
             ? null
@@ -131,7 +149,18 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             : state.brochures
                 .map((e) => BrochureCreate(file: e.file.base64))
                 .toList());
-    emit(state.copyWith(businessDetails: businessDetails));
+    final result = await cardService.createBusinessDataCard(
+        businessDetailsCreate: businessDetails);
+    result.fold(
+        (failure) => emit(state.copyWith(
+            isLoading: false,
+            hasError: true,
+            businessDetailsCreateId: null,
+            businessDetails: businessDetails)),
+        (businessDetail) => emit(state.copyWith(
+            isLoading: false,
+            businessDetailsCreateId: businessDetail.id,
+            businessDetails: businessDetails)));
   }
 
   FutureOr<void> clear(Clear event, emit) async {

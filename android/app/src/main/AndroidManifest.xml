@@ -36,8 +36,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with https://YOUR_HOST -->
                 <data
-                    android:scheme="http"
-                    android:host="44.212.19.127" />
+                    android:scheme="https"
+                    android:host="bizkit-frontend.netlify.app" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

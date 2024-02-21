@@ -1,5 +1,14 @@
 const errorMessage = 'Something went wrong please try again';
 const bloodGroups = ['O+', 'A+', 'B+', 'A-', 'AB+', 'B-', 'O-', 'AB-'];
+const socialMedia = [
+  'Instagram',
+  'LinkedIn',
+  'Whatsapp',
+  'Telegram',
+  'Youtube',
+  'Facebook',
+  'X'
+];
 
 const pdfImage = 'asset/images/pdf iamge.png';
 

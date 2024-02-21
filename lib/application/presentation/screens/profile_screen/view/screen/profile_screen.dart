@@ -6,7 +6,6 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
-import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -98,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         context,
                         MaterialPageRoute(
                             builder: (context) => const LoGInScreen()),
-                        (route) => false);
+                        (route) => true);
                     context.read<AuthBloc>().add(const AuthEvent.logOut());
                   },
                 ),

@@ -47,45 +47,43 @@ class IndividuelSignIn extends StatelessWidget {
               ),
               TTextFormField(
                 validate: Validate.phone,
+                maxlegth: 10,
                 text: 'Mobile Number',
                 controller: mobileController,
                 inputType: TextInputType.number,
               ),
-              BlocConsumer<SignUpBloc, SignUpState>(
-                listener: (context, state) {
-                  if (state.message != null) {
-                    showSnackbar(context,
-                        message: state.message!,
-                        backgroundColor: state.hasError ? kred : neonShade);
-                  }
-                  if (state.otpSendIndividual) {
-                    // navigate to otp screen when send
-                    final SignUpIndivudalModel signUpModel =
-                        SignUpIndivudalModel(
-                            name: nameController.text.trim(),
-                            email: emailIdController.text.trim(),
-                            password: passwordController.text.trim(),
-                            phoneNumber: mobileController.text.trim());
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ScreenOtpValidation(
-                                  fromBusiness: false,
-                                  signUpIndivudalModel: signUpModel,
-                                  email: emailIdController.text.trim(),
-                                )));
-                  }
-                },
-                builder: (context, state) {
-                  return TTextFormField(
-                    showUnderline: state.otpIndividualError,
+              // company mail
+              BlocListener<SignUpBloc, SignUpState>(
+                  listener: (context, state) {
+                    if (state.message != null) {
+                      showSnackbar(context,
+                          message: state.message!,
+                          backgroundColor: state.hasError ? kred : neonShade);
+                    }
+                    if (state.otpSendIndividual) {
+                      // navigate to otp screen when send
+                      final SignUpIndivudalModel signUpModel =
+                          SignUpIndivudalModel(
+                              name: nameController.text.trim(),
+                              email: emailIdController.text.trim(),
+                              password: passwordController.text.trim(),
+                              phoneNumber: mobileController.text.trim());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ScreenOtpValidation(
+                                    fromBusiness: false,
+                                    signUpIndivudalModel: signUpModel,
+                                    email: emailIdController.text.trim(),
+                                  )));
+                    }
+                  },
+                  child: TTextFormField(
                     validate: Validate.email,
                     text: 'Company mail',
                     controller: emailIdController,
                     inputType: TextInputType.emailAddress,
-                  );
-                },
-              ),
+                  )),
               TTextFormField(
                 validate: Validate.password,
                 text: 'Password',
@@ -105,27 +103,16 @@ class IndividuelSignIn extends StatelessWidget {
                   if (state.isLoading) {
                     return const LoadingAnimation();
                   }
-                  return Column(
-                    children: [
-                      state.otpIndividualError
-                          ? const Text(
-                              'Need to verify email before sign-up',
-                              style: TextStyle(color: kred),
-                            )
-                          : const SizedBox(),
-                      adjustHieght(10),
-                      AuthButton(
-                        text: 'Verify',
-                        onTap: () {
-                          if (personalSignup.currentState!.validate()) {
-                            context.read<SignUpBloc>().add(SignUpEvent.sendOtp(
-                                emailModel: EmailModel(
-                                    email: emailIdController.text.trim()),
-                                isBusiness: false));
-                          }
-                        },
-                      ),
-                    ],
+                  return AuthButton(
+                    text: 'Sign-Up',
+                    onTap: () {
+                      if (personalSignup.currentState!.validate()) {
+                        context.read<SignUpBloc>().add(SignUpEvent.sendOtp(
+                            emailModel: EmailModel(
+                                email: emailIdController.text.trim()),
+                            isBusiness: false));
+                      }
+                    },
                   );
                 },
               ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
+import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     on<GetCards>(getCards);
     on<GetCardsnextPage>(getCardsnextPage);
     on<GetCardyUserId>(getCardyUserId);
+    on<GetCardyCardId>(getCardyCardId);
     on<SetDefault>(setDefault);
     on<DeleteCard>(deleteCard);
     // on<ArchiveCard>(archiveCard);
@@ -29,15 +31,16 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   // }
 
   FutureOr<void> deleteCard(DeleteCard event, emit) async {
-    emit(state.copyWith(isLoading: true,hasError: false,message: null));
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final result = await cardService.deleteCard(id: event.id);
     result.fold(
-        (failure) => emit(state.copyWith(isLoading: false,
-            message: 'failed to delete card', hasError: true)),
-        (success) {
-           emit(state.copyWith(message: 'card deleted successfully'));
-           add(const CardEvent.getCards());
-        });
+        (failure) => emit(state.copyWith(
+            isLoading: false,
+            message: 'failed to delete card',
+            hasError: true)), (success) {
+      emit(state.copyWith(message: 'card deleted successfully'));
+      add(const CardEvent.getCards());
+    });
   }
 
   FutureOr<void> setDefault(SetDefault event, emit) async {
@@ -51,7 +54,21 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   FutureOr<void> getCardyUserId(GetCardyUserId event, emit) async {
     emit(state.copyWith(
         isLoading: true, hasError: false, message: null, anotherCard: null));
-    final result = await cardService.getCardById(id: event.id);
+    final result = await cardService.getCardByUserId(id: event.id);
+    result.fold(
+        (left) => emit(state.copyWith(
+            isLoading: false, hasError: true, message: left.message)),
+        (right) => emit(state.copyWith(
+            isLoading: false,
+            anotherCard: right.results != null && right.results!.isNotEmpty
+                ? right.results!.first
+                : null)));
+  }
+
+  FutureOr<void> getCardyCardId(GetCardyCardId event, emit) async {
+    emit(state.copyWith(
+        isLoading: true, hasError: false, message: null, anotherCard: null));
+    final result = await cardService.getCardByCardId(id: event.id);
     result.fold(
         (left) => emit(state.copyWith(
             isLoading: false, hasError: true, message: left.message)),
@@ -82,12 +99,10 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             isLoading: false,
             message: failure.message)), (getCardResposnseModel) {
       print('get card bloc success');
-      Card? defaultCard;
-      if (getCardResposnseModel.results != null && getCardResposnseModel.results!.isNotEmpty) {
+      CardResponse? defaultCard;
+      if (getCardResposnseModel.results != null &&
+          getCardResposnseModel.results!.isNotEmpty) {
         print('get default card');
-        for (var card in getCardResposnseModel.results!) {
-          print(card.isDefault);
-        }
         defaultCard = getCardResposnseModel.results!
             .firstWhere((card) => card.isDefault!);
       }

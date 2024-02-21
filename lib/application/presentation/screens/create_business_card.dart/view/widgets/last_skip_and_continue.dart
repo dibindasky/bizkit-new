@@ -7,21 +7,19 @@ class LastSkipContinueButtons extends StatelessWidget {
     super.key,
     this.onTap,
     this.onSkipTap,
-    this.isAvoidSkip = false,
   });
 
-  final bool? isAvoidSkip;
   final VoidCallback? onTap;
   final VoidCallback? onSkipTap;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: isAvoidSkip == true
+      mainAxisAlignment: onSkipTap == null
           ? MainAxisAlignment.center
           : MainAxisAlignment.spaceAround,
       children: [
-        isAvoidSkip == true
+        onSkipTap == null
             ? const SizedBox()
             : InkWell(
                 onTap: onSkipTap,

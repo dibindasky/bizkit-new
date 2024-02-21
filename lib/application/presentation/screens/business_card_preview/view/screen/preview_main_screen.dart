@@ -14,6 +14,7 @@ import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/card/create_card/create_card_model/create_card_model.dart';
+import 'package:bizkit/domain/model/card/create_card_by_id_model/create_card_by_id_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -160,10 +161,17 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                         }
                         print(
                             'bank details ()=> ${createCardModel.bankDetails!.toJson()}');
-
                         context.read<UserDataBloc>().add(
-                            UserDataEvent.createCard(
-                                createCardModel: createCardModel));
+                              UserDataEvent.createCard(
+                                createCardByIdModel: CreateCardByIdModel(
+                                    businessDetails:
+                                        businessSate.businessDetailsCreateId,
+                                    bankDetails:
+                                        businessSate.bankDetailsCreateId,
+                                    personalDetails:
+                                        userState.personalDataCreateId),
+                              ),
+                            );
                       },
                     );
                   },

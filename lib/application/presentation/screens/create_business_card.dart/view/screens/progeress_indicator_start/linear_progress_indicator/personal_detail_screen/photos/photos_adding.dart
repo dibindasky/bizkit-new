@@ -73,11 +73,13 @@ class PhotosAddingScreen extends StatelessWidget {
                             fit: BoxFit.cover),
                         Align(
                           alignment: Alignment.topRight,
-                          child: IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () => context.read<UserDataBloc>().add(
-                                  UserDataEvent.removeUserPhoto(index: index),
-                                ),
+                          child: CircleAvatar(
+                            child: IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () => context.read<UserDataBloc>().add(
+                                    UserDataEvent.removeUserPhoto(index: index),
+                                  ),
+                            ),
                           ),
                         )
                       ],

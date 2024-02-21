@@ -60,6 +60,7 @@ class BusinessDetailsScreen extends StatelessWidget {
             // mobile number business
             TTextFormField(
               text: 'Mobile number',
+              maxlegth: 10,
               controller: context.read<BusinessDataBloc>().mobileController,
               inputType: TextInputType.number,
             ),
@@ -71,6 +72,9 @@ class BusinessDetailsScreen extends StatelessWidget {
                   listString: state.socialMedias
                       .map((e) => e.socialMedia ?? 'Social Media')
                       .toList(),
+                  removeItem: (index) => context
+                      .read<BusinessDataBloc>()
+                      .add(BusinessDataEvent.removeSocialMedia(index: index)),
                   ontap: () => Navigator.of(context).push(fadePageRoute(
                       const SocialMediahandlesScreen(fromBusiness: true))),
                   child: Container(
@@ -123,10 +127,12 @@ class BusinessDetailsScreen extends StatelessWidget {
             ),
             adjustHieght(khieght * .02),
             LastSkipContinueButtons(
-              onTap: () => pageController.nextPage(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.ease,
-              ),
+              onTap: () {
+                pageController.nextPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.ease,
+                );
+              },
             ),
             adjustHieght(khieght * .02),
           ],

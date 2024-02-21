@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
+import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -98,7 +99,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             isLoading: false,
             message: failure.message)), (getCardResposnseModel) {
       print('get card bloc success');
-      Card? defaultCard;
+      CardResponse? defaultCard;
       if (getCardResposnseModel.results != null &&
           getCardResposnseModel.results!.isNotEmpty) {
         print('get default card');

@@ -83,8 +83,7 @@ class LevelSharing extends StatelessWidget {
                   text: 'Save',
                   onTap: () {
                     context.read<QrBloc>().add(QrEvent.addNewLevelSharing(
-                        createQrModel: context.read<QrBloc>().createQrModel
-                        ));
+                        createQrModel: context.read<QrBloc>().createQrModel));
                     Navigator.pop(context);
                   },
                 ),
@@ -155,16 +154,13 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             (value) {
           setState(() {
             if (personalDetals) {
-              context.read<QrBloc>().createQrModel = context
-                  .read<QrBloc>()
-                  .createQrModel
-                  .copyWith(company: value);
+              context.read<QrBloc>().createQrModel =
+                  context.read<QrBloc>().createQrModel.copyWith(company: value);
             }
           });
         }),
         buildSwitch("Personal SocialMedias",
-            context.read<QrBloc>().createQrModel.personalSocialMedia!,
-            (value) {
+            context.read<QrBloc>().createQrModel.personalSocialMedia!, (value) {
           setState(() {
             if (personalDetals) {
               context.read<QrBloc>().createQrModel = context
@@ -233,10 +229,8 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             (value) {
           setState(() {
             if (businessDetals) {
-              context.read<QrBloc>().createQrModel = context
-                  .read<QrBloc>()
-                  .createQrModel
-                  .copyWith(address: value);
+              context.read<QrBloc>().createQrModel =
+                  context.read<QrBloc>().createQrModel.copyWith(address: value);
             }
           });
         }),

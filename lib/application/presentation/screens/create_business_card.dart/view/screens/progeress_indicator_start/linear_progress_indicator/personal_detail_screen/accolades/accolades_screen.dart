@@ -33,16 +33,14 @@ class AccolodesScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [ accolade == null
+            children: [
+              accolade == null
                   ? const SizedBox()
-                  : 
-              Text(
-                "Add your achievements here for people to know about you",
-                style: TextStyle(fontSize: kwidth * .043),
-              ),
-             accolade == null
-                  ? const SizedBox()
-                  :   adjustHieght(khieght * .02),
+                  : Text(
+                      "Add your achievements here for people to know about you",
+                      style: TextStyle(fontSize: kwidth * .043),
+                    ),
+              accolade == null ? const SizedBox() : adjustHieght(khieght * .02),
               accolade == null
                   ? const SizedBox()
                   : Center(
@@ -111,7 +109,9 @@ class AccolodesScreen extends StatelessWidget {
                                   child: Image.file(
                                     accolade == null
                                         ? achivement[index] is AccoladeCreate
-                                            ? achivement[index].accoladesImage.fileImage
+                                            ? achivement[index]
+                                                .accoladesImage
+                                                .fileImage
                                             : achivement[index].image.fileImage
                                         : accolade!
                                             ? user.accolades[index]
@@ -213,13 +213,13 @@ class AccolodesScreen extends StatelessWidget {
                 },
               ),
               adjustHieght(khieght * .03),
-             accolade == null
+              accolade == null
                   ? const SizedBox()
-                  :   AuthButton(
-                hieght: 48,
-                text: 'Continue',
-                onTap: () => Navigator.of(context).pop(),
-              ),
+                  : AuthButton(
+                      hieght: 48,
+                      text: 'Continue',
+                      onTap: () => Navigator.of(context).pop(),
+                    ),
               adjustHieght(khieght * .02),
             ],
           ),

@@ -2,6 +2,8 @@ import 'package:bizkit/application/business_logic/card/create/business_data/busi
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:flutter/material.dart';
@@ -20,15 +22,7 @@ class SocialMediahandlesScreen extends StatefulWidget {
 class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
   TextEditingController linkController = TextEditingController();
   String selectedCategory = 'SocialMedia';
-  List<String> socialMedias = [
-    'Instagram',
-    'LinkedIn',
-    'Whatsapp',
-    'Telegram',
-    'Youtube',
-    'Facebook',
-    'X',
-  ];
+  List<String> socialMedias = socialMedia;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -104,6 +98,11 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                       AuthButton(
                         text: 'Add',
                         onTap: () {
+                          if (selectedCategory == 'SocialMedia') {
+                            showSnackbar(context,
+                                message: 'Select social media first');
+                            return;
+                          }
                           final link = selectedCategory == 'Whatsapp'
                               ? 'https://wa.me/${linkController.text}'
                               : linkController.text;

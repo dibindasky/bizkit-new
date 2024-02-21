@@ -24,18 +24,10 @@ class _StartingBusinessCardCreationState
     return Scaffold(
       appBar: AppBar(
         backgroundColor: backgroundColour,
+        centerTitle: true,
         title: Text(
           'Business Card',
           style: textHeadStyle1,
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            size: 18,
-          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -84,7 +76,7 @@ class _StartingBusinessCardCreationState
                             .read<UserDataBloc>()
                             .add(UserDataEvent.getUserDetail());
                         Navigator.of(context).push(
-                          fadePageRoute(const ProfileScreen()),
+                          fadePageRoute(ProfileCreationScreen()),
                         );
                       },
                       child: Text(

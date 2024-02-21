@@ -7,10 +7,12 @@ class ImagePreviewUnderTextField extends StatelessWidget {
       {super.key,
       required this.ontap,
       required this.child,
+      this.removeItem,
       this.list,
       this.listString});
 
   final VoidCallback ontap;
+  final Function(int index)? removeItem;
   final Widget child;
   final List<ImageModel>? list;
   final List<String>? listString;
@@ -25,22 +27,41 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                 list!.isNotEmpty ? adjustHieght(10) : adjustHieght(0),
                 list!.isNotEmpty
                     ? SizedBox(
-                        height: 50,
+                        height: 80,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: list!.length,
                           itemBuilder: (context, index) {
                             final image = list![index];
-                            return Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              height: 50,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  image: DecorationImage(
-                                      image: FileImage(image.fileImage),
-                                      fit: BoxFit.cover)),
+                            return SizedBox(
+                              height: 80,
+                              child: Stack(
+                                alignment: AlignmentDirectional.topEnd,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        right: 20, top: 5),
+                                    height: 80,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10)),
+                                        image: DecorationImage(
+                                            image: FileImage(image.fileImage),
+                                            fit: BoxFit.cover)),
+                                  ),
+                                  removeItem == null
+                                      ? const SizedBox()
+                                      : InkWell(
+                                          onTap: () {
+                                            if (removeItem != null) {
+                                              removeItem!(index);
+                                            }
+                                          },
+                                          child: removeIconButton(),
+                                        )
+                                ],
+                              ),
                             );
                           },
                         ),
@@ -57,20 +78,50 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemCount: listString!.length,
                           itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.all(8),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 8),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: neonShade),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10))),
-                              child: Text(listString![index]),
+                            return SizedBox(
+                              height: 50,
+                              child: Stack(
+                                alignment: AlignmentDirectional.topEnd,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.all(8),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 8),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: neonShade),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10))),
+                                    child: Text(listString![index]),
+                                  ),
+                                  removeItem == null
+                                      ? const SizedBox()
+                                      : InkWell(
+                                          onTap: () {
+                                            if (removeItem != null) {
+                                              removeItem!(index);
+                                            }
+                                          },
+                                          child: removeIconButton(),
+                                        )
+                                ],
+                              ),
                             );
                           },
                         ),
                       )
-                    : SizedBox()
+                    : const SizedBox()
               ]);
+  }
+
+  ClipRRect removeIconButton() {
+    return const ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(50)),
+      child: ColoredBox(
+          color: neonShade,
+          child: Padding(
+            padding: EdgeInsets.all(2.0),
+            child: Icon(Icons.close, size: 17),
+          )),
+    );
   }
 }

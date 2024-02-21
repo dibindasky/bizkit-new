@@ -1,19 +1,21 @@
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
-import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/business_card_preview/view/screen/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brocher_builder.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_adding_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_builder.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BrochersAndProductsScreen extends StatelessWidget {
-  const BrochersAndProductsScreen({Key? key}) : super(key: key);
+  const BrochersAndProductsScreen({Key? key, required this.pageController})
+      : super(key: key);
+
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
@@ -113,19 +115,28 @@ class BrochersAndProductsScreen extends StatelessWidget {
             ],
           ),
           adjustHieght(khieght * .03),
-          LastSkipContinueButtons(
-            onTap: () {
-              context
-                  .read<UserDataBloc>()
-                  .add(UserDataEvent.createPersonalData());
-              context
-                  .read<BusinessDataBloc>()
-                  .add(const BusinessDataEvent.createBusinessData());
-              context
-                  .read<BusinessDataBloc>()
-                  .add(const BusinessDataEvent.createBankingData());
-              Navigator.of(context).push(
-                fadePageRoute(const BusinessCardCreationPreviewScreen()),
+          BlocConsumer<BusinessDataBloc, BusinessDataState>(
+            listenWhen: (previous, current) =>
+                previous.businessDetailsCreateId !=
+                current.businessDetailsCreateId,
+            listener: (context, state) {
+              if (state.businessDetailsCreateId != null) {
+                pageController.nextPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.ease,
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state.isLoading) {
+                return const LoadingAnimation();
+              }
+              return LastSkipContinueButtons(
+                onTap: () {
+                  context
+                      .read<BusinessDataBloc>()
+                      .add(const BusinessDataEvent.createBusinessData());
+                },
               );
             },
           ),

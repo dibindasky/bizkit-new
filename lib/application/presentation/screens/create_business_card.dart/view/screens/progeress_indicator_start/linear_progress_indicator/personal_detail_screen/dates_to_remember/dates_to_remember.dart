@@ -1,7 +1,6 @@
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
-import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -30,11 +29,34 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
         }
       },
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(kwidth, 70),
-          child: const AppbarCommen(
-            tittle: 'Date to remember',
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 18,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            color: kwhite,
           ),
+          backgroundColor: knill,
+          title: Text(
+            'Date to remember',
+            style: textHeadStyle1,
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.check,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              color: kwhite,
+            ),
+            adjustWidth(20)
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(

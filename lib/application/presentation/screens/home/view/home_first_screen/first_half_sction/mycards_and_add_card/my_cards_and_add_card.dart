@@ -1,6 +1,7 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -13,8 +14,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((t) {
-      print('time stamp === > $t');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CardBloc>().add(const CardEvent.getCards());
     });
     return Padding(
@@ -42,59 +42,68 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                             child: Text('Create Your BizKit Card')));
                   } else {
                     final data = state.defaultCard!;
-                    return Container(
-                      padding: const EdgeInsets.all(10),
-                      height: kwidth * 0.35,
-                      width: kwidth * 0.55,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: neonShade,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                          image: DecorationImage(
-                              image: NetworkImage(data.businessDetails?.logo ??
-                                  imageDummyNetwork),
-                              fit: BoxFit.cover)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(data.personalDetails?.name ?? 'Name',
-                                  style: textHeadStyle1.copyWith(shadows: [
-                                    const Shadow(
-                                        color: kblack,
-                                        offset: Offset(1, 2),
-                                        blurRadius: 5)
-                                  ])),
-                              Text(
-                                data.businessDetails?.designation ??
-                                    "Designation",
-                                style: TextStyle(
-                                    fontSize: kwidth * .037,
-                                    shadows: const [
-                                      Shadow(
-                                          color: kblack,
-                                          offset: Offset(0, 2),
-                                          blurRadius: 5)
-                                    ]),
-                              ),
-                              SizedBox(
-                                height: 40.dm,
-                                child: Image.network(
-                                    data.businessDetails?.logo ??
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            fadePageRoute(HomeFirstViewAllContactTileDetailView(
+                                cardId: data.id)));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        height: kwidth * 0.35,
+                        width: kwidth * 0.55,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: neonShade,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    data.photo ??
                                         imageDummyNetwork),
-                              ),
-                            ],
-                          ),
-                          const Icon(
-                            Icons.arrow_right,
-                            color: kwhite,
-                          )
-                        ],
+                                fit: BoxFit.cover)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(data.qrUrl ?? 'Name',
+                                    style: textHeadStyle1.copyWith(shadows: [
+                                      const Shadow(
+                                          color: kblack,
+                                          offset: Offset(1, 2),
+                                          blurRadius: 5)
+                                    ])),
+                                Text(
+                                  data.qrUrl ??
+                                      "Designation",
+                                  style: TextStyle(
+                                      fontSize: kwidth * .037,
+                                      shadows: const [
+                                        Shadow(
+                                            color: kblack,
+                                            offset: Offset(0, 2),
+                                            blurRadius: 5)
+                                      ]),
+                                ),
+                                SizedBox(
+                                  height: 40.dm,
+                                  child: Image.network(
+                                      data.logo ??
+                                          imageDummyNetwork),
+                                ),
+                              ],
+                            ),
+                            const Icon(
+                              Icons.arrow_right,
+                              color: kwhite,
+                            )
+                          ],
+                        ),
                       ),
                     );
                   }

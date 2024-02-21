@@ -68,11 +68,12 @@ class CardSharingScreen extends StatelessWidget {
                                 height: 50.dm,
                                 width: 50.dm,
                                 child: Image.network(
-                                    state.qrList[state.selectedQrIndex].logo ==
-                                            null
-                                        ? image
-                                        : state.qrList[index]
-                                            .logo!,fit: BoxFit.cover,)),
+                                  state.qrList[state.selectedQrIndex].logo ==
+                                          null
+                                      ? image
+                                      : state.qrList[index].logo!,
+                                  fit: BoxFit.cover,
+                                )),
                             Text(
                               'CARD ${index + 1}',
                               style: TextStyle(

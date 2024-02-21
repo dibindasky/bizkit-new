@@ -34,7 +34,8 @@ mixin _$UserDataEvent {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,7 +55,7 @@ mixin _$UserDataEvent {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -73,7 +74,7 @@ mixin _$UserDataEvent {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -236,7 +237,8 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return pickImageScanning(camera);
   }
@@ -259,7 +261,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return pickImageScanning?.call(camera);
   }
@@ -281,7 +283,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (pickImageScanning != null) {
@@ -452,7 +454,8 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return removeImageScanning(index);
   }
@@ -475,7 +478,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return removeImageScanning?.call(index);
   }
@@ -497,7 +500,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (removeImageScanning != null) {
@@ -676,7 +679,8 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return processImageScanning(images);
   }
@@ -699,7 +703,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return processImageScanning?.call(images);
   }
@@ -721,7 +725,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (processImageScanning != null) {
@@ -865,7 +869,8 @@ class _$GetUserDetailImpl implements GetUserDetail {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return getUserDetail();
   }
@@ -888,7 +893,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return getUserDetail?.call();
   }
@@ -910,7 +915,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (getUserDetail != null) {
@@ -1048,7 +1053,8 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return pickUserPhotos();
   }
@@ -1071,7 +1077,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return pickUserPhotos?.call();
   }
@@ -1093,7 +1099,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (pickUserPhotos != null) {
@@ -1231,7 +1237,8 @@ class _$ClearImpl implements Clear {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return clear();
   }
@@ -1254,7 +1261,7 @@ class _$ClearImpl implements Clear {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return clear?.call();
   }
@@ -1276,7 +1283,7 @@ class _$ClearImpl implements Clear {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (clear != null) {
@@ -1414,7 +1421,8 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return createPersonalData();
   }
@@ -1437,7 +1445,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return createPersonalData?.call();
   }
@@ -1459,7 +1467,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (createPersonalData != null) {
@@ -1624,7 +1632,8 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return removeUserPhoto(index);
   }
@@ -1647,7 +1656,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return removeUserPhoto?.call(index);
   }
@@ -1669,7 +1678,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (removeUserPhoto != null) {
@@ -1839,7 +1848,8 @@ class _$AddAccoladeImpl implements AddAccolade {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return addAccolade(accolade);
   }
@@ -1862,7 +1872,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return addAccolade?.call(accolade);
   }
@@ -1884,7 +1894,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (addAccolade != null) {
@@ -2055,7 +2065,8 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return removeAccolade(index);
   }
@@ -2078,7 +2089,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return removeAccolade?.call(index);
   }
@@ -2100,7 +2111,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (removeAccolade != null) {
@@ -2271,7 +2282,8 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return addDateToRemember(datesToRemember);
   }
@@ -2294,7 +2306,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return addDateToRemember?.call(datesToRemember);
   }
@@ -2316,7 +2328,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (addDateToRemember != null) {
@@ -2489,7 +2501,8 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return removeDateToRemember(index);
   }
@@ -2512,7 +2525,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return removeDateToRemember?.call(index);
   }
@@ -2534,7 +2547,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (removeDateToRemember != null) {
@@ -2706,7 +2719,8 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return addSocialMedia(socialMediaHandle);
   }
@@ -2729,7 +2743,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return addSocialMedia?.call(socialMediaHandle);
   }
@@ -2751,7 +2765,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (addSocialMedia != null) {
@@ -2923,7 +2937,8 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
     return removeSocialMedia(index);
   }
@@ -2946,7 +2961,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
     return removeSocialMedia?.call(index);
   }
@@ -2968,7 +2983,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (removeSocialMedia != null) {
@@ -3064,7 +3079,7 @@ abstract class _$$CreateCardImplCopyWith<$Res> {
           _$CreateCardImpl value, $Res Function(_$CreateCardImpl) then) =
       __$$CreateCardImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({CreateCardModel createCardModel});
+  $Res call({CreateCardByIdModel createCardByIdModel});
 }
 
 /// @nodoc
@@ -3078,13 +3093,13 @@ class __$$CreateCardImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createCardModel = null,
+    Object? createCardByIdModel = null,
   }) {
     return _then(_$CreateCardImpl(
-      createCardModel: null == createCardModel
-          ? _value.createCardModel
-          : createCardModel // ignore: cast_nullable_to_non_nullable
-              as CreateCardModel,
+      createCardByIdModel: null == createCardByIdModel
+          ? _value.createCardByIdModel
+          : createCardByIdModel // ignore: cast_nullable_to_non_nullable
+              as CreateCardByIdModel,
     ));
   }
 }
@@ -3092,14 +3107,14 @@ class __$$CreateCardImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CreateCardImpl implements CreateCard {
-  _$CreateCardImpl({required this.createCardModel});
+  _$CreateCardImpl({required this.createCardByIdModel});
 
   @override
-  final CreateCardModel createCardModel;
+  final CreateCardByIdModel createCardByIdModel;
 
   @override
   String toString() {
-    return 'UserDataEvent.createCard(createCardModel: $createCardModel)';
+    return 'UserDataEvent.createCard(createCardByIdModel: $createCardByIdModel)';
   }
 
   @override
@@ -3107,12 +3122,12 @@ class _$CreateCardImpl implements CreateCard {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateCardImpl &&
-            (identical(other.createCardModel, createCardModel) ||
-                other.createCardModel == createCardModel));
+            (identical(other.createCardByIdModel, createCardByIdModel) ||
+                other.createCardByIdModel == createCardByIdModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, createCardModel);
+  int get hashCode => Object.hash(runtimeType, createCardByIdModel);
 
   @JsonKey(ignore: true)
   @override
@@ -3139,9 +3154,10 @@ class _$CreateCardImpl implements CreateCard {
     required TResult Function(SocialMediaHandleCreate socialMediaHandle)
         addSocialMedia,
     required TResult Function(int index) removeSocialMedia,
-    required TResult Function(CreateCardModel createCardModel) createCard,
+    required TResult Function(CreateCardByIdModel createCardByIdModel)
+        createCard,
   }) {
-    return createCard(createCardModel);
+    return createCard(createCardByIdModel);
   }
 
   @override
@@ -3162,9 +3178,9 @@ class _$CreateCardImpl implements CreateCard {
     TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
         addSocialMedia,
     TResult? Function(int index)? removeSocialMedia,
-    TResult? Function(CreateCardModel createCardModel)? createCard,
+    TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
-    return createCard?.call(createCardModel);
+    return createCard?.call(createCardByIdModel);
   }
 
   @override
@@ -3184,11 +3200,11 @@ class _$CreateCardImpl implements CreateCard {
     TResult Function(int index)? removeDateToRemember,
     TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
     TResult Function(int index)? removeSocialMedia,
-    TResult Function(CreateCardModel createCardModel)? createCard,
+    TResult Function(CreateCardByIdModel createCardByIdModel)? createCard,
     required TResult orElse(),
   }) {
     if (createCard != null) {
-      return createCard(createCardModel);
+      return createCard(createCardByIdModel);
     }
     return orElse();
   }
@@ -3265,10 +3281,10 @@ class _$CreateCardImpl implements CreateCard {
 }
 
 abstract class CreateCard implements UserDataEvent {
-  factory CreateCard({required final CreateCardModel createCardModel}) =
+  factory CreateCard({required final CreateCardByIdModel createCardByIdModel}) =
       _$CreateCardImpl;
 
-  CreateCardModel get createCardModel;
+  CreateCardByIdModel get createCardByIdModel;
   @JsonKey(ignore: true)
   _$$CreateCardImplCopyWith<_$CreateCardImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -3280,6 +3296,7 @@ mixin _$UserDataState {
   bool get isLoading => throw _privateConstructorUsedError;
   SuccessResponseModel? get cardAdded => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
+  int? get personalDataCreateId => throw _privateConstructorUsedError;
   PersonalDetailsCreate get personalDetails =>
       throw _privateConstructorUsedError;
   List<ImageModel> get scannedImagesCardCreation =>
@@ -3309,6 +3326,7 @@ abstract class $UserDataStateCopyWith<$Res> {
       bool isLoading,
       SuccessResponseModel? cardAdded,
       String? message,
+      int? personalDataCreateId,
       PersonalDetailsCreate personalDetails,
       List<ImageModel> scannedImagesCardCreation,
       List<ImageModel> userPhotos,
@@ -3335,6 +3353,7 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
     Object? isLoading = null,
     Object? cardAdded = freezed,
     Object? message = freezed,
+    Object? personalDataCreateId = freezed,
     Object? personalDetails = null,
     Object? scannedImagesCardCreation = null,
     Object? userPhotos = null,
@@ -3360,6 +3379,10 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      personalDataCreateId: freezed == personalDataCreateId
+          ? _value.personalDataCreateId
+          : personalDataCreateId // ignore: cast_nullable_to_non_nullable
+              as int?,
       personalDetails: null == personalDetails
           ? _value.personalDetails
           : personalDetails // ignore: cast_nullable_to_non_nullable
@@ -3405,6 +3428,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool isLoading,
       SuccessResponseModel? cardAdded,
       String? message,
+      int? personalDataCreateId,
       PersonalDetailsCreate personalDetails,
       List<ImageModel> scannedImagesCardCreation,
       List<ImageModel> userPhotos,
@@ -3429,6 +3453,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? cardAdded = freezed,
     Object? message = freezed,
+    Object? personalDataCreateId = freezed,
     Object? personalDetails = null,
     Object? scannedImagesCardCreation = null,
     Object? userPhotos = null,
@@ -3454,6 +3479,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      personalDataCreateId: freezed == personalDataCreateId
+          ? _value.personalDataCreateId
+          : personalDataCreateId // ignore: cast_nullable_to_non_nullable
+              as int?,
       personalDetails: null == personalDetails
           ? _value.personalDetails
           : personalDetails // ignore: cast_nullable_to_non_nullable
@@ -3494,6 +3523,7 @@ class _$InitialImpl implements _Initial {
       required this.isLoading,
       this.cardAdded,
       this.message,
+      this.personalDataCreateId,
       required this.personalDetails,
       required final List<ImageModel> scannedImagesCardCreation,
       required final List<ImageModel> userPhotos,
@@ -3515,6 +3545,8 @@ class _$InitialImpl implements _Initial {
   final SuccessResponseModel? cardAdded;
   @override
   final String? message;
+  @override
+  final int? personalDataCreateId;
   @override
   final PersonalDetailsCreate personalDetails;
   final List<ImageModel> _scannedImagesCardCreation;
@@ -3563,7 +3595,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, cardAdded: $cardAdded, message: $message, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, datesToRemember: $datesToRemember, socialMedias: $socialMedias, scannedImageDatasModel: $scannedImageDatasModel)';
+    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, cardAdded: $cardAdded, message: $message, personalDataCreateId: $personalDataCreateId, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, datesToRemember: $datesToRemember, socialMedias: $socialMedias, scannedImageDatasModel: $scannedImageDatasModel)';
   }
 
   @override
@@ -3578,6 +3610,8 @@ class _$InitialImpl implements _Initial {
             (identical(other.cardAdded, cardAdded) ||
                 other.cardAdded == cardAdded) &&
             (identical(other.message, message) || other.message == message) &&
+            (identical(other.personalDataCreateId, personalDataCreateId) ||
+                other.personalDataCreateId == personalDataCreateId) &&
             (identical(other.personalDetails, personalDetails) ||
                 other.personalDetails == personalDetails) &&
             const DeepCollectionEquality().equals(
@@ -3601,6 +3635,7 @@ class _$InitialImpl implements _Initial {
       isLoading,
       cardAdded,
       message,
+      personalDataCreateId,
       personalDetails,
       const DeepCollectionEquality().hash(_scannedImagesCardCreation),
       const DeepCollectionEquality().hash(_userPhotos),
@@ -3622,6 +3657,7 @@ abstract class _Initial implements UserDataState {
       required final bool isLoading,
       final SuccessResponseModel? cardAdded,
       final String? message,
+      final int? personalDataCreateId,
       required final PersonalDetailsCreate personalDetails,
       required final List<ImageModel> scannedImagesCardCreation,
       required final List<ImageModel> userPhotos,
@@ -3638,6 +3674,8 @@ abstract class _Initial implements UserDataState {
   SuccessResponseModel? get cardAdded;
   @override
   String? get message;
+  @override
+  int? get personalDataCreateId;
   @override
   PersonalDetailsCreate get personalDetails;
   @override

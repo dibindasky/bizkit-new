@@ -3,7 +3,6 @@ import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart'
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
 import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
@@ -90,12 +89,6 @@ class ScreenOtpValidation extends StatelessWidget {
                   if (state.otpBusinessError || state.otpIndividualError) {
                     Navigator.pop(context);
                   }
-
-                  if (state.message != null) {
-                    showSnackbar(context,
-                        message: state.message!,
-                        backgroundColor: state.hasError ? kred : neonShade);
-                  }
                   if (state.signUpResponseModel != null) {
                     Navigator.pushAndRemoveUntil(
                         context,
@@ -107,6 +100,12 @@ class ScreenOtpValidation extends StatelessWidget {
                 builder: (context, state1) {
                   return BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
+                      // if (state.message != null) {
+                      //   print('snack from otpScreen');
+                      //   showSnackbar(context,
+                      //       message: state.message!,
+                      //       backgroundColor: state.hasError ? kred : neonShade);
+                      // }
                       if (state.otpVerificationError) {
                         Navigator.pop(context);
                       }

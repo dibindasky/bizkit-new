@@ -1,4 +1,6 @@
 import 'package:bizkit/application/presentation/routes/routes.dart';
+import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,14 @@ class GoRouterConfig {
             return _errorScreen();
           }
         },
+      ),
+      GoRoute(
+        path: Routes.loginPage,
+        builder: (context, state) => const LoGInScreen(),
+      ),
+      GoRoute(
+        path: Routes.cardCreation,
+        builder: (context, state) => const StartingBusinessCardCreation(),
       ),
     ],
     errorBuilder: (context, state) => _errorScreen(),

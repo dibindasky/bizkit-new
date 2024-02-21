@@ -23,7 +23,7 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (userId != null) {
-        context.read<CardBloc>().add(const CardEvent.getCardyUserId(id: 2));
+        context.read<CardBloc>().add(CardEvent.getCardyUserId(id: userId!));
       } else if (cardId != null) {
         context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
       }

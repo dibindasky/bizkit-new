@@ -13,14 +13,16 @@ bool isValidPhoneNumber(String input) {
   return phoneNumberRegex.hasMatch(input);
 }
 
-bool isValidPassword(String input) {
-  return input.length > 7 ? true : false;
+// Regular expression for password validation
+bool isValidPassword(String value) {
+  final passwordRegExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+  return passwordRegExp.hasMatch(value);
 }
 
-bool isValidEmail(String input) {
-  final emailRegex =
-      RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
-  return emailRegex.hasMatch(input);
+// Regular expression for email validation
+bool isValidEmail(String value) {
+  final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  return emailRegExp.hasMatch(value);
 }
 
 bool isValidName(String input) {
@@ -32,4 +34,24 @@ bool isValidWebsite(String input) {
   final urlRegex =
       RegExp(r'^(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s]*)?$');
   return urlRegex.hasMatch(input);
+}
+
+bool hasCapsLetter(String input) {
+  final hasCapitalRegExp = RegExp(r'[A-Z]');
+  return hasCapitalRegExp.hasMatch(input);
+}
+
+bool hasLowerCase(String input) {
+  final hasSmallRegExp = RegExp(r'[a-z]');
+  return hasSmallRegExp.hasMatch(input);
+}
+
+bool hasNumbers(String input) {
+  final hasNumbersRegExp = RegExp(r'\d+');
+  return hasNumbersRegExp.hasMatch(input);
+}
+
+bool hasSpecialChar(String input) {
+  final hasSpecialCharsRegExp = RegExp(r'[^\w\s]');
+  return hasSpecialCharsRegExp.hasMatch(input);
 }

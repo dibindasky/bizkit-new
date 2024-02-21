@@ -1,4 +1,5 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 
 enum Validate { phone, email, password, none, rePassword, notNull }
@@ -78,6 +79,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
           onTapOutside: (event) {
             FocusScope.of(context).unfocus();
           },
+          // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
           enabled: widget.enabled,
           focusNode: widget.focusNode,
           onTap: widget.onTap,
@@ -127,9 +129,20 @@ class _TTextFormFieldState extends State<TTextFormField> {
             } else if (widget.validate == Validate.password &&
                 value!.length < 8) {
               return 'Password must contain at least 8 characters';
-            } else if (widget.validate == Validate.password &&
-                !isValidPassword(value!)) {
-              return 'password must contains one uppercase letter, one lowercase letter, and one digit.';
+            } else if (widget.validate == Validate.password) {
+              if (!hasLowerCase(value!)) {
+                return 'Password must contains lowerCase letters';
+              } else if (!hasCapsLetter(value)) {
+                return 'Password must contains UpperCase letters';
+              } else if (!hasNumbers(value)) {
+                return 'Password must contains numbers';
+              } else if (!hasSpecialChar(value)) {
+                return 'Password must contains special characters';
+              } else if (value.length < 8) {
+                return 'Password must contains 8 characters';
+              } else {
+                return null;
+              }
             } else if (Validate.phone == widget.validate) {
               if (!RegExp(r'^[0-9]+$').hasMatch(value!)) {
                 return 'Enter valid phone number (numeric characters only)';
@@ -150,18 +163,6 @@ class _TTextFormFieldState extends State<TTextFormField> {
   }
 }
 
-// Regular expression for email validation
-bool isValidEmail(String value) {
-  final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  return emailRegExp.hasMatch(value);
-}
-
-// Regular expression for password validation
-bool isValidPassword(String value) {
-  final passwordRegExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
-  return passwordRegExp.hasMatch(value);
-}
-
 class AutocompleteTextField extends StatefulWidget {
   final String label;
   final TextEditingController? controller;
@@ -177,10 +178,12 @@ class AutocompleteTextField extends StatefulWidget {
   final VoidCallback? onTap;
   final FocusNode? focusNode;
   final List<String>? autocompleteItems;
+  final Validate? validate;
 
   const AutocompleteTextField({
     Key? key,
     this.showDropdown = false,
+    this.validate,
     required this.label,
     this.controller,
     this.inputType,
@@ -203,6 +206,11 @@ class AutocompleteTextField extends StatefulWidget {
 class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
   List<String> filteredAutocompleteItems = [];
   bool isDropdownVisible = false;
+  @override
+  void initState() {
+    filteredAutocompleteItems = widget.autocompleteItems ?? [];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +242,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
               onChanged: (value) {
                 setState(() {
                   filteredAutocompleteItems = value.isEmpty
-                      ? []
+                      ? widget.autocompleteItems!
                       : widget.autocompleteItems
                               ?.where((item) => item
                                   .toLowerCase()
@@ -247,6 +255,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   widget.onChanged!(value);
                 }
               },
+              // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
               obscureText: widget.obscureText,
               controller: widget.controller,
               keyboardType: widget.inputType ?? TextInputType.name,
@@ -272,6 +281,43 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   ),
                 ),
               ),
+              validator: (value) {
+                if (Validate.none == widget.validate) {
+                  return null;
+                } else if ((value == null || value.isEmpty) &&
+                    widget.validate == Validate.notNull) {
+                  return 'Please enter ${widget.label}';
+                } else if (widget.validate == Validate.email &&
+                    !isValidEmail(value!)) {
+                  return 'Please enter a valid email address';
+                } else if (widget.validate == Validate.password &&
+                    value!.length < 8) {
+                  return 'Password must contain at least 8 characters';
+                } else if (widget.validate == Validate.password) {
+                  if (!hasLowerCase(value!)) {
+                    return 'Password must contains lowerCase letters';
+                  } else if (!hasCapsLetter(value)) {
+                    return 'Password must contains UpperCase letters';
+                  } else if (!hasNumbers(value)) {
+                    return 'Password must contains numbers';
+                  } else if (!hasSpecialChar(value)) {
+                    return 'Password must contains special characters';
+                  } else if (value.length < 8) {
+                    return 'Password must contains 8 characters';
+                  } else {
+                    return null;
+                  }
+                } else if (Validate.phone == widget.validate) {
+                  if (!RegExp(r'^[0-9]+$').hasMatch(value!)) {
+                    return 'Enter valid phone number (numeric characters only)';
+                  } else if (value.length != 10) {
+                    return 'Phone number should have exactly 10 digits';
+                  } else {
+                    return null;
+                  }
+                }
+                return null;
+              },
             ),
             if (isDropdownVisible && filteredAutocompleteItems.isNotEmpty)
               Container(

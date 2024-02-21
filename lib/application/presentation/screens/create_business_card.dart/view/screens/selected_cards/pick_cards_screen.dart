@@ -128,7 +128,7 @@ class PickCardsScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const ProfileScreen()));
+                                          ProfileCreationScreen()));
                             },
                           ),
                     adjustHieght(khieght * .02),

@@ -5,6 +5,8 @@ class BusinessDataState with _$BusinessDataState {
   const factory BusinessDataState(
       {required bool isLoading,
       required bool hasError,
+      int? businessDetailsCreateId,
+      int? bankDetailsCreateId,
       required List<SocialMediaHandleCreate> socialMedias,
       required List<AccreditionCreate> accreditions,
       required BusinessDetailsCreate businessDetails,

@@ -39,7 +39,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
         (failure) => emit(
             state.copyWith(isLoading: false, hasError: true, message: null)),
         (contactsList) {
-      emit(state.copyWith(isLoading: false, contactList: contactsList));
+      emit(state.copyWith(contactList: contactsList));
       add(const ContactsEvent.getContactsList());
     });
   }
@@ -51,7 +51,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     final result = await contactFetchFeature.getContactsList();
     print('fetch end');
     result.fold((failure) {
-      emit(state.copyWith(hasError: true));
+      emit(state.copyWith(hasError: true, isLoading: false));
     }, (contactList) {
       add(ContactsEvent.checkContactsInBizkit(contactList: contactList));
     });

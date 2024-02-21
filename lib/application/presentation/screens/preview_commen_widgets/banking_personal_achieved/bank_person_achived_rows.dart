@@ -8,14 +8,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PreviewBankPersonAchivedRows extends StatelessWidget {
   const PreviewBankPersonAchivedRows({
-    super.key, required this.fromPreview,
+    super.key,
+    required this.fromPreview,
   });
 
   final bool fromPreview;
 
   @override
   Widget build(BuildContext context) {
-
     return Row(
       children: [
         Expanded(

@@ -7,6 +7,7 @@ class UserDataState with _$UserDataState {
       required bool isLoading,
       SuccessResponseModel? cardAdded,
       String? message,
+      int? personalDataCreateId,
       required PersonalDetailsCreate personalDetails,
       required List<ImageModel> scannedImagesCardCreation,
       required List<ImageModel> userPhotos,

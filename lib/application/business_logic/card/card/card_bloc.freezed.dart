@@ -1189,9 +1189,9 @@ mixin _$CardState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get pageLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
-  List<Card> get cards => throw _privateConstructorUsedError;
+  List<CardResponse> get cards => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
-  Card? get defaultCard => throw _privateConstructorUsedError;
+  CardResponse? get defaultCard => throw _privateConstructorUsedError;
   Card? get anotherCard => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -1208,9 +1208,9 @@ abstract class $CardStateCopyWith<$Res> {
       {bool isLoading,
       bool pageLoading,
       bool hasError,
-      List<Card> cards,
+      List<CardResponse> cards,
       String? message,
-      Card? defaultCard,
+      CardResponse? defaultCard,
       Card? anotherCard});
 }
 
@@ -1251,7 +1251,7 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
       cards: null == cards
           ? _value.cards
           : cards // ignore: cast_nullable_to_non_nullable
-              as List<Card>,
+              as List<CardResponse>,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1259,7 +1259,7 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
       defaultCard: freezed == defaultCard
           ? _value.defaultCard
           : defaultCard // ignore: cast_nullable_to_non_nullable
-              as Card?,
+              as CardResponse?,
       anotherCard: freezed == anotherCard
           ? _value.anotherCard
           : anotherCard // ignore: cast_nullable_to_non_nullable
@@ -1280,9 +1280,9 @@ abstract class _$$InitialImplCopyWith<$Res>
       {bool isLoading,
       bool pageLoading,
       bool hasError,
-      List<Card> cards,
+      List<CardResponse> cards,
       String? message,
-      Card? defaultCard,
+      CardResponse? defaultCard,
       Card? anotherCard});
 }
 
@@ -1321,7 +1321,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       cards: null == cards
           ? _value._cards
           : cards // ignore: cast_nullable_to_non_nullable
-              as List<Card>,
+              as List<CardResponse>,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1329,7 +1329,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       defaultCard: freezed == defaultCard
           ? _value.defaultCard
           : defaultCard // ignore: cast_nullable_to_non_nullable
-              as Card?,
+              as CardResponse?,
       anotherCard: freezed == anotherCard
           ? _value.anotherCard
           : anotherCard // ignore: cast_nullable_to_non_nullable
@@ -1345,7 +1345,7 @@ class _$InitialImpl implements _Initial {
       {required this.isLoading,
       required this.pageLoading,
       required this.hasError,
-      required final List<Card> cards,
+      required final List<CardResponse> cards,
       this.message,
       this.defaultCard,
       this.anotherCard})
@@ -1357,9 +1357,9 @@ class _$InitialImpl implements _Initial {
   final bool pageLoading;
   @override
   final bool hasError;
-  final List<Card> _cards;
+  final List<CardResponse> _cards;
   @override
-  List<Card> get cards {
+  List<CardResponse> get cards {
     if (_cards is EqualUnmodifiableListView) return _cards;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_cards);
@@ -1368,7 +1368,7 @@ class _$InitialImpl implements _Initial {
   @override
   final String? message;
   @override
-  final Card? defaultCard;
+  final CardResponse? defaultCard;
   @override
   final Card? anotherCard;
 
@@ -1419,9 +1419,9 @@ abstract class _Initial implements CardState {
       {required final bool isLoading,
       required final bool pageLoading,
       required final bool hasError,
-      required final List<Card> cards,
+      required final List<CardResponse> cards,
       final String? message,
-      final Card? defaultCard,
+      final CardResponse? defaultCard,
       final Card? anotherCard}) = _$InitialImpl;
 
   @override
@@ -1431,11 +1431,11 @@ abstract class _Initial implements CardState {
   @override
   bool get hasError;
   @override
-  List<Card> get cards;
+  List<CardResponse> get cards;
   @override
   String? get message;
   @override
-  Card? get defaultCard;
+  CardResponse? get defaultCard;
   @override
   Card? get anotherCard;
   @override

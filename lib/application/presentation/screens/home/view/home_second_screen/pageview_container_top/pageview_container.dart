@@ -1,7 +1,7 @@
+import 'package:bizkit/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/pageview_container_top/page_view_contents.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
-import 'package:bizkit/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenPageviewAnimatedContaner extends StatefulWidget {

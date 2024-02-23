@@ -10,6 +10,10 @@ class BusinessDataEvent with _$BusinessDataEvent {
       {required AccreditionCreate accredition}) = AddAccredition;
   const factory BusinessDataEvent.removeAccredition({required int index}) =
       RemoveAccredition;
+  const factory BusinessDataEvent.addBranch(
+      {required String branch}) = AddBranch;
+  const factory BusinessDataEvent.removeBranch({required int index}) =
+      RemoveBranch;
   factory BusinessDataEvent.clear() = Clear;
   const factory BusinessDataEvent.createBusinessData() = CreateBusinessData;
   const factory BusinessDataEvent.createBankingData() = CreateBankingData;

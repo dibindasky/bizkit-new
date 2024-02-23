@@ -9,6 +9,7 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,75 @@ class CompanyAndBankingDetails extends StatelessWidget {
               'Company & Banking Details',
               style: TextStyle(fontSize: 20),
             ),
+            // company branchs adding section
+            BlocBuilder<BusinessDataBloc, BusinessDataState>(
+              builder: (context, state) {
+                return ImagePreviewUnderTextField(
+                  ontap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                          child: ColoredBox(
+                            color: kblack,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Text('Enter Branch Office'),
+                                  adjustHieght(10),
+                                  TTextFormField(
+                                      text: 'Branch',
+                                      controller: context
+                                          .read<BusinessDataBloc>()
+                                          .branchOfficeController),
+                                  adjustHieght(10),
+                                  AuthButton(
+                                      text: 'Add',
+                                      onTap: () {
+                                        if (context
+                                                .read<BusinessDataBloc>()
+                                                .branchOfficeController
+                                                .text !=
+                                            '') {
+                                          context.read<BusinessDataBloc>().add(
+                                                BusinessDataEvent.addBranch(
+                                                    branch: context
+                                                        .read<
+                                                            BusinessDataBloc>()
+                                                        .branchOfficeController
+                                                        .text),
+                                              );
+                                        }
+                                        context
+                                            .read<BusinessDataBloc>()
+                                            .branchOfficeController
+                                            .text = '';
+                                        Navigator.pop(context);
+                                      })
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  removeItem: (index) => context
+                      .read<BusinessDataBloc>()
+                      .add(BusinessDataEvent.removeBranch(index: index)),
+                  listString: state.branchOffices,
+                  child: const TTextFormField(
+                    enabled: false,
+                    text: 'Branch Offices',
+                    suffix: Icon(Icons.keyboard_arrow_right_outlined),
+                  ),
+                );
+              },
+            ),
             adjustHieght(10),
             // accredition data
             BlocBuilder<BusinessDataBloc, BusinessDataState>(
@@ -43,6 +113,10 @@ class CompanyAndBankingDetails extends StatelessWidget {
                   ontap: () => Navigator.of(context).push(
                     fadePageRoute(const AccolodesScreen(accolade: false)),
                   ),
+                  onItemTap: (value) => Navigator.push(
+                      context,
+                      fadePageRoute(
+                          ScreenImagePreview(image: value, isFileIamge: true))),
                   removeItem: (index) => context
                       .read<BusinessDataBloc>()
                       .add(BusinessDataEvent.removeAccredition(index: index)),
@@ -81,61 +155,26 @@ class CompanyAndBankingDetails extends StatelessWidget {
                 );
               },
             ),
-            adjustHieght(khieght * .02),
+            adjustHieght(khieght * .03),
+            const Text('Banking details'),
             // company banking name
             TTextFormField(
               text: 'company banking name',
               controller:
                   context.read<BusinessDataBloc>().nameOfCompanyController,
             ),
-            // banking details accound number ifsc popup
-            InkWell(
-              onTap: () => showDialog(
-                context: context,
-                builder: (context) {
-                  String? account, ifsc;
-                  return Dialog(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        adjustHieght(20),
-                        Text('Enter Your Banking Details',
-                            style: textHeadStyle1),
-                        TTextFormField(
-                            text: 'Account Number',
-                            onChanaged: (value) => account = value),
-                        adjustHieght(10),
-                        TTextFormField(
-                            text: 'IFSC code',
-                            onChanaged: (value) => ifsc = value),
-                        adjustHieght(10),
-                        AuthButton(
-                            text: 'Add',
-                            onTap: () {
-                              context.read<BusinessDataBloc>().ifsc = ifsc;
-                              context.read<BusinessDataBloc>().accountNumber =
-                                  account;
-                              print('acccountnumber and ifsc');
-                              print(context.read<BusinessDataBloc>().ifsc);
-                              print(context
-                                  .read<BusinessDataBloc>()
-                                  .accountNumber);
-                              Navigator.pop(context);
-                            }),
-                        adjustHieght(20)
-                      ],
-                    ),
-                  ));
-                },
-              ),
-              child: const TTextFormField(
-                enabled: false,
-                text: 'Bank Details',
-                inputType: TextInputType.name,
-              ),
+            // banking details accound number
+            TTextFormField(
+              text: 'Account Number',
+              inputType: TextInputType.number,
+              controller:
+                  context.read<BusinessDataBloc>().accountNumberController,
+            ),
+            // banking details accound number
+            TTextFormField(
+              text: 'IFSC',
+              inputType: TextInputType.name,
+              controller: context.read<BusinessDataBloc>().ifscController,
             ),
             // upi details
             TTextFormField(
@@ -147,13 +186,7 @@ class CompanyAndBankingDetails extends StatelessWidget {
               text: 'GST Number',
               controller: context.read<BusinessDataBloc>().gstNumberController,
             ),
-            // company branch
             adjustHieght(10),
-            TTextFormField(
-              text: 'Branch Offices',
-              controller:
-                  context.read<BusinessDataBloc>().branchOfficeController,
-            ),
             adjustHieght(khieght * .05),
             BlocConsumer<BusinessDataBloc, BusinessDataState>(
               listenWhen: (previous, current) =>

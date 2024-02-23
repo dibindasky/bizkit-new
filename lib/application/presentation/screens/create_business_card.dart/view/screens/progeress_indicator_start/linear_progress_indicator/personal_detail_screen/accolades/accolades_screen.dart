@@ -127,7 +127,7 @@ class AccolodesScreen extends StatelessWidget {
                                   bottom: 0,
                                   child: Container(
                                     padding: const EdgeInsets.only(left: 10),
-                                    color: klightgrey.withOpacity(.1),
+                                    color: kblack.withOpacity(.7),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,

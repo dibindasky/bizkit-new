@@ -116,25 +116,26 @@ class ProfileCreationScreen extends StatelessWidget {
                                 state.scannedImageDatasModel?.emails ?? [],
                           ),
                           // company name
-                          AutocompleteTextField(
-                            validate: Validate.notNull,
-                            label: 'Company',
-                            controller:
-                                context.read<UserDataBloc>().companylController,
-                            inputType: TextInputType.name,
-                            autocompleteItems:
-                                state.scannedImageDatasModel?.names ?? [],
-                          ),
+                          // AutocompleteTextField(
+                          //   validate: Validate.notNull,
+                          //   label: 'Company',
+                          //   controller:
+                          //       context.read<UserDataBloc>().companylController,
+                          //   inputType: TextInputType.name,
+                          //   autocompleteItems:
+                          //       state.scannedImageDatasModel?.names ?? [],
+                          // ),
                           // business category
                           AutocompleteTextField(
+                            enabled: false,
                             validate: Validate.notNull,
                             label: 'BusinessCategory',
                             controller: context
                                 .read<UserDataBloc>()
                                 .businessCategoryController,
                             inputType: TextInputType.name,
-                            autocompleteItems:
-                                state.scannedImageDatasModel?.unknown ?? [],
+                            autocompleteItems:const ['IT','CLOTHING','HOTEL']
+                                ,
                           ),
                           adjustHieght(khieght * .05),
                         ],

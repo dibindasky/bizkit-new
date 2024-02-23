@@ -4,6 +4,7 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/application/presentation/utils/debouncer/debouncer.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -11,9 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BusinessDetailsScreen extends StatelessWidget {
-  const BusinessDetailsScreen({super.key, required this.pageController});
+  BusinessDetailsScreen({super.key, required this.pageController});
 
   final PageController pageController;
+  final Debouncer debouncer = Debouncer();
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +39,22 @@ class BusinessDetailsScreen extends StatelessWidget {
             adjustHieght(khieght * .02),
             // company name
             AutocompleteTextField(
+              showDropdown: true,
+              autocompleteItems: const [
+                'Zikrabyte',
+                'Puma',
+                'Adidas',
+                'Tata',
+                'Reliance'
+              ],
+              onChanged: (value) {
+                // call company api and fetch companys to dropdown
+              },
+              onDropDownSelection: (value) {
+                // call for company details with the selected value
+              },
               label: 'Company',
               controller: context.read<BusinessDataBloc>().companyController,
-              inputType: TextInputType.name,
             ),
             // business name
             TTextFormField(
@@ -56,6 +71,7 @@ class BusinessDetailsScreen extends StatelessWidget {
             // company mail id
             TTextFormField(
               text: 'Mail ID',
+              inputType: TextInputType.emailAddress,
               controller: context.read<BusinessDataBloc>().mailController,
             ),
             // mobile number business
@@ -117,11 +133,13 @@ class BusinessDetailsScreen extends StatelessWidget {
             // address field
             TTextFormField(
               maxLines: 4,
+              maxlegth: 250,
               text: 'Address',
               controller: context.read<BusinessDataBloc>().addressController,
             ),
             // website link business
             TTextFormField(
+              inputType: TextInputType.url,
               text: 'Website link',
               controller:
                   context.read<BusinessDataBloc>().websiteLinkController,
@@ -130,7 +148,7 @@ class BusinessDetailsScreen extends StatelessWidget {
             LastSkipContinueButtons(
               onTap: () {
                 pageController.nextPage(
-                  duration: const Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 300),
                   curve: Curves.ease,
                 );
               },

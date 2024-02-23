@@ -3,7 +3,6 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/dates_to_remember.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/photos/photos_adding.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/image_preview_under_textField.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
@@ -12,6 +11,7 @@ import 'package:bizkit/application/presentation/utils/loading_indicator/loading_
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,12 +48,14 @@ class PersonlDetails extends StatelessWidget {
                 validate: Validate.notNull,
                 maxLines: 2,
                 text: 'Home address',
+                maxlegth: 250,
                 controller: context.read<UserDataBloc>().homeAddress,
                 inputType: TextInputType.name,
               ),
               // blood group selection
               AutocompleteTextField(
                 validate: Validate.notNull,
+                enabled: false,
                 autocompleteItems: bloodGroups,
                 showDropdown: true,
                 label: 'Blood Group',
@@ -95,6 +97,10 @@ class PersonlDetails extends StatelessWidget {
                       ontap: () => Navigator.of(context).push(
                             fadePageRoute(const AccolodesScreen()),
                           ),
+                        onItemTap: (value) => Navigator.push(
+                      context,
+                      fadePageRoute(
+                          ScreenImagePreview(image: value, isFileIamge: true))),
                       removeItem: (index) => context
                           .read<UserDataBloc>()
                           .add(UserDataEvent.removeAccolade(index: index)),

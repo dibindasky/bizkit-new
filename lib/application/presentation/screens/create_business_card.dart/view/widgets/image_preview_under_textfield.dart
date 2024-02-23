@@ -2,6 +2,11 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 
+// this widget will return the images under the text fieldor any widget it was wraped with
+// if the imagelist is not null then will return images
+// or if the listString is not null it will return the string as list
+// it also accepts two functions one on the clear(x) button tap removeItem one on the widget tap
+
 class ImagePreviewUnderTextField extends StatelessWidget {
   const ImagePreviewUnderTextField(
       {super.key,
@@ -9,10 +14,12 @@ class ImagePreviewUnderTextField extends StatelessWidget {
       required this.child,
       this.removeItem,
       this.list,
-      this.listString});
+      this.listString,
+      this.onItemTap});
 
   final VoidCallback ontap;
   final Function(int index)? removeItem;
+  final Function(String value)? onItemTap;
   final Widget child;
   final List<ImageModel>? list;
   final List<String>? listString;
@@ -38,17 +45,24 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                               child: Stack(
                                 alignment: AlignmentDirectional.topEnd,
                                 children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                        right: 20, top: 5),
-                                    height: 80,
-                                    width: 80,
-                                    decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10)),
-                                        image: DecorationImage(
-                                            image: FileImage(image.fileImage),
-                                            fit: BoxFit.cover)),
+                                  InkWell(
+                                    onTap: () {
+                                      if (onItemTap != null) {
+                                        onItemTap!(list![index].fileImage.path);
+                                      }
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 10, top: 10, right: 10),
+                                      height: 80,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10)),
+                                          image: DecorationImage(
+                                              image: FileImage(image.fileImage),
+                                              fit: BoxFit.cover)),
+                                    ),
                                   ),
                                   removeItem == null
                                       ? const SizedBox()
@@ -83,15 +97,22 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                               child: Stack(
                                 alignment: AlignmentDirectional.topEnd,
                                 children: [
-                                  Container(
-                                    margin: const EdgeInsets.all(8),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 8),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: neonShade),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10))),
-                                    child: Text(listString![index]),
+                                  InkWell(
+                                    onTap: () {
+                                      if (onItemTap != null) {
+                                        onItemTap!(list![index].fileImage.path);
+                                      }
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.all(8),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 8),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: neonShade),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Text(listString![index]),
+                                    ),
                                   ),
                                   removeItem == null
                                       ? const SizedBox()

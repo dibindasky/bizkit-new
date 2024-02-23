@@ -31,7 +31,6 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController companylController = TextEditingController();
   final TextEditingController homeAddress = TextEditingController();
   final TextEditingController bloodGroup = TextEditingController();
   final TextEditingController birthDaycontroller = TextEditingController();
@@ -83,8 +82,6 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         name: nameController.text.isEmpty ? null : nameController.text,
         phoneNumber: phoneController.text.isEmpty ? null : phoneController.text,
         email: emailController.text.isEmpty ? null : emailController.text,
-        company:
-            companylController.text.isEmpty ? null : companylController.text,
         businessCategory: businessCategoryController.text.isEmpty
             ? null
             : businessCategoryController.text,
@@ -224,8 +221,6 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         phoneController.text =
             userList.first.phoneNumber ?? phoneController.text;
         emailController.text = userList.first.email ?? emailController.text;
-        companylController.text =
-            userList.first.companyName ?? companylController.text;
       }
       emit(state.copyWith(cardAdded: null, message: null));
     });

@@ -238,7 +238,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                     validate: Validate.password,
                     text: 'Password',
                     controller: passwordController,
-                    inputType: TextInputType.emailAddress,
+                    inputType: TextInputType.visiblePassword,
                     obscureText: true,
                   ),
                   Text(

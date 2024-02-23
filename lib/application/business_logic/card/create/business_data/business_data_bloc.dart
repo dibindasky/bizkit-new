@@ -32,9 +32,10 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   final TextEditingController logoStoryController = TextEditingController();
   final TextEditingController nameOfCompanyController = TextEditingController();
   final TextEditingController upiDetailController = TextEditingController();
+  final TextEditingController accountNumberController = TextEditingController();
+  final TextEditingController ifscController = TextEditingController();
   final TextEditingController gstNumberController = TextEditingController();
   final TextEditingController branchOfficeController = TextEditingController();
-  String? accountNumber, ifsc;
   final PdfPickerImpl pdfPicker;
   final CardRepo cardService;
 
@@ -49,6 +50,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<RemoveBrochure>(removeBrochure);
     on<AddProduct>(addProduct);
     on<RemoveProduct>(removeProduct);
+    on<AddBranch>(addBranch);
+    on<RemoveBranch>(removeBranch);
     on<CreateBusinessData>(createBusinessData);
     on<CreateBankingData>(createBankingData);
     on<Clear>(clear);
@@ -69,8 +72,11 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         nameOfCompany: nameOfCompanyController.text.trim().isEmpty
             ? null
             : nameOfCompanyController.text,
-        acccountNumber: accountNumber,
-        ifscCode: ifsc,
+        acccountNumber: accountNumberController.text.trim().isEmpty
+            ? null
+            : accountNumberController.text,
+        ifscCode:
+            ifscController.text.trim().isEmpty ? null : ifscController.text,
         upiDetails: upiDetailController.text.trim().isEmpty
             ? null
             : upiDetailController.text,
@@ -173,8 +179,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       emit(state.copyWith(logo: image));
     }
   }
-
-  FutureOr<void> addBrochure(AddBrochures event, emit) async {
+    FutureOr<void> addBrochure(AddBrochures event, emit) async {
     final result = await pdfPicker.pickPDF();
     result.fold((l) {
       return;
@@ -193,6 +198,22 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       }
     }
     emit(state.copyWith(brochures: list));
+  }
+
+  FutureOr<void> addBranch(AddBranch event, emit) async {
+      final List<String> list = List.from(state.branchOffices);
+      list.add(event.branch);
+      emit(state.copyWith(branchOffices: list));
+  }
+
+  FutureOr<void> removeBranch(RemoveBranch event, emit) async {
+    final List<String> list = [];
+    for (String branch in state.branchOffices) {
+      if (state.branchOffices[event.index] != branch) {
+        list.add(branch);
+      }
+    }
+    emit(state.copyWith(branchOffices: list));
   }
 
   FutureOr<void> addProduct(AddProduct event, emit) async {

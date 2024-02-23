@@ -59,18 +59,20 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                 ),
                 adjustHieght(khieght * .02),
                 TTextFormField(
+                  maxlegth: 100,
                   onChanaged: (value) {
                     title = value;
                   },
-                  text: 'Name',
+                  text: 'Title',
                   inputType: TextInputType.name,
                 ),
                 TTextFormField(
+                  maxlegth: 300,
                   onChanaged: (value) {
                     description = value;
                   },
                   text: 'Description',
-                  maxLines: 10,
+                  maxLines: 8,
                   inputType: TextInputType.name,
                 ),
                 adjustHieght(khieght * .02),

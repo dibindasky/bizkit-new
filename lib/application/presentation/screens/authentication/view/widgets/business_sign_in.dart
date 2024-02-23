@@ -74,6 +74,7 @@ class BusinessSignIn extends StatelessWidget {
                 validate: Validate.password,
                 controller: passwordController,
                 obscureText: true,
+                inputType: TextInputType.visiblePassword,
               ),
               TTextFormField(
                 text: 'ReEnter Password',

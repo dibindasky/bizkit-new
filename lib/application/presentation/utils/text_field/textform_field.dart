@@ -17,7 +17,8 @@ class TTextFormField extends StatefulWidget {
   final Widget? su;
   final Widget? suffix;
   final Color? clr;
-  final Function(String)? onChanaged;
+  final Function(String value)? onChanaged;
+  final Function(String? value)? onSubmitted;
   final VoidCallback? onTap;
   final TextEditingController? password;
   final FocusNode? focusNode;
@@ -27,6 +28,7 @@ class TTextFormField extends StatefulWidget {
   const TTextFormField({
     Key? key,
     this.enabled = true,
+    this.onSubmitted,
     this.validate = Validate.none,
     this.password,
     this.showUnderline = false,
@@ -90,6 +92,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
           ),
           maxLength: widget.maxlegth,
           onChanged: widget.onChanaged,
+          onSaved: widget.onSubmitted,
           obscureText: widget.obscureText && !_focusNode.hasFocus,
           controller: widget.controller,
           keyboardType: widget.inputType,

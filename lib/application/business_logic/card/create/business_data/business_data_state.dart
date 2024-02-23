@@ -9,6 +9,7 @@ class BusinessDataState with _$BusinessDataState {
       int? bankDetailsCreateId,
       required List<SocialMediaHandleCreate> socialMedias,
       required List<AccreditionCreate> accreditions,
+      required List<String> branchOffices,
       required BusinessDetailsCreate businessDetails,
       required BankDetailsCreate bankDetails,
       required List<ProductCreate> products,
@@ -23,6 +24,7 @@ class BusinessDataState with _$BusinessDataState {
       isLoading: false,
       hasError: false,
       socialMedias: [],
+      branchOffices: [],
       brochures: [],
       accreditions: []);
 }

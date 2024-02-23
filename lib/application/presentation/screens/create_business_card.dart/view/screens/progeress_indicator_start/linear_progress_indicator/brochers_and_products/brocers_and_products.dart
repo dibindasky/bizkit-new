@@ -96,7 +96,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Add brochers',
+                            'Add brochures',
                             style: TextStyle(fontSize: 10.sp),
                           ),
                         ],
@@ -109,7 +109,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
               const Text('Added Products'),
               const ProductBuilder(),
               adjustHieght(30),
-              const Text('Added Brochers'),
+              const Text('Added Brochures'),
               adjustHieght(10),
               const BrocherBuilder(),
             ],
@@ -122,7 +122,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
             listener: (context, state) {
               if (state.businessDetailsCreateId != null) {
                 pageController.nextPage(
-                  duration: const Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 300),
                   curve: Curves.ease,
                 );
               }

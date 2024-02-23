@@ -74,6 +74,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return DatePickingBottomSheet(
+                            year: 500,
                             onPressed: (date) {
                               setState(() {
                                 dateController.text = date;
@@ -114,6 +115,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                     adjustHieght(20),
                     const Text('Message'),
                     TTextFormField(
+                      maxlegth: 250,
                       maxLines: 7,
                       text: 'Write your message here',
                       controller: labelController,

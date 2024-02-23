@@ -61,8 +61,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5),
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    data.photo ??
-                                        imageDummyNetwork),
+                                    data.photo ?? imageDummyNetwork),
                                 fit: BoxFit.cover)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,7 +70,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text(data.qrUrl ?? 'Name',
+                                Text('Name',
                                     style: textHeadStyle1.copyWith(shadows: [
                                       const Shadow(
                                           color: kblack,
@@ -79,8 +78,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                           blurRadius: 5)
                                     ])),
                                 Text(
-                                  data.qrUrl ??
-                                      "Designation",
+                                  "Designation",
                                   style: TextStyle(
                                       fontSize: kwidth * .037,
                                       shadows: const [
@@ -93,8 +91,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                 SizedBox(
                                   height: 40.dm,
                                   child: Image.network(
-                                      data.logo ??
-                                          imageDummyNetwork),
+                                      data.logo ?? imageDummyNetwork),
                                 ),
                               ],
                             ),

@@ -101,6 +101,9 @@ class _HomeScreenFirstAnimationScreenState
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    khieght = size.height;
+    kwidth = size.width;
     return Scaffold(
       body: SafeArea(
         child: ValueListenableBuilder(

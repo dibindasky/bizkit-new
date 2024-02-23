@@ -4,6 +4,7 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,12 @@ class BusinessDetailsScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
             adjustHieght(khieght * .02),
+            // company name
+            AutocompleteTextField(
+              label: 'Company',
+              controller: context.read<BusinessDataBloc>().companyController,
+              inputType: TextInputType.name,
+            ),
             // business name
             TTextFormField(
               text: 'Business Name',
@@ -45,12 +52,6 @@ class BusinessDetailsScreen extends StatelessWidget {
               text: 'Designation',
               controller:
                   context.read<BusinessDataBloc>().designationController,
-            ),
-            // company name
-            TTextFormField(
-              text: 'Company',
-              controller: context.read<BusinessDataBloc>().companyController,
-              inputType: TextInputType.name,
             ),
             // company mail id
             TTextFormField(

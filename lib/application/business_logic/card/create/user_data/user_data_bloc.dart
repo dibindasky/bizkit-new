@@ -176,20 +176,14 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> pickUserPhotos(PickUserPhotos event, emit) async {
-    final List<ImageModel> list = List.from(state.userPhotos);
     final img = await ImagePickerClass.getImage(camera: false);
     if (img != null) {
-      list.add(img);
-      emit(state.copyWith(userPhotos: list, cardAdded: null, message: null));
+      emit(state.copyWith(userPhotos: [img], cardAdded: null, message: null));
     }
   }
 
   FutureOr<void> removeUserPhoto(RemoveUserPhoto event, emit) async {
-    final List<ImageModel> list = [];
-    for (ImageModel img in state.userPhotos) {
-      if (state.userPhotos[event.index] != img) list.add(img);
-    }
-    emit(state.copyWith(userPhotos: list, cardAdded: null, message: null));
+    emit(state.copyWith(userPhotos: [], cardAdded: null, message: null));
   }
 
   FutureOr<void> removeImageScanning(RemoveImageScanning event, emit) async {

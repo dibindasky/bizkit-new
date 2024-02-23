@@ -21,6 +21,9 @@ class _StartingBusinessCardCreationState
     extends State<StartingBusinessCardCreation> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final khieght = size.height;
+    final kwidth = size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: backgroundColour,
@@ -76,7 +79,7 @@ class _StartingBusinessCardCreationState
                             .read<UserDataBloc>()
                             .add(UserDataEvent.getUserDetail());
                         Navigator.of(context).push(
-                          fadePageRoute(ProfileCreationScreen()),
+                          fadePageRoute(const ProfileCreationScreen()),
                         );
                       },
                       child: Text(

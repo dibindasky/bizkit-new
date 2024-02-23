@@ -36,6 +36,12 @@ bool isValidWebsite(String input) {
   return urlRegex.hasMatch(input);
 }
 
+bool isURLValid(String url) {
+  const urlPattern =
+      r"^((https?|ftp|ftps)://)?(([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,6}|localhost)(:[0-9]+)?(/([a-zA-Z0-9/\._-]+)*(\?[a-zA-Z0-9=\&._-]+)?)?(#[a-zA-Z0-9\-_]+)?$";
+  return RegExp(urlPattern).hasMatch(url);
+}
+
 bool hasCapsLetter(String input) {
   final hasCapitalRegExp = RegExp(r'[A-Z]');
   return hasCapitalRegExp.hasMatch(input);

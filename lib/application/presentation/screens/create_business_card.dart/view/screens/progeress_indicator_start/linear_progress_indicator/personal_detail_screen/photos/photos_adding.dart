@@ -77,7 +77,7 @@ class PhotosAddingScreen extends StatelessWidget {
                             child: IconButton(
                               icon: const Icon(Icons.delete),
                               onPressed: () => context.read<UserDataBloc>().add(
-                                    UserDataEvent.removeUserPhoto(index: index),
+                                    UserDataEvent.removeUserPhoto(),
                                   ),
                             ),
                           ),

@@ -9,6 +9,7 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
@@ -218,50 +219,6 @@ class PersonlDetails extends StatelessWidget {
                                     : klightgrey),
                           ),
                           const Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 16,
-                            color: klightgrey,
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              adjustHieght(20),
-              // personal photos
-              BlocBuilder<UserDataBloc, UserDataState>(
-                builder: (context, state) {
-                  return ImagePreviewUnderTextField(
-                    ontap: () => Navigator.of(context).push(
-                      fadePageRoute(const PhotosAddingScreen()),
-                    ),
-                    removeItem: (index) => context
-                        .read<UserDataBloc>()
-                        .add(UserDataEvent.removeUserPhoto(index: index)),
-                    list: state.userPhotos,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: textFieldFillColr,
-                        boxShadow: [
-                          BoxShadow(
-                            color: textFieldFillColr,
-                            spreadRadius: 0.4,
-                            blurRadius: 4,
-                            offset: Offset(0.4, .2),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.only(left: 12, right: 12),
-                      height: 48.0,
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Photos',
-                            style: TextStyle(color: klightgrey),
-                          ),
-                          Icon(
                             Icons.arrow_forward_ios_rounded,
                             size: 16,
                             color: klightgrey,

@@ -25,7 +25,7 @@ mixin _$UserDataEvent {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -47,7 +47,7 @@ mixin _$UserDataEvent {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -67,7 +67,7 @@ mixin _$UserDataEvent {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -228,7 +228,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -253,7 +253,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -276,7 +276,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -445,7 +445,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -470,7 +470,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -493,7 +493,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -670,7 +670,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -695,7 +695,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -718,7 +718,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -860,7 +860,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -885,7 +885,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -908,7 +908,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -1044,7 +1044,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -1069,7 +1069,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -1092,7 +1092,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -1228,7 +1228,7 @@ class _$ClearImpl implements Clear {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -1253,7 +1253,7 @@ class _$ClearImpl implements Clear {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -1276,7 +1276,7 @@ class _$ClearImpl implements Clear {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -1412,7 +1412,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -1437,7 +1437,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -1460,7 +1460,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -1556,8 +1556,6 @@ abstract class _$$RemoveUserPhotoImplCopyWith<$Res> {
   factory _$$RemoveUserPhotoImplCopyWith(_$RemoveUserPhotoImpl value,
           $Res Function(_$RemoveUserPhotoImpl) then) =
       __$$RemoveUserPhotoImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int index});
 }
 
 /// @nodoc
@@ -1567,51 +1565,26 @@ class __$$RemoveUserPhotoImplCopyWithImpl<$Res>
   __$$RemoveUserPhotoImplCopyWithImpl(
       _$RemoveUserPhotoImpl _value, $Res Function(_$RemoveUserPhotoImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? index = null,
-  }) {
-    return _then(_$RemoveUserPhotoImpl(
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
-  _$RemoveUserPhotoImpl({required this.index});
-
-  @override
-  final int index;
+  _$RemoveUserPhotoImpl();
 
   @override
   String toString() {
-    return 'UserDataEvent.removeUserPhoto(index: $index)';
+    return 'UserDataEvent.removeUserPhoto()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RemoveUserPhotoImpl &&
-            (identical(other.index, index) || other.index == index));
+        (other.runtimeType == runtimeType && other is _$RemoveUserPhotoImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RemoveUserPhotoImplCopyWith<_$RemoveUserPhotoImpl> get copyWith =>
-      __$$RemoveUserPhotoImplCopyWithImpl<_$RemoveUserPhotoImpl>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -1623,7 +1596,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -1635,7 +1608,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     required TResult Function(CreateCardByIdModel createCardByIdModel)
         createCard,
   }) {
-    return removeUserPhoto(index);
+    return removeUserPhoto();
   }
 
   @override
@@ -1648,7 +1621,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -1658,7 +1631,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(CreateCardByIdModel createCardByIdModel)? createCard,
   }) {
-    return removeUserPhoto?.call(index);
+    return removeUserPhoto?.call();
   }
 
   @override
@@ -1671,7 +1644,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -1682,7 +1655,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     required TResult orElse(),
   }) {
     if (removeUserPhoto != null) {
-      return removeUserPhoto(index);
+      return removeUserPhoto();
     }
     return orElse();
   }
@@ -1759,12 +1732,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
 }
 
 abstract class RemoveUserPhoto implements UserDataEvent {
-  factory RemoveUserPhoto({required final int index}) = _$RemoveUserPhotoImpl;
-
-  int get index;
-  @JsonKey(ignore: true)
-  _$$RemoveUserPhotoImplCopyWith<_$RemoveUserPhotoImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  factory RemoveUserPhoto() = _$RemoveUserPhotoImpl;
 }
 
 /// @nodoc
@@ -1839,7 +1807,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -1864,7 +1832,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -1887,7 +1855,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -2056,7 +2024,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -2081,7 +2049,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -2104,7 +2072,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -2273,7 +2241,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -2298,7 +2266,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -2321,7 +2289,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -2492,7 +2460,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -2517,7 +2485,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -2540,7 +2508,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -2710,7 +2678,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -2735,7 +2703,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -2758,7 +2726,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -2928,7 +2896,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -2953,7 +2921,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -2976,7 +2944,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -3145,7 +3113,7 @@ class _$CreateCardImpl implements CreateCard {
     required TResult Function() pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
-    required TResult Function(int index) removeUserPhoto,
+    required TResult Function() removeUserPhoto,
     required TResult Function(AccoladeCreate accolade) addAccolade,
     required TResult Function(int index) removeAccolade,
     required TResult Function(DatesToRememberCreate datesToRemember)
@@ -3170,7 +3138,7 @@ class _$CreateCardImpl implements CreateCard {
     TResult? Function()? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
-    TResult? Function(int index)? removeUserPhoto,
+    TResult? Function()? removeUserPhoto,
     TResult? Function(AccoladeCreate accolade)? addAccolade,
     TResult? Function(int index)? removeAccolade,
     TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
@@ -3193,7 +3161,7 @@ class _$CreateCardImpl implements CreateCard {
     TResult Function()? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
-    TResult Function(int index)? removeUserPhoto,
+    TResult Function()? removeUserPhoto,
     TResult Function(AccoladeCreate accolade)? addAccolade,
     TResult Function(int index)? removeAccolade,
     TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,

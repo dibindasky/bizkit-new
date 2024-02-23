@@ -33,11 +33,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    khieght = size.height;
-    kwidth = size.width;
-
     return ScreenUtilInit(
-      designSize: Size(kwidth, khieght),
+      designSize: Size(size.width, size.height),
       child: MultiBlocProvider(
         providers: [
           BlocProvider<InternetConnectionCheckCubit>(
@@ -64,7 +61,6 @@ class MyApp extends StatelessWidget {
                   ),
             ),
             debugShowCheckedModeBanner: false,
-            // home: const SplashScreen(),
             routerConfig: GoRouterConfig.router),
       ),
     );

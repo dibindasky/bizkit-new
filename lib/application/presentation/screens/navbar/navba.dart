@@ -2,7 +2,7 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/screen/card_screen_main.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/profile_screen.dart';
-import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selfie_screen.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';

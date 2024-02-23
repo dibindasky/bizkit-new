@@ -14,16 +14,16 @@ const Color knill = Colors.transparent;
 const Color backgroundColour = Color.fromRGBO(41, 41, 41, 1);
 const Color lightColr = Color.fromRGBO(53, 53, 53, .42);
 
-late double khieght;
-late double kwidth;
+double khieght = 850;
+double kwidth = 400;
 
-void sizeFinder(BuildContext context) {
-  final size = MediaQuery.of(context).size;
-  print(size.height);
-  print(size.width);
-  khieght = size.height > 900 ? 900 : size.height;
-  kwidth = size.width > 450 ? 450 : size.width;
-}
+// void sizeFinder(BuildContext context) {
+//   final size = MediaQuery.of(context).size;
+//   print(size.height);
+//   print(size.width);
+//   khieght = size.height > 900 ? 900 : size.height;
+//   kwidth = size.width > 450 ? 450 : size.width;
+// }
 
 adjustWidth(double width) {
   return SizedBox(

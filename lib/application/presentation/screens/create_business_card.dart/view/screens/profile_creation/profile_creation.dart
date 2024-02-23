@@ -1,19 +1,22 @@
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/progress_indicator_start.dart';
+import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfileCreationScreen extends StatelessWidget {
-  ProfileCreationScreen({super.key});
+final GlobalKey<FormState> personalDataFirstFormKey = GlobalKey();
 
-  final GlobalKey<FormState> personalDataFormKey = GlobalKey();
+class ProfileCreationScreen extends StatelessWidget {
+  const ProfileCreationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final khieght = size.height;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -78,7 +81,7 @@ class ProfileCreationScreen extends StatelessWidget {
                 BlocBuilder<UserDataBloc, UserDataState>(
                   builder: (context, state) {
                     return Form(
-                      key: personalDataFormKey,
+                      key: personalDataFirstFormKey,
                       child: Column(
                         children: [
                           // personal name field
@@ -120,7 +123,7 @@ class ProfileCreationScreen extends StatelessWidget {
                                 context.read<UserDataBloc>().companylController,
                             inputType: TextInputType.name,
                             autocompleteItems:
-                                state.scannedImageDatasModel?.unknown ?? [],
+                                state.scannedImageDatasModel?.names ?? [],
                           ),
                           // business category
                           AutocompleteTextField(
@@ -141,7 +144,7 @@ class ProfileCreationScreen extends StatelessWidget {
                 ),
                 LastSkipContinueButtons(
                   onTap: () {
-                    if (personalDataFormKey.currentState!.validate()) {
+                    if (personalDataFirstFormKey.currentState!.validate()) {
                       Navigator.of(context).push(
                         fadePageRoute(const LinearProgressIndicatorStarting()),
                       );

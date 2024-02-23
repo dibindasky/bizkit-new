@@ -12,7 +12,7 @@ class UserDataEvent with _$UserDataEvent {
   factory UserDataEvent.pickUserPhotos() = PickUserPhotos;
   factory UserDataEvent.clear() = Clear;
   factory UserDataEvent.createPersonalData() = CreatePersonalData;
-  factory UserDataEvent.removeUserPhoto({required int index}) = RemoveUserPhoto;
+  factory UserDataEvent.removeUserPhoto() = RemoveUserPhoto;
   factory UserDataEvent.addAccolade({required AccoladeCreate accolade}) =
       AddAccolade;
   factory UserDataEvent.removeAccolade({required int index}) = RemoveAccolade;

@@ -96,6 +96,9 @@ class _LoGInScreenState extends State<LoGInScreen>
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    khieght = size.height;
+    kwidth = size.width;
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScope = FocusScope.of(context);

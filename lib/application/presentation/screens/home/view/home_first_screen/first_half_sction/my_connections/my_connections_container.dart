@@ -18,7 +18,7 @@ class MyConnectionContainer extends StatelessWidget {
               Text('My connections', style: textHeadStyle1),
               GestureDetector(
                 onTap: () => Navigator.of(context).push(
-                  fadePageRoute(const MyConnectionsViewAllContacts()),
+                  fadePageRoute( MyConnectionsViewAllContacts()),
                 ),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),

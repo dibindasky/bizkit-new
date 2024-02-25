@@ -37,6 +37,7 @@ class Sql {
         ${User.colPhone} TEXT,
         ${User.colCompanyName} TEXT,
         ${User.colAddress} TEXT,
+        ${User.colWebsite} TEXT,
         ${User.colIsBusiness} INTEGER DEFAULT 0
       )
     ''';

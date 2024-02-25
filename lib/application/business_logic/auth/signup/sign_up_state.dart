@@ -12,7 +12,7 @@ class SignUpState with _$SignUpState {
       required bool otpIndividualError,
       required bool otpBusinessError,
       String? message,
-      SignUpResponseModel? signUpResponseModel}) = _Initial;
+      LoginResponseModel? signUpResponseModel}) = _Initial;
 
   factory SignUpState.initial() => const SignUpState(
       isLoading: false,

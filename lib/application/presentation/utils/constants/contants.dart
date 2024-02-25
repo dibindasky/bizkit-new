@@ -31,7 +31,14 @@ const gifLocation = 'asset/images/preview location gif.gif';
 
 const imageBanking = 'asset/images/banking.png';
 const imagePerson = 'asset/images/persona.png';
-const imageAchivement = 'asset/images/achieved.png';
+const imageAchivement = 'asset/images/add_icon.png';
+
+
+const imageDummyAsset = 'asset/images/previewimage5.jpeg';
+
+// icons
+const iconConnectionPeople = 'asset/images/connection_icon.png';
+const iconAddCircle = 'asset/images/add_icon.png';
 
 // dummy image for development
 const dummyPersonImage = 'asset/images/person.jpeg';

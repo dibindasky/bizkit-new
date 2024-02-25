@@ -11,8 +11,12 @@ class User {
   String? address;
   @JsonKey(name: 'is_business')
   bool? isBusiness;
+  @JsonKey(name: 'is_verified')
+  bool? isVerified;
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
+  @JsonKey(name: 'website_link')
+  String? websiteLink;
   int? id;
   int? localId;
 
@@ -23,6 +27,7 @@ class User {
       this.address,
       this.isBusiness,
       this.phoneNumber,
+      this.websiteLink,
       this.id,
       this.localId});
 
@@ -31,6 +36,7 @@ class User {
   static const String colName = 'name';
   static const String colEmail = 'email';
   static const String colPhone = 'phone_number';
+  static const String colWebsite = 'website_link';
   static const String colCompanyName = 'company_name';
   static const String colAddress = 'address';
   static const String colIsBusiness = 'is_business';

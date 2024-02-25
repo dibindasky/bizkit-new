@@ -3,6 +3,7 @@ import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart'
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/otp_screen.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
@@ -17,6 +18,8 @@ class BusinessSignIn extends StatelessWidget {
   final TextEditingController companyMailController = TextEditingController();
   final TextEditingController companyPhoneController = TextEditingController();
   final TextEditingController companynameController = TextEditingController();
+  final TextEditingController companyWebsiteController =
+      TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController rePasswordController = TextEditingController();
@@ -46,15 +49,19 @@ class BusinessSignIn extends StatelessWidget {
                 text: 'Company Name',
                 controller: companynameController,
               ),
+              TTextFormField(
+                validate: Validate.notNull,
+                text: 'Website',
+                controller: companyWebsiteController,
+                inputType: TextInputType.url,
+              ),
               BlocBuilder<SignUpBloc, SignUpState>(
                 builder: (context, state) {
-                  return TTextFormField(
-                    showUnderline: state.otpBusinessError,
-                    validate: Validate.email,
-                    text: 'Company mail',
-                    controller: companyMailController,
-                    inputType: TextInputType.emailAddress,
-                  );
+                  return AutocompleteTextField(
+                      label: 'Company Mail',
+                      validate: Validate.adminEmail,
+                      controller: companyMailController,
+                      autocompleteItems: const ['info@', 'admin@']);
                 },
               ),
               TTextFormField(
@@ -96,6 +103,8 @@ class BusinessSignIn extends StatelessWidget {
                   } else if (state.otpSendBusiness) {
                     final SignUpModel signUpModel = SignUpModel(
                         isBusiness: true,
+                        isVerified: true,
+                        websiteLink: companyWebsiteController.text.trim(),
                         address: addressController.text.trim(),
                         companyName: companynameController.text.trim(),
                         email: companyMailController.text.trim(),

@@ -804,7 +804,7 @@ mixin _$SignUpState {
   bool get otpIndividualError => throw _privateConstructorUsedError;
   bool get otpBusinessError => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
-  SignUpResponseModel? get signUpResponseModel =>
+  LoginResponseModel? get signUpResponseModel =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -828,7 +828,7 @@ abstract class $SignUpStateCopyWith<$Res> {
       bool otpIndividualError,
       bool otpBusinessError,
       String? message,
-      SignUpResponseModel? signUpResponseModel});
+      LoginResponseModel? signUpResponseModel});
 }
 
 /// @nodoc
@@ -895,7 +895,7 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
       signUpResponseModel: freezed == signUpResponseModel
           ? _value.signUpResponseModel
           : signUpResponseModel // ignore: cast_nullable_to_non_nullable
-              as SignUpResponseModel?,
+              as LoginResponseModel?,
     ) as $Val);
   }
 }
@@ -918,7 +918,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool otpIndividualError,
       bool otpBusinessError,
       String? message,
-      SignUpResponseModel? signUpResponseModel});
+      LoginResponseModel? signUpResponseModel});
 }
 
 /// @nodoc
@@ -983,7 +983,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       signUpResponseModel: freezed == signUpResponseModel
           ? _value.signUpResponseModel
           : signUpResponseModel // ignore: cast_nullable_to_non_nullable
-              as SignUpResponseModel?,
+              as LoginResponseModel?,
     ));
   }
 }
@@ -1022,7 +1022,7 @@ class _$InitialImpl implements _Initial {
   @override
   final String? message;
   @override
-  final SignUpResponseModel? signUpResponseModel;
+  final LoginResponseModel? signUpResponseModel;
 
   @override
   String toString() {
@@ -1087,7 +1087,7 @@ abstract class _Initial implements SignUpState {
       required final bool otpIndividualError,
       required final bool otpBusinessError,
       final String? message,
-      final SignUpResponseModel? signUpResponseModel}) = _$InitialImpl;
+      final LoginResponseModel? signUpResponseModel}) = _$InitialImpl;
 
   @override
   bool get isLoading;
@@ -1108,7 +1108,7 @@ abstract class _Initial implements SignUpState {
   @override
   String? get message;
   @override
-  SignUpResponseModel? get signUpResponseModel;
+  LoginResponseModel? get signUpResponseModel;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

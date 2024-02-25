@@ -64,6 +64,8 @@ class IndividuelSignIn extends StatelessWidget {
                       // navigate to otp screen when send
                       final SignUpIndivudalModel signUpModel =
                           SignUpIndivudalModel(
+                              isBusiness: false,
+                              isVerified: false,
                               name: nameController.text.trim(),
                               email: emailIdController.text.trim(),
                               password: passwordController.text.trim(),

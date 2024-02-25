@@ -8,12 +8,11 @@ class SignUpIndivudalModel {
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
   String? password;
-  @JsonKey(name: 'company_name')
-  String? companyName;
   String? name;
-  String? address;
   @JsonKey(name: 'is_business')
   bool isBusiness;
+  @JsonKey(name: 'is_verified')
+  bool isVerified;
 
   SignUpIndivudalModel({
     this.email,
@@ -21,6 +20,7 @@ class SignUpIndivudalModel {
     this.password,
     this.name,
     this.isBusiness = false,
+    this.isVerified = false,
   });
 
   factory SignUpIndivudalModel.fromJson(Map<String, dynamic> json) {

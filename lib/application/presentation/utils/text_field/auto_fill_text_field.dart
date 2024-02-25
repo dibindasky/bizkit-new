@@ -57,6 +57,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
     filteredAutocompleteItems = widget.autocompleteItems ?? [];
     super.initState();
   }
+  FocusNode myFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 }
               },
               child: TextFormField(
-                focusNode: widget.focusNode,
+                focusNode: widget.focusNode?? myFocusNode,
                 onTap: () {
                   if (widget.enabled &&
                       ((widget.autocompleteItems != null &&
@@ -124,6 +125,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   fontSize: kwidth * 0.033,
                 ),
                 maxLength: widget.maxLength,
+                
                 // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
                 enabled: widget.enabled,
                 obscureText: widget.obscureText,
@@ -160,6 +162,14 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   } else if (widget.validate == Validate.email &&
                       !isValidEmail(value!)) {
                     return 'Please enter a valid email address';
+                  } else if (widget.validate == Validate.adminEmail) {
+                    if (!isValidEmail(value!)) {
+                      return 'Please enter a valid email address';
+                    } else if (value.contains('info@') ||
+                        value.contains('admin@')) {
+                      return null;
+                    }
+                    return 'Enter your organization\'s registered email';
                   } else if (widget.validate == Validate.password &&
                       value!.length < 8) {
                     return 'Password must contain at least 8 characters';
@@ -208,6 +218,9 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                               widget.controller?.text =
                                   filteredAutocompleteItems[index];
                               filteredAutocompleteItems = [];
+                              if(widget.enabled){
+                                myFocusNode.requestFocus();
+                              }
                             });
                             if (widget.onDropDownSelection != null) {
                               widget.onDropDownSelection!(

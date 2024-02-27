@@ -152,8 +152,6 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                                 createCardByIdModel: CreateCardByIdModel(
                                     businessDetails:
                                         businessSate.businessDetailsCreateId,
-                                    bankDetails:
-                                        businessSate.bankDetailsCreateId,
                                     personalDetails:
                                         userState.personalDataCreateId),
                               ),

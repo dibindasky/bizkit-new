@@ -4,7 +4,6 @@ import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/category.dart';
 import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
 import 'package:bizkit/domain/model/card/create_card/personal_details/personal_details.dart';
-import 'package:bizkit/domain/model/card/create_card/photo/photo.dart';
 import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:bizkit/domain/model/card/create_card_by_id_model/create_card_by_id_model.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
@@ -64,6 +63,11 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     print('card creation requested');
     print(event.createCardByIdModel.toJson());
     print('card creation requested');
+    final user = await userLocalService.getUserData();
+    user.fold((l) => null, (r) {
+      event.createCardByIdModel.isVerified =
+          r.first.isVerified ?? event.createCardByIdModel.isVerified;
+    });
     final result = await cardService.createCard(
         createCardByIdModel: event.createCardByIdModel);
     result.fold((l) {

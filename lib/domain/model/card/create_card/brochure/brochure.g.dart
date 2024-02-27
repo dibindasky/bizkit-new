@@ -10,7 +10,7 @@ BrochureCreate _$BrochureCreateFromJson(Map<String, dynamic> json) =>
     BrochureCreate(
       file: json['file'],
       label: json['label'] as String?,
-      image: json['image'] as String?,
+      image: json['image'] as String? ?? "",
     );
 
 Map<String, dynamic> _$BrochureCreateToJson(BrochureCreate instance) =>

@@ -58,10 +58,13 @@ class CardService implements CardRepo {
       {required BusinessDetailsCreate businessDetailsCreate}) async {
     try {
       log('createBusinessDataCard creation ');
+      print(
+          'createBusinessDataCard creation  ${businessDetailsCreate.toJson()}');
       final response = await apiService.post(ApiEndPoints.createCardBusiness,
           data: businessDetailsCreate.toJson());
       log('createBusinessDataCard creation done');
-      return Right(BusinessDetails.fromJson(response.data));
+      var data = response.data as Map<String, dynamic>;
+      return Right(BusinessDetails(id: data['id'] as int?));
     } on DioException catch (e) {
       log('createBusinessDataCard creation dio error');
       log(e.toString());

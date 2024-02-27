@@ -8,14 +8,11 @@ class CreateCardByIdModel {
   int? personalDetails;
   @JsonKey(name: 'business_details')
   int? businessDetails;
-  @JsonKey(name: 'bank_details')
-  int? bankDetails;
+  @JsonKey(name: '"is_verified":true')
+  bool isVerified;
 
-  CreateCardByIdModel({
-    this.personalDetails,
-    this.businessDetails,
-    this.bankDetails,
-  });
+  CreateCardByIdModel(
+      {this.personalDetails, this.businessDetails, this.isVerified = false});
 
   factory CreateCardByIdModel.fromJson(Map<String, dynamic> json) {
     return _$CreateCardByIdModelFromJson(json);
@@ -26,12 +23,11 @@ class CreateCardByIdModel {
   CreateCardByIdModel copyWith({
     int? personalDetails,
     int? businessDetails,
-    int? bankDetails,
+    bool? isVerified,
   }) {
     return CreateCardByIdModel(
-      personalDetails: personalDetails ?? this.personalDetails,
-      businessDetails: businessDetails ?? this.businessDetails,
-      bankDetails: bankDetails ?? this.bankDetails,
-    );
+        personalDetails: personalDetails ?? this.personalDetails,
+        businessDetails: businessDetails ?? this.businessDetails,
+        isVerified: isVerified ?? this.isVerified);
   }
 }

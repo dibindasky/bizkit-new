@@ -7,8 +7,6 @@ import 'package:bizkit/domain/model/card/create_card/branch_offices/branch_offic
 import 'package:bizkit/domain/model/card/create_card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_companys/company.dart';
-import 'package:bizkit/domain/model/card/create_card/email/email.dart';
-import 'package:bizkit/domain/model/card/create_card/mobile_number/mobile_number.dart';
 import 'package:bizkit/domain/model/card/create_card/product/product.dart';
 import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
@@ -95,7 +93,6 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> createBusinessData(CreateBusinessData event, emit) async {
-    if (state.businessDetailsCreateId != null) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final BusinessDetailsCreate businessDetails = BusinessDetailsCreate(
       accredition: state.accreditions.isEmpty
@@ -120,23 +117,10 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       websiteLink: websiteLinkController.text.trim().isEmpty
           ? null
           : websiteLinkController.text,
-      email: mailController.text.isNotEmpty
-          ? [
-              EmailCreate(
-                  email: mailController.text.trim().isEmpty
-                      ? null
-                      : mailController.text)
-            ]
-          : [],
-      mobileNumber: mobileController.text.isNotEmpty
-          ? [
-              MobileNumberCreate(
-                mobileNumber: mobileController.text.trim().isEmpty
-                    ? null
-                    : mobileController.text,
-              )
-            ]
-          : [],
+      email: mailController.text.trim().isNotEmpty
+          ? mailController.text:null,
+      mobileNumber:  mobileController.text.trim().isNotEmpty
+          ? mobileController.text:null,
       logo: state.logo?.base64,
       socialMediaHandles: state.socialMedias,
       product: state.products.isEmpty
@@ -155,18 +139,6 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
               .toList(),
     );
     emit(state.copyWith(isLoading: false, businessDetails: businessDetails));
-    // final result = await cardService.createBusinessDataCard(
-    //     businessDetailsCreate: businessDetails);
-    // result.fold(
-    //     (failure) => emit(state.copyWith(
-    //         isLoading: false,
-    //         hasError: true,
-    //         businessDetailsCreateId: null,
-    //         businessDetails: businessDetails)),
-    //     (businessDetail) => emit(state.copyWith(
-    //         isLoading: false,
-    //         businessDetailsCreateId: businessDetail.id,
-    //         businessDetails: businessDetails)));
   }
 
   FutureOr<void> getCompnayList(GetCompnayList event, emit) async {

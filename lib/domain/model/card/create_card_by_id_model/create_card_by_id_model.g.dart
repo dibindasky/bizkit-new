@@ -10,7 +10,7 @@ CreateCardByIdModel _$CreateCardByIdModelFromJson(Map<String, dynamic> json) =>
     CreateCardByIdModel(
       personalDetails: json['personal_details'] as int?,
       businessDetails: json['business_details'] as int?,
-      bankDetails: json['bank_details'] as int?,
+      isVerified: json['"is_verified":true'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$CreateCardByIdModelToJson(
@@ -18,5 +18,5 @@ Map<String, dynamic> _$CreateCardByIdModelToJson(
     <String, dynamic>{
       'personal_details': instance.personalDetails,
       'business_details': instance.businessDetails,
-      'bank_details': instance.bankDetails,
+      '"is_verified":true': instance.isVerified,
     };

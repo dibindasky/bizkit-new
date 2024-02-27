@@ -29,12 +29,8 @@ BusinessDetailsCreate _$BusinessDetailsCreateFromJson(
       brochure: (json['brochure_id'] as List<dynamic>?)
           ?.map((e) => BrochureCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
-      email: (json['email'] as List<dynamic>?)
-          ?.map((e) => EmailCreate.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      mobileNumber: (json['mobile_number'] as List<dynamic>?)
-          ?.map((e) => MobileNumberCreate.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      email: json['email'] as String?,
+      mobileNumber: json['mobile_number'] as String?,
       businessName: json['business_name'] as String?,
       company: json['company'] as String?,
       address: json['address'] as String?,

@@ -78,6 +78,9 @@ class _StartingBusinessCardCreationState
                         context
                             .read<UserDataBloc>()
                             .add(UserDataEvent.getUserDetail());
+                        context
+                            .read<UserDataBloc>()
+                            .add(UserDataEvent.getBusinessCategories());
                         Navigator.of(context).push(
                           fadePageRoute(const ProfileCreationScreen()),
                         );

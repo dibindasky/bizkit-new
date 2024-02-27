@@ -2,7 +2,8 @@ import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/domain/model/card/get_card_response/card_response.dart' as card;
+import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
+    as card;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -88,8 +89,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             topRight: Radius.circular(20),
                                           ),
                                           child: card.businessDetails == null ||
-                                                  card.photo ==
-                                                      null
+                                                  card.photo == null
                                               ? Image.network(imageDummyNetwork,
                                                   fit: BoxFit.cover)
                                               : Image.network(

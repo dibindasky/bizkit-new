@@ -1,9 +1,9 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_inner_second_half_setions/my_connection_detail_second_half_first.dart';
+import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connection_inner_second_half_setions/my_connection_detail_second_half_first.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_inner_second_half_setions/add_tag/add_tag_screen.dart';
+import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connection_inner_second_half_setions/add_tag/add_tag_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

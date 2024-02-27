@@ -97,10 +97,10 @@ class PersonlDetails extends StatelessWidget {
                       ontap: () => Navigator.of(context).push(
                             fadePageRoute(const AccolodesScreen()),
                           ),
-                        onItemTap: (value) => Navigator.push(
-                      context,
-                      fadePageRoute(
-                          ScreenImagePreview(image: value, isFileIamge: true))),
+                      onItemTap: (value) => Navigator.push(
+                          context,
+                          fadePageRoute(ScreenImagePreview(
+                              image: value, isFileIamge: true))),
                       removeItem: (index) => context
                           .read<UserDataBloc>()
                           .add(UserDataEvent.removeAccolade(index: index)),

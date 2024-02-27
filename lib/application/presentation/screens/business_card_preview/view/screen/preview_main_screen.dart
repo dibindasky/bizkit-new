@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:io';
 
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
@@ -42,9 +40,7 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                 builder: (context, business) {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
-                      List<File> images = user.userPhotos
-                              .map((e) => e.fileImage)
-                              .toList() +
+                      List<File> images = [user.userPhotos!.fileImage] +
                           business.accreditions
                               .map((e) => e.image.fileImage as File)
                               .toList() +
@@ -59,21 +55,16 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
             ),
             adjustHieght(khieght * .02),
             // user name and designation
-            BlocBuilder<BusinessDataBloc, BusinessDataState>(
-              builder: (context, business) {
-                return BlocBuilder<UserDataBloc, UserDataState>(
-                  builder: (context, user) {
-                    return Column(
-                      children: [
-                        Text(
-                          user.personalDetails.name ?? 'Name',
-                          style: TextStyle(fontSize: 26.sp),
-                        ),
-                        Text(business.businessDetails.designation ??
-                            'Designation'),
-                      ],
-                    );
-                  },
+            BlocBuilder<UserDataBloc, UserDataState>(
+              builder: (context, user) {
+                return Column(
+                  children: [
+                    Text(
+                      user.personalDetails.name ?? 'Name',
+                      style: TextStyle(fontSize: 26.sp),
+                    ),
+                    Text(user.personalDetails.designation ?? 'Designation'),
+                  ],
                 );
               },
             ),
@@ -141,11 +132,6 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                         for (var x in createCardModel
                             .personalDetails!.personalSocialMedia!) {
                           print('personal social media  ()=> ${x.toJson()}');
-                        }
-                        print('personal details  ()=> photo ');
-                        for (var x
-                            in createCardModel.personalDetails!.photos!) {
-                          print('personal social photo  ()=> ${x.toJson()}');
                         }
                         print(
                             'business details ()=> ${createCardModel.businessDetails!.toJson()}');

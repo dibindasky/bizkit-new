@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
-import 'package:bizkit/domain/model/card/create_card/create_card_model/create_card_model.dart';
+import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/category.dart';
 import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
 import 'package:bizkit/domain/model/card/create_card/personal_details/personal_details.dart';
 import 'package:bizkit/domain/model/card/create_card/photo/photo.dart';
@@ -33,6 +33,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController homeAddress = TextEditingController();
   final TextEditingController bloodGroup = TextEditingController();
+  final TextEditingController designationController = TextEditingController();
   final TextEditingController birthDaycontroller = TextEditingController();
   final TextEditingController businessCategoryController =
       TextEditingController();
@@ -43,6 +44,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<ProcessImageScanning>(processImageScanning);
     on<RemoveImageScanning>(removeImageScanning);
     on<GetUserDetail>(getUserDetail);
+    on<GetBusinessCategories>(getBusinessCategories);
     on<PickUserPhotos>(pickUserPhotos);
     on<RemoveUserPhoto>(removeUserPhoto);
     on<AddAccolade>(addAccolade);
@@ -82,9 +84,15 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         name: nameController.text.isEmpty ? null : nameController.text,
         phoneNumber: phoneController.text.isEmpty ? null : phoneController.text,
         email: emailController.text.isEmpty ? null : emailController.text,
+        designation: designationController.text.isEmpty
+            ? null
+            : designationController.text,
         businessCategory: businessCategoryController.text.isEmpty
             ? null
-            : businessCategoryController.text,
+            : state.businessCategories
+                .firstWhere((element) =>
+                    element.category == businessCategoryController.text.trim())
+                .id,
         homeAddress: homeAddress.text.isEmpty ? null : homeAddress.text,
         bloodGroup: bloodGroup.text.isEmpty ? null : bloodGroup.text,
         dateOfBirth:
@@ -99,11 +107,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
                     accoladesDescription: e.accoladesDescription,
                     accoladesImage: e.accoladesImage.base64))
                 .toList(),
-        photos: state.userPhotos.isEmpty
-            ? []
-            : state.userPhotos
-                .map((e) => PhotoCreate(photos: e.base64))
-                .toList(),
+        photos: state.userPhotos?.base64,
         personalSocialMedia:
             state.socialMedias.isEmpty ? [] : state.socialMedias);
     print(personalData.toJson());
@@ -175,12 +179,12 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> pickUserPhotos(PickUserPhotos event, emit) async {
     final img = await ImagePickerClass.getImage(camera: false);
     if (img != null) {
-      emit(state.copyWith(userPhotos: [img], cardAdded: null, message: null));
+      emit(state.copyWith(userPhotos: img, cardAdded: null, message: null));
     }
   }
 
   FutureOr<void> removeUserPhoto(RemoveUserPhoto event, emit) async {
-    emit(state.copyWith(userPhotos: [], cardAdded: null, message: null));
+    emit(state.copyWith(userPhotos: null, cardAdded: null, message: null));
   }
 
   FutureOr<void> removeImageScanning(RemoveImageScanning event, emit) async {
@@ -222,7 +226,20 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
             userList.first.phoneNumber ?? phoneController.text;
         emailController.text = userList.first.email ?? emailController.text;
       }
-      emit(state.copyWith(cardAdded: null, message: null));
+      emit(state.copyWith(
+          cardAdded: null,
+          message: null,
+          isBusiness: userList.first.isBusiness!));
+    });
+  }
+
+  FutureOr<void> getBusinessCategories(
+      GetBusinessCategories event, emit) async {
+    final result = await cardService.getBusinessCategories();
+    result.fold((failure) => null, (getBusinessCategories) {
+      print('get category => ${getBusinessCategories.businessCategories}');
+      emit(state.copyWith(
+          businessCategories: getBusinessCategories.businessCategories ?? []));
     });
   }
 }

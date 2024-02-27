@@ -47,7 +47,7 @@ class ProfileCreationScreen extends StatelessWidget {
                   builder: (context, state) {
                     return Stack(
                       children: [
-                        state.userPhotos.isEmpty
+                        state.userPhotos == null
                             ? const CircleAvatar(
                                 radius: 70,
                                 backgroundImage: AssetImage(
@@ -57,7 +57,7 @@ class ProfileCreationScreen extends StatelessWidget {
                             : CircleAvatar(
                                 radius: 70,
                                 backgroundImage:
-                                    FileImage(state.userPhotos.first.fileImage),
+                                    FileImage(state.userPhotos!.fileImage),
                               ),
                         Positioned(
                           bottom: 17,
@@ -115,27 +115,26 @@ class ProfileCreationScreen extends StatelessWidget {
                             autocompleteItems:
                                 state.scannedImageDatasModel?.emails ?? [],
                           ),
-                          // company name
-                          // AutocompleteTextField(
-                          //   validate: Validate.notNull,
-                          //   label: 'Company',
-                          //   controller:
-                          //       context.read<UserDataBloc>().companylController,
-                          //   inputType: TextInputType.name,
-                          //   autocompleteItems:
-                          //       state.scannedImageDatasModel?.names ?? [],
-                          // ),
                           // business category
                           AutocompleteTextField(
-                            enabled: false,
+                              onTap: () =>
+                                  FocusManager.instance.primaryFocus?.unfocus(),
+                              enabled: false,
+                              validate: Validate.notNull,
+                              label: 'BusinessCategory',
+                              controller: context
+                                  .read<UserDataBloc>()
+                                  .businessCategoryController,
+                              inputType: TextInputType.name,
+                              autocompleteItems: state.businessCategories
+                                  .map((e) => e.category!)
+                                  .toList()),
+                          TTextFormField(
                             validate: Validate.notNull,
-                            label: 'BusinessCategory',
+                            text: 'Designation',
                             controller: context
                                 .read<UserDataBloc>()
-                                .businessCategoryController,
-                            inputType: TextInputType.name,
-                            autocompleteItems:const ['IT','CLOTHING','HOTEL']
-                                ,
+                                .designationController,
                           ),
                           adjustHieght(khieght * .05),
                         ],

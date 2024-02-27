@@ -57,6 +57,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
     filteredAutocompleteItems = widget.autocompleteItems ?? [];
     super.initState();
   }
+
   FocusNode myFocusNode = FocusNode();
 
   @override
@@ -81,9 +82,12 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                     }
                   });
                 }
+                if (widget.onTap != null) {
+                  widget.onTap!.call();
+                }
               },
               child: TextFormField(
-                focusNode: widget.focusNode?? myFocusNode,
+                focusNode: widget.focusNode ?? myFocusNode,
                 onTap: () {
                   if (widget.enabled &&
                       ((widget.autocompleteItems != null &&
@@ -125,7 +129,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   fontSize: kwidth * 0.033,
                 ),
                 maxLength: widget.maxLength,
-                
+
                 // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
                 enabled: widget.enabled,
                 obscureText: widget.obscureText,
@@ -218,7 +222,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                               widget.controller?.text =
                                   filteredAutocompleteItems[index];
                               filteredAutocompleteItems = [];
-                              if(widget.enabled){
+                              if (widget.enabled) {
                                 myFocusNode.requestFocus();
                               }
                             });

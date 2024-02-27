@@ -9,6 +9,7 @@ class UserDataEvent with _$UserDataEvent {
   factory UserDataEvent.processImageScanning(
       {required List<ImageModel> images}) = ProcessImageScanning;
   factory UserDataEvent.getUserDetail() = GetUserDetail;
+  factory UserDataEvent.getBusinessCategories() = GetBusinessCategories;
   factory UserDataEvent.pickUserPhotos() = PickUserPhotos;
   factory UserDataEvent.clear() = Clear;
   factory UserDataEvent.createPersonalData() = CreatePersonalData;

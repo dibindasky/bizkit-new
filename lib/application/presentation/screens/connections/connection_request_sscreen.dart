@@ -100,9 +100,10 @@ class ScreenConnectionRequests extends StatelessWidget {
                                     children: [
                                       FilledButton(
                                           style: ButtonStyle(
-                                              side: const MaterialStatePropertyAll(
-                                                  BorderSide(
-                                                      color: kneonShade)),
+                                              side:
+                                                  const MaterialStatePropertyAll(
+                                                      BorderSide(
+                                                          color: kneonShade)),
                                               backgroundColor:
                                                   MaterialStatePropertyAll(
                                                       kDefaultIconDarkColor)),

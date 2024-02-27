@@ -32,6 +32,9 @@ class UserLocalService implements UserLocalRepo {
         // bool conversion from int
         map[User.colIsBusiness] =
             map[User.colIsBusiness] as int == 1 ? true : false;
+        map[User.colIsVerified] =
+            map[User.colIsVerified] as int == 1 ? true : false;
+        print(map);
         return User.fromJson(map);
       }));
     } catch (e) {
@@ -49,6 +52,7 @@ class UserLocalService implements UserLocalRepo {
       final map = user.toJson();
       // while inserting convert bool to int
       map[User.colIsBusiness] = user.isBusiness! ? 1 : 0;
+      map[User.colIsVerified] = user.isVerified! ? 1 : 0;
       map.remove(User.colLocalId);
       await localService.insert(Sql.userTable, map);
     } catch (e) {

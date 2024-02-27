@@ -1,3 +1,6 @@
+import 'package:bizkit/domain/model/card/create_card/accridition/accredition.dart';
+import 'package:bizkit/domain/model/card/create_card/banking_detail/bank_details.dart';
+import 'package:bizkit/domain/model/card/create_card/branch_offices/branch_offices.dart';
 import 'package:bizkit/domain/model/card/create_card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/create_card/email/email.dart';
 import 'package:bizkit/domain/model/card/create_card/mobile_number/mobile_number.dart';
@@ -9,16 +12,19 @@ part 'business_details.g.dart';
 
 @JsonSerializable()
 class BusinessDetailsCreate {
-  @JsonKey(name: 'social_media_handles')
+  @JsonKey(name: 'social_media_handles_id')
   List<SocialMediaHandleCreate>? socialMediaHandles;
+  @JsonKey(name: 'product_id')
   List<ProductCreate>? product;
+  @JsonKey(name: 'accredition_id')
+  List<AccreditionCreate>? accredition;
+  @JsonKey(name: 'brochure_id')
   List<BrochureCreate>? brochure;
   List<EmailCreate>? email;
   @JsonKey(name: 'mobile_number')
   List<MobileNumberCreate>? mobileNumber;
   @JsonKey(name: 'business_name')
   String? businessName;
-  String? designation;
   String? company;
   String? address;
   @JsonKey(name: 'website_link')
@@ -26,15 +32,21 @@ class BusinessDetailsCreate {
   dynamic logo;
   @JsonKey(name: 'logo_story')
   String? logoStory;
+  @JsonKey(name: 'branch_offices_id')
+  List<BranchOffices>? branchOffices;
+  @JsonKey(name: 'bank_details_id')
+  BankDetailsCreate? bankDetails;
 
   BusinessDetailsCreate({
+    this.branchOffices,
+    this.accredition,
+    this.bankDetails,
     this.socialMediaHandles,
     this.product,
     this.brochure,
     this.email,
     this.mobileNumber,
     this.businessName,
-    this.designation,
     this.company,
     this.address,
     this.websiteLink,
@@ -54,6 +66,7 @@ class BusinessDetailsCreate {
     List<BrochureCreate>? brochure,
     List<EmailCreate>? email,
     List<MobileNumberCreate>? mobileNumber,
+    BankDetailsCreate? bankDetails,
     String? businessName,
     String? designation,
     String? company,
@@ -61,6 +74,7 @@ class BusinessDetailsCreate {
     String? websiteLink,
     dynamic logo,
     String? logoStory,
+
   }) {
     return BusinessDetailsCreate(
       socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
@@ -69,12 +83,12 @@ class BusinessDetailsCreate {
       email: email ?? this.email,
       mobileNumber: mobileNumber ?? this.mobileNumber,
       businessName: businessName ?? this.businessName,
-      designation: designation ?? this.designation,
       company: company ?? this.company,
       address: address ?? this.address,
       websiteLink: websiteLink ?? this.websiteLink,
       logo: logo ?? this.logo,
       logoStory: logoStory ?? this.logoStory,
+      bankDetails: bankDetails??this.bankDetails
     );
   }
 }

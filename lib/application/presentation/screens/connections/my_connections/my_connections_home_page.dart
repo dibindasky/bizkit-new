@@ -1,10 +1,11 @@
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/view_all_connection_contacts.dart';
+import 'package:bizkit/application/presentation/screens/connections/add_connection_screen.dart';
+import 'package:bizkit/application/presentation/screens/connections/view_all_connection_contacts.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class MyConnectionContainer extends StatelessWidget {
-  const MyConnectionContainer({super.key});
+class MyConnectionContainerHomePage extends StatelessWidget {
+  const MyConnectionContainerHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class MyConnectionContainer extends StatelessWidget {
               Text('My connections', style: textHeadStyle1),
               GestureDetector(
                 onTap: () => Navigator.of(context).push(
-                  fadePageRoute( MyConnectionsViewAllContacts()),
+                  fadePageRoute(MyConnectionsViewAllContacts()),
                 ),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -66,18 +67,22 @@ class MyConnectionContainer extends StatelessWidget {
               if (index == 0) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 15),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: const ColoredBox(
-                      color: textFieldFillColr,
-                      child: SizedBox(
-                        height: 40,
-                        width: 60,
-                        child: Center(
-                          child: Icon(
-                            Icons.add,
-                            size: 20,
-                            color: kwhite,
+                  child: InkWell(
+                    onTap: () => Navigator.push(
+                        context, fadePageRoute(const ScreenAddConnections())),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: const ColoredBox(
+                        color: textFieldFillColr,
+                        child: SizedBox(
+                          height: 40,
+                          width: 60,
+                          child: Center(
+                            child: Icon(
+                              Icons.add,
+                              size: 20,
+                              color: kwhite,
+                            ),
                           ),
                         ),
                       ),

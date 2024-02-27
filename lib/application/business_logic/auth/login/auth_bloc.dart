@@ -79,7 +79,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
         print('setLogin');
         await SecureStorage.setLogin();
-        print('logged in done');
+        print('set role');
+        await SecureStorage.setRole(
+            isBusiness: loginResponseModel.user!.isBusiness!);
       },
     );
   }

@@ -115,18 +115,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
             ],
           ),
           adjustHieght(khieght * .03),
-          BlocConsumer<BusinessDataBloc, BusinessDataState>(
-            listenWhen: (previous, current) =>
-                previous.businessDetailsCreateId !=
-                current.businessDetailsCreateId,
-            listener: (context, state) {
-              if (state.businessDetailsCreateId != null) {
-                pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.ease,
-                );
-              }
-            },
+          BlocBuilder<BusinessDataBloc, BusinessDataState>(
             builder: (context, state) {
               if (state.isLoading) {
                 return const LoadingAnimation();
@@ -136,6 +125,10 @@ class BrochersAndProductsScreen extends StatelessWidget {
                   context
                       .read<BusinessDataBloc>()
                       .add(const BusinessDataEvent.createBusinessData());
+                  pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease,
+                  );
                 },
               );
             },

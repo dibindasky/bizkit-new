@@ -30,7 +30,10 @@ class ScreenAddConnections extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            const TTextFormField(text: 'Search',su: Icon(Icons.search),),
+            const TTextFormField(
+              text: 'Search',
+              su: Icon(Icons.search),
+            ),
             adjustHieght(10),
             Expanded(
               child: GridView.builder(
@@ -65,10 +68,13 @@ class ScreenAddConnections extends StatelessWidget {
                         style: textStyle1,
                       ),
                       adjustHieght(10),
-                      Container(padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
                             gradient: neonShadeGradient,
-                            borderRadius: const BorderRadius.all(Radius.circular(10))),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10))),
                         child: const Text('Add Connection',
                             style: TextStyle(color: kwhite)),
                       ),

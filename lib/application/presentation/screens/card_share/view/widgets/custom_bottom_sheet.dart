@@ -3,7 +3,8 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
-import 'package:bizkit/domain/model/card/get_card_response/card_response.dart' as c;
+import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
+    as c;
 import 'package:flutter/material.dart';
 
 class CustomBottomSheet extends StatefulWidget {

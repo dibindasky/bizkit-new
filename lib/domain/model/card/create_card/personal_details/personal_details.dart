@@ -13,14 +13,14 @@ class PersonalDetailsCreate {
   List<SocialMediaHandleCreate>? personalSocialMedia;
   @JsonKey(name: 'dates_to_remember')
   List<DatesToRememberCreate>? datesToRemember;
-  List<PhotoCreate>? photos;
+  String? photos;
   String? name;
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
   String? email;
-  String? company;
-  @JsonKey(name: 'business_category')
-  String? businessCategory;
+  String? designation;
+  @JsonKey(name: 'business_category_id')
+  int? businessCategory;
   @JsonKey(name: 'home_address')
   String? homeAddress;
   @JsonKey(name: 'blood_group')
@@ -36,7 +36,7 @@ class PersonalDetailsCreate {
     this.name,
     this.phoneNumber,
     this.email,
-    this.company,
+    this.designation,
     this.businessCategory,
     this.homeAddress,
     this.bloodGroup,
@@ -53,14 +53,14 @@ class PersonalDetailsCreate {
     List<AccoladeCreate>? accolades,
     List<SocialMediaHandleCreate>? personalSocialMedia,
     List<DatesToRememberCreate>? datesToRemember,
-    List<PhotoCreate>? photos,
+    String? photos,
     String? name,
     String? phoneNumber,
     String? email,
-    String? company,
-    String? businessCategory,
+    int? businessCategory,
     String? homeAddress,
     String? bloodGroup,
+    String? designation,
     String? dateOfBirth,
   }) {
     return PersonalDetailsCreate(
@@ -71,7 +71,7 @@ class PersonalDetailsCreate {
       name: name ?? this.name,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       email: email ?? this.email,
-      company: company ?? this.company,
+      designation: designation ?? this.designation,
       businessCategory: businessCategory ?? this.businessCategory,
       homeAddress: homeAddress ?? this.homeAddress,
       bloodGroup: bloodGroup ?? this.bloodGroup,

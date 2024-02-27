@@ -5,13 +5,15 @@ class UserDataState with _$UserDataState {
   const factory UserDataState(
       {required bool hasError,
       required bool isLoading,
+      required bool isBusiness,
       SuccessResponseModel? cardAdded,
       String? message,
       int? personalDataCreateId,
       required PersonalDetailsCreate personalDetails,
       required List<ImageModel> scannedImagesCardCreation,
-      required List<ImageModel> userPhotos,
+      ImageModel? userPhotos,
       required List<AccoladeCreate> accolades,
+      required List<Category> businessCategories,
       required List<DatesToRememberCreate> datesToRemember,
       required List<SocialMediaHandleCreate> socialMedias,
       ScannedImageDatasModel? scannedImageDatasModel}) = _Initial;
@@ -20,9 +22,10 @@ class UserDataState with _$UserDataState {
       personalDetails: PersonalDetailsCreate(),
       hasError: false,
       isLoading: false,
-      userPhotos: [],
+      isBusiness: false,
       accolades: [],
       socialMedias: [],
+      businessCategories: [],
       datesToRemember: [],
       scannedImagesCardCreation: []);
 }

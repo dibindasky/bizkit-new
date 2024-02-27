@@ -26,8 +26,7 @@ class SignUpModel {
       this.companyName,
       this.address,
       this.isBusiness = true,
-      this.isVerified = false
-      });
+      this.isVerified = false});
 
   factory SignUpModel.fromJson(Map<String, dynamic> json) {
     return _$SignUpModelFromJson(json);

@@ -28,6 +28,7 @@ class User {
       this.isBusiness,
       this.phoneNumber,
       this.websiteLink,
+      this.isVerified,
       this.id,
       this.localId});
 
@@ -40,6 +41,7 @@ class User {
   static const String colCompanyName = 'company_name';
   static const String colAddress = 'address';
   static const String colIsBusiness = 'is_business';
+  static const String colIsVerified = 'is_verified';
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

@@ -79,12 +79,40 @@ class _SelfieScreenState extends State<SelfieScreen>
               ),
               adjustHieght(khieght * 0.05),
               indexofButton == 1
-                  ? Container(
-                      width: kwidth * 0.80,
-                      height: kwidth * 0.60,
-                      color: kwhite,
-                      // build qr code scanner
-                      child: const QrScannerView(),
+                  ? Column(
+                      children: [
+                        Container(
+                          width: kwidth * 0.80,
+                          height: kwidth * 0.60,
+                          color: kwhite,
+                          // build qr code scanner
+                          child: const QrScannerView(),
+                        ),
+                        adjustHieght(10),
+                        TextButton(
+                            onPressed: () async{
+                              // final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                              //   if (image == null) {
+                              //     return; // Handle no image selected case
+                              //   }
+                              //   final file=File(image.path);
+                              //   final barcodeScanner = BarcodeScannerPlugin();
+                              //   List<Barcode> barcodes =
+                              //       await barcodeScanner.scan(file
+                              //           .path); // Replace with _image!.path
+
+                              //   if (barcodes.isEmpty) {
+                              //     print('No QR codes found in the image.');
+                              //   } else {
+                              //     // Process the extracted data (first barcode assumed):
+                              //     final data = barcodes[0].displayValue;
+                              //     print('Extracted QR code data: $data');
+                              //     // Use the extracted data as needed in your app
+                              //   }
+                              
+                            },
+                            child: const Text('Upload from gallery'))
+                      ],
                     )
                   : const SizedBox(),
               const Spacer(),

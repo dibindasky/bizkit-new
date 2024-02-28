@@ -24,8 +24,7 @@ abstract class CardRepo {
   Future<Either<Failure, GetCardResponse>> getCards({required PageQuery qurey});
   Future<Either<Failure, GetCardResposnseModel>> getCardByUserId(
       {required int id});
-  Future<Either<Failure, Card>> getCardByCardId(
-      {required int id});
+  Future<Either<Failure, Card>> getCardByCardId({required int id});
   Future<Either<Failure, GetCompanysResponseModel>> getCompanies(
       {required SearchQuery? search});
   Future<Either<Failure, GetBusinessCategoryResponseModel>>
@@ -33,4 +32,5 @@ abstract class CardRepo {
   Future<Either<Failure, SuccessResponseModel>> setDefault({required int id});
   Future<Either<Failure, SuccessResponseModel>> deleteCard({required int id});
   Future<Either<Failure, SuccessResponseModel>> archiveCard({required int id});
+  Future<Either<Failure, BusinessDetails>> getCompnayDetails({required int id});
 }

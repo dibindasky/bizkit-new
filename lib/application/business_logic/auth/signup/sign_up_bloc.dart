@@ -23,6 +23,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<RegisterIndividual>(registerIndividual);
     on<SendOtp>(sendOtp);
     on<VerifyOtp>(verifyOtp);
+    on<BuildEmail>(buildEmail);
   }
 
   FutureOr<void> registerBusiness(
@@ -146,5 +147,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         }
       },
     );
+  }
+
+  Future<FutureOr<void>> buildEmail(
+      BuildEmail event, Emitter<SignUpState> emit) async {
+    emit(state.copyWith(buildEmail: !state.buildEmail));
   }
 }

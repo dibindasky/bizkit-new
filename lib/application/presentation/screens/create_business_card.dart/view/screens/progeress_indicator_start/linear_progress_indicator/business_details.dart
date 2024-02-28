@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/application/presentation/screens/business_card_preview/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/image_preview_under_textfield.dart';
@@ -39,250 +40,353 @@ class BusinessDetailsScreen extends StatelessWidget {
             focusScope.unfocus();
           }
         },
-        child: ListView(
-          children: [
-            adjustHieght(khieght * .03),
-            const Text(
-              'Business Details',
-              style: TextStyle(fontSize: 20),
-            ),
-            adjustHieght(khieght * .02),
-            // company name
-            BlocBuilder<BusinessDataBloc, BusinessDataState>(
-              builder: (context, state) {
-                return AutocompleteTextField(
-                  showDropdown: true,
-                  autocompleteItems:
-                      state.companiesList.map((e) => e.company!).toList(),
-                  onChanged: (value) {
-                    // call company api and fetch companys to dropdown
-                    context.read<BusinessDataBloc>().add(
-                        BusinessDataEvent.getCompnayList(
-                            search: SearchQuery(search: value)));
-                  },
-                  onDropDownSelection: (value) {
-                    // call for company details with the selected value
-                  },
-                  label: 'Company',
-                  controller:
-                      context.read<BusinessDataBloc>().companyController,
-                );
-              },
-            ),
-            // business name
-            TTextFormField(
-              text: 'Business Name',
-              controller:
-                  context.read<BusinessDataBloc>().businessNameController,
-            ),
-            // company mail id
-            TTextFormField(
-              text: 'Mail ID',
-              inputType: TextInputType.emailAddress,
-              controller: context.read<BusinessDataBloc>().mailController,
-            ),
-            // mobile number business
-            TTextFormField(
-              text: 'Mobile number',
-              maxlegth: 10,
-              controller: context.read<BusinessDataBloc>().mobileController,
-              inputType: TextInputType.number,
-            ),
-            adjustHieght(10),
-            // social media handles
-            BlocBuilder<BusinessDataBloc, BusinessDataState>(
-              builder: (context, state) {
-                return ImagePreviewUnderTextField(
-                  listString: state.socialMedias
-                      .map((e) => e.socialMedia ?? 'Social Media')
-                      .toList(),
-                  removeItem: (index) => context
-                      .read<BusinessDataBloc>()
-                      .add(BusinessDataEvent.removeSocialMedia(index: index)),
-                  ontap: () => Navigator.of(context).push(fadePageRoute(
-                      const SocialMediahandlesScreen(fromBusiness: true))),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: textFieldFillColr,
-                      boxShadow: [
-                        BoxShadow(
-                          color: textFieldFillColr,
-                          spreadRadius: 0.4,
-                          blurRadius: 4,
-                          offset: Offset(0.4, .2),
-                        ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.only(left: 12, right: 12),
-                    height: 48.0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Social Media Handles',
-                          style: TextStyle(
-                              color: state.socialMedias.isNotEmpty
-                                  ? kwhite
-                                  : klightgrey),
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 16,
-                          color: klightgrey,
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-            adjustHieght(10),
-            // address field
-            TTextFormField(
-              maxLines: 4,
-              maxlegth: 250,
-              text: 'Address',
-              controller: context.read<BusinessDataBloc>().addressController,
-            ),
-            // website link business
-            TTextFormField(
-              inputType: TextInputType.url,
-              text: 'Website link',
-              controller:
-                  context.read<BusinessDataBloc>().websiteLinkController,
-            ), // company branchs adding section
-            BlocBuilder<BusinessDataBloc, BusinessDataState>(
-              builder: (context, state) {
-                return ImagePreviewUnderTextField(
-                  ontap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                          child: ColoredBox(
-                            color: kblack,
-                            child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Text('Enter Branch Office'),
-                                  adjustHieght(10),
-                                  TTextFormField(
-                                      text: 'Branch',
-                                      controller: context
-                                          .read<BusinessDataBloc>()
-                                          .branchOfficeController),
-                                  adjustHieght(10),
-                                  AuthButton(
-                                      text: 'Add',
-                                      onTap: () {
-                                        if (context
-                                                .read<BusinessDataBloc>()
-                                                .branchOfficeController
-                                                .text !=
-                                            '') {
-                                          context.read<BusinessDataBloc>().add(
-                                                BusinessDataEvent.addBranch(
-                                                    branch: context
-                                                        .read<
-                                                            BusinessDataBloc>()
-                                                        .branchOfficeController
-                                                        .text),
-                                              );
-                                        }
-                                        context
-                                            .read<BusinessDataBloc>()
-                                            .branchOfficeController
-                                            .text = '';
-                                        Navigator.pop(context);
-                                      })
-                                ],
-                              ),
-                            ),
+        child: BlocConsumer<BusinessDataBloc, BusinessDataState>(
+          listenWhen: (previous, current) =>
+              previous.loadCompanyData != current.loadCompanyData,
+          listener: (context, state) {
+            if (state.gotCompanyData) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const BusinessCardCreationPreviewScreen()));
+            }
+          },
+          buildWhen: (previous, current) =>
+              previous.loadCompanyData != current.loadCompanyData,
+          builder: (context, state) {
+            if (state.loadCompanyData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return ListView(
+              children: [
+                adjustHieght(khieght * .03),
+                const Text(
+                  'Business Details',
+                  style: TextStyle(fontSize: 20),
+                ),
+                adjustHieght(khieght * .02),
+                // company name
+                BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                  builder: (context, state) {
+                    return AutocompleteTextField(
+                      showDropdown: true,
+                      autocompleteItems:
+                          state.companiesList.map((e) => e.company!).toList(),
+                      onChanged: (value) {
+                        // call company api and fetch companys to dropdown
+                        context.read<BusinessDataBloc>().add(
+                            BusinessDataEvent.getCompnayList(
+                                search: SearchQuery(search: value)));
+                      },
+                      onDropDownSelection: (value) {
+                        // call for company details with the selected value
+                        showDialog(
+                          context: context,
+                          builder: (context) => Dialog(
+                            child: CompanyAddingPopUp(
+                                id: state.companiesList
+                                    .firstWhere(
+                                        (element) => element.company == value)
+                                    .id!),
                           ),
+                        );
+                      },
+                      label: 'Company',
+                      controller:
+                          context.read<BusinessDataBloc>().companyController,
+                    );
+                  },
+                ),
+                // business name
+                TTextFormField(
+                  text: 'Business Name',
+                  controller:
+                      context.read<BusinessDataBloc>().businessNameController,
+                ),
+                // company mail id
+                TTextFormField(
+                  text: 'Mail ID',
+                  inputType: TextInputType.emailAddress,
+                  controller: context.read<BusinessDataBloc>().mailController,
+                ),
+                // mobile number business
+                TTextFormField(
+                  text: 'Mobile number',
+                  maxlegth: 10,
+                  controller: context.read<BusinessDataBloc>().mobileController,
+                  inputType: TextInputType.number,
+                ),
+                adjustHieght(10),
+                // social media handles
+                BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                  builder: (context, state) {
+                    return ImagePreviewUnderTextField(
+                      listString: state.socialMedias
+                          .map((e) => e.socialMedia ?? 'Social Media')
+                          .toList(),
+                      removeItem: (index) => context
+                          .read<BusinessDataBloc>()
+                          .add(BusinessDataEvent.removeSocialMedia(
+                              index: index)),
+                      ontap: () => Navigator.of(context).push(fadePageRoute(
+                          const SocialMediahandlesScreen(fromBusiness: true))),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: textFieldFillColr,
+                          boxShadow: [
+                            BoxShadow(
+                              color: textFieldFillColr,
+                              spreadRadius: 0.4,
+                              blurRadius: 4,
+                              offset: Offset(0.4, .2),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.only(left: 12, right: 12),
+                        height: 48.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Social Media Handles',
+                              style: TextStyle(
+                                  color: state.socialMedias.isNotEmpty
+                                      ? kwhite
+                                      : klightgrey),
+                            ),
+                            const Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 16,
+                              color: klightgrey,
+                            )
+                          ],
                         ),
                       ),
                     );
                   },
-                  removeItem: (index) => context
-                      .read<BusinessDataBloc>()
-                      .add(BusinessDataEvent.removeBranch(index: index)),
-                  listString:
-                      state.branchOffices.map((e) => e.branch!).toList(),
-                  child: const TTextFormField(
-                    enabled: false,
-                    text: 'Branch Offices',
-                    suffix: Icon(Icons.keyboard_arrow_right_outlined),
-                  ),
-                );
-              },
-            ),
-            adjustHieght(10),
-            // accredition data
-            BlocBuilder<BusinessDataBloc, BusinessDataState>(
-              builder: (context, state) {
-                return ImagePreviewUnderTextField(
-                  ontap: () => Navigator.of(context).push(
-                    fadePageRoute(const AccolodesScreen(accolade: false)),
-                  ),
-                  onItemTap: (value) => Navigator.push(
-                      context,
-                      fadePageRoute(
-                          ScreenImagePreview(image: value, isFileIamge: true))),
-                  removeItem: (index) => context
-                      .read<BusinessDataBloc>()
-                      .add(BusinessDataEvent.removeAccredition(index: index)),
-                  list: state.accreditions
-                      .map((e) => e.image as ImageModel)
-                      .toList(),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: textFieldFillColr,
-                      boxShadow: [
-                        BoxShadow(
+                ),
+                adjustHieght(10),
+                // address field
+                TTextFormField(
+                  maxLines: 4,
+                  maxlegth: 250,
+                  text: 'Address',
+                  controller:
+                      context.read<BusinessDataBloc>().addressController,
+                ),
+                // website link business
+                TTextFormField(
+                  inputType: TextInputType.url,
+                  text: 'Website link',
+                  controller:
+                      context.read<BusinessDataBloc>().websiteLinkController,
+                ), // company branchs adding section
+                BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                  builder: (context, state) {
+                    return ImagePreviewUnderTextField(
+                      ontap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => Dialog(
+                            child: ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              child: ColoredBox(
+                                color: kblack,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Text('Enter Branch Office'),
+                                      adjustHieght(10),
+                                      TTextFormField(
+                                          text: 'Branch',
+                                          controller: context
+                                              .read<BusinessDataBloc>()
+                                              .branchOfficeController),
+                                      adjustHieght(10),
+                                      AuthButton(
+                                          text: 'Add',
+                                          onTap: () {
+                                            if (context
+                                                    .read<BusinessDataBloc>()
+                                                    .branchOfficeController
+                                                    .text !=
+                                                '') {
+                                              context
+                                                  .read<BusinessDataBloc>()
+                                                  .add(
+                                                    BusinessDataEvent.addBranch(
+                                                        branch: context
+                                                            .read<
+                                                                BusinessDataBloc>()
+                                                            .branchOfficeController
+                                                            .text),
+                                                  );
+                                            }
+                                            context
+                                                .read<BusinessDataBloc>()
+                                                .branchOfficeController
+                                                .text = '';
+                                            Navigator.pop(context);
+                                          })
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      removeItem: (index) => context
+                          .read<BusinessDataBloc>()
+                          .add(BusinessDataEvent.removeBranch(index: index)),
+                      listString:
+                          state.branchOffices.map((e) => e.branch!).toList(),
+                      child: const TTextFormField(
+                        enabled: false,
+                        text: 'Branch Offices',
+                        suffix: Icon(Icons.keyboard_arrow_right_outlined),
+                      ),
+                    );
+                  },
+                ),
+                adjustHieght(10),
+                // accredition data
+                BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                  builder: (context, state) {
+                    return ImagePreviewUnderTextField(
+                      ontap: () => Navigator.of(context).push(
+                        fadePageRoute(const AccolodesScreen(accolade: false)),
+                      ),
+                      onItemTap: (value) => Navigator.push(
+                          context,
+                          fadePageRoute(ScreenImagePreview(
+                              image: value, isFileIamge: true))),
+                      removeItem: (index) => context
+                          .read<BusinessDataBloc>()
+                          .add(BusinessDataEvent.removeAccredition(
+                              index: index)),
+                      list: state.accreditions
+                          .map((e) => e.image as ImageModel)
+                          .toList(),
+                      child: Container(
+                        decoration: const BoxDecoration(
                           color: textFieldFillColr,
-                          spreadRadius: 0.4,
-                          blurRadius: 4,
-                          offset: Offset(0.4, .2),
+                          boxShadow: [
+                            BoxShadow(
+                              color: textFieldFillColr,
+                              spreadRadius: 0.4,
+                              blurRadius: 4,
+                              offset: Offset(0.4, .2),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.only(left: 12, right: 12),
-                    height: 48.0,
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Accredition Details',
-                          style: TextStyle(color: klightgrey),
+                        padding: const EdgeInsets.only(left: 12, right: 12),
+                        height: 48.0,
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Accredition Details',
+                              style: TextStyle(color: klightgrey),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 16,
+                              color: klightgrey,
+                            ),
+                          ],
                         ),
-                        Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 16,
-                          color: klightgrey,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-            adjustHieght(khieght * .02),
-            LastSkipContinueButtons(
-              onTap: () {
-                pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.ease,
-                );
-              },
-            ),
-            adjustHieght(khieght * .02),
-          ],
+                      ),
+                    );
+                  },
+                ),
+                adjustHieght(khieght * .02),
+                LastSkipContinueButtons(
+                  onTap: () {
+                    pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                  },
+                ),
+                adjustHieght(khieght * .02),
+              ],
+            );
+          },
         ),
       ),
+    );
+  }
+}
+
+class CompanyAddingPopUp extends StatelessWidget {
+  const CompanyAddingPopUp({
+    super.key,
+    required this.id,
+  });
+  final int id;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        border: Border.all(color: neonShade),
+      ),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        const Text(
+            """Are you sure to add this company details to your profile? you will be part of the organisation once the verification is completed?"""),
+        adjustHieght(10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            adjustWidth(20),
+            Expanded(
+              child: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    border: Border.all(color: neonShade),
+                  ),
+                  child: const Center(
+                    child: Text('Cancel'),
+                  ),
+                ),
+              ),
+            ),
+            adjustWidth(20),
+            Expanded(
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                  context.read<BusinessDataBloc>().add(
+                        BusinessDataEvent.getCompnayDetails(id: id),
+                      );
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: neonShade,
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    border: Border.all(color: neonShade),
+                  ),
+                  child: const Center(
+                    child: Text('Continue'),
+                  ),
+                ),
+              ),
+            ),
+            adjustWidth(20),
+          ],
+        )
+      ]),
     );
   }
 }

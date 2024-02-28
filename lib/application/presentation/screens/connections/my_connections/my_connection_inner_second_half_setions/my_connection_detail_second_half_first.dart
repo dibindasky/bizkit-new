@@ -34,12 +34,23 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
                   .map((e) => e.product!)
                   .toList();
             }
-            return PreviewProductsBrandsLists(networkImages: images,pdfBase64:const [],);
+            List<String> pdfBase64 = [];
+            if (state.anotherCard != null &&
+                state.anotherCard!.businessDetails != null &&
+                state.anotherCard!.businessDetails!.brochure != null) {
+              pdfBase64 = state.anotherCard!.businessDetails!.brochure!
+                  .map((e) => e.file!)
+                  .toList();
+            }
+            return PreviewProductsBrandsLists(
+              networkImages: images,
+              pdfBase64: const [],
+            );
           },
         ),
         adjustHieght(khieght * .02),
         // meeting history section
-        const MeetingDetailHistoryLogTabBuilder()
+        // const MeetingDetailHistoryLogTabBuilder()
       ],
     );
   }

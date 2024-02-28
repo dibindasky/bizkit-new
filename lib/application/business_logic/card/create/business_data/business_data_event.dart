@@ -28,4 +28,6 @@ class BusinessDataEvent with _$BusinessDataEvent {
       RemoveBrochure;
   const factory BusinessDataEvent.getCompnayList(
       {required SearchQuery? search}) = GetCompnayList;
+  const factory BusinessDataEvent.getCompnayDetails(
+      {required int id}) = GetCompnayDetails;
 }

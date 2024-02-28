@@ -1,7 +1,7 @@
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
-import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
+import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';

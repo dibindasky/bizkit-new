@@ -7,8 +7,8 @@ part 'get_qr_code_response_model.g.dart';
 @JsonSerializable()
 class GetQrCodeResponseModel {
   int? count;
-  dynamic next;
-  dynamic previous;
+  String? next;
+  String? previous;
   List<QRModel>? results;
 
   GetQrCodeResponseModel({

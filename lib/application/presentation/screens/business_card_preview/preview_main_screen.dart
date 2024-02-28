@@ -4,7 +4,7 @@ import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
-import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/business_card_popupmenu_items.dart';
+import 'package:bizkit/application/presentation/screens/business_card_preview/widgets/business_card_popupmenu_items.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/bank_person_achived_rows.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/preview_products_and_brands.dart';

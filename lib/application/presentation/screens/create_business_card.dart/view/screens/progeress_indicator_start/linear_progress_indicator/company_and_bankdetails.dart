@@ -1,9 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/business_card_preview/view/screen/preview_main_screen.dart';
+import 'package:bizkit/application/presentation/screens/business_card_preview/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +68,10 @@ class CompanyAndBankingDetails extends StatelessWidget {
                   previous.businessDetailsCreateId !=
                   current.businessDetailsCreateId,
               listener: (context, state) {
+                if (state.message != null && state.hasError) {
+                  showSnackbar(context,
+                      message: state.message!, backgroundColor: kred);
+                }
                 if (state.businessDetailsCreateId != null) {
                   Navigator.push(context,
                       fadePageRoute(const BusinessCardCreationPreviewScreen()));

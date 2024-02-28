@@ -10,8 +10,8 @@ GetQrCodeResponseModel _$GetQrCodeResponseModelFromJson(
         Map<String, dynamic> json) =>
     GetQrCodeResponseModel(
       count: json['count'] as int?,
-      next: json['next'],
-      previous: json['previous'],
+      next: json['next'] as String?,
+      previous: json['previous'] as String?,
       results: (json['results'] as List<dynamic>?)
           ?.map((e) => QRModel.fromJson(e as Map<String, dynamic>))
           .toList(),

@@ -30,9 +30,21 @@ class CardService implements CardRepo {
   CardService(this.apiService);
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> archiveCard({required int id}) {
-    // TODO: implement archiveCard
-    throw UnimplementedError();
+  Future<Either<Failure, SuccessResponseModel>> archiveCard({required int id}) async{
+       try {
+      print('delete card apiicall');
+      final response = await apiService.patch(
+          ApiEndPoints.deleteArchiveCard.replaceFirst('{card_id}', id.toString()));
+      print('delete card api success');
+      print(response.data);
+      return Right(SuccessResponseModel(message: 'Card deleted successfully'));
+    } on DioException catch (e) {
+      log(e.toString());
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      log(e.toString());
+      return Left(Failure(message: errorMessage));
+    }
   }
 
   @override
@@ -70,11 +82,13 @@ class CardService implements CardRepo {
       log('createBusinessDataCard creation dio error');
       log(e.toString());
       log(e.response.toString());
-      return Left(Failure());
+      return Left(
+          Failure(message: 'Failed to create business data please try again'));
     } catch (e) {
       log('createBusinessDataCard creation exception error');
       log(e.toString());
-      return Left(Failure());
+      return Left(
+          Failure(message: 'Failed to create business data please try again'));
     }
   }
 
@@ -182,7 +196,7 @@ class CardService implements CardRepo {
     try {
       print('delete card apiicall');
       final response = await apiService.delete(
-          ApiEndPoints.deleteCard.replaceFirst('{card_id}', id.toString()));
+          ApiEndPoints.deleteArchiveCard.replaceFirst('{card_id}', id.toString()));
       print('delete card api success');
       print(response.data);
       return Right(SuccessResponseModel(message: 'Card deleted successfully'));
@@ -205,6 +219,24 @@ class CardService implements CardRepo {
       print('get company success');
       print(response.data);
       return Right(GetCompanysResponseModel.fromJson(response.data));
+    } on DioException catch (e) {
+      log(e.toString());
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      log(e.toString());
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, BusinessDetails>> getCompnayDetails(
+      {required int id}) async {
+    try {
+      print('get companyDetail apiicall');
+      final response = await apiService.get(ApiEndPoints.getCompanyDetails.replaceFirst('{company_id}', id.toString()));
+      print('get companyDetail success');
+      print(response.data);
+      return Right(BusinessDetails.fromJson(response.data['business_details']));
     } on DioException catch (e) {
       log(e.toString());
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));

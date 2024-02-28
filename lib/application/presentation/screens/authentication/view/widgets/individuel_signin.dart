@@ -101,7 +101,11 @@ class IndividuelSignIn extends StatelessWidget {
                 inputType: TextInputType.visiblePassword,
                 obscureText: true,
               ),
-              adjustHieght(khieght * .09),
+              adjustHieght(khieght * .01),
+              InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: const Text('Alredy have an account?  Login')),
+              adjustHieght(khieght * .04),
               BlocBuilder<SignUpBloc, SignUpState>(
                 builder: (context, state) {
                   if (state.isLoading) {

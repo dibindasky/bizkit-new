@@ -1,7 +1,7 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/custom_bottom_sheet.dart';
-import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
+import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
@@ -140,18 +140,18 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                               child: const Text('Set as default'),
                                             ),
                                             PopupMenuItem(
-                                              // onTap: () => context
-                                              //     .read<CardBloc>()
-                                              //     .add(CardEvent.archiveCard(
-                                              //         id: card.id!)),
+                                              onTap: () => context
+                                                  .read<CardBloc>()
+                                                  .add(CardEvent.archiveCard(
+                                                      id: card.id!)),
                                               value: 'Archive',
                                               child: const Text('Archive'),
                                             ),
                                             PopupMenuItem(
-                                              // onTap: () => context
-                                              //     .read<CardBloc>()
-                                              //     .add(CardEvent.deleteCard(
-                                              //         id: card.id!)),
+                                              onTap: () => context
+                                                  .read<CardBloc>()
+                                                  .add(CardEvent.deleteCard(
+                                                      id: card.id!)),
                                               value: 'Delete Card',
                                               child: const Text('Delete Card'),
                                             ),

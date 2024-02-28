@@ -46,7 +46,7 @@ class QRServiceImpl implements QrServiceRepo {
       log('updateLevelSharing  api call');
       final response = await apiService.patch(
           ApiEndPoints.levelsharingEdit
-              .replaceFirst('{card_id}', createQrModel.card.toString()),
+              .replaceFirst('{level_sharing_id}', createQrModel.card.toString()),
           data: createQrModel.toJson());
       return Right(QRModel.fromJson(response.data));
     } on DioException catch (e) {

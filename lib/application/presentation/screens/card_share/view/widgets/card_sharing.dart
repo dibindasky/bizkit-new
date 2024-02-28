@@ -49,7 +49,10 @@ class CardSharingScreen extends StatelessWidget {
                     separatorBuilder: (context, index) => adjustWidth(20),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.only(left: index == 0 ? 20 : 0),
+                      padding: EdgeInsets.only(
+                        left: index == 0 ? 20 : 0,
+                        right: index == state.qrList.length - 1 ? 20 : 0,
+                      ),
                       child: InkWell(
                         onTap: () {
                           context
@@ -94,12 +97,14 @@ class CardSharingScreen extends StatelessWidget {
               if (state.isLoading) {
                 return const LoadingAnimation();
               } else if (state.qrList.isNotEmpty) {
+                print(state.qrList[state.selectedQrIndex].qrCode!);
                 return SizedBox(
                   width: 250.dm,
                   height: 250.dm,
                   child: Image.memory(
-                    base64Decode(
-                        state.qrList[state.selectedQrIndex].qrImageBase64!),
+                    base64Decode(state.qrList[state.selectedQrIndex].qrCode!
+                        .substring(
+                            'data:image/png;base64,'.length)), // Remove prefix
                     fit: BoxFit.cover,
                   ),
                 );
@@ -111,12 +116,11 @@ class CardSharingScreen extends StatelessWidget {
             BlocBuilder<QrBloc, QrState>(
               builder: (context, state) {
                 if (state.isLoading) {
-                  return const LoadingAnimation();
+                  return const SizedBox();
                 } else if (state.qrList.isNotEmpty) {
                   return GestureDetector(
                     onTap: () => Navigator.of(context).push(
-                      fadePageRoute(LevelSharing(
-                          qrModel: state.qrList[state.selectedQrIndex])),
+                      fadePageRoute(const LevelSharing()),
                     ),
                     child: Container(
                       padding: const EdgeInsets.only(left: 15, right: 10),

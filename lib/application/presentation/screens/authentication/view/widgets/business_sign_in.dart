@@ -50,19 +50,19 @@ class BusinessSignIn extends StatelessWidget {
                 controller: companynameController,
               ),
               TTextFormField(
+                onChanaged: (value) {
+                  if (value.length < 3) {
+                    companyWebsiteController.text = '';
+                  } else {
+                    context
+                        .read<SignUpBloc>()
+                        .add(const SignUpEvent.buildEmail());
+                  }
+                },
                 validate: Validate.notNull,
                 text: 'Website',
                 controller: companyWebsiteController,
                 inputType: TextInputType.url,
-              ),
-              BlocBuilder<SignUpBloc, SignUpState>(
-                builder: (context, state) {
-                  return AutocompleteTextField(
-                      label: 'Company Mail',
-                      validate: Validate.adminEmail,
-                      controller: companyMailController,
-                      autocompleteItems: const ['info@', 'admin@']);
-                },
               ),
               TTextFormField(
                 text: 'Company Mobile Number',
@@ -70,6 +70,24 @@ class BusinessSignIn extends StatelessWidget {
                 controller: companyPhoneController,
                 validate: Validate.phone,
                 inputType: TextInputType.phone,
+              ),
+              BlocBuilder<SignUpBloc, SignUpState>(
+                builder: (context, state) {
+                  String web = companyWebsiteController.text
+                      .replaceFirst('https://', '');
+                  web = web.replaceFirst('http://', '');
+                  web = web.replaceFirst('www.', '');
+                  // web = web.replaceFirst('www.', '');
+                  return AutocompleteTextField(
+                      enabled: false,
+                      label: 'Company Mail',
+                      validate: Validate.adminEmail,
+                      controller: companyMailController,
+                      autocompleteItems:
+                          companyWebsiteController.text.length < 3
+                              ? []
+                              : ['info@$web', 'admin@$web']);
+                },
               ),
               TTextFormField(
                 text: 'Address',
@@ -90,6 +108,10 @@ class BusinessSignIn extends StatelessWidget {
                 validate: Validate.rePassword,
                 obscureText: true,
               ),
+              adjustHieght(khieght * .01),
+              InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: const Text('Alredy have an account?  Login')),
               adjustHieght(khieght * .04),
               BlocConsumer<SignUpBloc, SignUpState>(
                 listener: (context, state) {

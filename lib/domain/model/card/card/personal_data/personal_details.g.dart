@@ -18,9 +18,7 @@ PersonalDetails _$PersonalDetailsFromJson(Map<String, dynamic> json) =>
       datesToRemember: (json['dates_to_remember'] as List<dynamic>?)
           ?.map((e) => DatesToRemember.fromJson(e as Map<String, dynamic>))
           .toList(),
-      photos: (json['photos'] as List<dynamic>?)
-          ?.map((e) => Photo.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      photos: json['photos'] as String?,
       name: json['name'] as String?,
       phoneNumber: json['phone_number'] as String?,
       email: json['email'] as String?,
@@ -29,7 +27,7 @@ PersonalDetails _$PersonalDetailsFromJson(Map<String, dynamic> json) =>
       homeAddress: json['home_address'] as String?,
       bloodGroup: json['blood_group'] as String?,
       dateOfBirth: json['date_of_birth'] as String?,
-    );
+    )..designation = json['designation'] as String?;
 
 Map<String, dynamic> _$PersonalDetailsToJson(PersonalDetails instance) =>
     <String, dynamic>{
@@ -46,4 +44,5 @@ Map<String, dynamic> _$PersonalDetailsToJson(PersonalDetails instance) =>
       'home_address': instance.homeAddress,
       'blood_group': instance.bloodGroup,
       'date_of_birth': instance.dateOfBirth,
+      'designation': instance.designation,
     };

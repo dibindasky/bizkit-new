@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../bank_details/bank_details.dart';
 import '../business_detail/business_details.dart';
 import '../personal_data/personal_details.dart';
 
@@ -13,19 +12,30 @@ class Card {
   PersonalDetails? personalDetails;
   @JsonKey(name: 'business_details')
   BusinessDetails? businessDetails;
-  @JsonKey(name: 'bank_details')
-  BankDetails? bankDetails;
   @JsonKey(name: 'is_default')
   bool? isDefault;
-  int? user;
+  @JsonKey(name: 'is_archived')
+  bool? isArchived;
+  @JsonKey(name: 'is_verified')
+  bool? isVerified;
+  @JsonKey(name: 'user_id')
+  int? userId;
+  @JsonKey(name: 'share')
+  int? share;
+  @JsonKey(name: 'views')
+  int? views;
+  @JsonKey(name: 'card_link')
+  String? cardLink;
 
   Card({
     this.id,
     this.personalDetails,
     this.businessDetails,
-    this.bankDetails,
     this.isDefault,
-    this.user,
+    this.userId,
+    this.cardLink,
+    this.share,
+    this.views
   });
 
   factory Card.fromJson(Map<String, dynamic> json) {

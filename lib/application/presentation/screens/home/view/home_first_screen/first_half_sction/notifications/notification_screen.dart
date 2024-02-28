@@ -10,6 +10,7 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ignore: deprecated_member_use
       body: WillPopScope(
         onWillPop: () async {
           notificationScreen.value = 0;

@@ -5,8 +5,10 @@ part 'brochure.g.dart';
 @JsonSerializable()
 class BrochureCreate {
   dynamic file;
+  String? label;
+  String? image;
 
-  BrochureCreate({this.file});
+  BrochureCreate({this.file, this.label, this.image = ""});
 
   factory BrochureCreate.fromJson(Map<String, dynamic> json) {
     return _$BrochureCreateFromJson(json);
@@ -14,11 +16,11 @@ class BrochureCreate {
 
   Map<String, dynamic> toJson() => _$BrochureCreateToJson(this);
 
-  BrochureCreate copyWith({
-    dynamic file,
-  }) {
+  BrochureCreate copyWith({dynamic file, String? label, String? image}) {
     return BrochureCreate(
       file: file ?? this.file,
+      label: label ?? this.label,
+      image: image ?? this.image,
     );
   }
 }

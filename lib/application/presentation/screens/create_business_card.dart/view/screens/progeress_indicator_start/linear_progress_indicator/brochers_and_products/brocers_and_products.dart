@@ -96,7 +96,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Add brochers',
+                            'Add brochures',
                             style: TextStyle(fontSize: 10.sp),
                           ),
                         ],
@@ -109,24 +109,13 @@ class BrochersAndProductsScreen extends StatelessWidget {
               const Text('Added Products'),
               const ProductBuilder(),
               adjustHieght(30),
-              const Text('Added Brochers'),
+              const Text('Added Brochures'),
               adjustHieght(10),
               const BrocherBuilder(),
             ],
           ),
           adjustHieght(khieght * .03),
-          BlocConsumer<BusinessDataBloc, BusinessDataState>(
-            listenWhen: (previous, current) =>
-                previous.businessDetailsCreateId !=
-                current.businessDetailsCreateId,
-            listener: (context, state) {
-              if (state.businessDetailsCreateId != null) {
-                pageController.nextPage(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.ease,
-                );
-              }
-            },
+          BlocBuilder<BusinessDataBloc, BusinessDataState>(
             builder: (context, state) {
               if (state.isLoading) {
                 return const LoadingAnimation();
@@ -136,6 +125,10 @@ class BrochersAndProductsScreen extends StatelessWidget {
                   context
                       .read<BusinessDataBloc>()
                       .add(const BusinessDataEvent.createBusinessData());
+                  pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease,
+                  );
                 },
               );
             },

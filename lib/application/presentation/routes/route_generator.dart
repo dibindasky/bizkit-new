@@ -1,7 +1,8 @@
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
+import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
+import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -32,6 +33,10 @@ class GoRouterConfig {
       GoRoute(
         path: Routes.cardCreation,
         builder: (context, state) => const StartingBusinessCardCreation(),
+      ),
+      GoRoute(
+        path: Routes.homePage,
+        builder: (context, state) => const BizkitBottomNavigationBar(),
       ),
     ],
     errorBuilder: (context, state) => _errorScreen(),

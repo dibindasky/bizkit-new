@@ -1,8 +1,9 @@
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pdf_render/pdf_render_widgets.dart';
 
 class BrocherBuilder extends StatelessWidget {
   const BrocherBuilder({
@@ -23,30 +24,41 @@ class BrocherBuilder extends StatelessWidget {
             itemBuilder: (context, index) {
               return Stack(
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 10, left: 10),
-                    width: kwidth * 0.2,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: neonShade),
-                      borderRadius: BorderRadius.circular(10),
-                      image: const DecorationImage(
-                        image: AssetImage(pdfImage),
+                  InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ScreenPdfPreview(
+                              filePath: state.brochures[index].file.file.path),
+                        )),
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 10, left: 10),
+                      width: kwidth * 0.2,
+                      decoration: BoxDecoration(
+                        // border: Border.all(color: neonShade),
+                        borderRadius: BorderRadius.circular(10),
                       ),
+                      child: PdfViewer.openFile(
+                          state.brochures[index].file.file.path,
+                          params: const PdfViewerParams(pageNumber: 1)),
                     ),
                   ),
                   Positioned(
                     top: 0,
-                    right: 0,
+                    right: 5,
                     child: InkWell(
                       onTap: () => context
                           .read<BusinessDataBloc>()
                           .add(BusinessDataEvent.removeBrochure(index: index)),
                       borderRadius: BorderRadius.circular(10),
-                      child: const ColoredBox(
-                        color: neonShade,
-                        child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Icon(Icons.close, size: 12),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: const ColoredBox(
+                          color: neonShade,
+                          child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Icon(Icons.close, size: 12),
+                          ),
                         ),
                       ),
                     ),

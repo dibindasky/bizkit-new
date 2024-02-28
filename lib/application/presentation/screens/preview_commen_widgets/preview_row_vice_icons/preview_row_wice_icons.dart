@@ -35,10 +35,8 @@ class PreviewRowWiceIcons extends StatelessWidget {
                           }
                           if (businessState.businessDetails.mobileNumber !=
                               null) {
-                            items.addAll(businessState
-                                .businessDetails.mobileNumber!
-                                .map((e) => e.mobileNumber!)
-                                .toList());
+                            items.add(
+                                businessState.businessDetails.mobileNumber!);
                           }
                         } else {
                           if (state.anotherCard != null &&
@@ -55,10 +53,8 @@ class PreviewRowWiceIcons extends StatelessWidget {
                                   null &&
                               state.anotherCard!.businessDetails!.mobileNumber!
                                   .isNotEmpty) {
-                            items.addAll(state
-                                .anotherCard!.businessDetails!.mobileNumber!
-                                .map((e) => e.mobileNumber!)
-                                .toList());
+                            items.add(state
+                                .anotherCard!.businessDetails!.mobileNumber!);
                           }
                         }
                         showModalBottomSheet(
@@ -81,9 +77,7 @@ class PreviewRowWiceIcons extends StatelessWidget {
                             items.add(userState.personalDetails.email!);
                           }
                           if (businessState.businessDetails.email != null) {
-                            items.addAll(businessState.businessDetails.email!
-                                .map((e) => e.email!)
-                                .toList());
+                            items.add(businessState.businessDetails.email!);
                           }
                         } else {
                           if (state.anotherCard != null &&
@@ -99,10 +93,8 @@ class PreviewRowWiceIcons extends StatelessWidget {
                                   null &&
                               state.anotherCard!.businessDetails!.email!
                                   .isNotEmpty) {
-                            items.addAll(state
-                                .anotherCard!.businessDetails!.email!
-                                .map((e) => e.email!)
-                                .toList());
+                            items.add(
+                                state.anotherCard!.businessDetails!.email!);
                           }
                         }
                         showModalBottomSheet(

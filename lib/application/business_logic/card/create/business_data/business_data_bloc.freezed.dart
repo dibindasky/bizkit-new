@@ -23,14 +23,18 @@ mixin _$BusinessDataEvent {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,14 +44,18 @@ mixin _$BusinessDataEvent {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,14 +64,18 @@ mixin _$BusinessDataEvent {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -73,14 +85,18 @@ mixin _$BusinessDataEvent {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -89,14 +105,18 @@ mixin _$BusinessDataEvent {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -105,14 +125,18 @@ mixin _$BusinessDataEvent {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -207,14 +231,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return addSocialMedia(socialMediaHandle);
   }
@@ -227,14 +255,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return addSocialMedia?.call(socialMediaHandle);
   }
@@ -246,14 +278,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (addSocialMedia != null) {
@@ -269,14 +305,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return addSocialMedia(this);
   }
@@ -288,14 +328,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return addSocialMedia?.call(this);
   }
@@ -307,14 +351,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (addSocialMedia != null) {
@@ -405,14 +453,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return removeSocialMedia(index);
   }
@@ -425,14 +477,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return removeSocialMedia?.call(index);
   }
@@ -444,14 +500,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (removeSocialMedia != null) {
@@ -467,14 +527,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return removeSocialMedia(this);
   }
@@ -486,14 +550,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return removeSocialMedia?.call(this);
   }
@@ -505,14 +573,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (removeSocialMedia != null) {
@@ -603,14 +675,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return addAccredition(accredition);
   }
@@ -623,14 +699,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return addAccredition?.call(accredition);
   }
@@ -642,14 +722,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (addAccredition != null) {
@@ -665,14 +749,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return addAccredition(this);
   }
@@ -684,14 +772,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return addAccredition?.call(this);
   }
@@ -703,14 +795,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (addAccredition != null) {
@@ -800,14 +896,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return removeAccredition(index);
   }
@@ -820,14 +920,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return removeAccredition?.call(index);
   }
@@ -839,14 +943,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (removeAccredition != null) {
@@ -862,14 +970,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return removeAccredition(this);
   }
@@ -881,14 +993,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return removeAccredition?.call(this);
   }
@@ -900,14 +1016,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (removeAccredition != null) {
@@ -924,6 +1044,444 @@ abstract class RemoveAccredition implements BusinessDataEvent {
   int get index;
   @JsonKey(ignore: true)
   _$$RemoveAccreditionImplCopyWith<_$RemoveAccreditionImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddBranchImplCopyWith<$Res> {
+  factory _$$AddBranchImplCopyWith(
+          _$AddBranchImpl value, $Res Function(_$AddBranchImpl) then) =
+      __$$AddBranchImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String branch});
+}
+
+/// @nodoc
+class __$$AddBranchImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$AddBranchImpl>
+    implements _$$AddBranchImplCopyWith<$Res> {
+  __$$AddBranchImplCopyWithImpl(
+      _$AddBranchImpl _value, $Res Function(_$AddBranchImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? branch = null,
+  }) {
+    return _then(_$AddBranchImpl(
+      branch: null == branch
+          ? _value.branch
+          : branch // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddBranchImpl implements AddBranch {
+  const _$AddBranchImpl({required this.branch});
+
+  @override
+  final String branch;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.addBranch(branch: $branch)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddBranchImpl &&
+            (identical(other.branch, branch) || other.branch == branch));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, branch);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddBranchImplCopyWith<_$AddBranchImpl> get copyWith =>
+      __$$AddBranchImplCopyWithImpl<_$AddBranchImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(AccreditionCreate accredition) addAccredition,
+    required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
+    required TResult Function() clear,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() getUserData,
+    required TResult Function(ProductCreate product) addProduct,
+    required TResult Function(int index) removeProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+  }) {
+    return addBranch(branch);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
+        addSocialMedia,
+    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(AccreditionCreate accredition)? addAccredition,
+    TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
+    TResult? Function()? clear,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(ProductCreate product)? addProduct,
+    TResult? Function(int index)? removeProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+  }) {
+    return addBranch?.call(branch);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
+    TResult Function(int index)? removeSocialMedia,
+    TResult Function(AccreditionCreate accredition)? addAccredition,
+    TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
+    TResult Function()? clear,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? getUserData,
+    TResult Function(ProductCreate product)? addProduct,
+    TResult Function(int index)? removeProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    required TResult orElse(),
+  }) {
+    if (addBranch != null) {
+      return addBranch(branch);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+  }) {
+    return addBranch(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+  }) {
+    return addBranch?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(Clear value)? clear,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    required TResult orElse(),
+  }) {
+    if (addBranch != null) {
+      return addBranch(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AddBranch implements BusinessDataEvent {
+  const factory AddBranch({required final String branch}) = _$AddBranchImpl;
+
+  String get branch;
+  @JsonKey(ignore: true)
+  _$$AddBranchImplCopyWith<_$AddBranchImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveBranchImplCopyWith<$Res> {
+  factory _$$RemoveBranchImplCopyWith(
+          _$RemoveBranchImpl value, $Res Function(_$RemoveBranchImpl) then) =
+      __$$RemoveBranchImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$RemoveBranchImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$RemoveBranchImpl>
+    implements _$$RemoveBranchImplCopyWith<$Res> {
+  __$$RemoveBranchImplCopyWithImpl(
+      _$RemoveBranchImpl _value, $Res Function(_$RemoveBranchImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$RemoveBranchImpl(
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveBranchImpl implements RemoveBranch {
+  const _$RemoveBranchImpl({required this.index});
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.removeBranch(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveBranchImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveBranchImplCopyWith<_$RemoveBranchImpl> get copyWith =>
+      __$$RemoveBranchImplCopyWithImpl<_$RemoveBranchImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(AccreditionCreate accredition) addAccredition,
+    required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
+    required TResult Function() clear,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() getUserData,
+    required TResult Function(ProductCreate product) addProduct,
+    required TResult Function(int index) removeProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+  }) {
+    return removeBranch(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
+        addSocialMedia,
+    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(AccreditionCreate accredition)? addAccredition,
+    TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
+    TResult? Function()? clear,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(ProductCreate product)? addProduct,
+    TResult? Function(int index)? removeProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+  }) {
+    return removeBranch?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
+    TResult Function(int index)? removeSocialMedia,
+    TResult Function(AccreditionCreate accredition)? addAccredition,
+    TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
+    TResult Function()? clear,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? getUserData,
+    TResult Function(ProductCreate product)? addProduct,
+    TResult Function(int index)? removeProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    required TResult orElse(),
+  }) {
+    if (removeBranch != null) {
+      return removeBranch(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+  }) {
+    return removeBranch(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+  }) {
+    return removeBranch?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(Clear value)? clear,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    required TResult orElse(),
+  }) {
+    if (removeBranch != null) {
+      return removeBranch(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveBranch implements BusinessDataEvent {
+  const factory RemoveBranch({required final int index}) = _$RemoveBranchImpl;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$RemoveBranchImplCopyWith<_$RemoveBranchImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -970,14 +1528,18 @@ class _$ClearImpl implements Clear {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return clear();
   }
@@ -990,14 +1552,18 @@ class _$ClearImpl implements Clear {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return clear?.call();
   }
@@ -1009,14 +1575,18 @@ class _$ClearImpl implements Clear {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (clear != null) {
@@ -1032,14 +1602,18 @@ class _$ClearImpl implements Clear {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return clear(this);
   }
@@ -1051,14 +1625,18 @@ class _$ClearImpl implements Clear {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return clear?.call(this);
   }
@@ -1070,14 +1648,18 @@ class _$ClearImpl implements Clear {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (clear != null) {
@@ -1134,14 +1716,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return createBusinessData();
   }
@@ -1154,14 +1740,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return createBusinessData?.call();
   }
@@ -1173,14 +1763,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (createBusinessData != null) {
@@ -1196,14 +1790,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return createBusinessData(this);
   }
@@ -1215,14 +1813,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return createBusinessData?.call(this);
   }
@@ -1234,14 +1836,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (createBusinessData != null) {
@@ -1298,14 +1904,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return createBankingData();
   }
@@ -1318,14 +1928,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return createBankingData?.call();
   }
@@ -1337,14 +1951,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (createBankingData != null) {
@@ -1360,14 +1978,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return createBankingData(this);
   }
@@ -1379,14 +2001,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return createBankingData?.call(this);
   }
@@ -1398,14 +2024,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (createBankingData != null) {
@@ -1462,14 +2092,18 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return addLogo();
   }
@@ -1482,14 +2116,18 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return addLogo?.call();
   }
@@ -1501,14 +2139,18 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (addLogo != null) {
@@ -1524,14 +2166,18 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return addLogo(this);
   }
@@ -1543,14 +2189,18 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return addLogo?.call(this);
   }
@@ -1562,14 +2212,18 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (addLogo != null) {
@@ -1581,6 +2235,194 @@ class _$AddLogoImpl implements AddLogo {
 
 abstract class AddLogo implements BusinessDataEvent {
   const factory AddLogo() = _$AddLogoImpl;
+}
+
+/// @nodoc
+abstract class _$$GetUserDataImplCopyWith<$Res> {
+  factory _$$GetUserDataImplCopyWith(
+          _$GetUserDataImpl value, $Res Function(_$GetUserDataImpl) then) =
+      __$$GetUserDataImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetUserDataImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$GetUserDataImpl>
+    implements _$$GetUserDataImplCopyWith<$Res> {
+  __$$GetUserDataImplCopyWithImpl(
+      _$GetUserDataImpl _value, $Res Function(_$GetUserDataImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetUserDataImpl implements GetUserData {
+  const _$GetUserDataImpl();
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.getUserData()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetUserDataImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(AccreditionCreate accredition) addAccredition,
+    required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
+    required TResult Function() clear,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() getUserData,
+    required TResult Function(ProductCreate product) addProduct,
+    required TResult Function(int index) removeProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+  }) {
+    return getUserData();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
+        addSocialMedia,
+    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(AccreditionCreate accredition)? addAccredition,
+    TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
+    TResult? Function()? clear,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(ProductCreate product)? addProduct,
+    TResult? Function(int index)? removeProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+  }) {
+    return getUserData?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
+    TResult Function(int index)? removeSocialMedia,
+    TResult Function(AccreditionCreate accredition)? addAccredition,
+    TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
+    TResult Function()? clear,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? getUserData,
+    TResult Function(ProductCreate product)? addProduct,
+    TResult Function(int index)? removeProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    required TResult orElse(),
+  }) {
+    if (getUserData != null) {
+      return getUserData();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+  }) {
+    return getUserData(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+  }) {
+    return getUserData?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(Clear value)? clear,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    required TResult orElse(),
+  }) {
+    if (getUserData != null) {
+      return getUserData(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetUserData implements BusinessDataEvent {
+  const factory GetUserData() = _$GetUserDataImpl;
 }
 
 /// @nodoc
@@ -1652,14 +2494,18 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return addProduct(product);
   }
@@ -1672,14 +2518,18 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return addProduct?.call(product);
   }
@@ -1691,14 +2541,18 @@ class _$AddProductImpl implements AddProduct {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (addProduct != null) {
@@ -1714,14 +2568,18 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return addProduct(this);
   }
@@ -1733,14 +2591,18 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return addProduct?.call(this);
   }
@@ -1752,14 +2614,18 @@ class _$AddProductImpl implements AddProduct {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (addProduct != null) {
@@ -1848,14 +2714,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return removeProduct(index);
   }
@@ -1868,14 +2738,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return removeProduct?.call(index);
   }
@@ -1887,14 +2761,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (removeProduct != null) {
@@ -1910,14 +2788,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return removeProduct(this);
   }
@@ -1929,14 +2811,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return removeProduct?.call(this);
   }
@@ -1948,14 +2834,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (removeProduct != null) {
@@ -2017,14 +2907,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return addBrochures();
   }
@@ -2037,14 +2931,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return addBrochures?.call();
   }
@@ -2056,14 +2954,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (addBrochures != null) {
@@ -2079,14 +2981,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return addBrochures(this);
   }
@@ -2098,14 +3004,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return addBrochures?.call(this);
   }
@@ -2117,14 +3027,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (addBrochures != null) {
@@ -2208,14 +3122,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function(int index) removeSocialMedia,
     required TResult Function(AccreditionCreate accredition) addAccredition,
     required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
     required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
   }) {
     return removeBrochure(index);
   }
@@ -2228,14 +3146,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function(int index)? removeSocialMedia,
     TResult? Function(AccreditionCreate accredition)? addAccredition,
     TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
     TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
   }) {
     return removeBrochure?.call(index);
   }
@@ -2247,14 +3169,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function(int index)? removeSocialMedia,
     TResult Function(AccreditionCreate accredition)? addAccredition,
     TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
     TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
     required TResult orElse(),
   }) {
     if (removeBrochure != null) {
@@ -2270,14 +3196,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
     required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
   }) {
     return removeBrochure(this);
   }
@@ -2289,14 +3219,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
     TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
   }) {
     return removeBrochure?.call(this);
   }
@@ -2308,14 +3242,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
     TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
     required TResult orElse(),
   }) {
     if (removeBrochure != null) {
@@ -2336,21 +3274,245 @@ abstract class RemoveBrochure implements BusinessDataEvent {
 }
 
 /// @nodoc
+abstract class _$$GetCompnayListImplCopyWith<$Res> {
+  factory _$$GetCompnayListImplCopyWith(_$GetCompnayListImpl value,
+          $Res Function(_$GetCompnayListImpl) then) =
+      __$$GetCompnayListImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SearchQuery? search});
+}
+
+/// @nodoc
+class __$$GetCompnayListImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$GetCompnayListImpl>
+    implements _$$GetCompnayListImplCopyWith<$Res> {
+  __$$GetCompnayListImplCopyWithImpl(
+      _$GetCompnayListImpl _value, $Res Function(_$GetCompnayListImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? search = freezed,
+  }) {
+    return _then(_$GetCompnayListImpl(
+      search: freezed == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as SearchQuery?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetCompnayListImpl implements GetCompnayList {
+  const _$GetCompnayListImpl({required this.search});
+
+  @override
+  final SearchQuery? search;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.getCompnayList(search: $search)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCompnayListImpl &&
+            (identical(other.search, search) || other.search == search));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, search);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCompnayListImplCopyWith<_$GetCompnayListImpl> get copyWith =>
+      __$$GetCompnayListImplCopyWithImpl<_$GetCompnayListImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(AccreditionCreate accredition) addAccredition,
+    required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
+    required TResult Function() clear,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() getUserData,
+    required TResult Function(ProductCreate product) addProduct,
+    required TResult Function(int index) removeProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+  }) {
+    return getCompnayList(search);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
+        addSocialMedia,
+    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(AccreditionCreate accredition)? addAccredition,
+    TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
+    TResult? Function()? clear,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(ProductCreate product)? addProduct,
+    TResult? Function(int index)? removeProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+  }) {
+    return getCompnayList?.call(search);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
+    TResult Function(int index)? removeSocialMedia,
+    TResult Function(AccreditionCreate accredition)? addAccredition,
+    TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
+    TResult Function()? clear,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? getUserData,
+    TResult Function(ProductCreate product)? addProduct,
+    TResult Function(int index)? removeProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    required TResult orElse(),
+  }) {
+    if (getCompnayList != null) {
+      return getCompnayList(search);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+  }) {
+    return getCompnayList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+  }) {
+    return getCompnayList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(Clear value)? clear,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    required TResult orElse(),
+  }) {
+    if (getCompnayList != null) {
+      return getCompnayList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetCompnayList implements BusinessDataEvent {
+  const factory GetCompnayList({required final SearchQuery? search}) =
+      _$GetCompnayListImpl;
+
+  SearchQuery? get search;
+  @JsonKey(ignore: true)
+  _$$GetCompnayListImplCopyWith<_$GetCompnayListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$BusinessDataState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  bool get isBusiness => throw _privateConstructorUsedError;
   int? get businessDetailsCreateId => throw _privateConstructorUsedError;
   int? get bankDetailsCreateId => throw _privateConstructorUsedError;
   List<SocialMediaHandleCreate> get socialMedias =>
       throw _privateConstructorUsedError;
   List<AccreditionCreate> get accreditions =>
       throw _privateConstructorUsedError;
+  List<BranchOffices> get branchOffices => throw _privateConstructorUsedError;
   BusinessDetailsCreate get businessDetails =>
       throw _privateConstructorUsedError;
   BankDetailsCreate get bankDetails => throw _privateConstructorUsedError;
   List<ProductCreate> get products => throw _privateConstructorUsedError;
   List<BrochureCreate> get brochures => throw _privateConstructorUsedError;
   ImageModel? get logo => throw _privateConstructorUsedError;
+  List<Company> get companiesList => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -2367,15 +3529,18 @@ abstract class $BusinessDataStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool hasError,
+      bool isBusiness,
       int? businessDetailsCreateId,
       int? bankDetailsCreateId,
       List<SocialMediaHandleCreate> socialMedias,
       List<AccreditionCreate> accreditions,
+      List<BranchOffices> branchOffices,
       BusinessDetailsCreate businessDetails,
       BankDetailsCreate bankDetails,
       List<ProductCreate> products,
       List<BrochureCreate> brochures,
       ImageModel? logo,
+      List<Company> companiesList,
       String? message});
 }
 
@@ -2394,15 +3559,18 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? isBusiness = null,
     Object? businessDetailsCreateId = freezed,
     Object? bankDetailsCreateId = freezed,
     Object? socialMedias = null,
     Object? accreditions = null,
+    Object? branchOffices = null,
     Object? businessDetails = null,
     Object? bankDetails = null,
     Object? products = null,
     Object? brochures = null,
     Object? logo = freezed,
+    Object? companiesList = null,
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
@@ -2413,6 +3581,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBusiness: null == isBusiness
+          ? _value.isBusiness
+          : isBusiness // ignore: cast_nullable_to_non_nullable
               as bool,
       businessDetailsCreateId: freezed == businessDetailsCreateId
           ? _value.businessDetailsCreateId
@@ -2430,6 +3602,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.accreditions
           : accreditions // ignore: cast_nullable_to_non_nullable
               as List<AccreditionCreate>,
+      branchOffices: null == branchOffices
+          ? _value.branchOffices
+          : branchOffices // ignore: cast_nullable_to_non_nullable
+              as List<BranchOffices>,
       businessDetails: null == businessDetails
           ? _value.businessDetails
           : businessDetails // ignore: cast_nullable_to_non_nullable
@@ -2450,6 +3626,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as ImageModel?,
+      companiesList: null == companiesList
+          ? _value.companiesList
+          : companiesList // ignore: cast_nullable_to_non_nullable
+              as List<Company>,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -2469,15 +3649,18 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       bool hasError,
+      bool isBusiness,
       int? businessDetailsCreateId,
       int? bankDetailsCreateId,
       List<SocialMediaHandleCreate> socialMedias,
       List<AccreditionCreate> accreditions,
+      List<BranchOffices> branchOffices,
       BusinessDetailsCreate businessDetails,
       BankDetailsCreate bankDetails,
       List<ProductCreate> products,
       List<BrochureCreate> brochures,
       ImageModel? logo,
+      List<Company> companiesList,
       String? message});
 }
 
@@ -2494,15 +3677,18 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? isBusiness = null,
     Object? businessDetailsCreateId = freezed,
     Object? bankDetailsCreateId = freezed,
     Object? socialMedias = null,
     Object? accreditions = null,
+    Object? branchOffices = null,
     Object? businessDetails = null,
     Object? bankDetails = null,
     Object? products = null,
     Object? brochures = null,
     Object? logo = freezed,
+    Object? companiesList = null,
     Object? message = freezed,
   }) {
     return _then(_$InitialImpl(
@@ -2513,6 +3699,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBusiness: null == isBusiness
+          ? _value.isBusiness
+          : isBusiness // ignore: cast_nullable_to_non_nullable
               as bool,
       businessDetailsCreateId: freezed == businessDetailsCreateId
           ? _value.businessDetailsCreateId
@@ -2530,6 +3720,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value._accreditions
           : accreditions // ignore: cast_nullable_to_non_nullable
               as List<AccreditionCreate>,
+      branchOffices: null == branchOffices
+          ? _value._branchOffices
+          : branchOffices // ignore: cast_nullable_to_non_nullable
+              as List<BranchOffices>,
       businessDetails: null == businessDetails
           ? _value.businessDetails
           : businessDetails // ignore: cast_nullable_to_non_nullable
@@ -2550,6 +3744,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as ImageModel?,
+      companiesList: null == companiesList
+          ? _value._companiesList
+          : companiesList // ignore: cast_nullable_to_non_nullable
+              as List<Company>,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -2564,25 +3762,32 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
       required this.hasError,
+      required this.isBusiness,
       this.businessDetailsCreateId,
       this.bankDetailsCreateId,
       required final List<SocialMediaHandleCreate> socialMedias,
       required final List<AccreditionCreate> accreditions,
+      required final List<BranchOffices> branchOffices,
       required this.businessDetails,
       required this.bankDetails,
       required final List<ProductCreate> products,
       required final List<BrochureCreate> brochures,
       this.logo,
+      required final List<Company> companiesList,
       this.message})
       : _socialMedias = socialMedias,
         _accreditions = accreditions,
+        _branchOffices = branchOffices,
         _products = products,
-        _brochures = brochures;
+        _brochures = brochures,
+        _companiesList = companiesList;
 
   @override
   final bool isLoading;
   @override
   final bool hasError;
+  @override
+  final bool isBusiness;
   @override
   final int? businessDetailsCreateId;
   @override
@@ -2601,6 +3806,14 @@ class _$InitialImpl implements _Initial {
     if (_accreditions is EqualUnmodifiableListView) return _accreditions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_accreditions);
+  }
+
+  final List<BranchOffices> _branchOffices;
+  @override
+  List<BranchOffices> get branchOffices {
+    if (_branchOffices is EqualUnmodifiableListView) return _branchOffices;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_branchOffices);
   }
 
   @override
@@ -2625,12 +3838,20 @@ class _$InitialImpl implements _Initial {
 
   @override
   final ImageModel? logo;
+  final List<Company> _companiesList;
+  @override
+  List<Company> get companiesList {
+    if (_companiesList is EqualUnmodifiableListView) return _companiesList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_companiesList);
+  }
+
   @override
   final String? message;
 
   @override
   String toString() {
-    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, businessDetailsCreateId: $businessDetailsCreateId, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, message: $message)';
+    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, isBusiness: $isBusiness, businessDetailsCreateId: $businessDetailsCreateId, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, companiesList: $companiesList, message: $message)';
   }
 
   @override
@@ -2642,6 +3863,8 @@ class _$InitialImpl implements _Initial {
                 other.isLoading == isLoading) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
+            (identical(other.isBusiness, isBusiness) ||
+                other.isBusiness == isBusiness) &&
             (identical(
                     other.businessDetailsCreateId, businessDetailsCreateId) ||
                 other.businessDetailsCreateId == businessDetailsCreateId) &&
@@ -2651,6 +3874,8 @@ class _$InitialImpl implements _Initial {
                 .equals(other._socialMedias, _socialMedias) &&
             const DeepCollectionEquality()
                 .equals(other._accreditions, _accreditions) &&
+            const DeepCollectionEquality()
+                .equals(other._branchOffices, _branchOffices) &&
             (identical(other.businessDetails, businessDetails) ||
                 other.businessDetails == businessDetails) &&
             (identical(other.bankDetails, bankDetails) ||
@@ -2659,6 +3884,8 @@ class _$InitialImpl implements _Initial {
             const DeepCollectionEquality()
                 .equals(other._brochures, _brochures) &&
             (identical(other.logo, logo) || other.logo == logo) &&
+            const DeepCollectionEquality()
+                .equals(other._companiesList, _companiesList) &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -2667,15 +3894,18 @@ class _$InitialImpl implements _Initial {
       runtimeType,
       isLoading,
       hasError,
+      isBusiness,
       businessDetailsCreateId,
       bankDetailsCreateId,
       const DeepCollectionEquality().hash(_socialMedias),
       const DeepCollectionEquality().hash(_accreditions),
+      const DeepCollectionEquality().hash(_branchOffices),
       businessDetails,
       bankDetails,
       const DeepCollectionEquality().hash(_products),
       const DeepCollectionEquality().hash(_brochures),
       logo,
+      const DeepCollectionEquality().hash(_companiesList),
       message);
 
   @JsonKey(ignore: true)
@@ -2689,21 +3919,26 @@ abstract class _Initial implements BusinessDataState {
   const factory _Initial(
       {required final bool isLoading,
       required final bool hasError,
+      required final bool isBusiness,
       final int? businessDetailsCreateId,
       final int? bankDetailsCreateId,
       required final List<SocialMediaHandleCreate> socialMedias,
       required final List<AccreditionCreate> accreditions,
+      required final List<BranchOffices> branchOffices,
       required final BusinessDetailsCreate businessDetails,
       required final BankDetailsCreate bankDetails,
       required final List<ProductCreate> products,
       required final List<BrochureCreate> brochures,
       final ImageModel? logo,
+      required final List<Company> companiesList,
       final String? message}) = _$InitialImpl;
 
   @override
   bool get isLoading;
   @override
   bool get hasError;
+  @override
+  bool get isBusiness;
   @override
   int? get businessDetailsCreateId;
   @override
@@ -2712,6 +3947,8 @@ abstract class _Initial implements BusinessDataState {
   List<SocialMediaHandleCreate> get socialMedias;
   @override
   List<AccreditionCreate> get accreditions;
+  @override
+  List<BranchOffices> get branchOffices;
   @override
   BusinessDetailsCreate get businessDetails;
   @override
@@ -2722,6 +3959,8 @@ abstract class _Initial implements BusinessDataState {
   List<BrochureCreate> get brochures;
   @override
   ImageModel? get logo;
+  @override
+  List<Company> get companiesList;
   @override
   String? get message;
   @override

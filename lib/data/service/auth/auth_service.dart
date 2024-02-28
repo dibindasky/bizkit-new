@@ -7,7 +7,6 @@ import 'package:bizkit/domain/model/auth/login_model/login_model.dart';
 import 'package:bizkit/domain/model/auth/login_response_model/login_response_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
-import 'package:bizkit/domain/model/auth/sign_up_response_model/sign_up_response_model.dart';
 import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/service/auth_repo.dart';
@@ -41,12 +40,16 @@ class AuthService implements AuthRepo {
   Future<Either<Failure, SuccessResponseModel>> sendOtp(
       {required EmailModel emailModel}) async {
     try {
+      print('otp send service call ()=> ${emailModel.toJson()}');
       final response =
           await _dio.post(ApiEndPoints.sendOtpMail, data: emailModel.toJson());
+      print('otp send service success ()=> $response');
       return Right(SuccessResponseModel.fromJson(response.data));
     } on DioException catch (e) {
+      print('Dio error -------- $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
+      print('error -------- $e');
       return Left(Failure(message: errorMessage));
     }
   }
@@ -66,6 +69,44 @@ class AuthService implements AuthRepo {
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       print('error -------- $e');
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, LoginResponseModel>> registerBusiness(
+      {required SignUpModel signUpModel}) async {
+    try {
+      print(signUpModel.toJson());
+      final response =
+          await _dio.post(ApiEndPoints.register, data: signUpModel.toJson());
+      print('api response signup ${response.data}');
+      return Right(LoginResponseModel.fromJson(response.data));
+    } on DioException catch (e) {
+      print('api dio exception => $e');
+      // need to get exact error msg
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      print('api exception => $e');
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, LoginResponseModel>> registerIndivudual(
+      {required SignUpIndivudalModel signUpIndivudalModel}) async {
+    try {
+      print(signUpIndivudalModel.toJson());
+      final response = await _dio.post(ApiEndPoints.register,
+          data: signUpIndivudalModel.toJson());
+      print('api response signup ${response.data}');
+      return Right(LoginResponseModel.fromJson(response.data));
+    } on DioException catch (e) {
+      print('api dio exc => ${e.response?.data}');
+      print('api dio exc => ${e.response?.statusCode}');
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      print('api exc => $e');
       return Left(Failure(message: errorMessage));
     }
   }
@@ -108,44 +149,6 @@ class AuthService implements AuthRepo {
     } on DioException catch (e) {
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
-      return Left(Failure(message: errorMessage));
-    }
-  }
-
-  @override
-  Future<Either<Failure, SignUpResponseModel>> registerBusiness(
-      {required SignUpModel signUpModel}) async {
-    try {
-      print(signUpModel.toJson());
-      final response =
-          await _dio.post(ApiEndPoints.register, data: signUpModel.toJson());
-      print('api response signup ${response.data}');
-      return Right(SignUpResponseModel.fromJson(response.data));
-    } on DioException catch (e) {
-      print('api dio exception => $e');
-      // need to get exact error msg
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
-    } catch (e) {
-      print('api exception => $e');
-      return Left(Failure(message: errorMessage));
-    }
-  }
-
-  @override
-  Future<Either<Failure, SignUpResponseModel>> registerIndivudual(
-      {required SignUpIndivudalModel signUpIndivudalModel}) async {
-    try {
-      print(signUpIndivudalModel.toJson());
-      final response = await _dio.post(ApiEndPoints.register,
-          data: signUpIndivudalModel.toJson());
-      print('api response signup ${response.data}');
-      return Right(SignUpResponseModel.fromJson(response.data));
-    } on DioException catch (e) {
-      print('api dio exc => $e');
-      // need to get exact error msg
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
-    } catch (e) {
-      print('api exc => $e');
       return Left(Failure(message: errorMessage));
     }
   }

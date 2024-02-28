@@ -5,7 +5,6 @@ part 'bank_details.g.dart';
 
 @JsonSerializable()
 class BankDetailsCreate {
-  List<AccreditionCreate>? accredition;
   @JsonKey(name: 'name_of_company')
   String? nameOfCompany;
   @JsonKey(name: 'account_number')
@@ -20,7 +19,6 @@ class BankDetailsCreate {
   String? branchOffices;
 
   BankDetailsCreate({
-    this.accredition,
     this.nameOfCompany,
     this.acccountNumber,
     this.ifscCode,
@@ -45,7 +43,6 @@ class BankDetailsCreate {
     String? branchOffices,
   }) {
     return BankDetailsCreate(
-      accredition: accredition ?? this.accredition,
       nameOfCompany: nameOfCompany ?? this.nameOfCompany,
       acccountNumber: acccountNumber ?? this.acccountNumber,
       ifscCode: ifscCode ?? this.ifscCode,

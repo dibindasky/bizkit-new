@@ -2,7 +2,7 @@ part of 'card_bloc.dart';
 
 @freezed
 class CardEvent with _$CardEvent {
-  const factory CardEvent.getCards() = GetCards;
+  const factory CardEvent.getCards({required bool call}) = GetCards;
   const factory CardEvent.getCardsnextPage() = GetCardsnextPage;
   const factory CardEvent.getCardyUserId({required int id}) = GetCardyUserId;
   const factory CardEvent.getCardyCardId({required int id}) = GetCardyCardId;

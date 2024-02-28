@@ -2,6 +2,7 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/notifications/notification_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 
 class HomeFirstAppBar extends StatefulWidget {
@@ -45,13 +46,9 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
               await noti();
             },
             child: CircleAvatar(
-              radius: kwidth * .060,
-              backgroundColor: textFieldFillColr,
-              child: Image.asset(
-                'asset/images/notification icon.jpeg',
-                fit: BoxFit.contain,
-              ),
-            ),
+                radius: kwidth * .060,
+                backgroundColor: textFieldFillColr,
+                backgroundImage: const AssetImage(iconNotification)),
           ),
           const SizedBox(
             width: 10,
@@ -68,7 +65,7 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
               backgroundColor: textFieldFillColr,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Image.asset('asset/images/bizkitIcon.png'),
+                child: Image.asset(iconBizkitPng),
               ),
             ),
           )

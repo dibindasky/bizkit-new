@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/domain/model/auth/email_model/email_model.dart';
+import 'package:bizkit/domain/model/auth/login_response_model/login_response_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
-import 'package:bizkit/domain/model/auth/sign_up_response_model/sign_up_response_model.dart';
 import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
 import 'package:bizkit/domain/repository/service/auth_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,6 +63,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           otpBusinessError: false,
           signUpResponseModel: null),
     );
+    print('signup individual => ${event.signUpIndivudalModel.toJson()}');
     final result = await authRepo.registerIndivudual(
         signUpIndivudalModel: event.signUpIndivudalModel);
     result.fold((failure) {
@@ -83,6 +84,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   FutureOr<void> sendOtp(SendOtp event, Emitter<SignUpState> emit) async {
+    print('signup bloc send otp => ');
     emit(state.copyWith(
         isLoading: true,
         message: null,
@@ -91,15 +93,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         otpBusinessError: false,
         otpSendIndividual: false,
         otpSendBusiness: false));
+    print('signup bloc send otp => request send');
     final result = await authRepo.sendOtp(emailModel: event.emailModel);
+    print('signup bloc send otp => request success');
     result.fold(
       (failure) => emit(
         state.copyWith(
             isLoading: false,
             hasError: true,
+            otpBusinessError: true,
+            otpIndividualError: true,
             message: failure.message ?? errorMessage),
       ),
       (successResponseModel) {
+        print('signup bloc send otp => request success emit');
         emit(
           state.copyWith(
               isLoading: false,

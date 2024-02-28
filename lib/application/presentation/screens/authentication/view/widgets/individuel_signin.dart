@@ -64,6 +64,8 @@ class IndividuelSignIn extends StatelessWidget {
                       // navigate to otp screen when send
                       final SignUpIndivudalModel signUpModel =
                           SignUpIndivudalModel(
+                              isBusiness: false,
+                              isVerified: false,
                               name: nameController.text.trim(),
                               email: emailIdController.text.trim(),
                               password: passwordController.text.trim(),
@@ -89,12 +91,14 @@ class IndividuelSignIn extends StatelessWidget {
                 text: 'Password',
                 controller: passwordController,
                 obscureText: true,
+                inputType: TextInputType.visiblePassword,
               ),
               TTextFormField(
                 validate: Validate.rePassword,
                 password: passwordController,
                 text: 'Re-enter password',
                 controller: rePasswordController,
+                inputType: TextInputType.visiblePassword,
                 obscureText: true,
               ),
               adjustHieght(khieght * .09),

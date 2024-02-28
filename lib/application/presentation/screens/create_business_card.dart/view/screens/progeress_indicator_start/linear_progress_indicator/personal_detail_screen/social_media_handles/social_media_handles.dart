@@ -89,10 +89,13 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                         controller: linkController,
                         text: selectedCategory == 'Whatsapp'
                             ? 'Enter Whatsap Number'
-                            : 'Account link paste here',
-                        inputType: selectedCategory == 'Whatsapp'
+                            : selectedCategory == 'Telegram'
+                                ? 'Enter Telegram Number'
+                                : 'Account link paste here',
+                        inputType: selectedCategory == 'Whatsapp' ||
+                                selectedCategory == 'Telegram'
                             ? TextInputType.number
-                            : TextInputType.name,
+                            : TextInputType.url,
                       ),
                       adjustHieght(30),
                       AuthButton(
@@ -105,7 +108,9 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                           }
                           final link = selectedCategory == 'Whatsapp'
                               ? 'https://wa.me/${linkController.text}'
-                              : linkController.text;
+                              : selectedCategory == 'Telegram'
+                                  ? 'https://t.me/+${linkController.text}'
+                                  : linkController.text;
                           final model = SocialMediaHandleCreate(
                               label: selectedCategory, socialMedia: link);
                           !widget.fromBusiness

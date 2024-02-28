@@ -16,18 +16,24 @@ Card _$CardFromJson(Map<String, dynamic> json) => Card(
           ? null
           : BusinessDetails.fromJson(
               json['business_details'] as Map<String, dynamic>),
-      bankDetails: json['bank_details'] == null
-          ? null
-          : BankDetails.fromJson(json['bank_details'] as Map<String, dynamic>),
       isDefault: json['is_default'] as bool?,
-      user: json['user'] as int?,
-    );
+      userId: json['user_id'] as int?,
+      cardLink: json['card_link'] as String?,
+      share: json['share'] as int?,
+      views: json['views'] as int?,
+    )
+      ..isArchived = json['is_archived'] as bool?
+      ..isVerified = json['is_verified'] as bool?;
 
 Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'id': instance.id,
       'personal_details': instance.personalDetails,
       'business_details': instance.businessDetails,
-      'bank_details': instance.bankDetails,
       'is_default': instance.isDefault,
-      'user': instance.user,
+      'is_archived': instance.isArchived,
+      'is_verified': instance.isVerified,
+      'user_id': instance.userId,
+      'share': instance.share,
+      'views': instance.views,
+      'card_link': instance.cardLink,
     };

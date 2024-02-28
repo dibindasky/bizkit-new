@@ -10,10 +10,15 @@ class BusinessDataEvent with _$BusinessDataEvent {
       {required AccreditionCreate accredition}) = AddAccredition;
   const factory BusinessDataEvent.removeAccredition({required int index}) =
       RemoveAccredition;
+  const factory BusinessDataEvent.addBranch({required String branch}) =
+      AddBranch;
+  const factory BusinessDataEvent.removeBranch({required int index}) =
+      RemoveBranch;
   factory BusinessDataEvent.clear() = Clear;
   const factory BusinessDataEvent.createBusinessData() = CreateBusinessData;
   const factory BusinessDataEvent.createBankingData() = CreateBankingData;
   const factory BusinessDataEvent.addLogo() = AddLogo;
+  const factory BusinessDataEvent.getUserData() = GetUserData;
   const factory BusinessDataEvent.addProduct({required ProductCreate product}) =
       AddProduct;
   const factory BusinessDataEvent.removeProduct({required int index}) =
@@ -21,4 +26,6 @@ class BusinessDataEvent with _$BusinessDataEvent {
   const factory BusinessDataEvent.addBrochures() = AddBrochures;
   const factory BusinessDataEvent.removeBrochure({required int index}) =
       RemoveBrochure;
+  const factory BusinessDataEvent.getCompnayList(
+      {required SearchQuery? search}) = GetCompnayList;
 }

@@ -7,9 +7,9 @@ part 'create_card_model.g.dart';
 
 @JsonSerializable()
 class CreateCardModel {
-  @JsonKey(name: 'personal_details')
+  @JsonKey(name: 'personal_details_id')
   PersonalDetailsCreate? personalDetails;
-  @JsonKey(name: 'business_details')
+  @JsonKey(name: 'business_details_id')
   BusinessDetailsCreate? businessDetails;
   @JsonKey(name: 'bank_details')
   BankDetailsCreate? bankDetails;

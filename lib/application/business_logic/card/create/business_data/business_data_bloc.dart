@@ -3,14 +3,16 @@ import 'package:bizkit/application/presentation/utils/image_picker/image_picker.
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
 import 'package:bizkit/domain/model/card/create_card/accridition/accredition.dart';
 import 'package:bizkit/domain/model/card/create_card/banking_detail/bank_details.dart';
+import 'package:bizkit/domain/model/card/create_card/branch_offices/branch_offices.dart';
 import 'package:bizkit/domain/model/card/create_card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
-import 'package:bizkit/domain/model/card/create_card/email/email.dart';
-import 'package:bizkit/domain/model/card/create_card/mobile_number/mobile_number.dart';
+import 'package:bizkit/domain/model/card/create_card/company/get_companys/company.dart';
 import 'package:bizkit/domain/model/card/create_card/product/product.dart';
 import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
+import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
+import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -23,7 +25,6 @@ part 'business_data_bloc.freezed.dart';
 @injectable
 class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   final TextEditingController businessNameController = TextEditingController();
-  final TextEditingController designationController = TextEditingController();
   final TextEditingController companyController = TextEditingController();
   final TextEditingController mailController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
@@ -32,13 +33,15 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   final TextEditingController logoStoryController = TextEditingController();
   final TextEditingController nameOfCompanyController = TextEditingController();
   final TextEditingController upiDetailController = TextEditingController();
+  final TextEditingController accountNumberController = TextEditingController();
+  final TextEditingController ifscController = TextEditingController();
   final TextEditingController gstNumberController = TextEditingController();
   final TextEditingController branchOfficeController = TextEditingController();
-  String? accountNumber, ifsc;
   final PdfPickerImpl pdfPicker;
   final CardRepo cardService;
+  final UserLocalRepo userLocalService;
 
-  BusinessDataBloc(this.pdfPicker, this.cardService)
+  BusinessDataBloc(this.pdfPicker, this.cardService, this.userLocalService)
       : super(BusinessDataState.initial()) {
     on<AddAccredition>(addAccredition);
     on<RemoveAccredition>(removeAccredition);
@@ -49,122 +52,116 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<RemoveBrochure>(removeBrochure);
     on<AddProduct>(addProduct);
     on<RemoveProduct>(removeProduct);
+    on<AddBranch>(addBranch);
+    on<RemoveBranch>(removeBranch);
     on<CreateBusinessData>(createBusinessData);
     on<CreateBankingData>(createBankingData);
     on<Clear>(clear);
+    on<GetCompnayList>(getCompnayList);
+    on<GetUserData>(getUserData);
   }
 
   FutureOr<void> createBankingData(CreateBankingData event, emit) async {
     if (state.bankDetailsCreateId != null) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final BankDetailsCreate bankDetails = BankDetailsCreate(
-        accredition: state.accreditions.isEmpty
-            ? []
-            : state.accreditions
-                .map((e) => AccreditionCreate(
-                    description: e.description,
-                    label: e.label,
-                    image: e.image.base64))
-                .toList(),
         nameOfCompany: nameOfCompanyController.text.trim().isEmpty
             ? null
             : nameOfCompanyController.text,
-        acccountNumber: accountNumber,
-        ifscCode: ifsc,
+        acccountNumber: accountNumberController.text.trim().isEmpty
+            ? null
+            : accountNumberController.text,
+        ifscCode:
+            ifscController.text.trim().isEmpty ? null : ifscController.text,
         upiDetails: upiDetailController.text.trim().isEmpty
             ? null
             : upiDetailController.text,
         gstMembershipDetails: gstNumberController.text.trim().isEmpty
             ? null
-            : gstNumberController.text,
-        branchOffices: branchOfficeController.text.trim().isEmpty
-            ? null
-            : branchOfficeController.text);
-    final result =
-        await cardService.createBankingDataCard(bankDetailsCreate: bankDetails);
+            : gstNumberController.text);
+    emit(state.copyWith(
+        bankDetails: bankDetails,
+        businessDetails:
+            state.businessDetails.copyWith(bankDetails: bankDetails)));
+    final result = await cardService.createBusinessDataCard(
+        businessDetailsCreate: state.businessDetails);
     result.fold(
-        (failure) => emit(state.copyWith(
-            isLoading: false,
-            hasError: true,
-            bankDetails: bankDetails,
-            bankDetailsCreateId: null)),
-        (bankDetail) => emit(state.copyWith(
-            isLoading: false,
-            bankDetails: bankDetails,
-            bankDetailsCreateId: bankDetail.id)));
+        (l) => emit(state.copyWith(
+            isLoading: false, hasError: true, message: l.message)),
+        (success) => emit(state.copyWith(
+            isLoading: false, businessDetailsCreateId: success.id)));
   }
 
   FutureOr<void> createBusinessData(CreateBusinessData event, emit) async {
-    if (state.businessDetailsCreateId != null) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final BusinessDetailsCreate businessDetails = BusinessDetailsCreate(
-        address: addressController.text.trim().isEmpty
-            ? null
-            : addressController.text,
-        businessName: businessNameController.text.trim().isEmpty
-            ? null
-            : businessNameController.text,
-        company: companyController.text.trim().isEmpty
-            ? null
-            : companyController.text,
-        designation: designationController.text.trim().isEmpty
-            ? null
-            : designationController.text,
-        logoStory: logoStoryController.text.trim().isEmpty
-            ? null
-            : logoStoryController.text,
-        websiteLink: websiteLinkController.text.trim().isEmpty
-            ? null
-            : websiteLinkController.text,
-        email: mailController.text.isNotEmpty
-            ? [
-                EmailCreate(
-                    email: mailController.text.trim().isEmpty
-                        ? null
-                        : mailController.text)
-              ]
-            : [],
-        mobileNumber: mobileController.text.isNotEmpty
-            ? [
-                MobileNumberCreate(
-                  mobileNumber: mobileController.text.trim().isEmpty
-                      ? null
-                      : mobileController.text,
-                )
-              ]
-            : [],
-        logo: state.logo?.base64,
-        socialMediaHandles: state.socialMedias,
-        product: state.products.isEmpty
-            ? []
-            : state.products
-                .map((e) => ProductCreate(
-                    enquiry: e.enquiry,
-                    label: e.label,
-                    description: e.description,
-                    product: e.product.base64))
-                .toList(),
-        brochure: state.brochures.isEmpty
-            ? []
-            : state.brochures
-                .map((e) => BrochureCreate(file: e.file.base64))
-                .toList());
-    final result = await cardService.createBusinessDataCard(
-        businessDetailsCreate: businessDetails);
-    result.fold(
-        (failure) => emit(state.copyWith(
-            isLoading: false,
-            hasError: true,
-            businessDetailsCreateId: null,
-            businessDetails: businessDetails)),
-        (businessDetail) => emit(state.copyWith(
-            isLoading: false,
-            businessDetailsCreateId: businessDetail.id,
-            businessDetails: businessDetails)));
+      accredition: state.accreditions.isEmpty
+          ? []
+          : state.accreditions
+              .map((e) => AccreditionCreate(
+                  description: e.description,
+                  label: e.label,
+                  image: e.image.base64))
+              .toList(),
+      branchOffices: state.branchOffices,
+      address:
+          addressController.text.trim().isEmpty ? null : addressController.text,
+      businessName: businessNameController.text.trim().isEmpty
+          ? null
+          : businessNameController.text,
+      company:
+          companyController.text.trim().isEmpty ? null : companyController.text,
+      logoStory: logoStoryController.text.trim().isEmpty
+          ? null
+          : logoStoryController.text,
+      websiteLink: websiteLinkController.text.trim().isEmpty
+          ? null
+          : websiteLinkController.text,
+      email: mailController.text.trim().isNotEmpty ? mailController.text : null,
+      mobileNumber: mobileController.text.trim().isNotEmpty
+          ? mobileController.text
+          : null,
+      logo: state.logo?.base64,
+      socialMediaHandles: state.socialMedias,
+      product: state.products.isEmpty
+          ? []
+          : state.products
+              .map((e) => ProductCreate(
+                  enquiry: e.enquiry,
+                  label: e.label,
+                  description: e.description,
+                  product: e.product.base64))
+              .toList(),
+      brochure: state.brochures.isEmpty
+          ? []
+          : state.brochures
+              .map((e) => BrochureCreate(file: e.file.base64))
+              .toList(),
+    );
+    emit(state.copyWith(isLoading: false, businessDetails: businessDetails));
   }
 
+  FutureOr<void> getCompnayList(GetCompnayList event, emit) async {
+    final result = await cardService.getCompanies(search: event.search);
+    result.fold(
+        (l) => null,
+        (getCompanysResponseModel) => emit(state.copyWith(
+            companiesList:
+                getCompanysResponseModel.companies ?? state.companiesList)));
+  }
+
+  // need to implement clear fields after card creation
   FutureOr<void> clear(Clear event, emit) async {
     emit(state.copyWith());
+  }
+
+  FutureOr<void> getUserData(GetUserData event, emit) async {
+    final result = await userLocalService.getUserData();
+    result.fold((l) => null, (userData) {
+      websiteLinkController.text =
+          userData.first.websiteLink ?? websiteLinkController.text;
+      emit(state.copyWith(isBusiness: userData.first.isBusiness!));
+    });
   }
 
   FutureOr<void> addLogo(AddLogo event, emit) async {
@@ -193,6 +190,22 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       }
     }
     emit(state.copyWith(brochures: list));
+  }
+
+  FutureOr<void> addBranch(AddBranch event, emit) async {
+    final List<BranchOffices> list = List.from(state.branchOffices);
+    list.add(BranchOffices(branch: event.branch));
+    emit(state.copyWith(branchOffices: list));
+  }
+
+  FutureOr<void> removeBranch(RemoveBranch event, emit) async {
+    final List<BranchOffices> list = [];
+    for (BranchOffices branch in state.branchOffices) {
+      if (state.branchOffices[event.index].branch != branch.branch) {
+        list.add(branch);
+      }
+    }
+    emit(state.copyWith(branchOffices: list));
   }
 
   FutureOr<void> addProduct(AddProduct event, emit) async {

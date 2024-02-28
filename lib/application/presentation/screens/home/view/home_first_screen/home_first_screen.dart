@@ -1,5 +1,5 @@
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_first_app_bar.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connections_container.dart';
+import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connections_home_page.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/mycards_and_add_card/my_cards_and_add_card.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/notifications/notification_screen.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/second_half_section/home_screen_second_part.dart';
@@ -155,7 +155,7 @@ class _HomeScreenFirstAnimationScreenState
                                           adjustHieght(khieght * .02),
                                           const MyCardsAndAddCardSection(),
                                           adjustHieght(khieght * .03),
-                                          const MyConnectionContainer(),
+                                          const MyConnectionContainerHomePage(),
                                         ],
                                       ),
                                     ),

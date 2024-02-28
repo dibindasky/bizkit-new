@@ -14,9 +14,8 @@ SignUpIndivudalModel _$SignUpIndivudalModelFromJson(
       password: json['password'] as String?,
       name: json['name'] as String?,
       isBusiness: json['is_business'] as bool? ?? false,
-    )
-      ..companyName = json['company_name'] as String?
-      ..address = json['address'] as String?;
+      isVerified: json['is_verified'] as bool? ?? false,
+    );
 
 Map<String, dynamic> _$SignUpIndivudalModelToJson(
         SignUpIndivudalModel instance) =>
@@ -24,8 +23,7 @@ Map<String, dynamic> _$SignUpIndivudalModelToJson(
       'email': instance.email,
       'phone_number': instance.phoneNumber,
       'password': instance.password,
-      'company_name': instance.companyName,
       'name': instance.name,
-      'address': instance.address,
       'is_business': instance.isBusiness,
+      'is_verified': instance.isVerified,
     };

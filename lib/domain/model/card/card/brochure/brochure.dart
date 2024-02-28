@@ -6,8 +6,10 @@ part 'brochure.g.dart';
 class Brochure {
   int? id;
   String? file;
+  String? image;
+  String? label;
 
-  Brochure({this.id, this.file});
+  Brochure({this.id, this.file, this.image, this.label});
 
   factory Brochure.fromJson(Map<String, dynamic> json) {
     return _$BrochureFromJson(json);

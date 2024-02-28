@@ -43,11 +43,14 @@ class ProductBuilder extends StatelessWidget {
                           .read<BusinessDataBloc>()
                           .add(BusinessDataEvent.removeProduct(index: index)),
                       borderRadius: BorderRadius.circular(10),
-                      child: const ColoredBox(
-                        color: neonShade,
-                        child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Icon(Icons.close, size: 12),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: const ColoredBox(
+                          color: neonShade,
+                          child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Icon(Icons.close, size: 12),
+                          ),
                         ),
                       ),
                     ),

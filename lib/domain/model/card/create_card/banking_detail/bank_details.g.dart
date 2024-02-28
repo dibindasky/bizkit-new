@@ -8,9 +8,6 @@ part of 'bank_details.dart';
 
 BankDetailsCreate _$BankDetailsCreateFromJson(Map<String, dynamic> json) =>
     BankDetailsCreate(
-      accredition: (json['accredition'] as List<dynamic>?)
-          ?.map((e) => AccreditionCreate.fromJson(e as Map<String, dynamic>))
-          .toList(),
       nameOfCompany: json['name_of_company'] as String?,
       acccountNumber: json['account_number'] as String?,
       ifscCode: json['ifsc_code'] as String?,
@@ -21,7 +18,6 @@ BankDetailsCreate _$BankDetailsCreateFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$BankDetailsCreateToJson(BankDetailsCreate instance) =>
     <String, dynamic>{
-      'accredition': instance.accredition,
       'name_of_company': instance.nameOfCompany,
       'account_number': instance.acccountNumber,
       'ifsc_code': instance.ifscCode,

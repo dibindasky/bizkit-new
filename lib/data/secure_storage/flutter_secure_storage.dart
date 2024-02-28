@@ -3,57 +3,12 @@ import 'dart:developer';
 import 'package:bizkit/domain/model/token/token_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-// class SecureStorage {
-//   static const String accessKey = 'access_key';
-//   static const String refreshKey = 'refresh_key';
-//   static const String isLoged = 'is_logedIn';
-//   static const String idKey = 'user_id_key';
-
-//   static Future<void> saveToken({required TokenModel tokenModel}) async {
-//     SharedPreferences preferences = await SharedPreferences.getInstance();
-//     preferences.setString(accessKey, tokenModel.accessToken!);
-//     preferences.setString(refreshKey, tokenModel.refreshToken!);
-//     preferences.setInt(idKey, tokenModel.id!);
-//   }
-
-//   static Future<void> setAccessToken({required String accessToken}) async {
-//     SharedPreferences preferences = await SharedPreferences.getInstance();
-//     preferences.setString(accessKey, accessToken);
-//   }
-
-//   static Future<TokenModel> getToken() async {
-//     SharedPreferences preferences = await SharedPreferences.getInstance();
-//     String accessToken = preferences.getString(accessKey) ?? '';
-//     String refreshToken = preferences.getString(refreshKey) ?? '';
-//     return TokenModel(accessToken: accessToken, refreshToken: refreshToken);
-//   }
-
-//   static Future<void> setLogin() async {
-//     SharedPreferences preferences = await SharedPreferences.getInstance();
-//     preferences.setBool(isLoged, true);
-//   }
-
-//   static Future<void> clearLogin() async {
-//     SharedPreferences preferences = await SharedPreferences.getInstance();
-//     preferences.clear();
-//   }
-
-//   static Future<bool> getLogin() async {
-//     SharedPreferences preferences = await SharedPreferences.getInstance();
-//     return preferences.getBool(isLoged) ?? false;
-//   }
-
-//   static Future<int?> getUserId() async {
-//     SharedPreferences preferences = await SharedPreferences.getInstance();
-//     return preferences.getInt(idKey);
-//   }
-// }
-
 class SecureStorage {
   static const String accessKey = 'access_key';
   static const String refreshKey = 'refresh_key';
   static const String idKey = 'user_id_key';
   static const String isLoged = 'is_logedIn';
+  static const String isBusinessKey = 'is_business';
 
   static const secureStorage = FlutterSecureStorage();
 
@@ -101,5 +56,16 @@ class SecureStorage {
   static Future<int?> getUserId() async {
     final id = await secureStorage.read(key: idKey);
     return id == '' || id == null ? null : int.parse(id);
+  }
+
+  static Future<void> setRole({required bool isBusiness}) async {
+    log('set isBusiness token =>() $isBusiness');
+    await secureStorage.write(
+        key: isBusinessKey, value: isBusiness ? '1' : '0');
+  }
+
+  static Future<bool> getrole() async {
+    final role = await secureStorage.read(key: isBusinessKey);
+    return role == '1';
   }
 }

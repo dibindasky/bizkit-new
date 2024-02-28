@@ -1,8 +1,11 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/custom_bottom_sheet.dart';
+import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/domain/model/card/get_card_response/card_response.dart' as card;
+import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
+    as card;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +31,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
     );
     animation = Tween<double>(begin: 0, end: 1).animate(animationController);
     animationController.forward();
-    context.read<CardBloc>().add(const CardEvent.getCards());
+    context.read<CardBloc>().add(const CardEvent.getCards(call: false));
   }
 
   @override
@@ -82,20 +85,32 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                       SizedBox(
                                         width: 300,
                                         height: 200,
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(25),
-                                            topRight: Radius.circular(20),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                fadePageRoute(
+                                                    HomeFirstViewAllContactTileDetailView(
+                                                        cardId: state
+                                                            .cards[index].id)));
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              topRight: Radius.circular(20),
+                                            ),
+                                            child:
+                                                card.businessDetails == null ||
+                                                        card.logo == null
+                                                    ? Image.network(
+                                                        imageDummyNetwork,
+                                                        fit: BoxFit.cover)
+                                                    : Image.network(
+                                                        card.logo!,
+                                                        fit: BoxFit.cover,
+                                                      ),
                                           ),
-                                          child: card.businessDetails == null ||
-                                                  card.photo ==
-                                                      null
-                                              ? Image.network(imageDummyNetwork,
-                                                  fit: BoxFit.cover)
-                                              : Image.network(
-                                                  card.photo!,
-                                                  fit: BoxFit.cover,
-                                                ),
                                         ),
                                       ),
                                       Positioned(
@@ -119,16 +134,24 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             PopupMenuItem(
                                               onTap: () => context
                                                   .read<CardBloc>()
-                                                  .add(CardEvent.archiveCard(
+                                                  .add(CardEvent.setDefault(
                                                       id: card.id!)),
+                                              value: 'Default',
+                                              child: const Text('Set as default'),
+                                            ),
+                                            PopupMenuItem(
+                                              // onTap: () => context
+                                              //     .read<CardBloc>()
+                                              //     .add(CardEvent.archiveCard(
+                                              //         id: card.id!)),
                                               value: 'Archive',
                                               child: const Text('Archive'),
                                             ),
                                             PopupMenuItem(
-                                              onTap: () => context
-                                                  .read<CardBloc>()
-                                                  .add(CardEvent.deleteCard(
-                                                      id: card.id!)),
+                                              // onTap: () => context
+                                              //     .read<CardBloc>()
+                                              //     .add(CardEvent.deleteCard(
+                                              //         id: card.id!)),
                                               value: 'Delete Card',
                                               child: const Text('Delete Card'),
                                             ),
@@ -142,7 +165,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                     children: [
                                       adjustWidth(kwidth * .02),
                                       Text(
-                                        'Business card',
+                                        '${state.cards[index].name ?? ''}\n${state.cards[index].designation}',
                                         style: TextStyle(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w700,
@@ -189,8 +212,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                 color: kwhite,
                                               ),
                                               adjustWidth(kwidth * .01),
-                                              const Text(
-                                                '3,24,300',
+                                              Text(
+                                                state.cards[index].views
+                                                    .toString(),
                                               ),
                                               adjustWidth(kwidth * .01),
                                               const Expanded(
@@ -219,8 +243,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                 size: 19,
                                               ),
                                               adjustWidth(kwidth * .01),
-                                              const Text(
-                                                '3,24,300',
+                                              Text(
+                                                state.cards[index].share
+                                                    .toString(),
                                               ),
                                               adjustWidth(kwidth * .01),
                                               const Expanded(

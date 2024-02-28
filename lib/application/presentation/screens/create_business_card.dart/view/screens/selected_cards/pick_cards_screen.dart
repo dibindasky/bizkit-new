@@ -124,11 +124,14 @@ class PickCardsScreen extends StatelessWidget {
                               context
                                   .read<UserDataBloc>()
                                   .add(UserDataEvent.getUserDetail());
+                              context
+                                  .read<UserDataBloc>()
+                                  .add(UserDataEvent.getBusinessCategories());
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ProfileCreationScreen()));
+                                          const ProfileCreationScreen()));
                             },
                           ),
                     adjustHieght(khieght * .02),

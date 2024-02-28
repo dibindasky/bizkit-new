@@ -2,7 +2,7 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 
-enum Validate { phone, email, password, none, rePassword, notNull }
+enum Validate { phone, email, password, none, rePassword, adminEmail, notNull }
 
 class TTextFormField extends StatefulWidget {
   final String text;
@@ -16,8 +16,10 @@ class TTextFormField extends StatefulWidget {
   final int? maxLines;
   final Widget? su;
   final Widget? suffix;
+  final Widget? prefix;
   final Color? clr;
-  final Function(String)? onChanaged;
+  final Function(String value)? onChanaged;
+  final Function(String? value)? onSubmitted;
   final VoidCallback? onTap;
   final TextEditingController? password;
   final FocusNode? focusNode;
@@ -27,6 +29,8 @@ class TTextFormField extends StatefulWidget {
   const TTextFormField({
     Key? key,
     this.enabled = true,
+    this.prefix,
+    this.onSubmitted,
     this.validate = Validate.none,
     this.password,
     this.showUnderline = false,
@@ -90,11 +94,13 @@ class _TTextFormFieldState extends State<TTextFormField> {
           ),
           maxLength: widget.maxlegth,
           onChanged: widget.onChanaged,
+          onSaved: widget.onSubmitted,
           obscureText: widget.obscureText && !_focusNode.hasFocus,
           controller: widget.controller,
           keyboardType: widget.inputType,
           decoration: InputDecoration(
             suffixIcon: widget.suffix,
+            prefix: widget.prefix,
             suffixIconColor: klightgrey,
             prefixIcon: widget.su,
             prefixIconColor: kwhite,

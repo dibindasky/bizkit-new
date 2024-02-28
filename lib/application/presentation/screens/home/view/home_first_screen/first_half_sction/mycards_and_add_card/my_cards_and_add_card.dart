@@ -1,7 +1,7 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
+import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -15,7 +15,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CardBloc>().add(const CardEvent.getCards());
+      context.read<CardBloc>().add(const CardEvent.getCards(call: false));
     });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -61,7 +61,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5),
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    data.photo ?? imageDummyNetwork),
+                                    data.logo ?? imageDummyNetwork),
                                 fit: BoxFit.cover)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,7 +70,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text('Name',
+                                Text(state.defaultCard?.name ?? '',
                                     style: textHeadStyle1.copyWith(shadows: [
                                       const Shadow(
                                           color: kblack,
@@ -78,7 +78,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                           blurRadius: 5)
                                     ])),
                                 Text(
-                                  "Designation",
+                                  state.defaultCard?.designation ?? '',
                                   style: TextStyle(
                                       fontSize: kwidth * .037,
                                       shadows: const [

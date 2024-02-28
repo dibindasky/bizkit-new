@@ -5,15 +5,18 @@ class BusinessDataState with _$BusinessDataState {
   const factory BusinessDataState(
       {required bool isLoading,
       required bool hasError,
+      required bool isBusiness,
       int? businessDetailsCreateId,
       int? bankDetailsCreateId,
       required List<SocialMediaHandleCreate> socialMedias,
       required List<AccreditionCreate> accreditions,
+      required List<BranchOffices> branchOffices,
       required BusinessDetailsCreate businessDetails,
       required BankDetailsCreate bankDetails,
       required List<ProductCreate> products,
       required List<BrochureCreate> brochures,
       ImageModel? logo,
+      required List<Company> companiesList,
       String? message}) = _Initial;
 
   factory BusinessDataState.initial() => BusinessDataState(
@@ -22,7 +25,10 @@ class BusinessDataState with _$BusinessDataState {
       products: [],
       isLoading: false,
       hasError: false,
+      isBusiness: false,
       socialMedias: [],
+      branchOffices: [],
       brochures: [],
-      accreditions: []);
+      accreditions: [],
+      companiesList: []);
 }

@@ -1,16 +1,14 @@
-// ignore_for_file: avoid_print
-
 import 'dart:io';
 
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/view/widgets/business_card_popupmenu_items.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/bank_person_achived_rows.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/preview_products_and_brands.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_wice_icons.dart';
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/card/create_card/create_card_model/create_card_model.dart';
@@ -20,6 +18,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:go_router/go_router.dart';
 
 class BusinessCardCreationPreviewScreen extends StatelessWidget {
   const BusinessCardCreationPreviewScreen({super.key});
@@ -42,15 +41,16 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                 builder: (context, business) {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
-                      List<File> images = user.userPhotos
-                              .map((e) => e.fileImage)
-                              .toList() +
-                          business.accreditions
-                              .map((e) => e.image.fileImage as File)
-                              .toList() +
-                          user.accolades
-                              .map((e) => e.accoladesImage.fileImage as File)
-                              .toList();
+                      List<File> images = user.userPhotos != null
+                          ? [user.userPhotos!.fileImage]
+                          : <File>[] +
+                              business.accreditions
+                                  .map((e) => e.image.fileImage as File)
+                                  .toList() +
+                              user.accolades
+                                  .map(
+                                      (e) => e.accoladesImage.fileImage as File)
+                                  .toList();
                       return PreviewPageviewImageBuilder(images: images);
                     },
                   );
@@ -59,21 +59,16 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
             ),
             adjustHieght(khieght * .02),
             // user name and designation
-            BlocBuilder<BusinessDataBloc, BusinessDataState>(
-              builder: (context, business) {
-                return BlocBuilder<UserDataBloc, UserDataState>(
-                  builder: (context, user) {
-                    return Column(
-                      children: [
-                        Text(
-                          user.personalDetails.name ?? 'Name',
-                          style: TextStyle(fontSize: 26.sp),
-                        ),
-                        Text(business.businessDetails.designation ??
-                            'Designation'),
-                      ],
-                    );
-                  },
+            BlocBuilder<UserDataBloc, UserDataState>(
+              builder: (context, user) {
+                return Column(
+                  children: [
+                    Text(
+                      user.personalDetails.name ?? 'Name',
+                      style: TextStyle(fontSize: 26.sp),
+                    ),
+                    Text(user.personalDetails.designation ?? 'Designation'),
+                  ],
                 );
               },
             ),
@@ -90,7 +85,13 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                 final images = business.products
                     .map((e) => e.product.fileImage as File)
                     .toList();
-                return PreviewProductsBrandsLists(fileImages: images);
+                final pdf = business.brochures
+                    .map((e) => e.file.file.path as String)
+                    .toList();
+                return PreviewProductsBrandsLists(
+                  fileImages: images,
+                  pdf: pdf,
+                );
               },
             ),
             adjustHieght(khieght * .04),
@@ -105,9 +106,11 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                           backgroundColor: state.hasError ? kred : neonShade);
                     }
                     if (state.cardAdded != null) {
-                      Navigator.of(context).push(
-                        fadePageRoute(const BizkitBottomNavigationBar()),
-                      );
+                      print('in navigation to home page');
+                      context
+                          .read<CardBloc>()
+                          .add(const CardEvent.getCards(call: true));
+                      context.go(Routes.homePage);
                     }
                   },
                   builder: (context, userState) {
@@ -142,11 +145,6 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                             .personalDetails!.personalSocialMedia!) {
                           print('personal social media  ()=> ${x.toJson()}');
                         }
-                        print('personal details  ()=> photo ');
-                        for (var x
-                            in createCardModel.personalDetails!.photos!) {
-                          print('personal social photo  ()=> ${x.toJson()}');
-                        }
                         print(
                             'business details ()=> ${createCardModel.businessDetails!.toJson()}');
                         print('business details  ()=> brochure ');
@@ -166,8 +164,6 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                                 createCardByIdModel: CreateCardByIdModel(
                                     businessDetails:
                                         businessSate.businessDetailsCreateId,
-                                    bankDetails:
-                                        businessSate.bankDetailsCreateId,
                                     personalDetails:
                                         userState.personalDataCreateId),
                               ),

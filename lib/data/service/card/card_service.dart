@@ -4,17 +4,19 @@ import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/data/service/api_service.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
-import 'package:bizkit/domain/model/card/card/bank_details/bank_details.dart';
 import 'package:bizkit/domain/model/card/card/business_detail/business_details.dart';
+import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/get_card_resposnse_model/get_card_resposnse_model.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
-import 'package:bizkit/domain/model/card/create_card/banking_detail/bank_details.dart';
 import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
+import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/get_business_category_response_model.dart';
+import 'package:bizkit/domain/model/card/create_card/company/get_companys/get_companys.dart';
 import 'package:bizkit/domain/model/card/create_card/personal_details/personal_details.dart';
 import 'package:bizkit/domain/model/card/create_card_by_id_model/create_card_by_id_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/get_card_response.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
+import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -53,35 +55,17 @@ class CardService implements CardRepo {
   }
 
   @override
-  Future<Either<Failure, BankDetails>> createBankingDataCard(
-      {required BankDetailsCreate bankDetailsCreate}) async {
-    try {
-      log('createBankingDataCard creation ');
-      final response = await apiService.post(ApiEndPoints.createCardBAnking,
-          data: bankDetailsCreate.toJson());
-      log('createBankingDataCard creation done ');
-      return Right(BankDetails.fromJson(response.data));
-    } on DioException catch (e) {
-      log('createBankingDataCard creation dio error');
-      log(e.toString());
-      log(e.response.toString());
-      return Left(Failure());
-    } catch (e) {
-      log('createBankingDataCard creation exception error');
-      log(e.toString());
-      return Left(Failure());
-    }
-  }
-
-  @override
   Future<Either<Failure, BusinessDetails>> createBusinessDataCard(
       {required BusinessDetailsCreate businessDetailsCreate}) async {
     try {
       log('createBusinessDataCard creation ');
+      print(
+          'createBusinessDataCard creation  ${businessDetailsCreate.toJson()}');
       final response = await apiService.post(ApiEndPoints.createCardBusiness,
           data: businessDetailsCreate.toJson());
       log('createBusinessDataCard creation done');
-      return Right(BusinessDetails.fromJson(response.data));
+      var data = response.data as Map<String, dynamic>;
+      return Right(BusinessDetails(id: data['id'] as int?));
     } on DioException catch (e) {
       log('createBusinessDataCard creation dio error');
       log(e.toString());
@@ -98,11 +82,12 @@ class CardService implements CardRepo {
   Future<Either<Failure, PersonalDetails>> createPersonalDataCard(
       {required PersonalDetailsCreate personalDetailsCreate}) async {
     try {
-      log('createPersonalDataCard creation');
+      log('createPersonalDataCard creation ${personalDetailsCreate.toJson()}');
       final response = await apiService.post(ApiEndPoints.createCardPersonal,
           data: personalDetailsCreate.toJson());
       log('createPersonalDataCard creation done');
-      return Right(PersonalDetails.fromJson(response.data));
+      final data = response.data as Map<String, dynamic>;
+      return Right(PersonalDetails(id: data['id'] as int?));
     } on DioException catch (e) {
       log('createPersonalDataCard creation dio error');
       log(e.toString());
@@ -124,12 +109,9 @@ class CardService implements CardRepo {
       return Right(GetCardResposnseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());
-      if (e.response?.statusCode == 400) {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
-      } else {
-        return Left(Failure(message: errorMessage));
-      }
+      log('dio exception getCardByUserId');
+      log(e.toString());
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));
@@ -137,21 +119,18 @@ class CardService implements CardRepo {
   }
 
   @override
-  Future<Either<Failure, GetCardResposnseModel>> getCardByCardId(
-      {required int id}) async {
+  Future<Either<Failure, Card>> getCardByCardId({required int id}) async {
     try {
       final response = await apiService.get(ApiEndPoints.getCardByCardId
           .replaceFirst('{card_id}', id.toString()));
-      return Right(GetCardResposnseModel.fromJson(response.data));
+      log('get card by id success');
+      return Right(Card.fromJson(response.data));
     } on DioException catch (e) {
+      log('dio exception getCardByCardId');
       log(e.toString());
-      if (e.response?.statusCode == 400) {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
-      } else {
-        return Left(Failure(message: errorMessage));
-      }
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
+      log('exception getCardByCardId');
       log(e.toString());
       return Left(Failure(message: errorMessage));
     }
@@ -168,13 +147,9 @@ class CardService implements CardRepo {
       print(response.data);
       return Right(GetCardResponse.fromJson(response.data));
     } on DioException catch (e) {
+      log('dio exception get cards');
       log(e.toString());
-      if (e.response?.statusCode == 400) {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
-      } else {
-        return Left(Failure(message: errorMessage));
-      }
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));
@@ -186,19 +161,15 @@ class CardService implements CardRepo {
       {required int id}) async {
     try {
       print('delete card apiicall');
-      final response = await apiService.get(
+      final response = await apiService.patch(
           ApiEndPoints.defaultCard.replaceFirst('{card_id}', id.toString()));
       print('set default card api success');
       print(response.data);
       return Right(SuccessResponseModel.fromJson(response.data));
     } on DioException catch (e) {
+      log('dio exception setDefault card');
       log(e.toString());
-      if (e.response?.statusCode == 400) {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
-      } else {
-        return Left(Failure(message: errorMessage));
-      }
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));
@@ -217,12 +188,44 @@ class CardService implements CardRepo {
       return Right(SuccessResponseModel(message: 'Card deleted successfully'));
     } on DioException catch (e) {
       log(e.toString());
-      if (e.response?.statusCode == 400) {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
-      } else {
-        return Left(Failure(message: errorMessage));
-      }
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      log(e.toString());
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetCompanysResponseModel>> getCompanies(
+      {required SearchQuery? search}) async {
+    try {
+      print('get company apiicall');
+      final response = await apiService.get(ApiEndPoints.getCompanies,
+          queryParameters: search?.toJson());
+      print('get company success');
+      print(response.data);
+      return Right(GetCompanysResponseModel.fromJson(response.data));
+    } on DioException catch (e) {
+      log(e.toString());
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      log(e.toString());
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetBusinessCategoryResponseModel>>
+      getBusinessCategories() async {
+    try {
+      print('get company apiicall');
+      final response = await apiService.get(ApiEndPoints.getBusinessCategory);
+      print('get company success');
+      print(response.data);
+      return Right(GetBusinessCategoryResponseModel.fromJson(response.data));
+    } on DioException catch (e) {
+      log(e.toString());
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));

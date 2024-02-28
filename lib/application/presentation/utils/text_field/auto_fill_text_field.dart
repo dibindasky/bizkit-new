@@ -10,13 +10,15 @@ class AutocompleteTextField extends StatefulWidget {
   final bool obscureText;
   final bool showDropdown;
   final bool showDropdownOnTap;
+  final bool enabled;
   final int? maxLength;
   final int? maxLines;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final Color? hintColor;
-  final Function(String)? onChanged;
+  final Function(String value)? onChanged;
   final VoidCallback? onTap;
+  final Function(String value)? onDropDownSelection;
   final FocusNode? focusNode;
   final List<String>? autocompleteItems;
   final Validate? validate;
@@ -24,8 +26,10 @@ class AutocompleteTextField extends StatefulWidget {
   const AutocompleteTextField({
     Key? key,
     this.showDropdown = false,
+    this.enabled = true,
     this.showDropdownOnTap = false,
     this.validate,
+    this.onDropDownSelection,
     required this.label,
     this.controller,
     this.inputType,
@@ -54,6 +58,8 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
     super.initState();
   }
 
+  FocusNode myFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     print('rebuild in autocomplete');
@@ -63,104 +69,140 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
         elevation: 3,
         color: textFieldFillColr,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextFormField(
-              focusNode: widget.focusNode,
+            InkWell(
               onTap: () {
-                if (widget.autocompleteItems!.isNotEmpty ||
+                if ((widget.autocompleteItems != null &&
+                        widget.autocompleteItems!.isNotEmpty) ||
                     widget.showDropdown) {
                   setState(() {
                     isDropdownVisible = true;
+                    if (!widget.enabled) {
+                      filteredAutocompleteItems = widget.autocompleteItems!;
+                    }
                   });
-                  widget.onTap?.call();
+                }
+                if (widget.onTap != null) {
+                  widget.onTap!.call();
                 }
               },
-              onChanged: (value) {
-                setState(() {
-                  filteredAutocompleteItems = value.isEmpty
-                      ? widget.autocompleteItems!
-                      : widget.autocompleteItems
-                              ?.where((item) => item
-                                  .toLowerCase()
-                                  .contains(value.toLowerCase()))
-                              .toList() ??
-                          [];
-                });
+              child: TextFormField(
+                focusNode: widget.focusNode ?? myFocusNode,
+                onTap: () {
+                  if (widget.enabled &&
+                      ((widget.autocompleteItems != null &&
+                              widget.autocompleteItems!.isNotEmpty) ||
+                          widget.showDropdown)) {
+                    setState(() {
+                      isDropdownVisible = true;
+                      if (!widget.enabled) {
+                        filteredAutocompleteItems = widget.autocompleteItems!;
+                      }
+                    });
+                  }
 
-                if (widget.onChanged != null) {
-                  widget.onChanged!(value);
-                }
-              },
-              maxLines: widget.maxLines ?? 1,
-              style: TextStyle(
-                color: kwhite,
-                fontSize: kwidth * 0.033,
-              ),
-              maxLength: widget.maxLength,
-              // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
-              obscureText: widget.obscureText,
-              controller: widget.controller,
-              keyboardType: widget.inputType ?? TextInputType.name,
-              decoration: InputDecoration(
-                suffixIcon: widget.suffixIcon,
-                suffixIconColor: klightgrey,
-                prefixIcon: widget.prefixIcon,
-                prefixIconColor: kwhite,
-                fillColor: textFieldFillColr,
-                filled: true,
-                labelText: widget.label,
-                labelStyle: custumText(
-                  colr: widget.hintColor ?? klightgrey,
+                  if (widget.onTap != null) {
+                    widget.onTap!.call();
+                  }
+                },
+                onChanged: (value) {
+                  if (widget.enabled) {
+                    setState(() {
+                      filteredAutocompleteItems = value.isEmpty
+                          ? widget.autocompleteItems!
+                          : widget.autocompleteItems
+                                  ?.where((item) => item
+                                      .toLowerCase()
+                                      .contains(value.toLowerCase()))
+                                  .toList() ??
+                              [];
+                    });
+                  }
+
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(value);
+                  }
+                },
+                maxLines: widget.maxLines ?? 1,
+                style: TextStyle(
+                  color: kwhite,
+                  fontSize: kwidth * 0.033,
                 ),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(7),
+                maxLength: widget.maxLength,
+
+                // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                enabled: widget.enabled,
+                obscureText: widget.obscureText,
+                controller: widget.controller,
+                keyboardType: widget.inputType ?? TextInputType.name,
+                decoration: InputDecoration(
+                  suffixIcon: widget.suffixIcon,
+                  suffixIconColor: klightgrey,
+                  prefixIcon: widget.prefixIcon,
+                  prefixIconColor: kwhite,
+                  fillColor: textFieldFillColr,
+                  filled: true,
+                  labelText: widget.label,
+                  labelStyle: custumText(
+                    colr: widget.hintColor ?? klightgrey,
+                  ),
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  // focusedBorder: OutlineInputBorder(
+                  //   borderRadius: BorderRadius.circular(7),
+                  //   borderSide: const BorderSide(
+                  //     color: kwhite,
+                  //   ),
+                  // ),
                 ),
-                // focusedBorder: OutlineInputBorder(
-                //   borderRadius: BorderRadius.circular(7),
-                //   borderSide: const BorderSide(
-                //     color: kwhite,
-                //   ),
-                // ),
-              ),
-              validator: (value) {
-                if (Validate.none == widget.validate) {
+                validator: (value) {
+                  if (Validate.none == widget.validate) {
+                    return null;
+                  } else if ((value == null || value.isEmpty) &&
+                      widget.validate == Validate.notNull) {
+                    return 'Please enter ${widget.label}';
+                  } else if (widget.validate == Validate.email &&
+                      !isValidEmail(value!)) {
+                    return 'Please enter a valid email address';
+                  } else if (widget.validate == Validate.adminEmail) {
+                    if (!isValidEmail(value!)) {
+                      return 'Please enter a valid email address';
+                    } else if (value.contains('info@') ||
+                        value.contains('admin@')) {
+                      return null;
+                    }
+                    return 'Enter your organization\'s registered email';
+                  } else if (widget.validate == Validate.password &&
+                      value!.length < 8) {
+                    return 'Password must contain at least 8 characters';
+                  } else if (widget.validate == Validate.password) {
+                    if (!hasLowerCase(value!)) {
+                      return 'Password must contains lowerCase letters';
+                    } else if (!hasCapsLetter(value)) {
+                      return 'Password must contains UpperCase letters';
+                    } else if (!hasNumbers(value)) {
+                      return 'Password must contains numbers';
+                    } else if (!hasSpecialChar(value)) {
+                      return 'Password must contains special characters';
+                    } else if (value.length < 8) {
+                      return 'Password must contains 8 characters';
+                    } else {
+                      return null;
+                    }
+                  } else if (Validate.phone == widget.validate) {
+                    if (!RegExp(r'^[0-9]+$').hasMatch(value!)) {
+                      return 'Enter valid phone number (numeric characters only)';
+                    } else if (value.length != 10) {
+                      return 'Phone number should have exactly 10 digits';
+                    } else {
+                      return null;
+                    }
+                  }
                   return null;
-                } else if ((value == null || value.isEmpty) &&
-                    widget.validate == Validate.notNull) {
-                  return 'Please enter ${widget.label}';
-                } else if (widget.validate == Validate.email &&
-                    !isValidEmail(value!)) {
-                  return 'Please enter a valid email address';
-                } else if (widget.validate == Validate.password &&
-                    value!.length < 8) {
-                  return 'Password must contain at least 8 characters';
-                } else if (widget.validate == Validate.password) {
-                  if (!hasLowerCase(value!)) {
-                    return 'Password must contains lowerCase letters';
-                  } else if (!hasCapsLetter(value)) {
-                    return 'Password must contains UpperCase letters';
-                  } else if (!hasNumbers(value)) {
-                    return 'Password must contains numbers';
-                  } else if (!hasSpecialChar(value)) {
-                    return 'Password must contains special characters';
-                  } else if (value.length < 8) {
-                    return 'Password must contains 8 characters';
-                  } else {
-                    return null;
-                  }
-                } else if (Validate.phone == widget.validate) {
-                  if (!RegExp(r'^[0-9]+$').hasMatch(value!)) {
-                    return 'Enter valid phone number (numeric characters only)';
-                  } else if (value.length != 10) {
-                    return 'Phone number should have exactly 10 digits';
-                  } else {
-                    return null;
-                  }
-                }
-                return null;
-              },
+                },
+              ),
             ),
             if (isDropdownVisible && filteredAutocompleteItems.isNotEmpty)
               Container(
@@ -171,7 +213,8 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                     shrinkWrap: true,
                     itemCount: filteredAutocompleteItems.length,
                     itemBuilder: (context, index) {
-                      return SizedBox(height: 40,
+                      return SizedBox(
+                        height: 40,
                         child: ListTile(
                           title: Text(filteredAutocompleteItems[index]),
                           onTap: () {
@@ -179,7 +222,14 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                               widget.controller?.text =
                                   filteredAutocompleteItems[index];
                               filteredAutocompleteItems = [];
+                              if (widget.enabled) {
+                                myFocusNode.requestFocus();
+                              }
                             });
+                            if (widget.onDropDownSelection != null) {
+                              widget.onDropDownSelection!(
+                                  widget.controller!.text);
+                            }
                           },
                         ),
                       );

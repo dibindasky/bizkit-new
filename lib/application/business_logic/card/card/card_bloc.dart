@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:bizkit/data/features/pdf/pdf_picker.dart';
+import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
@@ -14,9 +16,10 @@ part 'card_bloc.freezed.dart';
 @injectable
 class CardBloc extends Bloc<CardEvent, CardState> {
   final CardRepo cardService;
+  final PdfPickerImpl pdfPicker;
   int cardPage = 1;
 
-  CardBloc(this.cardService) : super(CardState.initial()) {
+  CardBloc(this.cardService, this.pdfPicker) : super(CardState.initial()) {
     on<GetCards>(getCards);
     on<GetCardsnextPage>(getCardsnextPage);
     on<GetCardyUserId>(getCardyUserId);
@@ -39,7 +42,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             message: 'failed to delete card',
             hasError: true)), (success) {
       emit(state.copyWith(message: 'card deleted successfully'));
-      add(const CardEvent.getCards());
+      add(const CardEvent.getCards(call: true));
     });
   }
 
@@ -47,8 +50,10 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     final result = await cardService.setDefault(id: event.id);
     result.fold(
         (failure) => emit(state.copyWith(
-            message: 'failed to set default card', hasError: true)),
-        (success) => emit(state.copyWith(message: 'card set as default')));
+            message: 'failed to set default card', hasError: true)), (success) {
+      emit(state.copyWith(message: 'card set as default'));
+      add(const CardEvent.getCards(call: true));
+    });
   }
 
   FutureOr<void> getCardyUserId(GetCardyUserId event, emit) async {
@@ -71,12 +76,26 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     final result = await cardService.getCardByCardId(id: event.id);
     result.fold(
         (left) => emit(state.copyWith(
-            isLoading: false, hasError: true, message: left.message)),
-        (right) => emit(state.copyWith(
             isLoading: false,
-            anotherCard: right.results != null && right.results!.isNotEmpty
-                ? right.results!.first
-                : null)));
+            hasError: true,
+            message: left.message)), (right) async {
+      // List<Brochure> list = [];
+      // print(right.businessDetails!.toJson());
+      // print(right.businessDetails?.brochure);
+      // if (right.businessDetails != null &&
+      //     right.businessDetails!.brochure != null) {
+      //   for (var broc in right.businessDetails!.brochure!) {
+      //     final path = await pdfPicker.convertBase64ToFile(
+      //         broc.file!, DateTime.now().microsecondsSinceEpoch.toString());
+      //     if (path != null) {
+      //       list.add(Brochure(file: path));
+      //     }
+      //   }
+      //   right.businessDetails!.brochure = list;
+      //   print(list.length);
+      // }
+      return emit(state.copyWith(isLoading: false, anotherCard: right));
+    });
   }
 
   FutureOr<void> getCardsnextPage(GetCardsnextPage event, emit) async {
@@ -88,7 +107,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   }
 
   FutureOr<void> getCards(GetCards event, emit) async {
-    if (state.cards.isNotEmpty) return;
+    if (state.cards.isNotEmpty && !event.call) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     cardPage = 1;
     print('get card bloc');

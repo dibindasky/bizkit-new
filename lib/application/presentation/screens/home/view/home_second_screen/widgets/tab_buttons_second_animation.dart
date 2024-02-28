@@ -19,7 +19,7 @@ List tabBarNames = [
 ];
 
 class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
-    with ChangeNotifier, SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   List align = [Alignment.centerLeft, Alignment.center, Alignment.centerRight];
 
   @override
@@ -67,11 +67,5 @@ class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    // implement dispose
-    super.dispose();
   }
 }

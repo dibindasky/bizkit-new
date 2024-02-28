@@ -16,7 +16,7 @@ class ApiEndPoints {
   static String createCardPersonal = '/card/personal-details/';
   static String createCardBusiness = '/card/business-details/';
   static String createCardBAnking = '/card/bank_details/';
-  static String card = '/card/card_individual/';
+  static String card = '/card/card-list/';
   static String deleteCard = '/card/card_edit/{card_id}/';
   static String defaultCard = '/card/is_default/{card_id}/';
   static String contacts = '/card/registered_contacts/';
@@ -25,5 +25,5 @@ class ApiEndPoints {
   static String getQr = '/qr/qr_listing/';
   static String levelsharingEdit = '/qr/qr_edit/{card_id}/';
   static String getCardByUserId = '/card/card_of_another_user/{user_id}/';
-  static String getCardByCardId = '/card/card_of_another_user/{card_id}/';
+  static String getCardByCardId = '/card/get-card/{card_id}/';
 }

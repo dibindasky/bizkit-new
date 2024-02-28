@@ -95,7 +95,10 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i17.CardRepo>(),
           gh<_i13.UserLocalRepo>(),
         ));
-    gh.factory<_i27.CardBloc>(() => _i27.CardBloc(gh<_i17.CardRepo>()));
+    gh.factory<_i27.CardBloc>(() => _i27.CardBloc(
+          gh<_i17.CardRepo>(),
+          gh<_i11.PdfPickerImpl>(),
+        ));
     gh.factory<_i28.ContactsBloc>(() => _i28.ContactsBloc(
           gh<_i7.ContactFetchServiceRepo>(),
           gh<_i21.ContactsRepo>(),

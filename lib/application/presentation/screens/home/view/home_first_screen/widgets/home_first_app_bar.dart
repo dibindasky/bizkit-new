@@ -46,13 +46,9 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
               await noti();
             },
             child: CircleAvatar(
-              radius: kwidth * .060,
-              backgroundColor: textFieldFillColr,
-              child: Image.asset(
-                iconNotification,
-                fit: BoxFit.contain,
-              ),
-            ),
+                radius: kwidth * .060,
+                backgroundColor: textFieldFillColr,
+                backgroundImage: const AssetImage(iconNotification)),
           ),
           const SizedBox(
             width: 10,

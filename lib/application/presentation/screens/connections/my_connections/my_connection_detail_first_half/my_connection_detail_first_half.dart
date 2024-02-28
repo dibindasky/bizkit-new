@@ -28,6 +28,7 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
         context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
       }
     });
+
     return BlocBuilder<CardBloc, CardState>(
       buildWhen: (previous, current) => previous.isLoading != current.isLoading,
       builder: (context, state) {
@@ -109,9 +110,7 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
                       if (state.anotherCard != null &&
                           state.anotherCard!.personalDetails != null &&
                           state.anotherCard!.personalDetails!.photos != null) {
-                        images.addAll(state
-                            .anotherCard!.personalDetails!.photos!
-                            .map((e) => e.photos!));
+                        images.add(state.anotherCard!.personalDetails!.photos!);
                       }
                       if (state.anotherCard != null &&
                           state.anotherCard!.businessDetails != null &&
@@ -142,6 +141,7 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
                       );
                     },
                   ),
+                  // card details 
                   ValueListenableBuilder(
                     valueListenable: changeScreenNotifier,
                     builder: (context, value, child) {

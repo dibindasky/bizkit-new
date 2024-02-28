@@ -40,6 +40,9 @@ const iconConnectionPeople = 'asset/images/connection_icon.png';
 const iconAddCircle = 'asset/images/add_icon.png';
 const iconNotification = 'asset/images/notification_icon.png';
 const iconBizkitPng = 'asset/images/bizkitIcon.png';
+const iconAchivementsMedal = 'asset/images/achivements_medal.png';
+const iconPersonOutline = 'asset/images/person_outline.png';
+const iconBankingHouse = 'asset/images/bank_house.png';
 
 // dummy image for development
 const dummyPersonImage = 'asset/images/person.jpeg';

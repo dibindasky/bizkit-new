@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../accolade/accolade.dart';
 import '../dates_to_remember/dates_to_remember.dart';
-import '../photo/photo.dart';
 
 part 'personal_details.g.dart';
 
@@ -15,7 +14,7 @@ class PersonalDetails {
   List<SocialMediaHandle>? personalSocialMedia;
   @JsonKey(name: 'dates_to_remember')
   List<DatesToRemember>? datesToRemember;
-  List<Photo>? photos;
+  String? photos;
   String? name;
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
@@ -29,6 +28,7 @@ class PersonalDetails {
   String? bloodGroup;
   @JsonKey(name: 'date_of_birth')
   String? dateOfBirth;
+  String? designation;
 
   PersonalDetails({
     this.id,

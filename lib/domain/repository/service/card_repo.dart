@@ -1,5 +1,6 @@
 import 'package:bizkit/domain/core/failure/failure.dart';
 import 'package:bizkit/domain/model/card/card/business_detail/business_details.dart';
+import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/get_card_resposnse_model/get_card_resposnse_model.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
 import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
@@ -23,7 +24,7 @@ abstract class CardRepo {
   Future<Either<Failure, GetCardResponse>> getCards({required PageQuery qurey});
   Future<Either<Failure, GetCardResposnseModel>> getCardByUserId(
       {required int id});
-  Future<Either<Failure, GetCardResposnseModel>> getCardByCardId(
+  Future<Either<Failure, Card>> getCardByCardId(
       {required int id});
   Future<Either<Failure, GetCompanysResponseModel>> getCompanies(
       {required SearchQuery? search});

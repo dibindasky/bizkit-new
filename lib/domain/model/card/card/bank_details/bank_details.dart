@@ -4,6 +4,7 @@ part 'bank_details.g.dart';
 
 @JsonSerializable()
 class BankDetails {
+  int? id;
   @JsonKey(name: 'name_of_company')
   String? nameOfCompany;
   @JsonKey(name: 'account_number')
@@ -16,6 +17,7 @@ class BankDetails {
   String? gstMembershipDetails;
 
   BankDetails({
+    this.id,
     this.nameOfCompany,
     this.accountNumber,
     this.ifscCode,

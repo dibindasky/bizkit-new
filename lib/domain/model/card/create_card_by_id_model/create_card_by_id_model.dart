@@ -4,11 +4,11 @@ part 'create_card_by_id_model.g.dart';
 
 @JsonSerializable()
 class CreateCardByIdModel {
-  @JsonKey(name: 'personal_details')
+  @JsonKey(name: 'personal_details_id')
   int? personalDetails;
-  @JsonKey(name: 'business_details')
+  @JsonKey(name: 'business_details_id')
   int? businessDetails;
-  @JsonKey(name: '"is_verified":true')
+  @JsonKey(name: "is_verified")
   bool isVerified;
 
   CreateCardByIdModel(

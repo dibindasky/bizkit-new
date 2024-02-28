@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CardEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCards,
+    required TResult Function(bool call) getCards,
     required TResult Function() getCardsnextPage,
     required TResult Function(int id) getCardyUserId,
     required TResult Function(int id) getCardyCardId,
@@ -29,7 +29,7 @@ mixin _$CardEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCards,
+    TResult? Function(bool call)? getCards,
     TResult? Function()? getCardsnextPage,
     TResult? Function(int id)? getCardyUserId,
     TResult? Function(int id)? getCardyCardId,
@@ -40,7 +40,7 @@ mixin _$CardEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCards,
+    TResult Function(bool call)? getCards,
     TResult Function()? getCardsnextPage,
     TResult Function(int id)? getCardyUserId,
     TResult Function(int id)? getCardyCardId,
@@ -108,6 +108,8 @@ abstract class _$$GetCardsImplCopyWith<$Res> {
   factory _$$GetCardsImplCopyWith(
           _$GetCardsImpl value, $Res Function(_$GetCardsImpl) then) =
       __$$GetCardsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool call});
 }
 
 /// @nodoc
@@ -117,31 +119,55 @@ class __$$GetCardsImplCopyWithImpl<$Res>
   __$$GetCardsImplCopyWithImpl(
       _$GetCardsImpl _value, $Res Function(_$GetCardsImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? call = null,
+  }) {
+    return _then(_$GetCardsImpl(
+      call: null == call
+          ? _value.call
+          : call // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetCardsImpl implements GetCards {
-  const _$GetCardsImpl();
+  const _$GetCardsImpl({required this.call});
+
+  @override
+  final bool call;
 
   @override
   String toString() {
-    return 'CardEvent.getCards()';
+    return 'CardEvent.getCards(call: $call)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetCardsImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetCardsImpl &&
+            (identical(other.call, call) || other.call == call));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, call);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCardsImplCopyWith<_$GetCardsImpl> get copyWith =>
+      __$$GetCardsImplCopyWithImpl<_$GetCardsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCards,
+    required TResult Function(bool call) getCards,
     required TResult Function() getCardsnextPage,
     required TResult Function(int id) getCardyUserId,
     required TResult Function(int id) getCardyCardId,
@@ -149,13 +175,13 @@ class _$GetCardsImpl implements GetCards {
     required TResult Function(int id) deleteCard,
     required TResult Function(int id) archiveCard,
   }) {
-    return getCards();
+    return getCards(call);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCards,
+    TResult? Function(bool call)? getCards,
     TResult? Function()? getCardsnextPage,
     TResult? Function(int id)? getCardyUserId,
     TResult? Function(int id)? getCardyCardId,
@@ -163,13 +189,13 @@ class _$GetCardsImpl implements GetCards {
     TResult? Function(int id)? deleteCard,
     TResult? Function(int id)? archiveCard,
   }) {
-    return getCards?.call();
+    return getCards?.call(call);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCards,
+    TResult Function(bool call)? getCards,
     TResult Function()? getCardsnextPage,
     TResult Function(int id)? getCardyUserId,
     TResult Function(int id)? getCardyCardId,
@@ -179,7 +205,7 @@ class _$GetCardsImpl implements GetCards {
     required TResult orElse(),
   }) {
     if (getCards != null) {
-      return getCards();
+      return getCards(call);
     }
     return orElse();
   }
@@ -232,7 +258,12 @@ class _$GetCardsImpl implements GetCards {
 }
 
 abstract class GetCards implements CardEvent {
-  const factory GetCards() = _$GetCardsImpl;
+  const factory GetCards({required final bool call}) = _$GetCardsImpl;
+
+  bool get call;
+  @JsonKey(ignore: true)
+  _$$GetCardsImplCopyWith<_$GetCardsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -273,7 +304,7 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCards,
+    required TResult Function(bool call) getCards,
     required TResult Function() getCardsnextPage,
     required TResult Function(int id) getCardyUserId,
     required TResult Function(int id) getCardyCardId,
@@ -287,7 +318,7 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCards,
+    TResult? Function(bool call)? getCards,
     TResult? Function()? getCardsnextPage,
     TResult? Function(int id)? getCardyUserId,
     TResult? Function(int id)? getCardyCardId,
@@ -301,7 +332,7 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCards,
+    TResult Function(bool call)? getCards,
     TResult Function()? getCardsnextPage,
     TResult Function(int id)? getCardyUserId,
     TResult Function(int id)? getCardyCardId,
@@ -432,7 +463,7 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCards,
+    required TResult Function(bool call) getCards,
     required TResult Function() getCardsnextPage,
     required TResult Function(int id) getCardyUserId,
     required TResult Function(int id) getCardyCardId,
@@ -446,7 +477,7 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCards,
+    TResult? Function(bool call)? getCards,
     TResult? Function()? getCardsnextPage,
     TResult? Function(int id)? getCardyUserId,
     TResult? Function(int id)? getCardyCardId,
@@ -460,7 +491,7 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCards,
+    TResult Function(bool call)? getCards,
     TResult Function()? getCardsnextPage,
     TResult Function(int id)? getCardyUserId,
     TResult Function(int id)? getCardyCardId,
@@ -596,7 +627,7 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCards,
+    required TResult Function(bool call) getCards,
     required TResult Function() getCardsnextPage,
     required TResult Function(int id) getCardyUserId,
     required TResult Function(int id) getCardyCardId,
@@ -610,7 +641,7 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCards,
+    TResult? Function(bool call)? getCards,
     TResult? Function()? getCardsnextPage,
     TResult? Function(int id)? getCardyUserId,
     TResult? Function(int id)? getCardyCardId,
@@ -624,7 +655,7 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCards,
+    TResult Function(bool call)? getCards,
     TResult Function()? getCardsnextPage,
     TResult Function(int id)? getCardyUserId,
     TResult Function(int id)? getCardyCardId,
@@ -759,7 +790,7 @@ class _$SetDefaultImpl implements SetDefault {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCards,
+    required TResult Function(bool call) getCards,
     required TResult Function() getCardsnextPage,
     required TResult Function(int id) getCardyUserId,
     required TResult Function(int id) getCardyCardId,
@@ -773,7 +804,7 @@ class _$SetDefaultImpl implements SetDefault {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCards,
+    TResult? Function(bool call)? getCards,
     TResult? Function()? getCardsnextPage,
     TResult? Function(int id)? getCardyUserId,
     TResult? Function(int id)? getCardyCardId,
@@ -787,7 +818,7 @@ class _$SetDefaultImpl implements SetDefault {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCards,
+    TResult Function(bool call)? getCards,
     TResult Function()? getCardsnextPage,
     TResult Function(int id)? getCardyUserId,
     TResult Function(int id)? getCardyCardId,
@@ -922,7 +953,7 @@ class _$DeleteCardImpl implements DeleteCard {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCards,
+    required TResult Function(bool call) getCards,
     required TResult Function() getCardsnextPage,
     required TResult Function(int id) getCardyUserId,
     required TResult Function(int id) getCardyCardId,
@@ -936,7 +967,7 @@ class _$DeleteCardImpl implements DeleteCard {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCards,
+    TResult? Function(bool call)? getCards,
     TResult? Function()? getCardsnextPage,
     TResult? Function(int id)? getCardyUserId,
     TResult? Function(int id)? getCardyCardId,
@@ -950,7 +981,7 @@ class _$DeleteCardImpl implements DeleteCard {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCards,
+    TResult Function(bool call)? getCards,
     TResult Function()? getCardsnextPage,
     TResult Function(int id)? getCardyUserId,
     TResult Function(int id)? getCardyCardId,
@@ -1085,7 +1116,7 @@ class _$ArchiveCardImpl implements ArchiveCard {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCards,
+    required TResult Function(bool call) getCards,
     required TResult Function() getCardsnextPage,
     required TResult Function(int id) getCardyUserId,
     required TResult Function(int id) getCardyCardId,
@@ -1099,7 +1130,7 @@ class _$ArchiveCardImpl implements ArchiveCard {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCards,
+    TResult? Function(bool call)? getCards,
     TResult? Function()? getCardsnextPage,
     TResult? Function(int id)? getCardyUserId,
     TResult? Function(int id)? getCardyCardId,
@@ -1113,7 +1144,7 @@ class _$ArchiveCardImpl implements ArchiveCard {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCards,
+    TResult Function(bool call)? getCards,
     TResult Function()? getCardsnextPage,
     TResult Function(int id)? getCardyUserId,
     TResult Function(int id)? getCardyCardId,

@@ -15,7 +15,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CardBloc>().add(const CardEvent.getCards());
+      context.read<CardBloc>().add(const CardEvent.getCards(call: false));
     });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -61,7 +61,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5),
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    data.photo ?? imageDummyNetwork),
+                                    data.logo ?? imageDummyNetwork),
                                 fit: BoxFit.cover)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,7 +70,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text('Name',
+                                Text(state.defaultCard?.name ?? '',
                                     style: textHeadStyle1.copyWith(shadows: [
                                       const Shadow(
                                           color: kblack,
@@ -78,7 +78,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                           blurRadius: 5)
                                     ])),
                                 Text(
-                                  "Designation",
+                                  state.defaultCard?.designation ?? '',
                                   style: TextStyle(
                                       fontSize: kwidth * .037,
                                       shadows: const [

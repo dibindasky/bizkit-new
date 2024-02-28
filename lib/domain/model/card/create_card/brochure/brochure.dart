@@ -8,7 +8,7 @@ class BrochureCreate {
   String? label;
   String? image;
 
-  BrochureCreate({this.file, this.label, this.image=""});
+  BrochureCreate({this.file, this.label, this.image = ""});
 
   factory BrochureCreate.fromJson(Map<String, dynamic> json) {
     return _$BrochureCreateFromJson(json);

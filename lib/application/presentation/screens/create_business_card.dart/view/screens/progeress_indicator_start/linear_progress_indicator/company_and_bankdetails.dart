@@ -64,7 +64,8 @@ class CompanyAndBankingDetails extends StatelessWidget {
             adjustHieght(khieght * .05),
             BlocConsumer<BusinessDataBloc, BusinessDataState>(
               listenWhen: (previous, current) =>
-                  previous.businessDetailsCreateId != current.businessDetailsCreateId,
+                  previous.businessDetailsCreateId !=
+                  current.businessDetailsCreateId,
               listener: (context, state) {
                 if (state.businessDetailsCreateId != null) {
                   Navigator.push(context,

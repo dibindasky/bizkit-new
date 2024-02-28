@@ -35,8 +35,8 @@ class PreviewRowWiceIcons extends StatelessWidget {
                           }
                           if (businessState.businessDetails.mobileNumber !=
                               null) {
-                            items.add(businessState
-                                .businessDetails.mobileNumber!);
+                            items.add(
+                                businessState.businessDetails.mobileNumber!);
                           }
                         } else {
                           if (state.anotherCard != null &&
@@ -53,10 +53,8 @@ class PreviewRowWiceIcons extends StatelessWidget {
                                   null &&
                               state.anotherCard!.businessDetails!.mobileNumber!
                                   .isNotEmpty) {
-                            items.addAll(state
-                                .anotherCard!.businessDetails!.mobileNumber!
-                                .map((e) => e.mobileNumber!)
-                                .toList());
+                            items.add(state
+                                .anotherCard!.businessDetails!.mobileNumber!);
                           }
                         }
                         showModalBottomSheet(
@@ -95,10 +93,8 @@ class PreviewRowWiceIcons extends StatelessWidget {
                                   null &&
                               state.anotherCard!.businessDetails!.email!
                                   .isNotEmpty) {
-                            items.addAll(state
-                                .anotherCard!.businessDetails!.email!
-                                .map((e) => e.email!)
-                                .toList());
+                            items.add(
+                                state.anotherCard!.businessDetails!.email!);
                           }
                         }
                         showModalBottomSheet(

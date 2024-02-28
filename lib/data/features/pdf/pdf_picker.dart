@@ -9,6 +9,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:injectable/injectable.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf_render/pdf_render.dart';
 
 @LazySingleton()
@@ -28,9 +30,9 @@ class PdfPickerImpl {
         final bytes = await File(filePath).readAsBytes();
         String base64 = base64Encode(bytes);
         base64 = 'data:application/pdf;base64,$base64';
+        log(base64);
         print('pdf file pickeer ==========> $base64');
         return Right(PdfModel(
-            // imagePreview: await getPdfPreview(filePath),
             file: File(filePath),
             multipartFile: multipartFile,
             base64: base64));
@@ -54,5 +56,28 @@ class PdfPickerImpl {
     final image = await page.render();
     log('getPdfPreview 4');
     return image.createImageDetached();
+  }
+
+  Future<String?> convertBase64ToFile(String base64String, String fileName,
+      {String? directoryPath}) async {
+    {
+      try {
+        final bytes = base64Decode(base64String);
+        if (bytes.isEmpty) {
+          return null;
+        }
+
+        final directory = directoryPath != null
+            ? Directory(directoryPath)
+            : await getApplicationDocumentsDirectory();
+        final filePath = File(join(directory.path, fileName));
+
+        await filePath.writeAsBytes(bytes);
+        return filePath.path;
+      } catch (e) {
+        log('error base64 to file = > $e');
+        return null;
+      }
+    }
   }
 }

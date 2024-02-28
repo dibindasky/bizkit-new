@@ -8,14 +8,14 @@ part of 'create_card_model.dart';
 
 CreateCardModel _$CreateCardModelFromJson(Map<String, dynamic> json) =>
     CreateCardModel(
-      personalDetails: json['personal_details'] == null
+      personalDetails: json['personal_details_id'] == null
           ? null
           : PersonalDetailsCreate.fromJson(
-              json['personal_details'] as Map<String, dynamic>),
-      businessDetails: json['business_details'] == null
+              json['personal_details_id'] as Map<String, dynamic>),
+      businessDetails: json['business_details_id'] == null
           ? null
           : BusinessDetailsCreate.fromJson(
-              json['business_details'] as Map<String, dynamic>),
+              json['business_details_id'] as Map<String, dynamic>),
       bankDetails: json['bank_details'] == null
           ? null
           : BankDetailsCreate.fromJson(
@@ -24,7 +24,7 @@ CreateCardModel _$CreateCardModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CreateCardModelToJson(CreateCardModel instance) =>
     <String, dynamic>{
-      'personal_details': instance.personalDetails,
-      'business_details': instance.businessDetails,
+      'personal_details_id': instance.personalDetails,
+      'business_details_id': instance.businessDetails,
       'bank_details': instance.bankDetails,
     };

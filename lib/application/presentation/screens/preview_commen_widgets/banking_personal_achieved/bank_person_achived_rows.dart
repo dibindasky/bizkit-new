@@ -27,7 +27,7 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
                   isFromBankScreen: true,
                 )),
               ),
-              child: containerStyle(imageBanking, 'Banking'),
+              child: containerStyle(iconBankingHouse, 'Banking'),
             ),
           ),
         ),
@@ -40,7 +40,7 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
                   isFromBankScreen: false,
                 ),
               )),
-              child: containerStyle(imagePerson, 'Personal'),
+              child: containerStyle(iconPersonOutline, 'Personal'),
             ),
           ),
         ),
@@ -51,7 +51,7 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
               onTap: () => Navigator.of(context).push(
                 fadePageRoute(const AccolodesScreen(accolade: null)),
               ),
-              child: containerStyle(imageAchivement, 'Achieved'),
+              child: containerStyle(iconAchivementsMedal, 'Achieved'),
             ),
           ),
         )
@@ -59,7 +59,7 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
     );
   }
 
-  Widget containerStyle(String scnd, String text) {
+  Widget containerStyle(String image, String text) {
     return Container(
       height: 45,
       decoration: BoxDecoration(
@@ -70,7 +70,9 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(scnd),
+          Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              child: Image.asset(image)),
           Text(text, style: TextStyle(fontSize: 10.sp)),
         ],
       ),

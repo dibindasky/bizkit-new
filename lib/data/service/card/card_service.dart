@@ -5,6 +5,7 @@ import 'package:bizkit/data/service/api_service.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
 import 'package:bizkit/domain/model/card/card/business_detail/business_details.dart';
+import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/get_card_resposnse_model/get_card_resposnse_model.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
 import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
@@ -108,12 +109,9 @@ class CardService implements CardRepo {
       return Right(GetCardResposnseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());
-      if (e.response?.statusCode == 400) {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
-      } else {
-        return Left(Failure(message: errorMessage));
-      }
+      log('dio exception getCardByUserId');
+      log(e.toString());
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));
@@ -121,21 +119,18 @@ class CardService implements CardRepo {
   }
 
   @override
-  Future<Either<Failure, GetCardResposnseModel>> getCardByCardId(
-      {required int id}) async {
+  Future<Either<Failure, Card>> getCardByCardId({required int id}) async {
     try {
       final response = await apiService.get(ApiEndPoints.getCardByCardId
           .replaceFirst('{card_id}', id.toString()));
-      return Right(GetCardResposnseModel.fromJson(response.data));
+      log('get card by id success');
+      return Right(Card.fromJson(response.data));
     } on DioException catch (e) {
+      log('dio exception getCardByCardId');
       log(e.toString());
-      if (e.response?.statusCode == 400) {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
-      } else {
-        return Left(Failure(message: errorMessage));
-      }
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
+      log('exception getCardByCardId');
       log(e.toString());
       return Left(Failure(message: errorMessage));
     }
@@ -152,13 +147,9 @@ class CardService implements CardRepo {
       print(response.data);
       return Right(GetCardResponse.fromJson(response.data));
     } on DioException catch (e) {
+      log('dio exception get cards');
       log(e.toString());
-      if (e.response?.statusCode == 400) {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
-      } else {
-        return Left(Failure(message: errorMessage));
-      }
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));
@@ -170,19 +161,15 @@ class CardService implements CardRepo {
       {required int id}) async {
     try {
       print('delete card apiicall');
-      final response = await apiService.get(
+      final response = await apiService.patch(
           ApiEndPoints.defaultCard.replaceFirst('{card_id}', id.toString()));
       print('set default card api success');
       print(response.data);
       return Right(SuccessResponseModel.fromJson(response.data));
     } on DioException catch (e) {
+      log('dio exception setDefault card');
       log(e.toString());
-      if (e.response?.statusCode == 400) {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
-      } else {
-        return Left(Failure(message: errorMessage));
-      }
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));

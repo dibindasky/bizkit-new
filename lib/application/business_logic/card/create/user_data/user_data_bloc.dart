@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/category.dart';
@@ -76,6 +77,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           state.copyWith(isLoading: false, hasError: true, message: l.message));
     }, (r) {
       print('card creation success');
+
       return emit(
           state.copyWith(isLoading: false, message: r.message, cardAdded: r));
     });

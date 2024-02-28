@@ -117,10 +117,10 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       websiteLink: websiteLinkController.text.trim().isEmpty
           ? null
           : websiteLinkController.text,
-      email: mailController.text.trim().isNotEmpty
-          ? mailController.text:null,
-      mobileNumber:  mobileController.text.trim().isNotEmpty
-          ? mobileController.text:null,
+      email: mailController.text.trim().isNotEmpty ? mailController.text : null,
+      mobileNumber: mobileController.text.trim().isNotEmpty
+          ? mobileController.text
+          : null,
       logo: state.logo?.base64,
       socialMediaHandles: state.socialMedias,
       product: state.products.isEmpty

@@ -52,14 +52,14 @@ class _PreviewPageviewImageBuilderState
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
-              onTap: () => showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                builder: (context) => PreviewPageViewBottomSheet(
-                  image: widget.images?[index],
-                  imageNetwork: widget.imagesList?[index],
-                ),
-              ),
+              // onTap: () => showModalBottomSheet(
+              //   context: context,
+              //   isScrollControlled: true,
+              //   builder: (context) => PreviewPageViewBottomSheet(
+              //     image: widget.images?[index],
+              //     imageNetwork: widget.imagesList?[index],
+              //   ),
+              // ),
               child: SizedBox(
                 width: double.infinity,
                 height: 200,

@@ -8,15 +8,15 @@ part of 'create_card_by_id_model.dart';
 
 CreateCardByIdModel _$CreateCardByIdModelFromJson(Map<String, dynamic> json) =>
     CreateCardByIdModel(
-      personalDetails: json['personal_details'] as int?,
-      businessDetails: json['business_details'] as int?,
-      isVerified: json['"is_verified":true'] as bool? ?? false,
+      personalDetails: json['personal_details_id'] as int?,
+      businessDetails: json['business_details_id'] as int?,
+      isVerified: json['is_verified'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$CreateCardByIdModelToJson(
         CreateCardByIdModel instance) =>
     <String, dynamic>{
-      'personal_details': instance.personalDetails,
-      'business_details': instance.businessDetails,
-      '"is_verified":true': instance.isVerified,
+      'personal_details_id': instance.personalDetails,
+      'business_details_id': instance.businessDetails,
+      'is_verified': instance.isVerified,
     };

@@ -34,7 +34,7 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
                   .map((e) => e.product!)
                   .toList();
             }
-            return PreviewProductsBrandsLists(networkImages: images);
+            return PreviewProductsBrandsLists(networkImages: images,pdfBase64:const [],);
           },
         ),
         adjustHieght(khieght * .02),

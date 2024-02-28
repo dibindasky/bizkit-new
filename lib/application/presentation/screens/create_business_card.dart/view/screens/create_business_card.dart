@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/card_uploading_showdailogue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -8,6 +9,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class StartingBusinessCardCreation extends StatefulWidget {
   const StartingBusinessCardCreation({super.key});
@@ -99,10 +101,7 @@ class _StartingBusinessCardCreationState
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    fadePageRoute(const BizkitBottomNavigationBar()),
-                  );
+                  context.go(Routes.homePage);
                 },
                 child: Container(
                   decoration: BoxDecoration(

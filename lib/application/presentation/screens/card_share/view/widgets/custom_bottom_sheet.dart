@@ -44,10 +44,10 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                 height: 50,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
-                  child: widget.card.photo == null
+                  child: widget.card.logo == null
                       ? Image.network(imageDummyNetwork, fit: BoxFit.cover)
                       : Image.network(
-                          widget.card.photo!,
+                          widget.card.logo!,
                           fit: BoxFit.cover,
                         ),
                 ),

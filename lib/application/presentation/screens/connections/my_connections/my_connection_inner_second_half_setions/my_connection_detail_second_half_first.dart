@@ -39,12 +39,12 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
                 state.anotherCard!.businessDetails != null &&
                 state.anotherCard!.businessDetails!.brochure != null) {
               pdfBase64 = state.anotherCard!.businessDetails!.brochure!
-                  .map((e) => e.file!)
+                  .map((e) => e.file!.substring('data:application/pdf;base64,'.length))
                   .toList();
             }
             return PreviewProductsBrandsLists(
               networkImages: images,
-              pdfBase64: const [],
+              pdfBase64: pdfBase64,
             );
           },
         ),

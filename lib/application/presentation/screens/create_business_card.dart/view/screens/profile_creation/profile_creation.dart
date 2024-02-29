@@ -129,12 +129,15 @@ class ProfileCreationScreen extends StatelessWidget {
                               autocompleteItems: state.businessCategories
                                   .map((e) => e.category!)
                                   .toList()),
-                          TTextFormField(
+                          AutocompleteTextField(
                             validate: Validate.notNull,
-                            text: 'Designation',
+                            label: 'Designation',
                             controller: context
                                 .read<UserDataBloc>()
                                 .designationController,
+                            autocompleteItems:
+                                state.scannedImageDatasModel?.names ??
+                                    <String>[],
                           ),
                           adjustHieght(khieght * .05),
                         ],

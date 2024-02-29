@@ -1,6 +1,9 @@
+import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/commen_banking_personal_tiles.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PreviewBankOrPersnalScreen extends StatelessWidget {
@@ -13,33 +16,6 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, List<String>> itemsMap = {
-      'BankHeading': [
-        'Bank',
-        'Account Number',
-        'IFSC Code',
-        'GST No.',
-      ],
-      'Personalheading': [
-        'Blood Group',
-        'Office Address',
-        'Home Address',
-      ],
-      'BankSubtittle': [
-        '1962 XXXX XXXX XXXX',
-        '1962 XXXX XXXX XXXX',
-        '1962 XXXX XXXX XXXX',
-        '1962 XXXX XXXX XXXX'
-      ],
-      'PersonalSubtittle': [
-        'AB Negative',
-        'Lorem Ipsum',
-        'Lorem Ipsum',
-      ],
-    };
-    String firstCategory = isFromBankScreen ? 'BankHeading' : 'Personalheading';
-    String secondCategory =
-        isFromBankScreen ? 'BankSubtittle' : 'PersonalSubtittle';
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -62,21 +38,57 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              ListView.builder(
-                itemCount: isFromBankScreen
-                    ? itemsMap['BankHeading']!.length
-                    : itemsMap['Personalheading']!.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return CommenbankingPersnalTiles(
-                    first: itemsMap[firstCategory]![index],
-                    second: itemsMap[secondCategory]![index],
-                  );
-                },
-              )
-            ],
+            children: !isFromBankScreen
+                ? [
+                    BlocBuilder<UserDataBloc, UserDataState>(
+                      builder: (context, state) {
+                        if (state.personalDetails.bloodGroup == null) {
+                          return const SizedBox();
+                        }
+                        return CommenbankingPersnalTiles(
+                          first: 'Blood Group',
+                          second: state.personalDetails.bloodGroup ?? '',
+                        );
+                      },
+                    ),
+                  ]
+                : [
+                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                      builder: (context, state) {
+                        if (state.bankDetails.acccountNumber == null) {
+                          return const SizedBox();
+                        }
+                        return CommenbankingPersnalTiles(
+                          first: 'Account Number',
+                          second: state.bankDetails.acccountNumber ?? '',
+                        );
+                      },
+                    ),
+                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                      builder: (context, state) {
+                        if (state.bankDetails.ifscCode == null) {
+                          return const SizedBox();
+                        }
+                        return CommenbankingPersnalTiles(
+                          first: 'IFSC',
+                          second: state.bankDetails.ifscCode ?? '',
+                        );
+                      },
+                    ),
+                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                      builder: (context, state) {
+                        if (state.bankDetails.gstMembershipDetails ==
+                            null) {
+                          return const SizedBox();
+                        }
+                        return CommenbankingPersnalTiles(
+                          first: 'GST ',
+                          second:
+                              state.bankDetails.gstMembershipDetails ?? '',
+                        );
+                      },
+                    ),
+                  ],
           ),
         ),
       ),

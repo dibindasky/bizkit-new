@@ -52,7 +52,7 @@ class BusinessSignIn extends StatelessWidget {
               TTextFormField(
                 onChanaged: (value) {
                   if (value.length < 3) {
-                    companyWebsiteController.text = '';
+                    companyMailController.text = '';
                   } else {
                     context
                         .read<SignUpBloc>()

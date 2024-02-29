@@ -29,6 +29,7 @@ mixin _$BusinessDataEvent {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -51,6 +52,7 @@ mixin _$BusinessDataEvent {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -72,6 +74,7 @@ mixin _$BusinessDataEvent {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -94,6 +97,7 @@ mixin _$BusinessDataEvent {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -115,6 +119,7 @@ mixin _$BusinessDataEvent {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -136,6 +141,7 @@ mixin _$BusinessDataEvent {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -243,6 +249,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -268,6 +275,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -292,6 +300,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -320,6 +329,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -344,6 +354,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -368,6 +379,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -471,6 +483,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -496,6 +509,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -520,6 +534,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -548,6 +563,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -572,6 +588,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -596,6 +613,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -699,6 +717,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -724,6 +743,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -748,6 +768,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -776,6 +797,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -800,6 +822,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -824,6 +847,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -926,6 +950,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -951,6 +976,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -975,6 +1001,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -1003,6 +1030,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -1027,6 +1055,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -1051,6 +1080,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -1152,6 +1182,7 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -1177,6 +1208,7 @@ class _$AddBranchImpl implements AddBranch {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -1201,6 +1233,7 @@ class _$AddBranchImpl implements AddBranch {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -1229,6 +1262,7 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -1253,6 +1287,7 @@ class _$AddBranchImpl implements AddBranch {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -1277,6 +1312,7 @@ class _$AddBranchImpl implements AddBranch {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -1377,6 +1413,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -1402,6 +1439,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -1426,6 +1464,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -1454,6 +1493,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -1478,6 +1518,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -1502,6 +1543,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -1576,6 +1618,7 @@ class _$ClearImpl implements Clear {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -1601,6 +1644,7 @@ class _$ClearImpl implements Clear {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -1625,6 +1669,7 @@ class _$ClearImpl implements Clear {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -1653,6 +1698,7 @@ class _$ClearImpl implements Clear {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -1677,6 +1723,7 @@ class _$ClearImpl implements Clear {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -1701,6 +1748,7 @@ class _$ClearImpl implements Clear {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -1770,6 +1818,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -1795,6 +1844,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -1819,6 +1869,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -1847,6 +1898,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -1871,6 +1923,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -1895,6 +1948,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -1964,6 +2018,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -1989,6 +2044,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -2013,6 +2069,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -2041,6 +2098,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -2065,6 +2123,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -2089,6 +2148,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -2158,6 +2218,7 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -2183,6 +2244,7 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -2207,6 +2269,7 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -2235,6 +2298,7 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -2259,6 +2323,7 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -2283,6 +2348,7 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -2301,6 +2367,238 @@ class _$AddLogoImpl implements AddLogo {
 
 abstract class AddLogo implements BusinessDataEvent {
   const factory AddLogo() = _$AddLogoImpl;
+}
+
+/// @nodoc
+abstract class _$$AddCropedLogoImplCopyWith<$Res> {
+  factory _$$AddCropedLogoImplCopyWith(
+          _$AddCropedLogoImpl value, $Res Function(_$AddCropedLogoImpl) then) =
+      __$$AddCropedLogoImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String base64});
+}
+
+/// @nodoc
+class __$$AddCropedLogoImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$AddCropedLogoImpl>
+    implements _$$AddCropedLogoImplCopyWith<$Res> {
+  __$$AddCropedLogoImplCopyWithImpl(
+      _$AddCropedLogoImpl _value, $Res Function(_$AddCropedLogoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? base64 = null,
+  }) {
+    return _then(_$AddCropedLogoImpl(
+      base64: null == base64
+          ? _value.base64
+          : base64 // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddCropedLogoImpl implements AddCropedLogo {
+  const _$AddCropedLogoImpl({required this.base64});
+
+  @override
+  final String base64;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.addCropedLogo(base64: $base64)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddCropedLogoImpl &&
+            (identical(other.base64, base64) || other.base64 == base64));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, base64);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddCropedLogoImplCopyWith<_$AddCropedLogoImpl> get copyWith =>
+      __$$AddCropedLogoImplCopyWithImpl<_$AddCropedLogoImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(AccreditionCreate accredition) addAccredition,
+    required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
+    required TResult Function() clear,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(ProductCreate product) addProduct,
+    required TResult Function(int index) removeProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+  }) {
+    return addCropedLogo(base64);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
+        addSocialMedia,
+    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(AccreditionCreate accredition)? addAccredition,
+    TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
+    TResult? Function()? clear,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(ProductCreate product)? addProduct,
+    TResult? Function(int index)? removeProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+  }) {
+    return addCropedLogo?.call(base64);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
+    TResult Function(int index)? removeSocialMedia,
+    TResult Function(AccreditionCreate accredition)? addAccredition,
+    TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
+    TResult Function()? clear,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(ProductCreate product)? addProduct,
+    TResult Function(int index)? removeProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    required TResult orElse(),
+  }) {
+    if (addCropedLogo != null) {
+      return addCropedLogo(base64);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+  }) {
+    return addCropedLogo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+  }) {
+    return addCropedLogo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(Clear value)? clear,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    required TResult orElse(),
+  }) {
+    if (addCropedLogo != null) {
+      return addCropedLogo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AddCropedLogo implements BusinessDataEvent {
+  const factory AddCropedLogo({required final String base64}) =
+      _$AddCropedLogoImpl;
+
+  String get base64;
+  @JsonKey(ignore: true)
+  _$$AddCropedLogoImplCopyWith<_$AddCropedLogoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2352,6 +2650,7 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -2377,6 +2676,7 @@ class _$GetUserDataImpl implements GetUserData {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -2401,6 +2701,7 @@ class _$GetUserDataImpl implements GetUserData {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -2429,6 +2730,7 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -2453,6 +2755,7 @@ class _$GetUserDataImpl implements GetUserData {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -2477,6 +2780,7 @@ class _$GetUserDataImpl implements GetUserData {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -2572,6 +2876,7 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -2597,6 +2902,7 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -2621,6 +2927,7 @@ class _$AddProductImpl implements AddProduct {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -2649,6 +2956,7 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -2673,6 +2981,7 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -2697,6 +3006,7 @@ class _$AddProductImpl implements AddProduct {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -2798,6 +3108,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -2823,6 +3134,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -2847,6 +3159,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -2875,6 +3188,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -2899,6 +3213,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -2923,6 +3238,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -2997,6 +3313,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -3022,6 +3339,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -3046,6 +3364,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -3074,6 +3393,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -3098,6 +3418,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -3122,6 +3443,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -3218,6 +3540,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -3243,6 +3566,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -3267,6 +3591,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -3295,6 +3620,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -3319,6 +3645,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -3343,6 +3670,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -3445,6 +3773,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -3470,6 +3799,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -3494,6 +3824,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -3522,6 +3853,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -3546,6 +3878,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -3570,6 +3903,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
@@ -3672,6 +4006,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
@@ -3697,6 +4032,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
@@ -3721,6 +4057,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
@@ -3749,6 +4086,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
@@ -3773,6 +4111,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
@@ -3797,6 +4136,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,

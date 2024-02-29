@@ -110,7 +110,8 @@ class MyCardsAndAddCardSection extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   onTap: () => Navigator.of(context).push(
-                    fadePageRoute(const StartingBusinessCardCreation()),
+                    fadePageRoute(
+                        const StartingBusinessCardCreation(fromHome: true)),
                   ),
                   child: Container(
                     height: kwidth * 0.35,

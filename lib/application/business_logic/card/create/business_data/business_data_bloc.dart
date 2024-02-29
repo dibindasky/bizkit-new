@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
 import 'package:bizkit/domain/model/card/create_card/accridition/accredition.dart';
@@ -13,6 +15,7 @@ import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -48,6 +51,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<AddSocialMedia>(addSocialMedia);
     on<RemoveSocialMedia>(removeSocialMedia);
     on<AddLogo>(addLogo);
+    on<AddCropedLogo>(addCropedLogo);
     on<AddBrochures>(addBrochure);
     on<RemoveBrochure>(removeBrochure);
     on<AddProduct>(addProduct);
@@ -238,6 +242,20 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     if (image != null) {
       emit(state.copyWith(logo: image, gotCompanyData: false));
     }
+  }
+
+  FutureOr<void> addCropedLogo(AddCropedLogo event,Emitter<BusinessDataState> emit) async {
+    print('in logo adding base64');
+    final decodedBytes = base64Decode(event.base64);
+    final tempDir = Directory.systemTemp;
+    final file =
+        File('${tempDir.path}/${DateTime.now().microsecondsSinceEpoch}');
+    if (decodedBytes.isNotEmpty) {
+      await file.writeAsBytes(decodedBytes);
+    }
+    emit(state.copyWith(
+        logo: ImageModel(fileImage: file, base64: event.base64),
+        gotCompanyData: false));
   }
 
   FutureOr<void> addBrochure(AddBrochures event, emit) async {

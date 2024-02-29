@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/preview_main_screen.dart';
@@ -81,16 +82,16 @@ class BusinessDetailsScreen extends StatelessWidget {
                       },
                       onDropDownSelection: (value) {
                         // call for company details with the selected value
-                        showDialog(
-                          context: context,
-                          builder: (context) => Dialog(
-                            child: CompanyAddingPopUp(
-                                id: state.companiesList
-                                    .firstWhere(
-                                        (element) => element.company == value)
-                                    .id!),
-                          ),
-                        );
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (context) => Dialog(
+                        //     child: CompanyAddingPopUp(
+                        //         id: state.companiesList
+                        //             .firstWhere(
+                        //                 (element) => element.company == value)
+                        //             .id!),
+                        //   ),
+                        // );
                       },
                       label: 'Company',
                       controller:
@@ -105,19 +106,55 @@ class BusinessDetailsScreen extends StatelessWidget {
                       context.read<BusinessDataBloc>().businessNameController,
                 ),
                 // company mail id
-                TTextFormField(
-                  text: 'Mail ID',
-                  inputType: TextInputType.emailAddress,
-                  controller: context.read<BusinessDataBloc>().mailController,
+                BlocBuilder<UserDataBloc, UserDataState>(
+                  builder: (context, state) {
+                    return AutocompleteTextField(
+                      label: 'Mail ID',
+                      inputType: TextInputType.emailAddress,
+                      controller:
+                          context.read<BusinessDataBloc>().mailController,
+                      autocompleteItems:
+                          state.scannedImageDatasModel?.emails ?? [],
+                    );
+                  },
                 ),
                 // mobile number business
-                TTextFormField(
-                  text: 'Mobile number',
-                  maxlegth: 10,
-                  controller: context.read<BusinessDataBloc>().mobileController,
-                  inputType: TextInputType.number,
+                BlocBuilder<UserDataBloc, UserDataState>(
+                  builder: (context, state) {
+                    return AutocompleteTextField(
+                      label: 'Mobile number',
+                      maxLength: 10,
+                      controller:
+                          context.read<BusinessDataBloc>().mobileController,
+                      inputType: TextInputType.number,
+                      autocompleteItems:
+                          state.scannedImageDatasModel?.phone ?? [],
+                    );
+                  },
                 ),
                 adjustHieght(10),
+
+                // address field
+                TTextFormField(
+                  maxLines: 4,
+                  maxlegth: 250,
+                  text: 'Address',
+                  controller:
+                      context.read<BusinessDataBloc>().addressController,
+                ),
+                // website link business
+                BlocBuilder<UserDataBloc, UserDataState>(
+                  builder: (context, state) {
+                    return AutocompleteTextField(
+                      inputType: TextInputType.url,
+                      label: 'Website link',
+                      controller:
+                          context.read<BusinessDataBloc>().websiteLinkController,
+                      autocompleteItems:
+                          state.scannedImageDatasModel?.websites ?? [],
+                    );
+                  },
+                ),
                 // social media handles
                 BlocBuilder<BusinessDataBloc, BusinessDataState>(
                   builder: (context, state) {
@@ -135,6 +172,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                         decoration: const BoxDecoration(
                           color: textFieldFillColr,
                           boxShadow: [
+
                             BoxShadow(
                               color: textFieldFillColr,
                               spreadRadius: 0.4,
@@ -167,21 +205,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   },
                 ),
                 adjustHieght(10),
-                // address field
-                TTextFormField(
-                  maxLines: 4,
-                  maxlegth: 250,
-                  text: 'Address',
-                  controller:
-                      context.read<BusinessDataBloc>().addressController,
-                ),
-                // website link business
-                TTextFormField(
-                  inputType: TextInputType.url,
-                  text: 'Website link',
-                  controller:
-                      context.read<BusinessDataBloc>().websiteLinkController,
-                ), // company branchs adding section
+                // company branchs adding section
                 BlocBuilder<BusinessDataBloc, BusinessDataState>(
                   builder: (context, state) {
                     return ImagePreviewUnderTextField(

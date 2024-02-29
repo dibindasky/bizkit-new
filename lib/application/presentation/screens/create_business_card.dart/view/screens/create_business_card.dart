@@ -10,8 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+bool fromHomeAddCard = false;
+
 class StartingBusinessCardCreation extends StatefulWidget {
-  const StartingBusinessCardCreation({super.key});
+  const StartingBusinessCardCreation({super.key, this.fromHome = false});
+  final bool fromHome;
 
   @override
   State<StartingBusinessCardCreation> createState() =>
@@ -20,6 +23,12 @@ class StartingBusinessCardCreation extends StatefulWidget {
 
 class _StartingBusinessCardCreationState
     extends State<StartingBusinessCardCreation> {
+  @override
+  void initState() {
+    super.initState();
+    fromHomeAddCard = widget.fromHome;
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -100,7 +109,11 @@ class _StartingBusinessCardCreationState
               ),
               InkWell(
                 onTap: () {
-                  context.go(Routes.homePage);
+                  if (widget.fromHome) {
+                    Navigator.pop(context);
+                  } else {
+                    context.go(Routes.homePage);
+                  }
                 },
                 child: Container(
                   decoration: BoxDecoration(

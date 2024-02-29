@@ -211,6 +211,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: filteredAutocompleteItems.length,
                     itemBuilder: (context, index) {
                       return SizedBox(

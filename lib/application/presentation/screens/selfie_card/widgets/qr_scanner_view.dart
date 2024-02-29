@@ -1,5 +1,5 @@
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
+import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
@@ -17,6 +17,7 @@ class _QrScannerViewState extends State<QrScannerView> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  bool goturl = false;
 
   @override
   void reassemble() {
@@ -62,9 +63,14 @@ class _QrScannerViewState extends State<QrScannerView> {
   Future<void> _launchUrl(String url) async {
     if (url.contains('bizkit-frontend.netlify.app')) {
       try {
-        final id = int.parse(url.split('/').last);
-        Navigator.push(context,
-            fadePageRoute(HomeFirstViewAllContactTileDetailView(cardId: id)));
+        if (!goturl) {
+          print(
+              '===========================got url and navigated===========================');
+          final id = int.parse(url.split('/').last);
+          goturl = true;
+          Navigator.push(context,
+              fadePageRoute(HomeFirstViewAllContactTileDetailView(cardId: id)));
+        }
       } catch (e) {
         await LaunchUrl.launchUrls(url: url);
       }

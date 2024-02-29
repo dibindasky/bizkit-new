@@ -67,7 +67,7 @@ class _CustomTabBarState extends State<CustomtabBar>
                       ),
                     )
                   : null,
-              child: const Tab(text: 'Individuel'),
+              child: const Tab(text: 'Individual'),
             ),
             Container(
               width: kwidth * 0.5,

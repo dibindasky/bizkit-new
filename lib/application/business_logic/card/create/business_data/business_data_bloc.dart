@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
 import 'package:bizkit/domain/model/card/create_card/accridition/accredition.dart';
@@ -13,6 +15,7 @@ import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -48,6 +51,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<AddSocialMedia>(addSocialMedia);
     on<RemoveSocialMedia>(removeSocialMedia);
     on<AddLogo>(addLogo);
+    on<AddCropedLogo>(addCropedLogo);
     on<AddBrochures>(addBrochure);
     on<RemoveBrochure>(removeBrochure);
     on<AddProduct>(addProduct);
@@ -58,12 +62,17 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<CreateBankingData>(createBankingData);
     on<Clear>(clear);
     on<GetCompnayList>(getCompnayList);
+    on<GetCompnayDetails>(getCompnayDetails);
     on<GetUserData>(getUserData);
   }
 
   FutureOr<void> createBankingData(CreateBankingData event, emit) async {
     if (state.bankDetailsCreateId != null) return;
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+        isLoading: true,
+        hasError: false,
+        message: null,
+        gotCompanyData: false));
     final BankDetailsCreate bankDetails = BankDetailsCreate(
         nameOfCompany: nameOfCompanyController.text.trim().isEmpty
             ? null
@@ -87,13 +96,22 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         businessDetailsCreate: state.businessDetails);
     result.fold(
         (l) => emit(state.copyWith(
-            isLoading: false, hasError: true, message: l.message)),
+            isLoading: false,
+            hasError: true,
+            message: l.message,
+            gotCompanyData: false)),
         (success) => emit(state.copyWith(
-            isLoading: false, businessDetailsCreateId: success.id)));
+            isLoading: false,
+            businessDetailsCreateId: success.id,
+            gotCompanyData: false)));
   }
 
   FutureOr<void> createBusinessData(CreateBusinessData event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+        isLoading: true,
+        hasError: false,
+        message: null,
+        gotCompanyData: false));
     final BusinessDetailsCreate businessDetails = BusinessDetailsCreate(
       accredition: state.accreditions.isEmpty
           ? []
@@ -138,7 +156,10 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
               .map((e) => BrochureCreate(file: e.file.base64))
               .toList(),
     );
-    emit(state.copyWith(isLoading: false, businessDetails: businessDetails));
+    emit(state.copyWith(
+        isLoading: false,
+        businessDetails: businessDetails,
+        gotCompanyData: false));
   }
 
   FutureOr<void> getCompnayList(GetCompnayList event, emit) async {
@@ -146,8 +167,59 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     result.fold(
         (l) => null,
         (getCompanysResponseModel) => emit(state.copyWith(
+            gotCompanyData: false,
             companiesList:
                 getCompanysResponseModel.companies ?? state.companiesList)));
+  }
+
+  FutureOr<void> getCompnayDetails(GetCompnayDetails event, emit) async {
+    emit(state.copyWith(
+        loadCompanyData: true,
+        message: null,
+        hasError: false,
+        gotCompanyData: false));
+    final result = await cardService.getCompnayDetails(id: event.id);
+    result.fold(
+        (failure) => emit(state.copyWith(
+            loadCompanyData: false,
+            hasError: true,
+            gotCompanyData: false,
+            message: 'failed to add company data to profile')), (business) {
+      emit(state.copyWith(
+          businessDetailsCreateId: event.id,
+          gotCompanyData: true,
+          loadCompanyData: false,
+          message: 'selected company data added to your profile'));
+      businessNameController.text = business.businessName ?? '';
+      // companyController.text = business.company ?? '';
+      mailController.text = business.email ?? '';
+      mobileController.text = business.mobileNumber ?? '';
+      addressController.text = business.address ?? '';
+      websiteLinkController.text = business.websiteLink ?? '';
+      logoStoryController.text = business.logoStory ?? '';
+      nameOfCompanyController.text = business.bankDetails?.nameOfCompany ?? '';
+      upiDetailController.text = business.bankDetails?.upiDetails ?? '';
+      accountNumberController.text = business.bankDetails?.accountNumber ?? '';
+      ifscController.text = business.bankDetails?.ifscCode ?? '';
+      gstNumberController.text =
+          business.bankDetails?.gstMembershipDetails ?? '';
+
+      // emit(state.copyWith(
+      //     accreditions: business.accredition
+      //             ?.map((e) => AccreditionCreate(
+      //                 image: e.image,
+      //                 description: e.description,
+      //                 label: e.label))
+      //             .toList() ??
+      //         <AccreditionCreate>[],
+      //     socialMedias: business.socialMediaHandles
+      //             ?.map((e) => SocialMediaHandleCreate(
+      //                 label: e.label, socialMedia: e.socialMedia))
+      //             .toList() ??
+      //         <SocialMediaHandleCreate>[],
+
+      //         ));
+    });
   }
 
   // need to implement clear fields after card creation
@@ -160,15 +232,30 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     result.fold((l) => null, (userData) {
       websiteLinkController.text =
           userData.first.websiteLink ?? websiteLinkController.text;
-      emit(state.copyWith(isBusiness: userData.first.isBusiness!));
+      emit(state.copyWith(
+          isBusiness: userData.first.isBusiness!, gotCompanyData: false));
     });
   }
 
   FutureOr<void> addLogo(AddLogo event, emit) async {
     final image = await ImagePickerClass.getImage(camera: false);
     if (image != null) {
-      emit(state.copyWith(logo: image));
+      emit(state.copyWith(logo: image, gotCompanyData: false));
     }
+  }
+
+  FutureOr<void> addCropedLogo(AddCropedLogo event,Emitter<BusinessDataState> emit) async {
+    print('in logo adding base64');
+    final decodedBytes = base64Decode(event.base64);
+    final tempDir = Directory.systemTemp;
+    final file =
+        File('${tempDir.path}/${DateTime.now().microsecondsSinceEpoch}');
+    if (decodedBytes.isNotEmpty) {
+      await file.writeAsBytes(decodedBytes);
+    }
+    emit(state.copyWith(
+        logo: ImageModel(fileImage: file, base64: event.base64),
+        gotCompanyData: false));
   }
 
   FutureOr<void> addBrochure(AddBrochures event, emit) async {
@@ -178,7 +265,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     }, (pdf) {
       final List<BrochureCreate> list = List.from(state.brochures);
       list.add(BrochureCreate(file: pdf));
-      emit(state.copyWith(brochures: list));
+      emit(state.copyWith(brochures: list, gotCompanyData: false));
     });
   }
 
@@ -189,13 +276,13 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         list.add(brochure);
       }
     }
-    emit(state.copyWith(brochures: list));
+    emit(state.copyWith(brochures: list, gotCompanyData: false));
   }
 
   FutureOr<void> addBranch(AddBranch event, emit) async {
     final List<BranchOffices> list = List.from(state.branchOffices);
     list.add(BranchOffices(branch: event.branch));
-    emit(state.copyWith(branchOffices: list));
+    emit(state.copyWith(branchOffices: list, gotCompanyData: false));
   }
 
   FutureOr<void> removeBranch(RemoveBranch event, emit) async {
@@ -205,13 +292,13 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         list.add(branch);
       }
     }
-    emit(state.copyWith(branchOffices: list));
+    emit(state.copyWith(branchOffices: list, gotCompanyData: false));
   }
 
   FutureOr<void> addProduct(AddProduct event, emit) async {
     final List<ProductCreate> list = List.from(state.products);
     list.add(event.product);
-    emit(state.copyWith(products: list));
+    emit(state.copyWith(products: list, gotCompanyData: false));
   }
 
   FutureOr<void> removeProduct(RemoveProduct event, emit) async {
@@ -221,13 +308,13 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         list.add(product);
       }
     }
-    emit(state.copyWith(products: list));
+    emit(state.copyWith(products: list, gotCompanyData: false));
   }
 
   FutureOr<void> addAccredition(AddAccredition event, emit) async {
     final List<AccreditionCreate> list = List.from(state.accreditions);
     list.add(event.accredition);
-    emit(state.copyWith(accreditions: list));
+    emit(state.copyWith(accreditions: list, gotCompanyData: false));
   }
 
   FutureOr<void> removeAccredition(RemoveAccredition event, emit) async {
@@ -237,13 +324,13 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         list.add(accredition);
       }
     }
-    emit(state.copyWith(accreditions: list));
+    emit(state.copyWith(accreditions: list, gotCompanyData: false));
   }
 
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
     final List<SocialMediaHandleCreate> list = List.from(state.socialMedias);
     list.add(event.socialMediaHandle);
-    emit(state.copyWith(socialMedias: list));
+    emit(state.copyWith(socialMedias: list, gotCompanyData: false));
   }
 
   FutureOr<void> removeSocialMedia(RemoveSocialMedia event, emit) async {
@@ -253,6 +340,6 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         list.add(socialMediaHandle);
       }
     }
-    emit(state.copyWith(socialMedias: list));
+    emit(state.copyWith(socialMedias: list, gotCompanyData: false));
   }
 }

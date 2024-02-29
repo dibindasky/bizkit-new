@@ -1,7 +1,7 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
-import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connection_detail_first_half/my_connection_detail_first_half.dart';
+import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -110,7 +110,8 @@ class MyCardsAndAddCardSection extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   onTap: () => Navigator.of(context).push(
-                    fadePageRoute(const StartingBusinessCardCreation()),
+                    fadePageRoute(
+                        const StartingBusinessCardCreation(fromHome: true)),
                   ),
                   child: Container(
                     height: kwidth * 0.35,

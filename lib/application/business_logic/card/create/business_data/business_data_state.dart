@@ -5,6 +5,7 @@ class BusinessDataState with _$BusinessDataState {
   const factory BusinessDataState(
       {required bool isLoading,
       required bool hasError,
+      required bool loadCompanyData,
       required bool isBusiness,
       int? businessDetailsCreateId,
       int? bankDetailsCreateId,
@@ -16,6 +17,7 @@ class BusinessDataState with _$BusinessDataState {
       required List<ProductCreate> products,
       required List<BrochureCreate> brochures,
       ImageModel? logo,
+      required bool gotCompanyData,
       required List<Company> companiesList,
       String? message}) = _Initial;
 
@@ -29,6 +31,8 @@ class BusinessDataState with _$BusinessDataState {
       socialMedias: [],
       branchOffices: [],
       brochures: [],
+      gotCompanyData: false,
+      loadCompanyData: false,
       accreditions: [],
       companiesList: []);
 }

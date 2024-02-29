@@ -19,9 +19,11 @@ QRModel _$QRModelFromJson(Map<String, dynamic> json) => QRModel(
       address: json['address'] as bool?,
       socialMediaHandles: json['social_media_handles'] as bool?,
       websiteLink: json['website_link'] as bool?,
-      qrImageBase64: json['qr_image_base64'] as String?,
-      card: json['card'] as int?,
+      qrlink: json['qr_image_link'] as String?,
+      cardId: json['card_id'] as int?,
       userId: json['user_id'] as int?,
+      qrCode: json['qr_code'] as String?,
+      businessEmail: json['business_email'] as bool?,
     );
 
 Map<String, dynamic> _$QRModelToJson(QRModel instance) => <String, dynamic>{
@@ -36,7 +38,9 @@ Map<String, dynamic> _$QRModelToJson(QRModel instance) => <String, dynamic>{
       'address': instance.address,
       'social_media_handles': instance.socialMediaHandles,
       'website_link': instance.websiteLink,
-      'qr_image_base64': instance.qrImageBase64,
-      'card': instance.card,
+      'business_email': instance.businessEmail,
+      'qr_image_link': instance.qrlink,
+      'qr_code': instance.qrCode,
+      'card_id': instance.cardId,
       'user_id': instance.userId,
     };

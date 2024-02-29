@@ -19,20 +19,22 @@ class CreateQrModel {
   bool? socialMediaHandles;
   @JsonKey(name: 'website_link')
   bool? websiteLink;
+  @JsonKey(name: 'business_email')
+  bool? businessEmail;
   int? card;
 
-  CreateQrModel({
-    this.email,
-    this.phoneNumber,
-    this.company,
-    this.personalSocialMedia,
-    this.businessDetailsEmail,
-    this.businessDetailsMobileNumber,
-    this.address,
-    this.socialMediaHandles,
-    this.websiteLink,
-    this.card,
-  });
+  CreateQrModel(
+      {this.email,
+      this.phoneNumber,
+      this.company,
+      this.personalSocialMedia,
+      this.businessDetailsEmail,
+      this.businessDetailsMobileNumber,
+      this.address,
+      this.socialMediaHandles,
+      this.websiteLink,
+      this.card,
+      this.businessEmail});
 
   factory CreateQrModel.fromJson(Map<String, dynamic> json) {
     return _$CreateQrModelFromJson(json);
@@ -50,20 +52,21 @@ class CreateQrModel {
     bool? address,
     bool? socialMediaHandles,
     bool? websiteLink,
+    bool? businessEmail,
     int? card,
   }) {
     return CreateQrModel(
-      email: email ?? this.email,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      company: company ?? this.company,
-      personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
-      businessDetailsEmail: businessDetailsEmail ?? this.businessDetailsEmail,
-      businessDetailsMobileNumber:
-          businessDetailsMobileNumber ?? this.businessDetailsMobileNumber,
-      address: address ?? this.address,
-      socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
-      websiteLink: websiteLink ?? this.websiteLink,
-      card: card ?? this.card,
-    );
+        email: email ?? this.email,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        company: company ?? this.company,
+        personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
+        businessDetailsEmail: businessDetailsEmail ?? this.businessDetailsEmail,
+        businessDetailsMobileNumber:
+            businessDetailsMobileNumber ?? this.businessDetailsMobileNumber,
+        address: address ?? this.address,
+        socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
+        websiteLink: websiteLink ?? this.websiteLink,
+        businessEmail: businessEmail ?? this.businessEmail,
+        card: card ?? this.card);
   }
 }

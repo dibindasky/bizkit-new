@@ -103,6 +103,7 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  adjustHieght(20),
                   // image carosal view
                   BlocBuilder<CardBloc, CardState>(
                     builder: (context, state) {

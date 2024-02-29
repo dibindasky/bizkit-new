@@ -17,13 +17,14 @@ class ApiEndPoints {
   static String createCardBusiness = '/card/business-details/';
   static String createCardBAnking = '/card/bank_details/';
   static String card = '/card/card-list/';
-  static String deleteCard = '/card/card_edit/{card_id}/';
+  static String deleteArchiveCard = '/card/get-card/{card_id}/';
   static String defaultCard = '/card/is_default/{card_id}/';
   static String contacts = '/card/registered_contacts/';
   static String getCompanies = '/accounts/companies/';
+  static String getCompanyDetails = '/card/company-details/{company_id}/';
   static String getBusinessCategory = '/card/business_category/';
-  static String getQr = '/qr/qr_listing/';
-  static String levelsharingEdit = '/qr/qr_edit/{card_id}/';
+  static String getQr = '/level/list-qr/';
+  static String levelsharingEdit = '/level/level-sharing-update/{level_sharing_id}/';
   static String getCardByUserId = '/card/card_of_another_user/{user_id}/';
   static String getCardByCardId = '/card/get-card/{card_id}/';
 }

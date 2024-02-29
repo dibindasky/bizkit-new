@@ -6,7 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BrochersBuilder extends StatelessWidget {
-  const BrochersBuilder({super.key});
+  const BrochersBuilder({
+    super.key,
+    this.pdf,
+    this.pdfBase64,
+  });
+  final List<String>? pdf;
+  final List<String>? pdfBase64;
 
   @override
   Widget build(BuildContext context) {

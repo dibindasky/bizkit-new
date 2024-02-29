@@ -21,28 +21,34 @@ class QRModel {
   bool? socialMediaHandles;
   @JsonKey(name: 'website_link')
   bool? websiteLink;
-  @JsonKey(name: 'qr_image_base64')
-  String? qrImageBase64;
-  int? card;
+  @JsonKey(name: 'business_email')
+  bool? businessEmail;
+  @JsonKey(name: 'qr_image_link')
+  String? qrlink;
+  @JsonKey(name: 'qr_code')
+  String? qrCode;
+  @JsonKey(name: 'card_id')
+  int? cardId;
   @JsonKey(name: 'user_id')
   int? userId;
 
-  QRModel({
-    this.id,
-    this.logo,
-    this.email,
-    this.phoneNumber,
-    this.company,
-    this.personalSocialMedia,
-    this.businessDetailsEmail,
-    this.businessDetailsMobileNumber,
-    this.address,
-    this.socialMediaHandles,
-    this.websiteLink,
-    this.qrImageBase64,
-    this.card,
-    this.userId,
-  });
+  QRModel(
+      {this.id,
+      this.logo,
+      this.email,
+      this.phoneNumber,
+      this.company,
+      this.personalSocialMedia,
+      this.businessDetailsEmail,
+      this.businessDetailsMobileNumber,
+      this.address,
+      this.socialMediaHandles,
+      this.websiteLink,
+      this.qrlink,
+      this.cardId,
+      this.userId,
+      this.qrCode,
+      this.businessEmail});
 
   factory QRModel.fromJson(Map<String, dynamic> json) {
     return _$QRModelFromJson(json);

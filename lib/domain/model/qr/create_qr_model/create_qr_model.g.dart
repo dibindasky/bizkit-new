@@ -19,6 +19,7 @@ CreateQrModel _$CreateQrModelFromJson(Map<String, dynamic> json) =>
       socialMediaHandles: json['social_media_handles'] as bool?,
       websiteLink: json['website_link'] as bool?,
       card: json['card'] as int?,
+      businessEmail: json['business_email'] as bool?,
     );
 
 Map<String, dynamic> _$CreateQrModelToJson(CreateQrModel instance) =>
@@ -32,5 +33,6 @@ Map<String, dynamic> _$CreateQrModelToJson(CreateQrModel instance) =>
       'address': instance.address,
       'social_media_handles': instance.socialMediaHandles,
       'website_link': instance.websiteLink,
+      'business_email': instance.businessEmail,
       'card': instance.card,
     };

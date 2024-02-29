@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
@@ -10,7 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductsBuilder extends StatelessWidget {
-  const ProductsBuilder({super.key});
+  const ProductsBuilder({super.key, this.fileImages, this.networkImages});
+  final List<File>? fileImages;
+  final List<String>? networkImages;
 
   @override
   Widget build(BuildContext context) {

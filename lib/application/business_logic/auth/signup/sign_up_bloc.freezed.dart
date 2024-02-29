@@ -28,6 +28,7 @@ mixin _$SignUpEvent {
             SignUpIndivudalModel? signUpIndivudalModel,
             bool isBusiness)
         verifyOtp,
+    required TResult Function() buildEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +40,7 @@ mixin _$SignUpEvent {
     TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
+    TResult? Function()? buildEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +52,7 @@ mixin _$SignUpEvent {
     TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
+    TResult Function()? buildEmail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -59,6 +62,7 @@ mixin _$SignUpEvent {
     required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(BuildEmail value) buildEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,6 +71,7 @@ mixin _$SignUpEvent {
     TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(BuildEmail value)? buildEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +80,7 @@ mixin _$SignUpEvent {
     TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(BuildEmail value)? buildEmail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -174,6 +180,7 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
             SignUpIndivudalModel? signUpIndivudalModel,
             bool isBusiness)
         verifyOtp,
+    required TResult Function() buildEmail,
   }) {
     return registerBusiness(signUpModel);
   }
@@ -188,6 +195,7 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
+    TResult? Function()? buildEmail,
   }) {
     return registerBusiness?.call(signUpModel);
   }
@@ -202,6 +210,7 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
+    TResult Function()? buildEmail,
     required TResult orElse(),
   }) {
     if (registerBusiness != null) {
@@ -217,6 +226,7 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(BuildEmail value) buildEmail,
   }) {
     return registerBusiness(this);
   }
@@ -228,6 +238,7 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(BuildEmail value)? buildEmail,
   }) {
     return registerBusiness?.call(this);
   }
@@ -239,6 +250,7 @@ class _$RegisterBusinessImpl implements RegisterBusiness {
     TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(BuildEmail value)? buildEmail,
     required TResult orElse(),
   }) {
     if (registerBusiness != null) {
@@ -334,6 +346,7 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
             SignUpIndivudalModel? signUpIndivudalModel,
             bool isBusiness)
         verifyOtp,
+    required TResult Function() buildEmail,
   }) {
     return registerIndividual(signUpIndivudalModel);
   }
@@ -348,6 +361,7 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
+    TResult? Function()? buildEmail,
   }) {
     return registerIndividual?.call(signUpIndivudalModel);
   }
@@ -362,6 +376,7 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
+    TResult Function()? buildEmail,
     required TResult orElse(),
   }) {
     if (registerIndividual != null) {
@@ -377,6 +392,7 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(BuildEmail value) buildEmail,
   }) {
     return registerIndividual(this);
   }
@@ -388,6 +404,7 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(BuildEmail value)? buildEmail,
   }) {
     return registerIndividual?.call(this);
   }
@@ -399,6 +416,7 @@ class _$RegisterIndividualImpl implements RegisterIndividual {
     TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(BuildEmail value)? buildEmail,
     required TResult orElse(),
   }) {
     if (registerIndividual != null) {
@@ -503,6 +521,7 @@ class _$SendOtpImpl implements SendOtp {
             SignUpIndivudalModel? signUpIndivudalModel,
             bool isBusiness)
         verifyOtp,
+    required TResult Function() buildEmail,
   }) {
     return sendOtp(emailModel, isBusiness);
   }
@@ -517,6 +536,7 @@ class _$SendOtpImpl implements SendOtp {
     TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
+    TResult? Function()? buildEmail,
   }) {
     return sendOtp?.call(emailModel, isBusiness);
   }
@@ -531,6 +551,7 @@ class _$SendOtpImpl implements SendOtp {
     TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
+    TResult Function()? buildEmail,
     required TResult orElse(),
   }) {
     if (sendOtp != null) {
@@ -546,6 +567,7 @@ class _$SendOtpImpl implements SendOtp {
     required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(BuildEmail value) buildEmail,
   }) {
     return sendOtp(this);
   }
@@ -557,6 +579,7 @@ class _$SendOtpImpl implements SendOtp {
     TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(BuildEmail value)? buildEmail,
   }) {
     return sendOtp?.call(this);
   }
@@ -568,6 +591,7 @@ class _$SendOtpImpl implements SendOtp {
     TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(BuildEmail value)? buildEmail,
     required TResult orElse(),
   }) {
     if (sendOtp != null) {
@@ -700,6 +724,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
             SignUpIndivudalModel? signUpIndivudalModel,
             bool isBusiness)
         verifyOtp,
+    required TResult Function() buildEmail,
   }) {
     return verifyOtp(
         verifyOtpModel, signUpModel, signUpIndivudalModel, isBusiness);
@@ -715,6 +740,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
+    TResult? Function()? buildEmail,
   }) {
     return verifyOtp?.call(
         verifyOtpModel, signUpModel, signUpIndivudalModel, isBusiness);
@@ -730,6 +756,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
             SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
         verifyOtp,
+    TResult Function()? buildEmail,
     required TResult orElse(),
   }) {
     if (verifyOtp != null) {
@@ -746,6 +773,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     required TResult Function(RegisterIndividual value) registerIndividual,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(BuildEmail value) buildEmail,
   }) {
     return verifyOtp(this);
   }
@@ -757,6 +785,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult? Function(RegisterIndividual value)? registerIndividual,
     TResult? Function(SendOtp value)? sendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(BuildEmail value)? buildEmail,
   }) {
     return verifyOtp?.call(this);
   }
@@ -768,6 +797,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult Function(RegisterIndividual value)? registerIndividual,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(BuildEmail value)? buildEmail,
     required TResult orElse(),
   }) {
     if (verifyOtp != null) {
@@ -794,6 +824,138 @@ abstract class VerifyOtp implements SignUpEvent {
 }
 
 /// @nodoc
+abstract class _$$BuildEmailImplCopyWith<$Res> {
+  factory _$$BuildEmailImplCopyWith(
+          _$BuildEmailImpl value, $Res Function(_$BuildEmailImpl) then) =
+      __$$BuildEmailImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$BuildEmailImplCopyWithImpl<$Res>
+    extends _$SignUpEventCopyWithImpl<$Res, _$BuildEmailImpl>
+    implements _$$BuildEmailImplCopyWith<$Res> {
+  __$$BuildEmailImplCopyWithImpl(
+      _$BuildEmailImpl _value, $Res Function(_$BuildEmailImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$BuildEmailImpl implements BuildEmail {
+  const _$BuildEmailImpl();
+
+  @override
+  String toString() {
+    return 'SignUpEvent.buildEmail()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$BuildEmailImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SignUpModel signUpModel) registerBusiness,
+    required TResult Function(SignUpIndivudalModel signUpIndivudalModel)
+        registerIndividual,
+    required TResult Function(EmailModel emailModel, bool isBusiness) sendOtp,
+    required TResult Function(
+            VerifyOtpModel verifyOtpModel,
+            SignUpModel? signUpModel,
+            SignUpIndivudalModel? signUpIndivudalModel,
+            bool isBusiness)
+        verifyOtp,
+    required TResult Function() buildEmail,
+  }) {
+    return buildEmail();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SignUpModel signUpModel)? registerBusiness,
+    TResult? Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
+    TResult? Function(EmailModel emailModel, bool isBusiness)? sendOtp,
+    TResult? Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
+            SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
+        verifyOtp,
+    TResult? Function()? buildEmail,
+  }) {
+    return buildEmail?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SignUpModel signUpModel)? registerBusiness,
+    TResult Function(SignUpIndivudalModel signUpIndivudalModel)?
+        registerIndividual,
+    TResult Function(EmailModel emailModel, bool isBusiness)? sendOtp,
+    TResult Function(VerifyOtpModel verifyOtpModel, SignUpModel? signUpModel,
+            SignUpIndivudalModel? signUpIndivudalModel, bool isBusiness)?
+        verifyOtp,
+    TResult Function()? buildEmail,
+    required TResult orElse(),
+  }) {
+    if (buildEmail != null) {
+      return buildEmail();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RegisterBusiness value) registerBusiness,
+    required TResult Function(RegisterIndividual value) registerIndividual,
+    required TResult Function(SendOtp value) sendOtp,
+    required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(BuildEmail value) buildEmail,
+  }) {
+    return buildEmail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RegisterBusiness value)? registerBusiness,
+    TResult? Function(RegisterIndividual value)? registerIndividual,
+    TResult? Function(SendOtp value)? sendOtp,
+    TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(BuildEmail value)? buildEmail,
+  }) {
+    return buildEmail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RegisterBusiness value)? registerBusiness,
+    TResult Function(RegisterIndividual value)? registerIndividual,
+    TResult Function(SendOtp value)? sendOtp,
+    TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(BuildEmail value)? buildEmail,
+    required TResult orElse(),
+  }) {
+    if (buildEmail != null) {
+      return buildEmail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BuildEmail implements SignUpEvent {
+  const factory BuildEmail() = _$BuildEmailImpl;
+}
+
+/// @nodoc
 mixin _$SignUpState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
@@ -803,6 +965,7 @@ mixin _$SignUpState {
   bool get otpVerifiedIndividual => throw _privateConstructorUsedError;
   bool get otpIndividualError => throw _privateConstructorUsedError;
   bool get otpBusinessError => throw _privateConstructorUsedError;
+  bool get buildEmail => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   LoginResponseModel? get signUpResponseModel =>
       throw _privateConstructorUsedError;
@@ -827,6 +990,7 @@ abstract class $SignUpStateCopyWith<$Res> {
       bool otpVerifiedIndividual,
       bool otpIndividualError,
       bool otpBusinessError,
+      bool buildEmail,
       String? message,
       LoginResponseModel? signUpResponseModel});
 }
@@ -852,6 +1016,7 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
     Object? otpVerifiedIndividual = null,
     Object? otpIndividualError = null,
     Object? otpBusinessError = null,
+    Object? buildEmail = null,
     Object? message = freezed,
     Object? signUpResponseModel = freezed,
   }) {
@@ -888,6 +1053,10 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
           ? _value.otpBusinessError
           : otpBusinessError // ignore: cast_nullable_to_non_nullable
               as bool,
+      buildEmail: null == buildEmail
+          ? _value.buildEmail
+          : buildEmail // ignore: cast_nullable_to_non_nullable
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -917,6 +1086,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool otpVerifiedIndividual,
       bool otpIndividualError,
       bool otpBusinessError,
+      bool buildEmail,
       String? message,
       LoginResponseModel? signUpResponseModel});
 }
@@ -940,6 +1110,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? otpVerifiedIndividual = null,
     Object? otpIndividualError = null,
     Object? otpBusinessError = null,
+    Object? buildEmail = null,
     Object? message = freezed,
     Object? signUpResponseModel = freezed,
   }) {
@@ -976,6 +1147,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.otpBusinessError
           : otpBusinessError // ignore: cast_nullable_to_non_nullable
               as bool,
+      buildEmail: null == buildEmail
+          ? _value.buildEmail
+          : buildEmail // ignore: cast_nullable_to_non_nullable
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1000,6 +1175,7 @@ class _$InitialImpl implements _Initial {
       required this.otpVerifiedIndividual,
       required this.otpIndividualError,
       required this.otpBusinessError,
+      required this.buildEmail,
       this.message,
       this.signUpResponseModel});
 
@@ -1020,13 +1196,15 @@ class _$InitialImpl implements _Initial {
   @override
   final bool otpBusinessError;
   @override
+  final bool buildEmail;
+  @override
   final String? message;
   @override
   final LoginResponseModel? signUpResponseModel;
 
   @override
   String toString() {
-    return 'SignUpState(isLoading: $isLoading, hasError: $hasError, otpSendBusiness: $otpSendBusiness, otpVerifiedBusiness: $otpVerifiedBusiness, otpSendIndividual: $otpSendIndividual, otpVerifiedIndividual: $otpVerifiedIndividual, otpIndividualError: $otpIndividualError, otpBusinessError: $otpBusinessError, message: $message, signUpResponseModel: $signUpResponseModel)';
+    return 'SignUpState(isLoading: $isLoading, hasError: $hasError, otpSendBusiness: $otpSendBusiness, otpVerifiedBusiness: $otpVerifiedBusiness, otpSendIndividual: $otpSendIndividual, otpVerifiedIndividual: $otpVerifiedIndividual, otpIndividualError: $otpIndividualError, otpBusinessError: $otpBusinessError, buildEmail: $buildEmail, message: $message, signUpResponseModel: $signUpResponseModel)';
   }
 
   @override
@@ -1050,6 +1228,8 @@ class _$InitialImpl implements _Initial {
                 other.otpIndividualError == otpIndividualError) &&
             (identical(other.otpBusinessError, otpBusinessError) ||
                 other.otpBusinessError == otpBusinessError) &&
+            (identical(other.buildEmail, buildEmail) ||
+                other.buildEmail == buildEmail) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.signUpResponseModel, signUpResponseModel) ||
                 other.signUpResponseModel == signUpResponseModel));
@@ -1066,6 +1246,7 @@ class _$InitialImpl implements _Initial {
       otpVerifiedIndividual,
       otpIndividualError,
       otpBusinessError,
+      buildEmail,
       message,
       signUpResponseModel);
 
@@ -1086,6 +1267,7 @@ abstract class _Initial implements SignUpState {
       required final bool otpVerifiedIndividual,
       required final bool otpIndividualError,
       required final bool otpBusinessError,
+      required final bool buildEmail,
       final String? message,
       final LoginResponseModel? signUpResponseModel}) = _$InitialImpl;
 
@@ -1105,6 +1287,8 @@ abstract class _Initial implements SignUpState {
   bool get otpIndividualError;
   @override
   bool get otpBusinessError;
+  @override
+  bool get buildEmail;
   @override
   String? get message;
   @override

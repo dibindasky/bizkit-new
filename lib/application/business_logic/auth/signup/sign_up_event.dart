@@ -14,4 +14,5 @@ class SignUpEvent with _$SignUpEvent {
       SignUpModel? signUpModel,
       SignUpIndivudalModel? signUpIndivudalModel,
       required bool isBusiness}) = VerifyOtp;
+  const factory SignUpEvent.buildEmail() = BuildEmail;
 }

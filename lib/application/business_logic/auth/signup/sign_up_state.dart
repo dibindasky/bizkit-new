@@ -11,12 +11,14 @@ class SignUpState with _$SignUpState {
       required bool otpVerifiedIndividual,
       required bool otpIndividualError,
       required bool otpBusinessError,
+      required bool buildEmail,
       String? message,
       LoginResponseModel? signUpResponseModel}) = _Initial;
 
   factory SignUpState.initial() => const SignUpState(
       isLoading: false,
       hasError: false,
+      buildEmail: false,
       otpSendBusiness: false,
       otpSendIndividual: false,
       otpVerifiedBusiness: false,

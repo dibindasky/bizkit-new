@@ -61,7 +61,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
         phoneNumber: model.phoneNumber,
         socialMediaHandles: model.socialMediaHandles,
         websiteLink: model.websiteLink,
-        card: model.card);
+        card: model.cardId);
     emit(state.copyWith(selectedQrIndex: event.index));
   }
 }

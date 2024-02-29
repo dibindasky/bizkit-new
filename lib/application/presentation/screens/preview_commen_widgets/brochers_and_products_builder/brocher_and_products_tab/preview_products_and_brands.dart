@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -113,8 +114,13 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    ScreenPdfPreview(filePath: pdf![index]))),
+                                builder: (context) => ScreenPdfPreview(
+                                      filePath:
+                                          pdf != null ? pdf![index] : null,
+                                      base64: pdfBase64 != null
+                                          ? pdfBase64![index]
+                                          : null,
+                                    ))),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: ColoredBox(
@@ -126,7 +132,9 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                                   ? PdfViewer.openFile(pdf![index],
                                       params:
                                           const PdfViewerParams(pageNumber: 1))
-                                  : PdfViewer.openFile(pdfBase64![index],
+                                  :
+                                  PdfViewer.openData(
+                                      base64Decode(pdfBase64![index]),
                                       params:
                                           const PdfViewerParams(pageNumber: 1)),
                             ),

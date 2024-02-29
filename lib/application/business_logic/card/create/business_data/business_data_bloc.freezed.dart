@@ -29,12 +29,14 @@ mixin _$BusinessDataEvent {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,12 +52,14 @@ mixin _$BusinessDataEvent {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,12 +74,14 @@ mixin _$BusinessDataEvent {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -91,12 +97,14 @@ mixin _$BusinessDataEvent {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -111,12 +119,14 @@ mixin _$BusinessDataEvent {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -131,12 +141,14 @@ mixin _$BusinessDataEvent {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -237,12 +249,14 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return addSocialMedia(socialMediaHandle);
   }
@@ -261,12 +275,14 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return addSocialMedia?.call(socialMediaHandle);
   }
@@ -284,12 +300,14 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addSocialMedia != null) {
@@ -311,12 +329,14 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return addSocialMedia(this);
   }
@@ -334,12 +354,14 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return addSocialMedia?.call(this);
   }
@@ -357,12 +379,14 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addSocialMedia != null) {
@@ -459,12 +483,14 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return removeSocialMedia(index);
   }
@@ -483,12 +509,14 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return removeSocialMedia?.call(index);
   }
@@ -506,12 +534,14 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (removeSocialMedia != null) {
@@ -533,12 +563,14 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return removeSocialMedia(this);
   }
@@ -556,12 +588,14 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return removeSocialMedia?.call(this);
   }
@@ -579,12 +613,14 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (removeSocialMedia != null) {
@@ -681,12 +717,14 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return addAccredition(accredition);
   }
@@ -705,12 +743,14 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return addAccredition?.call(accredition);
   }
@@ -728,12 +768,14 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addAccredition != null) {
@@ -755,12 +797,14 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return addAccredition(this);
   }
@@ -778,12 +822,14 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return addAccredition?.call(this);
   }
@@ -801,12 +847,14 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addAccredition != null) {
@@ -902,12 +950,14 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return removeAccredition(index);
   }
@@ -926,12 +976,14 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return removeAccredition?.call(index);
   }
@@ -949,12 +1001,14 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (removeAccredition != null) {
@@ -976,12 +1030,14 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return removeAccredition(this);
   }
@@ -999,12 +1055,14 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return removeAccredition?.call(this);
   }
@@ -1022,12 +1080,14 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (removeAccredition != null) {
@@ -1122,12 +1182,14 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return addBranch(branch);
   }
@@ -1146,12 +1208,14 @@ class _$AddBranchImpl implements AddBranch {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return addBranch?.call(branch);
   }
@@ -1169,12 +1233,14 @@ class _$AddBranchImpl implements AddBranch {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addBranch != null) {
@@ -1196,12 +1262,14 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return addBranch(this);
   }
@@ -1219,12 +1287,14 @@ class _$AddBranchImpl implements AddBranch {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return addBranch?.call(this);
   }
@@ -1242,12 +1312,14 @@ class _$AddBranchImpl implements AddBranch {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addBranch != null) {
@@ -1341,12 +1413,14 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return removeBranch(index);
   }
@@ -1365,12 +1439,14 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return removeBranch?.call(index);
   }
@@ -1388,12 +1464,14 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (removeBranch != null) {
@@ -1415,12 +1493,14 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return removeBranch(this);
   }
@@ -1438,12 +1518,14 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return removeBranch?.call(this);
   }
@@ -1461,12 +1543,14 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (removeBranch != null) {
@@ -1534,12 +1618,14 @@ class _$ClearImpl implements Clear {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return clear();
   }
@@ -1558,12 +1644,14 @@ class _$ClearImpl implements Clear {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return clear?.call();
   }
@@ -1581,12 +1669,14 @@ class _$ClearImpl implements Clear {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (clear != null) {
@@ -1608,12 +1698,14 @@ class _$ClearImpl implements Clear {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return clear(this);
   }
@@ -1631,12 +1723,14 @@ class _$ClearImpl implements Clear {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return clear?.call(this);
   }
@@ -1654,12 +1748,14 @@ class _$ClearImpl implements Clear {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (clear != null) {
@@ -1722,12 +1818,14 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return createBusinessData();
   }
@@ -1746,12 +1844,14 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return createBusinessData?.call();
   }
@@ -1769,12 +1869,14 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (createBusinessData != null) {
@@ -1796,12 +1898,14 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return createBusinessData(this);
   }
@@ -1819,12 +1923,14 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return createBusinessData?.call(this);
   }
@@ -1842,12 +1948,14 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (createBusinessData != null) {
@@ -1910,12 +2018,14 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return createBankingData();
   }
@@ -1934,12 +2044,14 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return createBankingData?.call();
   }
@@ -1957,12 +2069,14 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (createBankingData != null) {
@@ -1984,12 +2098,14 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return createBankingData(this);
   }
@@ -2007,12 +2123,14 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return createBankingData?.call(this);
   }
@@ -2030,12 +2148,14 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (createBankingData != null) {
@@ -2098,12 +2218,14 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return addLogo();
   }
@@ -2122,12 +2244,14 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return addLogo?.call();
   }
@@ -2145,12 +2269,14 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addLogo != null) {
@@ -2172,12 +2298,14 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return addLogo(this);
   }
@@ -2195,12 +2323,14 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return addLogo?.call(this);
   }
@@ -2218,12 +2348,14 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addLogo != null) {
@@ -2235,6 +2367,238 @@ class _$AddLogoImpl implements AddLogo {
 
 abstract class AddLogo implements BusinessDataEvent {
   const factory AddLogo() = _$AddLogoImpl;
+}
+
+/// @nodoc
+abstract class _$$AddCropedLogoImplCopyWith<$Res> {
+  factory _$$AddCropedLogoImplCopyWith(
+          _$AddCropedLogoImpl value, $Res Function(_$AddCropedLogoImpl) then) =
+      __$$AddCropedLogoImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String base64});
+}
+
+/// @nodoc
+class __$$AddCropedLogoImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$AddCropedLogoImpl>
+    implements _$$AddCropedLogoImplCopyWith<$Res> {
+  __$$AddCropedLogoImplCopyWithImpl(
+      _$AddCropedLogoImpl _value, $Res Function(_$AddCropedLogoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? base64 = null,
+  }) {
+    return _then(_$AddCropedLogoImpl(
+      base64: null == base64
+          ? _value.base64
+          : base64 // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddCropedLogoImpl implements AddCropedLogo {
+  const _$AddCropedLogoImpl({required this.base64});
+
+  @override
+  final String base64;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.addCropedLogo(base64: $base64)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddCropedLogoImpl &&
+            (identical(other.base64, base64) || other.base64 == base64));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, base64);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddCropedLogoImplCopyWith<_$AddCropedLogoImpl> get copyWith =>
+      __$$AddCropedLogoImplCopyWithImpl<_$AddCropedLogoImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(AccreditionCreate accredition) addAccredition,
+    required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
+    required TResult Function() clear,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(ProductCreate product) addProduct,
+    required TResult Function(int index) removeProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+  }) {
+    return addCropedLogo(base64);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
+        addSocialMedia,
+    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(AccreditionCreate accredition)? addAccredition,
+    TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
+    TResult? Function()? clear,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(ProductCreate product)? addProduct,
+    TResult? Function(int index)? removeProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+  }) {
+    return addCropedLogo?.call(base64);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
+    TResult Function(int index)? removeSocialMedia,
+    TResult Function(AccreditionCreate accredition)? addAccredition,
+    TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
+    TResult Function()? clear,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(ProductCreate product)? addProduct,
+    TResult Function(int index)? removeProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    required TResult orElse(),
+  }) {
+    if (addCropedLogo != null) {
+      return addCropedLogo(base64);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+  }) {
+    return addCropedLogo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+  }) {
+    return addCropedLogo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(Clear value)? clear,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    required TResult orElse(),
+  }) {
+    if (addCropedLogo != null) {
+      return addCropedLogo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AddCropedLogo implements BusinessDataEvent {
+  const factory AddCropedLogo({required final String base64}) =
+      _$AddCropedLogoImpl;
+
+  String get base64;
+  @JsonKey(ignore: true)
+  _$$AddCropedLogoImplCopyWith<_$AddCropedLogoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2286,12 +2650,14 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return getUserData();
   }
@@ -2310,12 +2676,14 @@ class _$GetUserDataImpl implements GetUserData {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return getUserData?.call();
   }
@@ -2333,12 +2701,14 @@ class _$GetUserDataImpl implements GetUserData {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (getUserData != null) {
@@ -2360,12 +2730,14 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return getUserData(this);
   }
@@ -2383,12 +2755,14 @@ class _$GetUserDataImpl implements GetUserData {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return getUserData?.call(this);
   }
@@ -2406,12 +2780,14 @@ class _$GetUserDataImpl implements GetUserData {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (getUserData != null) {
@@ -2500,12 +2876,14 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return addProduct(product);
   }
@@ -2524,12 +2902,14 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return addProduct?.call(product);
   }
@@ -2547,12 +2927,14 @@ class _$AddProductImpl implements AddProduct {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addProduct != null) {
@@ -2574,12 +2956,14 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return addProduct(this);
   }
@@ -2597,12 +2981,14 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return addProduct?.call(this);
   }
@@ -2620,12 +3006,14 @@ class _$AddProductImpl implements AddProduct {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addProduct != null) {
@@ -2720,12 +3108,14 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return removeProduct(index);
   }
@@ -2744,12 +3134,14 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return removeProduct?.call(index);
   }
@@ -2767,12 +3159,14 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (removeProduct != null) {
@@ -2794,12 +3188,14 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return removeProduct(this);
   }
@@ -2817,12 +3213,14 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return removeProduct?.call(this);
   }
@@ -2840,12 +3238,14 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (removeProduct != null) {
@@ -2913,12 +3313,14 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return addBrochures();
   }
@@ -2937,12 +3339,14 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return addBrochures?.call();
   }
@@ -2960,12 +3364,14 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addBrochures != null) {
@@ -2987,12 +3393,14 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return addBrochures(this);
   }
@@ -3010,12 +3418,14 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return addBrochures?.call(this);
   }
@@ -3033,12 +3443,14 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (addBrochures != null) {
@@ -3128,12 +3540,14 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return removeBrochure(index);
   }
@@ -3152,12 +3566,14 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return removeBrochure?.call(index);
   }
@@ -3175,12 +3591,14 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (removeBrochure != null) {
@@ -3202,12 +3620,14 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return removeBrochure(this);
   }
@@ -3225,12 +3645,14 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return removeBrochure?.call(this);
   }
@@ -3248,12 +3670,14 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (removeBrochure != null) {
@@ -3349,12 +3773,14 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(ProductCreate product) addProduct,
     required TResult Function(int index) removeProduct,
     required TResult Function() addBrochures,
     required TResult Function(int index) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
   }) {
     return getCompnayList(search);
   }
@@ -3373,12 +3799,14 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(ProductCreate product)? addProduct,
     TResult? Function(int index)? removeProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int index)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
   }) {
     return getCompnayList?.call(search);
   }
@@ -3396,12 +3824,14 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(ProductCreate product)? addProduct,
     TResult Function(int index)? removeProduct,
     TResult Function()? addBrochures,
     TResult Function(int index)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (getCompnayList != null) {
@@ -3423,12 +3853,14 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
   }) {
     return getCompnayList(this);
   }
@@ -3446,12 +3878,14 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
   }) {
     return getCompnayList?.call(this);
   }
@@ -3469,12 +3903,14 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
     required TResult orElse(),
   }) {
     if (getCompnayList != null) {
@@ -3495,9 +3931,243 @@ abstract class GetCompnayList implements BusinessDataEvent {
 }
 
 /// @nodoc
+abstract class _$$GetCompnayDetailsImplCopyWith<$Res> {
+  factory _$$GetCompnayDetailsImplCopyWith(_$GetCompnayDetailsImpl value,
+          $Res Function(_$GetCompnayDetailsImpl) then) =
+      __$$GetCompnayDetailsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$GetCompnayDetailsImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$GetCompnayDetailsImpl>
+    implements _$$GetCompnayDetailsImplCopyWith<$Res> {
+  __$$GetCompnayDetailsImplCopyWithImpl(_$GetCompnayDetailsImpl _value,
+      $Res Function(_$GetCompnayDetailsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$GetCompnayDetailsImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetCompnayDetailsImpl implements GetCompnayDetails {
+  const _$GetCompnayDetailsImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.getCompnayDetails(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCompnayDetailsImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCompnayDetailsImplCopyWith<_$GetCompnayDetailsImpl> get copyWith =>
+      __$$GetCompnayDetailsImplCopyWithImpl<_$GetCompnayDetailsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(AccreditionCreate accredition) addAccredition,
+    required TResult Function(int index) removeAccredition,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int index) removeBranch,
+    required TResult Function() clear,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(ProductCreate product) addProduct,
+    required TResult Function(int index) removeProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int index) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+  }) {
+    return getCompnayDetails(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
+        addSocialMedia,
+    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(AccreditionCreate accredition)? addAccredition,
+    TResult? Function(int index)? removeAccredition,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int index)? removeBranch,
+    TResult? Function()? clear,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(ProductCreate product)? addProduct,
+    TResult? Function(int index)? removeProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int index)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+  }) {
+    return getCompnayDetails?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
+    TResult Function(int index)? removeSocialMedia,
+    TResult Function(AccreditionCreate accredition)? addAccredition,
+    TResult Function(int index)? removeAccredition,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int index)? removeBranch,
+    TResult Function()? clear,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(ProductCreate product)? addProduct,
+    TResult Function(int index)? removeProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int index)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    required TResult orElse(),
+  }) {
+    if (getCompnayDetails != null) {
+      return getCompnayDetails(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+  }) {
+    return getCompnayDetails(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+  }) {
+    return getCompnayDetails?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(Clear value)? clear,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    required TResult orElse(),
+  }) {
+    if (getCompnayDetails != null) {
+      return getCompnayDetails(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetCompnayDetails implements BusinessDataEvent {
+  const factory GetCompnayDetails({required final int id}) =
+      _$GetCompnayDetailsImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$GetCompnayDetailsImplCopyWith<_$GetCompnayDetailsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$BusinessDataState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  bool get loadCompanyData => throw _privateConstructorUsedError;
   bool get isBusiness => throw _privateConstructorUsedError;
   int? get businessDetailsCreateId => throw _privateConstructorUsedError;
   int? get bankDetailsCreateId => throw _privateConstructorUsedError;
@@ -3512,6 +4182,7 @@ mixin _$BusinessDataState {
   List<ProductCreate> get products => throw _privateConstructorUsedError;
   List<BrochureCreate> get brochures => throw _privateConstructorUsedError;
   ImageModel? get logo => throw _privateConstructorUsedError;
+  bool get gotCompanyData => throw _privateConstructorUsedError;
   List<Company> get companiesList => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
@@ -3529,6 +4200,7 @@ abstract class $BusinessDataStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool hasError,
+      bool loadCompanyData,
       bool isBusiness,
       int? businessDetailsCreateId,
       int? bankDetailsCreateId,
@@ -3540,6 +4212,7 @@ abstract class $BusinessDataStateCopyWith<$Res> {
       List<ProductCreate> products,
       List<BrochureCreate> brochures,
       ImageModel? logo,
+      bool gotCompanyData,
       List<Company> companiesList,
       String? message});
 }
@@ -3559,6 +4232,7 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? loadCompanyData = null,
     Object? isBusiness = null,
     Object? businessDetailsCreateId = freezed,
     Object? bankDetailsCreateId = freezed,
@@ -3570,6 +4244,7 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
     Object? products = null,
     Object? brochures = null,
     Object? logo = freezed,
+    Object? gotCompanyData = null,
     Object? companiesList = null,
     Object? message = freezed,
   }) {
@@ -3581,6 +4256,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loadCompanyData: null == loadCompanyData
+          ? _value.loadCompanyData
+          : loadCompanyData // ignore: cast_nullable_to_non_nullable
               as bool,
       isBusiness: null == isBusiness
           ? _value.isBusiness
@@ -3626,6 +4305,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as ImageModel?,
+      gotCompanyData: null == gotCompanyData
+          ? _value.gotCompanyData
+          : gotCompanyData // ignore: cast_nullable_to_non_nullable
+              as bool,
       companiesList: null == companiesList
           ? _value.companiesList
           : companiesList // ignore: cast_nullable_to_non_nullable
@@ -3649,6 +4332,7 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       bool hasError,
+      bool loadCompanyData,
       bool isBusiness,
       int? businessDetailsCreateId,
       int? bankDetailsCreateId,
@@ -3660,6 +4344,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       List<ProductCreate> products,
       List<BrochureCreate> brochures,
       ImageModel? logo,
+      bool gotCompanyData,
       List<Company> companiesList,
       String? message});
 }
@@ -3677,6 +4362,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? loadCompanyData = null,
     Object? isBusiness = null,
     Object? businessDetailsCreateId = freezed,
     Object? bankDetailsCreateId = freezed,
@@ -3688,6 +4374,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? products = null,
     Object? brochures = null,
     Object? logo = freezed,
+    Object? gotCompanyData = null,
     Object? companiesList = null,
     Object? message = freezed,
   }) {
@@ -3699,6 +4386,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loadCompanyData: null == loadCompanyData
+          ? _value.loadCompanyData
+          : loadCompanyData // ignore: cast_nullable_to_non_nullable
               as bool,
       isBusiness: null == isBusiness
           ? _value.isBusiness
@@ -3744,6 +4435,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as ImageModel?,
+      gotCompanyData: null == gotCompanyData
+          ? _value.gotCompanyData
+          : gotCompanyData // ignore: cast_nullable_to_non_nullable
+              as bool,
       companiesList: null == companiesList
           ? _value._companiesList
           : companiesList // ignore: cast_nullable_to_non_nullable
@@ -3762,6 +4457,7 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
       required this.hasError,
+      required this.loadCompanyData,
       required this.isBusiness,
       this.businessDetailsCreateId,
       this.bankDetailsCreateId,
@@ -3773,6 +4469,7 @@ class _$InitialImpl implements _Initial {
       required final List<ProductCreate> products,
       required final List<BrochureCreate> brochures,
       this.logo,
+      required this.gotCompanyData,
       required final List<Company> companiesList,
       this.message})
       : _socialMedias = socialMedias,
@@ -3786,6 +4483,8 @@ class _$InitialImpl implements _Initial {
   final bool isLoading;
   @override
   final bool hasError;
+  @override
+  final bool loadCompanyData;
   @override
   final bool isBusiness;
   @override
@@ -3838,6 +4537,8 @@ class _$InitialImpl implements _Initial {
 
   @override
   final ImageModel? logo;
+  @override
+  final bool gotCompanyData;
   final List<Company> _companiesList;
   @override
   List<Company> get companiesList {
@@ -3851,7 +4552,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, isBusiness: $isBusiness, businessDetailsCreateId: $businessDetailsCreateId, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, companiesList: $companiesList, message: $message)';
+    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessDetailsCreateId: $businessDetailsCreateId, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
   }
 
   @override
@@ -3863,6 +4564,8 @@ class _$InitialImpl implements _Initial {
                 other.isLoading == isLoading) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
+            (identical(other.loadCompanyData, loadCompanyData) ||
+                other.loadCompanyData == loadCompanyData) &&
             (identical(other.isBusiness, isBusiness) ||
                 other.isBusiness == isBusiness) &&
             (identical(
@@ -3884,6 +4587,8 @@ class _$InitialImpl implements _Initial {
             const DeepCollectionEquality()
                 .equals(other._brochures, _brochures) &&
             (identical(other.logo, logo) || other.logo == logo) &&
+            (identical(other.gotCompanyData, gotCompanyData) ||
+                other.gotCompanyData == gotCompanyData) &&
             const DeepCollectionEquality()
                 .equals(other._companiesList, _companiesList) &&
             (identical(other.message, message) || other.message == message));
@@ -3894,6 +4599,7 @@ class _$InitialImpl implements _Initial {
       runtimeType,
       isLoading,
       hasError,
+      loadCompanyData,
       isBusiness,
       businessDetailsCreateId,
       bankDetailsCreateId,
@@ -3905,6 +4611,7 @@ class _$InitialImpl implements _Initial {
       const DeepCollectionEquality().hash(_products),
       const DeepCollectionEquality().hash(_brochures),
       logo,
+      gotCompanyData,
       const DeepCollectionEquality().hash(_companiesList),
       message);
 
@@ -3919,6 +4626,7 @@ abstract class _Initial implements BusinessDataState {
   const factory _Initial(
       {required final bool isLoading,
       required final bool hasError,
+      required final bool loadCompanyData,
       required final bool isBusiness,
       final int? businessDetailsCreateId,
       final int? bankDetailsCreateId,
@@ -3930,6 +4638,7 @@ abstract class _Initial implements BusinessDataState {
       required final List<ProductCreate> products,
       required final List<BrochureCreate> brochures,
       final ImageModel? logo,
+      required final bool gotCompanyData,
       required final List<Company> companiesList,
       final String? message}) = _$InitialImpl;
 
@@ -3937,6 +4646,8 @@ abstract class _Initial implements BusinessDataState {
   bool get isLoading;
   @override
   bool get hasError;
+  @override
+  bool get loadCompanyData;
   @override
   bool get isBusiness;
   @override
@@ -3959,6 +4670,8 @@ abstract class _Initial implements BusinessDataState {
   List<BrochureCreate> get brochures;
   @override
   ImageModel? get logo;
+  @override
+  bool get gotCompanyData;
   @override
   List<Company> get companiesList;
   @override

@@ -18,6 +18,7 @@ class BusinessDataEvent with _$BusinessDataEvent {
   const factory BusinessDataEvent.createBusinessData() = CreateBusinessData;
   const factory BusinessDataEvent.createBankingData() = CreateBankingData;
   const factory BusinessDataEvent.addLogo() = AddLogo;
+  const factory BusinessDataEvent.addCropedLogo({required String base64}) = AddCropedLogo;
   const factory BusinessDataEvent.getUserData() = GetUserData;
   const factory BusinessDataEvent.addProduct({required ProductCreate product}) =
       AddProduct;
@@ -28,4 +29,6 @@ class BusinessDataEvent with _$BusinessDataEvent {
       RemoveBrochure;
   const factory BusinessDataEvent.getCompnayList(
       {required SearchQuery? search}) = GetCompnayList;
+  const factory BusinessDataEvent.getCompnayDetails(
+      {required int id}) = GetCompnayDetails;
 }

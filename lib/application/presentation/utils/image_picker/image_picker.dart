@@ -20,8 +20,7 @@ class ImagePickerClass {
       return ImageModel(
           fileImage: File(pickedImage.path),
           base64: base64,
-          multipartIamge:
-              await MultipartFile.fromFile(File(pickedImage.path).path));
+);
     }
     return null;
   }

@@ -84,7 +84,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> createPersonalData(CreatePersonalData event, emit) async {
-    if (state.personalDataCreateId != null) return;
+    // if (state.personalDataCreateId != null) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final personalData = PersonalDetailsCreate(
         name: nameController.text.isEmpty ? null : nameController.text,

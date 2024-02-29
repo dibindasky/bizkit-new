@@ -1,15 +1,12 @@
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
-import 'package:bizkit/domain/model/qr/get_qr_code_response_model/qr_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LevelSharing extends StatelessWidget {
-  const LevelSharing({super.key, required this.qrModel});
-
-  final QRModel qrModel;
+  const LevelSharing({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -174,17 +171,17 @@ class _SwitchButtonsState extends State<SwitchButtons> {
         buildSwitch("Business Details", businessDetals, (value) {
           setState(() {
             businessDetals = value;
-            // If "Personal Details" is false, disable other switches
+            // If "Busiess Details" is false, disable other switches
             if (!value) {
-              context.read<QrBloc>().createQrModel = context
-                  .read<QrBloc>()
-                  .createQrModel
-                  .copyWith(
-                      businessDetailsEmail: false,
-                      address: false,
-                      socialMediaHandles: false,
-                      businessDetailsMobileNumber: false,
-                      websiteLink: false);
+              context.read<QrBloc>().createQrModel =
+                  context.read<QrBloc>().createQrModel.copyWith(
+                        businessDetailsEmail: false,
+                        address: false,
+                        socialMediaHandles: false,
+                        businessDetailsMobileNumber: false,
+                        businessEmail: false,
+                        websiteLink: false,
+                      );
             }
           });
         }, neonShade),
@@ -202,14 +199,13 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }),
         buildSwitch("Business Email",
-            context.read<QrBloc>().createQrModel.businessDetailsEmail!,
-            (value) {
+            context.read<QrBloc>().createQrModel.businessEmail??false, (value) {
           setState(() {
             if (businessDetals) {
               context.read<QrBloc>().createQrModel = context
                   .read<QrBloc>()
                   .createQrModel
-                  .copyWith(businessDetailsEmail: value);
+                  .copyWith(businessEmail: value);
             }
           });
         }),

@@ -28,6 +28,7 @@ class PreviewHomeContactDetailAddReminderContainer extends StatelessWidget {
         ),
         height: 70,
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CircleAvatar(

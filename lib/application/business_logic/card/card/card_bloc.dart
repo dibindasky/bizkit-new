@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
-import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';

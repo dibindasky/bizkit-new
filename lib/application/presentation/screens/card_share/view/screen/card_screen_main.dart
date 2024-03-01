@@ -59,7 +59,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     } else if (state.cards.isEmpty) {
                       return const Center(
                         child: Text(
-                            'You are not yet created a card\nCreate your first card',
+                            'You have not created any card yet\nCreate your first card now.',
                             textAlign: TextAlign.center),
                       );
                     } else {

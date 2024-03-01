@@ -49,19 +49,22 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<QrBloc>()),
         ],
         child: MaterialApp.router(
-            debugShowMaterialGrid: false,
-            theme: ThemeData(
-              primaryColor: kblack,
-              colorScheme: const ColorScheme.dark(primary: neonShade),
-              scaffoldBackgroundColor: backgroundColour,
-              textTheme: Theme.of(context).textTheme.apply(
-                    bodyColor: kwhite,
-                    displayColor: kwhite,
-                    fontFamily: 'Euclid',
-                  ),
-            ),
-            debugShowCheckedModeBanner: false,
-            routerConfig: GoRouterConfig.router),
+          debugShowMaterialGrid: false,
+          theme: ThemeData(
+            primaryColor: kblack,
+            colorScheme: const ColorScheme.dark(primary: neonShade),
+            scaffoldBackgroundColor: backgroundColour,
+            textTheme: Theme.of(context).textTheme.apply(
+                  bodyColor: kwhite,
+                  displayColor: kwhite,
+                  fontFamily: 'Euclid',
+                ),
+          ),
+          debugShowCheckedModeBanner: false,
+          routerConfig: GoRouterConfig.router,
+          // routeInformationParser: GoRouterConfig.router.routeInformationParser,
+          // routerDelegate: GoRouterConfig.router.routerDelegate,
+        ),
       ),
     );
   }

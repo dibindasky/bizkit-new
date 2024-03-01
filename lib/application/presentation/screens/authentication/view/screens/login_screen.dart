@@ -2,18 +2,17 @@ import 'dart:developer';
 
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/authentication/view/screens/signin_screen.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/domain/model/auth/login_model/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class LoGInScreen extends StatefulWidget {
   const LoGInScreen({super.key});
@@ -127,7 +126,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                   actions: [
                     TextButton(
                       onPressed: () {
-                        Navigator.of(ctx).pop();
+                        GoRouter.of(context).pop();
                       },
                       child: const Text('Close'),
                     )
@@ -249,8 +248,8 @@ class _LoGInScreenState extends State<LoGInScreen>
                   ),
                   adjustHieght(khieght * .01),
                   InkWell(
-                    onTap: () => Navigator.push(
-                        context, fadePageRoute(const SignInscreeen())),
+                    onTap: () =>
+                    GoRouter.of(context).pushNamed(Routes.signUpPage),
                     child: Text(
                       'Signup',
                       style: TextStyle(
@@ -270,10 +269,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                             textColor: kwhite);
                       }
                       if (state.loginResponseModel != null) {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          fadePageRoute(const StartingBusinessCardCreation()),
-                          (route) => true,
-                        );
+                        GoRouter.of(context).pushReplacementNamed(Routes.cardCreation);
                       }
                     },
                     builder: (context, state) {

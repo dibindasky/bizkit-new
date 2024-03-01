@@ -1,4 +1,5 @@
 const errorMessage = 'Something went wrong please try again';
+const empty='empty';
 const bloodGroups = ['O+', 'A+', 'B+', 'A-', 'AB+', 'B-', 'O-', 'AB-'];
 const socialMedia = [
   'Instagram',

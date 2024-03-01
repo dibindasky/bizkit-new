@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/model/token/refresh_response/refresh_response.dart';
@@ -16,8 +18,8 @@ class ApiService {
     //         await SecureStorage.getToken().then((token) => token.accessToken);
     //     dio.options.headers['Authorization'] = accessToken;
     //     options.headers['Authorization'] = accessToken;
-    //     print(dio.options.headers);
-    //     print(options.headers);
+    //     log(dio.options.headers);
+    //     log(options.headers);
     //     return handler.next(options);
     //   },
     //   onError: (e, handler) async {},
@@ -39,8 +41,8 @@ class ApiService {
           ...headers ?? {'content-Type': 'application/json'}
         },
       );
-      print('api uri ==>  ${_dio.options.baseUrl + url}');
-      print('accessToken ==>  ${_dio.options.headers['Authorization']}');
+      log('api uri ==>  ${_dio.options.baseUrl + url}');
+      log('accessToken ==>  ${_dio.options.headers['Authorization']}');
       final response =
           await _dio.get(url, data: data, queryParameters: queryParameters);
       return response;
@@ -72,7 +74,7 @@ class ApiService {
           ...headers ?? {'content-Type': 'application/json'}
         },
       );
-      print('api uri ==>  ${_dio.options.baseUrl + url}');
+      log('api uri ==>  ${_dio.options.baseUrl + url}');
       final response = await _dio.post(
         url,
         data: data is FormData ? data : data as Map<String, dynamic>?,
@@ -107,7 +109,7 @@ class ApiService {
           ...headers ?? {'content-Type': 'application/json'}
         },
       );
-      print('api uri ==>  ${_dio.options.baseUrl + url}');
+      log('api uri ==>  ${_dio.options.baseUrl + url}');
       final response = await _dio.put(url,
           data: data is FormData ? data : data as Map<String, dynamic>?,
           queryParameters: queryParameters);
@@ -140,7 +142,7 @@ class ApiService {
           ...headers ?? {'content-Type': 'application/json'}
         },
       );
-      print('api uri ==>  ${_dio.options.baseUrl + url}');
+      log('api uri ==>  ${_dio.options.baseUrl + url}');
       final response =
           await _dio.delete(url, data: data, queryParameters: queryParameters);
       return response;
@@ -172,7 +174,7 @@ class ApiService {
           ...headers ?? {'content-Type': 'application/json'}
         },
       );
-      print('api uri ==>  ${_dio.options.baseUrl + url}');
+      log('api uri ==>  ${_dio.options.baseUrl + url}');
       final response =
           await _dio.patch(url, data: data, queryParameters: queryParameters);
       return response;
@@ -191,9 +193,9 @@ class ApiService {
 
   _refreshAccessToken() async {
     try {
-      print('=====================================================');
-      print('=======================refresh=======================');
-      print('=====================================================');
+      log('=====================================================');
+      log('=======================refresh=======================');
+      log('=====================================================');
       final token =
           await SecureStorage.getToken().then((token) => token.refreshToken);
       final response = await Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl))
@@ -209,12 +211,12 @@ class ApiService {
     try {
       final accessToken =
           await SecureStorage.getToken().then((token) => token.accessToken);
-      print(
+      log(
           'accessToken ======================================================');
-      print(accessToken);
+      log('access token =>$accessToken');
       _dio.options.headers['Authorization'] = "Bearer $accessToken";
-      print('headers');
-      print(_dio.options.headers);
+      log('headers');
+      log('headers=> ${_dio.options.headers}');
       return await _dio.request(requestOptions.path,
           queryParameters: requestOptions.queryParameters,
           data: requestOptions.data);

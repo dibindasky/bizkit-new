@@ -115,7 +115,7 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
                         tabNotifier.notifyListeners();
                       },
                       color: value != 0 ? kgrey : neonShade,
-                      child: const Text('Bizzkit Connections'),
+                      child: const Text('Bizkit Connections'),
                     ),
                   ),
                   Expanded(

@@ -2,8 +2,6 @@ import 'package:bizkit/application/business_logic/card/create/user_data/user_dat
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/card_uploading_showdailogue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,9 +89,7 @@ class _StartingBusinessCardCreationState
                         context
                             .read<UserDataBloc>()
                             .add(UserDataEvent.getBusinessCategories());
-                        Navigator.of(context).push(
-                          fadePageRoute(const ProfileCreationScreen()),
-                        );
+                            GoRouter.of(context).push(Routes.cardCreationProfilePage);
                       },
                       child: Text(
                         'Create Card manually',
@@ -112,7 +108,7 @@ class _StartingBusinessCardCreationState
                   if (widget.fromHome) {
                     Navigator.pop(context);
                   } else {
-                    context.go(Routes.homePage);
+                    GoRouter.of(context).pushReplacementNamed(Routes.homePage);
                   }
                 },
                 child: Container(

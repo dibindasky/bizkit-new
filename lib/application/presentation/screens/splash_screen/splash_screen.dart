@@ -30,7 +30,7 @@ class SplashScreen extends StatelessWidget {
 
   void _navigateToSignInPage(BuildContext context, bool toLogin) async {
     Future.delayed(const Duration(milliseconds: 2000), () {
-      context.go(!toLogin ? Routes.loginPage : Routes.cardCreation);
+      GoRouter.of(context).pushReplacementNamed(!toLogin ? Routes.loginPage : Routes.cardCreation);
     });
   }
 }

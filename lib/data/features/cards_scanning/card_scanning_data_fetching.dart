@@ -30,6 +30,7 @@ class CardScanningImpl implements CardScanningRepo {
         for (TextBlock block in recognizedText.blocks) {
           for (TextLine line in block.lines) {
             // addToDetail(line.text, result);
+            result.unknown!.add(line.text);
             for (TextElement element in line.elements) {
               addToDetail(element.text, result);
             }

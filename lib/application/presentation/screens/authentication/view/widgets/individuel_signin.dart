@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
-import 'package:bizkit/application/presentation/screens/authentication/view/screens/otp_screen.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -10,6 +13,7 @@ import 'package:bizkit/domain/model/auth/email_model/email_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class IndividuelSignIn extends StatelessWidget {
   IndividuelSignIn({super.key});
@@ -70,19 +74,21 @@ class IndividuelSignIn extends StatelessWidget {
                               email: emailIdController.text.trim(),
                               password: passwordController.text.trim(),
                               phoneNumber: mobileController.text.trim());
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ScreenOtpValidation(
-                                    fromBusiness: false,
-                                    signUpIndivudalModel: signUpModel,
-                                    email: emailIdController.text.trim(),
-                                  )));
+                      print('otp individual got');
+                      GoRouter.of(context)
+                          .pushNamed(Routes.otpPage, pathParameters: {
+                        'email': emailIdController.text.trim(),
+                        'fromBusiness': 'false',
+                        'model': jsonEncode({
+                          'signUpIndivudalModel':
+                              jsonEncode(signUpModel.toJson())
+                        })
+                      });
                     }
                   },
                   child: TTextFormField(
                     validate: Validate.email,
-                    text: 'Company mail',
+                    text: 'Mail',
                     controller: emailIdController,
                     inputType: TextInputType.emailAddress,
                   )),

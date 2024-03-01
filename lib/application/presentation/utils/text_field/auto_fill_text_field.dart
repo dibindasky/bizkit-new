@@ -108,6 +108,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 onChanged: (value) {
                   if (widget.enabled) {
                     setState(() {
+                      isDropdownVisible = true;
                       filteredAutocompleteItems = value.isEmpty
                           ? widget.autocompleteItems!
                           : widget.autocompleteItems
@@ -136,7 +137,16 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 controller: widget.controller,
                 keyboardType: widget.inputType ?? TextInputType.name,
                 decoration: InputDecoration(
-                  suffixIcon: widget.suffixIcon,
+                  suffixIcon: widget.suffixIcon ??
+                      (isDropdownVisible && filteredAutocompleteItems.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isDropdownVisible = false;
+                                });
+                              },
+                              icon: const CircleAvatar(radius: 10,child: Icon(Icons.clear_rounded,size: 15,),))
+                          : null),
                   suffixIconColor: klightgrey,
                   prefixIcon: widget.prefixIcon,
                   prefixIconColor: kwhite,

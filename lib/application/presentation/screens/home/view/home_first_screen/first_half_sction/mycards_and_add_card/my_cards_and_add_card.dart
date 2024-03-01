@@ -1,13 +1,14 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
-import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class MyCardsAndAddCardSection extends StatelessWidget {
   const MyCardsAndAddCardSection({super.key});
@@ -44,10 +45,11 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                     final data = state.defaultCard!;
                     return InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            fadePageRoute(HomeFirstViewAllContactTileDetailView(
-                                cardId: data.id)));
+                        final map = data.id != null
+                            ? {'cardId': data.id!.toString()}
+                            : <String, String>{};
+                        GoRouter.of(context)
+                            .pushNamed(Routes.cardView, pathParameters: map);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(10),

@@ -94,6 +94,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             state.businessDetails.copyWith(bankDetails: bankDetails)));
     final result = await cardService.createBusinessDataCard(
         businessDetailsCreate: state.businessDetails);
+    print('got data back createBusinessDataCard');
     result.fold(
         (l) => emit(state.copyWith(
             isLoading: false,
@@ -244,7 +245,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     }
   }
 
-  FutureOr<void> addCropedLogo(AddCropedLogo event,Emitter<BusinessDataState> emit) async {
+  FutureOr<void> addCropedLogo(
+      AddCropedLogo event, Emitter<BusinessDataState> emit) async {
     print('in logo adding base64');
     final decodedBytes = base64Decode(event.base64);
     final tempDir = Directory.systemTemp;

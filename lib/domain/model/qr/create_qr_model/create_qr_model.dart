@@ -10,8 +10,6 @@ class CreateQrModel {
   bool? company;
   @JsonKey(name: 'personal_social_media')
   bool? personalSocialMedia;
-  @JsonKey(name: 'business_details_email')
-  bool? businessDetailsEmail;
   @JsonKey(name: 'business_details_mobile_number')
   bool? businessDetailsMobileNumber;
   bool? address;
@@ -28,7 +26,6 @@ class CreateQrModel {
       this.phoneNumber,
       this.company,
       this.personalSocialMedia,
-      this.businessDetailsEmail,
       this.businessDetailsMobileNumber,
       this.address,
       this.socialMediaHandles,
@@ -47,7 +44,6 @@ class CreateQrModel {
     bool? phoneNumber,
     bool? company,
     bool? personalSocialMedia,
-    bool? businessDetailsEmail,
     bool? businessDetailsMobileNumber,
     bool? address,
     bool? socialMediaHandles,
@@ -60,7 +56,6 @@ class CreateQrModel {
         phoneNumber: phoneNumber ?? this.phoneNumber,
         company: company ?? this.company,
         personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
-        businessDetailsEmail: businessDetailsEmail ?? this.businessDetailsEmail,
         businessDetailsMobileNumber:
             businessDetailsMobileNumber ?? this.businessDetailsMobileNumber,
         address: address ?? this.address,

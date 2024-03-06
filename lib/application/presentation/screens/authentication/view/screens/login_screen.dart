@@ -249,7 +249,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                   adjustHieght(khieght * .01),
                   InkWell(
                     onTap: () =>
-                    GoRouter.of(context).pushNamed(Routes.signUpPage),
+                        GoRouter.of(context).pushNamed(Routes.signUpPage),
                     child: Text(
                       'Signup',
                       style: TextStyle(
@@ -269,7 +269,8 @@ class _LoGInScreenState extends State<LoGInScreen>
                             textColor: kwhite);
                       }
                       if (state.loginResponseModel != null) {
-                        GoRouter.of(context).pushReplacementNamed(Routes.cardCreation);
+                        GoRouter.of(context)
+                            .pushReplacementNamed(Routes.cardCreation);
                       }
                     },
                     builder: (context, state) {

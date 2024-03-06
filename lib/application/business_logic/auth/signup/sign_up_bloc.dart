@@ -87,7 +87,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   FutureOr<void> sendOtp(SendOtp event, Emitter<SignUpState> emit) async {
     print('signup bloc send otp => ');
-    emit(state.copyWith(signUpResponseModel: null,
+    emit(state.copyWith(
+        signUpResponseModel: null,
         isLoading: true,
         message: null,
         hasError: false,
@@ -122,7 +123,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   Future<FutureOr<void>> verifyOtp(
       VerifyOtp event, Emitter<SignUpState> emit) async {
-    emit(state.copyWith(signUpResponseModel: null,
+    emit(state.copyWith(
+        signUpResponseModel: null,
         isLoading: true,
         message: null,
         otpIndividualError: false,
@@ -152,6 +154,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   Future<FutureOr<void>> buildEmail(
       BuildEmail event, Emitter<SignUpState> emit) async {
-    emit(state.copyWith(buildEmail: !state.buildEmail,signUpResponseModel: null,message: null));
+    emit(state.copyWith(
+        buildEmail: !state.buildEmail,
+        signUpResponseModel: null,
+        message: null));
   }
 }

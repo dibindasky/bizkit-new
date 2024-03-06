@@ -1,6 +1,6 @@
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/qr_scanner_view.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
+import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selfie_preview_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -90,7 +90,7 @@ class _SelfieScreenState extends State<SelfieScreen>
                         ),
                         adjustHieght(10),
                         TextButton(
-                            onPressed: () async{
+                            onPressed: () async {
                               // final image = await ImagePicker().pickImage(source: ImageSource.gallery);
                               //   if (image == null) {
                               //     return; // Handle no image selected case
@@ -109,7 +109,6 @@ class _SelfieScreenState extends State<SelfieScreen>
                               //     print('Extracted QR code data: $data');
                               //     // Use the extracted data as needed in your app
                               //   }
-                              
                             },
                             child: const Text('Upload from gallery'))
                       ],

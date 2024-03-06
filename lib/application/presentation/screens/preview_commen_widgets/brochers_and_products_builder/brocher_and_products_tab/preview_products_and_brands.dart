@@ -132,8 +132,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                                   ? PdfViewer.openFile(pdf![index],
                                       params:
                                           const PdfViewerParams(pageNumber: 1))
-                                  :
-                                  PdfViewer.openData(
+                                  : PdfViewer.openData(
                                       base64Decode(pdfBase64![index]),
                                       params:
                                           const PdfViewerParams(pageNumber: 1)),

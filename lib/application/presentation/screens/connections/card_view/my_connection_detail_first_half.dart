@@ -142,7 +142,7 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
                       );
                     },
                   ),
-                  // card details 
+                  // card details
                   ValueListenableBuilder(
                     valueListenable: changeScreenNotifier,
                     builder: (context, value, child) {

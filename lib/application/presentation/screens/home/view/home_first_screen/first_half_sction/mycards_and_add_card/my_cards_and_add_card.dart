@@ -46,10 +46,10 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                     return InkWell(
                       onTap: () {
                         final map = data.id != null
-                            ? {'cardId': data.id!.toString()}
+                            ? {'myCard': 'true', 'cardId': data.id!.toString()}
                             : <String, String>{};
-                        GoRouter.of(context)
-                            .pushNamed(Routes.cardView, pathParameters: map);
+                        GoRouter.of(context).pushNamed(Routes.cardDetailView,
+                            pathParameters: map);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(10),

@@ -16,7 +16,7 @@ class BrochersAndProductsTab extends StatelessWidget {
   final List<String>? networkImages;
   final List<String>? pdf;
   final List<String>? pdfBase64;
-  
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

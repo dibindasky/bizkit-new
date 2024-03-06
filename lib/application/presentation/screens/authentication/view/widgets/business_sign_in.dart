@@ -139,7 +139,8 @@ class BusinessSignIn extends StatelessWidget {
                         .pushNamed(Routes.otpPage, pathParameters: {
                       'email': companyMailController.text.trim(),
                       'fromBusiness': 'true',
-                      'model': jsonEncode({'signUpModel': jsonEncode(signUpModel.toJson())})
+                      'model': jsonEncode(
+                          {'signUpModel': jsonEncode(signUpModel.toJson())})
                     });
                   }
                 },

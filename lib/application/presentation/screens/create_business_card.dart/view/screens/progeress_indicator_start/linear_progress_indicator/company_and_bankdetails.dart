@@ -78,6 +78,7 @@ class CompanyAndBankingDetails extends StatelessWidget {
                 if (state.businessDetailsCreateId != null) {
                   Navigator.push(context,
                       fadePageRoute(const BusinessCardCreationPreviewScreen()));
+                  // GoRouter.of(context).pushReplacementNamed(Routes.cardCreationPreview);
                 }
               },
               builder: (context, state) {

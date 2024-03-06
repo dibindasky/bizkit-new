@@ -30,11 +30,12 @@ class CardService implements CardRepo {
   CardService(this.apiService);
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> archiveCard({required int id}) async{
-       try {
+  Future<Either<Failure, SuccessResponseModel>> archiveCard(
+      {required int id}) async {
+    try {
       print('delete card apiicall');
-      final response = await apiService.patch(
-          ApiEndPoints.deleteArchiveCard.replaceFirst('{card_id}', id.toString()));
+      final response = await apiService.patch(ApiEndPoints.deleteArchiveCard
+          .replaceFirst('{card_id}', id.toString()));
       print('delete card api success');
       print(response.data);
       return Right(SuccessResponseModel(message: 'Card deleted successfully'));
@@ -195,8 +196,8 @@ class CardService implements CardRepo {
       {required int id}) async {
     try {
       print('delete card apiicall');
-      final response = await apiService.delete(
-          ApiEndPoints.deleteArchiveCard.replaceFirst('{card_id}', id.toString()));
+      final response = await apiService.delete(ApiEndPoints.deleteArchiveCard
+          .replaceFirst('{card_id}', id.toString()));
       print('delete card api success');
       print(response.data);
       return Right(SuccessResponseModel(message: 'Card deleted successfully'));
@@ -233,7 +234,8 @@ class CardService implements CardRepo {
       {required int id}) async {
     try {
       print('get companyDetail apiicall');
-      final response = await apiService.get(ApiEndPoints.getCompanyDetails.replaceFirst('{company_id}', id.toString()));
+      final response = await apiService.get(ApiEndPoints.getCompanyDetails
+          .replaceFirst('{company_id}', id.toString()));
       print('get companyDetail success');
       print(response.data);
       return Right(BusinessDetails.fromJson(response.data['business_details']));

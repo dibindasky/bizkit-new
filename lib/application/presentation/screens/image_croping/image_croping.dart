@@ -22,6 +22,7 @@ class Croper extends StatefulWidget {
 class _CroperState extends State<Croper> {
   final _controller = CropController();
   String? croppedImage;
+  bool showLoader = false;
 
 // convert file to unit8List
   Future<Uint8List> fileImageToUint8List(File file) async {
@@ -87,11 +88,16 @@ class _CroperState extends State<Croper> {
             ),
           ),
           adjustHieght(20),
-          AuthButton(
-              text: 'Crop',
-              onTap: () {
-                _controller.crop();
-              })
+          showLoader
+              ? const Center(child: CircularProgressIndicator(color: neonShade))
+              : AuthButton(
+                  text: 'Crop',
+                  onTap: () {
+                    setState(() {
+                      showLoader = true;
+                    });
+                    _controller.crop();
+                  })
         ],
       ),
     );

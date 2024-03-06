@@ -175,7 +175,6 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             if (!value) {
               context.read<QrBloc>().createQrModel =
                   context.read<QrBloc>().createQrModel.copyWith(
-                        businessDetailsEmail: false,
                         address: false,
                         socialMediaHandles: false,
                         businessDetailsMobileNumber: false,
@@ -199,7 +198,8 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }),
         buildSwitch("Business Email",
-            context.read<QrBloc>().createQrModel.businessEmail??false, (value) {
+            context.read<QrBloc>().createQrModel.businessEmail ?? false,
+            (value) {
           setState(() {
             if (businessDetals) {
               context.read<QrBloc>().createQrModel = context

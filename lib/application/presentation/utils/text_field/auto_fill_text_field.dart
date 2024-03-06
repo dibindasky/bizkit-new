@@ -145,7 +145,13 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                                   isDropdownVisible = false;
                                 });
                               },
-                              icon: const CircleAvatar(radius: 10,child: Icon(Icons.clear_rounded,size: 15,),))
+                              icon: const CircleAvatar(
+                                radius: 10,
+                                child: Icon(
+                                  Icons.clear_rounded,
+                                  size: 15,
+                                ),
+                              ))
                           : null),
                   suffixIconColor: klightgrey,
                   prefixIcon: widget.prefixIcon,

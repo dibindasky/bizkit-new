@@ -1,6 +1,6 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
+import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'

@@ -1,9 +1,12 @@
+import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/notifications/notification_screen.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
+import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeFirstAppBar extends StatefulWidget {
   const HomeFirstAppBar({
@@ -17,33 +20,24 @@ class HomeFirstAppBar extends StatefulWidget {
 class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
   bool isOPen = false;
 
-  Future<void> noti() async {
-    setState(() {
-      if (isOPen) {
-        notificationScreen.value = 0;
-        notificationScreen.notifyListeners();
-        isOPen = !isOPen;
-      } else {
-        notificationScreen.value = 1;
-        notificationScreen.notifyListeners();
-        isOPen = !isOPen;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
-          Text('Hello,\nJoi',
-              style: custumText(
-                  fontSize: kwidth * 0.05, fontWeight: FontWeight.w700)),
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              return Text('Hello,\n${state.userName}',
+                  style: custumText(
+                      fontSize: kwidth * 0.05, fontWeight: FontWeight.w700));
+            },
+          ),
           const Spacer(),
           GestureDetector(
-            onTap: () async {
-              await noti();
+            onTap: () {
+              print('notifiacation');
+              GoRouter.of(context).pushNamed(Routes.notificationPage);
             },
             child: CircleAvatar(
                 radius: kwidth * .060,

@@ -27,16 +27,15 @@ class Card {
   @JsonKey(name: 'card_link')
   String? cardLink;
 
-  Card({
-    this.id,
-    this.personalDetails,
-    this.businessDetails,
-    this.isDefault,
-    this.userId,
-    this.cardLink,
-    this.share,
-    this.views
-  });
+  Card(
+      {this.id,
+      this.personalDetails,
+      this.businessDetails,
+      this.isDefault,
+      this.userId,
+      this.cardLink,
+      this.share,
+      this.views});
 
   factory Card.fromJson(Map<String, dynamic> json) {
     return _$CardFromJson(json);

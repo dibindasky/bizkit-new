@@ -1,12 +1,14 @@
 import 'dart:convert';
-
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/otp_screen.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/signin_screen.dart';
+import 'package:bizkit/application/presentation/screens/business_card_preview/preview_main_screen.dart';
+import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
+import 'package:bizkit/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
@@ -18,11 +20,13 @@ class GoRouterConfig {
   static final router = GoRouter(
     initialLocation: Routes.initial,
     routes: [
+// splash
       GoRoute(
         name: Routes.initial,
         path: Routes.initial,
         builder: (context, state) => const SplashScreen(),
       ),
+// card view
       GoRoute(
         name: Routes.cardView,
         path: '${Routes.cardView}/:cardId',
@@ -30,6 +34,20 @@ class GoRouterConfig {
           final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
           if (cardId != null) {
             return HomeFirstViewAllContactTileDetailView(cardId: cardId);
+          } else {
+            return _errorScreen();
+          }
+        },
+      ),
+      GoRoute(
+        name: Routes.cardDetailView,
+        path: '${Routes.cardDetailView}/:cardId/:myCard',
+        builder: (context, state) {
+          print('in card view navigator');
+          final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
+          final myCard = state.pathParameters['myCard'] == 'true';
+          if (cardId != null) {
+            return ScreenCardDetailView(cardId: cardId, myCard: myCard);
           } else {
             return _errorScreen();
           }
@@ -55,20 +73,16 @@ class GoRouterConfig {
         name: Routes.otpPage,
         path: '${Routes.otpPage}/:email/:fromBusiness/:model',
         builder: (context, state) {
-          print(state.pathParameters);
           SignUpModel? businessModel;
           SignUpIndivudalModel? individualModel;
           if (state.pathParameters['model'] != null) {
-            final model = jsonDecode(state.pathParameters['model']!) as Map<String,dynamic>;
-            print('model $model');
+            final model = jsonDecode(state.pathParameters['model']!)
+                as Map<String, dynamic>;
             if (model['signUpModel'] != null) {
-              print('signupmodel ${model['signUpModel']}');
               businessModel = SignUpModel.fromJson(
-                  jsonDecode(model['signUpModel']!)
-                      as Map<String, dynamic>);
+                  jsonDecode(model['signUpModel']!) as Map<String, dynamic>);
             }
             if (model['signUpIndivudalModel'] != null) {
-              print('signUpIndivudalModel ${model['signUpIndivudalModel']}');
               individualModel = SignUpIndivudalModel.fromJson(
                   jsonDecode(model['signUpIndivudalModel']!)
                       as Map<String, dynamic>);
@@ -90,6 +104,16 @@ class GoRouterConfig {
         name: Routes.homePage,
         path: Routes.homePage,
         builder: (context, state) => const BizkitBottomNavigationBar(),
+      ),
+      GoRoute(
+        name: Routes.cardCreationPreview,
+        path: Routes.cardCreationPreview,
+        builder: (context, state) => const BusinessCardCreationPreviewScreen(),
+      ),
+      GoRoute(
+        name: Routes.notificationPage,
+        path: Routes.notificationPage,
+        builder: (context, state) => const NotificationScreen(),
       ),
     ],
     errorBuilder: (context, state) => _errorScreen(),

@@ -24,7 +24,16 @@ class ApiEndPoints {
   static String getCompanyDetails = '/card/company-details/{company_id}/';
   static String getBusinessCategory = '/card/business_category/';
   static String getQr = '/level/list-qr/';
-  static String levelsharingEdit = '/level/level-sharing-update/{level_sharing_id}/';
+  static String levelsharingEdit =
+      '/level/level-sharing-update/{level_sharing_id}/';
   static String getCardByUserId = '/card/card_of_another_user/{user_id}/';
   static String getCardByCardId = '/card/get-card/{card_id}/';
+  static String createBizkitConnection = '/connections/create-connections/';
+  static String bizkitConnectionListing = '/connections/list-connections/';
+  static String addTagToBizkitconnection =
+      '/connections/edit-connections/{connection_id}/';
+  static String blockBizkitConnecction =
+      '/connections/edit-connections/{connection_id}/';
+  static String createReminder = '/reminder/create-reminder/';
+  static String editReminder = '/reminder/edit-reminder/{reminder_id}/';
 }

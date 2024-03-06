@@ -211,8 +211,7 @@ class ApiService {
     try {
       final accessToken =
           await SecureStorage.getToken().then((token) => token.accessToken);
-      log(
-          'accessToken ======================================================');
+      log('accessToken ======================================================');
       log('access token =>$accessToken');
       _dio.options.headers['Authorization'] = "Bearer $accessToken";
       log('headers');

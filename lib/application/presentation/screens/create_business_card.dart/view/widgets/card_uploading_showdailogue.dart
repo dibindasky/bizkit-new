@@ -8,7 +8,6 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      backgroundColor: neonShade,
       actions: [
         ElevatedButton(
           onPressed: () {
@@ -21,9 +20,7 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
             ));
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: kwhite,
-            foregroundColor: neonShade,
-          ),
+              foregroundColor: kwhite, side: const BorderSide(color: kwhite)),
           child: const Text('Gallery'),
         ),
         adjustHieght(khieght * .02),
@@ -38,9 +35,7 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
             ));
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: kwhite,
-            foregroundColor: neonShade,
-          ),
+              foregroundColor: kwhite, side: const BorderSide(color: kwhite)),
           child: const Text('Camera'),
         )
       ],

@@ -18,9 +18,9 @@ class ImagePickerClass {
       base64 = 'data:image/$extension;base64,$base64';
       print('imagepicker =>base64 ======================== $base64');
       return ImageModel(
-          fileImage: File(pickedImage.path),
-          base64: base64,
-);
+        fileImage: File(pickedImage.path),
+        base64: base64,
+      );
     }
     return null;
   }

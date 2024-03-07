@@ -3,11 +3,9 @@ import 'dart:io';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/widgets/business_card_popupmenu_items.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
-import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/bank_person_achived_rows.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/preview_products_and_brands.dart';
@@ -109,22 +107,24 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                           backgroundColor: state.hasError ? kred : neonShade);
                     }
                     if (state.cardAdded != null) {
-                      print('in navigation to home page');
                       context
                           .read<CardBloc>()
                           .add(const CardEvent.getCards(call: true));
-                      if(fromHomeAddCard){
+                      if (fromHomeAddCard) {
                         Navigator.pop(context);
                         Navigator.pop(context);
                         Navigator.pop(context);
-                      }else{
-                      context.go(Routes.homePage);
+                      } else {
+                        context.go(Routes.homePage);
                         // Navigator.pushAndRemoveUntil(
                         //   context,
                         //   fadePageRoute(const BizkitBottomNavigationBar()),
                         //   (route) => false);
                       }
-                      
+                      context.read<UserDataBloc>().add(UserDataEvent.clear());
+                      context
+                          .read<BusinessDataBloc>()
+                          .add(BusinessDataEvent.clear());
                     }
                   },
                   builder: (context, userState) {

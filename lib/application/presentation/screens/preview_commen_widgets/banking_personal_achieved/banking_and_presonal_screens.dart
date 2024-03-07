@@ -77,14 +77,12 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                     ),
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.bankDetails.gstMembershipDetails ==
-                            null) {
+                        if (state.bankDetails.gstMembershipDetails == null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'GST ',
-                          second:
-                              state.bankDetails.gstMembershipDetails ?? '',
+                          second: state.bankDetails.gstMembershipDetails ?? '',
                         );
                       },
                     ),

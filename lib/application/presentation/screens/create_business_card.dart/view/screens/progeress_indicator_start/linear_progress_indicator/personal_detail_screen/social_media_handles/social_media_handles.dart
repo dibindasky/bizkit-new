@@ -86,6 +86,10 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                       ),
                       adjustHieght(10),
                       TTextFormField(
+                        maxlegth: selectedCategory == 'Whatsapp' ||
+                                selectedCategory == 'Telegram'
+                            ? 10
+                            : null,
                         controller: linkController,
                         text: selectedCategory == 'Whatsapp'
                             ? 'Enter Whatsap Number'

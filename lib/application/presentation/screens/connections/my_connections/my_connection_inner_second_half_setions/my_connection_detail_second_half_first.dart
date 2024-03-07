@@ -3,7 +3,6 @@ import 'package:bizkit/application/presentation/screens/reminder/reminder_sectio
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/bank_person_achived_rows.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/preview_products_and_brands.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_wice_icons.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_tab/history_log_tab_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +38,8 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
                 state.anotherCard!.businessDetails != null &&
                 state.anotherCard!.businessDetails!.brochure != null) {
               pdfBase64 = state.anotherCard!.businessDetails!.brochure!
-                  .map((e) => e.file!.substring('data:application/pdf;base64,'.length))
+                  .map((e) =>
+                      e.file!.substring('data:application/pdf;base64,'.length))
                   .toList();
             }
             return PreviewProductsBrandsLists(

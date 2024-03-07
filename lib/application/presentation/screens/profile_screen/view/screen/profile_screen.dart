@@ -1,6 +1,6 @@
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/account_settings_scree.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/connection_network_screen.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -93,12 +94,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                 ProfileTiles(
                   heading: 'Logout',
                   onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoGInScreen()),
-                        (route) => true);
                     context.read<AuthBloc>().add(const AuthEvent.logOut());
+                    context.go(Routes.loginPage);
                   },
                 ),
               ],

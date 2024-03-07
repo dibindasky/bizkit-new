@@ -31,8 +31,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogOut>(logOut);
   }
 
-  FutureOr<void> log(Log event, emit) async =>
-      emit(state.copyWith(isLogin: await SecureStorage.getLogin()));
+  FutureOr<void> log(Log event, emit) async {
+    final result = await userLocalService.getUserData();
+    String userName = '';
+    result.fold(
+        (l) => userName = '',
+        (r) => userName =
+            r.isNotEmpty && r.first.name != null ? r.first.name ?? '' : '');
+    return emit(state.copyWith(
+        isLogin: await SecureStorage.getLogin(), userName: userName));
+  }
 
   FutureOr<void> logOut(LogOut event, emit) async =>
       await SecureStorage.clearLogin();

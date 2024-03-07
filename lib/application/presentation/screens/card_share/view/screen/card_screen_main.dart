@@ -1,7 +1,6 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/custom_bottom_sheet.dart';
-import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
@@ -10,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:go_router/go_router.dart';
 
 class CardShareMainScreen extends StatefulWidget {
   const CardShareMainScreen({super.key});
@@ -59,7 +59,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     } else if (state.cards.isEmpty) {
                       return const Center(
                         child: Text(
-                            'You are not yet created a card\nCreate your first card',
+                            'You have not created any card yet\nCreate your first card now.',
                             textAlign: TextAlign.center),
                       );
                     } else {
@@ -87,12 +87,24 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                         height: 200,
                                         child: InkWell(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                fadePageRoute(
-                                                    HomeFirstViewAllContactTileDetailView(
-                                                        cardId: state
-                                                            .cards[index].id)));
+                                            // Navigator.push(
+                                            //     context,
+                                            //     fadePageRoute(
+                                            //         HomeFirstViewAllContactTileDetailView(
+                                            //             cardId: state
+                                            //                 .cards[index].id)));
+                                            final map =
+                                                state.cards[index].id != null
+                                                    ? {
+                                                        'myCard': 'true',
+                                                        'cardId': state
+                                                            .cards[index].id!
+                                                            .toString()
+                                                      }
+                                                    : <String, String>{};
+                                            GoRouter.of(context).pushNamed(
+                                                Routes.cardDetailView,
+                                                pathParameters: map);
                                           },
                                           child: ClipRRect(
                                             borderRadius:
@@ -137,7 +149,8 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                   .add(CardEvent.setDefault(
                                                       id: card.id!)),
                                               value: 'Default',
-                                              child: const Text('Set as default'),
+                                              child:
+                                                  const Text('Set as default'),
                                             ),
                                             PopupMenuItem(
                                               onTap: () => context

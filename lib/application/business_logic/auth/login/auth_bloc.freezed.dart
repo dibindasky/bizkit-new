@@ -1011,6 +1011,7 @@ mixin _$AuthState {
   bool get otpVerifiedForgotPassword => throw _privateConstructorUsedError;
   bool get isLogin => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
+  String? get userName => throw _privateConstructorUsedError;
   LoginResponseModel? get loginResponseModel =>
       throw _privateConstructorUsedError;
 
@@ -1032,6 +1033,7 @@ abstract class $AuthStateCopyWith<$Res> {
       bool otpVerifiedForgotPassword,
       bool isLogin,
       String? message,
+      String? userName,
       LoginResponseModel? loginResponseModel});
 }
 
@@ -1055,6 +1057,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? otpVerifiedForgotPassword = null,
     Object? isLogin = null,
     Object? message = freezed,
+    Object? userName = freezed,
     Object? loginResponseModel = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1086,6 +1089,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
       loginResponseModel: freezed == loginResponseModel
           ? _value.loginResponseModel
           : loginResponseModel // ignore: cast_nullable_to_non_nullable
@@ -1110,6 +1117,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool otpVerifiedForgotPassword,
       bool isLogin,
       String? message,
+      String? userName,
       LoginResponseModel? loginResponseModel});
 }
 
@@ -1131,6 +1139,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? otpVerifiedForgotPassword = null,
     Object? isLogin = null,
     Object? message = freezed,
+    Object? userName = freezed,
     Object? loginResponseModel = freezed,
   }) {
     return _then(_$InitialImpl(
@@ -1162,6 +1171,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
       loginResponseModel: freezed == loginResponseModel
           ? _value.loginResponseModel
           : loginResponseModel // ignore: cast_nullable_to_non_nullable
@@ -1181,6 +1194,7 @@ class _$InitialImpl implements _Initial {
       required this.otpVerifiedForgotPassword,
       required this.isLogin,
       this.message,
+      this.userName,
       this.loginResponseModel});
 
   @override
@@ -1198,11 +1212,13 @@ class _$InitialImpl implements _Initial {
   @override
   final String? message;
   @override
+  final String? userName;
+  @override
   final LoginResponseModel? loginResponseModel;
 
   @override
   String toString() {
-    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, isLogin: $isLogin, message: $message, loginResponseModel: $loginResponseModel)';
+    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, isLogin: $isLogin, message: $message, userName: $userName, loginResponseModel: $loginResponseModel)';
   }
 
   @override
@@ -1222,6 +1238,8 @@ class _$InitialImpl implements _Initial {
                 other.otpVerifiedForgotPassword == otpVerifiedForgotPassword) &&
             (identical(other.isLogin, isLogin) || other.isLogin == isLogin) &&
             (identical(other.message, message) || other.message == message) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
             (identical(other.loginResponseModel, loginResponseModel) ||
                 other.loginResponseModel == loginResponseModel));
   }
@@ -1236,6 +1254,7 @@ class _$InitialImpl implements _Initial {
       otpVerifiedForgotPassword,
       isLogin,
       message,
+      userName,
       loginResponseModel);
 
   @JsonKey(ignore: true)
@@ -1254,6 +1273,7 @@ abstract class _Initial implements AuthState {
       required final bool otpVerifiedForgotPassword,
       required final bool isLogin,
       final String? message,
+      final String? userName,
       final LoginResponseModel? loginResponseModel}) = _$InitialImpl;
 
   @override
@@ -1270,6 +1290,8 @@ abstract class _Initial implements AuthState {
   bool get isLogin;
   @override
   String? get message;
+  @override
+  String? get userName;
   @override
   LoginResponseModel? get loginResponseModel;
   @override

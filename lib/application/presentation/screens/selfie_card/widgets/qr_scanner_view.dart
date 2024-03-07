@@ -1,5 +1,5 @@
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
+import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
@@ -68,8 +68,11 @@ class _QrScannerViewState extends State<QrScannerView> {
               '===========================got url and navigated===========================');
           final id = int.parse(url.split('/').last);
           goturl = true;
-          Navigator.push(context,
-              fadePageRoute(HomeFirstViewAllContactTileDetailView(cardId: id)));
+          reassemble();
+          await Navigator.push(
+              context, fadePageRoute(ScreenCardDetailView(cardId: id)));
+          goturl = false;
+          reassemble();
         }
       } catch (e) {
         await LaunchUrl.launchUrls(url: url);

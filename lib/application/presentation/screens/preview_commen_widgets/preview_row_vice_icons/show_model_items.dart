@@ -73,16 +73,6 @@ class PreviewScreenRowIconsModelSheet extends StatelessWidget {
                                     text: items![index], context: context),
                                 icon: const Icon(Icons.copy, color: neonShade)),
                             adjustWidth(kwidth * .04),
-                            InkWell(
-                              onTap: () => copyToClipboard(
-                                  text: items![index], context: context),
-                              child: CircleAvatar(
-                                backgroundColor: textFieldFillColr,
-                                // radius: 10,
-                                backgroundImage: AssetImage(image),
-                              ),
-                            ),
-                            adjustWidth(kwidth * .04),
                           ],
                         ),
                       );

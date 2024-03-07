@@ -1,4 +1,5 @@
 const errorMessage = 'Something went wrong please try again';
+const empty = 'empty';
 const bloodGroups = ['O+', 'A+', 'B+', 'A-', 'AB+', 'B-', 'O-', 'AB-'];
 const socialMedia = [
   'Instagram',
@@ -18,16 +19,21 @@ const imageX = 'asset/images/x account icon.png';
 const imageLinkedIn = 'asset/images/linked in account  icon.png';
 const imageFaceBook = 'asset/images/facebok account icon.png';
 
-const imageInstagram = 'asset/images/x account icon.png';
-const imageYoutube = 'asset/images/x account icon.png';
-const imageTelegram = 'asset/images/x account icon.png';
+const imageInstagram = 'asset/images/instagram.jpeg';
+const imageYoutube = 'asset/images/youtube.jpeg';
+const imageTelegram = 'asset/images/telegram_png..png';
 
 //gif card view
-const imagePhone = 'asset/images/preview phone.png';
-const imageSpinner = 'asset/images/preview_spinner.png';
-const gifMail = 'asset/images/preview messages gif.gif';
-const gifGlobe = 'asset/images/preview globe.gif';
-const gifLocation = 'asset/images/preview location gif.gif';
+// const imagePhone = 'asset/images/preview phone.png';
+// const imageSpinner = 'asset/images/preview_spinner.png';
+// const gifMail = 'asset/images/preview messages gif.gif';
+// const gifGlobe = 'asset/images/preview globe.gif';
+// const gifLocation = 'asset/images/preview location gif.gif';
+const imagePhone = 'asset/images/phone.png';
+const imageSpinner = 'asset/images/social_media.png';
+const gifMail = 'asset/images/letter.png';
+const gifGlobe = 'asset/images/globe.png';
+const gifLocation = 'asset/images/location.png';
 
 const imageBanking = 'asset/images/banking.png';
 const imagePerson = 'asset/images/persona.png';

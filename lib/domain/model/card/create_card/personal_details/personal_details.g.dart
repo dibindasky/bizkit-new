@@ -9,14 +9,14 @@ part of 'personal_details.dart';
 PersonalDetailsCreate _$PersonalDetailsCreateFromJson(
         Map<String, dynamic> json) =>
     PersonalDetailsCreate(
-      accolades: (json['accolades'] as List<dynamic>?)
+      accolades: (json['accolades_id'] as List<dynamic>?)
           ?.map((e) => AccoladeCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
-      personalSocialMedia: (json['personal_social_media'] as List<dynamic>?)
+      personalSocialMedia: (json['personal_social_media_id'] as List<dynamic>?)
           ?.map((e) =>
               SocialMediaHandleCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
-      datesToRemember: (json['dates_to_remember'] as List<dynamic>?)
+      datesToRemember: (json['dates_to_remember_id'] as List<dynamic>?)
           ?.map(
               (e) => DatesToRememberCreate.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -34,9 +34,9 @@ PersonalDetailsCreate _$PersonalDetailsCreateFromJson(
 Map<String, dynamic> _$PersonalDetailsCreateToJson(
         PersonalDetailsCreate instance) =>
     <String, dynamic>{
-      'accolades': instance.accolades,
-      'personal_social_media': instance.personalSocialMedia,
-      'dates_to_remember': instance.datesToRemember,
+      'accolades_id': instance.accolades,
+      'personal_social_media_id': instance.personalSocialMedia,
+      'dates_to_remember_id': instance.datesToRemember,
       'photos': instance.photos,
       'name': instance.name,
       'phone_number': instance.phoneNumber,

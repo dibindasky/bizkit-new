@@ -43,23 +43,26 @@ class CompanyAndBankingDetails extends StatelessWidget {
             TTextFormField(
               text: 'Account Number',
               inputType: TextInputType.number,
+              maxlegth: 16,
               controller:
                   context.read<BusinessDataBloc>().accountNumberController,
             ),
             // banking details accound number
             TTextFormField(
               text: 'IFSC',
+              maxlegth: 11,
               inputType: TextInputType.name,
               controller: context.read<BusinessDataBloc>().ifscController,
             ),
             // upi details
             TTextFormField(
-              text: 'UPI Details',
+              text: 'UPI ID',
               controller: context.read<BusinessDataBloc>().upiDetailController,
             ),
             // gst number
             TTextFormField(
               text: 'GST Number',
+              maxlegth: 15,
               controller: context.read<BusinessDataBloc>().gstNumberController,
             ),
             adjustHieght(khieght * .05),
@@ -75,6 +78,7 @@ class CompanyAndBankingDetails extends StatelessWidget {
                 if (state.businessDetailsCreateId != null) {
                   Navigator.push(context,
                       fadePageRoute(const BusinessCardCreationPreviewScreen()));
+                  // GoRouter.of(context).pushReplacementNamed(Routes.cardCreationPreview);
                 }
               },
               builder: (context, state) {

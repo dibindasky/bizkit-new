@@ -10,12 +10,14 @@ class AuthState with _$AuthState {
       required bool otpVerifiedForgotPassword,
       required bool isLogin,
       String? message,
+      String? userName,
       LoginResponseModel? loginResponseModel}) = _Initial;
 
   factory AuthState.initial() => const AuthState(
       isLoading: false,
       hasError: false,
       otpSend: false,
+      userName: '',
       otpVerificationError: false,
       isLogin: false,
       otpVerifiedForgotPassword: false);

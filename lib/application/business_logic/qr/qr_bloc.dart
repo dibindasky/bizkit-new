@@ -53,7 +53,6 @@ class QrBloc extends Bloc<QrEvent, QrState> {
     final model = state.qrList[event.index];
     createQrModel = createQrModel.copyWith(
         address: model.address,
-        businessDetailsEmail: model.businessDetailsEmail,
         businessDetailsMobileNumber: model.businessDetailsMobileNumber,
         company: model.company,
         email: model.email,

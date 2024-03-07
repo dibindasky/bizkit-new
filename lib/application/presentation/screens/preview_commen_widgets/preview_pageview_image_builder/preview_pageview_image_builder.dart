@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 
 class PreviewPageviewImageBuilder extends StatefulWidget {
@@ -38,9 +39,11 @@ class _PreviewPageviewImageBuilderState
     return HomeScreenPagviewAnimateBuilder(
       pageController: pageController,
       pageValue: pageValue,
-      pageCount: widget.images != null
-          ? widget.images!.length
-          : widget.imagesList!.length,
+      pageCount: widget.images == null && widget.imagesList == null
+          ? 1
+          : widget.images != null
+              ? widget.images!.length
+              : widget.imagesList!.length,
       onpageCallBack: (index) {
         setState(() {
           currentIndex = index;
@@ -63,10 +66,12 @@ class _PreviewPageviewImageBuilderState
               child: SizedBox(
                 width: double.infinity,
                 height: 200,
-                child: widget.imagesList != null
-                    ? Image.network(widget.imagesList![index],
-                        fit: BoxFit.cover)
-                    : Image.file(widget.images![index], fit: BoxFit.cover),
+                child: widget.images == null && widget.imagesList == null
+                    ? Image.asset(imageDummyAsset)
+                    : widget.imagesList != null
+                        ? Image.network(widget.imagesList![index],
+                            fit: BoxFit.cover)
+                        : Image.file(widget.images![index], fit: BoxFit.cover),
               ),
             ),
           ),

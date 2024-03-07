@@ -3,6 +3,7 @@ import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart'
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
@@ -47,21 +48,25 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<SignUpBloc>()),
           BlocProvider(create: (context) => getIt<CardBloc>()),
           BlocProvider(create: (context) => getIt<QrBloc>()),
+          BlocProvider(create: (context) => getIt<ConnectionRequestBloc>()),
         ],
         child: MaterialApp.router(
-            debugShowMaterialGrid: false,
-            theme: ThemeData(
-              primaryColor: kblack,
-              colorScheme: const ColorScheme.dark(primary: neonShade),
-              scaffoldBackgroundColor: backgroundColour,
-              textTheme: Theme.of(context).textTheme.apply(
-                    bodyColor: kwhite,
-                    displayColor: kwhite,
-                    fontFamily: 'Euclid',
-                  ),
-            ),
-            debugShowCheckedModeBanner: false,
-            routerConfig: GoRouterConfig.router),
+          debugShowMaterialGrid: false,
+          theme: ThemeData(
+            primaryColor: kblack,
+            colorScheme: const ColorScheme.dark(primary: neonShade),
+            scaffoldBackgroundColor: backgroundColour,
+            textTheme: Theme.of(context).textTheme.apply(
+                  bodyColor: kwhite,
+                  displayColor: kwhite,
+                  fontFamily: 'Euclid',
+                ),
+          ),
+          debugShowCheckedModeBanner: false,
+          routerConfig: GoRouterConfig.router,
+          // routeInformationParser: GoRouterConfig.router.routeInformationParser,
+          // routerDelegate: GoRouterConfig.router.routerDelegate,
+        ),
       ),
     );
   }

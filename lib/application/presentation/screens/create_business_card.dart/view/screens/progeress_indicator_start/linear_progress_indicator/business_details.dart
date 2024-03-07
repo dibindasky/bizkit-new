@@ -135,12 +135,19 @@ class BusinessDetailsScreen extends StatelessWidget {
                 adjustHieght(10),
 
                 // address field
-                TTextFormField(
-                  maxLines: 4,
-                  maxlegth: 250,
-                  text: 'Address',
-                  controller:
-                      context.read<BusinessDataBloc>().addressController,
+                BlocBuilder<UserDataBloc, UserDataState>(
+                  builder: (context, state) {
+                    return AutocompleteTextField(
+                      maxLines: 4,
+                      // maxlegth: 250,
+                      maxLength: 250,
+                      label: 'Address',
+                      controller:
+                          context.read<BusinessDataBloc>().addressController,
+                      autocompleteItems:
+                          state.scannedImageDatasModel?.unknown ?? [],
+                    );
+                  },
                 ),
                 // website link business
                 BlocBuilder<UserDataBloc, UserDataState>(
@@ -148,8 +155,9 @@ class BusinessDetailsScreen extends StatelessWidget {
                     return AutocompleteTextField(
                       inputType: TextInputType.url,
                       label: 'Website link',
-                      controller:
-                          context.read<BusinessDataBloc>().websiteLinkController,
+                      controller: context
+                          .read<BusinessDataBloc>()
+                          .websiteLinkController,
                       autocompleteItems:
                           state.scannedImageDatasModel?.websites ?? [],
                     );
@@ -172,7 +180,6 @@ class BusinessDetailsScreen extends StatelessWidget {
                         decoration: const BoxDecoration(
                           color: textFieldFillColr,
                           boxShadow: [
-
                             BoxShadow(
                               color: textFieldFillColr,
                               spreadRadius: 0.4,

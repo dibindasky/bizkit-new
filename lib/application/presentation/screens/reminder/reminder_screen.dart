@@ -2,10 +2,23 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class PreviewHomeAddReminderScreen extends StatelessWidget {
-  PreviewHomeAddReminderScreen({super.key});
+class PreviewHomeAddReminderScreen extends StatefulWidget {
+  const PreviewHomeAddReminderScreen(
+      {super.key, required this.connectionId, required this.cardId});
 
+  final int connectionId;
+  final int cardId;
+
+  @override
+  State<PreviewHomeAddReminderScreen> createState() =>
+      _PreviewHomeAddReminderScreenState();
+}
+
+class _PreviewHomeAddReminderScreenState
+    extends State<PreviewHomeAddReminderScreen> {
   final dateController = TextEditingController();
+  String time = '';
+  String date = '';
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +51,22 @@ class PreviewHomeAddReminderScreen extends StatelessWidget {
                     color: kwhite.withOpacity(0.5),
                   ),
                   text: 'Write Meeting Label',
+                  controller: TextEditingController(),
+                  inputType: TextInputType.text),
+              TTextFormField(
+                  suffix: Icon(
+                    Icons.edit_outlined,
+                    color: kwhite.withOpacity(0.5),
+                  ),
+                  text: 'Venue',
+                  controller: TextEditingController(),
+                  inputType: TextInputType.text),
+              TTextFormField(
+                  suffix: Icon(
+                    Icons.edit_outlined,
+                    color: kwhite.withOpacity(0.5),
+                  ),
+                  text: 'Occation',
                   controller: TextEditingController(),
                   inputType: TextInputType.text),
               Container(
@@ -89,10 +118,10 @@ class PreviewHomeAddReminderScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Select the Date',
+                      date == '' ? 'Select the Date' : date,
                       style: TextStyle(
-                        color: klightgrey,
-                        fontSize: kwidth * 0.03,
+                        color: date == '' ? klightgrey : kwhite,
+                        fontSize: date == '' ? kwidth * 0.03 : kwidth * 0.04,
                       ),
                     ),
                     const Icon(
@@ -106,29 +135,56 @@ class PreviewHomeAddReminderScreen extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: ColoredBox(
                   color: kwhite.withOpacity(0.05),
-                  child: Column(
+                  child: CalendarDatePicker(
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(
+                      const Duration(days: 365 * 100),
+                    ),
+                    onDateChanged: (dates) {
+                      setState(() {
+                        date = '${dates.day}/${dates.month}/${dates.year}';
+                      });
+                    },
+                  ),
+                ),
+              ),
+              adjustHieght(kwidth * 0.10),
+              InkWell(
+                onTap: () async {
+                  final selectedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  );
+                  if (selectedTime != null) {
+                    setState(() {
+                      time = '${selectedTime.hour}:${selectedTime.minute}';
+                    });
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  height: kwidth * 0.13,
+                  decoration: const BoxDecoration(
+                    color: textFieldFillColr,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(7),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CalendarDatePicker(
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime.now().add(
-                          const Duration(days: 365 * 100),
+                      Text(
+                        time == '' ? 'Choose time' : time,
+                        style: TextStyle(
+                          color: time == '' ? klightgrey : kwhite,
+                          fontSize: time == '' ? kwidth * 0.03 : kwidth * 0.04,
                         ),
-                        onDateChanged: (date) {},
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: const Text('ok'),
-                          ),
-                        ],
-                      ),
+                      const Icon(
+                        Icons.alarm_add_sharp,
+                        color: neonShade,
+                      )
                     ],
                   ),
                 ),

@@ -15,7 +15,6 @@ import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -40,6 +39,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   final TextEditingController ifscController = TextEditingController();
   final TextEditingController gstNumberController = TextEditingController();
   final TextEditingController branchOfficeController = TextEditingController();
+
   final PdfPickerImpl pdfPicker;
   final CardRepo cardService;
   final UserLocalRepo userLocalService;
@@ -60,10 +60,10 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<RemoveBranch>(removeBranch);
     on<CreateBusinessData>(createBusinessData);
     on<CreateBankingData>(createBankingData);
-    on<Clear>(clear);
     on<GetCompnayList>(getCompnayList);
     on<GetCompnayDetails>(getCompnayDetails);
     on<GetUserData>(getUserData);
+    on<Clear>(clear);
   }
 
   FutureOr<void> createBankingData(CreateBankingData event, emit) async {
@@ -94,6 +94,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             state.businessDetails.copyWith(bankDetails: bankDetails)));
     final result = await cardService.createBusinessDataCard(
         businessDetailsCreate: state.businessDetails);
+    print('got data back createBusinessDataCard');
     result.fold(
         (l) => emit(state.copyWith(
             isLoading: false,
@@ -224,7 +225,20 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
 
   // need to implement clear fields after card creation
   FutureOr<void> clear(Clear event, emit) async {
-    emit(state.copyWith());
+    businessNameController.clear();
+    companyController.clear();
+    mailController.clear();
+    mobileController.clear();
+    addressController.clear();
+    websiteLinkController.clear();
+    logoStoryController.clear();
+    nameOfCompanyController.clear();
+    upiDetailController.clear();
+    ifscController.clear();
+    gstNumberController.clear();
+    branchOfficeController.clear();
+    accountNumberController.clear();
+    emit(BusinessDataState.initial());
   }
 
   FutureOr<void> getUserData(GetUserData event, emit) async {
@@ -244,7 +258,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     }
   }
 
-  FutureOr<void> addCropedLogo(AddCropedLogo event,Emitter<BusinessDataState> emit) async {
+  FutureOr<void> addCropedLogo(
+      AddCropedLogo event, Emitter<BusinessDataState> emit) async {
     print('in logo adding base64');
     final decodedBytes = base64Decode(event.base64);
     final tempDir = Directory.systemTemp;

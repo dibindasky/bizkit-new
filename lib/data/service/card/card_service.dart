@@ -30,11 +30,12 @@ class CardService implements CardRepo {
   CardService(this.apiService);
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> archiveCard({required int id}) async{
-       try {
+  Future<Either<Failure, SuccessResponseModel>> archiveCard(
+      {required int id}) async {
+    try {
       print('delete card apiicall');
-      final response = await apiService.patch(
-          ApiEndPoints.deleteArchiveCard.replaceFirst('{card_id}', id.toString()));
+      final response = await apiService.patch(ApiEndPoints.deleteArchiveCard
+          .replaceFirst('{card_id}', id.toString()));
       print('delete card api success');
       print(response.data);
       return Right(SuccessResponseModel(message: 'Card deleted successfully'));
@@ -138,6 +139,7 @@ class CardService implements CardRepo {
       final response = await apiService.get(ApiEndPoints.getCardByCardId
           .replaceFirst('{card_id}', id.toString()));
       log('get card by id success');
+      log(Card.fromJson(response.data).connectionRequestId.toString());
       return Right(Card.fromJson(response.data));
     } on DioException catch (e) {
       log('dio exception getCardByCardId');
@@ -163,7 +165,12 @@ class CardService implements CardRepo {
     } on DioException catch (e) {
       log('dio exception get cards');
       log(e.toString());
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      try {
+        return Left(
+            Failure(message: e.response?.data['error'] ?? errorMessage));
+      } catch (e) {
+        return Left(Failure(message: errorMessage));
+      }
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));
@@ -195,8 +202,8 @@ class CardService implements CardRepo {
       {required int id}) async {
     try {
       print('delete card apiicall');
-      final response = await apiService.delete(
-          ApiEndPoints.deleteArchiveCard.replaceFirst('{card_id}', id.toString()));
+      final response = await apiService.delete(ApiEndPoints.deleteArchiveCard
+          .replaceFirst('{card_id}', id.toString()));
       print('delete card api success');
       print(response.data);
       return Right(SuccessResponseModel(message: 'Card deleted successfully'));
@@ -233,7 +240,8 @@ class CardService implements CardRepo {
       {required int id}) async {
     try {
       print('get companyDetail apiicall');
-      final response = await apiService.get(ApiEndPoints.getCompanyDetails.replaceFirst('{company_id}', id.toString()));
+      final response = await apiService.get(ApiEndPoints.getCompanyDetails
+          .replaceFirst('{company_id}', id.toString()));
       print('get companyDetail success');
       print(response.data);
       return Right(BusinessDetails.fromJson(response.data['business_details']));

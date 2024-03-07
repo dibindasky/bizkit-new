@@ -1,6 +1,5 @@
 import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
-import 'package:bizkit/domain/model/card/create_card/photo/photo.dart';
 import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -8,10 +7,11 @@ part 'personal_details.g.dart';
 
 @JsonSerializable()
 class PersonalDetailsCreate {
+  @JsonKey(name: 'accolades_id')
   List<AccoladeCreate>? accolades;
-  @JsonKey(name: 'personal_social_media')
+  @JsonKey(name: 'personal_social_media_id')
   List<SocialMediaHandleCreate>? personalSocialMedia;
-  @JsonKey(name: 'dates_to_remember')
+  @JsonKey(name: 'dates_to_remember_id')
   List<DatesToRememberCreate>? datesToRemember;
   String? photos;
   String? name;

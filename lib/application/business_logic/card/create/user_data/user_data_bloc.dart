@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/category.dart';
@@ -133,7 +132,15 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> clear(Clear event, emit) async {
-    emit(state.copyWith());
+    nameController.clear();
+    phoneController.clear();
+    emailController.clear();
+    homeAddress.clear();
+    bloodGroup.clear();
+    designationController.clear();
+    birthDaycontroller.clear();
+    businessCategoryController.clear();
+    emit(UserDataState.initial());
   }
 
   FutureOr<void> addDateToRemember(AddDateToRemember event, emit) async {

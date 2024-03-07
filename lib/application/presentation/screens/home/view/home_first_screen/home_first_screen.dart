@@ -1,7 +1,6 @@
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_first_app_bar.dart';
 import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connections_home_page.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/mycards_and_add_card/my_cards_and_add_card.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/notifications/notification_screen.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/second_half_section/home_screen_second_part.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -41,8 +40,6 @@ class _HomeScreenFirstAnimationScreenState
   @override
   void initState() {
     super.initState();
-    notificationScreen.value = 0;
-    notificationScreen.notifyListeners();
 
     _homeFirstAnimationController = AnimationController(
       vsync: this,
@@ -127,70 +124,62 @@ class _HomeScreenFirstAnimationScreenState
                       ),
                     ),
                   ),
-                  ValueListenableBuilder(
-                    valueListenable: notificationScreen,
-                    builder: (context, value, child) {
-                      if (value == 1) {
-                        return const NotificationScreen();
-                      }
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AnimatedBuilder(
-                            animation: _homeFirstAnimationController,
-                            builder: (context, child) {
-                              return FadeTransition(
-                                opacity: _fadeAnimation,
-                                child: SlideTransition(
-                                  position: _slideAnimation,
-                                  child: SizedBox(
-                                    height: kwidth * 1.123,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const HomeFirstAppBar(),
-                                          adjustHieght(khieght * .02),
-                                          const MyCardsAndAddCardSection(),
-                                          adjustHieght(khieght * .03),
-                                          const MyConnectionContainerHomePage(),
-                                        ],
-                                      ),
-                                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AnimatedBuilder(
+                        animation: _homeFirstAnimationController,
+                        builder: (context, child) {
+                          return FadeTransition(
+                            opacity: _fadeAnimation,
+                            child: SlideTransition(
+                              position: _slideAnimation,
+                              child: SizedBox(
+                                height: kwidth * 1.123,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const HomeFirstAppBar(),
+                                      adjustHieght(khieght * .02),
+                                      const MyCardsAndAddCardSection(),
+                                      adjustHieght(khieght * .03),
+                                      const MyConnectionContainerHomePage(),
+                                    ],
                                   ),
                                 ),
-                              );
-                            },
-                          ),
-                          Expanded(
-                            child: AnimatedBuilder(
-                              animation: Listenable.merge([
-                                _homeSecondAnimationController,
-                                _homeSecondAnimationController2
-                              ]),
-                              builder: (context, child) {
-                                return SlideTransition(
-                                  position: _slideAnimation2Move,
-                                  child: SlideTransition(
-                                    position: _slideAnimation2,
-                                    child: HomeScreenSecondPart(
-                                      animationController: [
-                                        _homeFirstAnimationController,
-                                        _homeSecondAnimationController,
-                                        _homeSecondAnimationController2
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
+                              ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                          );
+                        },
+                      ),
+                      Expanded(
+                        child: AnimatedBuilder(
+                          animation: Listenable.merge([
+                            _homeSecondAnimationController,
+                            _homeSecondAnimationController2
+                          ]),
+                          builder: (context, child) {
+                            return SlideTransition(
+                              position: _slideAnimation2Move,
+                              child: SlideTransition(
+                                position: _slideAnimation2,
+                                child: HomeScreenSecondPart(
+                                  animationController: [
+                                    _homeFirstAnimationController,
+                                    _homeSecondAnimationController,
+                                    _homeSecondAnimationController2
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               );
             }

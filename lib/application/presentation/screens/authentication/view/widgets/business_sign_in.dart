@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
-import 'package:bizkit/application/presentation/screens/authentication/view/screens/otp_screen.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
@@ -11,6 +13,7 @@ import 'package:bizkit/domain/model/auth/email_model/email_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class BusinessSignIn extends StatelessWidget {
   BusinessSignIn({super.key});
@@ -79,14 +82,14 @@ class BusinessSignIn extends StatelessWidget {
                   web = web.replaceFirst('www.', '');
                   // web = web.replaceFirst('www.', '');
                   return AutocompleteTextField(
-                      enabled: false,
-                      label: 'Company Mail',
-                      validate: Validate.adminEmail,
-                      controller: companyMailController,
-                      autocompleteItems:
-                          companyWebsiteController.text.length < 3
-                              ? []
-                              : ['info@$web', 'admin@$web']);
+                    enabled: false,
+                    label: 'Company Mail',
+                    validate: Validate.adminEmail,
+                    controller: companyMailController,
+                    autocompleteItems: companyWebsiteController.text.length < 3
+                        ? []
+                        : ['info@$web', 'admin@$web'],
+                  );
                 },
               ),
               TTextFormField(
@@ -132,15 +135,13 @@ class BusinessSignIn extends StatelessWidget {
                         email: companyMailController.text.trim(),
                         password: passwordController.text.trim(),
                         phoneNumber: companyPhoneController.text.trim());
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ScreenOtpValidation(
-                            signUpModel: signUpModel,
-                            fromBusiness: true,
-                            email: companyMailController.text.trim()),
-                      ),
-                    );
+                    GoRouter.of(context)
+                        .pushNamed(Routes.otpPage, pathParameters: {
+                      'email': companyMailController.text.trim(),
+                      'fromBusiness': 'true',
+                      'model': jsonEncode(
+                          {'signUpModel': jsonEncode(signUpModel.toJson())})
+                    });
                   }
                 },
                 builder: (context, state) {

@@ -10,7 +10,7 @@ class SignUpModel {
   @JsonKey(name: 'website_link')
   String? websiteLink;
   String? password;
-  @JsonKey(name: 'company_name')
+  @JsonKey(name: 'company')
   String? companyName;
   String? address;
   @JsonKey(name: 'is_business')

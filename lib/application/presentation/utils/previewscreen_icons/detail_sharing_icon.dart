@@ -13,13 +13,14 @@ class DetailSharingIconWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(
             Radius.circular(6),
           ),
-          color: kblack.withOpacity(0.3),
+          // color: kblack.withOpacity(0.3),
         ),
         height: kwidth * 0.13,
+        width: kwidth * 0.13,
         child: Image.asset(image),
       ),
     );

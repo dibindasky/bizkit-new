@@ -1,5 +1,3 @@
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
@@ -119,8 +117,11 @@ class AccountsListviewBuilder extends StatelessWidget {
             SizedBox(
               height: 450,
               child: ListView.builder(
-                itemCount: socialMedia.length,
+                itemCount: socialMedia.length + 1,
                 itemBuilder: (context, index) {
+                  if (index == socialMedia.length) {
+                    return const SizedBox(height: 90);
+                  }
                   return Container(
                     height: 70,
                     decoration: const BoxDecoration(
@@ -134,7 +135,7 @@ class AccountsListviewBuilder extends StatelessWidget {
                       children: [
                         adjustWidth(kwidth * .03),
                         CircleAvatar(
-                          backgroundColor: backgroundColour,
+                          backgroundColor: kwhite,
                           radius: 14,
                           backgroundImage:
                               AssetImage(map[socialMedia[index].label!]!),
@@ -145,7 +146,6 @@ class AccountsListviewBuilder extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             onCopyToClipboard(socialMedia[index].socialMedia!);
-                            // copyToClipboard(text: 'text', context: context);
                           },
                           child: Text(
                             'copy link',

@@ -109,6 +109,7 @@ class ConnectionService implements ConnectionRequestRepo {
           ApiEndPoints.bizkitConnectionListing,
           queryParameters: pageQuery.toJson());
       log('getBizkitConnections done');
+      print(response.data);
       return Right(GetBizkitConnectionsResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log('getBizkitConnections dio error');
@@ -148,6 +149,7 @@ class ConnectionService implements ConnectionRequestRepo {
       {required AddConnectionRequestModel addConnectionRequestModel}) async {
     try {
       log('addConnectionRequest ');
+      print(addConnectionRequestModel.toJson());
       final response = await _apiService.post(ApiEndPoints.connectionRequest,
           data: addConnectionRequestModel.toJson());
       log('addConnectionRequest done');
@@ -192,8 +194,7 @@ class ConnectionService implements ConnectionRequestRepo {
       await _apiService.delete(ApiEndPoints.deleteConnectionRequest
           .replaceFirst('{id}', id.toString()));
       log('deleteConnectionRequest done');
-      return Right(
-          SuccessResponseModel());
+      return Right(SuccessResponseModel());
     } on DioException catch (e) {
       log('deleteConnectionRequest dio error');
       log(e.toString());

@@ -1,5 +1,3 @@
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/reminder/reminder_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +10,10 @@ class PreviewHomeContactDetailAddReminderContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          fadePageRoute(PreviewHomeAddReminderScreen()),
-        );
+        // Navigator.push(
+        //   context,
+        //   fadePageRoute(PreviewHomeAddReminderScreen()),
+        // );
       },
       child: Container(
         decoration: BoxDecoration(

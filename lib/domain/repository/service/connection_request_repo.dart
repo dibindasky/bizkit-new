@@ -28,5 +28,6 @@ abstract class ConnectionRequestRepo {
   Future<Either<Failure, SuccessResponseModel>> addConnectionRequest(
       {required AddConnectionRequestModel addConnectionRequestModel});
   Future<Either<Failure, GetRequestListResponsemodel>> getRequestList();
-  Future<Either<Failure, SuccessResponseModel>> deleteConnectionRequest({required int id});
+  Future<Either<Failure, SuccessResponseModel>> deleteConnectionRequest(
+      {required int id});
 }

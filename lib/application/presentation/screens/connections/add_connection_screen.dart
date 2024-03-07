@@ -91,7 +91,15 @@ class GridTileAddRequestConnection extends StatefulWidget {
 
 class _GridTileAddRequestConnectionState
     extends State<GridTileAddRequestConnection> {
-  final bool requested = false;
+  bool requested = false;
+  @override
+  void initState() {
+    print(widget.data.toJson());
+    if (widget.data.connectionId != null) {
+      requested = true;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,11 +134,10 @@ class _GridTileAddRequestConnectionState
         adjustHieght(10),
         InkWell(
           onTap: () {
-            if (widget.data.connectionId != null) {
+            if (!requested) {
               setState(() {
-                widget.data.connectionId = 0;
+                requested = true;
               });
-            } else {
               context.read<ConnectionRequestBloc>().add(
                   ConnectionRequestEvent.addConnectionRequests(
                       addConnectionRequestModel: AddConnectionRequestModel(
@@ -142,10 +149,7 @@ class _GridTileAddRequestConnectionState
             decoration: BoxDecoration(
                 gradient: neonShadeGradient,
                 borderRadius: const BorderRadius.all(Radius.circular(10))),
-            child: Text(
-                widget.data.connectionId != null
-                    ? 'Requsted'
-                    : 'Add Connection',
+            child: Text(requested ? 'Requsted' : 'Add Connection',
                 style: const TextStyle(color: kwhite)),
           ),
         ),

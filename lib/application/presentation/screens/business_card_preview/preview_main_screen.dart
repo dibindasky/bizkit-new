@@ -122,7 +122,9 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                         //   (route) => false);
                       }
                       context.read<UserDataBloc>().add(UserDataEvent.clear());
-                      context.read<BusinessDataBloc>().add(BusinessDataEvent.clear());
+                      context
+                          .read<BusinessDataBloc>()
+                          .add(BusinessDataEvent.clear());
                     }
                   },
                   builder: (context, userState) {

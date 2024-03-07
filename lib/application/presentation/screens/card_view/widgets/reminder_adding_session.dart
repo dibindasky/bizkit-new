@@ -21,9 +21,11 @@ class CardViewAddReminderContainer extends StatelessWidget {
             if (cardState.anotherCard?.connectionId != null) {
               Navigator.push(
                 context,
-                fadePageRoute(PreviewHomeAddReminderScreen()),
+                fadePageRoute(PreviewHomeAddReminderScreen(
+                    cardId: cardState.anotherCard!.id!,
+                    connectionId: cardState.anotherCard!.connectionId!)),
               );
-            } else {
+            } else if (cardState.anotherCard?.connectionRequestId == null) {
               context.read<ConnectionRequestBloc>().add(
                   ConnectionRequestEvent.addConnection(
                       createConnectionWithCardIdModel:
@@ -51,17 +53,22 @@ class CardViewAddReminderContainer extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const CircleAvatar(
-                        radius: 10,
-                        backgroundImage: AssetImage(
-                          'asset/images/addButtunIconImage.png',
-                        ),
-                      ),
+                      cardState.anotherCard!.connectionRequestId != null
+                          ? const SizedBox()
+                          : const CircleAvatar(
+                              radius: 10,
+                              backgroundImage: AssetImage(
+                                'asset/images/addButtunIconImage.png',
+                              ),
+                            ),
                       adjustWidth(kwidth * .03),
                       Text(
                           cardState.anotherCard!.connectionId != null
                               ? 'Add Reminder'
-                              : 'Add Connection',
+                              : cardState.anotherCard!.connectionRequestId !=
+                                      null
+                                  ? 'Connection Requsted'
+                                  : 'Add Connection',
                           style: textHeadStyle1),
                     ],
                   ),

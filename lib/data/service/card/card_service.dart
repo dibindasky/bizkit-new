@@ -139,6 +139,7 @@ class CardService implements CardRepo {
       final response = await apiService.get(ApiEndPoints.getCardByCardId
           .replaceFirst('{card_id}', id.toString()));
       log('get card by id success');
+      log(Card.fromJson(response.data).connectionRequestId.toString());
       return Right(Card.fromJson(response.data));
     } on DioException catch (e) {
       log('dio exception getCardByCardId');
@@ -164,7 +165,12 @@ class CardService implements CardRepo {
     } on DioException catch (e) {
       log('dio exception get cards');
       log(e.toString());
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      try {
+        return Left(
+            Failure(message: e.response?.data['error'] ?? errorMessage));
+      } catch (e) {
+        return Left(Failure(message: errorMessage));
+      }
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));

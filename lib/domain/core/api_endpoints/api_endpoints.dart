@@ -36,4 +36,7 @@ class ApiEndPoints {
       '/connections/edit-connections/{connection_id}/';
   static String createReminder = '/reminder/create-reminder/';
   static String editReminder = '/reminder/edit-reminder/{reminder_id}/';
+  static String searchBizkitUser = '/accounts/new-connection/';
+  static String connectionRequest = '/connections/connection-request/';
+  static String deleteConnectionRequest = '/connections/delete-connection-request/{id}/';
 }

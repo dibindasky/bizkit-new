@@ -24,6 +24,10 @@ class Card {
   int? share;
   @JsonKey(name: 'views')
   int? views;
+  @JsonKey(name: 'connection_id')
+  int? connectionId;
+  @JsonKey(name: 'connection_request_id')
+  int? connectionRequestId;
   @JsonKey(name: 'card_link')
   String? cardLink;
 
@@ -35,6 +39,7 @@ class Card {
       this.userId,
       this.cardLink,
       this.share,
+      this.connectionId,
       this.views});
 
   factory Card.fromJson(Map<String, dynamic> json) {

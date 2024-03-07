@@ -20,10 +20,12 @@ Card _$CardFromJson(Map<String, dynamic> json) => Card(
       userId: json['user_id'] as int?,
       cardLink: json['card_link'] as String?,
       share: json['share'] as int?,
+      connectionId: json['connection_id'] as int?,
       views: json['views'] as int?,
     )
       ..isArchived = json['is_archived'] as bool?
-      ..isVerified = json['is_verified'] as bool?;
+      ..isVerified = json['is_verified'] as bool?
+      ..connectionRequestId = json['connection_request_id'] as int?;
 
 Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'id': instance.id,
@@ -35,5 +37,7 @@ Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'user_id': instance.userId,
       'share': instance.share,
       'views': instance.views,
+      'connection_id': instance.connectionId,
+      'connection_request_id': instance.connectionRequestId,
       'card_link': instance.cardLink,
     };

@@ -18,8 +18,9 @@ class CardDetailScreenSecondHalf extends StatelessWidget {
     return Column(
       children: [
         // add reminder button
-        !myCard ? const CardViewAddReminderContainer() : const SizedBox(),
-        // row icons call,mail,website,socialmedia ,location
+        !myCard
+            ? const CardViewAddReminderContainer()
+            : const SizedBox(), // row icons call,mail,website,socialmedia ,location
         const CardViewRowWiceIcons(),
         adjustHieght(khieght * .02),
         // banking, personal, achivements butons

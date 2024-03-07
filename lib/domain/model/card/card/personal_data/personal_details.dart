@@ -9,10 +9,11 @@ part 'personal_details.g.dart';
 @JsonSerializable()
 class PersonalDetails {
   int? id;
+  @JsonKey(name: 'accolades_id')
   List<Accolade>? accolades;
-  @JsonKey(name: 'personal_social_media')
+  @JsonKey(name: 'personal_social_media_id')
   List<SocialMediaHandle>? personalSocialMedia;
-  @JsonKey(name: 'dates_to_remember')
+  @JsonKey(name: 'dates_to_remember_id')
   List<DatesToRemember>? datesToRemember;
   String? photos;
   String? name;

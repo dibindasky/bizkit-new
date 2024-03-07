@@ -7,14 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenCardDetailView extends StatelessWidget {
   const ScreenCardDetailView(
-      {super.key, required this.cardId, this.myCard = false});
+      {super.key, this.cardId, this.myCard = false, this.userId});
   final int? cardId;
+  final int? userId;
   final bool myCard;
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
+      if (cardId != null) {
+        print("card id $cardId");
+        context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
+      } else {
+        context.read<CardBloc>().add(CardEvent.getCardyUserId(id: userId!));
+      }
     });
 
     return BlocBuilder<CardBloc, CardState>(

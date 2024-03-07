@@ -1,6 +1,6 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/listview_items/second_animation_list.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/listview_items/second_animation_all_reminders_list.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenSecondPart extends StatefulWidget {
@@ -14,6 +14,7 @@ class HomeScreenSecondPart extends StatefulWidget {
 
 class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> {
   final scrollController = ScrollController();
+  
   @override
   void initState() {
     scrollController.addListener(() {
@@ -50,7 +51,7 @@ class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> {
           Text('Reminders', style: textHeadStyle1),
           adjustHieght(kwidth * .035),
           Expanded(
-            child: SecondAnimationPageListView(
+            child: SecondAnimationPageListViewAllReminders(
               scrollController: scrollController,
             ),
           ),

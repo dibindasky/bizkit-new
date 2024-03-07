@@ -13,7 +13,7 @@ class TabButtonsSecondAnimation extends StatefulWidget {
 }
 
 List tabBarNames = [
-  'Archived',
+  'History',
   'Reminders',
   'Upcoming',
 ];

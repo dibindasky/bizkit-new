@@ -1,11 +1,14 @@
+import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/listview_items/history_list_reminders.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/listview_items/upcoming_reminder_list.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/home/view/widgets/appbar_second_third.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_screen.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/listview_items/second_animation_list.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/listview_items/second_animation_all_reminders_list.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/pageview_container_top/pageview_container.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/tab_buttons_second_animation.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/widgets/test+list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 //used to shift the tab bar
 ValueNotifier<String> selectedTabNotifier = ValueNotifier(tabBarNames[1]);
@@ -84,6 +87,14 @@ class _SecondAnimationState extends State<SecondAnimation>
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context
+          .read<ReminderBloc>()
+          .add(const ReminderEvent.getHistoryRemindersEvent());
+      context
+          .read<ReminderBloc>()
+          .add(const ReminderEvent.getUpcomingRemindersEvent());
+    });
     int count = 0;
     List<Widget> stackChild = [
       Align(
@@ -120,15 +131,16 @@ class _SecondAnimationState extends State<SecondAnimation>
                           builder: (context, value, _) {
                             count++;
                             value;
-                            // only SecondAnimationPageListView is needed TestSecondAnimationPageListView is for demo
-                            if (value != 'Reminders') {
-                              return TestSecondAnimationPageListView(
+                            if (value == 'Reminders') {
+                              return SecondAnimationPageListViewAllReminders(
                                 doTransition: count > 1,
                               );
+                            } else if (value == 'Upcoming') {
+                              return SecondAnimationPageListViewUpcomingReminders(
+                                  doTransition: count > 1);
                             }
-                            return SecondAnimationPageListView(
-                              doTransition: count > 1,
-                            );
+                            return SecondAnimationPageListViewHistoryReminders(
+                                doTransition: count > 1);
                           },
                         ),
                       ),

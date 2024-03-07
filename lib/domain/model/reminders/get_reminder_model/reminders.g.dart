@@ -22,13 +22,17 @@ Reminders _$RemindersFromJson(Map<String, dynamic> json) => Reminders(
       cardHolderId: json['card_holder_id'] as int?,
       cardId: json['card_id'] as int?,
       connectionId: json['connection_id'] as int?,
-    );
+    )
+      ..name = json['name'] as String?
+      ..image = json['image'] as String?;
 
 Map<String, dynamic> _$RemindersToJson(Reminders instance) => <String, dynamic>{
       'id': instance.id,
       'meeting_label': instance.meetingLabel,
       'message': instance.message,
       'venue': instance.venue,
+      'name': instance.name,
+      'image': instance.image,
       'occation': instance.occation,
       'date': instance.date,
       'time': instance.time,

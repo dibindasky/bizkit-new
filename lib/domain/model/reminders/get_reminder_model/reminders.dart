@@ -9,6 +9,8 @@ class Reminders {
   String? meetingLabel;
   String? message;
   String? venue;
+  String? name;
+  String? image;
   String? occation;
   String? date;
   String? time;

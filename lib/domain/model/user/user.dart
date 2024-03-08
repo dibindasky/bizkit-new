@@ -41,7 +41,7 @@ class User {
   static const String colCompanyName = 'company_name';
   static const String colAddress = 'address';
   static const String colIsBusiness = 'is_business';
-  static const String colIsVerified = 'is_verified';
+  // static const String colIsVerified = 'is_verified';
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

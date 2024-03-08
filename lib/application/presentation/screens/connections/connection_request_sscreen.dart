@@ -91,7 +91,12 @@ class ScreenConnectionRequests extends StatelessWidget {
                         // image profile
                         CircleAvatar(
                           radius: kwidth * 0.08,
-                          backgroundImage: const AssetImage(imageDummyAsset),
+                          backgroundImage: data.image != null
+                              ? NetworkImage(data.image!)
+                              : null,
+                          child: data.image != null
+                              ? null
+                              : const Icon(Icons.person, color: neonShade),
                         ),
                         adjustHieght(10),
                         Text(
@@ -136,77 +141,77 @@ class ScreenConnectionRequests extends StatelessWidget {
                                           ),
                                         ),
                                       );
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => Dialog(
-                                        child: Container(
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(20)),
-                                          border:
-                                              Border.all(color: kneonShade)),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Text(
-                                              'Do you wish to share your bizcard with your new connection?'),
-                                          adjustHieght(20),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              FilledButton(
-                                                  style: ButtonStyle(
-                                                      side: const MaterialStatePropertyAll(
-                                                          BorderSide(
-                                                              color:
-                                                                  kneonShade)),
-                                                      backgroundColor:
-                                                          MaterialStatePropertyAll(
-                                                              kDefaultIconDarkColor)),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Text('Cancel',
-                                                      style: TextStyle(
-                                                          color: kwhite))),
-                                              FilledButton(
-                                                style: const ButtonStyle(
-                                                    side:
-                                                        MaterialStatePropertyAll(
-                                                            BorderSide(
-                                                                color: kblack)),
-                                                    backgroundColor:
-                                                        MaterialStatePropertyAll(
-                                                            neonShade)),
-                                                onPressed: () {
-                                                  context
-                                                      .read<
-                                                          ConnectionRequestBloc>()
-                                                      .add(
-                                                        ConnectionRequestEvent
-                                                            .addConnectionRequests(
-                                                          addConnectionRequestModel:
-                                                              AddConnectionRequestModel(
-                                                                  cardUserId: data
-                                                                      .cardUserId),
-                                                        ),
-                                                      );
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const Text(
-                                                  'Share Card',
-                                                  style:
-                                                      TextStyle(color: kwhite),
-                                                ),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                                  );
+                                  // showDialog(
+                                  //   context: context,
+                                  //   builder: (context) => Dialog(
+                                  //       child: Container(
+                                  //     padding: const EdgeInsets.all(20),
+                                  //     decoration: BoxDecoration(
+                                  //         borderRadius: const BorderRadius.all(
+                                  //             Radius.circular(20)),
+                                  //         border:
+                                  //             Border.all(color: kneonShade)),
+                                  //     child: Column(
+                                  //       mainAxisSize: MainAxisSize.min,
+                                  //       children: [
+                                  //         const Text(
+                                  //             'Do you wish to share your bizcard with your new connection?'),
+                                  //         adjustHieght(20),
+                                  //         Row(
+                                  //           mainAxisAlignment:
+                                  //               MainAxisAlignment.spaceAround,
+                                  //           children: [
+                                  //             FilledButton(
+                                  //                 style: ButtonStyle(
+                                  //                     side: const MaterialStatePropertyAll(
+                                  //                         BorderSide(
+                                  //                             color:
+                                  //                                 kneonShade)),
+                                  //                     backgroundColor:
+                                  //                         MaterialStatePropertyAll(
+                                  //                             kDefaultIconDarkColor)),
+                                  //                 onPressed: () {
+                                  //                   Navigator.pop(context);
+                                  //                 },
+                                  //                 child: const Text('Cancel',
+                                  //                     style: TextStyle(
+                                  //                         color: kwhite))),
+                                  //             FilledButton(
+                                  //               style: const ButtonStyle(
+                                  //                   side:
+                                  //                       MaterialStatePropertyAll(
+                                  //                           BorderSide(
+                                  //                               color: kblack)),
+                                  //                   backgroundColor:
+                                  //                       MaterialStatePropertyAll(
+                                  //                           neonShade)),
+                                  //               onPressed: () {
+                                  //                 context
+                                  //                     .read<
+                                  //                         ConnectionRequestBloc>()
+                                  //                     .add(
+                                  //                       ConnectionRequestEvent
+                                  //                           .addConnectionRequests(
+                                  //                         addConnectionRequestModel:
+                                  //                             AddConnectionRequestModel(
+                                  //                                 cardUserId: data
+                                  //                                     .cardUserId),
+                                  //                       ),
+                                  //                     );
+                                  //                 Navigator.pop(context);
+                                  //               },
+                                  //               child: const Text(
+                                  //                 'Share Card',
+                                  //                 style:
+                                  //                     TextStyle(color: kwhite),
+                                  //               ),
+                                  //             )
+                                  //           ],
+                                  //         )
+                                  //       ],
+                                  //     ),
+                                  //   )),
+                                  // );
                                 },
                                 child: const CircleAvatar(
                                     child: Icon(Icons.check, color: kwhite))),

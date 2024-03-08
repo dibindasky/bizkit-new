@@ -49,6 +49,10 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
         (r) {
       emit(state.copyWith(
           isLoading: false, hasError: false, reminderAdded: true));
+      labelController.clear();
+      venueController.clear();
+      occationController.clear();
+      messageController.clear();
       add(const ReminderEvent.getAllRemindersEvent());
     });
   }
@@ -90,7 +94,7 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
         (r) => emit(state.copyWith(
             isLoading: false,
             hasError: false,
-            historyReminderList: r.results)));
+            upcomingRminderList: r.results)));
   }
 
   FutureOr<void> getTodaysRemindersEvent(
@@ -102,7 +106,7 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
         (r) => emit(state.copyWith(
             isLoading: false,
             hasError: false,
-            historyReminderList: r.results)));
+            toDaysRminderList: r.results)));
   }
 
   FutureOr<void> getAllRemindersEvenPaget(

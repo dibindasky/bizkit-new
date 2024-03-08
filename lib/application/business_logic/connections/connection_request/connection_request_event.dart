@@ -18,7 +18,7 @@ class ConnectionRequestEvent with _$ConnectionRequestEvent {
   const factory ConnectionRequestEvent.searchBizkitUsers(
       {required SearchQuery searchQuery}) = SearchBizkitUsers;
   const factory ConnectionRequestEvent.addConnectionRequests(
-          {required AddConnectionRequestModel addConnectionRequestModel}) =
+          {required AddConnectionRequestModel addConnectionRequestModel,required int index}) =
       AddConnectionRequests;
   const factory ConnectionRequestEvent.getRequestLists() = GetRequestLists;
   const factory ConnectionRequestEvent.deleteRequest({required int id}) =

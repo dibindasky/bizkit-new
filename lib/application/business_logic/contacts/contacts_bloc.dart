@@ -46,12 +46,12 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
 
   // fetch the contact list form phone
   FutureOr<void> getContactsList(GetContactsList event, emit) async {
-    emit(state.copyWith(hasError: false, message: null));
+    emit(state.copyWith(hasError: false, message: null,fetchingLoading: true));
     print('fetch start');
     final result = await contactFetchFeature.getContactsList();
     print('fetch end');
     result.fold((failure) {
-      emit(state.copyWith(hasError: true, isLoading: false));
+      emit(state.copyWith(hasError: true, isLoading: false,fetchingLoading: false));
     }, (contactList) {
       add(ContactsEvent.checkContactsInBizkit(contactList: contactList));
     });
@@ -68,13 +68,12 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       }
       print("data.length");
       print(data.length);
-      data.add('1234567830');
       print('fetch from server starts');
       final result = await contactService.getBizkitUserByContact(
           getContactModel: GetContactModel(phoneNumbers: data));
       result.fold(
           (failure) => emit(
-              state.copyWith(isLoading: false, hasError: true, message: null)),
+              state.copyWith(isLoading: false, hasError: true, message: null,fetchingLoading: false)),
           (contactResponseModel) async {
         // add every contact to the local storage if the user is present in bizkit store the id and photo also other wise add left over details
         if (contactResponseModel.results != null) {
@@ -142,12 +141,12 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     result.fold(
         (failure) => emit(state.copyWith(
             isLoading: false,
-            message: errorMessage,
+            message: errorMessage,fetchingLoading: false,
             hasError: true)), (connections) {
       print('get contacts form local storage checking');
       print("connections.length");
       print(connections.length);
-      return emit(state.copyWith(isLoading: false, contactList: connections));
+      return emit(state.copyWith(isLoading: false, contactList: connections,fetchingLoading: false));
     });
   }
 }

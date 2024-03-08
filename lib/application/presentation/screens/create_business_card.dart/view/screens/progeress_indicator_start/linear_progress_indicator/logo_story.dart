@@ -6,6 +6,7 @@ import 'package:bizkit/application/business_logic/card/create/user_data/user_dat
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/screens/image_croping/image_croping.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -151,11 +152,25 @@ class _LogoStoryState extends State<LogoStory> {
                   "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
             ),
             adjustHieght(khieght * .04),
-            LastSkipContinueButtons(
-              onTap: () => widget.pageController.nextPage(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.ease,
-              ),
+            BlocBuilder<BusinessDataBloc, BusinessDataState>(
+              builder: (context, state) {
+                return LastSkipContinueButtons(onTap: () {
+                  if (state.logo == null) {
+                    showSnackbar(context, message: 'add logo to continue');
+                  } else if (context
+                          .read<BusinessDataBloc>()
+                          .logoStoryController
+                          .text ==
+                      '') {
+                    showSnackbar(context, message: 'enter logo story ');
+                  } else {
+                    widget.pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                  }
+                });
+              },
             ),
           ],
         ),

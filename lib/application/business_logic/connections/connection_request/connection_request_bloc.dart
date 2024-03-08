@@ -119,14 +119,25 @@ class ConnectionRequestBloc
   FutureOr<void> addConnectionRequests(
       AddConnectionRequests event, emit) async {
     emit(state.copyWith(
-        isLoading: true, hasError: false, message: null, connected: false));
+        requestLoadingIndex: event.index,
+        isLoading: true,
+        hasError: false,
+        message: null,
+        connected: false));
 
     final result = await _connectionRepo.addConnectionRequest(
         addConnectionRequestModel: event.addConnectionRequestModel);
     result.fold(
         (l) => emit(state.copyWith(
-            isLoading: false, hasError: true, message: l.message)),
-        (r) => emit(state.copyWith(isLoading: false, message: r.message)));
+            requestLoadingIndex: -1,
+            isLoading: false,
+            hasError: true,
+            message: l.message)),
+        (r) => emit(state.copyWith(
+            requestLoadingIndex: -1,
+            isLoading: false,
+            message: r.message,
+            connected: true)));
   }
 
   FutureOr<void> getRequestLists(GetRequestLists event, emit) async {

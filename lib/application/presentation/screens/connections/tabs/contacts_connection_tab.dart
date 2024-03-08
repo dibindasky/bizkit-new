@@ -29,9 +29,16 @@ class ContactConnectionsTab extends StatelessWidget {
         },
         builder: (context, state) {
           print('contacts list length ==> (${state.contactList?.length})');
-          if (state.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+
+          if (state.isLoading || state.fetchingLoading) {
+            return Column(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                adjustHieght(20),
+                Text('We are synking your contacts,\n please wait',textAlign: TextAlign.center,)
+              ],
             );
           } else if (state.contactList == null || state.hasError) {
             return const Center(

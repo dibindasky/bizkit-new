@@ -72,6 +72,7 @@ class UserLocalService implements UserLocalRepo {
             ${User.colAddress},
             ${User.colWebsite}) 
           VALUES (?,?,?,?,?,?,?,?)
+
           ''';
       await localService.rawInsert(insertQuery, [
         user.name ?? '',
@@ -79,6 +80,7 @@ class UserLocalService implements UserLocalRepo {
         user.email ?? '',
         user.id ?? 0,
         user.isBusiness! ? 1 : 0,
+
         user.companyName ?? '',
         user.address ?? '',
         user.websiteLink ?? ''

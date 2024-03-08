@@ -1,3 +1,7 @@
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/archieved_cards.dart';
+import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/inner_screens/privacy_security.dart';
+import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -24,8 +28,28 @@ class DataManagement extends StatelessWidget {
           style: TextStyle(color: kwhite),
         ),
       ),
-      body: const Center(
-        child: Text('Data Management'),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            TileItem(
+              text: 'Achieved cards',
+              onTap: () => Navigator.of(context).push(
+                fadePageRoute(
+                  const AchivedCards(),
+                ),
+              ),
+            ),
+            TileItem(
+              text: 'Export Data',
+              onTap: () => Navigator.of(context).push(
+                fadePageRoute(
+                  const PrivacyAecurityinner(),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

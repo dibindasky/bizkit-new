@@ -114,14 +114,13 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             personalDetals = value;
             // If "Personal Details" is false, disable other switches
             if (!value) {
-              context.read<QrBloc>().createQrModel = context
-                  .read<QrBloc>()
-                  .createQrModel
-                  .copyWith(
-                      email: false,
-                      phoneNumber: false,
-                      personalSocialMedia: false,
-                      company: false);
+              context.read<QrBloc>().createQrModel =
+                  context.read<QrBloc>().createQrModel.copyWith(
+                        email: false,
+                        phoneNumber: false,
+                        personalSocialMedia: false,
+                        company: false,
+                      );
             }
           });
         }, neonShade),

@@ -54,6 +54,7 @@ class CardService implements CardRepo {
     try {
       await apiService.post(ApiEndPoints.createCard,
           data: createCardByIdModel.toJson());
+          print('create card ${createCardByIdModel.toJson()}');
       return Right(SuccessResponseModel(message: 'Card created successfully'));
     } on DioException catch (e) {
       log('card creation dio error');

@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_first_app_bar.dart';
 import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connections_home_page.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/first_half_sction/mycards_and_add_card/my_cards_and_add_card.dart';
@@ -5,6 +6,7 @@ import 'package:bizkit/application/presentation/screens/home/view/home_first_scr
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // enum and notifier below are used to shift the screens in home page without shifting home bottom bar
 enum HomeScreensList {
@@ -98,6 +100,11 @@ class _HomeScreenFirstAnimationScreenState
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context
+          .read<ReminderBloc>()
+          .add(const ReminderEvent.getAllRemindersEvent());
+    });
     final size = MediaQuery.of(context).size;
     khieght = size.height;
     kwidth = size.width;

@@ -38,7 +38,6 @@ class Sql {
         ${User.colCompanyName} TEXT,
         ${User.colAddress} TEXT,
         ${User.colWebsite} TEXT,
-        ${User.colIsVerified} INTEGER DEFAULT 0,
         ${User.colIsBusiness} INTEGER DEFAULT 0
       )
     ''';

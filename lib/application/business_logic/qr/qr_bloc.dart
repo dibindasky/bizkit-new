@@ -23,6 +23,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
 
   FutureOr<void> addNewLevelSharing(AddNewLevelSharing event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    createQrModel.card=state.qrList[state.selectedQrIndex].id!;
     final result = await qrServiceImpl.updateLevelSharing(
         createQrModel: event.createQrModel);
     result.fold(
@@ -60,6 +61,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
         phoneNumber: model.phoneNumber,
         socialMediaHandles: model.socialMediaHandles,
         websiteLink: model.websiteLink,
+        businessEmail: model.businessEmail,
         card: model.cardId);
     emit(state.copyWith(selectedQrIndex: event.index));
   }

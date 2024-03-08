@@ -107,7 +107,16 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                         onTap: () {
                           if (selectedCategory == 'SocialMedia') {
                             showSnackbar(context,
-                                message: 'Select social media first');
+                                message: 'Select social media first',
+                                textColor: kwhite,
+                                backgroundColor: kred);
+                            return;
+                          }
+                          if (linkController.text == '') {
+                            showSnackbar(context,
+                                message: 'add your social media link',
+                                textColor: kwhite,
+                                backgroundColor: kred);
                             return;
                           }
                           final link = selectedCategory == 'Whatsapp'

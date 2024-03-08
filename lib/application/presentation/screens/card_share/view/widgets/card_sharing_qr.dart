@@ -37,190 +37,207 @@ class CardSharingScreen extends StatelessWidget {
           style: appBarHeading1,
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 70.dm,
-            child: BlocBuilder<QrBloc, QrState>(
-              builder: (context, state) {
-                if (state.qrList.isEmpty) {
-                  return const SizedBox();
-                }
-                return ListView.separated(
-                  itemCount: state.qrList.length,
-                  separatorBuilder: (context, index) => adjustWidth(20),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.only(
-                      left: index == 0 ? 20 : 0,
-                      right: index == state.qrList.length - 1 ? 20 : 0,
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        context
-                            .read<QrBloc>()
-                            .add(QrEvent.changeQRSelection(index: index));
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                              decoration: index == state.selectedQrIndex
-                                  ? BoxDecoration(
-                                      border: Border.all(
-                                          color: neonShade, width: 5))
-                                  : null,
-                              height: 50.dm,
-                              width: 50.dm,
-                              child: Image.network(
-                                state.qrList[state.selectedQrIndex].logo == null
-                                    ? image
-                                    : state.qrList[index].logo!,
-                                fit: BoxFit.cover,
-                              )),
-                          Text(
-                            'CARD ${index + 1}',
-                            style: TextStyle(
-                                color: index == state.selectedQrIndex
-                                    ? neonShade
-                                    : null),
-                          )
-                        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 70.dm,
+              child: BlocBuilder<QrBloc, QrState>(
+                builder: (context, state) {
+                  if (state.qrList.isEmpty) {
+                    return const SizedBox();
+                  }
+                  return ListView.separated(
+                    itemCount: state.qrList.length,
+                    separatorBuilder: (context, index) => adjustWidth(20),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.only(
+                        left: index == 0 ? 20 : 0,
+                        right: index == state.qrList.length - 1 ? 20 : 0,
                       ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-          adjustHieght(khieght * .06),
-          BlocBuilder<QrBloc, QrState>(builder: (context, state) {
-            if (state.isLoading) {
-              return const LoadingAnimation();
-            } else if (state.qrList.isEmpty) {
-              return const Text('No Qr code available');
-            } else if (state.qrList.isNotEmpty) {
-              print(state.qrList[state.selectedQrIndex].qrCode!);
-              return SizedBox(
-                width: 250.dm,
-                height: 250.dm,
-                child: Image.memory(
-                  base64Decode(state.qrList[state.selectedQrIndex].qrCode!
-                      .substring(
-                          'data:image/png;base64,'.length)), // Remove prefix
-                  fit: BoxFit.cover,
-                ),
-              );
-            } else {
-              return const SizedBox();
-            }
-          }),
-          adjustHieght(khieght * .04),
-          BlocBuilder<QrBloc, QrState>(
-            builder: (context, state) {
-              if (state.isLoading) {
-                return const SizedBox();
-              } else if (state.qrList.isNotEmpty) {
-                final model = context.read<QrBloc>().createQrModel;
-                return Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () => Navigator.of(context).push(
-                        fadePageRoute(const LevelSharing()),
-                      ),
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 15, right: 10),
-                        height: 60.dm,
-                        width: 300.dm,
-                        decoration:
-                            BoxDecoration(border: Border.all(color: kwhite)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: InkWell(
+                        onTap: () {
+                          context
+                              .read<QrBloc>()
+                              .add(QrEvent.changeQRSelection(index: index));
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'Level Sharing',
-                                  style: TextStyle(
-                                    fontSize: kwidth * 0.037,
-                                  ),
-                                ),
-                                Text(
-                                  'Professional, Emergency, Company',
-                                  style: TextStyle(
-                                    fontSize: kwidth * 0.027,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Icon(
-                              Icons.keyboard_arrow_right_rounded,
-                              color: kwhite,
-                              size: 30,
-                            ),
+                            Container(
+                                decoration: index == state.selectedQrIndex
+                                    ? BoxDecoration(
+                                        border: Border.all(
+                                            color: neonShade, width: 5))
+                                    : null,
+                                height: 50.dm,
+                                width: 50.dm,
+                                child: Image.network(
+                                  state.qrList[state.selectedQrIndex].logo ==
+                                          null
+                                      ? image
+                                      : state.qrList[index].logo!,
+                                  fit: BoxFit.cover,
+                                )),
+                            Text(
+                              'CARD ${index + 1}',
+                              style: TextStyle(
+                                  color: index == state.selectedQrIndex
+                                      ? neonShade
+                                      : null),
+                            )
                           ],
                         ),
                       ),
                     ),
-                    adjustHieght(10),
-                    Container(
-                      width: 300.dm,
-                      decoration:
-                          BoxDecoration(border: Border.all(color: neonShade)),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            model.phoneNumber ?? true
-                                ? const Text(' Phone Number')
-                                : const SizedBox(),
-                            Text(model.email ?? true ? ' Email' : ''),
-                            model.company ?? true
-                                ? const Text(' Company')
-                                : const SizedBox(),
-                            model.personalSocialMedia ?? true
-                                ? const Text(' Personal Socialmedia')
-                                : const SizedBox(),
-                            model.address ?? true
-                                ? const Text(' Address')
-                                : const SizedBox(),
-                            model.businessEmail ?? true
-                                ? const Text(' Business Email')
-                                : const SizedBox(),
-                            model.businessDetailsMobileNumber!
-                                ? const Text(' Business Mobile')
-                                : const SizedBox(),
-                            model.socialMediaHandles ?? true
-                                ? const Text(' Business Socialmedia')
-                                : const SizedBox(),
-                            model.websiteLink ?? true
-                                ? const Text(' Website')
-                                : const SizedBox(),
-                          ]),
-                    ),
-                    adjustHieght(10),
-                  ],
+                  );
+                },
+              ),
+            ),
+            adjustHieght(khieght * .06),
+            BlocBuilder<QrBloc, QrState>(builder: (context, state) {
+              if (state.isLoading) {
+                return const LoadingAnimation();
+              } else if (state.qrList.isEmpty) {
+                return const Text('No Qr code available');
+              } else if (state.qrList.isNotEmpty) {
+                print(state.qrList[state.selectedQrIndex].qrCode!);
+                return SizedBox(
+                  width: 250.dm,
+                  height: 250.dm,
+                  child: Image.memory(
+                    base64Decode(state.qrList[state.selectedQrIndex].qrCode!
+                        .substring(
+                            'data:image/png;base64,'.length)), // Remove prefix
+                    fit: BoxFit.cover,
+                  ),
                 );
               } else {
                 return const SizedBox();
               }
-            },
-          ),
-          BlocBuilder<QrBloc, QrState>(
-            builder: (context, state) {
-              if (state.isLoading || state.qrList.isEmpty) {
-                return const SizedBox();
-              }
-              return AuthButton(
-                text: 'Share',
-                onTap: () {},
-                wdth: 110,
-              );
-            },
-          ),
-          // adjustHieght(khieght * .04),
-        ],
+            }),
+            adjustHieght(khieght * .04),
+            BlocBuilder<QrBloc, QrState>(
+              builder: (context, state) {
+                if (state.isLoading) {
+                  return const SizedBox();
+                } else if (state.qrList.isNotEmpty) {
+                  final model = context.read<QrBloc>().createQrModel;
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        // context.read<QrBloc>().createQrModel.copyWith(card: state.qrList[state.selectedQrIndex].id!);
+                        onTap: () => Navigator.of(context).push(
+                          fadePageRoute(const LevelSharing()),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 15, right: 10),
+                          height: 60.dm,
+                          width: 300.dm,
+                          decoration:
+                              BoxDecoration(border: Border.all(color: kwhite)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    'Level Sharing',
+                                    style: TextStyle(
+                                      fontSize: kwidth * 0.037,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Professional, Emergency, Company',
+                                    style: TextStyle(
+                                      fontSize: kwidth * 0.027,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Icon(
+                                Icons.keyboard_arrow_right_rounded,
+                                color: kwhite,
+                                size: 30,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      adjustHieght(10),
+                      Container(
+                        width: 300.dm,
+                        decoration:
+                            BoxDecoration(border: Border.all(color: neonShade)),
+                        child: model.phoneNumber == false &&
+                                model.address == false &&
+                                model.company == false &&
+                                model.socialMediaHandles == false &&
+                                model.personalSocialMedia == false &&
+                                model.email == false &&
+                                model.websiteLink == false &&
+                                model.businessDetailsMobileNumber == false &&
+                                model.businessEmail == false
+                            ? const Text('your personal and company contacts will not be shared')
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    model.phoneNumber ?? true
+                                        ? const Text(' Phone Number')
+                                        : const SizedBox(),
+                                    model.email ?? true
+                                        ? const Text(' Email')
+                                        : const SizedBox(),
+                                    model.company ?? true
+                                        ? const Text(' Company')
+                                        : const SizedBox(),
+                                    model.personalSocialMedia ?? true
+                                        ? const Text(' Personal Socialmedia')
+                                        : const SizedBox(),
+                                    model.address ?? true
+                                        ? const Text(' Address')
+                                        : const SizedBox(),
+                                    model.businessEmail ?? true
+                                        ? const Text(' Business Email')
+                                        : const SizedBox(),
+                                    model.businessDetailsMobileNumber!
+                                        ? const Text(' Business Mobile')
+                                        : const SizedBox(),
+                                    model.socialMediaHandles ?? true
+                                        ? const Text(' Business Socialmedia')
+                                        : const SizedBox(),
+                                    model.websiteLink ?? true
+                                        ? const Text(' Website')
+                                        : const SizedBox(),
+                                  ]),
+                      ),
+                      adjustHieght(10),
+                    ],
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
+            BlocBuilder<QrBloc, QrState>(
+              builder: (context, state) {
+                if (state.isLoading || state.qrList.isEmpty) {
+                  return const SizedBox();
+                }
+                return AuthButton(
+                  text: 'Share',
+                  onTap: () {},
+                  wdth: 110,
+                );
+              },
+            ),
+            // adjustHieght(khieght * .04),
+          ],
+        ),
       ),
     );
   }

@@ -65,10 +65,21 @@ class LocalService {
   }
 
   // update data
-  Future update(String table, Map<String, dynamic> map) async {
+  Future update(String table, Map<String, dynamic> map, String? where,
+      List<Object?>? whereArgs) async {
     try {
       final db = await database;
       return await db.update(table, map);
+    } catch (e) {
+      log('update = > ${e.toString()}');
+      rethrow;
+    }
+  }
+
+  Future rawUpdate(String query) async {
+    try {
+      final db = await database;
+      return await db.rawUpdate(query);
     } catch (e) {
       log('update = > ${e.toString()}');
       rethrow;

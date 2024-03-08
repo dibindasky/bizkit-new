@@ -14,11 +14,6 @@ class BizkitConnectionsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context
-          .read<ConnectionRequestBloc>()
-          .add(const ConnectionRequestEvent.getBizkitConnections());
-    });
     return Expanded(
       child: BlocConsumer<ConnectionRequestBloc, ConnectionRequestState>(
         listener: (context, state) {

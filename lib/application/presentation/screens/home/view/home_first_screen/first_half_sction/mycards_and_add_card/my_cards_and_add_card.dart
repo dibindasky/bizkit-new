@@ -72,7 +72,12 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text(state.defaultCard?.name ?? '',
+                                Text(
+                                    state.defaultCard?.name != null
+                                        ? state.defaultCard!.name!.length > 20
+                                            ? '${state.defaultCard!.name!.substring(0, 18)}..'
+                                            : state.defaultCard!.name!
+                                        : '',
                                     style: textHeadStyle1.copyWith(shadows: [
                                       const Shadow(
                                           color: kblack,
@@ -80,7 +85,11 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                           blurRadius: 5)
                                     ])),
                                 Text(
-                                  state.defaultCard?.designation ?? '',
+                                  state.defaultCard?.designation != null
+                                        ? state.defaultCard!.designation!.length > 20
+                                            ? '${state.defaultCard!.designation!.substring(0, 18)}..'
+                                            : state.defaultCard!.designation!
+                                        : '',
                                   style: TextStyle(
                                       fontSize: kwidth * .037,
                                       shadows: const [

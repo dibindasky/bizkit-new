@@ -76,7 +76,8 @@ class ScreenCardDetailView extends StatelessWidget {
                             return SizedBox(
                               height: 200,
                               child: PreviewPageviewImageBuilder(
-                                  imagesList: images),
+                                imagesList: images,
+                              ),
                             );
                           },
                         ),
@@ -91,9 +92,11 @@ class ScreenCardDetailView extends StatelessWidget {
                                       'Name',
                                   style: custumText(fontSize: kwidth * 0.06),
                                 ),
-                                Text(state.anotherCard?.personalDetails
-                                        ?.designation ??
-                                    'Designation'),
+                                Text(
+                                  state.anotherCard?.personalDetails
+                                          ?.designation ??
+                                      'Designation',
+                                ),
                                 adjustHieght(khieght * .02),
                               ],
                             );

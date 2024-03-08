@@ -44,4 +44,7 @@ class ApiEndPoints {
   static String connectionRequest = '/connections/connection-request/';
   static String deleteConnectionRequest =
       '/connections/delete-connection-request/{id}/';
+
+  static String forgottPasswordProfile = '/accounts/password_change/';
+  static String userNameChange = '/accounts/change-username/';
 }

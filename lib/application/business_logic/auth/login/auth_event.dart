@@ -11,4 +11,11 @@ class AuthEvent with _$AuthEvent {
       {required ChangePasswordModel changePasswordModel}) = ChangePassword;
   const factory AuthEvent.log() = Log;
   const factory AuthEvent.logOut() = LogOut;
+
+  const factory AuthEvent.resetPasswod({
+    required ForgottPasswordRequestModel forgottPasswordRequestModel,
+  }) = ResetPasswod;
+  const factory AuthEvent.userNameChange({
+    required UserNameChanginRequestModel userNameChanginRequestModel,
+  }) = UserNameChange;
 }

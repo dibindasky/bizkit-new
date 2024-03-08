@@ -1,3 +1,5 @@
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/blocked_connections.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
 import 'package:flutter/material.dart';
@@ -20,17 +22,30 @@ class ConnectionNetworkScreen extends StatelessWidget {
           ),
         ),
         backgroundColor: knill,
-        title: const Text(
+        title: Text(
           'Connections & Networking',
+          style: textHeadStyle1,
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            TileItem(text: 'Blocked Connections'),
-            TileItem(text: 'Reported Connections'),
-            TileItem(text: 'Restricted Connections')
+            TileItem(
+              text: 'Blocked Connections',
+              onTap: () {
+                Navigator.of(context)
+                    .push(fadePageRoute(const BlockedConnections()));
+              },
+            ),
+            TileItem(
+              text: 'Restricted Connections',
+              onTap: () {},
+            ),
+            TileItem(
+              text: 'Reported Connections',
+              onTap: () {},
+            ),
           ],
         ),
       ),

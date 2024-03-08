@@ -15,7 +15,7 @@ class ConnectionRequestState with _$ConnectionRequestState {
   }) = _Initial;
   factory ConnectionRequestState.initial() => const ConnectionRequestState(
       connected: false,
-      requestLoadingIndex: 0,
+      requestLoadingIndex: -1,
       hasError: false,
       isLoading: false,
       isPageLoading: false);

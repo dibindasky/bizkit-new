@@ -20,25 +20,37 @@ class UserLocalService implements UserLocalRepo {
   @override
   Future<Either<Failure, List<User>>> getUserData() async {
     try {
+      final dta = await localService.rawQuery('SELECT * FROM ${Sql.userTable}');
+      print(dta.map((e) => e.values.toList()));
       final id = await SecureStorage.getUserId();
       if (id == null) {
         return Left(Failure());
       }
       final String query =
           'SELECT * FROM ${Sql.userTable} WHERE ${User.colId} = $id';
+      print("user id $id");
       List<Map<String, Object?>> maps = await localService.rawQuery(query);
       return Right(List.generate(maps.length, (i) {
         final Map<String, Object?> map = Map.from(maps[i]);
         // bool conversion from int
         map[User.colIsBusiness] =
             map[User.colIsBusiness] as int == 1 ? true : false;
-        map[User.colIsVerified] =
-            map[User.colIsVerified] as int == 1 ? true : false;
         print(map);
         return User.fromJson(map);
       }));
     } catch (e) {
       return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<void> updateUserName(String name) async {
+    try {
+      final id = await SecureStorage.getUserId();
+      await localService.update(
+          Sql.userTable, {User.colName: name}, "${User.colLocalId} = ?", [id]);
+    } catch (e) {
+      log('error in update user name $name\n ${e.toString()}');
     }
   }
 
@@ -49,12 +61,29 @@ class UserLocalService implements UserLocalRepo {
       const query = "SELECT * FROM ${Sql.userTable} WHERE ${User.colId} = ?";
       final bool isPresent = await localService.presentOrNot(query, [user.id!]);
       if (isPresent) return;
-      final map = user.toJson();
-      // while inserting convert bool to int
-      map[User.colIsBusiness] = user.isBusiness! ? 1 : 0;
-      map[User.colIsVerified] = user.isVerified! ? 1 : 0;
-      map.remove(User.colLocalId);
-      await localService.insert(Sql.userTable, map);
+      const insertQuery = '''
+          INSERT INTO ${Sql.userTable} (
+            ${User.colName},
+            ${User.colPhone},
+            ${User.colEmail},
+            ${User.colId},
+            ${User.colIsBusiness},
+            ${User.colCompanyName},
+            ${User.colAddress},
+            ${User.colWebsite}) 
+          VALUES (?,?,?,?,?,?,?,?,?)
+          ''';
+      await localService.rawInsert(insertQuery, [
+        user.name ?? '',
+        user.phoneNumber ?? '',
+        user.email ?? '',
+        user.id ?? 0,
+        user.isBusiness! ? 1 : 0,
+        user.isVerified! ? 1 : 0,
+        user.companyName ?? '',
+        user.address ?? '',
+        user.websiteLink ?? ''
+      ]);
     } catch (e) {
       log('cannot insert user data\n ${e.toString()}');
     }

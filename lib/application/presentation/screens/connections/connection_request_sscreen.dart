@@ -91,7 +91,12 @@ class ScreenConnectionRequests extends StatelessWidget {
                         // image profile
                         CircleAvatar(
                           radius: kwidth * 0.08,
-                          backgroundImage: const AssetImage(imageDummyAsset),
+                          backgroundImage: data.image != null
+                              ? NetworkImage(data.image!)
+                              : null,
+                          child: data.image != null
+                              ? null
+                              : const Icon(Icons.person, color: neonShade),
                         ),
                         adjustHieght(10),
                         Text(

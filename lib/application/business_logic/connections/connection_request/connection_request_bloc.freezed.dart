@@ -31,7 +31,7 @@ mixin _$ConnectionRequestEvent {
         addTagToBizkitconnection,
     required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
     required TResult Function(
-            AddConnectionRequestModel addConnectionRequestModel)
+            AddConnectionRequestModel addConnectionRequestModel, int index)
         addConnectionRequests,
     required TResult Function() getRequestLists,
     required TResult Function(int id) deleteRequest,
@@ -51,7 +51,8 @@ mixin _$ConnectionRequestEvent {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult? Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult? Function()? getRequestLists,
     TResult? Function(int id)? deleteRequest,
@@ -71,7 +72,8 @@ mixin _$ConnectionRequestEvent {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult Function()? getRequestLists,
     TResult Function(int id)? deleteRequest,
@@ -198,7 +200,7 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
         addTagToBizkitconnection,
     required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
     required TResult Function(
-            AddConnectionRequestModel addConnectionRequestModel)
+            AddConnectionRequestModel addConnectionRequestModel, int index)
         addConnectionRequests,
     required TResult Function() getRequestLists,
     required TResult Function(int id) deleteRequest,
@@ -221,7 +223,8 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult? Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult? Function()? getRequestLists,
     TResult? Function(int id)? deleteRequest,
@@ -244,7 +247,8 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult Function()? getRequestLists,
     TResult Function(int id)? deleteRequest,
@@ -375,7 +379,7 @@ class _$GetBizkitConnectionsNextPageImpl
         addTagToBizkitconnection,
     required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
     required TResult Function(
-            AddConnectionRequestModel addConnectionRequestModel)
+            AddConnectionRequestModel addConnectionRequestModel, int index)
         addConnectionRequests,
     required TResult Function() getRequestLists,
     required TResult Function(int id) deleteRequest,
@@ -398,7 +402,8 @@ class _$GetBizkitConnectionsNextPageImpl
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult? Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult? Function()? getRequestLists,
     TResult? Function(int id)? deleteRequest,
@@ -421,7 +426,8 @@ class _$GetBizkitConnectionsNextPageImpl
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult Function()? getRequestLists,
     TResult Function(int id)? deleteRequest,
@@ -590,7 +596,7 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
         addTagToBizkitconnection,
     required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
     required TResult Function(
-            AddConnectionRequestModel addConnectionRequestModel)
+            AddConnectionRequestModel addConnectionRequestModel, int index)
         addConnectionRequests,
     required TResult Function() getRequestLists,
     required TResult Function(int id) deleteRequest,
@@ -613,7 +619,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult? Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult? Function()? getRequestLists,
     TResult? Function(int id)? deleteRequest,
@@ -636,7 +643,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult Function()? getRequestLists,
     TResult Function(int id)? deleteRequest,
@@ -799,7 +807,7 @@ class _$AddConnectionImpl implements AddConnection {
         addTagToBizkitconnection,
     required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
     required TResult Function(
-            AddConnectionRequestModel addConnectionRequestModel)
+            AddConnectionRequestModel addConnectionRequestModel, int index)
         addConnectionRequests,
     required TResult Function() getRequestLists,
     required TResult Function(int id) deleteRequest,
@@ -822,7 +830,8 @@ class _$AddConnectionImpl implements AddConnection {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult? Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult? Function()? getRequestLists,
     TResult? Function(int id)? deleteRequest,
@@ -845,7 +854,8 @@ class _$AddConnectionImpl implements AddConnection {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult Function()? getRequestLists,
     TResult Function(int id)? deleteRequest,
@@ -1020,7 +1030,7 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
         addTagToBizkitconnection,
     required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
     required TResult Function(
-            AddConnectionRequestModel addConnectionRequestModel)
+            AddConnectionRequestModel addConnectionRequestModel, int index)
         addConnectionRequests,
     required TResult Function() getRequestLists,
     required TResult Function(int id) deleteRequest,
@@ -1043,7 +1053,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult? Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult? Function()? getRequestLists,
     TResult? Function(int id)? deleteRequest,
@@ -1066,7 +1077,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult Function()? getRequestLists,
     TResult Function(int id)? deleteRequest,
@@ -1228,7 +1240,7 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
         addTagToBizkitconnection,
     required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
     required TResult Function(
-            AddConnectionRequestModel addConnectionRequestModel)
+            AddConnectionRequestModel addConnectionRequestModel, int index)
         addConnectionRequests,
     required TResult Function() getRequestLists,
     required TResult Function(int id) deleteRequest,
@@ -1251,7 +1263,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult? Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult? Function()? getRequestLists,
     TResult? Function(int id)? deleteRequest,
@@ -1274,7 +1287,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult Function()? getRequestLists,
     TResult Function(int id)? deleteRequest,
@@ -1362,7 +1376,7 @@ abstract class _$$AddConnectionRequestsImplCopyWith<$Res> {
           $Res Function(_$AddConnectionRequestsImpl) then) =
       __$$AddConnectionRequestsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({AddConnectionRequestModel addConnectionRequestModel});
+  $Res call({AddConnectionRequestModel addConnectionRequestModel, int index});
 }
 
 /// @nodoc
@@ -1378,12 +1392,17 @@ class __$$AddConnectionRequestsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? addConnectionRequestModel = null,
+    Object? index = null,
   }) {
     return _then(_$AddConnectionRequestsImpl(
       addConnectionRequestModel: null == addConnectionRequestModel
           ? _value.addConnectionRequestModel
           : addConnectionRequestModel // ignore: cast_nullable_to_non_nullable
               as AddConnectionRequestModel,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -1391,14 +1410,17 @@ class __$$AddConnectionRequestsImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddConnectionRequestsImpl implements AddConnectionRequests {
-  const _$AddConnectionRequestsImpl({required this.addConnectionRequestModel});
+  const _$AddConnectionRequestsImpl(
+      {required this.addConnectionRequestModel, required this.index});
 
   @override
   final AddConnectionRequestModel addConnectionRequestModel;
+  @override
+  final int index;
 
   @override
   String toString() {
-    return 'ConnectionRequestEvent.addConnectionRequests(addConnectionRequestModel: $addConnectionRequestModel)';
+    return 'ConnectionRequestEvent.addConnectionRequests(addConnectionRequestModel: $addConnectionRequestModel, index: $index)';
   }
 
   @override
@@ -1408,11 +1430,13 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
             other is _$AddConnectionRequestsImpl &&
             (identical(other.addConnectionRequestModel,
                     addConnectionRequestModel) ||
-                other.addConnectionRequestModel == addConnectionRequestModel));
+                other.addConnectionRequestModel == addConnectionRequestModel) &&
+            (identical(other.index, index) || other.index == index));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, addConnectionRequestModel);
+  int get hashCode =>
+      Object.hash(runtimeType, addConnectionRequestModel, index);
 
   @JsonKey(ignore: true)
   @override
@@ -1437,12 +1461,12 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
         addTagToBizkitconnection,
     required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
     required TResult Function(
-            AddConnectionRequestModel addConnectionRequestModel)
+            AddConnectionRequestModel addConnectionRequestModel, int index)
         addConnectionRequests,
     required TResult Function() getRequestLists,
     required TResult Function(int id) deleteRequest,
   }) {
-    return addConnectionRequests(addConnectionRequestModel);
+    return addConnectionRequests(addConnectionRequestModel, index);
   }
 
   @override
@@ -1460,12 +1484,13 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult? Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult? Function()? getRequestLists,
     TResult? Function(int id)? deleteRequest,
   }) {
-    return addConnectionRequests?.call(addConnectionRequestModel);
+    return addConnectionRequests?.call(addConnectionRequestModel, index);
   }
 
   @override
@@ -1483,14 +1508,15 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult Function()? getRequestLists,
     TResult Function(int id)? deleteRequest,
     required TResult orElse(),
   }) {
     if (addConnectionRequests != null) {
-      return addConnectionRequests(addConnectionRequestModel);
+      return addConnectionRequests(addConnectionRequestModel, index);
     }
     return orElse();
   }
@@ -1556,10 +1582,11 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
 
 abstract class AddConnectionRequests implements ConnectionRequestEvent {
   const factory AddConnectionRequests(
-      {required final AddConnectionRequestModel
-          addConnectionRequestModel}) = _$AddConnectionRequestsImpl;
+      {required final AddConnectionRequestModel addConnectionRequestModel,
+      required final int index}) = _$AddConnectionRequestsImpl;
 
   AddConnectionRequestModel get addConnectionRequestModel;
+  int get index;
   @JsonKey(ignore: true)
   _$$AddConnectionRequestsImplCopyWith<_$AddConnectionRequestsImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -1616,7 +1643,7 @@ class _$GetRequestListsImpl implements GetRequestLists {
         addTagToBizkitconnection,
     required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
     required TResult Function(
-            AddConnectionRequestModel addConnectionRequestModel)
+            AddConnectionRequestModel addConnectionRequestModel, int index)
         addConnectionRequests,
     required TResult Function() getRequestLists,
     required TResult Function(int id) deleteRequest,
@@ -1639,7 +1666,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult? Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult? Function()? getRequestLists,
     TResult? Function(int id)? deleteRequest,
@@ -1662,7 +1690,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult Function()? getRequestLists,
     TResult Function(int id)? deleteRequest,
@@ -1814,7 +1843,7 @@ class _$DeleteRequestImpl implements DeleteRequest {
         addTagToBizkitconnection,
     required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
     required TResult Function(
-            AddConnectionRequestModel addConnectionRequestModel)
+            AddConnectionRequestModel addConnectionRequestModel, int index)
         addConnectionRequests,
     required TResult Function() getRequestLists,
     required TResult Function(int id) deleteRequest,
@@ -1837,7 +1866,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult? Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult? Function()? getRequestLists,
     TResult? Function(int id)? deleteRequest,
@@ -1860,7 +1890,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
         addTagToBizkitconnection,
     TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
-    TResult Function(AddConnectionRequestModel addConnectionRequestModel)?
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
         addConnectionRequests,
     TResult Function()? getRequestLists,
     TResult Function(int id)? deleteRequest,

@@ -198,7 +198,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }),
         buildSwitch("Business Email",
-            context.read<QrBloc>().createQrModel.businessEmail ?? false,
+            context.read<QrBloc>().createQrModel.businessEmail??false,
             (value) {
           setState(() {
             if (businessDetals) {

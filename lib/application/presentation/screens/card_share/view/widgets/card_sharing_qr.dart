@@ -74,7 +74,8 @@ class CardSharingScreen extends StatelessWidget {
                                 height: 50.dm,
                                 width: 50.dm,
                                 child: Image.network(
-                                  state.qrList[state.selectedQrIndex].logo == null
+                                  state.qrList[state.selectedQrIndex].logo ==
+                                          null
                                       ? image
                                       : state.qrList[index].logo!,
                                   fit: BoxFit.cover,
@@ -126,6 +127,7 @@ class CardSharingScreen extends StatelessWidget {
                   return Column(
                     children: [
                       GestureDetector(
+                        // context.read<QrBloc>().createQrModel.copyWith(card: state.qrList[state.selectedQrIndex].id!);
                         onTap: () => Navigator.of(context).push(
                           fadePageRoute(const LevelSharing()),
                         ),
@@ -140,7 +142,8 @@ class CardSharingScreen extends StatelessWidget {
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
                                     'Level Sharing',
@@ -170,35 +173,47 @@ class CardSharingScreen extends StatelessWidget {
                         width: 300.dm,
                         decoration:
                             BoxDecoration(border: Border.all(color: neonShade)),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              model.phoneNumber ?? true
-                                  ? const Text(' Phone Number')
-                                  : const SizedBox(),
-                              Text(model.email ?? true ? ' Email' : ''),
-                              model.company ?? true
-                                  ? const Text(' Company')
-                                  : const SizedBox(),
-                              model.personalSocialMedia ?? true
-                                  ? const Text(' Personal Socialmedia')
-                                  : const SizedBox(),
-                              model.address ?? true
-                                  ? const Text(' Address')
-                                  : const SizedBox(),
-                              model.businessEmail ?? true
-                                  ? const Text(' Business Email')
-                                  : const SizedBox(),
-                              model.businessDetailsMobileNumber!
-                                  ? const Text(' Business Mobile')
-                                  : const SizedBox(),
-                              model.socialMediaHandles ?? true
-                                  ? const Text(' Business Socialmedia')
-                                  : const SizedBox(),
-                              model.websiteLink ?? true
-                                  ? const Text(' Website')
-                                  : const SizedBox(),
-                            ]),
+                        child: model.phoneNumber == false &&
+                                model.address == false &&
+                                model.company == false &&
+                                model.socialMediaHandles == false &&
+                                model.personalSocialMedia == false &&
+                                model.email == false &&
+                                model.websiteLink == false &&
+                                model.businessDetailsMobileNumber == false &&
+                                model.businessEmail == false
+                            ? const Text('your personal and company contacts will not be shared')
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    model.phoneNumber ?? true
+                                        ? const Text(' Phone Number')
+                                        : const SizedBox(),
+                                    model.email ?? true
+                                        ? const Text(' Email')
+                                        : const SizedBox(),
+                                    model.company ?? true
+                                        ? const Text(' Company')
+                                        : const SizedBox(),
+                                    model.personalSocialMedia ?? true
+                                        ? const Text(' Personal Socialmedia')
+                                        : const SizedBox(),
+                                    model.address ?? true
+                                        ? const Text(' Address')
+                                        : const SizedBox(),
+                                    model.businessEmail ?? true
+                                        ? const Text(' Business Email')
+                                        : const SizedBox(),
+                                    model.businessDetailsMobileNumber!
+                                        ? const Text(' Business Mobile')
+                                        : const SizedBox(),
+                                    model.socialMediaHandles ?? true
+                                        ? const Text(' Business Socialmedia')
+                                        : const SizedBox(),
+                                    model.websiteLink ?? true
+                                        ? const Text(' Website')
+                                        : const SizedBox(),
+                                  ]),
                       ),
                       adjustHieght(10),
                     ],

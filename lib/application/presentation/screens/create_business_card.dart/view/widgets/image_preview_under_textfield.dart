@@ -111,7 +111,9 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                           border: Border.all(color: neonShade),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10))),
-                                      child: Text(listString![index]),
+                                      child: Text(listString![index].length > 20
+                                          ? '${listString![index].substring(0, 17)} ...'
+                                          : listString![index]),
                                     ),
                                   ),
                                   removeItem == null

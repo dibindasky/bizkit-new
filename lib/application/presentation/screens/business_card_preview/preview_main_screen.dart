@@ -42,6 +42,9 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                 builder: (context, business) {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
+                      final logo = business.logo != null
+                          ? [business.logo!.fileImage]
+                          : <File>[];
                       List<File> images = user.userPhotos != null
                           ? [user.userPhotos!.fileImage]
                           : <File>[] +
@@ -51,7 +54,8 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                               user.accolades
                                   .map(
                                       (e) => e.accoladesImage.fileImage as File)
-                                  .toList();
+                                  .toList() +
+                              logo;
                       return PreviewPageviewImageBuilder(images: images);
                     },
                   );

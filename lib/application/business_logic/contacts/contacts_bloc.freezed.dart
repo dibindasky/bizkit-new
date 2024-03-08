@@ -614,6 +614,7 @@ abstract class CheckContactsInBizkit implements ContactsEvent {
 mixin _$ContactsState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  bool get fetchingLoading => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   List<ContactModel>? get contactList => throw _privateConstructorUsedError;
 
@@ -631,6 +632,7 @@ abstract class $ContactsStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool hasError,
+      bool fetchingLoading,
       String? message,
       List<ContactModel>? contactList});
 }
@@ -650,6 +652,7 @@ class _$ContactsStateCopyWithImpl<$Res, $Val extends ContactsState>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? fetchingLoading = null,
     Object? message = freezed,
     Object? contactList = freezed,
   }) {
@@ -661,6 +664,10 @@ class _$ContactsStateCopyWithImpl<$Res, $Val extends ContactsState>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fetchingLoading: null == fetchingLoading
+          ? _value.fetchingLoading
+          : fetchingLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -685,6 +692,7 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       bool hasError,
+      bool fetchingLoading,
       String? message,
       List<ContactModel>? contactList});
 }
@@ -702,6 +710,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? fetchingLoading = null,
     Object? message = freezed,
     Object? contactList = freezed,
   }) {
@@ -713,6 +722,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fetchingLoading: null == fetchingLoading
+          ? _value.fetchingLoading
+          : fetchingLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -732,6 +745,7 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
       required this.hasError,
+      required this.fetchingLoading,
       this.message,
       final List<ContactModel>? contactList})
       : _contactList = contactList;
@@ -740,6 +754,8 @@ class _$InitialImpl implements _Initial {
   final bool isLoading;
   @override
   final bool hasError;
+  @override
+  final bool fetchingLoading;
   @override
   final String? message;
   final List<ContactModel>? _contactList;
@@ -754,7 +770,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ContactsState(isLoading: $isLoading, hasError: $hasError, message: $message, contactList: $contactList)';
+    return 'ContactsState(isLoading: $isLoading, hasError: $hasError, fetchingLoading: $fetchingLoading, message: $message, contactList: $contactList)';
   }
 
   @override
@@ -766,13 +782,20 @@ class _$InitialImpl implements _Initial {
                 other.isLoading == isLoading) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
+            (identical(other.fetchingLoading, fetchingLoading) ||
+                other.fetchingLoading == fetchingLoading) &&
             (identical(other.message, message) || other.message == message) &&
             const DeepCollectionEquality()
                 .equals(other._contactList, _contactList));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, hasError, message,
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      hasError,
+      fetchingLoading,
+      message,
       const DeepCollectionEquality().hash(_contactList));
 
   @JsonKey(ignore: true)
@@ -786,6 +809,7 @@ abstract class _Initial implements ContactsState {
   const factory _Initial(
       {required final bool isLoading,
       required final bool hasError,
+      required final bool fetchingLoading,
       final String? message,
       final List<ContactModel>? contactList}) = _$InitialImpl;
 
@@ -793,6 +817,8 @@ abstract class _Initial implements ContactsState {
   bool get isLoading;
   @override
   bool get hasError;
+  @override
+  bool get fetchingLoading;
   @override
   String? get message;
   @override

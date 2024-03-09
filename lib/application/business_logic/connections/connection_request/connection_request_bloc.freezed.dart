@@ -1978,6 +1978,7 @@ mixin _$ConnectionRequestState {
   bool get connected => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   int get requestLoadingIndex => throw _privateConstructorUsedError;
+  int? get connectedId => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   List<BizkitConnection>? get bizkitConnections =>
       throw _privateConstructorUsedError;
@@ -2001,6 +2002,7 @@ abstract class $ConnectionRequestStateCopyWith<$Res> {
       bool connected,
       bool hasError,
       int requestLoadingIndex,
+      int? connectedId,
       String? message,
       List<BizkitConnection>? bizkitConnections,
       List<BizkitUser>? bizkitUsers,
@@ -2026,6 +2028,7 @@ class _$ConnectionRequestStateCopyWithImpl<$Res,
     Object? connected = null,
     Object? hasError = null,
     Object? requestLoadingIndex = null,
+    Object? connectedId = freezed,
     Object? message = freezed,
     Object? bizkitConnections = freezed,
     Object? bizkitUsers = freezed,
@@ -2052,6 +2055,10 @@ class _$ConnectionRequestStateCopyWithImpl<$Res,
           ? _value.requestLoadingIndex
           : requestLoadingIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      connectedId: freezed == connectedId
+          ? _value.connectedId
+          : connectedId // ignore: cast_nullable_to_non_nullable
+              as int?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -2086,6 +2093,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool connected,
       bool hasError,
       int requestLoadingIndex,
+      int? connectedId,
       String? message,
       List<BizkitConnection>? bizkitConnections,
       List<BizkitUser>? bizkitUsers,
@@ -2108,6 +2116,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? connected = null,
     Object? hasError = null,
     Object? requestLoadingIndex = null,
+    Object? connectedId = freezed,
     Object? message = freezed,
     Object? bizkitConnections = freezed,
     Object? bizkitUsers = freezed,
@@ -2134,6 +2143,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.requestLoadingIndex
           : requestLoadingIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      connectedId: freezed == connectedId
+          ? _value.connectedId
+          : connectedId // ignore: cast_nullable_to_non_nullable
+              as int?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -2163,6 +2176,7 @@ class _$InitialImpl implements _Initial {
       required this.connected,
       required this.hasError,
       required this.requestLoadingIndex,
+      this.connectedId,
       this.message,
       final List<BizkitConnection>? bizkitConnections,
       final List<BizkitUser>? bizkitUsers,
@@ -2181,6 +2195,8 @@ class _$InitialImpl implements _Initial {
   final bool hasError;
   @override
   final int requestLoadingIndex;
+  @override
+  final int? connectedId;
   @override
   final String? message;
   final List<BizkitConnection>? _bizkitConnections;
@@ -2216,7 +2232,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ConnectionRequestState(isLoading: $isLoading, isPageLoading: $isPageLoading, connected: $connected, hasError: $hasError, requestLoadingIndex: $requestLoadingIndex, message: $message, bizkitConnections: $bizkitConnections, bizkitUsers: $bizkitUsers, requestList: $requestList)';
+    return 'ConnectionRequestState(isLoading: $isLoading, isPageLoading: $isPageLoading, connected: $connected, hasError: $hasError, requestLoadingIndex: $requestLoadingIndex, connectedId: $connectedId, message: $message, bizkitConnections: $bizkitConnections, bizkitUsers: $bizkitUsers, requestList: $requestList)';
   }
 
   @override
@@ -2234,6 +2250,8 @@ class _$InitialImpl implements _Initial {
                 other.hasError == hasError) &&
             (identical(other.requestLoadingIndex, requestLoadingIndex) ||
                 other.requestLoadingIndex == requestLoadingIndex) &&
+            (identical(other.connectedId, connectedId) ||
+                other.connectedId == connectedId) &&
             (identical(other.message, message) || other.message == message) &&
             const DeepCollectionEquality()
                 .equals(other._bizkitConnections, _bizkitConnections) &&
@@ -2251,6 +2269,7 @@ class _$InitialImpl implements _Initial {
       connected,
       hasError,
       requestLoadingIndex,
+      connectedId,
       message,
       const DeepCollectionEquality().hash(_bizkitConnections),
       const DeepCollectionEquality().hash(_bizkitUsers),
@@ -2270,6 +2289,7 @@ abstract class _Initial implements ConnectionRequestState {
       required final bool connected,
       required final bool hasError,
       required final int requestLoadingIndex,
+      final int? connectedId,
       final String? message,
       final List<BizkitConnection>? bizkitConnections,
       final List<BizkitUser>? bizkitUsers,
@@ -2285,6 +2305,8 @@ abstract class _Initial implements ConnectionRequestState {
   bool get hasError;
   @override
   int get requestLoadingIndex;
+  @override
+  int? get connectedId;
   @override
   String? get message;
   @override

@@ -10,10 +10,12 @@ SuccessResponseModel _$SuccessResponseModelFromJson(
         Map<String, dynamic> json) =>
     SuccessResponseModel(
       message: json['message'] as String?,
+      data: json['data'],
     );
 
 Map<String, dynamic> _$SuccessResponseModelToJson(
         SuccessResponseModel instance) =>
     <String, dynamic>{
       'message': instance.message,
+      'data': instance.data,
     };

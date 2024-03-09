@@ -46,6 +46,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
 
   // fetch the contact list form phone
   FutureOr<void> getContactsList(GetContactsList event, emit) async {
+    if (state.contactList != null && state.contactList!.isNotEmpty) return;
     emit(state.copyWith(hasError: false, message: null,fetchingLoading: true));
     print('fetch start');
     final result = await contactFetchFeature.getContactsList();

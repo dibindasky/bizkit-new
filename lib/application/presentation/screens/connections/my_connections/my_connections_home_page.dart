@@ -131,7 +131,7 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Center(
-                          child: Icon(Icons.person, color: neonShade)),
+                          child: Icon(Icons.person, color: klightgrey)),
                     ),
                   );
                 },

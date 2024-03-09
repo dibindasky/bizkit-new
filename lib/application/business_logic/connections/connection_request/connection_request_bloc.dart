@@ -38,14 +38,21 @@ class ConnectionRequestBloc
 
   FutureOr<void> addConnection(AddConnection event, emit) async {
     emit(state.copyWith(
-        isLoading: true, hasError: false, message: null, connected: false));
+        isLoading: true,
+        hasError: false,
+        message: null,
+        connected: false,
+        connectedId: null));
     final result = await _connectionRepo.createBizkitConnection(
         createConnectionWithCardIdModel: event.createConnectionWithCardIdModel);
     result.fold(
         (l) => emit(state.copyWith(
             isLoading: false, hasError: true, message: l.message)), (r) {
       emit(state.copyWith(
-          isLoading: false, message: r.message, connected: true));
+          isLoading: false,
+          message: r.message,
+          connected: true,
+          connectedId: r.data as int));
       add(const ConnectionRequestEvent.getRequestLists());
     });
   }
@@ -53,7 +60,11 @@ class ConnectionRequestBloc
   FutureOr<void> addTagToBizkitConnection(
       AddTagToBizkitconnection event, emit) async {
     emit(state.copyWith(
-        isLoading: true, hasError: false, message: null, connected: false));
+        isLoading: true,
+        hasError: false,
+        message: null,
+        connected: false,
+        connectedId: null));
     final result = await _connectionRepo.addTagToBizkitconnection(
         addConnectionTagModel: event.addConnectionTagModel,
         connectionId: event.connectionId);

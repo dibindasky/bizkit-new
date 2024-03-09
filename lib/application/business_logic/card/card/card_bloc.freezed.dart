@@ -1220,6 +1220,7 @@ mixin _$CardState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get pageLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  bool get businessUser => throw _privateConstructorUsedError;
   List<CardResponse> get cards => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   CardResponse? get defaultCard => throw _privateConstructorUsedError;
@@ -1239,6 +1240,7 @@ abstract class $CardStateCopyWith<$Res> {
       {bool isLoading,
       bool pageLoading,
       bool hasError,
+      bool businessUser,
       List<CardResponse> cards,
       String? message,
       CardResponse? defaultCard,
@@ -1261,6 +1263,7 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
     Object? isLoading = null,
     Object? pageLoading = null,
     Object? hasError = null,
+    Object? businessUser = null,
     Object? cards = null,
     Object? message = freezed,
     Object? defaultCard = freezed,
@@ -1278,6 +1281,10 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      businessUser: null == businessUser
+          ? _value.businessUser
+          : businessUser // ignore: cast_nullable_to_non_nullable
               as bool,
       cards: null == cards
           ? _value.cards
@@ -1311,6 +1318,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       {bool isLoading,
       bool pageLoading,
       bool hasError,
+      bool businessUser,
       List<CardResponse> cards,
       String? message,
       CardResponse? defaultCard,
@@ -1331,6 +1339,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? pageLoading = null,
     Object? hasError = null,
+    Object? businessUser = null,
     Object? cards = null,
     Object? message = freezed,
     Object? defaultCard = freezed,
@@ -1348,6 +1357,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      businessUser: null == businessUser
+          ? _value.businessUser
+          : businessUser // ignore: cast_nullable_to_non_nullable
               as bool,
       cards: null == cards
           ? _value._cards
@@ -1376,6 +1389,7 @@ class _$InitialImpl implements _Initial {
       {required this.isLoading,
       required this.pageLoading,
       required this.hasError,
+      required this.businessUser,
       required final List<CardResponse> cards,
       this.message,
       this.defaultCard,
@@ -1388,6 +1402,8 @@ class _$InitialImpl implements _Initial {
   final bool pageLoading;
   @override
   final bool hasError;
+  @override
+  final bool businessUser;
   final List<CardResponse> _cards;
   @override
   List<CardResponse> get cards {
@@ -1405,7 +1421,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'CardState(isLoading: $isLoading, pageLoading: $pageLoading, hasError: $hasError, cards: $cards, message: $message, defaultCard: $defaultCard, anotherCard: $anotherCard)';
+    return 'CardState(isLoading: $isLoading, pageLoading: $pageLoading, hasError: $hasError, businessUser: $businessUser, cards: $cards, message: $message, defaultCard: $defaultCard, anotherCard: $anotherCard)';
   }
 
   @override
@@ -1419,6 +1435,8 @@ class _$InitialImpl implements _Initial {
                 other.pageLoading == pageLoading) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
+            (identical(other.businessUser, businessUser) ||
+                other.businessUser == businessUser) &&
             const DeepCollectionEquality().equals(other._cards, _cards) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.defaultCard, defaultCard) ||
@@ -1433,6 +1451,7 @@ class _$InitialImpl implements _Initial {
       isLoading,
       pageLoading,
       hasError,
+      businessUser,
       const DeepCollectionEquality().hash(_cards),
       message,
       defaultCard,
@@ -1450,6 +1469,7 @@ abstract class _Initial implements CardState {
       {required final bool isLoading,
       required final bool pageLoading,
       required final bool hasError,
+      required final bool businessUser,
       required final List<CardResponse> cards,
       final String? message,
       final CardResponse? defaultCard,
@@ -1461,6 +1481,8 @@ abstract class _Initial implements CardState {
   bool get pageLoading;
   @override
   bool get hasError;
+  @override
+  bool get businessUser;
   @override
   List<CardResponse> get cards;
   @override

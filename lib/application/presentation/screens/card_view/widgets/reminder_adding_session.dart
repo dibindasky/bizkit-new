@@ -14,11 +14,19 @@ class CardViewAddReminderContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int? createdConnectionID;
     return BlocBuilder<CardBloc, CardState>(
       builder: (context, cardState) {
         return GestureDetector(
           onTap: () {
-            if (cardState.anotherCard?.connectionId != null) {
+            if (createdConnectionID != null) {
+              Navigator.push(
+                context,
+                fadePageRoute(PreviewHomeAddReminderScreen(
+                    cardId: cardState.anotherCard!.id!,
+                    connectionId: createdConnectionID!)),
+              );
+            } else if (cardState.anotherCard?.connectionId != null) {
               Navigator.push(
                 context,
                 fadePageRoute(PreviewHomeAddReminderScreen(
@@ -31,9 +39,13 @@ class CardViewAddReminderContainer extends StatelessWidget {
                       createConnectionWithCardIdModel:
                           CreateConnectionWithCardIdModel(
                               cardId: cardState.anotherCard?.id)));
-            }
+            }else{print('not in conditions');}
           },
-          child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
+          child: BlocConsumer<ConnectionRequestBloc, ConnectionRequestState>(
+            listenWhen: (previous, current) => current.connected,
+            listener: (context, state) {
+              createdConnectionID = state.connectedId;
+            },
             builder: (context, state) {
               if (state.isLoading) {
                 return const Center(
@@ -63,7 +75,7 @@ class CardViewAddReminderContainer extends StatelessWidget {
                             ),
                       adjustWidth(kwidth * .03),
                       Text(
-                          cardState.anotherCard!.connectionId != null
+                          cardState.anotherCard!.connectionId != null ||createdConnectionID!=null
                               ? 'Add Reminder'
                               : cardState.anotherCard!.connectionRequestId !=
                                       null

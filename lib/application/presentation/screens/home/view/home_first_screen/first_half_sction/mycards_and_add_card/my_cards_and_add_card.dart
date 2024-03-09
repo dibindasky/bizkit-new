@@ -86,10 +86,11 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                     ])),
                                 Text(
                                   state.defaultCard?.designation != null
-                                        ? state.defaultCard!.designation!.length > 20
-                                            ? '${state.defaultCard!.designation!.substring(0, 18)}..'
-                                            : state.defaultCard!.designation!
-                                        : '',
+                                      ? state.defaultCard!.designation!.length >
+                                              20
+                                          ? '${state.defaultCard!.designation!.substring(0, 18)}..'
+                                          : state.defaultCard!.designation!
+                                      : '',
                                   style: TextStyle(
                                       fontSize: kwidth * .037,
                                       shadows: const [
@@ -119,38 +120,45 @@ class MyCardsAndAddCardSection extends StatelessWidget {
               ),
               adjustWidth(kwidth * .03),
               Expanded(
-                child: GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                    fadePageRoute(
-                        const StartingBusinessCardCreation(fromHome: true)),
-                  ),
-                  child: Container(
-                    height: kwidth * 0.35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: backgroundColour,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: kblack,
-                          blurRadius: 2,
-                          blurStyle: BlurStyle.outer,
-                        )
-                      ],
-                    ),
-                    width: 140,
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CircleAvatar(
-                          radius: 16,
-                          backgroundImage: AssetImage(
-                            'asset/images/home add circl.png',
-                          ),
+                child: BlocBuilder<CardBloc, CardState>(
+                  builder: (context, state) {
+                    if (state.businessUser && state.cards.length == 1) {
+                      return const SizedBox();
+                    }
+                    return GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        fadePageRoute(
+                            const StartingBusinessCardCreation(fromHome: true)),
+                      ),
+                      child: Container(
+                        height: kwidth * 0.35,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: backgroundColour,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: kblack,
+                              blurRadius: 2,
+                              blurStyle: BlurStyle.outer,
+                            )
+                          ],
                         ),
-                        Text('Add Card'),
-                      ],
-                    ),
-                  ),
+                        width: 140,
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CircleAvatar(
+                              radius: 16,
+                              backgroundImage: AssetImage(
+                                'asset/images/home add circl.png',
+                              ),
+                            ),
+                            Text('Add Card'),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],

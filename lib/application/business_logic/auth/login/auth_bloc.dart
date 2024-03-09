@@ -117,14 +117,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   FutureOr<void> log(Log event, emit) async {
-    final result = await userLocalService.getUserData();
-    String userName = '';
-    result.fold(
-        (l) => userName = '',
-        (r) => userName =
-            r.isNotEmpty && r.first.name != null ? r.first.name ?? '' : '');
     return emit(state.copyWith(
-        isLogin: await SecureStorage.getLogin(), userName: userName));
+        isLogin: await SecureStorage.getLogin(),
+        userName: await SecureStorage.getName()));
   }
 
   FutureOr<void> logOut(LogOut event, emit) async =>
@@ -171,7 +166,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           await userLocalService.addUser(loginResponseModel.user!);
         }
         print('setLogin');
-        await SecureStorage.setLogin();
+        await SecureStorage.setLogin(
+            name: loginResponseModel.user?.name ?? loginResponseModel.user?.companyName??'',
+            isVerified: loginResponseModel.user?.isVerified ?? false);
         print('set role');
         await SecureStorage.setRole(
             isBusiness: loginResponseModel.user!.isBusiness!);

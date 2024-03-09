@@ -404,24 +404,59 @@ class CompanyAddingPopUp extends StatelessWidget {
             ),
             adjustWidth(20),
             Expanded(
-              child: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  context.read<BusinessDataBloc>().add(
-                        BusinessDataEvent.getCompnayDetails(id: id),
-                      );
+              child: BlocConsumer<UserDataBloc, UserDataState>(
+                listener: (context, state) {
+                  // if (state.message != null) {
+                  //     showSnackbar(context,
+                  //         message: state.message!,
+                  //         backgroundColor: state.hasError ? kred : neonShade);
+                  //   }
+                  //  if (state.cardAdded != null) {
+                  //     context
+                  //         .read<CardBloc>()
+                  //         .add(const CardEvent.getCards(call: true));
+                  //     if (fromHomeAddCard) {
+                  //       Navigator.pop(context);
+                  //       Navigator.pop(context);
+                  //       Navigator.pop(context);
+                  //     } else {
+                  //       context.go(Routes.homePage);
+                  //     }
+                  //     context.read<UserDataBloc>().add(UserDataEvent.clear());
+                  //     context
+                  //         .read<BusinessDataBloc>()
+                  //         .add(BusinessDataEvent.clear());
+                  //   }else{
+                  //      Navigator.pop(context);
+                  //   }
                 },
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: neonShade,
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    border: Border.all(color: neonShade),
-                  ),
-                  child: const Center(
-                    child: Text('Continue'),
-                  ),
-                ),
+                builder: (context, state) {
+                  return InkWell(
+                    onTap: () {
+                     Navigator.pop(context);
+                      context.read<BusinessDataBloc>().add(
+                            BusinessDataEvent.getCompnayDetails(id: id),
+                          );
+                      // context.read<UserDataBloc>().add(UserDataEvent.createCard(
+                      //     createCardByIdModel: CreateCardByIdModel(
+                      //         isVerified: true,
+                      //         personalDetails: state.personalDataCreateId,
+                      //         businessDetails: id)));
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: neonShade,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
+                        border: Border.all(color: neonShade),
+                      ),
+                      child: const Center(
+                        child: Text('Continue'),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             adjustWidth(20),

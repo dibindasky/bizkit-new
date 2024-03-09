@@ -9,10 +9,10 @@ class CreateCardByIdModel {
   @JsonKey(name: 'business_details_id')
   int? businessDetails;
   @JsonKey(name: "is_verified")
-  bool isVerified;
+  bool? isVerified;
 
   CreateCardByIdModel(
-      {this.personalDetails, this.businessDetails, this.isVerified = false});
+      {this.personalDetails, this.businessDetails, this.isVerified});
 
   factory CreateCardByIdModel.fromJson(Map<String, dynamic> json) {
     return _$CreateCardByIdModelFromJson(json);

@@ -9,6 +9,8 @@ class SecureStorage {
   static const String idKey = 'user_id_key';
   static const String isLoged = 'is_logedIn';
   static const String isBusinessKey = 'is_business';
+  static const String userNameKey = 'user_name';
+  static const String isVerifiedKey = 'is_verified';
 
   static Future<SharedPreferences> _getPrefs() async =>
       await SharedPreferences.getInstance();
@@ -36,10 +38,13 @@ class SecureStorage {
     await prefs.setString(accessKey, accessToken);
   }
 
-  static Future<void> setLogin() async {
+  static Future<void> setLogin(
+      {required String name, required bool isVerified}) async {
     final prefs = await _getPrefs();
     log('set login =>()');
     await prefs.setString(isLoged, '1');
+    await prefs.setString(userNameKey, name);
+    await prefs.setBool(isVerifiedKey, isVerified);
   }
 
   static Future<void> clearLogin() async {
@@ -54,6 +59,22 @@ class SecureStorage {
     final login = prefs.getString(isLoged);
     log('get login =>() ${login == '1'}');
     return login == '1';
+  }
+
+  static Future<bool> isVerified() async {
+    final prefs = await _getPrefs();
+    log('get verified =>()');
+    final verified = prefs.getBool(isVerifiedKey);
+    log('get verified =>() $verified');
+    return verified ?? false;
+  }
+
+  static Future<String> getName() async {
+    final prefs = await _getPrefs();
+    log('get name =>()');
+    final name = prefs.getString(userNameKey);
+    log('get name =>() $name');
+    return name ?? '';
   }
 
   static Future<int?> getUserId() async {

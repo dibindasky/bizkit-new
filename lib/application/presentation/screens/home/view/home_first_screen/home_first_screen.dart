@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_first_app_bar.dart';
 import 'package:bizkit/application/presentation/screens/connections/my_connections/my_connections_home_page.dart';
@@ -104,6 +105,7 @@ class _HomeScreenFirstAnimationScreenState
       context
           .read<ReminderBloc>()
           .add(const ReminderEvent.getAllRemindersEvent());
+          context.read<QrBloc>().add(const QrEvent.getQrCodes());
     });
     final size = MediaQuery.of(context).size;
     khieght = size.height;

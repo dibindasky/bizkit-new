@@ -80,7 +80,6 @@ class UserLocalService implements UserLocalRepo {
         user.email ?? '',
         user.id ?? 0,
         user.isBusiness! ? 1 : 0,
-
         user.companyName ?? '',
         user.address ?? '',
         user.websiteLink ?? ''

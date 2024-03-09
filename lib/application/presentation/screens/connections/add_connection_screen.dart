@@ -53,22 +53,30 @@ class ScreenAddConnections extends StatelessWidget {
             Expanded(
               child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
                 builder: (context, state) {
-                  return GridView.builder(
-                    itemCount: state.bizkitUsers?.length ?? 0,
-                    shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1 / 1.15,
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20),
-                    itemBuilder: (context, index) {
-                      final data = state.bizkitUsers![index];
-                      return GridTileAddRequestConnection(
-                        data: data,
-                        index: index,
-                      );
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      context.read<ConnectionRequestBloc>().add(
+                          ConnectionRequestEvent.searchBizkitUsers(
+                              searchQuery: SearchQuery(search: '')));
+                      await Future.delayed(const Duration(milliseconds: 1500));
                     },
+                    child: GridView.builder(
+                      itemCount: state.bizkitUsers?.length ?? 0,
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 1 / 1.15,
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 20,
+                              mainAxisSpacing: 20),
+                      itemBuilder: (context, index) {
+                        final data = state.bizkitUsers![index];
+                        return GridTileAddRequestConnection(
+                          data: data,
+                          index: index,
+                        );
+                      },
+                    ),
                   );
                 },
               ),

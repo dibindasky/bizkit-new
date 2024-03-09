@@ -37,7 +37,7 @@ class ContactConnectionsTab extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 ),
                 adjustHieght(20),
-                Text('We are synking your contacts,\n please wait',textAlign: TextAlign.center,)
+                const Text('We are syncing your contacts,\n please wait',textAlign: TextAlign.center,)
               ],
             );
           } else if (state.contactList == null || state.hasError) {

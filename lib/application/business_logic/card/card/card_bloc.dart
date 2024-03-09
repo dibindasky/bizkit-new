@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
@@ -108,6 +109,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   FutureOr<void> getCards(GetCards event, emit) async {
     if (state.cards.isNotEmpty && !event.call) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final business = await SecureStorage.getRole();
     cardPage = 1;
     print('get card bloc');
     final result = await cardService.getCards(qurey: PageQuery(page: cardPage));
@@ -115,6 +117,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         (failure) => emit(state.copyWith(
             hasError: true,
             isLoading: false,
+            businessUser: business,
             message: failure.message)), (getCardResposnseModel) {
       print('get card bloc success');
       CardResponse? defaultCard;
@@ -126,6 +129,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       }
       print('get card bloc success1');
       emit(state.copyWith(
+          businessUser: business,
           isLoading: false,
           cards: getCardResposnseModel.results ?? [],
           defaultCard: defaultCard));

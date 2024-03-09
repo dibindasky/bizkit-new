@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/category.dart';
 import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
@@ -60,14 +61,11 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> createCard(CreateCard event, emit) async {
     emit(state.copyWith(
         isLoading: true, hasError: false, message: null, cardAdded: null));
-    print('card creation requested');
+    print('card creation requested 1');
     print(event.createCardByIdModel.toJson());
-    print('card creation requested');
-    final user = await userLocalService.getUserData();
-    user.fold((l) => null, (r) {
-      event.createCardByIdModel.isVerified =
-          r.first.isVerified ?? event.createCardByIdModel.isVerified;
-    });
+    print('card creation requested 2');
+    event.createCardByIdModel.isVerified = event.createCardByIdModel.isVerified??await SecureStorage.isVerified();
+
     final result = await cardService.createCard(
         createCardByIdModel: event.createCardByIdModel);
     result.fold((l) {

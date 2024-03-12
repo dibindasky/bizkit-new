@@ -59,7 +59,11 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   FutureOr<void> createCard(CreateCard event, emit) async {
     emit(state.copyWith(
-        isLoading: true, hasError: false, message: null, cardAdded: null));
+      isLoading: true,
+      hasError: false,
+      message: null,
+      cardAdded: null,
+    ));
     print('card creation requested');
     print(event.createCardByIdModel.toJson());
     print('card creation requested');

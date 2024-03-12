@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:bizkit/domain/model/image/image_model.dart';
-import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImagePickerClass {

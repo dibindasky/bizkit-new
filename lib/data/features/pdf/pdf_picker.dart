@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:bizkit/domain/core/failure/failure.dart';
 import 'package:bizkit/domain/model/pdf/pdf_model.dart';
 import 'package:dartz/dartz.dart';

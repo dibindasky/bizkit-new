@@ -19,7 +19,7 @@ class ContactFetchService implements ContactFetchServiceRepo {
       log('permission ===> (  ${permissionStatus.name}  )');
       // if permission is not granted ask for permission
       if (permissionStatus != PermissionStatus.granted) {
-        permissionStatus = await _getContactPermission();
+        permissionStatus = await _getContactPermission();       
       }
       if (permissionStatus == PermissionStatus.granted) {
         // fetch contacts if granted

@@ -20,17 +20,18 @@ class User {
   int? id;
   int? localId;
 
-  User(
-      {this.email,
-      this.name,
-      this.companyName,
-      this.address,
-      this.isBusiness,
-      this.phoneNumber,
-      this.websiteLink,
-      this.isVerified,
-      this.id,
-      this.localId});
+  User({
+    this.email,
+    this.name,
+    this.companyName,
+    this.address,
+    this.isBusiness,
+    this.phoneNumber,
+    this.websiteLink,
+    this.isVerified,
+    this.id,
+    this.localId,
+  });
 
   static const String colId = 'id';
   static const String colLocalId = 'LocalId';

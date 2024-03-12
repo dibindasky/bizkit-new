@@ -69,21 +69,70 @@ class DefaultLevelSharing extends StatelessWidget {
                 onChanged: (value) {},
               ),
               SwitchListTile(
-                title: const Text('Third Person QR'),
+                title: Text(
+                  'Name',
+                  style: textStyle1,
+                ),
                 value: true,
                 onChanged: (value) {},
               ),
               SwitchListTile(
-                title: const Text('Third Person QR'),
+                title: Text(
+                  'Email',
+                  style: textStyle1,
+                ),
                 value: true,
                 onChanged: (value) {},
               ),
               SwitchListTile(
-                title: const Text('Third Person QR'),
+                title: Text(
+                  'Blood group',
+                  style: textStyle1,
+                ),
                 value: true,
                 onChanged: (value) {},
               ),
-              adjustHieght(khieght * .3),
+              SwitchListTile(
+                title: Text(
+                  'Place',
+                  style: textStyle1,
+                ),
+                value: true,
+                onChanged: (value) {},
+              ),
+              SwitchListTile(
+                title: Text(
+                  'Third Person QR',
+                  style: textStyle1,
+                ),
+                value: true,
+                onChanged: (value) {},
+              ),
+              SwitchListTile(
+                title: Text(
+                  'Third Person QR',
+                  style: textStyle1,
+                ),
+                value: true,
+                onChanged: (value) {},
+              ),
+              SwitchListTile(
+                title: Text(
+                  'Business Details',
+                  style: textHeadStyle1,
+                ),
+                value: true,
+                onChanged: (value) {},
+              ),
+              SwitchListTile(
+                title: Text(
+                  'Business Name',
+                  style: textStyle1,
+                ),
+                value: true,
+                onChanged: (value) {},
+              ),
+              adjustHieght(khieght * .1),
               AuthButton(
                 text: 'Save',
                 onTap: () {},

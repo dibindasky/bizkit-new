@@ -18,52 +18,68 @@ class BlockedConnections extends StatelessWidget {
           ),
         ),
         backgroundColor: knill,
-        title: const Text(
-          'Account Settings',
+        title: Text(
+          'Blocked connections',
+          style: textHeadStyle1,
         ),
       ),
-      body: ListView.builder(
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return Container(
-            child: ClipRRect(
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    backgroundImage: AssetImage(dummyPersonImage),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: ListView.builder(
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  RichText(
-                    text: TextSpan(
+                  child: ClipRRect(
+                    child: Row(
                       children: [
-                        TextSpan(
-                          text: 'Small Text',
-                          style: textStyle1, // Define style for small text
+                        adjustWidth(kwidth * .04),
+                        const CircleAvatar(
+                          backgroundImage: AssetImage(dummyPersonImage),
                         ),
-                        TextSpan(
-                          text: 'Large Text',
-                          style: textStyle1.copyWith(
-                            fontSize: 12,
+                        adjustWidth(kwidth * .04),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: 'Smuggy', style: textStyle1),
+                              TextSpan(
+                                text: 'Toonogriy',
+                                style: textStyle1.copyWith(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                           ),
-                        )
+                        ),
+                        const Spacer(),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: const ColoredBox(
+                            color: kgrey,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 4,
+                              ),
+                              child: Text('Unblock'),
+                            ),
+                          ),
+                        ),
+                        adjustWidth(kwidth * .04),
                       ],
                     ),
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: ColoredBox(
-                      color: kgrey,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 4),
-                        child: Text('Unblock'),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
+                ),
+                const Divider(thickness: .3),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

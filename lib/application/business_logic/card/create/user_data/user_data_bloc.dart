@@ -62,9 +62,14 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         isLoading: true, hasError: false, message: null, cardAdded: null));
     print('card creation requested 1');
+
+    print('card creation requested');
+
     print(event.createCardByIdModel.toJson());
     print('card creation requested 2');
-    event.createCardByIdModel.isVerified = event.createCardByIdModel.isVerified??await SecureStorage.isVerified();
+    event.createCardByIdModel.isVerified =
+        event.createCardByIdModel.isVerified ??
+            await SecureStorage.isVerified();
 
     final result = await cardService.createCard(
         createCardByIdModel: event.createCardByIdModel);

@@ -31,13 +31,17 @@ class ContactConnectionsTab extends StatelessWidget {
           print('contacts list length ==> (${state.contactList?.length})');
 
           if (state.isLoading || state.fetchingLoading) {
-            return Column(mainAxisAlignment: MainAxisAlignment.center,
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Center(
                   child: CircularProgressIndicator(),
                 ),
                 adjustHieght(20),
-                const Text('We are syncing your contacts,\n please wait',textAlign: TextAlign.center,)
+                const Text(
+                  'We are syncing your contacts,\n please wait',
+                  textAlign: TextAlign.center,
+                )
               ],
             );
           } else if (state.contactList == null || state.hasError) {

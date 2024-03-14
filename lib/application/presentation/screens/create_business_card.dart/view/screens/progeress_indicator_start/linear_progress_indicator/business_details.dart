@@ -433,7 +433,7 @@ class CompanyAddingPopUp extends StatelessWidget {
                 builder: (context, state) {
                   return InkWell(
                     onTap: () {
-                     Navigator.pop(context);
+                      Navigator.pop(context);
                       context.read<BusinessDataBloc>().add(
                             BusinessDataEvent.getCompnayDetails(id: id),
                           );

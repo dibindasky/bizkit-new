@@ -1,11 +1,15 @@
 import 'dart:developer';
 
 import 'package:bizkit/data/service/api_service.dart';
+import 'package:bizkit/domain/model/card/create_card/company/get_companys/get_companys.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
+import 'package:bizkit/domain/model/profile/get_profile_details_responce_model/get_profile_details_responce_model.dart';
+import 'package:bizkit/domain/model/profile/profile_update_request_model/profile_update_request_model.dart';
+import 'package:bizkit/domain/model/profile/profile_update_responce_model/profile_update_responce_model.dart';
 import 'package:bizkit/domain/model/profile/user_name_changin_request_model/user_name_changin_request_model.dart';
 import 'package:bizkit/domain/model/profile/username_change_responce_model/username_change_responce_model.dart';
 import 'package:bizkit/domain/repository/service/profile_repo.dart';
@@ -47,7 +51,7 @@ class ProfileService implements ProfileRepo {
     try {
       print('json data>>>===${userNameChanginRequestModel.toJson()}');
       final responce = await apiService.patch(
-        ApiEndPoints.userNameChange,
+        ApiEndPoints.editProfileInfo,
         data: userNameChanginRequestModel.toJson(),
       );
       print(
@@ -59,6 +63,43 @@ class ProfileService implements ProfileRepo {
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log('userNameChange catch $e');
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UsernameChangeResponceModel>> deleteProfile() {
+    // TODO: implement deleteProfile
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, ProfileUpdateResponceModel>> editProfile(
+      {required ProfileUpdateRequestModel profileUpdateRequestModel}) async {
+    try {
+      final responce = await apiService.get(ApiEndPoints.editProfileInfo);
+      print('editProfile data ${responce.data}');
+      return Right(ProfileUpdateResponceModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('editProfile DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      log('editProfile catch $e');
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetProfileDetailsResponceModel>> getProfile() async {
+    try {
+      final responce = await apiService.get(ApiEndPoints.getProfileInfo);
+      print('getProfile data ${responce.data}');
+      return Right(GetProfileDetailsResponceModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getProfile DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      log('getProfile catch $e');
       return Left(Failure(message: errorMessage));
     }
   }

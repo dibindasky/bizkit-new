@@ -8,6 +8,6 @@ class ContactsState with _$ContactsState {
       required bool fetchingLoading,
       String? message,
       List<ContactModel>? contactList}) = _Initial;
-  factory ContactsState.initial() =>
-      const ContactsState(isLoading: false, hasError: false,fetchingLoading: false);
+  factory ContactsState.initial() => const ContactsState(
+      isLoading: false, hasError: false, fetchingLoading: false);
 }

@@ -100,8 +100,7 @@ class _SecondAnimationPageListViewAllRemindersState
                   if (state.allReminderLoading &&
                       index == state.allReminderList!.length) {
                     return const LoadingAnimation();
-                  }else
-                  if (widget.doTransition && index == 0) {
+                  } else if (widget.doTransition && index == 0) {
                     return Transform.translate(
                         offset: Offset(0, 100 * _animation.value),
                         child: ReminderTile(

@@ -105,7 +105,7 @@ class _HomeScreenFirstAnimationScreenState
       context
           .read<ReminderBloc>()
           .add(const ReminderEvent.getAllRemindersEvent());
-          context.read<QrBloc>().add(const QrEvent.getQrCodes());
+      context.read<QrBloc>().add(const QrEvent.getQrCodes());
     });
     final size = MediaQuery.of(context).size;
     khieght = size.height;

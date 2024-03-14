@@ -14,7 +14,7 @@ class HomeScreenSecondPart extends StatefulWidget {
 
 class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> {
   final scrollController = ScrollController();
-  
+
   @override
   void initState() {
     scrollController.addListener(() {

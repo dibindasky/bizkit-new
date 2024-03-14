@@ -182,7 +182,8 @@ class CardSharingScreen extends StatelessWidget {
                                 model.websiteLink == false &&
                                 model.businessDetailsMobileNumber == false &&
                                 model.businessEmail == false
-                            ? const Text('your personal and company contacts will not be shared')
+                            ? const Text(
+                                'your personal and company contacts will not be shared')
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

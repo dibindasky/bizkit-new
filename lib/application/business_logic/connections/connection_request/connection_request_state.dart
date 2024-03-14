@@ -8,7 +8,7 @@ class ConnectionRequestState with _$ConnectionRequestState {
     required bool connected,
     required bool hasError,
     required int requestLoadingIndex,
-     int? connectedId,
+    int? connectedId,
     String? message,
     List<BizkitConnection>? bizkitConnections,
     List<BizkitUser>? bizkitUsers,

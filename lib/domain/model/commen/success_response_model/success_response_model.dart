@@ -7,7 +7,7 @@ class SuccessResponseModel {
   String? message;
   dynamic data;
 
-  SuccessResponseModel({this.message,this.data});
+  SuccessResponseModel({this.message, this.data});
 
   factory SuccessResponseModel.fromJson(Map<String, dynamic> json) {
     return _$SuccessResponseModelFromJson(json);

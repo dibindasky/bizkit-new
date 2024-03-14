@@ -44,9 +44,9 @@ class BizkitConnectionsTab extends StatelessWidget {
                     ]));
           } else if (state.bizkitConnections!.isEmpty) {
             return GestureDetector(
-              onTap: () =>  context
-                    .read<ConnectionRequestBloc>()
-                    .add(const ConnectionRequestEvent.getBizkitConnections()),
+              onTap: () => context
+                  .read<ConnectionRequestBloc>()
+                  .add(const ConnectionRequestEvent.getBizkitConnections()),
               child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

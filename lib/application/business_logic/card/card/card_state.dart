@@ -12,6 +12,10 @@ class CardState with _$CardState {
       CardResponse? defaultCard,
       Card? anotherCard}) = _Initial;
 
-  factory CardState.initial() => const CardState(businessUser: true,
-      cards: [], isLoading: false, hasError: false, pageLoading: false);
+  factory CardState.initial() => const CardState(
+      businessUser: true,
+      cards: [],
+      isLoading: false,
+      hasError: false,
+      pageLoading: false);
 }

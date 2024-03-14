@@ -33,11 +33,13 @@ class ConnectionService implements ConnectionRequestRepo {
       log('createBizkitConnection ');
       print(
           'createBizkitConnection  ${createConnectionWithCardIdModel.toJson()}');
-     final response= await _apiService.post(ApiEndPoints.createBizkitConnection,
+      final response = await _apiService.post(
+          ApiEndPoints.createBizkitConnection,
           data: createConnectionWithCardIdModel.toJson());
       log('createBizkitConnection done');
-      return Right(
-          SuccessResponseModel(message: 'added to connection successfully',data:response.data['id']));
+      return Right(SuccessResponseModel(
+          message: 'added to connection successfully',
+          data: response.data['id']));
     } on DioException catch (e) {
       log('createBizkitConnection dio error');
       log(e.toString());

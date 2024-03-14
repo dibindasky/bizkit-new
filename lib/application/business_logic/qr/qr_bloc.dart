@@ -23,7 +23,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
 
   FutureOr<void> addNewLevelSharing(AddNewLevelSharing event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    createQrModel.card=state.qrList[state.selectedQrIndex].id!;
+    createQrModel.card = state.qrList[state.selectedQrIndex].id!;
     final result = await qrServiceImpl.updateLevelSharing(
         createQrModel: event.createQrModel);
     result.fold(

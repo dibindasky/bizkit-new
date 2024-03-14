@@ -39,7 +39,9 @@ class CardViewAddReminderContainer extends StatelessWidget {
                       createConnectionWithCardIdModel:
                           CreateConnectionWithCardIdModel(
                               cardId: cardState.anotherCard?.id)));
-            }else{print('not in conditions');}
+            } else {
+              print('not in conditions');
+            }
           },
           child: BlocConsumer<ConnectionRequestBloc, ConnectionRequestState>(
             listenWhen: (previous, current) => current.connected,
@@ -75,7 +77,8 @@ class CardViewAddReminderContainer extends StatelessWidget {
                             ),
                       adjustWidth(kwidth * .03),
                       Text(
-                          cardState.anotherCard!.connectionId != null ||createdConnectionID!=null
+                          cardState.anotherCard!.connectionId != null ||
+                                  createdConnectionID != null
                               ? 'Add Reminder'
                               : cardState.anotherCard!.connectionRequestId !=
                                       null

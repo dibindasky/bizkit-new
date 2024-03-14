@@ -104,9 +104,7 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
     result.fold(
         (l) => emit(state.copyWith(isLoading: false, hasError: true)),
         (r) => emit(state.copyWith(
-            isLoading: false,
-            hasError: false,
-            toDaysRminderList: r.results)));
+            isLoading: false, hasError: false, toDaysRminderList: r.results)));
   }
 
   FutureOr<void> getAllRemindersEvenPaget(

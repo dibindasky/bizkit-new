@@ -6,6 +6,8 @@ class ProfileState with _$ProfileState {
     required bool isLoading,
     required bool hasError,
     String? message,
+    GetProfileDetailsResponceModel? getProfileDetailsResponceModel,
+    ProfileUpdateResponceModel? profileUpdateResponceModel,
   }) = _Initial;
   factory ProfileState.initial() => const ProfileState(
         isLoading: false,

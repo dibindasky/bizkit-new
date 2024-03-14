@@ -22,9 +22,11 @@ import 'package:bizkit/application/business_logic/connections/connection_request
     as _i34;
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart'
     as _i35;
-import 'package:bizkit/application/business_logic/qr/qr_bloc.dart' as _i36;
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart'
+    as _i36;
+import 'package:bizkit/application/business_logic/qr/qr_bloc.dart' as _i37;
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart'
-    as _i37;
+    as _i38;
 import 'package:bizkit/data/features/cards_scanning/card_scanning_data_fetching.dart'
     as _i6;
 import 'package:bizkit/data/features/contacts/contacts_fetch.dart' as _i8;
@@ -42,7 +44,7 @@ import 'package:bizkit/data/sqflite/contacts/contact_local_service.dart'
     as _i21;
 import 'package:bizkit/data/sqflite/sqflite_local_service.dart' as _i10;
 import 'package:bizkit/data/sqflite/users/user_local_service.dart' as _i14;
-import 'package:bizkit/domain/core/dio_module/dio_module.dart' as _i38;
+import 'package:bizkit/domain/core/dio_module/dio_module.dart' as _i39;
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart'
     as _i5;
 import 'package:bizkit/domain/repository/feature/contact_feature_repo.dart'
@@ -125,11 +127,13 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i22.ContactsRepo>(),
           gh<_i20.ContactLocalRepo>(),
         ));
-    gh.factory<_i36.QrBloc>(() => _i36.QrBloc(gh<_i26.QrServiceRepo>()));
-    gh.factory<_i37.ReminderBloc>(
-        () => _i37.ReminderBloc(gh<_i28.ReminderRepo>()));
+    gh.factory<_i36.ProfileBloc>(
+        () => _i36.ProfileBloc(gh<_i24.ProfileRepo>()));
+    gh.factory<_i37.QrBloc>(() => _i37.QrBloc(gh<_i26.QrServiceRepo>()));
+    gh.factory<_i38.ReminderBloc>(
+        () => _i38.ReminderBloc(gh<_i28.ReminderRepo>()));
     return this;
   }
 }
 
-class _$DioModule extends _i38.DioModule {}
+class _$DioModule extends _i39.DioModule {}

@@ -128,6 +128,9 @@ class _TTextFormFieldState extends State<TTextFormField> {
               return null;
             } else if ((value == null || value.isEmpty) &&
                 widget.validate == Validate.notNull) {
+              if (value == 'Content' && value!.length < 20) {
+                return 'Content must be at least 20 characters';
+              }
               return 'Please enter ${widget.text}';
             } else if (widget.validate == Validate.email &&
                 !isValidEmail(value!)) {
@@ -160,6 +163,8 @@ class _TTextFormFieldState extends State<TTextFormField> {
             } else if (Validate.rePassword == widget.validate &&
                 widget.password!.text.trim() != value) {
               return 'Password must be same';
+            } else if (value == 'Content' && value!.length < 20) {
+              return 'Content must be at least 20 characters';
             }
             return null;
           },

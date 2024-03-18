@@ -66,20 +66,20 @@ class CardSharingScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
-                                decoration: index == state.selectedQrIndex
-                                    ? BoxDecoration(
-                                        border: Border.all(
-                                            color: neonShade, width: 5))
-                                    : null,
-                                height: 50.dm,
-                                width: 50.dm,
-                                child: Image.network(
-                                  state.qrList[state.selectedQrIndex].logo ==
-                                          null
-                                      ? image
-                                      : state.qrList[index].logo!,
-                                  fit: BoxFit.cover,
-                                )),
+                              decoration: index == state.selectedQrIndex
+                                  ? BoxDecoration(
+                                      border: Border.all(
+                                          color: neonShade, width: 5))
+                                  : null,
+                              height: 50.dm,
+                              width: 50.dm,
+                              child: Image.network(
+                                state.qrList[state.selectedQrIndex].logo == null
+                                    ? image
+                                    : state.qrList[index].logo!,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                             Text(
                               'CARD ${index + 1}',
                               style: TextStyle(
@@ -102,7 +102,7 @@ class CardSharingScreen extends StatelessWidget {
               } else if (state.qrList.isEmpty) {
                 return const Text('No Qr code available');
               } else if (state.qrList.isNotEmpty) {
-                print(state.qrList[state.selectedQrIndex].qrCode!);
+                //print(state.qrList[state.selectedQrIndex].qrCode!);
                 return SizedBox(
                   width: 250.dm,
                   height: 250.dm,

@@ -6,6 +6,7 @@ import 'package:bizkit/application/business_logic/card/create/user_data/user_dat
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/routes/route_generator.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<QrBloc>()),
           BlocProvider(create: (context) => getIt<ConnectionRequestBloc>()),
           BlocProvider(create: (context) => getIt<ReminderBloc>()),
+          BlocProvider(create: (context) => getIt<ProfileBloc>()),
         ],
         child: MaterialApp.router(
           debugShowMaterialGrid: false,

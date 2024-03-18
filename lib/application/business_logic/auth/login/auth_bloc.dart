@@ -6,15 +6,9 @@ import 'package:bizkit/domain/model/auth/email_model/email_model.dart';
 import 'package:bizkit/domain/model/auth/login_model/login_model.dart';
 import 'package:bizkit/domain/model/auth/login_response_model/login_response_model.dart';
 import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
-import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
-import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
-import 'package:bizkit/domain/model/profile/user_name_changin_request_model/user_name_changin_request_model.dart';
-import 'package:bizkit/domain/model/profile/username_change_responce_model/username_change_responce_model.dart';
 import 'package:bizkit/domain/model/token/token_model.dart';
 import 'package:bizkit/domain/repository/service/auth_repo.dart';
-import 'package:bizkit/domain/repository/service/profile_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -26,94 +20,13 @@ part 'auth_bloc.freezed.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepo authRepo;
   final UserLocalRepo userLocalService;
-  final ProfileRepo profileRepo;
-
-  TextEditingController oldPasswordController = TextEditingController();
-  TextEditingController newPasswordController = TextEditingController();
-  TextEditingController reEnterNewPasswordController = TextEditingController();
-  TextEditingController userNameController = TextEditingController();
-
-  AuthBloc(
-    this.authRepo,
-    this.userLocalService,
-    this.profileRepo,
-  ) : super(AuthState.initial()) {
+  AuthBloc(this.authRepo, this.userLocalService) : super(AuthState.initial()) {
     on<Login>(login);
     on<ForgotPassword>(forgotPassword);
     on<ChangePassword>(changePassword);
     on<VerifyforgotPassword>(verifyForgotPassword);
     on<Log>(log);
     on<LogOut>(logOut);
-
-    on<ResetPasswod>(profilePasswordChange);
-    on<UserNameChange>(userNameChange);
-  }
-
-  FutureOr<void> userNameChange(UserNameChange event, emit) async {
-    emit(
-      state.copyWith(
-        isLoading: true,
-        hasError: false,
-        message: null,
-        loginResponseModel: null,
-      ),
-    );
-    final result = await profileRepo.userNameChange(
-      userNameChanginRequestModel: event.userNameChanginRequestModel,
-    );
-    result.fold(
-      (l) => emit(state.copyWith(
-        isLoading: false,
-        hasError: true,
-        message: l.message ?? errorMessage,
-      )),
-      (r) async {
-        emit(state.copyWith(
-          isLoading: false,
-          hasError: false,
-          message: 'User name Updated seccessfully',
-          usernameChangeResponceModel: r,
-        ));
-        await userLocalService.updateUserName(r.name!);
-        userNameController.clear();
-      },
-    );
-  }
-
-  FutureOr<void> profilePasswordChange(ResetPasswod event, emit) async {
-    emit(
-      state.copyWith(
-        isLoading: true,
-        hasError: false,
-        message: null,
-        loginResponseModel: null,
-      ),
-    );
-    final result = await profileRepo.resetPassword(
-      forgottPasswordRequestModel: event.forgottPasswordRequestModel,
-    );
-    result.fold(
-        (l) => emit(state.copyWith(
-              isLoading: false,
-              hasError: true,
-              message: l.message ?? errorMessage,
-            )), (r) async {
-      emit(state.copyWith(
-        isLoading: false,
-        hasError: false,
-        message: r.message ?? 'Password changed successfully',
-        foregottPasswordResponceMdel: r,
-      ));
-      newPasswordController.clear();
-      reEnterNewPasswordController.clear();
-      oldPasswordController.clear();
-      await SecureStorage.saveToken(
-        tokenModel: TokenModel(
-          accessToken: r.access,
-          refreshToken: r.refresh,
-        ),
-      );
-    });
   }
 
   FutureOr<void> log(Log event, emit) async {

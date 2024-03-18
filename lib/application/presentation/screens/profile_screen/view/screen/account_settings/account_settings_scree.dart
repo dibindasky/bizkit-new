@@ -3,6 +3,7 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/login_in_devices.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/mail_id_edit.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/notification_settings.dart';
+import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/report_a_problem.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/username_edit.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
 import 'package:flutter/material.dart';
@@ -36,44 +37,45 @@ class AccountSettigsScreen extends StatelessWidget {
               text: 'Change Username',
               onTap: () => Navigator.push(
                 context,
-                fadePageRoute(
-                  EditUserDetails(),
-                ),
+                fadePageRoute(const EditUserDetails()),
               ),
             ),
             TileItem(
               text: 'Change password',
               onTap: () => Navigator.push(
                 context,
-                fadePageRoute(
-                  ChangePassword(),
-                ),
+                fadePageRoute(ChangePassword()),
               ),
             ),
-            TileItem(
-              text: 'Verify Email',
-              onTap: () => Navigator.push(
-                context,
-                fadePageRoute(
-                  const ChangeMailId(),
-                ),
-              ),
-            ),
-            TileItem(
-              text: 'Loged in Devices',
-              onTap: () => Navigator.push(
-                context,
-                fadePageRoute(
-                  const LoggedDevices(),
-                ),
-              ),
-            ),
+            // TileItem(
+            //   text: 'Verify Email',
+            //   onTap: () => Navigator.push(
+            //     context,
+            //     fadePageRoute(const ChangeMailId()),
+            //   ),
+            // ),
+            // TileItem(
+            //   text: 'Loged in Devices',
+            //   onTap: () => Navigator.push(
+            //     context,
+            //     fadePageRoute(const LoggedDevices()),
+            //   ),
+            // ),
             TileItem(
               text: 'Notification Settings',
               onTap: () => Navigator.push(
                 context,
                 fadePageRoute(
                   const NotificationSettings(),
+                ),
+              ),
+            ),
+            TileItem(
+              text: 'Report a problem',
+              onTap: () => Navigator.push(
+                context,
+                fadePageRoute(
+                  ReportProblemPage(),
                 ),
               ),
             ),

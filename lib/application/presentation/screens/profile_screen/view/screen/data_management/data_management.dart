@@ -1,15 +1,25 @@
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/archieved_cards.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/inner_screens/privacy_security.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DataManagement extends StatelessWidget {
   const DataManagement({super.key});
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        context
+            .read<ProfileBloc>()
+            .add(ProfileEvent.getArchievedCards(pageQuery: PageQuery(page: 1)));
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -36,7 +46,7 @@ class DataManagement extends StatelessWidget {
               text: 'Achieved cards',
               onTap: () => Navigator.of(context).push(
                 fadePageRoute(
-                  const AchivedCards(),
+                  const ArchivedCards(),
                 ),
               ),
             ),

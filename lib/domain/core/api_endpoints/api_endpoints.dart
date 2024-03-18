@@ -46,9 +46,11 @@ class ApiEndPoints {
       '/connections/delete-connection-request/{id}/';
 
   static String forgottPasswordProfile = '/accounts/password_change/';
-
   static String reportAProblem = '/accounts/report-problem-in-app/';
   static String getProfileInfo = '/accounts/profile/';
-  static String editProfileInfo = '/accounts/change-username/';
+  static String editProfileInfo = '/accounts/update-profile/';
   static String deleteProfile = '/accounts/update-profile/';
+  static String archeivedCardsList = '/card/archived-cards/';
+  static String getDefaultQr = '/level/common-level-sharing-update/';
+  static String setDefaultQr = '/level/common-level-sharing-update/';
 }

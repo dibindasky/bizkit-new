@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_profile_details_responce_model.dart';
+part of 'archieved_cards.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetProfileDetailsResponceModel _$GetProfileDetailsResponceModelFromJson(
-        Map<String, dynamic> json) =>
-    GetProfileDetailsResponceModel(
+ArchievedCards _$ArchievedCardsFromJson(Map<String, dynamic> json) =>
+    ArchievedCards(
       count: json['count'] as int?,
       next: json['next'],
       previous: json['previous'],
@@ -17,8 +16,7 @@ GetProfileDetailsResponceModel _$GetProfileDetailsResponceModelFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$GetProfileDetailsResponceModelToJson(
-        GetProfileDetailsResponceModel instance) =>
+Map<String, dynamic> _$ArchievedCardsToJson(ArchievedCards instance) =>
     <String, dynamic>{
       'count': instance.count,
       'next': instance.next,

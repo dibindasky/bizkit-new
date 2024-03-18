@@ -12,8 +12,6 @@ class AuthState with _$AuthState {
     String? message,
     String? userName,
     LoginResponseModel? loginResponseModel,
-    ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-    UsernameChangeResponceModel? usernameChangeResponceModel,
   }) = _Initial;
 
   factory AuthState.initial() => const AuthState(

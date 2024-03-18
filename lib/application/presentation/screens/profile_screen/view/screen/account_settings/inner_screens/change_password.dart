@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
@@ -41,7 +42,7 @@ class ChangePassword extends StatelessWidget {
                 TTextFormField(
                   validate: Validate.password,
                   inputType: TextInputType.visiblePassword,
-                  controller: context.read<AuthBloc>().oldPasswordController,
+                  controller: context.read<ProfileBloc>().oldPasswordController,
                   text: 'Old password',
                   suffix: const Icon(
                     Icons.remove_red_eye_outlined,
@@ -51,7 +52,7 @@ class ChangePassword extends StatelessWidget {
                 TTextFormField(
                   validate: Validate.password,
                   inputType: TextInputType.visiblePassword,
-                  controller: context.read<AuthBloc>().newPasswordController,
+                  controller: context.read<ProfileBloc>().newPasswordController,
                   text: 'New password',
                   suffix: const Icon(
                     Icons.remove_red_eye_outlined,
@@ -59,19 +60,19 @@ class ChangePassword extends StatelessWidget {
                   ),
                 ),
                 TTextFormField(
-                  password: context.read<AuthBloc>().newPasswordController,
+                  password: context.read<ProfileBloc>().newPasswordController,
                   validate: Validate.rePassword,
                   text: 'Re-enter password',
                   inputType: TextInputType.visiblePassword,
                   controller:
-                      context.read<AuthBloc>().reEnterNewPasswordController,
+                      context.read<ProfileBloc>().reEnterNewPasswordController,
                   suffix: const Icon(
                     Icons.remove_red_eye_outlined,
                     color: kwhite,
                   ),
                 ),
                 adjustHieght(khieght * .4),
-                BlocConsumer<AuthBloc, AuthState>(
+                BlocConsumer<ProfileBloc, ProfileState>(
                   listener: (context, state) {
                     if (state.hasError || state.message != null) {
                       showSnackbar(
@@ -97,16 +98,16 @@ class ChangePassword extends StatelessWidget {
                               forgottPasswordRequestModel =
                               ForgottPasswordRequestModel(
                             oldPassword: context
-                                .read<AuthBloc>()
+                                .read<ProfileBloc>()
                                 .oldPasswordController
                                 .text,
                             newPassword: context
-                                .read<AuthBloc>()
+                                .read<ProfileBloc>()
                                 .reEnterNewPasswordController
                                 .text,
                           );
-                          context.read<AuthBloc>().add(
-                                AuthEvent.resetPasswod(
+                          context.read<ProfileBloc>().add(
+                                ProfileEvent.resetPasswod(
                                   forgottPasswordRequestModel:
                                       forgottPasswordRequestModel,
                                 ),

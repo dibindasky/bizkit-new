@@ -1,4 +1,4 @@
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/report_a_problem/report_a_problem.dart';
+import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/report_a_problem.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +68,7 @@ class BusinessCardCreationPreviewAppBar extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ReportProblemPage(),
+            builder: (context) => ReportProblemPage(),
           ),
         );
         break;

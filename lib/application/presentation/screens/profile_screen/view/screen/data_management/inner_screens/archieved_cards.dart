@@ -1,10 +1,14 @@
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AchivedCards extends StatelessWidget {
-  const AchivedCards({super.key});
+class ArchivedCards extends StatelessWidget {
+  const ArchivedCards({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,92 +24,167 @@ class AchivedCards extends StatelessWidget {
         ),
         backgroundColor: knill,
         title: Text(
-          'Default level settings',
+          'ArchivedCards',
           style: textHeadStyle1,
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 20,
-            itemBuilder: (BuildContext context, int index) {
-              return Stack(
-                children: [
-                  Positioned(
-                    right: 10,
-                    top: 10,
-                    child: PopupMenuButton(
-                      itemBuilder: (BuildContext context) {
-                        return [
-                          const PopupMenuItem(
-                            value: 'Option 1',
-                            child: Text('Option 1'),
+          child: BlocBuilder<ProfileBloc, ProfileState>(
+            builder: (context, state) {
+              if (state.isLoading) {
+                return const LoadingAnimation();
+              } else if (state.archievedCards!.results!.isEmpty) {
+                return const Center(
+                  child:
+                      Text('No archieved cards.', textAlign: TextAlign.center),
+                );
+              } else {
+                if (state.archievedCards != null &&
+                    state.archievedCards!.results != null) {
+                  return SizedBox(
+                    child: ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      //  scrollDirection: Axis.horizontal,
+                      itemCount: state.archievedCards!.count!,
+                      separatorBuilder: (context, index) =>
+                          adjustWidth(kwidth * .05),
+                      itemBuilder: (context, index) {
+                        final card = state.archievedCards!.results![index];
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: textFieldFillColr,
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                          const PopupMenuItem(
-                            value: 'Option 2',
-                            child: Text('Option 2'),
-                          ),
-                          const PopupMenuItem(
-                            value: 'Option 3',
-                            child: Text('Option 3'),
-                          ),
-                        ];
-                      },
-                      onSelected: (value) {
-                        print('Selected: $value');
-                      },
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: kgrey,
-                        width: .3,
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        Image.asset(dummyPersonImage),
-                        adjustHieght(khieght * .02),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
+                          width: 300,
+                          child: Column(
                             children: [
-                              Text('Business card', style: textHeadStyle1),
-                              const Spacer(),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: const ColoredBox(
-                                  color: kblue,
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 5),
-                                    child: Text('Restore'),
+                              Stack(
+                                children: [
+                                  SizedBox(
+                                    width: 300,
+                                    height: 200,
+                                    child: InkWell(
+                                      onTap: () {
+                                        // // Navigator.push(
+                                        // //     context,
+                                        // //     fadePageRoute(
+                                        // //         HomeFirstViewAllContactTileDetailView(
+                                        // //             cardId: state
+                                        // //                 .cards[index].id)));
+                                        // final map =
+                                        //     state.cards[index].id != null
+                                        //         ? {
+                                        //             'myCard': 'true',
+                                        //             'cardId': state
+                                        //                 .cards[index].id!
+                                        //                 .toString()
+                                        //           }
+                                        //         : <String, String>{};
+                                        // GoRouter.of(context).pushNamed(
+                                        //     Routes.cardDetailView,
+                                        //     pathParameters: map);
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(25),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                        child: state.archievedCards == null ||
+                                                state.archievedCards!
+                                                        .results![index].logo ==
+                                                    null
+                                            ? Image.network(imageDummyNetwork,
+                                                fit: BoxFit.cover)
+                                            : Image.network(
+                                                card.logo!,
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  Positioned(
+                                    right: 0,
+                                    top: 10,
+                                    child: PopupMenuButton<String>(
+                                      icon: const Icon(
+                                        Icons.more_vert,
+                                        size: 35,
+                                        color: kblack,
+                                      ),
+                                      onSelected: (value) {
+                                        if (value == 'Add Tag') {}
+                                        print('Selected: $value');
+                                      },
+                                      itemBuilder: (context) => [
+                                        const PopupMenuItem(
+                                          value: 'Delete Permanently',
+                                          child: Text('Delete Permanently'),
+                                        ),
+                                        PopupMenuItem(
+                                          onTap: () => context
+                                              .read<CardBloc>()
+                                              .add(CardEvent.setDefault(
+                                                  id: card.id!)),
+                                          value: 'Default',
+                                          child: const Text('Set as default'),
+                                        ),
+                                        PopupMenuItem(
+                                          onTap: () => context
+                                              .read<CardBloc>()
+                                              .add(CardEvent.deleteCard(
+                                                  id: card.id!)),
+                                          value: 'Delete Card',
+                                          child: const Text('Delete Card'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
+                              adjustHieght(khieght * .02),
+                              Row(
+                                children: [
+                                  adjustWidth(kwidth * .02),
+                                  Text(
+                                    '${state.archievedCards!.results![index].name ?? ''}\n${state.archievedCards!.results![index].designation}',
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  InkWell(
+                                    // onTap: () => bottomSheet(context, card),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: kblue,
+                                      ),
+                                      width: 100,
+                                      height: 30,
+                                      child: Center(
+                                        child:
+                                            Text('Restore', style: textStyle1),
+                                      ),
+                                    ),
+                                  ),
+                                  adjustWidth(kwidth * .02)
+                                ],
+                              ),
+                              adjustHieght(khieght * .02),
                             ],
                           ),
-                        ),
-                        adjustHieght(khieght * .02),
-                        const Divider(
-                          endIndent: 20,
-                          indent: 20,
-                          thickness: .9,
-                          color: kgrey,
-                        ),
-                        adjustHieght(khieght * .02),
-                      ],
+                        );
+                      },
                     ),
-                  ),
-                ],
-              );
+                  );
+                } else {
+                  return Text('data');
+                }
+              }
             },
           ),
         ),

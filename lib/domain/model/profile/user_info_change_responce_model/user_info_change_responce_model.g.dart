@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'profile_update_responce_model.dart';
+part of 'user_info_change_responce_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProfileUpdateResponceModel _$ProfileUpdateResponceModelFromJson(
+UserInfoChangeResponceModel _$UserInfoChangeResponceModelFromJson(
         Map<String, dynamic> json) =>
-    ProfileUpdateResponceModel(
+    UserInfoChangeResponceModel(
       id: json['id'] as int?,
       name: json['name'] as String?,
       profilePic: json['profile_pic'] as String?,
     );
 
-Map<String, dynamic> _$ProfileUpdateResponceModelToJson(
-        ProfileUpdateResponceModel instance) =>
+Map<String, dynamic> _$UserInfoChangeResponceModelToJson(
+        UserInfoChangeResponceModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

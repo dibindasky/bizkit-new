@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/account_settings_scree.dart';
@@ -6,8 +7,9 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:flutter/material.dart';
-
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -41,6 +43,11 @@ class _ProfileScreenState extends State<ProfileScreen>
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) => context.read<ProfileBloc>().add(
+            const ProfileEvent.getProfile(isLoad: false),
+          ),
+    );
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -53,19 +60,112 @@ class _ProfileScreenState extends State<ProfileScreen>
             opacity: animation,
             child: Column(
               children: [
-                const CircleAvatar(
-                  radius: 75,
-                  backgroundColor: neonShade,
-                  child: CircleAvatar(
-                    radius: 73,
-                    backgroundColor: kblack,
-                    child: CircleAvatar(
-                      radius: 67,
-                      backgroundImage: AssetImage('asset/images/person.jpeg'),
-                    ),
-                  ),
+                BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    return Stack(
+                      children: [
+                        BlocBuilder<ProfileBloc, ProfileState>(
+                          builder: (context, statee) {
+                            if (state.imageModel != null) {
+                              return CircleAvatar(
+                                radius: 75,
+                                backgroundColor: neonShade,
+                                child: Stack(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 73,
+                                      backgroundColor: kblack,
+                                      child: CircleAvatar(
+                                        radius: 67,
+                                        backgroundImage: FileImage(
+                                            state.imageModel!.fileImage),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            if (state.getUserInfoModel != null &&
+                                state.getUserInfoModel!.results != null &&
+                                state.getUserInfoModel!.results!.profilePic !=
+                                    null) {
+                              return CircleAvatar(
+                                radius: 75,
+                                backgroundColor: neonShade,
+                                child: Stack(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 73,
+                                      backgroundColor: kblack,
+                                      child: CircleAvatar(
+                                        radius: 67,
+                                        backgroundImage: NetworkImage(state
+                                            .getUserInfoModel!
+                                            .results!
+                                            .profilePic!),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            return const CircleAvatar(
+                              radius: 75,
+                              backgroundColor: neonShade,
+                              child: Stack(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 73,
+                                    backgroundColor: kblack,
+                                    child: CircleAvatar(
+                                      radius: 67,
+                                      backgroundImage:
+                                          AssetImage(dummyPersonImage),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                        state.imageModel != null
+                            ? Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: IconButton(
+                                  onPressed: () {
+                                    UserInfoChangeRequestModel
+                                        userInfoChangeRequestModel =
+                                        UserInfoChangeRequestModel(
+                                            profilePic:
+                                                state.imageModel!.base64);
+                                    context.read<ProfileBloc>().add(
+                                        ProfileEvent.editProfile(
+                                            userInfoChangeRequestModel:
+                                                userInfoChangeRequestModel));
+                                    context.read<ProfileBloc>().add(
+                                          const ProfileEvent.getProfile(
+                                              isLoad: true),
+                                        );
+                                  },
+                                  icon: const Icon(Icons.done),
+                                ),
+                              )
+                            : Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: IconButton(
+                                  onPressed: () {
+                                    cardscanimagesSelectingDailogu(context);
+                                  },
+                                  icon: const Icon(Icons.add),
+                                ),
+                              ),
+                      ],
+                    );
+                  },
                 ),
-                adjustHieght(khieght * .04),
+                adjustHieght(khieght * .03),
                 const ProfileTiles(
                   heading: 'Account Settings',
                   subtittle: 'Profile, Password, Email Etc.',
@@ -176,4 +276,38 @@ class ProfileTiles extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<dynamic> cardscanimagesSelectingDailogu(BuildContext context) {
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+            context
+                .read<ProfileBloc>()
+                .add(const ProfileEvent.pickImageScanning(camera: false));
+          },
+          style: ElevatedButton.styleFrom(
+              foregroundColor: kwhite, side: const BorderSide(color: kwhite)),
+          child: const Text('Gallery'),
+        ),
+        adjustHieght(khieght * .02),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+            context
+                .read<ProfileBloc>()
+                .add(const ProfileEvent.pickImageScanning(camera: true));
+          },
+          style: ElevatedButton.styleFrom(
+              foregroundColor: kwhite, side: const BorderSide(color: kwhite)),
+          child: const Text('Camera'),
+        )
+      ],
+      title: const Text('Take a picture or upload an image'),
+    ),
+  );
 }

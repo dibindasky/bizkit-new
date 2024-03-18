@@ -18,51 +18,103 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ProfileEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getProfile,
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
     required TResult Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
         editProfile,
     required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getProfile,
-    TResult? Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)?
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
         editProfile,
     TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getProfile,
-    TResult Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)?
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
         editProfile,
     TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
     required TResult Function(GetProfile value) getProfile,
     required TResult Function(EditProfile value) editProfile,
     required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
     TResult? Function(GetProfile value)? getProfile,
     TResult? Function(EditProfile value)? editProfile,
     TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
     TResult Function(GetProfile value)? getProfile,
     TResult Function(EditProfile value)? editProfile,
     TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -87,10 +139,211 @@ class _$ProfileEventCopyWithImpl<$Res, $Val extends ProfileEvent>
 }
 
 /// @nodoc
+abstract class _$$PickImageScanningImplCopyWith<$Res> {
+  factory _$$PickImageScanningImplCopyWith(_$PickImageScanningImpl value,
+          $Res Function(_$PickImageScanningImpl) then) =
+      __$$PickImageScanningImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool camera});
+}
+
+/// @nodoc
+class __$$PickImageScanningImplCopyWithImpl<$Res>
+    extends _$ProfileEventCopyWithImpl<$Res, _$PickImageScanningImpl>
+    implements _$$PickImageScanningImplCopyWith<$Res> {
+  __$$PickImageScanningImplCopyWithImpl(_$PickImageScanningImpl _value,
+      $Res Function(_$PickImageScanningImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? camera = null,
+  }) {
+    return _then(_$PickImageScanningImpl(
+      camera: null == camera
+          ? _value.camera
+          : camera // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PickImageScanningImpl implements PickImageScanning {
+  const _$PickImageScanningImpl({required this.camera});
+
+  @override
+  final bool camera;
+
+  @override
+  String toString() {
+    return 'ProfileEvent.pickImageScanning(camera: $camera)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PickImageScanningImpl &&
+            (identical(other.camera, camera) || other.camera == camera));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, camera);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PickImageScanningImplCopyWith<_$PickImageScanningImpl> get copyWith =>
+      __$$PickImageScanningImplCopyWithImpl<_$PickImageScanningImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
+        editProfile,
+    required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
+  }) {
+    return pickImageScanning(camera);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
+  }) {
+    return pickImageScanning?.call(camera);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (pickImageScanning != null) {
+      return pickImageScanning(camera);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
+    required TResult Function(GetProfile value) getProfile,
+    required TResult Function(EditProfile value) editProfile,
+    required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
+  }) {
+    return pickImageScanning(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
+    TResult? Function(GetProfile value)? getProfile,
+    TResult? Function(EditProfile value)? editProfile,
+    TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
+  }) {
+    return pickImageScanning?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
+    TResult Function(GetProfile value)? getProfile,
+    TResult Function(EditProfile value)? editProfile,
+    TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (pickImageScanning != null) {
+      return pickImageScanning(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PickImageScanning implements ProfileEvent {
+  const factory PickImageScanning({required final bool camera}) =
+      _$PickImageScanningImpl;
+
+  bool get camera;
+  @JsonKey(ignore: true)
+  _$$PickImageScanningImplCopyWith<_$PickImageScanningImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 abstract class _$$GetProfileImplCopyWith<$Res> {
   factory _$$GetProfileImplCopyWith(
           _$GetProfileImpl value, $Res Function(_$GetProfileImpl) then) =
       __$$GetProfileImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isLoad});
 }
 
 /// @nodoc
@@ -100,69 +353,118 @@ class __$$GetProfileImplCopyWithImpl<$Res>
   __$$GetProfileImplCopyWithImpl(
       _$GetProfileImpl _value, $Res Function(_$GetProfileImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoad = null,
+  }) {
+    return _then(_$GetProfileImpl(
+      isLoad: null == isLoad
+          ? _value.isLoad
+          : isLoad // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$GetProfileImpl with DiagnosticableTreeMixin implements GetProfile {
-  const _$GetProfileImpl();
+class _$GetProfileImpl implements GetProfile {
+  const _$GetProfileImpl({required this.isLoad});
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ProfileEvent.getProfile()';
-  }
+  final bool isLoad;
 
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ProfileEvent.getProfile'));
+  String toString() {
+    return 'ProfileEvent.getProfile(isLoad: $isLoad)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetProfileImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetProfileImpl &&
+            (identical(other.isLoad, isLoad) || other.isLoad == isLoad));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isLoad);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetProfileImplCopyWith<_$GetProfileImpl> get copyWith =>
+      __$$GetProfileImplCopyWithImpl<_$GetProfileImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getProfile,
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
     required TResult Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
         editProfile,
     required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
   }) {
-    return getProfile();
+    return getProfile(isLoad);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getProfile,
-    TResult? Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)?
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
         editProfile,
     TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
   }) {
-    return getProfile?.call();
+    return getProfile?.call(isLoad);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getProfile,
-    TResult Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)?
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
         editProfile,
     TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
     required TResult orElse(),
   }) {
     if (getProfile != null) {
-      return getProfile();
+      return getProfile(isLoad);
     }
     return orElse();
   }
@@ -170,9 +472,16 @@ class _$GetProfileImpl with DiagnosticableTreeMixin implements GetProfile {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
     required TResult Function(GetProfile value) getProfile,
     required TResult Function(EditProfile value) editProfile,
     required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
   }) {
     return getProfile(this);
   }
@@ -180,9 +489,16 @@ class _$GetProfileImpl with DiagnosticableTreeMixin implements GetProfile {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
     TResult? Function(GetProfile value)? getProfile,
     TResult? Function(EditProfile value)? editProfile,
     TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
   }) {
     return getProfile?.call(this);
   }
@@ -190,9 +506,16 @@ class _$GetProfileImpl with DiagnosticableTreeMixin implements GetProfile {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
     TResult Function(GetProfile value)? getProfile,
     TResult Function(EditProfile value)? editProfile,
     TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
     required TResult orElse(),
   }) {
     if (getProfile != null) {
@@ -203,7 +526,12 @@ class _$GetProfileImpl with DiagnosticableTreeMixin implements GetProfile {
 }
 
 abstract class GetProfile implements ProfileEvent {
-  const factory GetProfile() = _$GetProfileImpl;
+  const factory GetProfile({required final bool isLoad}) = _$GetProfileImpl;
+
+  bool get isLoad;
+  @JsonKey(ignore: true)
+  _$$GetProfileImplCopyWith<_$GetProfileImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -212,7 +540,7 @@ abstract class _$$EditProfileImplCopyWith<$Res> {
           _$EditProfileImpl value, $Res Function(_$EditProfileImpl) then) =
       __$$EditProfileImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom});
+  $Res call({UserInfoChangeRequestModel userInfoChangeRequestModel});
 }
 
 /// @nodoc
@@ -226,46 +554,28 @@ class __$$EditProfileImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? profileUpdateRequestModel = null,
-    Object? isFrom = null,
+    Object? userInfoChangeRequestModel = null,
   }) {
     return _then(_$EditProfileImpl(
-      profileUpdateRequestModel: null == profileUpdateRequestModel
-          ? _value.profileUpdateRequestModel
-          : profileUpdateRequestModel // ignore: cast_nullable_to_non_nullable
-              as ProfileUpdateRequestModel,
-      isFrom: null == isFrom
-          ? _value.isFrom
-          : isFrom // ignore: cast_nullable_to_non_nullable
-              as bool,
+      userInfoChangeRequestModel: null == userInfoChangeRequestModel
+          ? _value.userInfoChangeRequestModel
+          : userInfoChangeRequestModel // ignore: cast_nullable_to_non_nullable
+              as UserInfoChangeRequestModel,
     ));
   }
 }
 
 /// @nodoc
 
-class _$EditProfileImpl with DiagnosticableTreeMixin implements EditProfile {
-  const _$EditProfileImpl(
-      {required this.profileUpdateRequestModel, required this.isFrom});
+class _$EditProfileImpl implements EditProfile {
+  const _$EditProfileImpl({required this.userInfoChangeRequestModel});
 
   @override
-  final ProfileUpdateRequestModel profileUpdateRequestModel;
-  @override
-  final bool isFrom;
+  final UserInfoChangeRequestModel userInfoChangeRequestModel;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ProfileEvent.editProfile(profileUpdateRequestModel: $profileUpdateRequestModel, isFrom: $isFrom)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ProfileEvent.editProfile'))
-      ..add(DiagnosticsProperty(
-          'profileUpdateRequestModel', profileUpdateRequestModel))
-      ..add(DiagnosticsProperty('isFrom', isFrom));
+  String toString() {
+    return 'ProfileEvent.editProfile(userInfoChangeRequestModel: $userInfoChangeRequestModel)';
   }
 
   @override
@@ -273,15 +583,14 @@ class _$EditProfileImpl with DiagnosticableTreeMixin implements EditProfile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EditProfileImpl &&
-            (identical(other.profileUpdateRequestModel,
-                    profileUpdateRequestModel) ||
-                other.profileUpdateRequestModel == profileUpdateRequestModel) &&
-            (identical(other.isFrom, isFrom) || other.isFrom == isFrom));
+            (identical(other.userInfoChangeRequestModel,
+                    userInfoChangeRequestModel) ||
+                other.userInfoChangeRequestModel ==
+                    userInfoChangeRequestModel));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, profileUpdateRequestModel, isFrom);
+  int get hashCode => Object.hash(runtimeType, userInfoChangeRequestModel);
 
   @JsonKey(ignore: true)
   @override
@@ -292,39 +601,70 @@ class _$EditProfileImpl with DiagnosticableTreeMixin implements EditProfile {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getProfile,
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
     required TResult Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
         editProfile,
     required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
   }) {
-    return editProfile(profileUpdateRequestModel, isFrom);
+    return editProfile(userInfoChangeRequestModel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getProfile,
-    TResult? Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)?
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
         editProfile,
     TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
   }) {
-    return editProfile?.call(profileUpdateRequestModel, isFrom);
+    return editProfile?.call(userInfoChangeRequestModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getProfile,
-    TResult Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)?
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
         editProfile,
     TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
     required TResult orElse(),
   }) {
     if (editProfile != null) {
-      return editProfile(profileUpdateRequestModel, isFrom);
+      return editProfile(userInfoChangeRequestModel);
     }
     return orElse();
   }
@@ -332,9 +672,16 @@ class _$EditProfileImpl with DiagnosticableTreeMixin implements EditProfile {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
     required TResult Function(GetProfile value) getProfile,
     required TResult Function(EditProfile value) editProfile,
     required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
   }) {
     return editProfile(this);
   }
@@ -342,9 +689,16 @@ class _$EditProfileImpl with DiagnosticableTreeMixin implements EditProfile {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
     TResult? Function(GetProfile value)? getProfile,
     TResult? Function(EditProfile value)? editProfile,
     TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
   }) {
     return editProfile?.call(this);
   }
@@ -352,9 +706,16 @@ class _$EditProfileImpl with DiagnosticableTreeMixin implements EditProfile {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
     TResult Function(GetProfile value)? getProfile,
     TResult Function(EditProfile value)? editProfile,
     TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
     required TResult orElse(),
   }) {
     if (editProfile != null) {
@@ -366,11 +727,10 @@ class _$EditProfileImpl with DiagnosticableTreeMixin implements EditProfile {
 
 abstract class EditProfile implements ProfileEvent {
   const factory EditProfile(
-      {required final ProfileUpdateRequestModel profileUpdateRequestModel,
-      required final bool isFrom}) = _$EditProfileImpl;
+      {required final UserInfoChangeRequestModel
+          userInfoChangeRequestModel}) = _$EditProfileImpl;
 
-  ProfileUpdateRequestModel get profileUpdateRequestModel;
-  bool get isFrom;
+  UserInfoChangeRequestModel get userInfoChangeRequestModel;
   @JsonKey(ignore: true)
   _$$EditProfileImplCopyWith<_$EditProfileImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -394,20 +754,12 @@ class __$$DeleteProfileImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DeleteProfileImpl
-    with DiagnosticableTreeMixin
-    implements DeleteProfile {
+class _$DeleteProfileImpl implements DeleteProfile {
   const _$DeleteProfileImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileEvent.deleteProfile()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ProfileEvent.deleteProfile'));
   }
 
   @override
@@ -422,11 +774,24 @@ class _$DeleteProfileImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getProfile,
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
     required TResult Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
         editProfile,
     required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
   }) {
     return deleteProfile();
   }
@@ -434,11 +799,20 @@ class _$DeleteProfileImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getProfile,
-    TResult? Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)?
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
         editProfile,
     TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
   }) {
     return deleteProfile?.call();
   }
@@ -446,11 +820,20 @@ class _$DeleteProfileImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getProfile,
-    TResult Function(
-            ProfileUpdateRequestModel profileUpdateRequestModel, bool isFrom)?
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
         editProfile,
     TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
     required TResult orElse(),
   }) {
     if (deleteProfile != null) {
@@ -462,9 +845,16 @@ class _$DeleteProfileImpl
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
     required TResult Function(GetProfile value) getProfile,
     required TResult Function(EditProfile value) editProfile,
     required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
   }) {
     return deleteProfile(this);
   }
@@ -472,9 +862,16 @@ class _$DeleteProfileImpl
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
     TResult? Function(GetProfile value)? getProfile,
     TResult? Function(EditProfile value)? editProfile,
     TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
   }) {
     return deleteProfile?.call(this);
   }
@@ -482,9 +879,16 @@ class _$DeleteProfileImpl
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
     TResult Function(GetProfile value)? getProfile,
     TResult Function(EditProfile value)? editProfile,
     TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
     required TResult orElse(),
   }) {
     if (deleteProfile != null) {
@@ -499,14 +903,1191 @@ abstract class DeleteProfile implements ProfileEvent {
 }
 
 /// @nodoc
+abstract class _$$UserInfoChangeImplCopyWith<$Res> {
+  factory _$$UserInfoChangeImplCopyWith(_$UserInfoChangeImpl value,
+          $Res Function(_$UserInfoChangeImpl) then) =
+      __$$UserInfoChangeImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UserInfoChangeRequestModel userNameChanginRequestModel});
+}
+
+/// @nodoc
+class __$$UserInfoChangeImplCopyWithImpl<$Res>
+    extends _$ProfileEventCopyWithImpl<$Res, _$UserInfoChangeImpl>
+    implements _$$UserInfoChangeImplCopyWith<$Res> {
+  __$$UserInfoChangeImplCopyWithImpl(
+      _$UserInfoChangeImpl _value, $Res Function(_$UserInfoChangeImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userNameChanginRequestModel = null,
+  }) {
+    return _then(_$UserInfoChangeImpl(
+      userNameChanginRequestModel: null == userNameChanginRequestModel
+          ? _value.userNameChanginRequestModel
+          : userNameChanginRequestModel // ignore: cast_nullable_to_non_nullable
+              as UserInfoChangeRequestModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UserInfoChangeImpl implements UserInfoChange {
+  const _$UserInfoChangeImpl({required this.userNameChanginRequestModel});
+
+  @override
+  final UserInfoChangeRequestModel userNameChanginRequestModel;
+
+  @override
+  String toString() {
+    return 'ProfileEvent.userInfoChange(userNameChanginRequestModel: $userNameChanginRequestModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserInfoChangeImpl &&
+            (identical(other.userNameChanginRequestModel,
+                    userNameChanginRequestModel) ||
+                other.userNameChanginRequestModel ==
+                    userNameChanginRequestModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, userNameChanginRequestModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserInfoChangeImplCopyWith<_$UserInfoChangeImpl> get copyWith =>
+      __$$UserInfoChangeImplCopyWithImpl<_$UserInfoChangeImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
+        editProfile,
+    required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
+  }) {
+    return userInfoChange(userNameChanginRequestModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
+  }) {
+    return userInfoChange?.call(userNameChanginRequestModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (userInfoChange != null) {
+      return userInfoChange(userNameChanginRequestModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
+    required TResult Function(GetProfile value) getProfile,
+    required TResult Function(EditProfile value) editProfile,
+    required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
+  }) {
+    return userInfoChange(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
+    TResult? Function(GetProfile value)? getProfile,
+    TResult? Function(EditProfile value)? editProfile,
+    TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
+  }) {
+    return userInfoChange?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
+    TResult Function(GetProfile value)? getProfile,
+    TResult Function(EditProfile value)? editProfile,
+    TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (userInfoChange != null) {
+      return userInfoChange(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UserInfoChange implements ProfileEvent {
+  const factory UserInfoChange(
+      {required final UserInfoChangeRequestModel
+          userNameChanginRequestModel}) = _$UserInfoChangeImpl;
+
+  UserInfoChangeRequestModel get userNameChanginRequestModel;
+  @JsonKey(ignore: true)
+  _$$UserInfoChangeImplCopyWith<_$UserInfoChangeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ResetPasswodImplCopyWith<$Res> {
+  factory _$$ResetPasswodImplCopyWith(
+          _$ResetPasswodImpl value, $Res Function(_$ResetPasswodImpl) then) =
+      __$$ResetPasswodImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ForgottPasswordRequestModel forgottPasswordRequestModel});
+}
+
+/// @nodoc
+class __$$ResetPasswodImplCopyWithImpl<$Res>
+    extends _$ProfileEventCopyWithImpl<$Res, _$ResetPasswodImpl>
+    implements _$$ResetPasswodImplCopyWith<$Res> {
+  __$$ResetPasswodImplCopyWithImpl(
+      _$ResetPasswodImpl _value, $Res Function(_$ResetPasswodImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? forgottPasswordRequestModel = null,
+  }) {
+    return _then(_$ResetPasswodImpl(
+      forgottPasswordRequestModel: null == forgottPasswordRequestModel
+          ? _value.forgottPasswordRequestModel
+          : forgottPasswordRequestModel // ignore: cast_nullable_to_non_nullable
+              as ForgottPasswordRequestModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ResetPasswodImpl implements ResetPasswod {
+  const _$ResetPasswodImpl({required this.forgottPasswordRequestModel});
+
+  @override
+  final ForgottPasswordRequestModel forgottPasswordRequestModel;
+
+  @override
+  String toString() {
+    return 'ProfileEvent.resetPasswod(forgottPasswordRequestModel: $forgottPasswordRequestModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ResetPasswodImpl &&
+            (identical(other.forgottPasswordRequestModel,
+                    forgottPasswordRequestModel) ||
+                other.forgottPasswordRequestModel ==
+                    forgottPasswordRequestModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, forgottPasswordRequestModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ResetPasswodImplCopyWith<_$ResetPasswodImpl> get copyWith =>
+      __$$ResetPasswodImplCopyWithImpl<_$ResetPasswodImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
+        editProfile,
+    required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
+  }) {
+    return resetPasswod(forgottPasswordRequestModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
+  }) {
+    return resetPasswod?.call(forgottPasswordRequestModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (resetPasswod != null) {
+      return resetPasswod(forgottPasswordRequestModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
+    required TResult Function(GetProfile value) getProfile,
+    required TResult Function(EditProfile value) editProfile,
+    required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
+  }) {
+    return resetPasswod(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
+    TResult? Function(GetProfile value)? getProfile,
+    TResult? Function(EditProfile value)? editProfile,
+    TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
+  }) {
+    return resetPasswod?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
+    TResult Function(GetProfile value)? getProfile,
+    TResult Function(EditProfile value)? editProfile,
+    TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (resetPasswod != null) {
+      return resetPasswod(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ResetPasswod implements ProfileEvent {
+  const factory ResetPasswod(
+      {required final ForgottPasswordRequestModel
+          forgottPasswordRequestModel}) = _$ResetPasswodImpl;
+
+  ForgottPasswordRequestModel get forgottPasswordRequestModel;
+  @JsonKey(ignore: true)
+  _$$ResetPasswodImplCopyWith<_$ResetPasswodImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReportAProblemImplCopyWith<$Res> {
+  factory _$$ReportAProblemImplCopyWith(_$ReportAProblemImpl value,
+          $Res Function(_$ReportAProblemImpl) then) =
+      __$$ReportAProblemImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ReportAProblemRequestModel reportAProblemRequestModel});
+}
+
+/// @nodoc
+class __$$ReportAProblemImplCopyWithImpl<$Res>
+    extends _$ProfileEventCopyWithImpl<$Res, _$ReportAProblemImpl>
+    implements _$$ReportAProblemImplCopyWith<$Res> {
+  __$$ReportAProblemImplCopyWithImpl(
+      _$ReportAProblemImpl _value, $Res Function(_$ReportAProblemImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reportAProblemRequestModel = null,
+  }) {
+    return _then(_$ReportAProblemImpl(
+      reportAProblemRequestModel: null == reportAProblemRequestModel
+          ? _value.reportAProblemRequestModel
+          : reportAProblemRequestModel // ignore: cast_nullable_to_non_nullable
+              as ReportAProblemRequestModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReportAProblemImpl implements ReportAProblem {
+  const _$ReportAProblemImpl({required this.reportAProblemRequestModel});
+
+  @override
+  final ReportAProblemRequestModel reportAProblemRequestModel;
+
+  @override
+  String toString() {
+    return 'ProfileEvent.reportAProblem(reportAProblemRequestModel: $reportAProblemRequestModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReportAProblemImpl &&
+            (identical(other.reportAProblemRequestModel,
+                    reportAProblemRequestModel) ||
+                other.reportAProblemRequestModel ==
+                    reportAProblemRequestModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reportAProblemRequestModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReportAProblemImplCopyWith<_$ReportAProblemImpl> get copyWith =>
+      __$$ReportAProblemImplCopyWithImpl<_$ReportAProblemImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
+        editProfile,
+    required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
+  }) {
+    return reportAProblem(reportAProblemRequestModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
+  }) {
+    return reportAProblem?.call(reportAProblemRequestModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (reportAProblem != null) {
+      return reportAProblem(reportAProblemRequestModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
+    required TResult Function(GetProfile value) getProfile,
+    required TResult Function(EditProfile value) editProfile,
+    required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
+  }) {
+    return reportAProblem(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
+    TResult? Function(GetProfile value)? getProfile,
+    TResult? Function(EditProfile value)? editProfile,
+    TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
+  }) {
+    return reportAProblem?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
+    TResult Function(GetProfile value)? getProfile,
+    TResult Function(EditProfile value)? editProfile,
+    TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (reportAProblem != null) {
+      return reportAProblem(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReportAProblem implements ProfileEvent {
+  const factory ReportAProblem(
+      {required final ReportAProblemRequestModel
+          reportAProblemRequestModel}) = _$ReportAProblemImpl;
+
+  ReportAProblemRequestModel get reportAProblemRequestModel;
+  @JsonKey(ignore: true)
+  _$$ReportAProblemImplCopyWith<_$ReportAProblemImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetArchievedCardsImplCopyWith<$Res> {
+  factory _$$GetArchievedCardsImplCopyWith(_$GetArchievedCardsImpl value,
+          $Res Function(_$GetArchievedCardsImpl) then) =
+      __$$GetArchievedCardsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PageQuery pageQuery});
+}
+
+/// @nodoc
+class __$$GetArchievedCardsImplCopyWithImpl<$Res>
+    extends _$ProfileEventCopyWithImpl<$Res, _$GetArchievedCardsImpl>
+    implements _$$GetArchievedCardsImplCopyWith<$Res> {
+  __$$GetArchievedCardsImplCopyWithImpl(_$GetArchievedCardsImpl _value,
+      $Res Function(_$GetArchievedCardsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? pageQuery = null,
+  }) {
+    return _then(_$GetArchievedCardsImpl(
+      pageQuery: null == pageQuery
+          ? _value.pageQuery
+          : pageQuery // ignore: cast_nullable_to_non_nullable
+              as PageQuery,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetArchievedCardsImpl implements GetArchievedCards {
+  const _$GetArchievedCardsImpl({required this.pageQuery});
+
+  @override
+  final PageQuery pageQuery;
+
+  @override
+  String toString() {
+    return 'ProfileEvent.getArchievedCards(pageQuery: $pageQuery)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetArchievedCardsImpl &&
+            (identical(other.pageQuery, pageQuery) ||
+                other.pageQuery == pageQuery));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, pageQuery);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetArchievedCardsImplCopyWith<_$GetArchievedCardsImpl> get copyWith =>
+      __$$GetArchievedCardsImplCopyWithImpl<_$GetArchievedCardsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
+        editProfile,
+    required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
+  }) {
+    return getArchievedCards(pageQuery);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
+  }) {
+    return getArchievedCards?.call(pageQuery);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (getArchievedCards != null) {
+      return getArchievedCards(pageQuery);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
+    required TResult Function(GetProfile value) getProfile,
+    required TResult Function(EditProfile value) editProfile,
+    required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
+  }) {
+    return getArchievedCards(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
+    TResult? Function(GetProfile value)? getProfile,
+    TResult? Function(EditProfile value)? editProfile,
+    TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
+  }) {
+    return getArchievedCards?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
+    TResult Function(GetProfile value)? getProfile,
+    TResult Function(EditProfile value)? editProfile,
+    TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (getArchievedCards != null) {
+      return getArchievedCards(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetArchievedCards implements ProfileEvent {
+  const factory GetArchievedCards({required final PageQuery pageQuery}) =
+      _$GetArchievedCardsImpl;
+
+  PageQuery get pageQuery;
+  @JsonKey(ignore: true)
+  _$$GetArchievedCardsImplCopyWith<_$GetArchievedCardsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetDefaultQrImplCopyWith<$Res> {
+  factory _$$GetDefaultQrImplCopyWith(
+          _$GetDefaultQrImpl value, $Res Function(_$GetDefaultQrImpl) then) =
+      __$$GetDefaultQrImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetDefaultQrImplCopyWithImpl<$Res>
+    extends _$ProfileEventCopyWithImpl<$Res, _$GetDefaultQrImpl>
+    implements _$$GetDefaultQrImplCopyWith<$Res> {
+  __$$GetDefaultQrImplCopyWithImpl(
+      _$GetDefaultQrImpl _value, $Res Function(_$GetDefaultQrImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetDefaultQrImpl implements GetDefaultQr {
+  const _$GetDefaultQrImpl();
+
+  @override
+  String toString() {
+    return 'ProfileEvent.getDefaultQr()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetDefaultQrImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
+        editProfile,
+    required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
+  }) {
+    return getDefaultQr();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
+  }) {
+    return getDefaultQr?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (getDefaultQr != null) {
+      return getDefaultQr();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
+    required TResult Function(GetProfile value) getProfile,
+    required TResult Function(EditProfile value) editProfile,
+    required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
+  }) {
+    return getDefaultQr(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
+    TResult? Function(GetProfile value)? getProfile,
+    TResult? Function(EditProfile value)? editProfile,
+    TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
+  }) {
+    return getDefaultQr?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
+    TResult Function(GetProfile value)? getProfile,
+    TResult Function(EditProfile value)? editProfile,
+    TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (getDefaultQr != null) {
+      return getDefaultQr(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetDefaultQr implements ProfileEvent {
+  const factory GetDefaultQr() = _$GetDefaultQrImpl;
+}
+
+/// @nodoc
+abstract class _$$DefaultQrImplCopyWith<$Res> {
+  factory _$$DefaultQrImplCopyWith(
+          _$DefaultQrImpl value, $Res Function(_$DefaultQrImpl) then) =
+      __$$DefaultQrImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({CreateQrModel createQrModel});
+}
+
+/// @nodoc
+class __$$DefaultQrImplCopyWithImpl<$Res>
+    extends _$ProfileEventCopyWithImpl<$Res, _$DefaultQrImpl>
+    implements _$$DefaultQrImplCopyWith<$Res> {
+  __$$DefaultQrImplCopyWithImpl(
+      _$DefaultQrImpl _value, $Res Function(_$DefaultQrImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? createQrModel = null,
+  }) {
+    return _then(_$DefaultQrImpl(
+      createQrModel: null == createQrModel
+          ? _value.createQrModel
+          : createQrModel // ignore: cast_nullable_to_non_nullable
+              as CreateQrModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DefaultQrImpl implements DefaultQr {
+  const _$DefaultQrImpl({required this.createQrModel});
+
+  @override
+  final CreateQrModel createQrModel;
+
+  @override
+  String toString() {
+    return 'ProfileEvent.defaultQr(createQrModel: $createQrModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DefaultQrImpl &&
+            (identical(other.createQrModel, createQrModel) ||
+                other.createQrModel == createQrModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, createQrModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DefaultQrImplCopyWith<_$DefaultQrImpl> get copyWith =>
+      __$$DefaultQrImplCopyWithImpl<_$DefaultQrImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
+        editProfile,
+    required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(PageQuery pageQuery) getArchievedCards,
+    required TResult Function() getDefaultQr,
+    required TResult Function(CreateQrModel createQrModel) defaultQr,
+  }) {
+    return defaultQr(createQrModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(PageQuery pageQuery)? getArchievedCards,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(CreateQrModel createQrModel)? defaultQr,
+  }) {
+    return defaultQr?.call(createQrModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(PageQuery pageQuery)? getArchievedCards,
+    TResult Function()? getDefaultQr,
+    TResult Function(CreateQrModel createQrModel)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (defaultQr != null) {
+      return defaultQr(createQrModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
+    required TResult Function(GetProfile value) getProfile,
+    required TResult Function(EditProfile value) editProfile,
+    required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
+  }) {
+    return defaultQr(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
+    TResult? Function(GetProfile value)? getProfile,
+    TResult? Function(EditProfile value)? editProfile,
+    TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
+  }) {
+    return defaultQr?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
+    TResult Function(GetProfile value)? getProfile,
+    TResult Function(EditProfile value)? editProfile,
+    TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (defaultQr != null) {
+      return defaultQr(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DefaultQr implements ProfileEvent {
+  const factory DefaultQr({required final CreateQrModel createQrModel}) =
+      _$DefaultQrImpl;
+
+  CreateQrModel get createQrModel;
+  @JsonKey(ignore: true)
+  _$$DefaultQrImplCopyWith<_$DefaultQrImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ProfileState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
-  GetProfileDetailsResponceModel? get getProfileDetailsResponceModel =>
+  GetUserInfoModel? get getUserInfoModel => throw _privateConstructorUsedError;
+  ImageModel? get imageModel => throw _privateConstructorUsedError;
+  UserInfoChangeResponceModel? get userInfoChangeResponceModel =>
       throw _privateConstructorUsedError;
-  ProfileUpdateResponceModel? get profileUpdateResponceModel =>
+  ForegottPasswordResponceMdel? get foregottPasswordResponceMdel =>
       throw _privateConstructorUsedError;
+  ArchievedCards? get archievedCards => throw _privateConstructorUsedError;
+  DefaultQrmodel? get defaultQrmodel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProfileStateCopyWith<ProfileState> get copyWith =>
@@ -523,8 +2104,12 @@ abstract class $ProfileStateCopyWith<$Res> {
       {bool isLoading,
       bool hasError,
       String? message,
-      GetProfileDetailsResponceModel? getProfileDetailsResponceModel,
-      ProfileUpdateResponceModel? profileUpdateResponceModel});
+      GetUserInfoModel? getUserInfoModel,
+      ImageModel? imageModel,
+      UserInfoChangeResponceModel? userInfoChangeResponceModel,
+      ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
+      ArchievedCards? archievedCards,
+      DefaultQrmodel? defaultQrmodel});
 }
 
 /// @nodoc
@@ -543,8 +2128,12 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? isLoading = null,
     Object? hasError = null,
     Object? message = freezed,
-    Object? getProfileDetailsResponceModel = freezed,
-    Object? profileUpdateResponceModel = freezed,
+    Object? getUserInfoModel = freezed,
+    Object? imageModel = freezed,
+    Object? userInfoChangeResponceModel = freezed,
+    Object? foregottPasswordResponceMdel = freezed,
+    Object? archievedCards = freezed,
+    Object? defaultQrmodel = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -559,14 +2148,30 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      getProfileDetailsResponceModel: freezed == getProfileDetailsResponceModel
-          ? _value.getProfileDetailsResponceModel
-          : getProfileDetailsResponceModel // ignore: cast_nullable_to_non_nullable
-              as GetProfileDetailsResponceModel?,
-      profileUpdateResponceModel: freezed == profileUpdateResponceModel
-          ? _value.profileUpdateResponceModel
-          : profileUpdateResponceModel // ignore: cast_nullable_to_non_nullable
-              as ProfileUpdateResponceModel?,
+      getUserInfoModel: freezed == getUserInfoModel
+          ? _value.getUserInfoModel
+          : getUserInfoModel // ignore: cast_nullable_to_non_nullable
+              as GetUserInfoModel?,
+      imageModel: freezed == imageModel
+          ? _value.imageModel
+          : imageModel // ignore: cast_nullable_to_non_nullable
+              as ImageModel?,
+      userInfoChangeResponceModel: freezed == userInfoChangeResponceModel
+          ? _value.userInfoChangeResponceModel
+          : userInfoChangeResponceModel // ignore: cast_nullable_to_non_nullable
+              as UserInfoChangeResponceModel?,
+      foregottPasswordResponceMdel: freezed == foregottPasswordResponceMdel
+          ? _value.foregottPasswordResponceMdel
+          : foregottPasswordResponceMdel // ignore: cast_nullable_to_non_nullable
+              as ForegottPasswordResponceMdel?,
+      archievedCards: freezed == archievedCards
+          ? _value.archievedCards
+          : archievedCards // ignore: cast_nullable_to_non_nullable
+              as ArchievedCards?,
+      defaultQrmodel: freezed == defaultQrmodel
+          ? _value.defaultQrmodel
+          : defaultQrmodel // ignore: cast_nullable_to_non_nullable
+              as DefaultQrmodel?,
     ) as $Val);
   }
 }
@@ -583,8 +2188,12 @@ abstract class _$$InitialImplCopyWith<$Res>
       {bool isLoading,
       bool hasError,
       String? message,
-      GetProfileDetailsResponceModel? getProfileDetailsResponceModel,
-      ProfileUpdateResponceModel? profileUpdateResponceModel});
+      GetUserInfoModel? getUserInfoModel,
+      ImageModel? imageModel,
+      UserInfoChangeResponceModel? userInfoChangeResponceModel,
+      ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
+      ArchievedCards? archievedCards,
+      DefaultQrmodel? defaultQrmodel});
 }
 
 /// @nodoc
@@ -601,8 +2210,12 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? hasError = null,
     Object? message = freezed,
-    Object? getProfileDetailsResponceModel = freezed,
-    Object? profileUpdateResponceModel = freezed,
+    Object? getUserInfoModel = freezed,
+    Object? imageModel = freezed,
+    Object? userInfoChangeResponceModel = freezed,
+    Object? foregottPasswordResponceMdel = freezed,
+    Object? archievedCards = freezed,
+    Object? defaultQrmodel = freezed,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -617,27 +2230,47 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      getProfileDetailsResponceModel: freezed == getProfileDetailsResponceModel
-          ? _value.getProfileDetailsResponceModel
-          : getProfileDetailsResponceModel // ignore: cast_nullable_to_non_nullable
-              as GetProfileDetailsResponceModel?,
-      profileUpdateResponceModel: freezed == profileUpdateResponceModel
-          ? _value.profileUpdateResponceModel
-          : profileUpdateResponceModel // ignore: cast_nullable_to_non_nullable
-              as ProfileUpdateResponceModel?,
+      getUserInfoModel: freezed == getUserInfoModel
+          ? _value.getUserInfoModel
+          : getUserInfoModel // ignore: cast_nullable_to_non_nullable
+              as GetUserInfoModel?,
+      imageModel: freezed == imageModel
+          ? _value.imageModel
+          : imageModel // ignore: cast_nullable_to_non_nullable
+              as ImageModel?,
+      userInfoChangeResponceModel: freezed == userInfoChangeResponceModel
+          ? _value.userInfoChangeResponceModel
+          : userInfoChangeResponceModel // ignore: cast_nullable_to_non_nullable
+              as UserInfoChangeResponceModel?,
+      foregottPasswordResponceMdel: freezed == foregottPasswordResponceMdel
+          ? _value.foregottPasswordResponceMdel
+          : foregottPasswordResponceMdel // ignore: cast_nullable_to_non_nullable
+              as ForegottPasswordResponceMdel?,
+      archievedCards: freezed == archievedCards
+          ? _value.archievedCards
+          : archievedCards // ignore: cast_nullable_to_non_nullable
+              as ArchievedCards?,
+      defaultQrmodel: freezed == defaultQrmodel
+          ? _value.defaultQrmodel
+          : defaultQrmodel // ignore: cast_nullable_to_non_nullable
+              as DefaultQrmodel?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
+class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
       required this.hasError,
       this.message,
-      this.getProfileDetailsResponceModel,
-      this.profileUpdateResponceModel});
+      this.getUserInfoModel,
+      this.imageModel,
+      this.userInfoChangeResponceModel,
+      this.foregottPasswordResponceMdel,
+      this.archievedCards,
+      this.defaultQrmodel});
 
   @override
   final bool isLoading;
@@ -646,27 +2279,21 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   @override
   final String? message;
   @override
-  final GetProfileDetailsResponceModel? getProfileDetailsResponceModel;
+  final GetUserInfoModel? getUserInfoModel;
   @override
-  final ProfileUpdateResponceModel? profileUpdateResponceModel;
+  final ImageModel? imageModel;
+  @override
+  final UserInfoChangeResponceModel? userInfoChangeResponceModel;
+  @override
+  final ForegottPasswordResponceMdel? foregottPasswordResponceMdel;
+  @override
+  final ArchievedCards? archievedCards;
+  @override
+  final DefaultQrmodel? defaultQrmodel;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ProfileState(isLoading: $isLoading, hasError: $hasError, message: $message, getProfileDetailsResponceModel: $getProfileDetailsResponceModel, profileUpdateResponceModel: $profileUpdateResponceModel)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ProfileState'))
-      ..add(DiagnosticsProperty('isLoading', isLoading))
-      ..add(DiagnosticsProperty('hasError', hasError))
-      ..add(DiagnosticsProperty('message', message))
-      ..add(DiagnosticsProperty(
-          'getProfileDetailsResponceModel', getProfileDetailsResponceModel))
-      ..add(DiagnosticsProperty(
-          'profileUpdateResponceModel', profileUpdateResponceModel));
+  String toString() {
+    return 'ProfileState(isLoading: $isLoading, hasError: $hasError, message: $message, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, userInfoChangeResponceModel: $userInfoChangeResponceModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, archievedCards: $archievedCards, defaultQrmodel: $defaultQrmodel)';
   }
 
   @override
@@ -679,19 +2306,36 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.getProfileDetailsResponceModel,
-                    getProfileDetailsResponceModel) ||
-                other.getProfileDetailsResponceModel ==
-                    getProfileDetailsResponceModel) &&
-            (identical(other.profileUpdateResponceModel,
-                    profileUpdateResponceModel) ||
-                other.profileUpdateResponceModel ==
-                    profileUpdateResponceModel));
+            (identical(other.getUserInfoModel, getUserInfoModel) ||
+                other.getUserInfoModel == getUserInfoModel) &&
+            (identical(other.imageModel, imageModel) ||
+                other.imageModel == imageModel) &&
+            (identical(other.userInfoChangeResponceModel,
+                    userInfoChangeResponceModel) ||
+                other.userInfoChangeResponceModel ==
+                    userInfoChangeResponceModel) &&
+            (identical(other.foregottPasswordResponceMdel,
+                    foregottPasswordResponceMdel) ||
+                other.foregottPasswordResponceMdel ==
+                    foregottPasswordResponceMdel) &&
+            (identical(other.archievedCards, archievedCards) ||
+                other.archievedCards == archievedCards) &&
+            (identical(other.defaultQrmodel, defaultQrmodel) ||
+                other.defaultQrmodel == defaultQrmodel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, hasError, message,
-      getProfileDetailsResponceModel, profileUpdateResponceModel);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      hasError,
+      message,
+      getUserInfoModel,
+      imageModel,
+      userInfoChangeResponceModel,
+      foregottPasswordResponceMdel,
+      archievedCards,
+      defaultQrmodel);
 
   @JsonKey(ignore: true)
   @override
@@ -702,12 +2346,15 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
 
 abstract class _Initial implements ProfileState {
   const factory _Initial(
-          {required final bool isLoading,
-          required final bool hasError,
-          final String? message,
-          final GetProfileDetailsResponceModel? getProfileDetailsResponceModel,
-          final ProfileUpdateResponceModel? profileUpdateResponceModel}) =
-      _$InitialImpl;
+      {required final bool isLoading,
+      required final bool hasError,
+      final String? message,
+      final GetUserInfoModel? getUserInfoModel,
+      final ImageModel? imageModel,
+      final UserInfoChangeResponceModel? userInfoChangeResponceModel,
+      final ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
+      final ArchievedCards? archievedCards,
+      final DefaultQrmodel? defaultQrmodel}) = _$InitialImpl;
 
   @override
   bool get isLoading;
@@ -716,9 +2363,17 @@ abstract class _Initial implements ProfileState {
   @override
   String? get message;
   @override
-  GetProfileDetailsResponceModel? get getProfileDetailsResponceModel;
+  GetUserInfoModel? get getUserInfoModel;
   @override
-  ProfileUpdateResponceModel? get profileUpdateResponceModel;
+  ImageModel? get imageModel;
+  @override
+  UserInfoChangeResponceModel? get userInfoChangeResponceModel;
+  @override
+  ForegottPasswordResponceMdel? get foregottPasswordResponceMdel;
+  @override
+  ArchievedCards? get archievedCards;
+  @override
+  DefaultQrmodel? get defaultQrmodel;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

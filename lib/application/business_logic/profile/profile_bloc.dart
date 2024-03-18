@@ -43,27 +43,27 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ReportAProblem>(reportAProblem);
     on<GetArchievedCards>(getArchievedCards);
     on<DefaultQr>(defaultQr);
-    on<GetDefaultQr>(getDefaultQr);
+    // on<GetDefaultQr>(getDefaultQr);
   }
 
-  FutureOr<void> getDefaultQr(GetDefaultQr event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data = await profileRepo.getDefaultQr();
-    data.fold(
-      (l) => emit(state.copyWith(
-        isLoading: false,
-        hasError: true,
-        message: null,
-      )),
-      (r) => emit(
-        state.copyWith(
-          isLoading: false,
-          hasError: false,
-          defaultQrmodel: r,
-        ),
-      ),
-    );
-  }
+  // FutureOr<void> getDefaultQr(GetDefaultQr event, emit) async {
+  //   emit(state.copyWith(isLoading: true, hasError: false, message: null));
+  //   final data = await profileRepo.getDefaultQr();
+  //   data.fold(
+  //     (l) => emit(state.copyWith(
+  //       isLoading: false,
+  //       hasError: true,
+  //       message: null,
+  //     )),
+  //     (r) => emit(
+  //       state.copyWith(
+  //         isLoading: false,
+  //         hasError: false,
+  //         defaultQrmodel: r,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   FutureOr<void> defaultQr(DefaultQr event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));

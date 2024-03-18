@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "142144748161",
+    "project_id": "bizkit-a2182",
+    "storage_bucket": "bizkit-a2182.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142144748161:android:67912704b8e4a250d12b80",
+        "android_client_info": {
+          "package_name": "com.zikrabyte.bizkit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdDdIrcFlXNq491V1aIRG8ibD3GNirpck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

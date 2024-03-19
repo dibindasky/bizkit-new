@@ -3,16 +3,15 @@ import 'dart:developer';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/domain/model/card/cards_in_profile/archieved_cards/archieved_cards.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
-import 'package:bizkit/domain/model/profile/default_qrmodel/default_qrmodel.dart';
+import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
 import 'package:bizkit/domain/model/profile/get_user_info_model/get_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_responce_model/user_info_change_responce_model.dart';
-import 'package:bizkit/domain/model/qr/create_qr_model/create_qr_model.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
 import 'package:bizkit/domain/model/token/token_model.dart';
 import 'package:bizkit/domain/repository/service/profile_repo.dart';
@@ -27,6 +26,7 @@ part 'profile_bloc.freezed.dart';
 @injectable
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileRepo profileRepo;
+  int archevedCards = 1, blockedCards = 1;
   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController reEnterNewPasswordController = TextEditingController();
@@ -42,59 +42,78 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ResetPasswod>(profilePasswordChange);
     on<ReportAProblem>(reportAProblem);
     on<GetArchievedCards>(getArchievedCards);
-    on<DefaultQr>(defaultQr);
-    on<GetDefaultQr>(getDefaultQr);
+    on<GetArchievedCardsEvent>(getArchievedCardsEvent);
+    on<GetBlockeConnections>(getBlockeConnections);
+    on<GgetBlockeConnectionsEvent>(getBlockedConnectionsEvent);
   }
 
-  FutureOr<void> getDefaultQr(GetDefaultQr event, emit) async {
+  FutureOr<void> getBlockedConnectionsEvent(
+      GgetBlockeConnectionsEvent event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data = await profileRepo.getDefaultQr();
+
+    final data = await profileRepo.getBlockeConnections(
+        pageQuery: PageQuery(page: ++blockedCards));
     data.fold(
-      (l) => emit(state.copyWith(
+        (l) => emit(
+            state.copyWith(isLoading: false, hasError: true, message: null)),
+        (r) {
+      emit(state.copyWith(
         isLoading: false,
-        hasError: true,
-        message: null,
-      )),
-      (r) => emit(
+        hasError: false,
+        blockedConnections: [...state.blockedConnections!, ...r.results!],
+      ));
+    });
+  }
+
+  FutureOr<void> getArchievedCardsEvent(event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+
+    final data = await profileRepo.archievedCardsList(
+        pageQuery: PageQuery(page: ++archevedCards));
+    data.fold(
+        (l) => emit(
+            state.copyWith(isLoading: false, hasError: true, message: null)),
+        (r) {
+      emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        archievedCards: [...state.archievedCards!, ...r.results!],
+      ));
+    });
+  }
+
+  FutureOr<void> getBlockeConnections(GetBlockeConnections event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final data = await profileRepo.getBlockeConnections(
+        pageQuery: PageQuery(page: blockedCards));
+    data.fold(
+      (l) => emit(
         state.copyWith(
           isLoading: false,
-          hasError: false,
-          defaultQrmodel: r,
+          hasError: true,
         ),
       ),
-    );
-  }
-
-  FutureOr<void> defaultQr(DefaultQr event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data =
-        await profileRepo.defaultQr(createQrModel: event.createQrModel);
-    data.fold(
-      (l) => emit(state.copyWith(
-        isLoading: false,
-        hasError: true,
-        message: null,
-      )),
       (r) => emit(
         state.copyWith(
           isLoading: false,
           hasError: false,
-          defaultQrmodel: r,
+          blockedConnections: r.results!,
         ),
       ),
     );
   }
 
   FutureOr<void> getArchievedCards(GetArchievedCards event, emit) async {
+    archevedCards = 1;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data =
-        await profileRepo.archievedCardsList(pageQuery: PageQuery(page: 1));
+    final data = await profileRepo.archievedCardsList(
+        pageQuery: PageQuery(page: archevedCards));
     data.fold(
         (l) => emit(
             state.copyWith(isLoading: false, hasError: true, message: null)),
         (r) {
-      emit(
-          state.copyWith(isLoading: false, hasError: false, archievedCards: r));
+      emit(state.copyWith(
+          isLoading: false, hasError: false, archievedCards: r.results));
     });
   }
 

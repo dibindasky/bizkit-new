@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'result.g.dart';
+part 'archeived_card.g.dart';
 
 @JsonSerializable()
-class Result {
+class ArcheivedCard {
   int? id;
   String? name;
   String? designation;
@@ -26,7 +26,7 @@ class Result {
   @JsonKey(name: 'card_link')
   String? cardLink;
 
-  Result({
+  ArcheivedCard({
     this.id,
     this.name,
     this.designation,
@@ -43,9 +43,9 @@ class Result {
     this.cardLink,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) {
-    return _$ResultFromJson(json);
+  factory ArcheivedCard.fromJson(Map<String, dynamic> json) {
+    return _$ArcheivedCardFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ResultToJson(this);
+  Map<String, dynamic> toJson() => _$ArcheivedCardToJson(this);
 }

@@ -1,52 +1,46 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'create_qr_model.g.dart';
+part 'defauilt_qr.g.dart';
 
 @JsonSerializable()
-class CreateQrModel {
-  @JsonKey(name: 'user_id')
-  int? userId;
+class DefauiltQr {
+  int? id;
   bool? email;
   @JsonKey(name: 'phone_number')
   bool? phoneNumber;
-  bool? company;
   @JsonKey(name: 'personal_social_media')
   bool? personalSocialMedia;
-  @JsonKey(name: 'business_details_mobile_number')
-  bool? businessDetailsMobileNumber;
   bool? address;
+  bool? company;
+  @JsonKey(name: 'business_email')
+  bool? businessEmail;
   @JsonKey(name: 'social_media_handles')
   bool? socialMediaHandles;
   @JsonKey(name: 'website_link')
   bool? websiteLink;
-  @JsonKey(name: 'business_email')
-  bool? businessEmail;
-  int? card;
+  @JsonKey(name: 'business_details_mobile_number')
+  bool? businessDetailsMobileNumber;
   @JsonKey(name: 'update_all_cards')
   bool? updateAllCards;
+  @JsonKey(name: 'user_id')
+  int? userId;
 
-  CreateQrModel({
-    this.userId,
+  DefauiltQr({
+    this.id,
     this.email,
     this.phoneNumber,
-    this.company,
     this.personalSocialMedia,
-    this.businessDetailsMobileNumber,
     this.address,
+    this.company,
+    this.businessEmail,
     this.socialMediaHandles,
     this.websiteLink,
-    this.card,
-    this.businessEmail,
+    this.businessDetailsMobileNumber,
     this.updateAllCards,
+    this.userId,
   });
 
-  factory CreateQrModel.fromJson(Map<String, dynamic> json) {
-    return _$CreateQrModelFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() => _$CreateQrModelToJson(this);
-
-  CreateQrModel copyWith({
+  DefauiltQr copyWith({
     int? userId,
     bool? email,
     bool? phoneNumber,
@@ -57,10 +51,11 @@ class CreateQrModel {
     bool? socialMediaHandles,
     bool? websiteLink,
     bool? businessEmail,
-    int? card,
     bool? updateAllCards,
+    int? id,
   }) {
-    return CreateQrModel(
+    return DefauiltQr(
+      id: id ?? this.id,
       userId: userId ?? this.userId,
       email: email ?? this.email,
       phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -72,8 +67,13 @@ class CreateQrModel {
       socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
       websiteLink: websiteLink ?? this.websiteLink,
       businessEmail: businessEmail ?? this.businessEmail,
-      card: card ?? this.card,
       updateAllCards: updateAllCards ?? this.updateAllCards,
     );
   }
+
+  factory DefauiltQr.fromJson(Map<String, dynamic> json) {
+    return _$DefauiltQrFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() => _$DefauiltQrToJson(this);
 }

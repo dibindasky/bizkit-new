@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:bizkit/data/service/api_service.dart';
-import 'package:bizkit/domain/model/card/cards_in_profile/archieved_cards/archieved_cards.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
-import 'package:bizkit/domain/model/profile/default_qrmodel/default_qrmodel.dart';
+import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection_model.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
@@ -13,7 +13,7 @@ import 'package:bizkit/domain/model/profile/get_user_info_model/result.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_responce_model/user_info_change_responce_model.dart';
 import 'package:bizkit/domain/model/profile/username_change_responce_model/username_change_responce_model.dart';
-import 'package:bizkit/domain/model/qr/create_qr_model/create_qr_model.dart';
+import 'package:bizkit/domain/model/qr/defauilt_qr/defauilt_qr.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
 import 'package:bizkit/domain/repository/service/profile_repo.dart';
 import 'package:dartz/dartz.dart';
@@ -107,15 +107,14 @@ class ProfileService implements ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, ArchievedCards>> archievedCardsList(
+  Future<Either<Failure, ArcheivedCardModel>> archievedCardsList(
       {required PageQuery pageQuery}) async {
     try {
       final responce = await apiService.get(
         ApiEndPoints.archeivedCardsList,
         data: pageQuery.toJson(),
       );
-      // log('archievedCardsList statusCode ${responce.statusCode}');
-      return Right(ArchievedCards.fromJson(responce.data));
+      return Right(ArcheivedCardModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('archievedCardsList DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
@@ -126,15 +125,18 @@ class ProfileService implements ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, DefaultQrmodel>> defaultQr({
-    required CreateQrModel createQrModel,
+  Future<Either<Failure, DefauiltQr>> defaultQr({
+    required DefauiltQr defauiltQr,
   }) async {
     try {
+      log('data before ${defauiltQr.toJson()}');
       final responce = await apiService.patch(
-        ApiEndPoints.setDefaultQr,
-        data: createQrModel.toJson(),
+        ApiEndPoints.defaultQr,
+        data: defauiltQr.toJson(),
       );
-      return Right(DefaultQrmodel.fromJson(responce.data));
+      log('defaultQr ${responce.data}');
+      log('data after ${defauiltQr.toJson()}');
+      return Right(DefauiltQr.fromJson(responce.data));
     } on DioException catch (e) {
       log('defaultQr DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
@@ -145,18 +147,36 @@ class ProfileService implements ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, DefaultQrmodel>> getDefaultQr() async {
+  Future<Either<Failure, DefauiltQr>> getDefaultQr() async {
     try {
       final responce = await apiService.get(
-        ApiEndPoints.archeivedCardsList,
+        ApiEndPoints.defaultQr,
       );
-      // log('archievedCardsList statusCode ${responce.statusCode}');
-      return Right(DefaultQrmodel.fromJson(responce.data));
+      log('${responce.data}');
+      return Right(DefauiltQr.fromJson(responce.data));
     } on DioException catch (e) {
-      log('archievedCardsList DioException ${e.response?.statusCode} $e');
+      log('getDefaultQr DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('getDefaultQr catch $e');
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, BlockedConnectionModel>> getBlockeConnections({
+    required PageQuery pageQuery,
+  }) async {
+    try {
+      final responce = await apiService.get(
+        ApiEndPoints.getBlockedConnections,
+      );
+      return Right(BlockedConnectionModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getBlockeConnections DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
-      log('archievedCardsList catch $e');
+      log('getBlockeConnections catch $e');
       return Left(Failure(message: errorMessage));
     }
   }

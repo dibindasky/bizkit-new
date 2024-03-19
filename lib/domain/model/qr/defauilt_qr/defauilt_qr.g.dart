@@ -1,40 +1,39 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'create_qr_model.dart';
+part of 'defauilt_qr.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CreateQrModel _$CreateQrModelFromJson(Map<String, dynamic> json) =>
-    CreateQrModel(
-      userId: json['user_id'] as int?,
+DefauiltQr _$DefauiltQrFromJson(Map<String, dynamic> json) => DefauiltQr(
+      id: json['id'] as int?,
       email: json['email'] as bool?,
       phoneNumber: json['phone_number'] as bool?,
-      company: json['company'] as bool?,
       personalSocialMedia: json['personal_social_media'] as bool?,
-      businessDetailsMobileNumber:
-          json['business_details_mobile_number'] as bool?,
       address: json['address'] as bool?,
+      company: json['company'] as bool?,
+      businessEmail: json['business_email'] as bool?,
       socialMediaHandles: json['social_media_handles'] as bool?,
       websiteLink: json['website_link'] as bool?,
-      card: json['card'] as int?,
-      businessEmail: json['business_email'] as bool?,
+      businessDetailsMobileNumber:
+          json['business_details_mobile_number'] as bool?,
       updateAllCards: json['update_all_cards'] as bool?,
+      userId: json['user_id'] as int?,
     );
 
-Map<String, dynamic> _$CreateQrModelToJson(CreateQrModel instance) =>
+Map<String, dynamic> _$DefauiltQrToJson(DefauiltQr instance) =>
     <String, dynamic>{
-      'user_id': instance.userId,
+      'id': instance.id,
       'email': instance.email,
       'phone_number': instance.phoneNumber,
-      'company': instance.company,
       'personal_social_media': instance.personalSocialMedia,
-      'business_details_mobile_number': instance.businessDetailsMobileNumber,
       'address': instance.address,
+      'company': instance.company,
+      'business_email': instance.businessEmail,
       'social_media_handles': instance.socialMediaHandles,
       'website_link': instance.websiteLink,
-      'business_email': instance.businessEmail,
-      'card': instance.card,
+      'business_details_mobile_number': instance.businessDetailsMobileNumber,
       'update_all_cards': instance.updateAllCards,
+      'user_id': instance.userId,
     };

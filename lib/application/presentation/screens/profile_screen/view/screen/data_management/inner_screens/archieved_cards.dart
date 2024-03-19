@@ -1,4 +1,3 @@
-import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
@@ -24,7 +23,7 @@ class ArchivedCards extends StatelessWidget {
         ),
         backgroundColor: knill,
         title: Text(
-          'ArchivedCards',
+          'Archived cards',
           style: textHeadStyle1,
         ),
       ),
@@ -35,24 +34,17 @@ class ArchivedCards extends StatelessWidget {
             builder: (context, state) {
               if (state.isLoading) {
                 return const LoadingAnimation();
-              } else if (state.archievedCards!.results!.isEmpty) {
-                return const Center(
-                  child:
-                      Text('No archieved cards.', textAlign: TextAlign.center),
-                );
               } else {
-                if (state.archievedCards != null &&
-                    state.archievedCards!.results != null) {
+                if (state.archievedCards != null) {
                   return SizedBox(
                     child: ListView.separated(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      //  scrollDirection: Axis.horizontal,
-                      itemCount: state.archievedCards!.count!,
+                      itemCount: state.archievedCards!.length,
                       separatorBuilder: (context, index) =>
                           adjustWidth(kwidth * .05),
                       itemBuilder: (context, index) {
-                        final card = state.archievedCards!.results![index];
+                        final card = state.archievedCards![index];
                         return Container(
                           decoration: BoxDecoration(
                             color: textFieldFillColr,
@@ -67,34 +59,15 @@ class ArchivedCards extends StatelessWidget {
                                     width: 300,
                                     height: 200,
                                     child: InkWell(
-                                      onTap: () {
-                                        // // Navigator.push(
-                                        // //     context,
-                                        // //     fadePageRoute(
-                                        // //         HomeFirstViewAllContactTileDetailView(
-                                        // //             cardId: state
-                                        // //                 .cards[index].id)));
-                                        // final map =
-                                        //     state.cards[index].id != null
-                                        //         ? {
-                                        //             'myCard': 'true',
-                                        //             'cardId': state
-                                        //                 .cards[index].id!
-                                        //                 .toString()
-                                        //           }
-                                        //         : <String, String>{};
-                                        // GoRouter.of(context).pushNamed(
-                                        //     Routes.cardDetailView,
-                                        //     pathParameters: map);
-                                      },
+                                      onTap: () {},
                                       child: ClipRRect(
                                         borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(25),
                                           topRight: Radius.circular(20),
                                         ),
                                         child: state.archievedCards == null ||
-                                                state.archievedCards!
-                                                        .results![index].logo ==
+                                                state.archievedCards![index]
+                                                        .logo ==
                                                     null
                                             ? Image.network(imageDummyNetwork,
                                                 fit: BoxFit.cover)
@@ -105,43 +78,6 @@ class ArchivedCards extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Positioned(
-                                    right: 0,
-                                    top: 10,
-                                    child: PopupMenuButton<String>(
-                                      icon: const Icon(
-                                        Icons.more_vert,
-                                        size: 35,
-                                        color: kblack,
-                                      ),
-                                      onSelected: (value) {
-                                        if (value == 'Add Tag') {}
-                                        print('Selected: $value');
-                                      },
-                                      itemBuilder: (context) => [
-                                        const PopupMenuItem(
-                                          value: 'Delete Permanently',
-                                          child: Text('Delete Permanently'),
-                                        ),
-                                        PopupMenuItem(
-                                          onTap: () => context
-                                              .read<CardBloc>()
-                                              .add(CardEvent.setDefault(
-                                                  id: card.id!)),
-                                          value: 'Default',
-                                          child: const Text('Set as default'),
-                                        ),
-                                        PopupMenuItem(
-                                          onTap: () => context
-                                              .read<CardBloc>()
-                                              .add(CardEvent.deleteCard(
-                                                  id: card.id!)),
-                                          value: 'Delete Card',
-                                          child: const Text('Delete Card'),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                 ],
                               ),
                               adjustHieght(khieght * .02),
@@ -149,7 +85,7 @@ class ArchivedCards extends StatelessWidget {
                                 children: [
                                   adjustWidth(kwidth * .02),
                                   Text(
-                                    '${state.archievedCards!.results![index].name ?? ''}\n${state.archievedCards!.results![index].designation}',
+                                    '${state.archievedCards![index].name ?? ''}\n${state.archievedCards![index].designation}',
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w700,
@@ -182,7 +118,10 @@ class ArchivedCards extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return Text('data');
+                  return SizedBox(
+                      height: khieght,
+                      child: const Center(
+                          child: Text("You don't have archeived cards")));
                 }
               }
             },

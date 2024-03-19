@@ -15,9 +15,9 @@ class DataManagement extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        context
-            .read<ProfileBloc>()
-            .add(ProfileEvent.getArchievedCards(pageQuery: PageQuery(page: 1)));
+        // context
+        //     .read<ProfileBloc>()
+        //     .add(ProfileEvent.getArchievedCards(pageQuery: PageQuery(page: 1)));
       },
     );
     return Scaffold(

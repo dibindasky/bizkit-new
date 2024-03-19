@@ -10,8 +10,8 @@ class ProfileState with _$ProfileState {
     ImageModel? imageModel,
     UserInfoChangeResponceModel? userInfoChangeResponceModel,
     ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-    ArchievedCards? archievedCards,
-    DefaultQrmodel? defaultQrmodel,
+    List<ArcheivedCard>? archievedCards,
+    List<BlockedConnection>? blockedConnections,
   }) = _Initial;
   factory ProfileState.initial() => const ProfileState(
         isLoading: false,

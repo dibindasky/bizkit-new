@@ -26,12 +26,12 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
-    await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseMessaging.instance.requestPermission();
-    final token = await FirebaseMessaging.instance.getToken();
-    print('firebase notification token =>  "$token"');
+  final token = await FirebaseMessaging.instance.getToken();
+  print('firebase notification token =>  "$token"');
   await configuteInjection();
   runApp(MyApp(
     connectivity: Connectivity(),

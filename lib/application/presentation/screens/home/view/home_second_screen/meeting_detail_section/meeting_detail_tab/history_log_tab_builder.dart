@@ -1,5 +1,9 @@
+import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MeetingDetailHistoryLogTabBuilder extends StatelessWidget {
   const MeetingDetailHistoryLogTabBuilder({super.key});
@@ -8,62 +12,65 @@ class MeetingDetailHistoryLogTabBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(10)),
-      child: ColoredBox(
-        color: bottomsheetContainerclr,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              historyLog(
-                'asset/images/meeting profile png1.png',
-                '1-10-23 | 11:40 AM',
-                'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
-              ),
-              historyLog(
-                'asset/images/meeting profile png2.png',
-                '22-10-23 | 1:40 PM',
-                'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
-              ),
-              historyLog(
-                'asset/images/meeting profile png3.png',
-                '16-10-23 | 7:40 PM',
-                'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
-              ),
-              historyLog(
-                'asset/images/meeting profile png4.png',
-                '19-10-23 | 5:40 PM',
-                'Scheduled on 16-10-23 to discuss about features and pipeline details of project at office location.',
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget historyLog(String image, String date, String detail) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Image.asset(
-                image,
-                fit: BoxFit.cover,
-              ),
-              adjustWidth(kwidth * .004),
-              Text(
-                date,
-                style: TextStyle(fontSize: kwidth * .035),
-              ),
-            ],
-          ),
-          adjustHieght(khieght * .006),
-          Text(
-            detail,
-            style: TextStyle(fontSize: kwidth * .035),
-          ),
-        ],
+      child: BlocBuilder<ReminderBloc, ReminderState>(
+        builder: (context, state) {
+          if (state.isLoading) {
+            return ShimmerLoader(
+                itemCount: 5,
+                height: 50,
+                width: kwidth,
+                seprator: adjustHieght(10));
+          } else if (state.reminderResponse != null &&
+              state.reminderResponse!.history != null &&
+              state.reminderResponse!.history!.isNotEmpty) {
+            return ListView.builder(
+                padding: const EdgeInsets.all(0),
+                itemCount: state.reminderResponse!.history!.length,
+                itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        child: ColoredBox(
+                          color: smallBigGrey,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      imageHistoryList[index % 4],
+                                      fit: BoxFit.cover,
+                                    ),
+                                    adjustWidth(kwidth * .004),
+                                    Text(
+                                      state.reminderResponse?.date ?? '',
+                                      style: TextStyle(fontSize: kwidth * .035),
+                                    ),
+                                  ],
+                                ),
+                                adjustHieght(khieght * .006),
+                                Text(
+                                  'Scheduled on ${state.reminderResponse?.date ?? ''} to discuss about ${state.reminder?.message ?? ''}.',
+                                  style: TextStyle(fontSize: kwidth * .035),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ));
+          } else {
+            return Column(
+              children: [
+                Text(
+                    'No history with ${state.reminder?.name ?? 'Bizkit user'}'),
+                Expanded(child: FittedBox(child: Image.asset(emptyNodata1)))
+              ],
+            );
+          }
+        },
       ),
     );
   }

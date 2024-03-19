@@ -19,4 +19,6 @@ class ReminderEvent with _$ReminderEvent {
       GetUpcomingRemindersEventPage;
   const factory ReminderEvent.getTodaysRemindersEvent() =
       GetTodaysRemindersEvent;
+  const factory ReminderEvent.getReminderDetails({required int id}) =
+      GetReminderDetails;
 }

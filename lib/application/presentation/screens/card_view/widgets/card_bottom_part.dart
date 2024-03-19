@@ -54,7 +54,10 @@ class CardDetailScreenSecondHalf extends StatelessWidget {
         ),
         adjustHieght(khieght * .02),
         // meeting history section
-        !myCard ? const MeetingDetailHistoryLogTabBuilder() : const SizedBox()
+        !myCard
+            ? const SizedBox(
+                height: 300, child: MeetingDetailHistoryLogTabBuilder())
+            : const SizedBox()
       ],
     );
   }

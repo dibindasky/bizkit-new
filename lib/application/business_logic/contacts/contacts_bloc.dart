@@ -85,7 +85,6 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
             await contactLocalService.removeExistingContactAndAddAsNew(
                 contact: x);
           }
-
           for (var contact in event.contactList) {
             if (contact.phones?.isNotEmpty ?? false) {
               for (var phone in contact.phones!) {
@@ -129,8 +128,9 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
             }
           }
         }
-        add(const ContactsEvent.getConnectionsFromLocalStorage());
+        // add(const ContactsEvent.getConnectionsFromLocalStorage());
       });
+        add(const ContactsEvent.getConnectionsFromLocalStorage());
     } catch (e) {
       print('fetch error =$e');
       // add(const ContactsEvent.getConnectionsFromLocalStorage());

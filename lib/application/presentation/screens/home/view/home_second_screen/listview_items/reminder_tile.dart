@@ -1,8 +1,10 @@
+import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ReminderTile extends StatelessWidget {
   const ReminderTile({super.key, required this.reminder});
@@ -11,10 +13,15 @@ class ReminderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        fadePageRoute(const MeetingDetailScreen()),
-      ),
+      onTap: () {
+        context
+            .read<ReminderBloc>()
+            .add(ReminderEvent.getReminderDetails(id: reminder.id!));
+        Navigator.push(
+          context,
+          fadePageRoute(const MeetingDetailScreen()),
+        );
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
         padding: const EdgeInsets.only(right: 8),

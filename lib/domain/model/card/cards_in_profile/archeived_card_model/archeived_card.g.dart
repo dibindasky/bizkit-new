@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'result.dart';
+part of 'archeived_card.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Result _$ResultFromJson(Map<String, dynamic> json) => Result(
+ArcheivedCard _$ArcheivedCardFromJson(Map<String, dynamic> json) =>
+    ArcheivedCard(
       id: json['id'] as int?,
       name: json['name'] as String?,
       designation: json['designation'] as String?,
@@ -23,7 +24,8 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       cardLink: json['card_link'] as String?,
     );
 
-Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
+Map<String, dynamic> _$ArcheivedCardToJson(ArcheivedCard instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'designation': instance.designation,

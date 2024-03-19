@@ -21,6 +21,8 @@ mixin _$QrEvent {
     required TResult Function() getQrCodes,
     required TResult Function(int index) changeQRSelection,
     required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
+    required TResult Function() getDefaultQr,
+    required TResult Function(DefauiltQr defauiltQr) defaultQr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +30,8 @@ mixin _$QrEvent {
     TResult? Function()? getQrCodes,
     TResult? Function(int index)? changeQRSelection,
     TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(DefauiltQr defauiltQr)? defaultQr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +39,8 @@ mixin _$QrEvent {
     TResult Function()? getQrCodes,
     TResult Function(int index)? changeQRSelection,
     TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult Function()? getDefaultQr,
+    TResult Function(DefauiltQr defauiltQr)? defaultQr,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +49,8 @@ mixin _$QrEvent {
     required TResult Function(GetQrCodes value) getQrCodes,
     required TResult Function(ChangeQRSelection value) changeQRSelection,
     required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +58,8 @@ mixin _$QrEvent {
     TResult? Function(GetQrCodes value)? getQrCodes,
     TResult? Function(ChangeQRSelection value)? changeQRSelection,
     TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +67,8 @@ mixin _$QrEvent {
     TResult Function(GetQrCodes value)? getQrCodes,
     TResult Function(ChangeQRSelection value)? changeQRSelection,
     TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,6 +132,8 @@ class _$GetQrCodesImpl implements GetQrCodes {
     required TResult Function() getQrCodes,
     required TResult Function(int index) changeQRSelection,
     required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
+    required TResult Function() getDefaultQr,
+    required TResult Function(DefauiltQr defauiltQr) defaultQr,
   }) {
     return getQrCodes();
   }
@@ -130,6 +144,8 @@ class _$GetQrCodesImpl implements GetQrCodes {
     TResult? Function()? getQrCodes,
     TResult? Function(int index)? changeQRSelection,
     TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(DefauiltQr defauiltQr)? defaultQr,
   }) {
     return getQrCodes?.call();
   }
@@ -140,6 +156,8 @@ class _$GetQrCodesImpl implements GetQrCodes {
     TResult Function()? getQrCodes,
     TResult Function(int index)? changeQRSelection,
     TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult Function()? getDefaultQr,
+    TResult Function(DefauiltQr defauiltQr)? defaultQr,
     required TResult orElse(),
   }) {
     if (getQrCodes != null) {
@@ -154,6 +172,8 @@ class _$GetQrCodesImpl implements GetQrCodes {
     required TResult Function(GetQrCodes value) getQrCodes,
     required TResult Function(ChangeQRSelection value) changeQRSelection,
     required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
   }) {
     return getQrCodes(this);
   }
@@ -164,6 +184,8 @@ class _$GetQrCodesImpl implements GetQrCodes {
     TResult? Function(GetQrCodes value)? getQrCodes,
     TResult? Function(ChangeQRSelection value)? changeQRSelection,
     TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
   }) {
     return getQrCodes?.call(this);
   }
@@ -174,6 +196,8 @@ class _$GetQrCodesImpl implements GetQrCodes {
     TResult Function(GetQrCodes value)? getQrCodes,
     TResult Function(ChangeQRSelection value)? changeQRSelection,
     TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
     required TResult orElse(),
   }) {
     if (getQrCodes != null) {
@@ -255,6 +279,8 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
     required TResult Function() getQrCodes,
     required TResult Function(int index) changeQRSelection,
     required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
+    required TResult Function() getDefaultQr,
+    required TResult Function(DefauiltQr defauiltQr) defaultQr,
   }) {
     return changeQRSelection(index);
   }
@@ -265,6 +291,8 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
     TResult? Function()? getQrCodes,
     TResult? Function(int index)? changeQRSelection,
     TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(DefauiltQr defauiltQr)? defaultQr,
   }) {
     return changeQRSelection?.call(index);
   }
@@ -275,6 +303,8 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
     TResult Function()? getQrCodes,
     TResult Function(int index)? changeQRSelection,
     TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult Function()? getDefaultQr,
+    TResult Function(DefauiltQr defauiltQr)? defaultQr,
     required TResult orElse(),
   }) {
     if (changeQRSelection != null) {
@@ -289,6 +319,8 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
     required TResult Function(GetQrCodes value) getQrCodes,
     required TResult Function(ChangeQRSelection value) changeQRSelection,
     required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
   }) {
     return changeQRSelection(this);
   }
@@ -299,6 +331,8 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
     TResult? Function(GetQrCodes value)? getQrCodes,
     TResult? Function(ChangeQRSelection value)? changeQRSelection,
     TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
   }) {
     return changeQRSelection?.call(this);
   }
@@ -309,6 +343,8 @@ class _$ChangeQRSelectionImpl implements ChangeQRSelection {
     TResult Function(GetQrCodes value)? getQrCodes,
     TResult Function(ChangeQRSelection value)? changeQRSelection,
     TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
     required TResult orElse(),
   }) {
     if (changeQRSelection != null) {
@@ -397,6 +433,8 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
     required TResult Function() getQrCodes,
     required TResult Function(int index) changeQRSelection,
     required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
+    required TResult Function() getDefaultQr,
+    required TResult Function(DefauiltQr defauiltQr) defaultQr,
   }) {
     return addNewLevelSharing(createQrModel);
   }
@@ -407,6 +445,8 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
     TResult? Function()? getQrCodes,
     TResult? Function(int index)? changeQRSelection,
     TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(DefauiltQr defauiltQr)? defaultQr,
   }) {
     return addNewLevelSharing?.call(createQrModel);
   }
@@ -417,6 +457,8 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
     TResult Function()? getQrCodes,
     TResult Function(int index)? changeQRSelection,
     TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult Function()? getDefaultQr,
+    TResult Function(DefauiltQr defauiltQr)? defaultQr,
     required TResult orElse(),
   }) {
     if (addNewLevelSharing != null) {
@@ -431,6 +473,8 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
     required TResult Function(GetQrCodes value) getQrCodes,
     required TResult Function(ChangeQRSelection value) changeQRSelection,
     required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
   }) {
     return addNewLevelSharing(this);
   }
@@ -441,6 +485,8 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
     TResult? Function(GetQrCodes value)? getQrCodes,
     TResult? Function(ChangeQRSelection value)? changeQRSelection,
     TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
   }) {
     return addNewLevelSharing?.call(this);
   }
@@ -451,6 +497,8 @@ class _$AddNewLevelSharingImpl implements AddNewLevelSharing {
     TResult Function(GetQrCodes value)? getQrCodes,
     TResult Function(ChangeQRSelection value)? changeQRSelection,
     TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
     required TResult orElse(),
   }) {
     if (addNewLevelSharing != null) {
@@ -471,12 +519,286 @@ abstract class AddNewLevelSharing implements QrEvent {
 }
 
 /// @nodoc
+abstract class _$$GetDefaultQrImplCopyWith<$Res> {
+  factory _$$GetDefaultQrImplCopyWith(
+          _$GetDefaultQrImpl value, $Res Function(_$GetDefaultQrImpl) then) =
+      __$$GetDefaultQrImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetDefaultQrImplCopyWithImpl<$Res>
+    extends _$QrEventCopyWithImpl<$Res, _$GetDefaultQrImpl>
+    implements _$$GetDefaultQrImplCopyWith<$Res> {
+  __$$GetDefaultQrImplCopyWithImpl(
+      _$GetDefaultQrImpl _value, $Res Function(_$GetDefaultQrImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetDefaultQrImpl implements GetDefaultQr {
+  const _$GetDefaultQrImpl();
+
+  @override
+  String toString() {
+    return 'QrEvent.getDefaultQr()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetDefaultQrImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getQrCodes,
+    required TResult Function(int index) changeQRSelection,
+    required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
+    required TResult Function() getDefaultQr,
+    required TResult Function(DefauiltQr defauiltQr) defaultQr,
+  }) {
+    return getDefaultQr();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getQrCodes,
+    TResult? Function(int index)? changeQRSelection,
+    TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(DefauiltQr defauiltQr)? defaultQr,
+  }) {
+    return getDefaultQr?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getQrCodes,
+    TResult Function(int index)? changeQRSelection,
+    TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult Function()? getDefaultQr,
+    TResult Function(DefauiltQr defauiltQr)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (getDefaultQr != null) {
+      return getDefaultQr();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetQrCodes value) getQrCodes,
+    required TResult Function(ChangeQRSelection value) changeQRSelection,
+    required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
+  }) {
+    return getDefaultQr(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetQrCodes value)? getQrCodes,
+    TResult? Function(ChangeQRSelection value)? changeQRSelection,
+    TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
+  }) {
+    return getDefaultQr?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetQrCodes value)? getQrCodes,
+    TResult Function(ChangeQRSelection value)? changeQRSelection,
+    TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (getDefaultQr != null) {
+      return getDefaultQr(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetDefaultQr implements QrEvent {
+  const factory GetDefaultQr() = _$GetDefaultQrImpl;
+}
+
+/// @nodoc
+abstract class _$$DefaultQrImplCopyWith<$Res> {
+  factory _$$DefaultQrImplCopyWith(
+          _$DefaultQrImpl value, $Res Function(_$DefaultQrImpl) then) =
+      __$$DefaultQrImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DefauiltQr defauiltQr});
+}
+
+/// @nodoc
+class __$$DefaultQrImplCopyWithImpl<$Res>
+    extends _$QrEventCopyWithImpl<$Res, _$DefaultQrImpl>
+    implements _$$DefaultQrImplCopyWith<$Res> {
+  __$$DefaultQrImplCopyWithImpl(
+      _$DefaultQrImpl _value, $Res Function(_$DefaultQrImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? defauiltQr = null,
+  }) {
+    return _then(_$DefaultQrImpl(
+      defauiltQr: null == defauiltQr
+          ? _value.defauiltQr
+          : defauiltQr // ignore: cast_nullable_to_non_nullable
+              as DefauiltQr,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DefaultQrImpl implements DefaultQr {
+  const _$DefaultQrImpl({required this.defauiltQr});
+
+  @override
+  final DefauiltQr defauiltQr;
+
+  @override
+  String toString() {
+    return 'QrEvent.defaultQr(defauiltQr: $defauiltQr)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DefaultQrImpl &&
+            (identical(other.defauiltQr, defauiltQr) ||
+                other.defauiltQr == defauiltQr));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, defauiltQr);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DefaultQrImplCopyWith<_$DefaultQrImpl> get copyWith =>
+      __$$DefaultQrImplCopyWithImpl<_$DefaultQrImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getQrCodes,
+    required TResult Function(int index) changeQRSelection,
+    required TResult Function(CreateQrModel createQrModel) addNewLevelSharing,
+    required TResult Function() getDefaultQr,
+    required TResult Function(DefauiltQr defauiltQr) defaultQr,
+  }) {
+    return defaultQr(defauiltQr);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getQrCodes,
+    TResult? Function(int index)? changeQRSelection,
+    TResult? Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult? Function()? getDefaultQr,
+    TResult? Function(DefauiltQr defauiltQr)? defaultQr,
+  }) {
+    return defaultQr?.call(defauiltQr);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getQrCodes,
+    TResult Function(int index)? changeQRSelection,
+    TResult Function(CreateQrModel createQrModel)? addNewLevelSharing,
+    TResult Function()? getDefaultQr,
+    TResult Function(DefauiltQr defauiltQr)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (defaultQr != null) {
+      return defaultQr(defauiltQr);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetQrCodes value) getQrCodes,
+    required TResult Function(ChangeQRSelection value) changeQRSelection,
+    required TResult Function(AddNewLevelSharing value) addNewLevelSharing,
+    required TResult Function(GetDefaultQr value) getDefaultQr,
+    required TResult Function(DefaultQr value) defaultQr,
+  }) {
+    return defaultQr(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetQrCodes value)? getQrCodes,
+    TResult? Function(ChangeQRSelection value)? changeQRSelection,
+    TResult? Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult? Function(GetDefaultQr value)? getDefaultQr,
+    TResult? Function(DefaultQr value)? defaultQr,
+  }) {
+    return defaultQr?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetQrCodes value)? getQrCodes,
+    TResult Function(ChangeQRSelection value)? changeQRSelection,
+    TResult Function(AddNewLevelSharing value)? addNewLevelSharing,
+    TResult Function(GetDefaultQr value)? getDefaultQr,
+    TResult Function(DefaultQr value)? defaultQr,
+    required TResult orElse(),
+  }) {
+    if (defaultQr != null) {
+      return defaultQr(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DefaultQr implements QrEvent {
+  const factory DefaultQr({required final DefauiltQr defauiltQr}) =
+      _$DefaultQrImpl;
+
+  DefauiltQr get defauiltQr;
+  @JsonKey(ignore: true)
+  _$$DefaultQrImplCopyWith<_$DefaultQrImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$QrState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   List<QRModel> get qrList => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   int get selectedQrIndex => throw _privateConstructorUsedError;
+  DefauiltQr? get defauiltQr => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QrStateCopyWith<QrState> get copyWith => throw _privateConstructorUsedError;
@@ -492,7 +814,8 @@ abstract class $QrStateCopyWith<$Res> {
       bool hasError,
       List<QRModel> qrList,
       String? message,
-      int selectedQrIndex});
+      int selectedQrIndex,
+      DefauiltQr? defauiltQr});
 }
 
 /// @nodoc
@@ -513,6 +836,7 @@ class _$QrStateCopyWithImpl<$Res, $Val extends QrState>
     Object? qrList = null,
     Object? message = freezed,
     Object? selectedQrIndex = null,
+    Object? defauiltQr = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -535,6 +859,10 @@ class _$QrStateCopyWithImpl<$Res, $Val extends QrState>
           ? _value.selectedQrIndex
           : selectedQrIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      defauiltQr: freezed == defauiltQr
+          ? _value.defauiltQr
+          : defauiltQr // ignore: cast_nullable_to_non_nullable
+              as DefauiltQr?,
     ) as $Val);
   }
 }
@@ -551,7 +879,8 @@ abstract class _$$InitialImplCopyWith<$Res> implements $QrStateCopyWith<$Res> {
       bool hasError,
       List<QRModel> qrList,
       String? message,
-      int selectedQrIndex});
+      int selectedQrIndex,
+      DefauiltQr? defauiltQr});
 }
 
 /// @nodoc
@@ -570,6 +899,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? qrList = null,
     Object? message = freezed,
     Object? selectedQrIndex = null,
+    Object? defauiltQr = freezed,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -592,6 +922,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.selectedQrIndex
           : selectedQrIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      defauiltQr: freezed == defauiltQr
+          ? _value.defauiltQr
+          : defauiltQr // ignore: cast_nullable_to_non_nullable
+              as DefauiltQr?,
     ));
   }
 }
@@ -604,7 +938,8 @@ class _$InitialImpl implements _Initial {
       required this.hasError,
       required final List<QRModel> qrList,
       this.message,
-      required this.selectedQrIndex})
+      required this.selectedQrIndex,
+      this.defauiltQr})
       : _qrList = qrList;
 
   @override
@@ -623,10 +958,12 @@ class _$InitialImpl implements _Initial {
   final String? message;
   @override
   final int selectedQrIndex;
+  @override
+  final DefauiltQr? defauiltQr;
 
   @override
   String toString() {
-    return 'QrState(isLoading: $isLoading, hasError: $hasError, qrList: $qrList, message: $message, selectedQrIndex: $selectedQrIndex)';
+    return 'QrState(isLoading: $isLoading, hasError: $hasError, qrList: $qrList, message: $message, selectedQrIndex: $selectedQrIndex, defauiltQr: $defauiltQr)';
   }
 
   @override
@@ -641,12 +978,20 @@ class _$InitialImpl implements _Initial {
             const DeepCollectionEquality().equals(other._qrList, _qrList) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.selectedQrIndex, selectedQrIndex) ||
-                other.selectedQrIndex == selectedQrIndex));
+                other.selectedQrIndex == selectedQrIndex) &&
+            (identical(other.defauiltQr, defauiltQr) ||
+                other.defauiltQr == defauiltQr));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, hasError,
-      const DeepCollectionEquality().hash(_qrList), message, selectedQrIndex);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      hasError,
+      const DeepCollectionEquality().hash(_qrList),
+      message,
+      selectedQrIndex,
+      defauiltQr);
 
   @JsonKey(ignore: true)
   @override
@@ -661,7 +1006,8 @@ abstract class _Initial implements QrState {
       required final bool hasError,
       required final List<QRModel> qrList,
       final String? message,
-      required final int selectedQrIndex}) = _$InitialImpl;
+      required final int selectedQrIndex,
+      final DefauiltQr? defauiltQr}) = _$InitialImpl;
 
   @override
   bool get isLoading;
@@ -673,6 +1019,8 @@ abstract class _Initial implements QrState {
   String? get message;
   @override
   int get selectedQrIndex;
+  @override
+  DefauiltQr? get defauiltQr;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

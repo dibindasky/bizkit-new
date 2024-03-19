@@ -7,4 +7,9 @@ class QrEvent with _$QrEvent {
       ChangeQRSelection;
   const factory QrEvent.addNewLevelSharing(
       {required CreateQrModel createQrModel}) = AddNewLevelSharing;
+
+  const factory QrEvent.getDefaultQr() = GetDefaultQr;
+  const factory QrEvent.defaultQr({
+    required DefauiltQr defauiltQr,
+  }) = DefaultQr;
 }

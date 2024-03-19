@@ -51,6 +51,7 @@ class ApiEndPoints {
   static String editProfileInfo = '/accounts/update-profile/';
   static String deleteProfile = '/accounts/update-profile/';
   static String archeivedCardsList = '/card/archived-cards/';
-  static String getDefaultQr = '/level/common-level-sharing-update/';
-  static String setDefaultQr = '/level/common-level-sharing-update/';
+  static String defaultQr = '/level/common-level-sharing-update/';
+  static String getBlockedConnections =
+      '/connections/list-blocked-connections/';
 }

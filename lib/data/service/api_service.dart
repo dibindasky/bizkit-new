@@ -177,6 +177,7 @@ class ApiService {
       log('api uri ==>  ${_dio.options.baseUrl + url}');
       final response =
           await _dio.patch(url, data: data, queryParameters: queryParameters);
+
       return response;
     } on DioException catch (exception) {
       if (exception.response?.statusCode == 401 ||

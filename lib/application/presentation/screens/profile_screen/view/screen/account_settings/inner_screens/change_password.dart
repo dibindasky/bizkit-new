@@ -103,7 +103,7 @@ class ChangePassword extends StatelessWidget {
                                 .text,
                             newPassword: context
                                 .read<ProfileBloc>()
-                                .reEnterNewPasswordController
+                                .newPasswordController
                                 .text,
                           );
                           context.read<ProfileBloc>().add(

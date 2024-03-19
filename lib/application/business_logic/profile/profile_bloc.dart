@@ -93,6 +93,43 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           hasError: true,
         ),
       ),
+      (r) => emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        blockedConnections: [...state.blockedConnections!, ...r.results!],
+      )),
+    );
+  }
+
+  // FutureOr<void> getDefaultQr(GetDefaultQr event, emit) async {
+  //   emit(state.copyWith(isLoading: true, hasError: false, message: null));
+  //   final data = await profileRepo.getDefaultQr();
+  //   data.fold(
+  //     (l) => emit(state.copyWith(
+  //       isLoading: false,
+  //       hasError: true,
+  //       message: null,
+  //     )),
+  //     (r) => emit(
+  //       state.copyWith(
+  //         isLoading: false,
+  //         hasError: false,
+  //         defaultQrmodel: r,
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  FutureOr<void> defaultQr(DefaultQr event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final data =
+        await profileRepo.defaultQr(createQrModel: event.createQrModel);
+    data.fold(
+      (l) => emit(state.copyWith(
+        isLoading: false,
+        hasError: true,
+        message: null,
+      )),
       (r) => emit(
         state.copyWith(
           isLoading: false,

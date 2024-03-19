@@ -249,7 +249,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
           ],
         );
       } else {
-        return Text('Error');
+        return Text('You are not allowed');
       }
     });
   }

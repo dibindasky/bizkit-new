@@ -7,6 +7,7 @@ import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/reminders/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/domain/model/reminders/get_reminder_model/get_reminder_model.dart';
+import 'package:bizkit/domain/model/reminders/get_reminder_response_model/get_reminder_response_model.dart';
 import 'package:bizkit/domain/repository/service/reminder_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -171,6 +172,27 @@ class ReminderService implements ReminderRepo {
       return Left(Failure());
     } catch (e) {
       log('getUpcomingReminder exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetReminderResponseModel>> getReminderDetails(
+      {required int id}) async {
+    try {
+      log('getReminderDetails ');
+      final response = await _apiService.get(ApiEndPoints.getReminderDetails
+          .replaceFirst('{reminder_id}', id.toString()));
+      log('getReminderDetails done');
+      return Right(GetReminderResponseModel.fromJson(response.data));
+    } on DioException catch (e) {
+      log('getReminderDetails dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('getReminderDetails exception error');
       log(e.toString());
       return Left(Failure());
     }

@@ -36,6 +36,7 @@ class ApiEndPoints {
       '/connections/edit-connections/{connection_id}/';
   static String createReminder = '/reminder/create-reminder/';
   static String editReminder = '/reminder/edit-reminder/{reminder_id}/';
+  static String getReminderDetails = '/reminder/get-reminder/{reminder_id}/';
   static String getAllReminder = '/reminder/all-reminder-list/';
   static String getTodaysReminder = '/reminder/today-reminder-list/';
   static String getUpcomingReminder = '/reminder/upcoming-reminder-list/';

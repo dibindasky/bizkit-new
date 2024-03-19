@@ -3,6 +3,7 @@ import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/model/reminders/create_reminder_model/create_reminder_model.dart';
+import 'package:bizkit/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,10 +11,11 @@ final GlobalKey<FormState> reminderKey = GlobalKey<FormState>();
 
 class PreviewHomeAddReminderScreen extends StatefulWidget {
   const PreviewHomeAddReminderScreen(
-      {super.key, required this.connectionId, required this.cardId});
+      {super.key, this.connectionId, this.cardId, this.reminder});
 
-  final int connectionId;
-  final int cardId;
+  final int? connectionId;
+  final int? cardId;
+  final Reminders? reminder;
 
   @override
   State<PreviewHomeAddReminderScreen> createState() =>
@@ -24,6 +26,23 @@ class _PreviewHomeAddReminderScreenState
     extends State<PreviewHomeAddReminderScreen> {
   String time = '';
   String date = '';
+
+  @override
+  void initState() {
+    if (widget.reminder != null) {
+      time = widget.reminder?.time ?? '';
+      date = widget.reminder?.date ?? '';
+      context.read<ReminderBloc>().labelController.text =
+          widget.reminder?.meetingLabel ?? '';
+      context.read<ReminderBloc>().venueController.text =
+          widget.reminder?.venue ?? '';
+      context.read<ReminderBloc>().occationController.text =
+          widget.reminder?.occation ?? '';
+      context.read<ReminderBloc>().messageController.text =
+          widget.reminder?.message ?? '';
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +58,9 @@ class _PreviewHomeAddReminderScreenState
             Icons.arrow_back_ios,
           ),
         ),
-        title: const Text('Alex Adams'),
+        title: Text(widget.reminder != null
+            ? widget.reminder!.name ?? 'Reminder'
+            : 'Reminder'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -216,13 +237,16 @@ class _PreviewHomeAddReminderScreenState
                     ),
                     adjustWidth(kwidth * 0.10),
                     BlocListener<ReminderBloc, ReminderState>(
-                      listenWhen: (previous, current) => current.reminderAdded,
+                      listenWhen: (previous, current) =>
+                          current.reminderAdded || current.reminderUpdated,
                       listener: (context, state) {
-                        if (state.reminderAdded) {
+                        if (state.reminderAdded || state.reminderUpdated) {
                           date = '';
                           time = '';
                           showSnackbar(context,
-                              message: 'Reminder Created Successfully');
+                              message: state.reminderUpdated
+                                  ? 'Reminder Updated Successfully'
+                                  : 'Reminder Created Successfully');
                           Navigator.of(context).pop();
                         }
                       },
@@ -237,43 +261,56 @@ class _PreviewHomeAddReminderScreenState
                                 showSnackbar(context,
                                     message: 'choose time to continue');
                               } else {
-                                context.read<ReminderBloc>().add(
-                                    ReminderEvent.createReminder(
-                                        createReminderModel:
-                                            CreateReminderModel(
-                                                cardId: widget.cardId,
-                                                connectionId:
-                                                    widget.connectionId,
-                                                date: date,
-                                                time: time,
-                                                meetingLabel: context
-                                                    .read<ReminderBloc>()
-                                                    .labelController
-                                                    .text
-                                                    .trim(),
-                                                message: context
-                                                    .read<ReminderBloc>()
-                                                    .messageController
-                                                    .text
-                                                    .trim(),
-                                                occation: context
-                                                    .read<ReminderBloc>()
-                                                    .occationController
-                                                    .text
-                                                    .trim(),
-                                                venue: context
-                                                    .read<ReminderBloc>()
-                                                    .venueController
-                                                    .text
-                                                    .trim())));
+                                final model = CreateReminderModel(
+                                    cardId: widget.cardId,
+                                    connectionId: widget.connectionId,
+                                    date: date,
+                                    time: time,
+                                    meetingLabel: context
+                                        .read<ReminderBloc>()
+                                        .labelController
+                                        .text
+                                        .trim(),
+                                    message: context
+                                        .read<ReminderBloc>()
+                                        .messageController
+                                        .text
+                                        .trim(),
+                                    occation: context
+                                        .read<ReminderBloc>()
+                                        .occationController
+                                        .text
+                                        .trim(),
+                                    venue: context
+                                        .read<ReminderBloc>()
+                                        .venueController
+                                        .text
+                                        .trim());
+                                if (widget.reminder == null) {
+                                  context.read<ReminderBloc>().add(
+                                      ReminderEvent.createReminder(
+                                          createReminderModel: model));
+                                } else {
+                                  final data = model.copyWith(
+                                      cardId: widget.reminder!.cardId,
+                                      id: widget.reminder!.id,
+                                      connectionId:
+                                          widget.reminder!.connectionId);
+                                  context.read<ReminderBloc>().add(
+                                        ReminderEvent.editReminder(
+                                          createReminderModel: data,
+                                        ),
+                                      );
+                                }
                               }
                             }
                           },
                           child: Container(
                             height: kwidth * 0.1,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: textFieldFillColr,
-                              borderRadius: BorderRadius.all(
+                              border: Border.all(color: neonShade),
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(8),
                               ),
                             ),

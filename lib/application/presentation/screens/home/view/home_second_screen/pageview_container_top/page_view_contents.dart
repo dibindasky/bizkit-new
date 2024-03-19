@@ -1,8 +1,12 @@
+import 'package:bizkit/application/presentation/screens/reminder/reminder_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
 
 class SecondScreenPageViewContents extends StatelessWidget {
-  const SecondScreenPageViewContents({super.key});
+  const SecondScreenPageViewContents({super.key, required this.reminder});
+
+  final Reminders? reminder;
 
   @override
   Widget build(BuildContext context) {
@@ -13,19 +17,22 @@ class SecondScreenPageViewContents extends StatelessWidget {
         Row(
           children: [
             const SizedBox(width: 30),
-            const CircleAvatar(
+            CircleAvatar(
               radius: 32,
               backgroundColor: neonShade,
               child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                  'https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg',
-                ),
+                backgroundColor: kgrey,
+                backgroundImage: reminder != null && reminder!.image != null
+                    ? NetworkImage(
+                        reminder!.image!,
+                      )
+                    : null,
                 radius: 30,
               ),
             ),
             const SizedBox(width: 20),
             Text(
-              'Meeting With \nMarcopolo',
+              'Meeting With \n${reminder?.name ?? 'Bizkit connection'}',
               style: TextStyle(
                 fontSize: kwidth * .047,
                 fontWeight: FontWeight.w700,
@@ -62,21 +69,21 @@ class SecondScreenPageViewContents extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Central mall, Jaynagar',
+                      reminder?.venue ?? '',
                       style: TextStyle(
                         fontSize: kwidth * 0.03,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     Text(
-                      '2nd October, 11:45 AM',
+                      '${reminder?.date ?? ''}, ${reminder?.time ?? ''}',
                       style: TextStyle(
                         fontSize: kwidth * 0.03,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     Text(
-                      'International Filim Festival',
+                      reminder?.occation ?? '',
                       style: TextStyle(
                         fontSize: kwidth * 0.03,
                         fontWeight: FontWeight.w700,
@@ -100,23 +107,32 @@ class SecondScreenPageViewContents extends StatelessWidget {
                       BorderRadius.only(bottomLeft: Radius.circular(7)),
                 ),
                 child: const Center(
-                  child: Text('Connect'),
+                  child: Text('Card'),
                 ),
               ),
             ),
             Expanded(
-              child: Container(
-                height: kwidth * 0.1,
-                decoration: BoxDecoration(
-                  border: Border.all(color: neonShade),
-                  borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(7),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PreviewHomeAddReminderScreen(
+                              reminder: reminder)));
+                },
+                child: Container(
+                  height: kwidth * 0.1,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: neonShade),
+                    borderRadius: const BorderRadius.only(
+                      bottomRight: Radius.circular(7),
+                    ),
                   ),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Postpone',
-                    style: TextStyle(color: neonShade),
+                  child: const Center(
+                    child: Text(
+                      'Postpone',
+                      style: TextStyle(color: neonShade),
+                    ),
                   ),
                 ),
               ),

@@ -4,6 +4,7 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,7 +45,7 @@ class ContactConnectionsTab extends StatelessWidget {
                 )
               ],
             );
-          } else if (state.contactList == null || state.hasError) {
+          } else if (state.contactList == null || state.contactList == []) {
             return const Center(
               child: Text('Contacts List is Empty'),
             );
@@ -86,11 +87,15 @@ class ContactConnectionsTab extends StatelessWidget {
               itemBuilder: (context, index, __) {
                 final data = state.contactList![index];
                 return GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                    fadePageRoute(ScreenCardDetailView(
-                      userId: data.id,
-                    )),
-                  ),
+                  onTap: () {
+                    if (data.id != null && data.id != 0) {
+                      Navigator.of(context).push(
+                        fadePageRoute(ScreenCardDetailView(
+                          userId: data.id,
+                        )),
+                      );
+                    }
+                  },
                   child: ListTile(
                     leading: data.photo != null && data.photo!.isNotEmpty
                         ? CircleAvatar(
@@ -125,6 +130,22 @@ class ContactConnectionsTab extends StatelessWidget {
                         //   ),
                       ],
                     ),
+                    trailing: data.id == null || data.id == 0
+                        ? Wrap(
+                            children: [
+                              InkWell(
+                                  onTap: () {
+                                    LaunchUrl.openSMS(
+                                        phoneNumber: data.phoneNumber ?? '',
+                                        message: 'join bizkit');
+                                  },
+                                  child: Text('Invite',
+                                      style: textStyle1.copyWith(
+                                          color: neonShade))),
+                              adjustWidth(20)
+                            ],
+                          )
+                        : null,
                   ),
                 );
               },

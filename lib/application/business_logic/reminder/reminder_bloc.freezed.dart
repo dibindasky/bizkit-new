@@ -29,6 +29,7 @@ mixin _$ReminderEvent {
     required TResult Function() getUpcomingRemindersEvent,
     required TResult Function() getUpcomingRemindersEventPage,
     required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -42,6 +43,7 @@ mixin _$ReminderEvent {
     TResult? Function()? getUpcomingRemindersEvent,
     TResult? Function()? getUpcomingRemindersEventPage,
     TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +57,7 @@ mixin _$ReminderEvent {
     TResult Function()? getUpcomingRemindersEvent,
     TResult Function()? getUpcomingRemindersEventPage,
     TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -75,6 +78,7 @@ mixin _$ReminderEvent {
         getUpcomingRemindersEventPage,
     required TResult Function(GetTodaysRemindersEvent value)
         getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -91,6 +95,7 @@ mixin _$ReminderEvent {
     TResult? Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -107,6 +112,7 @@ mixin _$ReminderEvent {
     TResult Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -207,6 +213,7 @@ class _$CreateReminderImpl implements CreateReminder {
     required TResult Function() getUpcomingRemindersEvent,
     required TResult Function() getUpcomingRemindersEventPage,
     required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
   }) {
     return createReminder(createReminderModel);
   }
@@ -223,6 +230,7 @@ class _$CreateReminderImpl implements CreateReminder {
     TResult? Function()? getUpcomingRemindersEvent,
     TResult? Function()? getUpcomingRemindersEventPage,
     TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
   }) {
     return createReminder?.call(createReminderModel);
   }
@@ -239,6 +247,7 @@ class _$CreateReminderImpl implements CreateReminder {
     TResult Function()? getUpcomingRemindersEvent,
     TResult Function()? getUpcomingRemindersEventPage,
     TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (createReminder != null) {
@@ -265,6 +274,7 @@ class _$CreateReminderImpl implements CreateReminder {
         getUpcomingRemindersEventPage,
     required TResult Function(GetTodaysRemindersEvent value)
         getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
   }) {
     return createReminder(this);
   }
@@ -284,6 +294,7 @@ class _$CreateReminderImpl implements CreateReminder {
     TResult? Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
   }) {
     return createReminder?.call(this);
   }
@@ -303,6 +314,7 @@ class _$CreateReminderImpl implements CreateReminder {
     TResult Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (createReminder != null) {
@@ -399,6 +411,7 @@ class _$EditReminderImpl implements EditReminder {
     required TResult Function() getUpcomingRemindersEvent,
     required TResult Function() getUpcomingRemindersEventPage,
     required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
   }) {
     return editReminder(createReminderModel);
   }
@@ -415,6 +428,7 @@ class _$EditReminderImpl implements EditReminder {
     TResult? Function()? getUpcomingRemindersEvent,
     TResult? Function()? getUpcomingRemindersEventPage,
     TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
   }) {
     return editReminder?.call(createReminderModel);
   }
@@ -431,6 +445,7 @@ class _$EditReminderImpl implements EditReminder {
     TResult Function()? getUpcomingRemindersEvent,
     TResult Function()? getUpcomingRemindersEventPage,
     TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (editReminder != null) {
@@ -457,6 +472,7 @@ class _$EditReminderImpl implements EditReminder {
         getUpcomingRemindersEventPage,
     required TResult Function(GetTodaysRemindersEvent value)
         getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
   }) {
     return editReminder(this);
   }
@@ -476,6 +492,7 @@ class _$EditReminderImpl implements EditReminder {
     TResult? Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
   }) {
     return editReminder?.call(this);
   }
@@ -495,6 +512,7 @@ class _$EditReminderImpl implements EditReminder {
     TResult Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (editReminder != null) {
@@ -565,6 +583,7 @@ class _$GetAllRemindersEventImpl implements GetAllRemindersEvent {
     required TResult Function() getUpcomingRemindersEvent,
     required TResult Function() getUpcomingRemindersEventPage,
     required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
   }) {
     return getAllRemindersEvent();
   }
@@ -581,6 +600,7 @@ class _$GetAllRemindersEventImpl implements GetAllRemindersEvent {
     TResult? Function()? getUpcomingRemindersEvent,
     TResult? Function()? getUpcomingRemindersEventPage,
     TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
   }) {
     return getAllRemindersEvent?.call();
   }
@@ -597,6 +617,7 @@ class _$GetAllRemindersEventImpl implements GetAllRemindersEvent {
     TResult Function()? getUpcomingRemindersEvent,
     TResult Function()? getUpcomingRemindersEventPage,
     TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getAllRemindersEvent != null) {
@@ -623,6 +644,7 @@ class _$GetAllRemindersEventImpl implements GetAllRemindersEvent {
         getUpcomingRemindersEventPage,
     required TResult Function(GetTodaysRemindersEvent value)
         getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
   }) {
     return getAllRemindersEvent(this);
   }
@@ -642,6 +664,7 @@ class _$GetAllRemindersEventImpl implements GetAllRemindersEvent {
     TResult? Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
   }) {
     return getAllRemindersEvent?.call(this);
   }
@@ -661,6 +684,7 @@ class _$GetAllRemindersEventImpl implements GetAllRemindersEvent {
     TResult Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getAllRemindersEvent != null) {
@@ -726,6 +750,7 @@ class _$GetAllRemindersEventPageImpl implements GetAllRemindersEventPage {
     required TResult Function() getUpcomingRemindersEvent,
     required TResult Function() getUpcomingRemindersEventPage,
     required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
   }) {
     return getAllRemindersEventPage();
   }
@@ -742,6 +767,7 @@ class _$GetAllRemindersEventPageImpl implements GetAllRemindersEventPage {
     TResult? Function()? getUpcomingRemindersEvent,
     TResult? Function()? getUpcomingRemindersEventPage,
     TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
   }) {
     return getAllRemindersEventPage?.call();
   }
@@ -758,6 +784,7 @@ class _$GetAllRemindersEventPageImpl implements GetAllRemindersEventPage {
     TResult Function()? getUpcomingRemindersEvent,
     TResult Function()? getUpcomingRemindersEventPage,
     TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getAllRemindersEventPage != null) {
@@ -784,6 +811,7 @@ class _$GetAllRemindersEventPageImpl implements GetAllRemindersEventPage {
         getUpcomingRemindersEventPage,
     required TResult Function(GetTodaysRemindersEvent value)
         getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
   }) {
     return getAllRemindersEventPage(this);
   }
@@ -803,6 +831,7 @@ class _$GetAllRemindersEventPageImpl implements GetAllRemindersEventPage {
     TResult? Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
   }) {
     return getAllRemindersEventPage?.call(this);
   }
@@ -822,6 +851,7 @@ class _$GetAllRemindersEventPageImpl implements GetAllRemindersEventPage {
     TResult Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getAllRemindersEventPage != null) {
@@ -887,6 +917,7 @@ class _$GetHistoryRemindersEventImpl implements GetHistoryRemindersEvent {
     required TResult Function() getUpcomingRemindersEvent,
     required TResult Function() getUpcomingRemindersEventPage,
     required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
   }) {
     return getHistoryRemindersEvent();
   }
@@ -903,6 +934,7 @@ class _$GetHistoryRemindersEventImpl implements GetHistoryRemindersEvent {
     TResult? Function()? getUpcomingRemindersEvent,
     TResult? Function()? getUpcomingRemindersEventPage,
     TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
   }) {
     return getHistoryRemindersEvent?.call();
   }
@@ -919,6 +951,7 @@ class _$GetHistoryRemindersEventImpl implements GetHistoryRemindersEvent {
     TResult Function()? getUpcomingRemindersEvent,
     TResult Function()? getUpcomingRemindersEventPage,
     TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getHistoryRemindersEvent != null) {
@@ -945,6 +978,7 @@ class _$GetHistoryRemindersEventImpl implements GetHistoryRemindersEvent {
         getUpcomingRemindersEventPage,
     required TResult Function(GetTodaysRemindersEvent value)
         getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
   }) {
     return getHistoryRemindersEvent(this);
   }
@@ -964,6 +998,7 @@ class _$GetHistoryRemindersEventImpl implements GetHistoryRemindersEvent {
     TResult? Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
   }) {
     return getHistoryRemindersEvent?.call(this);
   }
@@ -983,6 +1018,7 @@ class _$GetHistoryRemindersEventImpl implements GetHistoryRemindersEvent {
     TResult Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getHistoryRemindersEvent != null) {
@@ -1050,6 +1086,7 @@ class _$GetHistoryRemindersEventPageImpl
     required TResult Function() getUpcomingRemindersEvent,
     required TResult Function() getUpcomingRemindersEventPage,
     required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
   }) {
     return getHistoryRemindersEventPage();
   }
@@ -1066,6 +1103,7 @@ class _$GetHistoryRemindersEventPageImpl
     TResult? Function()? getUpcomingRemindersEvent,
     TResult? Function()? getUpcomingRemindersEventPage,
     TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
   }) {
     return getHistoryRemindersEventPage?.call();
   }
@@ -1082,6 +1120,7 @@ class _$GetHistoryRemindersEventPageImpl
     TResult Function()? getUpcomingRemindersEvent,
     TResult Function()? getUpcomingRemindersEventPage,
     TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getHistoryRemindersEventPage != null) {
@@ -1108,6 +1147,7 @@ class _$GetHistoryRemindersEventPageImpl
         getUpcomingRemindersEventPage,
     required TResult Function(GetTodaysRemindersEvent value)
         getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
   }) {
     return getHistoryRemindersEventPage(this);
   }
@@ -1127,6 +1167,7 @@ class _$GetHistoryRemindersEventPageImpl
     TResult? Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
   }) {
     return getHistoryRemindersEventPage?.call(this);
   }
@@ -1146,6 +1187,7 @@ class _$GetHistoryRemindersEventPageImpl
     TResult Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getHistoryRemindersEventPage != null) {
@@ -1212,6 +1254,7 @@ class _$GetUpcomingRemindersEventImpl implements GetUpcomingRemindersEvent {
     required TResult Function() getUpcomingRemindersEvent,
     required TResult Function() getUpcomingRemindersEventPage,
     required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
   }) {
     return getUpcomingRemindersEvent();
   }
@@ -1228,6 +1271,7 @@ class _$GetUpcomingRemindersEventImpl implements GetUpcomingRemindersEvent {
     TResult? Function()? getUpcomingRemindersEvent,
     TResult? Function()? getUpcomingRemindersEventPage,
     TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
   }) {
     return getUpcomingRemindersEvent?.call();
   }
@@ -1244,6 +1288,7 @@ class _$GetUpcomingRemindersEventImpl implements GetUpcomingRemindersEvent {
     TResult Function()? getUpcomingRemindersEvent,
     TResult Function()? getUpcomingRemindersEventPage,
     TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getUpcomingRemindersEvent != null) {
@@ -1270,6 +1315,7 @@ class _$GetUpcomingRemindersEventImpl implements GetUpcomingRemindersEvent {
         getUpcomingRemindersEventPage,
     required TResult Function(GetTodaysRemindersEvent value)
         getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
   }) {
     return getUpcomingRemindersEvent(this);
   }
@@ -1289,6 +1335,7 @@ class _$GetUpcomingRemindersEventImpl implements GetUpcomingRemindersEvent {
     TResult? Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
   }) {
     return getUpcomingRemindersEvent?.call(this);
   }
@@ -1308,6 +1355,7 @@ class _$GetUpcomingRemindersEventImpl implements GetUpcomingRemindersEvent {
     TResult Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getUpcomingRemindersEvent != null) {
@@ -1375,6 +1423,7 @@ class _$GetUpcomingRemindersEventPageImpl
     required TResult Function() getUpcomingRemindersEvent,
     required TResult Function() getUpcomingRemindersEventPage,
     required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
   }) {
     return getUpcomingRemindersEventPage();
   }
@@ -1391,6 +1440,7 @@ class _$GetUpcomingRemindersEventPageImpl
     TResult? Function()? getUpcomingRemindersEvent,
     TResult? Function()? getUpcomingRemindersEventPage,
     TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
   }) {
     return getUpcomingRemindersEventPage?.call();
   }
@@ -1407,6 +1457,7 @@ class _$GetUpcomingRemindersEventPageImpl
     TResult Function()? getUpcomingRemindersEvent,
     TResult Function()? getUpcomingRemindersEventPage,
     TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getUpcomingRemindersEventPage != null) {
@@ -1433,6 +1484,7 @@ class _$GetUpcomingRemindersEventPageImpl
         getUpcomingRemindersEventPage,
     required TResult Function(GetTodaysRemindersEvent value)
         getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
   }) {
     return getUpcomingRemindersEventPage(this);
   }
@@ -1452,6 +1504,7 @@ class _$GetUpcomingRemindersEventPageImpl
     TResult? Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
   }) {
     return getUpcomingRemindersEventPage?.call(this);
   }
@@ -1471,6 +1524,7 @@ class _$GetUpcomingRemindersEventPageImpl
     TResult Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getUpcomingRemindersEventPage != null) {
@@ -1537,6 +1591,7 @@ class _$GetTodaysRemindersEventImpl implements GetTodaysRemindersEvent {
     required TResult Function() getUpcomingRemindersEvent,
     required TResult Function() getUpcomingRemindersEventPage,
     required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
   }) {
     return getTodaysRemindersEvent();
   }
@@ -1553,6 +1608,7 @@ class _$GetTodaysRemindersEventImpl implements GetTodaysRemindersEvent {
     TResult? Function()? getUpcomingRemindersEvent,
     TResult? Function()? getUpcomingRemindersEventPage,
     TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
   }) {
     return getTodaysRemindersEvent?.call();
   }
@@ -1569,6 +1625,7 @@ class _$GetTodaysRemindersEventImpl implements GetTodaysRemindersEvent {
     TResult Function()? getUpcomingRemindersEvent,
     TResult Function()? getUpcomingRemindersEventPage,
     TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getTodaysRemindersEvent != null) {
@@ -1595,6 +1652,7 @@ class _$GetTodaysRemindersEventImpl implements GetTodaysRemindersEvent {
         getUpcomingRemindersEventPage,
     required TResult Function(GetTodaysRemindersEvent value)
         getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
   }) {
     return getTodaysRemindersEvent(this);
   }
@@ -1614,6 +1672,7 @@ class _$GetTodaysRemindersEventImpl implements GetTodaysRemindersEvent {
     TResult? Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
   }) {
     return getTodaysRemindersEvent?.call(this);
   }
@@ -1633,6 +1692,7 @@ class _$GetTodaysRemindersEventImpl implements GetTodaysRemindersEvent {
     TResult Function(GetUpcomingRemindersEventPage value)?
         getUpcomingRemindersEventPage,
     TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
     required TResult orElse(),
   }) {
     if (getTodaysRemindersEvent != null) {
@@ -1647,14 +1707,215 @@ abstract class GetTodaysRemindersEvent implements ReminderEvent {
 }
 
 /// @nodoc
+abstract class _$$GetReminderDetailsImplCopyWith<$Res> {
+  factory _$$GetReminderDetailsImplCopyWith(_$GetReminderDetailsImpl value,
+          $Res Function(_$GetReminderDetailsImpl) then) =
+      __$$GetReminderDetailsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$GetReminderDetailsImplCopyWithImpl<$Res>
+    extends _$ReminderEventCopyWithImpl<$Res, _$GetReminderDetailsImpl>
+    implements _$$GetReminderDetailsImplCopyWith<$Res> {
+  __$$GetReminderDetailsImplCopyWithImpl(_$GetReminderDetailsImpl _value,
+      $Res Function(_$GetReminderDetailsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$GetReminderDetailsImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetReminderDetailsImpl implements GetReminderDetails {
+  const _$GetReminderDetailsImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'ReminderEvent.getReminderDetails(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetReminderDetailsImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetReminderDetailsImplCopyWith<_$GetReminderDetailsImpl> get copyWith =>
+      __$$GetReminderDetailsImplCopyWithImpl<_$GetReminderDetailsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(CreateReminderModel createReminderModel)
+        createReminder,
+    required TResult Function(CreateReminderModel createReminderModel)
+        editReminder,
+    required TResult Function() getAllRemindersEvent,
+    required TResult Function() getAllRemindersEventPage,
+    required TResult Function() getHistoryRemindersEvent,
+    required TResult Function() getHistoryRemindersEventPage,
+    required TResult Function() getUpcomingRemindersEvent,
+    required TResult Function() getUpcomingRemindersEventPage,
+    required TResult Function() getTodaysRemindersEvent,
+    required TResult Function(int id) getReminderDetails,
+  }) {
+    return getReminderDetails(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(CreateReminderModel createReminderModel)? createReminder,
+    TResult? Function(CreateReminderModel createReminderModel)? editReminder,
+    TResult? Function()? getAllRemindersEvent,
+    TResult? Function()? getAllRemindersEventPage,
+    TResult? Function()? getHistoryRemindersEvent,
+    TResult? Function()? getHistoryRemindersEventPage,
+    TResult? Function()? getUpcomingRemindersEvent,
+    TResult? Function()? getUpcomingRemindersEventPage,
+    TResult? Function()? getTodaysRemindersEvent,
+    TResult? Function(int id)? getReminderDetails,
+  }) {
+    return getReminderDetails?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CreateReminderModel createReminderModel)? createReminder,
+    TResult Function(CreateReminderModel createReminderModel)? editReminder,
+    TResult Function()? getAllRemindersEvent,
+    TResult Function()? getAllRemindersEventPage,
+    TResult Function()? getHistoryRemindersEvent,
+    TResult Function()? getHistoryRemindersEventPage,
+    TResult Function()? getUpcomingRemindersEvent,
+    TResult Function()? getUpcomingRemindersEventPage,
+    TResult Function()? getTodaysRemindersEvent,
+    TResult Function(int id)? getReminderDetails,
+    required TResult orElse(),
+  }) {
+    if (getReminderDetails != null) {
+      return getReminderDetails(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CreateReminder value) createReminder,
+    required TResult Function(EditReminder value) editReminder,
+    required TResult Function(GetAllRemindersEvent value) getAllRemindersEvent,
+    required TResult Function(GetAllRemindersEventPage value)
+        getAllRemindersEventPage,
+    required TResult Function(GetHistoryRemindersEvent value)
+        getHistoryRemindersEvent,
+    required TResult Function(GetHistoryRemindersEventPage value)
+        getHistoryRemindersEventPage,
+    required TResult Function(GetUpcomingRemindersEvent value)
+        getUpcomingRemindersEvent,
+    required TResult Function(GetUpcomingRemindersEventPage value)
+        getUpcomingRemindersEventPage,
+    required TResult Function(GetTodaysRemindersEvent value)
+        getTodaysRemindersEvent,
+    required TResult Function(GetReminderDetails value) getReminderDetails,
+  }) {
+    return getReminderDetails(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CreateReminder value)? createReminder,
+    TResult? Function(EditReminder value)? editReminder,
+    TResult? Function(GetAllRemindersEvent value)? getAllRemindersEvent,
+    TResult? Function(GetAllRemindersEventPage value)? getAllRemindersEventPage,
+    TResult? Function(GetHistoryRemindersEvent value)? getHistoryRemindersEvent,
+    TResult? Function(GetHistoryRemindersEventPage value)?
+        getHistoryRemindersEventPage,
+    TResult? Function(GetUpcomingRemindersEvent value)?
+        getUpcomingRemindersEvent,
+    TResult? Function(GetUpcomingRemindersEventPage value)?
+        getUpcomingRemindersEventPage,
+    TResult? Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult? Function(GetReminderDetails value)? getReminderDetails,
+  }) {
+    return getReminderDetails?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CreateReminder value)? createReminder,
+    TResult Function(EditReminder value)? editReminder,
+    TResult Function(GetAllRemindersEvent value)? getAllRemindersEvent,
+    TResult Function(GetAllRemindersEventPage value)? getAllRemindersEventPage,
+    TResult Function(GetHistoryRemindersEvent value)? getHistoryRemindersEvent,
+    TResult Function(GetHistoryRemindersEventPage value)?
+        getHistoryRemindersEventPage,
+    TResult Function(GetUpcomingRemindersEvent value)?
+        getUpcomingRemindersEvent,
+    TResult Function(GetUpcomingRemindersEventPage value)?
+        getUpcomingRemindersEventPage,
+    TResult Function(GetTodaysRemindersEvent value)? getTodaysRemindersEvent,
+    TResult Function(GetReminderDetails value)? getReminderDetails,
+    required TResult orElse(),
+  }) {
+    if (getReminderDetails != null) {
+      return getReminderDetails(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetReminderDetails implements ReminderEvent {
+  const factory GetReminderDetails({required final int id}) =
+      _$GetReminderDetailsImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$GetReminderDetailsImplCopyWith<_$GetReminderDetailsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ReminderState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isPageLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   bool get allReminderLoading => throw _privateConstructorUsedError;
   bool get reminderAdded => throw _privateConstructorUsedError;
+  bool get reminderUpdated => throw _privateConstructorUsedError;
   bool get historyLoading => throw _privateConstructorUsedError;
   bool get upcomingReminderLoading => throw _privateConstructorUsedError;
+  GetReminderResponseModel? get reminderResponse =>
+      throw _privateConstructorUsedError;
+  Reminders? get reminder => throw _privateConstructorUsedError;
   List<Reminders>? get allReminderList => throw _privateConstructorUsedError;
   List<Reminders>? get historyReminderList =>
       throw _privateConstructorUsedError;
@@ -1680,8 +1941,11 @@ abstract class $ReminderStateCopyWith<$Res> {
       bool hasError,
       bool allReminderLoading,
       bool reminderAdded,
+      bool reminderUpdated,
       bool historyLoading,
       bool upcomingReminderLoading,
+      GetReminderResponseModel? reminderResponse,
+      Reminders? reminder,
       List<Reminders>? allReminderList,
       List<Reminders>? historyReminderList,
       List<Reminders>? upcomingRminderList,
@@ -1707,8 +1971,11 @@ class _$ReminderStateCopyWithImpl<$Res, $Val extends ReminderState>
     Object? hasError = null,
     Object? allReminderLoading = null,
     Object? reminderAdded = null,
+    Object? reminderUpdated = null,
     Object? historyLoading = null,
     Object? upcomingReminderLoading = null,
+    Object? reminderResponse = freezed,
+    Object? reminder = freezed,
     Object? allReminderList = freezed,
     Object? historyReminderList = freezed,
     Object? upcomingRminderList = freezed,
@@ -1736,6 +2003,10 @@ class _$ReminderStateCopyWithImpl<$Res, $Val extends ReminderState>
           ? _value.reminderAdded
           : reminderAdded // ignore: cast_nullable_to_non_nullable
               as bool,
+      reminderUpdated: null == reminderUpdated
+          ? _value.reminderUpdated
+          : reminderUpdated // ignore: cast_nullable_to_non_nullable
+              as bool,
       historyLoading: null == historyLoading
           ? _value.historyLoading
           : historyLoading // ignore: cast_nullable_to_non_nullable
@@ -1744,6 +2015,14 @@ class _$ReminderStateCopyWithImpl<$Res, $Val extends ReminderState>
           ? _value.upcomingReminderLoading
           : upcomingReminderLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      reminderResponse: freezed == reminderResponse
+          ? _value.reminderResponse
+          : reminderResponse // ignore: cast_nullable_to_non_nullable
+              as GetReminderResponseModel?,
+      reminder: freezed == reminder
+          ? _value.reminder
+          : reminder // ignore: cast_nullable_to_non_nullable
+              as Reminders?,
       allReminderList: freezed == allReminderList
           ? _value.allReminderList
           : allReminderList // ignore: cast_nullable_to_non_nullable
@@ -1782,8 +2061,11 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool hasError,
       bool allReminderLoading,
       bool reminderAdded,
+      bool reminderUpdated,
       bool historyLoading,
       bool upcomingReminderLoading,
+      GetReminderResponseModel? reminderResponse,
+      Reminders? reminder,
       List<Reminders>? allReminderList,
       List<Reminders>? historyReminderList,
       List<Reminders>? upcomingRminderList,
@@ -1807,8 +2089,11 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? hasError = null,
     Object? allReminderLoading = null,
     Object? reminderAdded = null,
+    Object? reminderUpdated = null,
     Object? historyLoading = null,
     Object? upcomingReminderLoading = null,
+    Object? reminderResponse = freezed,
+    Object? reminder = freezed,
     Object? allReminderList = freezed,
     Object? historyReminderList = freezed,
     Object? upcomingRminderList = freezed,
@@ -1836,6 +2121,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.reminderAdded
           : reminderAdded // ignore: cast_nullable_to_non_nullable
               as bool,
+      reminderUpdated: null == reminderUpdated
+          ? _value.reminderUpdated
+          : reminderUpdated // ignore: cast_nullable_to_non_nullable
+              as bool,
       historyLoading: null == historyLoading
           ? _value.historyLoading
           : historyLoading // ignore: cast_nullable_to_non_nullable
@@ -1844,6 +2133,14 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.upcomingReminderLoading
           : upcomingReminderLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      reminderResponse: freezed == reminderResponse
+          ? _value.reminderResponse
+          : reminderResponse // ignore: cast_nullable_to_non_nullable
+              as GetReminderResponseModel?,
+      reminder: freezed == reminder
+          ? _value.reminder
+          : reminder // ignore: cast_nullable_to_non_nullable
+              as Reminders?,
       allReminderList: freezed == allReminderList
           ? _value._allReminderList
           : allReminderList // ignore: cast_nullable_to_non_nullable
@@ -1877,8 +2174,11 @@ class _$InitialImpl implements _Initial {
       required this.hasError,
       required this.allReminderLoading,
       required this.reminderAdded,
+      required this.reminderUpdated,
       required this.historyLoading,
       required this.upcomingReminderLoading,
+      this.reminderResponse,
+      this.reminder,
       final List<Reminders>? allReminderList,
       final List<Reminders>? historyReminderList,
       final List<Reminders>? upcomingRminderList,
@@ -1900,9 +2200,15 @@ class _$InitialImpl implements _Initial {
   @override
   final bool reminderAdded;
   @override
+  final bool reminderUpdated;
+  @override
   final bool historyLoading;
   @override
   final bool upcomingReminderLoading;
+  @override
+  final GetReminderResponseModel? reminderResponse;
+  @override
+  final Reminders? reminder;
   final List<Reminders>? _allReminderList;
   @override
   List<Reminders>? get allReminderList {
@@ -1951,7 +2257,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ReminderState(isLoading: $isLoading, isPageLoading: $isPageLoading, hasError: $hasError, allReminderLoading: $allReminderLoading, reminderAdded: $reminderAdded, historyLoading: $historyLoading, upcomingReminderLoading: $upcomingReminderLoading, allReminderList: $allReminderList, historyReminderList: $historyReminderList, upcomingRminderList: $upcomingRminderList, toDaysRminderList: $toDaysRminderList, message: $message)';
+    return 'ReminderState(isLoading: $isLoading, isPageLoading: $isPageLoading, hasError: $hasError, allReminderLoading: $allReminderLoading, reminderAdded: $reminderAdded, reminderUpdated: $reminderUpdated, historyLoading: $historyLoading, upcomingReminderLoading: $upcomingReminderLoading, reminderResponse: $reminderResponse, reminder: $reminder, allReminderList: $allReminderList, historyReminderList: $historyReminderList, upcomingRminderList: $upcomingRminderList, toDaysRminderList: $toDaysRminderList, message: $message)';
   }
 
   @override
@@ -1969,11 +2275,17 @@ class _$InitialImpl implements _Initial {
                 other.allReminderLoading == allReminderLoading) &&
             (identical(other.reminderAdded, reminderAdded) ||
                 other.reminderAdded == reminderAdded) &&
+            (identical(other.reminderUpdated, reminderUpdated) ||
+                other.reminderUpdated == reminderUpdated) &&
             (identical(other.historyLoading, historyLoading) ||
                 other.historyLoading == historyLoading) &&
             (identical(
                     other.upcomingReminderLoading, upcomingReminderLoading) ||
                 other.upcomingReminderLoading == upcomingReminderLoading) &&
+            (identical(other.reminderResponse, reminderResponse) ||
+                other.reminderResponse == reminderResponse) &&
+            (identical(other.reminder, reminder) ||
+                other.reminder == reminder) &&
             const DeepCollectionEquality()
                 .equals(other._allReminderList, _allReminderList) &&
             const DeepCollectionEquality()
@@ -1993,8 +2305,11 @@ class _$InitialImpl implements _Initial {
       hasError,
       allReminderLoading,
       reminderAdded,
+      reminderUpdated,
       historyLoading,
       upcomingReminderLoading,
+      reminderResponse,
+      reminder,
       const DeepCollectionEquality().hash(_allReminderList),
       const DeepCollectionEquality().hash(_historyReminderList),
       const DeepCollectionEquality().hash(_upcomingRminderList),
@@ -2015,8 +2330,11 @@ abstract class _Initial implements ReminderState {
       required final bool hasError,
       required final bool allReminderLoading,
       required final bool reminderAdded,
+      required final bool reminderUpdated,
       required final bool historyLoading,
       required final bool upcomingReminderLoading,
+      final GetReminderResponseModel? reminderResponse,
+      final Reminders? reminder,
       final List<Reminders>? allReminderList,
       final List<Reminders>? historyReminderList,
       final List<Reminders>? upcomingRminderList,
@@ -2034,9 +2352,15 @@ abstract class _Initial implements ReminderState {
   @override
   bool get reminderAdded;
   @override
+  bool get reminderUpdated;
+  @override
   bool get historyLoading;
   @override
   bool get upcomingReminderLoading;
+  @override
+  GetReminderResponseModel? get reminderResponse;
+  @override
+  Reminders? get reminder;
   @override
   List<Reminders>? get allReminderList;
   @override

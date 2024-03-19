@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/reminders/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/domain/model/reminders/get_reminder_model/reminders.dart';
+import 'package:bizkit/domain/model/reminders/get_reminder_response_model/get_reminder_response_model.dart';
 import 'package:bizkit/domain/repository/service/reminder_repo.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,14 +31,45 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
     on<GetHistoryRemindersEventPage>(getHistoryRemindersEventPage);
     on<GetUpcomingRemindersEventPage>(getUpcomingRemindersEventPage);
     on<GetTodaysRemindersEvent>(getTodaysRemindersEvent);
+    on<GetReminderDetails>(getReminderDetails);
   }
 
   FutureOr<void> editReminder(EditReminder event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false));
+    emit(state.copyWith(
+        isLoading: true,
+        hasError: false,
+        reminderAdded: false,
+        reminderUpdated: false));
     final result = await reminderRepo.editReminder(
         createReminderModel: event.createReminderModel);
-    result.fold((l) => emit(state.copyWith(isLoading: false, hasError: true)),
-        (r) => emit(state.copyWith(isLoading: false, hasError: false)));
+    result.fold(
+        (l) => emit(state.copyWith(
+            isLoading: false, hasError: true, message: l.message)), (r) {
+      Reminders model = state.reminder!;
+      model = model.copyWith(
+          date: event.createReminderModel.date,
+          meetingLabel: event.createReminderModel.meetingLabel,
+          message: event.createReminderModel.message,
+          venue: event.createReminderModel.venue,
+          occation: event.createReminderModel.occation,
+          time: event.createReminderModel.time);
+      GetReminderResponseModel rem = state.reminderResponse!;
+      rem = rem.copyWith(
+          date: event.createReminderModel.date,
+          meetingLabel: event.createReminderModel.meetingLabel,
+          message: event.createReminderModel.message,
+          venue: event.createReminderModel.venue,
+          occation: event.createReminderModel.occation,
+          time: event.createReminderModel.time);
+
+      return emit(state.copyWith(
+          isLoading: false,
+          hasError: false,
+          reminder: model,
+          reminderResponse: rem,
+          message: 'Reminder updated succssfully',
+          reminderUpdated: true));
+    });
   }
 
   FutureOr<void> createReminder(CreateReminder event, emit) async {
@@ -54,6 +86,39 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
       occationController.clear();
       messageController.clear();
       add(const ReminderEvent.getAllRemindersEvent());
+    });
+  }
+
+  FutureOr<void> getReminderDetails(GetReminderDetails event, emit) async {
+    emit(state.copyWith(
+        isLoading: true,
+        reminderAdded: false,
+        reminderUpdated: false,
+        reminder: null,
+        hasError: false,
+        message: null,
+        reminderResponse: null));
+    final result = await reminderRepo.getReminderDetails(id: event.id);
+    result.fold((l) => emit(state.copyWith(isLoading: false, hasError: true)),
+        (r) {
+      Reminders reminder = Reminders(
+          archived: r.isArchived,
+          cardHolderId: r.cardHolderId,
+          cardId: r.cardId,
+          connectionId: r.connectionId,
+          createdAt: r.createdAt,
+          date: r.date,
+          id: r.id,
+          image: r.image,
+          name: r.name,
+          meetingLabel: r.meetingLabel,
+          message: r.message,
+          occation: r.occation,
+          time: r.time,
+          userId: r.userId,
+          venue: r.venue);
+      emit(state.copyWith(
+          isLoading: false, reminderResponse: r, reminder: reminder));
     });
   }
 

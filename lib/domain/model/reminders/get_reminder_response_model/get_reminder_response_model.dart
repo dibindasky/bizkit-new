@@ -1,20 +1,26 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'reminders.g.dart';
+import 'card_details.dart';
+import 'history_reminders.dart';
+
+part 'get_reminder_response_model.g.dart';
 
 @JsonSerializable()
-class Reminders {
+class GetReminderResponseModel {
   int? id;
+  CardDetails? card;
+  String? image;
+  String? name;
+  List<HistoryReminders>? history;
   @JsonKey(name: 'meeting_label')
   String? meetingLabel;
   String? message;
   String? venue;
-  String? name;
-  String? image;
   String? occation;
   String? date;
   String? time;
-  bool? archived;
+  @JsonKey(name: 'is_archived')
+  bool? isArchived;
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
   @JsonKey(name: 'user_id')
@@ -26,17 +32,19 @@ class Reminders {
   @JsonKey(name: 'connection_id')
   int? connectionId;
 
-  Reminders({
+  GetReminderResponseModel({
     this.id,
+    this.card,
+    this.image,
+    this.name,
+    this.history,
     this.meetingLabel,
     this.message,
     this.venue,
     this.occation,
-    this.name,
-    this.image,
     this.date,
     this.time,
-    this.archived,
+    this.isArchived,
     this.createdAt,
     this.userId,
     this.cardHolderId,
@@ -44,40 +52,43 @@ class Reminders {
     this.connectionId,
   });
 
-  factory Reminders.fromJson(Map<String, dynamic> json) =>
-      _$RemindersFromJson(json);
+  factory GetReminderResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$GetReminderResponseModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RemindersToJson(this);
+  Map<String, dynamic> toJson() => _$GetReminderResponseModelToJson(this);
 
-  /// Creates a copy of the Reminders object with potentially modified properties.
-  Reminders copyWith({
+  GetReminderResponseModel copyWith({
     int? id,
+    CardDetails? card,
+    String? image,
+    String? name,
+    List<HistoryReminders>? history,
     String? meetingLabel,
     String? message,
     String? venue,
-    String? name,
-    String? image,
     String? occation,
     String? date,
     String? time,
-    bool? archived,
+    bool? isArchived,
     DateTime? createdAt,
     int? userId,
     int? cardHolderId,
     int? cardId,
     int? connectionId,
   }) {
-    return Reminders(
+    return GetReminderResponseModel(
       id: id ?? this.id,
+      card: card ?? this.card,
+      image: image ?? this.image,
+      name: name ?? this.name,
+      history: history ?? this.history?.toList(), // Deep copy for lists
       meetingLabel: meetingLabel ?? this.meetingLabel,
       message: message ?? this.message,
       venue: venue ?? this.venue,
-      name: name ?? this.name,
-      image: image ?? this.image,
       occation: occation ?? this.occation,
       date: date ?? this.date,
       time: time ?? this.time,
-      archived: archived ?? this.archived,
+      isArchived: isArchived ?? this.isArchived,
       createdAt: createdAt ?? this.createdAt,
       userId: userId ?? this.userId,
       cardHolderId: cardHolderId ?? this.cardHolderId,

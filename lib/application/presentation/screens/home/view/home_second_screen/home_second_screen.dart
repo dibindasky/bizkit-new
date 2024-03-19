@@ -88,6 +88,7 @@ class _SecondAnimationState extends State<SecondAnimation>
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ReminderBloc>().add(const GetTodaysRemindersEvent());
       context
           .read<ReminderBloc>()
           .add(const ReminderEvent.getHistoryRemindersEvent());
@@ -153,6 +154,7 @@ class _SecondAnimationState extends State<SecondAnimation>
         ),
       ),
     ];
+    // changing stack array order to show child in top
     if (!_showFirstScreen) {
       final temp = stackChild[0];
       stackChild[0] = stackChild[1];

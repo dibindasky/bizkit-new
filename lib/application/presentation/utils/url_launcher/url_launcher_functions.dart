@@ -16,7 +16,17 @@ class LaunchUrl {
     try {
       launchUrl(Uri.parse("tel://$phone"));
     } catch (e) {
-      log('cannot launch url');
+      log('cannot launch url for call');
+      log(e.toString());
+    }
+  }
+
+  static openSMS({required String phoneNumber, required String message}) {
+    final url = 'sms:$phoneNumber?body=$message';
+    try {
+      launchUrl(Uri.parse(url));
+    } catch (e) {
+      log('cannot launch url for sms');
       log(e.toString());
     }
   }

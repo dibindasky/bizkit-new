@@ -20,7 +20,6 @@ class ContactLocalService implements ContactLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addContactToLocalStorage(
       {required ContactModel contact}) async {
     try {
-      print('in local adding sql => name--> ${contact.name}');
       const query = '''
           INSERT INTO ${Sql.contactTable} (
             ${ContactModel.colName},
@@ -50,10 +49,7 @@ class ContactLocalService implements ContactLocalRepo {
       final data = await localService.rawQuery(query);
       log('getContactFromLocalStorage => length => ${data.length}');
       List<ContactModel> contacts = [];
-      print(
-          '====================================names in contact=====================================');
       for (var x in data) {
-        print('contact name in sql get => ${x['name']}');
         contacts.add(ContactModel.fromJson(x));
       }
       return Right(contacts);

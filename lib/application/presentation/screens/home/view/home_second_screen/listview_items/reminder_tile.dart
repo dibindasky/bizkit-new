@@ -2,6 +2,7 @@ import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_without_animation.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,7 +68,8 @@ class ReminderTile extends StatelessWidget {
                   style: textHeadStyle1,
                 ),
                 Text(
-                  reminder.date!,
+                  DateTimeFormater.formatDateTime(
+                      reminder.date!, reminder.time!),
                   style: textStyle1,
                 ),
               ],

@@ -21,8 +21,8 @@ class CreateQrModel {
   bool? websiteLink;
   @JsonKey(name: 'business_email')
   bool? businessEmail;
-  @JsonKey(name: 'card_id')
-  int? card;
+  // @JsonKey(name: 'card_id')
+  // int? card;
 
   CreateQrModel({
     // this.userId,
@@ -34,7 +34,7 @@ class CreateQrModel {
     this.address,
     this.socialMediaHandles,
     this.websiteLink,
-    this.card,
+    // this.card,
     this.businessEmail,
   });
 
@@ -55,7 +55,7 @@ class CreateQrModel {
     bool? socialMediaHandles,
     bool? websiteLink,
     bool? businessEmail,
-    int? card,
+    // int? card,
   }) {
     return CreateQrModel(
       // userId: userId ?? this.userId,
@@ -69,7 +69,7 @@ class CreateQrModel {
       socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
       websiteLink: websiteLink ?? this.websiteLink,
       businessEmail: businessEmail ?? this.businessEmail,
-      card: card ?? this.card,
+      // card: card ?? this.card,
     );
   }
 }

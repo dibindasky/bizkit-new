@@ -1,5 +1,6 @@
 import 'package:bizkit/application/presentation/screens/reminder/reminder_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
 
@@ -76,7 +77,8 @@ class SecondScreenPageViewContents extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${reminder?.date ?? ''}, ${reminder?.time ?? ''}',
+                      DateTimeFormater.formatDateTime(
+                          reminder?.date??'', reminder?.time??''),
                       style: TextStyle(
                         fontSize: kwidth * 0.03,
                         fontWeight: FontWeight.w700,

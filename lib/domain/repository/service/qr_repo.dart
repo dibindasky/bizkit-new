@@ -6,6 +6,6 @@ import 'package:dartz/dartz.dart';
 
 abstract class QrServiceRepo {
   Future<Either<Failure, QRModel>> updateLevelSharing(
-      {required CreateQrModel createQrModel});
+      {required CreateQrModel createQrModel,required int id});
   Future<Either<Failure, GetQrCodeResponseModel>> getAllQrCode();
 }

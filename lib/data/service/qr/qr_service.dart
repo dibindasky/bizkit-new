@@ -41,12 +41,12 @@ class QRServiceImpl implements QrServiceRepo {
 
   @override
   Future<Either<Failure, QRModel>> updateLevelSharing(
-      {required CreateQrModel createQrModel}) async {
+      {required CreateQrModel createQrModel,required int id}) async {
     try {
       log('updateLevelSharing  api call==> ${createQrModel.toJson()}');
       final response = await apiService.patch(
           ApiEndPoints.levelsharingEdit.replaceFirst(
-              '{level_sharing_id}', createQrModel.card.toString()),
+              '{level_sharing_id}', id.toString()),
           data: createQrModel.toJson());
       return Right(QRModel.fromJson(response.data));
     } on DioException catch (e) {

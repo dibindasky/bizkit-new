@@ -23,11 +23,11 @@ showConfirmationDialog(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(heading ?? ''),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Expanded(
                   child: InkWell(
                     onTap: () => Navigator.pop(context, false),
@@ -42,7 +42,7 @@ showConfirmationDialog(
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Expanded(
                   child: InkWell(
                     onTap: () {

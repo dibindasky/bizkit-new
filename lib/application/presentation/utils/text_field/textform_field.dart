@@ -57,6 +57,7 @@ class TTextFormField extends StatefulWidget {
 
 class _TTextFormFieldState extends State<TTextFormField> {
   final FocusNode _focusNode = FocusNode();
+  late bool _obscureText;
   @override
   @override
   void initState() {
@@ -64,6 +65,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
     _focusNode.addListener(() {
       setState(() {});
     });
+    _obscureText = widget.obscureText; // Initialize _obscureText
   }
 
   @override
@@ -99,7 +101,19 @@ class _TTextFormFieldState extends State<TTextFormField> {
           controller: widget.controller,
           keyboardType: widget.inputType,
           decoration: InputDecoration(
-            suffixIcon: widget.suffix,
+            suffixIcon: widget.suffix != null
+                ? IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      color: klightgrey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )
+                : null,
             prefix: widget.prefix,
             suffixIconColor: klightgrey,
             prefixIcon: widget.su,

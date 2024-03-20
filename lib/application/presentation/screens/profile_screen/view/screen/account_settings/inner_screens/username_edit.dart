@@ -81,13 +81,16 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                       textColor: kwhite,
                     );
                   }
-                  if (state.userInfoChangeResponceModel != null) {
+                  if (state.userInfoChangeResponceModel != null &&
+                      state.message == 'Profile updated uccessfully') {
                     showSnackbar(
                       context,
                       message: 'Profile changing Sucessfully',
                       backgroundColor: state.hasError ? kred : neonShade,
                       textColor: kwhite,
                     );
+                    print(
+                        '==================================================================================');
                     Navigator.pop(context);
                   }
                 },

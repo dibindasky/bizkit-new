@@ -1,6 +1,6 @@
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_screen.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_without_animation.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class ReminderTile extends StatelessWidget {
             .add(ReminderEvent.getReminderDetails(id: reminder.id!));
         Navigator.push(
           context,
-          fadePageRoute(const MeetingDetailScreen()),
+          fadePageRoute(const MeetingDetailScreenWithOutAnimation()),
         );
       },
       child: Container(

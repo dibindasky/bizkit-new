@@ -96,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                             )
                                           : const CircleAvatar(
                                               backgroundImage:
-                                                  AssetImage(imagePerson))),
+                                                  NetworkImage(personProfile))),
                         ),
                         if (state.imageModel != null)
                           Positioned(

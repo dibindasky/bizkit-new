@@ -107,6 +107,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           isLoading: false,
           hasError: false,
           uploaded: true,
+          imageModel: null,
           userInfoChangeResponceModel: r,
         ),
       ),

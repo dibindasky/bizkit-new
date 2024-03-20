@@ -21,7 +21,7 @@ part 'connection_request_bloc.freezed.dart';
 class ConnectionRequestBloc
     extends Bloc<ConnectionRequestEvent, ConnectionRequestState> {
   final ConnectionRequestRepo _connectionRepo;
-  int page = 1;
+  int page = 1, blockedCards = 1;
 
   ConnectionRequestBloc(this._connectionRepo)
       : super(ConnectionRequestState.initial()) {
@@ -34,6 +34,45 @@ class ConnectionRequestBloc
     on<AddConnectionRequests>(addConnectionRequests);
     on<GetRequestLists>(getRequestLists);
     on<DeleteRequest>(deleteRequest);
+    on<GetBlockeConnections>(getBlockeConnections);
+    on<GgetBlockeConnectionsEvent>(getBlockedConnectionsEvent);
+  }
+
+  FutureOr<void> getBlockedConnectionsEvent(
+      GgetBlockeConnectionsEvent event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+
+    final data = await _connectionRepo.getBlockeConnections(
+        pageQuery: PageQuery(page: ++blockedCards));
+    data.fold(
+        (l) => emit(
+            state.copyWith(isLoading: false, hasError: true, message: null)),
+        (r) {
+      emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        blockedConnections: [...state.blockedConnections!, ...r.results!],
+      ));
+    });
+  }
+
+  FutureOr<void> getBlockeConnections(GetBlockeConnections event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final data = await _connectionRepo.getBlockeConnections(
+        pageQuery: PageQuery(page: blockedCards));
+    data.fold(
+      (l) => emit(
+        state.copyWith(
+          isLoading: false,
+          hasError: true,
+        ),
+      ),
+      (r) => emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        blockedConnections: [...state.blockedConnections!, ...r.results!],
+      )),
+    );
   }
 
   FutureOr<void> addConnection(AddConnection event, emit) async {

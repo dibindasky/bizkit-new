@@ -33,7 +33,6 @@ mixin _$ProfileEvent {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -52,7 +51,6 @@ mixin _$ProfileEvent {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -71,7 +69,6 @@ mixin _$ProfileEvent {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -87,7 +84,6 @@ mixin _$ProfileEvent {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -104,7 +100,6 @@ mixin _$ProfileEvent {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -120,7 +115,6 @@ mixin _$ProfileEvent {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -228,7 +222,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -250,7 +243,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -272,7 +264,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -294,7 +285,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -314,7 +304,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -333,7 +322,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -436,7 +424,6 @@ class _$GetProfileImpl implements GetProfile {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -458,7 +445,6 @@ class _$GetProfileImpl implements GetProfile {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -480,7 +466,6 @@ class _$GetProfileImpl implements GetProfile {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -502,7 +487,6 @@ class _$GetProfileImpl implements GetProfile {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -522,7 +506,6 @@ class _$GetProfileImpl implements GetProfile {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -541,7 +524,6 @@ class _$GetProfileImpl implements GetProfile {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -646,7 +628,6 @@ class _$EditProfileImpl implements EditProfile {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -668,7 +649,6 @@ class _$EditProfileImpl implements EditProfile {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -690,7 +670,6 @@ class _$EditProfileImpl implements EditProfile {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -712,7 +691,6 @@ class _$EditProfileImpl implements EditProfile {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -732,7 +710,6 @@ class _$EditProfileImpl implements EditProfile {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -751,7 +728,6 @@ class _$EditProfileImpl implements EditProfile {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -829,7 +805,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -851,7 +826,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -873,7 +847,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -895,7 +868,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -915,7 +887,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -934,7 +905,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -1035,7 +1005,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -1057,7 +1026,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -1079,7 +1047,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -1101,7 +1068,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -1121,7 +1087,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -1140,7 +1105,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -1247,7 +1211,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -1269,7 +1232,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -1291,7 +1253,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -1313,7 +1274,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -1333,7 +1293,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -1352,7 +1311,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -1460,7 +1418,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -1482,7 +1439,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -1504,7 +1460,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -1526,7 +1481,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -1546,7 +1500,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -1565,7 +1518,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -1588,182 +1540,6 @@ abstract class ReportAProblem implements ProfileEvent {
   @JsonKey(ignore: true)
   _$$ReportAProblemImplCopyWith<_$ReportAProblemImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GetArchievedCardsImplCopyWith<$Res> {
-  factory _$$GetArchievedCardsImplCopyWith(_$GetArchievedCardsImpl value,
-          $Res Function(_$GetArchievedCardsImpl) then) =
-      __$$GetArchievedCardsImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GetArchievedCardsImplCopyWithImpl<$Res>
-    extends _$ProfileEventCopyWithImpl<$Res, _$GetArchievedCardsImpl>
-    implements _$$GetArchievedCardsImplCopyWith<$Res> {
-  __$$GetArchievedCardsImplCopyWithImpl(_$GetArchievedCardsImpl _value,
-      $Res Function(_$GetArchievedCardsImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$GetArchievedCardsImpl implements GetArchievedCards {
-  const _$GetArchievedCardsImpl();
-
-  @override
-  String toString() {
-    return 'ProfileEvent.getArchievedCards()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetArchievedCardsImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool camera) pickImageScanning,
-    required TResult Function(bool isLoad) getProfile,
-    required TResult Function(
-            UserInfoChangeRequestModel userInfoChangeRequestModel)
-        editProfile,
-    required TResult Function() deleteProfile,
-    required TResult Function(
-            UserInfoChangeRequestModel userNameChanginRequestModel)
-        userInfoChange,
-    required TResult Function(
-            ForgottPasswordRequestModel forgottPasswordRequestModel)
-        resetPasswod,
-    required TResult Function(
-            ReportAProblemRequestModel reportAProblemRequestModel)
-        reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCards();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool camera)? pickImageScanning,
-    TResult? Function(bool isLoad)? getProfile,
-    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
-        editProfile,
-    TResult? Function()? deleteProfile,
-    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
-        userInfoChange,
-    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
-        resetPasswod,
-    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
-        reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCards?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool camera)? pickImageScanning,
-    TResult Function(bool isLoad)? getProfile,
-    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
-        editProfile,
-    TResult Function()? deleteProfile,
-    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
-        userInfoChange,
-    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
-        resetPasswod,
-    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
-        reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
-    required TResult orElse(),
-  }) {
-    if (getArchievedCards != null) {
-      return getArchievedCards();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PickImageScanning value) pickImageScanning,
-    required TResult Function(GetProfile value) getProfile,
-    required TResult Function(EditProfile value) editProfile,
-    required TResult Function(DeleteProfile value) deleteProfile,
-    required TResult Function(UserInfoChange value) userInfoChange,
-    required TResult Function(ResetPasswod value) resetPasswod,
-    required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCards(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PickImageScanning value)? pickImageScanning,
-    TResult? Function(GetProfile value)? getProfile,
-    TResult? Function(EditProfile value)? editProfile,
-    TResult? Function(DeleteProfile value)? deleteProfile,
-    TResult? Function(UserInfoChange value)? userInfoChange,
-    TResult? Function(ResetPasswod value)? resetPasswod,
-    TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCards?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PickImageScanning value)? pickImageScanning,
-    TResult Function(GetProfile value)? getProfile,
-    TResult Function(EditProfile value)? editProfile,
-    TResult Function(DeleteProfile value)? deleteProfile,
-    TResult Function(UserInfoChange value)? userInfoChange,
-    TResult Function(ResetPasswod value)? resetPasswod,
-    TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
-    required TResult orElse(),
-  }) {
-    if (getArchievedCards != null) {
-      return getArchievedCards(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class GetArchievedCards implements ProfileEvent {
-  const factory GetArchievedCards() = _$GetArchievedCardsImpl;
 }
 
 /// @nodoc
@@ -1822,7 +1598,6 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -1844,7 +1619,6 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -1866,7 +1640,6 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -1888,7 +1661,6 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -1908,7 +1680,6 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -1927,7 +1698,6 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -1999,7 +1769,6 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -2021,7 +1790,6 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -2043,7 +1811,6 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -2065,7 +1832,6 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -2085,7 +1851,6 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -2104,7 +1869,6 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -2178,7 +1942,6 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
@@ -2200,7 +1963,6 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
@@ -2222,7 +1984,6 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
@@ -2244,7 +2005,6 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
@@ -2264,7 +2024,6 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
@@ -2283,7 +2042,6 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
@@ -2308,12 +2066,10 @@ mixin _$ProfileState {
   String? get message => throw _privateConstructorUsedError;
   GetUserInfoModel? get getUserInfoModel => throw _privateConstructorUsedError;
   ImageModel? get imageModel => throw _privateConstructorUsedError;
+  bool? get uploaded => throw _privateConstructorUsedError;
   UserInfoChangeResponceModel? get userInfoChangeResponceModel =>
       throw _privateConstructorUsedError;
   ForegottPasswordResponceMdel? get foregottPasswordResponceMdel =>
-      throw _privateConstructorUsedError;
-  List<ArcheivedCard>? get archievedCards => throw _privateConstructorUsedError;
-  List<BlockedConnection>? get blockedConnections =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -2333,10 +2089,9 @@ abstract class $ProfileStateCopyWith<$Res> {
       String? message,
       GetUserInfoModel? getUserInfoModel,
       ImageModel? imageModel,
+      bool? uploaded,
       UserInfoChangeResponceModel? userInfoChangeResponceModel,
-      ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-      List<ArcheivedCard>? archievedCards,
-      List<BlockedConnection>? blockedConnections});
+      ForegottPasswordResponceMdel? foregottPasswordResponceMdel});
 }
 
 /// @nodoc
@@ -2357,10 +2112,9 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? message = freezed,
     Object? getUserInfoModel = freezed,
     Object? imageModel = freezed,
+    Object? uploaded = freezed,
     Object? userInfoChangeResponceModel = freezed,
     Object? foregottPasswordResponceMdel = freezed,
-    Object? archievedCards = freezed,
-    Object? blockedConnections = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -2383,6 +2137,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.imageModel
           : imageModel // ignore: cast_nullable_to_non_nullable
               as ImageModel?,
+      uploaded: freezed == uploaded
+          ? _value.uploaded
+          : uploaded // ignore: cast_nullable_to_non_nullable
+              as bool?,
       userInfoChangeResponceModel: freezed == userInfoChangeResponceModel
           ? _value.userInfoChangeResponceModel
           : userInfoChangeResponceModel // ignore: cast_nullable_to_non_nullable
@@ -2391,14 +2149,6 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.foregottPasswordResponceMdel
           : foregottPasswordResponceMdel // ignore: cast_nullable_to_non_nullable
               as ForegottPasswordResponceMdel?,
-      archievedCards: freezed == archievedCards
-          ? _value.archievedCards
-          : archievedCards // ignore: cast_nullable_to_non_nullable
-              as List<ArcheivedCard>?,
-      blockedConnections: freezed == blockedConnections
-          ? _value.blockedConnections
-          : blockedConnections // ignore: cast_nullable_to_non_nullable
-              as List<BlockedConnection>?,
     ) as $Val);
   }
 }
@@ -2417,10 +2167,9 @@ abstract class _$$InitialImplCopyWith<$Res>
       String? message,
       GetUserInfoModel? getUserInfoModel,
       ImageModel? imageModel,
+      bool? uploaded,
       UserInfoChangeResponceModel? userInfoChangeResponceModel,
-      ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-      List<ArcheivedCard>? archievedCards,
-      List<BlockedConnection>? blockedConnections});
+      ForegottPasswordResponceMdel? foregottPasswordResponceMdel});
 }
 
 /// @nodoc
@@ -2439,10 +2188,9 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? message = freezed,
     Object? getUserInfoModel = freezed,
     Object? imageModel = freezed,
+    Object? uploaded = freezed,
     Object? userInfoChangeResponceModel = freezed,
     Object? foregottPasswordResponceMdel = freezed,
-    Object? archievedCards = freezed,
-    Object? blockedConnections = freezed,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -2465,6 +2213,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.imageModel
           : imageModel // ignore: cast_nullable_to_non_nullable
               as ImageModel?,
+      uploaded: freezed == uploaded
+          ? _value.uploaded
+          : uploaded // ignore: cast_nullable_to_non_nullable
+              as bool?,
       userInfoChangeResponceModel: freezed == userInfoChangeResponceModel
           ? _value.userInfoChangeResponceModel
           : userInfoChangeResponceModel // ignore: cast_nullable_to_non_nullable
@@ -2473,14 +2225,6 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.foregottPasswordResponceMdel
           : foregottPasswordResponceMdel // ignore: cast_nullable_to_non_nullable
               as ForegottPasswordResponceMdel?,
-      archievedCards: freezed == archievedCards
-          ? _value._archievedCards
-          : archievedCards // ignore: cast_nullable_to_non_nullable
-              as List<ArcheivedCard>?,
-      blockedConnections: freezed == blockedConnections
-          ? _value._blockedConnections
-          : blockedConnections // ignore: cast_nullable_to_non_nullable
-              as List<BlockedConnection>?,
     ));
   }
 }
@@ -2494,12 +2238,9 @@ class _$InitialImpl implements _Initial {
       this.message,
       this.getUserInfoModel,
       this.imageModel,
+      this.uploaded,
       this.userInfoChangeResponceModel,
-      this.foregottPasswordResponceMdel,
-      final List<ArcheivedCard>? archievedCards,
-      final List<BlockedConnection>? blockedConnections})
-      : _archievedCards = archievedCards,
-        _blockedConnections = blockedConnections;
+      this.foregottPasswordResponceMdel});
 
   @override
   final bool isLoading;
@@ -2512,33 +2253,15 @@ class _$InitialImpl implements _Initial {
   @override
   final ImageModel? imageModel;
   @override
+  final bool? uploaded;
+  @override
   final UserInfoChangeResponceModel? userInfoChangeResponceModel;
   @override
   final ForegottPasswordResponceMdel? foregottPasswordResponceMdel;
-  final List<ArcheivedCard>? _archievedCards;
-  @override
-  List<ArcheivedCard>? get archievedCards {
-    final value = _archievedCards;
-    if (value == null) return null;
-    if (_archievedCards is EqualUnmodifiableListView) return _archievedCards;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<BlockedConnection>? _blockedConnections;
-  @override
-  List<BlockedConnection>? get blockedConnections {
-    final value = _blockedConnections;
-    if (value == null) return null;
-    if (_blockedConnections is EqualUnmodifiableListView)
-      return _blockedConnections;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, hasError: $hasError, message: $message, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, userInfoChangeResponceModel: $userInfoChangeResponceModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, archievedCards: $archievedCards, blockedConnections: $blockedConnections)';
+    return 'ProfileState(isLoading: $isLoading, hasError: $hasError, message: $message, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, userInfoChangeResponceModel: $userInfoChangeResponceModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel)';
   }
 
   @override
@@ -2555,6 +2278,8 @@ class _$InitialImpl implements _Initial {
                 other.getUserInfoModel == getUserInfoModel) &&
             (identical(other.imageModel, imageModel) ||
                 other.imageModel == imageModel) &&
+            (identical(other.uploaded, uploaded) ||
+                other.uploaded == uploaded) &&
             (identical(other.userInfoChangeResponceModel,
                     userInfoChangeResponceModel) ||
                 other.userInfoChangeResponceModel ==
@@ -2562,11 +2287,7 @@ class _$InitialImpl implements _Initial {
             (identical(other.foregottPasswordResponceMdel,
                     foregottPasswordResponceMdel) ||
                 other.foregottPasswordResponceMdel ==
-                    foregottPasswordResponceMdel) &&
-            const DeepCollectionEquality()
-                .equals(other._archievedCards, _archievedCards) &&
-            const DeepCollectionEquality()
-                .equals(other._blockedConnections, _blockedConnections));
+                    foregottPasswordResponceMdel));
   }
 
   @override
@@ -2577,10 +2298,9 @@ class _$InitialImpl implements _Initial {
       message,
       getUserInfoModel,
       imageModel,
+      uploaded,
       userInfoChangeResponceModel,
-      foregottPasswordResponceMdel,
-      const DeepCollectionEquality().hash(_archievedCards),
-      const DeepCollectionEquality().hash(_blockedConnections));
+      foregottPasswordResponceMdel);
 
   @JsonKey(ignore: true)
   @override
@@ -2591,15 +2311,15 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements ProfileState {
   const factory _Initial(
-      {required final bool isLoading,
-      required final bool hasError,
-      final String? message,
-      final GetUserInfoModel? getUserInfoModel,
-      final ImageModel? imageModel,
-      final UserInfoChangeResponceModel? userInfoChangeResponceModel,
-      final ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-      final List<ArcheivedCard>? archievedCards,
-      final List<BlockedConnection>? blockedConnections}) = _$InitialImpl;
+          {required final bool isLoading,
+          required final bool hasError,
+          final String? message,
+          final GetUserInfoModel? getUserInfoModel,
+          final ImageModel? imageModel,
+          final bool? uploaded,
+          final UserInfoChangeResponceModel? userInfoChangeResponceModel,
+          final ForegottPasswordResponceMdel? foregottPasswordResponceMdel}) =
+      _$InitialImpl;
 
   @override
   bool get isLoading;
@@ -2612,13 +2332,11 @@ abstract class _Initial implements ProfileState {
   @override
   ImageModel? get imageModel;
   @override
+  bool? get uploaded;
+  @override
   UserInfoChangeResponceModel? get userInfoChangeResponceModel;
   @override
   ForegottPasswordResponceMdel? get foregottPasswordResponceMdel;
-  @override
-  List<ArcheivedCard>? get archievedCards;
-  @override
-  List<BlockedConnection>? get blockedConnections;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

@@ -8,10 +8,9 @@ class ProfileState with _$ProfileState {
     String? message,
     GetUserInfoModel? getUserInfoModel,
     ImageModel? imageModel,
+    bool? uploaded,
     UserInfoChangeResponceModel? userInfoChangeResponceModel,
     ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-    List<ArcheivedCard>? archievedCards,
-    List<BlockedConnection>? blockedConnections,
   }) = _Initial;
   factory ProfileState.initial() => const ProfileState(
         isLoading: false,

@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection.dart';
@@ -41,8 +40,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<PickImageScanning>(pickImage);
     on<ResetPasswod>(profilePasswordChange);
     on<ReportAProblem>(reportAProblem);
-    on<GetArchievedCards>(getArchievedCards);
-    on<GetArchievedCardsEvent>(getArchievedCardsEvent);
     on<GetBlockeConnections>(getBlockeConnections);
     on<GgetBlockeConnectionsEvent>(getBlockedConnectionsEvent);
   }
@@ -61,23 +58,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         isLoading: false,
         hasError: false,
         blockedConnections: [...state.blockedConnections!, ...r.results!],
-      ));
-    });
-  }
-
-  FutureOr<void> getArchievedCardsEvent(event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-
-    final data = await profileRepo.archievedCardsList(
-        pageQuery: PageQuery(page: ++archevedCards));
-    data.fold(
-        (l) => emit(
-            state.copyWith(isLoading: false, hasError: true, message: null)),
-        (r) {
-      emit(state.copyWith(
-        isLoading: false,
-        hasError: false,
-        archievedCards: [...state.archievedCards!, ...r.results!],
       ));
     });
   }
@@ -119,40 +99,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   //     ),
   //   );
   // }
-
-  FutureOr<void> defaultQr(DefaultQr event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data =
-        await profileRepo.defaultQr(createQrModel: event.createQrModel);
-    data.fold(
-      (l) => emit(state.copyWith(
-        isLoading: false,
-        hasError: true,
-        message: null,
-      )),
-      (r) => emit(
-        state.copyWith(
-          isLoading: false,
-          hasError: false,
-          blockedConnections: r.results!,
-        ),
-      ),
-    );
-  }
-
-  FutureOr<void> getArchievedCards(GetArchievedCards event, emit) async {
-    archevedCards = 1;
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data = await profileRepo.archievedCardsList(
-        pageQuery: PageQuery(page: archevedCards));
-    data.fold(
-        (l) => emit(
-            state.copyWith(isLoading: false, hasError: true, message: null)),
-        (r) {
-      emit(state.copyWith(
-          isLoading: false, hasError: false, archievedCards: r.results));
-    });
-  }
 
   FutureOr<void> reportAProblem(ReportAProblem event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
@@ -220,7 +166,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         state.copyWith(
           isLoading: false,
           hasError: false,
-          message: 'Profile updated uccessfully',
+          uploaded: true,
           userInfoChangeResponceModel: r,
         ),
       ),

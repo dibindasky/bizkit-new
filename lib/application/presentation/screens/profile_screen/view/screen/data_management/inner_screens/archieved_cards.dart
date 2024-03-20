@@ -1,4 +1,4 @@
-import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -30,7 +30,7 @@ class ArchivedCards extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
-          child: BlocBuilder<ProfileBloc, ProfileState>(
+          child: BlocBuilder<CardBloc, CardState>(
             builder: (context, state) {
               if (state.isLoading) {
                 return const LoadingAnimation();
@@ -93,7 +93,10 @@ class ArchivedCards extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   InkWell(
-                                    // onTap: () => bottomSheet(context, card),
+                                    onTap: () => context.read<CardBloc>().add(
+                                        CardEvent.restoreArchieveCards(
+                                            cardId: state
+                                                .archievedCards![index].id!)),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
@@ -119,9 +122,11 @@ class ArchivedCards extends StatelessWidget {
                   );
                 } else {
                   return SizedBox(
-                      height: khieght,
-                      child: const Center(
-                          child: Text("You don't have archeived cards")));
+                    height: khieght,
+                    child: const Center(
+                      child: Text("You don't have archeived cards"),
+                    ),
+                  );
                 }
               }
             },

@@ -40,13 +40,13 @@ class ConnectionNetworkScreen extends StatelessWidget {
                     .push(fadePageRoute(const BlockedConnections()));
               },
             ),
-            TileItem(
-              text: 'Restricted Connections',
-              onTap: () {
-                Navigator.of(context)
-                    .push(fadePageRoute(const RestrictedConnections()));
-              },
-            ),
+            // TileItem(
+            //   text: 'Restricted Connections',
+            //   onTap: () {
+            //     Navigator.of(context)
+            //         .push(fadePageRoute(const RestrictedConnections()));
+            //   },
+            // ),
             TileItem(
               text: 'Reported Connections',
               onTap: () {

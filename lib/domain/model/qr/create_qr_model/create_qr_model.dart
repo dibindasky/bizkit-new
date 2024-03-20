@@ -22,23 +22,19 @@ class CreateQrModel {
   @JsonKey(name: 'business_email')
   bool? businessEmail;
   int? card;
-  @JsonKey(name: 'update_all_cards')
-  bool? updateAllCards;
 
-  CreateQrModel({
-    this.userId,
-    this.email,
-    this.phoneNumber,
-    this.company,
-    this.personalSocialMedia,
-    this.businessDetailsMobileNumber,
-    this.address,
-    this.socialMediaHandles,
-    this.websiteLink,
-    this.card,
-    this.businessEmail,
-    this.updateAllCards,
-  });
+  CreateQrModel(
+      {this.userId,
+      this.email,
+      this.phoneNumber,
+      this.company,
+      this.personalSocialMedia,
+      this.businessDetailsMobileNumber,
+      this.address,
+      this.socialMediaHandles,
+      this.websiteLink,
+      this.card,
+      this.businessEmail});
 
   factory CreateQrModel.fromJson(Map<String, dynamic> json) {
     return _$CreateQrModelFromJson(json);
@@ -46,34 +42,30 @@ class CreateQrModel {
 
   Map<String, dynamic> toJson() => _$CreateQrModelToJson(this);
 
-  CreateQrModel copyWith({
-    int? userId,
-    bool? email,
-    bool? phoneNumber,
-    bool? company,
-    bool? personalSocialMedia,
-    bool? businessDetailsMobileNumber,
-    bool? address,
-    bool? socialMediaHandles,
-    bool? websiteLink,
-    bool? businessEmail,
-    int? card,
-    bool? updateAllCards,
-  }) {
+  CreateQrModel copyWith(
+      {int? userId,
+      bool? email,
+      bool? phoneNumber,
+      bool? company,
+      bool? personalSocialMedia,
+      bool? businessDetailsMobileNumber,
+      bool? address,
+      bool? socialMediaHandles,
+      bool? websiteLink,
+      bool? businessEmail,
+      int? card}) {
     return CreateQrModel(
-      userId: userId ?? this.userId,
-      email: email ?? this.email,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      company: company ?? this.company,
-      personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
-      businessDetailsMobileNumber:
-          businessDetailsMobileNumber ?? this.businessDetailsMobileNumber,
-      address: address ?? this.address,
-      socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
-      websiteLink: websiteLink ?? this.websiteLink,
-      businessEmail: businessEmail ?? this.businessEmail,
-      card: card ?? this.card,
-      updateAllCards: updateAllCards ?? this.updateAllCards,
-    );
+        userId: userId ?? this.userId,
+        email: email ?? this.email,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        company: company ?? this.company,
+        personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
+        businessDetailsMobileNumber:
+            businessDetailsMobileNumber ?? this.businessDetailsMobileNumber,
+        address: address ?? this.address,
+        socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
+        websiteLink: websiteLink ?? this.websiteLink,
+        businessEmail: businessEmail ?? this.businessEmail,
+        card: card ?? this.card);
   }
 }

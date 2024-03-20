@@ -8,6 +8,7 @@ import 'package:bizkit/domain/model/connections/create_connection_with_card_id_m
 import 'package:bizkit/domain/model/connections/get_bizkit_connections_response_model/get_bizkit_connections_response_model.dart';
 import 'package:bizkit/domain/model/connections/get_request_list_responsemodel/get_request_list_responsemodel.dart';
 import 'package:bizkit/domain/model/connections/get_serch_connection_response_model/get_serch_connection_response_model.dart';
+import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:dartz/dartz.dart';
 
@@ -30,4 +31,7 @@ abstract class ConnectionRequestRepo {
   Future<Either<Failure, GetRequestListResponsemodel>> getRequestList();
   Future<Either<Failure, SuccessResponseModel>> deleteConnectionRequest(
       {required int id});
+  Future<Either<Failure, BlockedConnectionModel>> getBlockeConnections({
+    required PageQuery pageQuery,
+  });
 }

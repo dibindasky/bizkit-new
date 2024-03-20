@@ -44,7 +44,6 @@ class QrBloc extends Bloc<QrEvent, QrState> {
           defauiltQr: r,
         ),
       );
-      //add(const QrEvent.getDefaultQr());
     });
   }
 

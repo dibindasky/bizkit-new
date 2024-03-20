@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
@@ -33,11 +34,14 @@ class BlockedConnections extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: BlocBuilder<ProfileBloc, ProfileState>(
+        child: BlocBuilder<CardBloc, CardState>(
           builder: (context, state) {
-            if (state.blockedConnections == null) {
+            if (state.archievedCards == null) {
               return const SizedBox(
-                  child: Center(child: Text('You are not blocked anyone')));
+                child: Center(
+                  child: Text('You are not blocked anyone'),
+                ),
+              );
             }
             return ListView.builder(
               itemCount: state.archievedCards?.length,

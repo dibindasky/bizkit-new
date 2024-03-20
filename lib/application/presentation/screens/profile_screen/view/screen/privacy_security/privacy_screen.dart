@@ -1,6 +1,5 @@
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/inner_screens/level_sharing_settings.dart';
-import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/inner_screens/privacy_security.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -35,19 +34,17 @@ class PrivacyAndSecurityScreen extends StatelessWidget {
             TileItem(
               text: 'Level Setting',
               onTap: () => Navigator.of(context).push(
-                fadePageRoute(
-                  const DefaultLevelSharing(),
-                ),
+                fadePageRoute(const DefaultLevelSharing()),
               ),
             ),
-            TileItem(
-              text: 'Privacy Settings',
-              onTap: () => Navigator.of(context).push(
-                fadePageRoute(
-                  const PrivacyAecurityinner(),
-                ),
-              ),
-            ),
+            // TileItem(
+            //   text: 'Privacy Settings',
+            //   onTap: () => Navigator.of(context).push(
+            //     fadePageRoute(
+            //       const PrivacyAecurityinner(),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -9,10 +9,16 @@ import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgo
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChangePassword extends StatelessWidget {
+class ChangePassword extends StatefulWidget {
   ChangePassword({super.key});
 
+  @override
+  State<ChangePassword> createState() => _ChangePasswordState();
+}
+
+class _ChangePasswordState extends State<ChangePassword> {
   final GlobalKey<FormState> passwrdChangeFrom = GlobalKey();
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +59,16 @@ class ChangePassword extends StatelessWidget {
                   inputType: TextInputType.visiblePassword,
                   controller: context.read<ProfileBloc>().newPasswordController,
                   text: 'New password',
-                  suffix: const Icon(
-                    Icons.remove_red_eye_outlined,
-                    color: kwhite,
+                  suffix: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      color: klightgrey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
                   ),
                 ),
                 TTextFormField(

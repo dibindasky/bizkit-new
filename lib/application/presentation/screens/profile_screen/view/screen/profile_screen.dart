@@ -8,6 +8,7 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -149,8 +150,15 @@ class _ProfileScreenState extends State<ProfileScreen>
                 ProfileTiles(
                   heading: 'Logout',
                   onTap: () {
-                    context.read<AuthBloc>().add(const AuthEvent.logOut());
-                    context.go(Routes.loginPage);
+                    showConfirmationDialog(
+                      actionButton: 'Log-out',
+                      heading: 'Are really want to logout from Bizkit',
+                      context,
+                      onPressed: () {
+                        context.read<AuthBloc>().add(const AuthEvent.logOut());
+                        context.go(Routes.loginPage);
+                      },
+                    );
                   },
                 ),
               ],

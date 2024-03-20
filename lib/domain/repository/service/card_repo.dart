@@ -3,6 +3,7 @@ import 'package:bizkit/domain/model/card/card/business_detail/business_details.d
 import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/get_card_resposnse_model/get_card_resposnse_model.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card_model.dart';
 import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/get_business_category_response_model.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_companys/get_companys.dart';
@@ -32,5 +33,10 @@ abstract class CardRepo {
   Future<Either<Failure, SuccessResponseModel>> setDefault({required int id});
   Future<Either<Failure, SuccessResponseModel>> deleteCard({required int id});
   Future<Either<Failure, SuccessResponseModel>> archiveCard({required int id});
+  Future<Either<Failure, SuccessResponseModel>> restoreArchiveCard(
+      {required int cardId});
   Future<Either<Failure, BusinessDetails>> getCompnayDetails({required int id});
+  Future<Either<Failure, ArcheivedCardModel>> archievedCardsList({
+    required PageQuery pageQuery,
+  });
 }

@@ -33,10 +33,6 @@ mixin _$ProfileEvent {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,10 +48,6 @@ mixin _$ProfileEvent {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,10 +63,6 @@ mixin _$ProfileEvent {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -87,12 +75,6 @@ mixin _$ProfileEvent {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -104,11 +86,6 @@ mixin _$ProfileEvent {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -120,11 +97,6 @@ mixin _$ProfileEvent {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -228,10 +200,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
   }) {
     return pickImageScanning(camera);
   }
@@ -250,10 +218,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
   }) {
     return pickImageScanning?.call(camera);
   }
@@ -272,10 +236,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (pickImageScanning != null) {
@@ -294,12 +254,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
   }) {
     return pickImageScanning(this);
   }
@@ -314,11 +268,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
   }) {
     return pickImageScanning?.call(this);
   }
@@ -333,11 +282,6 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (pickImageScanning != null) {
@@ -436,10 +380,6 @@ class _$GetProfileImpl implements GetProfile {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
   }) {
     return getProfile(isLoad);
   }
@@ -458,10 +398,6 @@ class _$GetProfileImpl implements GetProfile {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
   }) {
     return getProfile?.call(isLoad);
   }
@@ -480,10 +416,6 @@ class _$GetProfileImpl implements GetProfile {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (getProfile != null) {
@@ -502,12 +434,6 @@ class _$GetProfileImpl implements GetProfile {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
   }) {
     return getProfile(this);
   }
@@ -522,11 +448,6 @@ class _$GetProfileImpl implements GetProfile {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
   }) {
     return getProfile?.call(this);
   }
@@ -541,11 +462,6 @@ class _$GetProfileImpl implements GetProfile {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (getProfile != null) {
@@ -646,10 +562,6 @@ class _$EditProfileImpl implements EditProfile {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
   }) {
     return editProfile(userInfoChangeRequestModel);
   }
@@ -668,10 +580,6 @@ class _$EditProfileImpl implements EditProfile {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
   }) {
     return editProfile?.call(userInfoChangeRequestModel);
   }
@@ -690,10 +598,6 @@ class _$EditProfileImpl implements EditProfile {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (editProfile != null) {
@@ -712,12 +616,6 @@ class _$EditProfileImpl implements EditProfile {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
   }) {
     return editProfile(this);
   }
@@ -732,11 +630,6 @@ class _$EditProfileImpl implements EditProfile {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
   }) {
     return editProfile?.call(this);
   }
@@ -751,11 +644,6 @@ class _$EditProfileImpl implements EditProfile {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (editProfile != null) {
@@ -829,10 +717,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
   }) {
     return deleteProfile();
   }
@@ -851,10 +735,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
   }) {
     return deleteProfile?.call();
   }
@@ -873,10 +753,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (deleteProfile != null) {
@@ -895,12 +771,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
   }) {
     return deleteProfile(this);
   }
@@ -915,11 +785,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
   }) {
     return deleteProfile?.call(this);
   }
@@ -934,11 +799,6 @@ class _$DeleteProfileImpl implements DeleteProfile {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (deleteProfile != null) {
@@ -1035,10 +895,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
   }) {
     return userInfoChange(userNameChanginRequestModel);
   }
@@ -1057,10 +913,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
   }) {
     return userInfoChange?.call(userNameChanginRequestModel);
   }
@@ -1079,10 +931,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (userInfoChange != null) {
@@ -1101,12 +949,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
   }) {
     return userInfoChange(this);
   }
@@ -1121,11 +963,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
   }) {
     return userInfoChange?.call(this);
   }
@@ -1140,11 +977,6 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (userInfoChange != null) {
@@ -1247,10 +1079,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
   }) {
     return resetPasswod(forgottPasswordRequestModel);
   }
@@ -1269,10 +1097,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
   }) {
     return resetPasswod?.call(forgottPasswordRequestModel);
   }
@@ -1291,10 +1115,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (resetPasswod != null) {
@@ -1313,12 +1133,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
   }) {
     return resetPasswod(this);
   }
@@ -1333,11 +1147,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
   }) {
     return resetPasswod?.call(this);
   }
@@ -1352,11 +1161,6 @@ class _$ResetPasswodImpl implements ResetPasswod {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (resetPasswod != null) {
@@ -1460,10 +1264,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
   }) {
     return reportAProblem(reportAProblemRequestModel);
   }
@@ -1482,10 +1282,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
   }) {
     return reportAProblem?.call(reportAProblemRequestModel);
   }
@@ -1504,10 +1300,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (reportAProblem != null) {
@@ -1526,12 +1318,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
   }) {
     return reportAProblem(this);
   }
@@ -1546,11 +1332,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
   }) {
     return reportAProblem?.call(this);
   }
@@ -1565,11 +1346,6 @@ class _$ReportAProblemImpl implements ReportAProblem {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
     required TResult orElse(),
   }) {
     if (reportAProblem != null) {
@@ -1591,729 +1367,16 @@ abstract class ReportAProblem implements ProfileEvent {
 }
 
 /// @nodoc
-abstract class _$$GetArchievedCardsImplCopyWith<$Res> {
-  factory _$$GetArchievedCardsImplCopyWith(_$GetArchievedCardsImpl value,
-          $Res Function(_$GetArchievedCardsImpl) then) =
-      __$$GetArchievedCardsImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GetArchievedCardsImplCopyWithImpl<$Res>
-    extends _$ProfileEventCopyWithImpl<$Res, _$GetArchievedCardsImpl>
-    implements _$$GetArchievedCardsImplCopyWith<$Res> {
-  __$$GetArchievedCardsImplCopyWithImpl(_$GetArchievedCardsImpl _value,
-      $Res Function(_$GetArchievedCardsImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$GetArchievedCardsImpl implements GetArchievedCards {
-  const _$GetArchievedCardsImpl();
-
-  @override
-  String toString() {
-    return 'ProfileEvent.getArchievedCards()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetArchievedCardsImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool camera) pickImageScanning,
-    required TResult Function(bool isLoad) getProfile,
-    required TResult Function(
-            UserInfoChangeRequestModel userInfoChangeRequestModel)
-        editProfile,
-    required TResult Function() deleteProfile,
-    required TResult Function(
-            UserInfoChangeRequestModel userNameChanginRequestModel)
-        userInfoChange,
-    required TResult Function(
-            ForgottPasswordRequestModel forgottPasswordRequestModel)
-        resetPasswod,
-    required TResult Function(
-            ReportAProblemRequestModel reportAProblemRequestModel)
-        reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCards();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool camera)? pickImageScanning,
-    TResult? Function(bool isLoad)? getProfile,
-    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
-        editProfile,
-    TResult? Function()? deleteProfile,
-    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
-        userInfoChange,
-    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
-        resetPasswod,
-    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
-        reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCards?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool camera)? pickImageScanning,
-    TResult Function(bool isLoad)? getProfile,
-    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
-        editProfile,
-    TResult Function()? deleteProfile,
-    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
-        userInfoChange,
-    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
-        resetPasswod,
-    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
-        reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
-    required TResult orElse(),
-  }) {
-    if (getArchievedCards != null) {
-      return getArchievedCards();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PickImageScanning value) pickImageScanning,
-    required TResult Function(GetProfile value) getProfile,
-    required TResult Function(EditProfile value) editProfile,
-    required TResult Function(DeleteProfile value) deleteProfile,
-    required TResult Function(UserInfoChange value) userInfoChange,
-    required TResult Function(ResetPasswod value) resetPasswod,
-    required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCards(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PickImageScanning value)? pickImageScanning,
-    TResult? Function(GetProfile value)? getProfile,
-    TResult? Function(EditProfile value)? editProfile,
-    TResult? Function(DeleteProfile value)? deleteProfile,
-    TResult? Function(UserInfoChange value)? userInfoChange,
-    TResult? Function(ResetPasswod value)? resetPasswod,
-    TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCards?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PickImageScanning value)? pickImageScanning,
-    TResult Function(GetProfile value)? getProfile,
-    TResult Function(EditProfile value)? editProfile,
-    TResult Function(DeleteProfile value)? deleteProfile,
-    TResult Function(UserInfoChange value)? userInfoChange,
-    TResult Function(ResetPasswod value)? resetPasswod,
-    TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
-    required TResult orElse(),
-  }) {
-    if (getArchievedCards != null) {
-      return getArchievedCards(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class GetArchievedCards implements ProfileEvent {
-  const factory GetArchievedCards() = _$GetArchievedCardsImpl;
-}
-
-/// @nodoc
-abstract class _$$GetArchievedCardsEventImplCopyWith<$Res> {
-  factory _$$GetArchievedCardsEventImplCopyWith(
-          _$GetArchievedCardsEventImpl value,
-          $Res Function(_$GetArchievedCardsEventImpl) then) =
-      __$$GetArchievedCardsEventImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GetArchievedCardsEventImplCopyWithImpl<$Res>
-    extends _$ProfileEventCopyWithImpl<$Res, _$GetArchievedCardsEventImpl>
-    implements _$$GetArchievedCardsEventImplCopyWith<$Res> {
-  __$$GetArchievedCardsEventImplCopyWithImpl(
-      _$GetArchievedCardsEventImpl _value,
-      $Res Function(_$GetArchievedCardsEventImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
-  const _$GetArchievedCardsEventImpl();
-
-  @override
-  String toString() {
-    return 'ProfileEvent.getArchievedCardsEvent()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$GetArchievedCardsEventImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool camera) pickImageScanning,
-    required TResult Function(bool isLoad) getProfile,
-    required TResult Function(
-            UserInfoChangeRequestModel userInfoChangeRequestModel)
-        editProfile,
-    required TResult Function() deleteProfile,
-    required TResult Function(
-            UserInfoChangeRequestModel userNameChanginRequestModel)
-        userInfoChange,
-    required TResult Function(
-            ForgottPasswordRequestModel forgottPasswordRequestModel)
-        resetPasswod,
-    required TResult Function(
-            ReportAProblemRequestModel reportAProblemRequestModel)
-        reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCardsEvent();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool camera)? pickImageScanning,
-    TResult? Function(bool isLoad)? getProfile,
-    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
-        editProfile,
-    TResult? Function()? deleteProfile,
-    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
-        userInfoChange,
-    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
-        resetPasswod,
-    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
-        reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCardsEvent?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool camera)? pickImageScanning,
-    TResult Function(bool isLoad)? getProfile,
-    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
-        editProfile,
-    TResult Function()? deleteProfile,
-    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
-        userInfoChange,
-    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
-        resetPasswod,
-    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
-        reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
-    required TResult orElse(),
-  }) {
-    if (getArchievedCardsEvent != null) {
-      return getArchievedCardsEvent();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PickImageScanning value) pickImageScanning,
-    required TResult Function(GetProfile value) getProfile,
-    required TResult Function(EditProfile value) editProfile,
-    required TResult Function(DeleteProfile value) deleteProfile,
-    required TResult Function(UserInfoChange value) userInfoChange,
-    required TResult Function(ResetPasswod value) resetPasswod,
-    required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCardsEvent(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PickImageScanning value)? pickImageScanning,
-    TResult? Function(GetProfile value)? getProfile,
-    TResult? Function(EditProfile value)? editProfile,
-    TResult? Function(DeleteProfile value)? deleteProfile,
-    TResult? Function(UserInfoChange value)? userInfoChange,
-    TResult? Function(ResetPasswod value)? resetPasswod,
-    TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
-  }) {
-    return getArchievedCardsEvent?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PickImageScanning value)? pickImageScanning,
-    TResult Function(GetProfile value)? getProfile,
-    TResult Function(EditProfile value)? editProfile,
-    TResult Function(DeleteProfile value)? deleteProfile,
-    TResult Function(UserInfoChange value)? userInfoChange,
-    TResult Function(ResetPasswod value)? resetPasswod,
-    TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
-    required TResult orElse(),
-  }) {
-    if (getArchievedCardsEvent != null) {
-      return getArchievedCardsEvent(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class GetArchievedCardsEvent implements ProfileEvent {
-  const factory GetArchievedCardsEvent() = _$GetArchievedCardsEventImpl;
-}
-
-/// @nodoc
-abstract class _$$GetBlockeConnectionsImplCopyWith<$Res> {
-  factory _$$GetBlockeConnectionsImplCopyWith(_$GetBlockeConnectionsImpl value,
-          $Res Function(_$GetBlockeConnectionsImpl) then) =
-      __$$GetBlockeConnectionsImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GetBlockeConnectionsImplCopyWithImpl<$Res>
-    extends _$ProfileEventCopyWithImpl<$Res, _$GetBlockeConnectionsImpl>
-    implements _$$GetBlockeConnectionsImplCopyWith<$Res> {
-  __$$GetBlockeConnectionsImplCopyWithImpl(_$GetBlockeConnectionsImpl _value,
-      $Res Function(_$GetBlockeConnectionsImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
-  const _$GetBlockeConnectionsImpl();
-
-  @override
-  String toString() {
-    return 'ProfileEvent.getBlockeConnections()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$GetBlockeConnectionsImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool camera) pickImageScanning,
-    required TResult Function(bool isLoad) getProfile,
-    required TResult Function(
-            UserInfoChangeRequestModel userInfoChangeRequestModel)
-        editProfile,
-    required TResult Function() deleteProfile,
-    required TResult Function(
-            UserInfoChangeRequestModel userNameChanginRequestModel)
-        userInfoChange,
-    required TResult Function(
-            ForgottPasswordRequestModel forgottPasswordRequestModel)
-        resetPasswod,
-    required TResult Function(
-            ReportAProblemRequestModel reportAProblemRequestModel)
-        reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
-  }) {
-    return getBlockeConnections();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool camera)? pickImageScanning,
-    TResult? Function(bool isLoad)? getProfile,
-    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
-        editProfile,
-    TResult? Function()? deleteProfile,
-    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
-        userInfoChange,
-    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
-        resetPasswod,
-    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
-        reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
-  }) {
-    return getBlockeConnections?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool camera)? pickImageScanning,
-    TResult Function(bool isLoad)? getProfile,
-    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
-        editProfile,
-    TResult Function()? deleteProfile,
-    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
-        userInfoChange,
-    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
-        resetPasswod,
-    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
-        reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
-    required TResult orElse(),
-  }) {
-    if (getBlockeConnections != null) {
-      return getBlockeConnections();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PickImageScanning value) pickImageScanning,
-    required TResult Function(GetProfile value) getProfile,
-    required TResult Function(EditProfile value) editProfile,
-    required TResult Function(DeleteProfile value) deleteProfile,
-    required TResult Function(UserInfoChange value) userInfoChange,
-    required TResult Function(ResetPasswod value) resetPasswod,
-    required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
-  }) {
-    return getBlockeConnections(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PickImageScanning value)? pickImageScanning,
-    TResult? Function(GetProfile value)? getProfile,
-    TResult? Function(EditProfile value)? editProfile,
-    TResult? Function(DeleteProfile value)? deleteProfile,
-    TResult? Function(UserInfoChange value)? userInfoChange,
-    TResult? Function(ResetPasswod value)? resetPasswod,
-    TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
-  }) {
-    return getBlockeConnections?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PickImageScanning value)? pickImageScanning,
-    TResult Function(GetProfile value)? getProfile,
-    TResult Function(EditProfile value)? editProfile,
-    TResult Function(DeleteProfile value)? deleteProfile,
-    TResult Function(UserInfoChange value)? userInfoChange,
-    TResult Function(ResetPasswod value)? resetPasswod,
-    TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
-    required TResult orElse(),
-  }) {
-    if (getBlockeConnections != null) {
-      return getBlockeConnections(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class GetBlockeConnections implements ProfileEvent {
-  const factory GetBlockeConnections() = _$GetBlockeConnectionsImpl;
-}
-
-/// @nodoc
-abstract class _$$GgetBlockeConnectionsEventImplCopyWith<$Res> {
-  factory _$$GgetBlockeConnectionsEventImplCopyWith(
-          _$GgetBlockeConnectionsEventImpl value,
-          $Res Function(_$GgetBlockeConnectionsEventImpl) then) =
-      __$$GgetBlockeConnectionsEventImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GgetBlockeConnectionsEventImplCopyWithImpl<$Res>
-    extends _$ProfileEventCopyWithImpl<$Res, _$GgetBlockeConnectionsEventImpl>
-    implements _$$GgetBlockeConnectionsEventImplCopyWith<$Res> {
-  __$$GgetBlockeConnectionsEventImplCopyWithImpl(
-      _$GgetBlockeConnectionsEventImpl _value,
-      $Res Function(_$GgetBlockeConnectionsEventImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
-  const _$GgetBlockeConnectionsEventImpl();
-
-  @override
-  String toString() {
-    return 'ProfileEvent.getBlockeConnectionsEvent()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$GgetBlockeConnectionsEventImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool camera) pickImageScanning,
-    required TResult Function(bool isLoad) getProfile,
-    required TResult Function(
-            UserInfoChangeRequestModel userInfoChangeRequestModel)
-        editProfile,
-    required TResult Function() deleteProfile,
-    required TResult Function(
-            UserInfoChangeRequestModel userNameChanginRequestModel)
-        userInfoChange,
-    required TResult Function(
-            ForgottPasswordRequestModel forgottPasswordRequestModel)
-        resetPasswod,
-    required TResult Function(
-            ReportAProblemRequestModel reportAProblemRequestModel)
-        reportAProblem,
-    required TResult Function() getArchievedCards,
-    required TResult Function() getArchievedCardsEvent,
-    required TResult Function() getBlockeConnections,
-    required TResult Function() getBlockeConnectionsEvent,
-  }) {
-    return getBlockeConnectionsEvent();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool camera)? pickImageScanning,
-    TResult? Function(bool isLoad)? getProfile,
-    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
-        editProfile,
-    TResult? Function()? deleteProfile,
-    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
-        userInfoChange,
-    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
-        resetPasswod,
-    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
-        reportAProblem,
-    TResult? Function()? getArchievedCards,
-    TResult? Function()? getArchievedCardsEvent,
-    TResult? Function()? getBlockeConnections,
-    TResult? Function()? getBlockeConnectionsEvent,
-  }) {
-    return getBlockeConnectionsEvent?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool camera)? pickImageScanning,
-    TResult Function(bool isLoad)? getProfile,
-    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
-        editProfile,
-    TResult Function()? deleteProfile,
-    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
-        userInfoChange,
-    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
-        resetPasswod,
-    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
-        reportAProblem,
-    TResult Function()? getArchievedCards,
-    TResult Function()? getArchievedCardsEvent,
-    TResult Function()? getBlockeConnections,
-    TResult Function()? getBlockeConnectionsEvent,
-    required TResult orElse(),
-  }) {
-    if (getBlockeConnectionsEvent != null) {
-      return getBlockeConnectionsEvent();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PickImageScanning value) pickImageScanning,
-    required TResult Function(GetProfile value) getProfile,
-    required TResult Function(EditProfile value) editProfile,
-    required TResult Function(DeleteProfile value) deleteProfile,
-    required TResult Function(UserInfoChange value) userInfoChange,
-    required TResult Function(ResetPasswod value) resetPasswod,
-    required TResult Function(ReportAProblem value) reportAProblem,
-    required TResult Function(GetArchievedCards value) getArchievedCards,
-    required TResult Function(GetArchievedCardsEvent value)
-        getArchievedCardsEvent,
-    required TResult Function(GetBlockeConnections value) getBlockeConnections,
-    required TResult Function(GgetBlockeConnectionsEvent value)
-        getBlockeConnectionsEvent,
-  }) {
-    return getBlockeConnectionsEvent(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PickImageScanning value)? pickImageScanning,
-    TResult? Function(GetProfile value)? getProfile,
-    TResult? Function(EditProfile value)? editProfile,
-    TResult? Function(DeleteProfile value)? deleteProfile,
-    TResult? Function(UserInfoChange value)? userInfoChange,
-    TResult? Function(ResetPasswod value)? resetPasswod,
-    TResult? Function(ReportAProblem value)? reportAProblem,
-    TResult? Function(GetArchievedCards value)? getArchievedCards,
-    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult? Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
-  }) {
-    return getBlockeConnectionsEvent?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PickImageScanning value)? pickImageScanning,
-    TResult Function(GetProfile value)? getProfile,
-    TResult Function(EditProfile value)? editProfile,
-    TResult Function(DeleteProfile value)? deleteProfile,
-    TResult Function(UserInfoChange value)? userInfoChange,
-    TResult Function(ResetPasswod value)? resetPasswod,
-    TResult Function(ReportAProblem value)? reportAProblem,
-    TResult Function(GetArchievedCards value)? getArchievedCards,
-    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(GetBlockeConnections value)? getBlockeConnections,
-    TResult Function(GgetBlockeConnectionsEvent value)?
-        getBlockeConnectionsEvent,
-    required TResult orElse(),
-  }) {
-    if (getBlockeConnectionsEvent != null) {
-      return getBlockeConnectionsEvent(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class GgetBlockeConnectionsEvent implements ProfileEvent {
-  const factory GgetBlockeConnectionsEvent() = _$GgetBlockeConnectionsEventImpl;
-}
-
-/// @nodoc
 mixin _$ProfileState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   GetUserInfoModel? get getUserInfoModel => throw _privateConstructorUsedError;
   ImageModel? get imageModel => throw _privateConstructorUsedError;
+  bool? get uploaded => throw _privateConstructorUsedError;
   UserInfoChangeResponceModel? get userInfoChangeResponceModel =>
       throw _privateConstructorUsedError;
   ForegottPasswordResponceMdel? get foregottPasswordResponceMdel =>
-      throw _privateConstructorUsedError;
-  List<ArcheivedCard>? get archievedCards => throw _privateConstructorUsedError;
-  List<BlockedConnection>? get blockedConnections =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -2333,10 +1396,9 @@ abstract class $ProfileStateCopyWith<$Res> {
       String? message,
       GetUserInfoModel? getUserInfoModel,
       ImageModel? imageModel,
+      bool? uploaded,
       UserInfoChangeResponceModel? userInfoChangeResponceModel,
-      ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-      List<ArcheivedCard>? archievedCards,
-      List<BlockedConnection>? blockedConnections});
+      ForegottPasswordResponceMdel? foregottPasswordResponceMdel});
 }
 
 /// @nodoc
@@ -2357,10 +1419,9 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? message = freezed,
     Object? getUserInfoModel = freezed,
     Object? imageModel = freezed,
+    Object? uploaded = freezed,
     Object? userInfoChangeResponceModel = freezed,
     Object? foregottPasswordResponceMdel = freezed,
-    Object? archievedCards = freezed,
-    Object? blockedConnections = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -2383,6 +1444,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.imageModel
           : imageModel // ignore: cast_nullable_to_non_nullable
               as ImageModel?,
+      uploaded: freezed == uploaded
+          ? _value.uploaded
+          : uploaded // ignore: cast_nullable_to_non_nullable
+              as bool?,
       userInfoChangeResponceModel: freezed == userInfoChangeResponceModel
           ? _value.userInfoChangeResponceModel
           : userInfoChangeResponceModel // ignore: cast_nullable_to_non_nullable
@@ -2391,14 +1456,6 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.foregottPasswordResponceMdel
           : foregottPasswordResponceMdel // ignore: cast_nullable_to_non_nullable
               as ForegottPasswordResponceMdel?,
-      archievedCards: freezed == archievedCards
-          ? _value.archievedCards
-          : archievedCards // ignore: cast_nullable_to_non_nullable
-              as List<ArcheivedCard>?,
-      blockedConnections: freezed == blockedConnections
-          ? _value.blockedConnections
-          : blockedConnections // ignore: cast_nullable_to_non_nullable
-              as List<BlockedConnection>?,
     ) as $Val);
   }
 }
@@ -2417,10 +1474,9 @@ abstract class _$$InitialImplCopyWith<$Res>
       String? message,
       GetUserInfoModel? getUserInfoModel,
       ImageModel? imageModel,
+      bool? uploaded,
       UserInfoChangeResponceModel? userInfoChangeResponceModel,
-      ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-      List<ArcheivedCard>? archievedCards,
-      List<BlockedConnection>? blockedConnections});
+      ForegottPasswordResponceMdel? foregottPasswordResponceMdel});
 }
 
 /// @nodoc
@@ -2439,10 +1495,9 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? message = freezed,
     Object? getUserInfoModel = freezed,
     Object? imageModel = freezed,
+    Object? uploaded = freezed,
     Object? userInfoChangeResponceModel = freezed,
     Object? foregottPasswordResponceMdel = freezed,
-    Object? archievedCards = freezed,
-    Object? blockedConnections = freezed,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -2465,6 +1520,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.imageModel
           : imageModel // ignore: cast_nullable_to_non_nullable
               as ImageModel?,
+      uploaded: freezed == uploaded
+          ? _value.uploaded
+          : uploaded // ignore: cast_nullable_to_non_nullable
+              as bool?,
       userInfoChangeResponceModel: freezed == userInfoChangeResponceModel
           ? _value.userInfoChangeResponceModel
           : userInfoChangeResponceModel // ignore: cast_nullable_to_non_nullable
@@ -2473,14 +1532,6 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.foregottPasswordResponceMdel
           : foregottPasswordResponceMdel // ignore: cast_nullable_to_non_nullable
               as ForegottPasswordResponceMdel?,
-      archievedCards: freezed == archievedCards
-          ? _value._archievedCards
-          : archievedCards // ignore: cast_nullable_to_non_nullable
-              as List<ArcheivedCard>?,
-      blockedConnections: freezed == blockedConnections
-          ? _value._blockedConnections
-          : blockedConnections // ignore: cast_nullable_to_non_nullable
-              as List<BlockedConnection>?,
     ));
   }
 }
@@ -2494,12 +1545,9 @@ class _$InitialImpl implements _Initial {
       this.message,
       this.getUserInfoModel,
       this.imageModel,
+      this.uploaded,
       this.userInfoChangeResponceModel,
-      this.foregottPasswordResponceMdel,
-      final List<ArcheivedCard>? archievedCards,
-      final List<BlockedConnection>? blockedConnections})
-      : _archievedCards = archievedCards,
-        _blockedConnections = blockedConnections;
+      this.foregottPasswordResponceMdel});
 
   @override
   final bool isLoading;
@@ -2512,33 +1560,15 @@ class _$InitialImpl implements _Initial {
   @override
   final ImageModel? imageModel;
   @override
+  final bool? uploaded;
+  @override
   final UserInfoChangeResponceModel? userInfoChangeResponceModel;
   @override
   final ForegottPasswordResponceMdel? foregottPasswordResponceMdel;
-  final List<ArcheivedCard>? _archievedCards;
-  @override
-  List<ArcheivedCard>? get archievedCards {
-    final value = _archievedCards;
-    if (value == null) return null;
-    if (_archievedCards is EqualUnmodifiableListView) return _archievedCards;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<BlockedConnection>? _blockedConnections;
-  @override
-  List<BlockedConnection>? get blockedConnections {
-    final value = _blockedConnections;
-    if (value == null) return null;
-    if (_blockedConnections is EqualUnmodifiableListView)
-      return _blockedConnections;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, hasError: $hasError, message: $message, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, userInfoChangeResponceModel: $userInfoChangeResponceModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, archievedCards: $archievedCards, blockedConnections: $blockedConnections)';
+    return 'ProfileState(isLoading: $isLoading, hasError: $hasError, message: $message, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, userInfoChangeResponceModel: $userInfoChangeResponceModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel)';
   }
 
   @override
@@ -2555,6 +1585,8 @@ class _$InitialImpl implements _Initial {
                 other.getUserInfoModel == getUserInfoModel) &&
             (identical(other.imageModel, imageModel) ||
                 other.imageModel == imageModel) &&
+            (identical(other.uploaded, uploaded) ||
+                other.uploaded == uploaded) &&
             (identical(other.userInfoChangeResponceModel,
                     userInfoChangeResponceModel) ||
                 other.userInfoChangeResponceModel ==
@@ -2562,11 +1594,7 @@ class _$InitialImpl implements _Initial {
             (identical(other.foregottPasswordResponceMdel,
                     foregottPasswordResponceMdel) ||
                 other.foregottPasswordResponceMdel ==
-                    foregottPasswordResponceMdel) &&
-            const DeepCollectionEquality()
-                .equals(other._archievedCards, _archievedCards) &&
-            const DeepCollectionEquality()
-                .equals(other._blockedConnections, _blockedConnections));
+                    foregottPasswordResponceMdel));
   }
 
   @override
@@ -2577,10 +1605,9 @@ class _$InitialImpl implements _Initial {
       message,
       getUserInfoModel,
       imageModel,
+      uploaded,
       userInfoChangeResponceModel,
-      foregottPasswordResponceMdel,
-      const DeepCollectionEquality().hash(_archievedCards),
-      const DeepCollectionEquality().hash(_blockedConnections));
+      foregottPasswordResponceMdel);
 
   @JsonKey(ignore: true)
   @override
@@ -2591,15 +1618,15 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements ProfileState {
   const factory _Initial(
-      {required final bool isLoading,
-      required final bool hasError,
-      final String? message,
-      final GetUserInfoModel? getUserInfoModel,
-      final ImageModel? imageModel,
-      final UserInfoChangeResponceModel? userInfoChangeResponceModel,
-      final ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-      final List<ArcheivedCard>? archievedCards,
-      final List<BlockedConnection>? blockedConnections}) = _$InitialImpl;
+          {required final bool isLoading,
+          required final bool hasError,
+          final String? message,
+          final GetUserInfoModel? getUserInfoModel,
+          final ImageModel? imageModel,
+          final bool? uploaded,
+          final UserInfoChangeResponceModel? userInfoChangeResponceModel,
+          final ForegottPasswordResponceMdel? foregottPasswordResponceMdel}) =
+      _$InitialImpl;
 
   @override
   bool get isLoading;
@@ -2612,13 +1639,11 @@ abstract class _Initial implements ProfileState {
   @override
   ImageModel? get imageModel;
   @override
+  bool? get uploaded;
+  @override
   UserInfoChangeResponceModel? get userInfoChangeResponceModel;
   @override
   ForegottPasswordResponceMdel? get foregottPasswordResponceMdel;
-  @override
-  List<ArcheivedCard>? get archievedCards;
-  @override
-  List<BlockedConnection>? get blockedConnections;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

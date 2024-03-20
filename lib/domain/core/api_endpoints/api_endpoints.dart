@@ -55,4 +55,5 @@ class ApiEndPoints {
   static String defaultQr = '/level/common-level-sharing-update/';
   static String getBlockedConnections =
       '/connections/list-blocked-connections/';
+  static String restreArcheivedCard = '/card/get-card/{card_id}/';
 }

@@ -3,10 +3,7 @@ import 'dart:developer';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card.dart';
-import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
-import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
 import 'package:bizkit/domain/model/profile/get_user_info_model/get_user_info_model.dart';
@@ -41,78 +38,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<PickImageScanning>(pickImage);
     on<ResetPasswod>(profilePasswordChange);
     on<ReportAProblem>(reportAProblem);
-    on<GetArchievedCards>(getArchievedCards);
-    on<GetArchievedCardsEvent>(getArchievedCardsEvent);
-    on<GetBlockeConnections>(getBlockeConnections);
-    on<GgetBlockeConnectionsEvent>(getBlockedConnectionsEvent);
-  }
-
-  FutureOr<void> getBlockedConnectionsEvent(
-      GgetBlockeConnectionsEvent event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-
-    final data = await profileRepo.getBlockeConnections(
-        pageQuery: PageQuery(page: ++blockedCards));
-    data.fold(
-        (l) => emit(
-            state.copyWith(isLoading: false, hasError: true, message: null)),
-        (r) {
-      emit(state.copyWith(
-        isLoading: false,
-        hasError: false,
-        blockedConnections: [...state.blockedConnections!, ...r.results!],
-      ));
-    });
-  }
-
-  FutureOr<void> getArchievedCardsEvent(event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-
-    final data = await profileRepo.archievedCardsList(
-        pageQuery: PageQuery(page: ++archevedCards));
-    data.fold(
-        (l) => emit(
-            state.copyWith(isLoading: false, hasError: true, message: null)),
-        (r) {
-      emit(state.copyWith(
-        isLoading: false,
-        hasError: false,
-        archievedCards: [...state.archievedCards!, ...r.results!],
-      ));
-    });
-  }
-
-  FutureOr<void> getBlockeConnections(GetBlockeConnections event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data = await profileRepo.getBlockeConnections(
-        pageQuery: PageQuery(page: blockedCards));
-    data.fold(
-      (l) => emit(
-        state.copyWith(
-          isLoading: false,
-          hasError: true,
-        ),
-      ),
-      (r) => emit(state.copyWith(
-        isLoading: false,
-        hasError: false,
-        blockedConnections: [...state.blockedConnections!, ...r.results!],
-      )),
-    );
-  }
-
-  FutureOr<void> getArchievedCards(GetArchievedCards event, emit) async {
-    archevedCards = 1;
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data = await profileRepo.archievedCardsList(
-        pageQuery: PageQuery(page: archevedCards));
-    data.fold(
-        (l) => emit(
-            state.copyWith(isLoading: false, hasError: true, message: null)),
-        (r) {
-      emit(state.copyWith(
-          isLoading: false, hasError: false, archievedCards: r.results));
-    });
   }
 
   FutureOr<void> reportAProblem(ReportAProblem event, emit) async {
@@ -166,7 +91,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> editProfile(EditProfile event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null,userInfoChangeResponceModel:null));
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final data = await profileRepo.editProfile(
       userInfoChangeRequestModel: event.userInfoChangeRequestModel,
     );
@@ -181,6 +106,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         state.copyWith(
           isLoading: false,
           hasError: false,
+          uploaded: true,
           userInfoChangeResponceModel: r,
         ),
       ),
@@ -190,7 +116,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   FutureOr<void> getProfile(GetProfile event, emit) async {
     if (state.getUserInfoModel != null && event.isLoad == false) return;
-    emit(state.copyWith(isLoading: true, hasError: false, message: null,userInfoChangeResponceModel:null));
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final data = await profileRepo.getProfile();
     data.fold(
         (l) => emit(

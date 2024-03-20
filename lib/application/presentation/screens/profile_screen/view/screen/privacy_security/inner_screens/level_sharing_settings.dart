@@ -49,12 +49,6 @@ class DefaultLevelSharing extends StatelessWidget {
                           'Level Sharing',
                           style: TextStyle(fontSize: kwidth * 0.037),
                         ),
-                        Text(
-                          'Professional, Emergency, Company',
-                          style: TextStyle(
-                            fontSize: kwidth * 0.027,
-                          ),
-                        ),
                       ],
                     ),
                     const Icon(
@@ -69,12 +63,7 @@ class DefaultLevelSharing extends StatelessWidget {
               const DefaultSwitchButtons(),
               adjustHieght(khieght * .1),
               BlocConsumer<QrBloc, QrState>(
-                listener: (context, state) {
-                  // if (state.defauiltQr != null) {
-                  //   showSnackbar(context, message: 'Updated successfully');
-                  //   Navigator.pop(context);
-                  // }
-                },
+                listener: (context, state) {},
                 builder: (context, state) {
                   if (state.isLoading) {
                     return const LoadingAnimation();
@@ -220,6 +209,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
             }),
             buildSwitch("Address", defaultQrModel.address ?? false, (value) {
               setState(() {
+                defaultQrModel.address = value;
                 context.read<QrBloc>().defauiltQr =
                     context.read<QrBloc>().defauiltQr.copyWith(address: value);
               });

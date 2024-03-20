@@ -18,9 +18,4 @@ class ProfileEvent with _$ProfileEvent {
   const factory ProfileEvent.reportAProblem({
     required ReportAProblemRequestModel reportAProblemRequestModel,
   }) = ReportAProblem;
-  const factory ProfileEvent.getArchievedCards() = GetArchievedCards;
-  const factory ProfileEvent.getArchievedCardsEvent() = GetArchievedCardsEvent;
-  const factory ProfileEvent.getBlockeConnections() = GetBlockeConnections;
-  const factory ProfileEvent.getBlockeConnectionsEvent() =
-      GgetBlockeConnectionsEvent;
 }

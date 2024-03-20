@@ -7,6 +7,7 @@ import 'package:bizkit/domain/model/card/card/business_detail/business_details.d
 import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/get_card_resposnse_model/get_card_resposnse_model.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card_model.dart';
 import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/get_business_category_response_model.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_companys/get_companys.dart';
@@ -33,8 +34,10 @@ class CardService implements CardRepo {
       {required int id}) async {
     try {
       print('delete card apiicall');
-      final response = await apiService.patch(ApiEndPoints.deleteArchiveCard
-          .replaceFirst('{card_id}', id.toString()));
+      final response = await apiService.patch(
+          data: {"is_archived": true},
+          ApiEndPoints.deleteArchiveCard
+              .replaceFirst('{card_id}', id.toString()));
       print('delete card api success');
       print(response.data);
       return Right(SuccessResponseModel(message: 'Card deleted successfully'));
@@ -43,6 +46,26 @@ class CardService implements CardRepo {
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log(e.toString());
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> restoreArchiveCard(
+      {required int cardId}) async {
+    try {
+      final responce = await apiService.patch(
+        data: {"is_archived": false},
+        ApiEndPoints.restreArcheivedCard
+            .replaceFirst('{card_id}', cardId.toString()),
+      );
+      log('restoreArchiveCard ${responce.data}');
+      return Right(SuccessResponseModel(message: 'Card restore sucessfully'));
+    } on DioException catch (e) {
+      log('getBlockeConnections DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      log('getBlockeConnections catch $e');
       return Left(Failure(message: errorMessage));
     }
   }
@@ -268,6 +291,24 @@ class CardService implements CardRepo {
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log(e.toString());
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ArcheivedCardModel>> archievedCardsList(
+      {required PageQuery pageQuery}) async {
+    try {
+      final responce = await apiService.get(
+        ApiEndPoints.archeivedCardsList,
+        data: pageQuery.toJson(),
+      );
+      return Right(ArcheivedCardModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('archievedCardsList DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      log('archievedCardsList catch $e');
       return Left(Failure(message: errorMessage));
     }
   }

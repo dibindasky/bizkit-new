@@ -9,6 +9,7 @@ class CardState with _$CardState {
       required bool businessUser,
       required List<CardResponse> cards,
       String? message,
+      List<ArcheivedCard>? archievedCards,
       CardResponse? defaultCard,
       Card? anotherCard}) = _Initial;
 

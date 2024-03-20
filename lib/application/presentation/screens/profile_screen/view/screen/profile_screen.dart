@@ -2,14 +2,12 @@ import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
-import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/account_settings_scree.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/connection_network_screen.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
-import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -64,91 +62,59 @@ class _ProfileScreenState extends State<ProfileScreen>
               children: [
                 BlocBuilder<ProfileBloc, ProfileState>(
                   builder: (context, state) {
-                    return Column(
+                    return Stack(
                       children: [
-                        BlocBuilder<ProfileBloc, ProfileState>(
-                          builder: (context, state) {
-                            if (state.imageModel != null) {
-                              return Stack(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 75,
-                                    backgroundColor: neonShade,
-                                    child: CircleAvatar(
-                                      radius: 67,
-                                      backgroundImage: FileImage(
-                                          state.imageModel!.fileImage),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.add_a_photo),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            } else if (state.getUserInfoModel != null &&
-                                state.getUserInfoModel!.results != null &&
-                                state.getUserInfoModel!.results!.profilePic !=
-                                    null) {
-                              return Stack(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 75,
-                                    backgroundColor: neonShade,
-                                    child: CircleAvatar(
-                                      radius: 67,
-                                      backgroundImage: NetworkImage(
-                                        state.getUserInfoModel!.results!
-                                            .profilePic!,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            } else {
-                              return const CircleAvatar(
-                                radius: 75,
-                                backgroundColor: neonShade,
-                                child: CircleAvatar(
-                                  radius: 67,
-                                  backgroundImage: AssetImage(imagePerson),
-                                ),
-                              );
-                            }
-                          },
+                        CircleAvatar(
+                          radius: 75,
+                          backgroundColor: neonShade,
+                          child: GestureDetector(
+                              onTap: () {
+                                cardscanimagesSelectingDailogu(context);
+                              },
+                              child: state.isLoading
+                                  ? const CircularProgressIndicator(
+                                      color: kwhite,
+                                    )
+                                  : state.imageModel != null
+                                      ? CircleAvatar(
+                                          radius: 67,
+                                          backgroundImage: FileImage(
+                                              state.imageModel!.fileImage),
+                                        )
+                                      : (state.getUserInfoModel != null &&
+                                              state.getUserInfoModel!.results !=
+                                                  null &&
+                                              state.getUserInfoModel!.results!
+                                                      .profilePic !=
+                                                  null)
+                                          ? CircleAvatar(
+                                              radius: 67,
+                                              backgroundImage: NetworkImage(
+                                                state.getUserInfoModel!.results!
+                                                    .profilePic!,
+                                              ),
+                                            )
+                                          : const CircleAvatar(
+                                              backgroundImage:
+                                                  AssetImage(imagePerson))),
                         ),
-                        adjustHieght(khieght * .01),
-                        if (state.imageModel == null &&
-                            state.getUserInfoModel != null)
-                          BlocBuilder<ProfileBloc, ProfileState>(
-                            builder: (context, state) {
-                              if (state.isLoading) {
-                                return const LoadingAnimation(width: .1);
-                              }
-                              return AuthButton(
-                                wdth: 50,
-                                hieght: 30,
-                                text: 'Save',
-                                onTap: () {
-                                  UserInfoChangeRequestModel
-                                      userInfoChangeRequestModel =
-                                      UserInfoChangeRequestModel(
-                                          profilePic: state.imageModel!.base64);
-                                  context.read<ProfileBloc>().add(
-                                      ProfileEvent.editProfile(
-                                          userInfoChangeRequestModel:
-                                              userInfoChangeRequestModel));
-                                  context.read<ProfileBloc>().add(
-                                        const ProfileEvent.getProfile(
-                                            isLoad: true),
-                                      );
-                                },
-                              );
-                            },
+                        if (state.imageModel != null)
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: IconButton(
+                              onPressed: () {
+                                UserInfoChangeRequestModel
+                                    userInfoChangeRequestModel =
+                                    UserInfoChangeRequestModel(
+                                        profilePic: state.imageModel!.base64);
+                                context.read<ProfileBloc>().add(
+                                    ProfileEvent.editProfile(
+                                        userInfoChangeRequestModel:
+                                            userInfoChangeRequestModel));
+                              },
+                              icon: const Icon(Icons.cloud_upload),
+                            ),
                           ),
                       ],
                     );

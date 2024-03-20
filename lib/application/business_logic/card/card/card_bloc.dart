@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
@@ -17,7 +18,7 @@ part 'card_bloc.freezed.dart';
 class CardBloc extends Bloc<CardEvent, CardState> {
   final CardRepo cardService;
   final PdfPickerImpl pdfPicker;
-  int cardPage = 1;
+  int cardPage = 1, archevedCards = 1;
 
   CardBloc(this.cardService, this.pdfPicker) : super(CardState.initial()) {
     on<GetCards>(getCards);
@@ -26,12 +27,74 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     on<GetCardyCardId>(getCardyCardId);
     on<SetDefault>(setDefault);
     on<DeleteCard>(deleteCard);
-    // on<ArchiveCard>(archiveCard);
+    on<ArchiveCard>(archiveCard);
+    on<GetArchievedCards>(getArchievedCards);
+    on<GetArchievedCardsEvent>(getArchievedCardsEvent);
+    on<RestoreArchieveCards>(restoreArchieveCards);
   }
 
-  // FutureOr<void> archiveCard(ArchiveCard event, emit) async {
-  //   retutn emit(state);
-  // }
+  FutureOr<void> getArchievedCards(GetArchievedCards event, emit) async {
+    if (state.archievedCards != null && event.isLoad == false) return;
+    archevedCards = 1;
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final data = await cardService.archievedCardsList(
+        pageQuery: PageQuery(page: archevedCards));
+    data.fold(
+        (l) => emit(
+            state.copyWith(isLoading: false, hasError: true, message: null)),
+        (r) {
+      emit(state.copyWith(
+          isLoading: false, hasError: false, archievedCards: r.results));
+    });
+  }
+
+  FutureOr<void> getArchievedCardsEvent(event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+
+    final data = await cardService.archievedCardsList(
+        pageQuery: PageQuery(page: ++archevedCards));
+    data.fold(
+        (l) => emit(
+            state.copyWith(isLoading: false, hasError: true, message: null)),
+        (r) {
+      emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        archievedCards: [...state.archievedCards!, ...r.results!],
+      ));
+    });
+  }
+
+  FutureOr<void> archiveCard(ArchiveCard event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final result = await cardService.archiveCard(id: event.id);
+    result.fold(
+        (failure) => emit(state.copyWith(
+            isLoading: false,
+            message: 'failed to archieve card',
+            hasError: true)), (success) {
+      emit(state.copyWith(message: 'card archeive successfully'));
+      add(const CardEvent.getCards(call: true));
+      add(const CardEvent.getArchievedCards(isLoad: true));
+    });
+  }
+
+  FutureOr<void> restoreArchieveCards(RestoreArchieveCards event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final data = await cardService.restoreArchiveCard(cardId: event.cardId);
+    data.fold(
+        (l) => emit(
+            state.copyWith(isLoading: false, hasError: true, message: null)),
+        (r) {
+      emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        message: r.message,
+      ));
+      add(const CardEvent.getArchievedCards(isLoad: true));
+      add(const CardEvent.getCards(call: true));
+    });
+  }
 
   FutureOr<void> deleteCard(DeleteCard event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));

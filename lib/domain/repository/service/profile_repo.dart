@@ -1,5 +1,3 @@
-import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card_model.dart';
-
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection_model.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
@@ -27,9 +25,7 @@ abstract class ProfileRepo {
   Future<Either<Failure, Map>> reportAProblem({
     required ReportAProblemRequestModel reportAProblemRequestModel,
   });
-  Future<Either<Failure, ArcheivedCardModel>> archievedCardsList({
-    required PageQuery pageQuery,
-  });
+
   Future<Either<Failure, DefauiltQr>> getDefaultQr();
   Future<Either<Failure, DefauiltQr>> defaultQr({
     required DefauiltQr defauiltQr,

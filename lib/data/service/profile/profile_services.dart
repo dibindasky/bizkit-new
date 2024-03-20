@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:bizkit/data/service/api_service.dart';
-import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection_model.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
@@ -102,24 +101,6 @@ class ProfileService implements ProfileRepo {
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log('getProfile catch $e');
-      return Left(Failure(message: errorMessage));
-    }
-  }
-
-  @override
-  Future<Either<Failure, ArcheivedCardModel>> archievedCardsList(
-      {required PageQuery pageQuery}) async {
-    try {
-      final responce = await apiService.get(
-        ApiEndPoints.archeivedCardsList,
-        data: pageQuery.toJson(),
-      );
-      return Right(ArcheivedCardModel.fromJson(responce.data));
-    } on DioException catch (e) {
-      log('archievedCardsList DioException ${e.response?.statusCode} $e');
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
-    } catch (e) {
-      log('archievedCardsList catch $e');
       return Left(Failure(message: errorMessage));
     }
   }

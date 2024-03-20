@@ -13,6 +13,7 @@ class ConnectionRequestState with _$ConnectionRequestState {
     List<BizkitConnection>? bizkitConnections,
     List<BizkitUser>? bizkitUsers,
     List<RequestModel>? requestList,
+    List<BlockedConnection>? blockedConnections,
   }) = _Initial;
   factory ConnectionRequestState.initial() => const ConnectionRequestState(
       connected: false,

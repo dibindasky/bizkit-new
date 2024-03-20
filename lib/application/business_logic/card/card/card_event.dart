@@ -9,4 +9,9 @@ class CardEvent with _$CardEvent {
   const factory CardEvent.setDefault({required int id}) = SetDefault;
   const factory CardEvent.deleteCard({required int id}) = DeleteCard;
   const factory CardEvent.archiveCard({required int id}) = ArchiveCard;
+  const factory CardEvent.getArchievedCards({required bool isLoad}) =
+      GetArchievedCards;
+  const factory CardEvent.getArchievedCardsEvent() = GetArchievedCardsEvent;
+  const factory CardEvent.restoreArchieveCards({required int cardId}) =
+      RestoreArchieveCards;
 }

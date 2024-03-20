@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/domain/model/qr/create_qr_model/create_qr_model.dart';
 import 'package:bizkit/domain/model/qr/defauilt_qr/defauilt_qr.dart';
 import 'package:bizkit/domain/model/qr/get_qr_code_response_model/qr_model.dart';
@@ -69,15 +70,27 @@ class QrBloc extends Bloc<QrEvent, QrState> {
 
   FutureOr<void> addNewLevelSharing(AddNewLevelSharing event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    createQrModel.card = state.qrList[state.selectedQrIndex].id!;
     final result = await qrServiceImpl.updateLevelSharing(
-        createQrModel: event.createQrModel);
-    result.fold(
-        (failure) => emit(state.copyWith(
-              isLoading: false,
-              hasError: true,
-              message: failure.message,
-            )), (response) {
+        createQrModel: event.createQrModel,id: state.qrList[state.selectedQrIndex].id!);
+    result.fold((failure) {
+      List<QRModel> list = List.from(state.qrList);
+      final model = list[state.selectedQrIndex];
+      createQrModel = createQrModel.copyWith(
+          address: model.address,
+          businessDetailsMobileNumber: model.businessDetailsMobileNumber,
+          businessEmail: model.businessEmail,
+          company: model.company,
+          email: model.email,
+          personalSocialMedia: model.personalSocialMedia,
+          phoneNumber: model.phoneNumber,
+          socialMediaHandles: model.socialMediaHandles,
+          websiteLink: model.websiteLink);
+      return emit(state.copyWith(
+        isLoading: false,
+        hasError: true,
+        message: failure.message??errorMessage,
+      ));
+    }, (response) {
       List<QRModel> list = List.from(state.qrList);
       list[state.selectedQrIndex] = response;
       return emit(state.copyWith(isLoading: false, qrList: list));
@@ -109,7 +122,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
       socialMediaHandles: model.socialMediaHandles,
       websiteLink: model.websiteLink,
       businessEmail: model.businessEmail,
-      card: model.cardId,
+      // card: model.cardId,
     );
     emit(state.copyWith(selectedQrIndex: event.index));
   }

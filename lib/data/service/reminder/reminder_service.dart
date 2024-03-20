@@ -141,7 +141,7 @@ class ReminderService implements ReminderRepo {
     try {
       log('getTodaysReminder ');
       final response = await _apiService.get(ApiEndPoints.getTodaysReminder);
-      log('getTodaysReminder done');
+      log('getTodaysReminder done ==================================${response.data}');
       return Right(GetReminderModel.fromJson(response.data));
     } on DioException catch (e) {
       log('getTodaysReminder dio error');

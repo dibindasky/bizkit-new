@@ -7,6 +7,7 @@ import 'package:bizkit/application/presentation/screens/authentication/view/widg
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/level_sharing.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,7 +43,13 @@ class CardSharingScreen extends StatelessWidget {
           children: [
             SizedBox(
               height: 70.dm,
-              child: BlocBuilder<QrBloc, QrState>(
+              child: BlocConsumer<QrBloc, QrState>(
+                listener: (context, state) {
+                  if (state.message != null && state.hasError) {
+                    showSnackbar(context,
+                        message: state.message!, backgroundColor: kred);
+                  }
+                },
                 builder: (context, state) {
                   if (state.qrList.isEmpty) {
                     return const SizedBox();

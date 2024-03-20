@@ -57,10 +57,13 @@ class TTextFormField extends StatefulWidget {
 
 class _TTextFormFieldState extends State<TTextFormField> {
   final FocusNode _focusNode = FocusNode();
-  @override
+
+  bool showEye = false;
+
   @override
   void initState() {
     super.initState();
+    showEye = widget.obscureText;
     _focusNode.addListener(() {
       setState(() {});
     });
@@ -95,11 +98,21 @@ class _TTextFormFieldState extends State<TTextFormField> {
           maxLength: widget.maxlegth,
           onChanged: widget.onChanaged,
           onSaved: widget.onSubmitted,
-          obscureText: widget.obscureText && !_focusNode.hasFocus,
+          obscureText: showEye,
           controller: widget.controller,
           keyboardType: widget.inputType,
           decoration: InputDecoration(
-            suffixIcon: widget.suffix,
+            suffixIcon: widget.obscureText
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        showEye = !showEye;
+                      });
+                    },
+                    icon: Icon(showEye
+                        ? Icons.remove_red_eye_outlined
+                        : Icons.remove_red_eye))
+                : widget.suffix,
             prefix: widget.prefix,
             suffixIconColor: klightgrey,
             prefixIcon: widget.su,

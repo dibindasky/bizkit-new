@@ -225,7 +225,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                     validate: Validate.email,
                     text: 'Email',
                     controller: emailController,
-                    inputType: TextInputType.name,
+                    inputType: TextInputType.emailAddress,
                   ),
                   TTextFormField(
                     onTap: () {

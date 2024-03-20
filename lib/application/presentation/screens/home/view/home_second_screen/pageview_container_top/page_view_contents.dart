@@ -109,7 +109,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                       BorderRadius.only(bottomLeft: Radius.circular(7)),
                 ),
                 child: const Center(
-                  child: Text('Card'),
+                  child: Text('View card'),
                 ),
               ),
             ),

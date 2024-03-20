@@ -1,7 +1,6 @@
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
-import 'package:bizkit/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
 import 'package:bizkit/domain/model/connections/create_connection_with_card_id_model/create_connection_with_card_id_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

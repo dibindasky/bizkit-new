@@ -20,7 +20,7 @@ ValueNotifier<HomeScreensList> showCardsNotifier =
     ValueNotifier(HomeScreensList.first);
 
 class HomeScreenFirstAnimationScreen extends StatefulWidget {
-  const HomeScreenFirstAnimationScreen({super.key});
+  const HomeScreenFirstAnimationScreen({super.key });
 
   @override
   State<HomeScreenFirstAnimationScreen> createState() =>

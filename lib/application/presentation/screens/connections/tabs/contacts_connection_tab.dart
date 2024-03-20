@@ -40,7 +40,7 @@ class ContactConnectionsTab extends StatelessWidget {
                 ),
                 adjustHieght(20),
                 const Text(
-                  'We are syncing your contacts,\n please wait',
+                  'We are syncing your contacts,\n please come back in few minutes',
                   textAlign: TextAlign.center,
                 )
               ],

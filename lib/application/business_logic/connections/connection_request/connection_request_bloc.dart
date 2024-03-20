@@ -7,6 +7,7 @@ import 'package:bizkit/domain/model/connections/create_connection_with_card_id_m
 import 'package:bizkit/domain/model/connections/get_bizkit_connections_response_model/bizkit_connection.dart';
 import 'package:bizkit/domain/model/connections/get_request_list_responsemodel/request.dart';
 import 'package:bizkit/domain/model/connections/get_serch_connection_response_model/bizkit_user.dart';
+import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/repository/service/connection_request_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

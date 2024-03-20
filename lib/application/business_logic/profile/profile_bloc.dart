@@ -101,45 +101,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     );
   }
 
-  // FutureOr<void> getDefaultQr(GetDefaultQr event, emit) async {
-  //   emit(state.copyWith(isLoading: true, hasError: false, message: null));
-  //   final data = await profileRepo.getDefaultQr();
-  //   data.fold(
-  //     (l) => emit(state.copyWith(
-  //       isLoading: false,
-  //       hasError: true,
-  //       message: null,
-  //     )),
-  //     (r) => emit(
-  //       state.copyWith(
-  //         isLoading: false,
-  //         hasError: false,
-  //         defaultQrmodel: r,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  FutureOr<void> defaultQr(DefaultQr event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data =
-        await profileRepo.defaultQr(createQrModel: event.createQrModel);
-    data.fold(
-      (l) => emit(state.copyWith(
-        isLoading: false,
-        hasError: true,
-        message: null,
-      )),
-      (r) => emit(
-        state.copyWith(
-          isLoading: false,
-          hasError: false,
-          blockedConnections: r.results!,
-        ),
-      ),
-    );
-  }
-
   FutureOr<void> getArchievedCards(GetArchievedCards event, emit) async {
     archevedCards = 1;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
@@ -205,7 +166,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> editProfile(EditProfile event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(isLoading: true, hasError: false, message: null,userInfoChangeResponceModel:null));
     final data = await profileRepo.editProfile(
       userInfoChangeRequestModel: event.userInfoChangeRequestModel,
     );
@@ -220,7 +181,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         state.copyWith(
           isLoading: false,
           hasError: false,
-          message: 'Profile updated uccessfully',
           userInfoChangeResponceModel: r,
         ),
       ),
@@ -230,7 +190,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   FutureOr<void> getProfile(GetProfile event, emit) async {
     if (state.getUserInfoModel != null && event.isLoad == false) return;
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(isLoading: true, hasError: false, message: null,userInfoChangeResponceModel:null));
     final data = await profileRepo.getProfile();
     data.fold(
         (l) => emit(

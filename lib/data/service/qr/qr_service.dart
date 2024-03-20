@@ -43,7 +43,7 @@ class QRServiceImpl implements QrServiceRepo {
   Future<Either<Failure, QRModel>> updateLevelSharing(
       {required CreateQrModel createQrModel}) async {
     try {
-      log('updateLevelSharing  api call');
+      log('updateLevelSharing  api call==> ${createQrModel.toJson()}');
       final response = await apiService.patch(
           ApiEndPoints.levelsharingEdit.replaceFirst(
               '{level_sharing_id}', createQrModel.card.toString()),

@@ -4,8 +4,8 @@ part 'create_qr_model.g.dart';
 
 @JsonSerializable()
 class CreateQrModel {
-  @JsonKey(name: 'user_id')
-  int? userId;
+  // @JsonKey(name: 'user_id')
+  // int? userId;
   bool? email;
   @JsonKey(name: 'phone_number')
   bool? phoneNumber;
@@ -21,12 +21,11 @@ class CreateQrModel {
   bool? websiteLink;
   @JsonKey(name: 'business_email')
   bool? businessEmail;
+  @JsonKey(name: 'card_id')
   int? card;
-  @JsonKey(name: 'update_all_cards')
-  bool? updateAllCards;
 
   CreateQrModel({
-    this.userId,
+    // this.userId,
     this.email,
     this.phoneNumber,
     this.company,
@@ -37,7 +36,6 @@ class CreateQrModel {
     this.websiteLink,
     this.card,
     this.businessEmail,
-    this.updateAllCards,
   });
 
   factory CreateQrModel.fromJson(Map<String, dynamic> json) {
@@ -47,7 +45,7 @@ class CreateQrModel {
   Map<String, dynamic> toJson() => _$CreateQrModelToJson(this);
 
   CreateQrModel copyWith({
-    int? userId,
+    // int? userId,
     bool? email,
     bool? phoneNumber,
     bool? company,
@@ -58,10 +56,9 @@ class CreateQrModel {
     bool? websiteLink,
     bool? businessEmail,
     int? card,
-    bool? updateAllCards,
   }) {
     return CreateQrModel(
-      userId: userId ?? this.userId,
+      // userId: userId ?? this.userId,
       email: email ?? this.email,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       company: company ?? this.company,
@@ -73,7 +70,6 @@ class CreateQrModel {
       websiteLink: websiteLink ?? this.websiteLink,
       businessEmail: businessEmail ?? this.businessEmail,
       card: card ?? this.card,
-      updateAllCards: updateAllCards ?? this.updateAllCards,
     );
   }
 }

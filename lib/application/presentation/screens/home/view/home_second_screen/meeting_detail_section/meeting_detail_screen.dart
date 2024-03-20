@@ -17,13 +17,13 @@ class MeetingDetailScreen extends StatelessWidget {
     return Scaffold(
       body: PopScope(
         canPop: fadeCallBack == null,
-        onPopInvoked: (didPop) => fadeCallBack != null
-            ? () {
-                showCardsNotifier.value = HomeScreensList.second;
-                showCardsNotifier.notifyListeners();
-                fadeCallBack!();
-              }()
-            : Navigator.pop(context),
+        onPopInvoked: (didPop) {
+          if (fadeCallBack != null) {
+            showCardsNotifier.value = HomeScreensList.second;
+            showCardsNotifier.notifyListeners();
+            fadeCallBack!();
+          }
+        },
         child: BlocBuilder<ReminderBloc, ReminderState>(
           builder: (context, state) {
             return Padding(

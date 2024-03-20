@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/auth/change_password_model/change_password_model.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart'
 import 'package:bizkit/domain/model/token/token_model.dart';
 import 'package:bizkit/domain/repository/service/auth_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -44,8 +46,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         hasError: false,
         message: null,
         loginResponseModel: null));
+    await FirebaseMessaging.instance.requestPermission();
+    final LoginModel model = LoginModel(
+        email: event.loginModel.email,
+        password: event.loginModel.password,
+        deviceToken: await FirebaseMessaging.instance.getToken(),
+        deviceType: Platform.isAndroid ? 1 : 2,
+        deviceId:
+            '${Platform.isAndroid ? 'Android' : 'ios'} device ${DateTime.now().toString()}'
+        // deviceId: await DeviceInformation.getDeviceInformation()
+        );
     print('login request send');
-    final result = await authRepo.login(loginModel: event.loginModel);
+    final result = await authRepo.login(loginModel: model);
     result.fold(
       (failure) {
         print('login failed');

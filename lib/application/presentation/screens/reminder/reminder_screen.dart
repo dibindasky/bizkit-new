@@ -95,7 +95,7 @@ class _PreviewHomeAddReminderScreenState
                       Icons.edit_outlined,
                       color: kwhite.withOpacity(0.5),
                     ),
-                    text: 'Occation',
+                    text: 'Occasion',
                     maxlegth: 100,
                     controller: context.read<ReminderBloc>().occationController,
                     inputType: TextInputType.text),

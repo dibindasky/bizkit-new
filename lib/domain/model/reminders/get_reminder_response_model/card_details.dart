@@ -32,7 +32,8 @@ class CardDetails {
     this.businessDetailsId,
   });
 
-  factory CardDetails.fromJson(Map<String, dynamic> json) => _$CardDetailsFromJson(json);
+  factory CardDetails.fromJson(Map<String, dynamic> json) =>
+      _$CardDetailsFromJson(json);
 
   Map<String, dynamic> toJson() => _$CardDetailsToJson(this);
 }

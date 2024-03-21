@@ -20,5 +20,6 @@ abstract class ReminderRepo {
       {required PageQuery pageQuery});
   Future<Either<Failure, GetReminderModel>> getHistoryReminder(
       {required PageQuery pageQuery});
-  Future<Either<Failure, GetReminderResponseModel>> getReminderDetails({required int id});
+  Future<Either<Failure, GetReminderResponseModel>> getReminderDetails(
+      {required int id});
 }

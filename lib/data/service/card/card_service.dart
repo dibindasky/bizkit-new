@@ -8,6 +8,8 @@ import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/get_card_resposnse_model/get_card_resposnse_model.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card_model.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/blocked_cards_responce_moede/blocked_cards_responce_moede.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/get_business_category_response_model.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_companys/get_companys.dart';
@@ -30,14 +32,16 @@ class CardService implements CardRepo {
   CardService(this.apiService);
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> archiveCard(
-      {required int id}) async {
+  Future<Either<Failure, SuccessResponseModel>> cardAction({
+    required int id,
+    required CardActionRewuestModel cardActionRewuestModel,
+  }) async {
     try {
-      print('delete card apiicall');
+      log('cardAction ${cardActionRewuestModel.toJson()}');
       final response = await apiService.patch(
-          data: {"is_archived": true},
-          ApiEndPoints.deleteArchiveCard
-              .replaceFirst('{card_id}', id.toString()));
+        data: cardActionRewuestModel.toJson(),
+        ApiEndPoints.deleteCard.replaceFirst('{card_id}', id.toString()),
+      );
       print('delete card api success');
       print(response.data);
       return Right(SuccessResponseModel(message: 'Card deleted successfully'));
@@ -51,11 +55,13 @@ class CardService implements CardRepo {
   }
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> restoreArchiveCard(
-      {required int cardId}) async {
+  Future<Either<Failure, SuccessResponseModel>> restoreArchiveDeleteCard({
+    required int cardId,
+    required CardActionRewuestModel cardActionRewuestModel,
+  }) async {
     try {
       final responce = await apiService.patch(
-        data: {"is_archived": false},
+        data: cardActionRewuestModel.toJson(),
         ApiEndPoints.restreArcheivedCard
             .replaceFirst('{card_id}', cardId.toString()),
       );
@@ -220,21 +226,41 @@ class CardService implements CardRepo {
     }
   }
 
+  // @override
+  // Future<Either<Failure, SuccessResponseModel>> deleteCard(
+  //     {required int id}) async {
+  //   try {
+  //     await apiService.patch(data: {
+  //       "is_archived": false,
+  //       "is_active": true,
+  //     }, ApiEndPoints.deleteCard.replaceFirst('{card_id}', id.toString()));
+  //     log('deleteCard after');
+  //     return Right(SuccessResponseModel(message: 'Card deleted successfully'));
+  //   } on DioException catch (e) {
+  //     log('deleteCard DioException $e');
+  //     return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+  //   } catch (e) {
+  //     log('deleteCard DioException $e');
+  //     return Left(Failure(message: errorMessage));
+  //   }
+  // }
+
   @override
-  Future<Either<Failure, SuccessResponseModel>> deleteCard(
-      {required int id}) async {
+  Future<Either<Failure, BlockedCardsResponceMoede>> getDeletedCardsList({
+    required PageQuery pageQuery,
+  }) async {
     try {
-      print('delete card apiicall');
-      final response = await apiService.delete(ApiEndPoints.deleteArchiveCard
-          .replaceFirst('{card_id}', id.toString()));
-      print('delete card api success');
-      print(response.data);
-      return Right(SuccessResponseModel(message: 'Card deleted successfully'));
+      final responce = await apiService.get(
+        ApiEndPoints.getDeletedCards,
+        data: pageQuery.toJson(),
+      );
+      log('deletedCardsList data ${responce.data}');
+      return Right(BlockedCardsResponceMoede.fromJson(responce.data));
     } on DioException catch (e) {
-      log(e.toString());
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      log('deletedCardsList DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
     } catch (e) {
-      log(e.toString());
+      log('deletedCardsList catch $e');
       return Left(Failure(message: errorMessage));
     }
   }
@@ -243,11 +269,9 @@ class CardService implements CardRepo {
   Future<Either<Failure, GetCompanysResponseModel>> getCompanies(
       {required SearchQuery? search}) async {
     try {
-      print('get company apiicall');
       final response = await apiService.get(ApiEndPoints.getCompanies,
           queryParameters: search?.toJson());
-      print('get company success');
-      print(response.data);
+
       return Right(GetCompanysResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());
@@ -262,11 +286,8 @@ class CardService implements CardRepo {
   Future<Either<Failure, BusinessDetails>> getCompnayDetails(
       {required int id}) async {
     try {
-      print('get companyDetail apiicall');
       final response = await apiService.get(ApiEndPoints.getCompanyDetails
           .replaceFirst('{company_id}', id.toString()));
-      print('get companyDetail success');
-      print(response.data);
       return Right(BusinessDetails.fromJson(response.data['business_details']));
     } on DioException catch (e) {
       log(e.toString());
@@ -281,7 +302,6 @@ class CardService implements CardRepo {
   Future<Either<Failure, GetBusinessCategoryResponseModel>>
       getBusinessCategories() async {
     try {
-      print('get company apiicall');
       final response = await apiService.get(ApiEndPoints.getBusinessCategory);
       print('get company success');
       print(response.data);

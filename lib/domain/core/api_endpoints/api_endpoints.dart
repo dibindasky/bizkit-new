@@ -17,7 +17,7 @@ class ApiEndPoints {
   static String createCardBusiness = '/card/business-details/';
   static String createCardBAnking = '/card/bank_details/';
   static String card = '/card/card-list/';
-  static String deleteArchiveCard = '/card/get-card/{card_id}/';
+  static String deleteCard = '/card/get-card/{card_id}/';
   static String defaultCard = '/card/is_default/{card_id}/';
   static String contacts = '/card/registered_contacts/';
   static String getCompanies = '/accounts/companies/';
@@ -52,6 +52,7 @@ class ApiEndPoints {
   static String editProfileInfo = '/accounts/update-profile/';
   static String deleteProfile = '/accounts/update-profile/';
   static String archeivedCardsList = '/card/archived-cards/';
+  static String getDeletedCards = '/card/deleted-cards/';
   static String defaultQr = '/level/common-level-sharing-update/';
   static String getBlockedConnections =
       '/connections/list-blocked-connections/';

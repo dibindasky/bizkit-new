@@ -130,7 +130,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
         }
         // add(const ContactsEvent.getConnectionsFromLocalStorage());
       });
-        add(const ContactsEvent.getConnectionsFromLocalStorage());
+      add(const ContactsEvent.getConnectionsFromLocalStorage());
     } catch (e) {
       print('fetch error =$e');
       // add(const ContactsEvent.getConnectionsFromLocalStorage());

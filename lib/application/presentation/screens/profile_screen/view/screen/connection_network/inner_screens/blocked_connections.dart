@@ -1,21 +1,45 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
+import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
+import 'package:bizkit/application/presentation/widgets/refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BlockedConnections extends StatelessWidget {
-  const BlockedConnections({super.key});
+class BlockedConnections extends StatefulWidget {
+  const BlockedConnections({super.key, this.scrollController});
+  final ScrollController? scrollController;
+  @override
+  State<BlockedConnections> createState() => _BlockedConnectionsState();
+}
+
+class _BlockedConnectionsState extends State<BlockedConnections> {
+  _scrollCallBack() {
+    if (widget.scrollController!.position.pixels ==
+        widget.scrollController!.position.maxScrollExtent) {
+      context
+          .read<ConnectionRequestBloc>()
+          .add(const ConnectionRequestEvent.getBlockeConnectionsEvent());
+    }
+  }
+
+  @override
+  void initState() {
+    if (widget.scrollController != null) {
+      widget.scrollController!.addListener(() {
+        widget.scrollController!.animateTo(.1,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.fastEaseInToSlowEaseOut);
+        _scrollCallBack();
+      });
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        // context.read<ProfileBloc>().add(
-        //     ProfileEvent.getBlockeConnections(pageQuery: PageQuery(page: 1)));
-      },
-    );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -34,18 +58,38 @@ class BlockedConnections extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: BlocBuilder<CardBloc, CardState>(
+        child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
           builder: (context, state) {
-            if (state.archievedCards == null) {
-              return const SizedBox(
-                child: Center(
-                  child: Text('You are not blocked anyone'),
+            if (state.isLoading) {
+              return ShimmerLoader(
+                itemCount: 10,
+                height: 70,
+                width: kwidth * 0.9,
+                seprator: const SizedBox(height: 10),
+              );
+            } else if (state.blockedConnections == null) {
+              return RefreshIndicatorCustom(
+                message: errorMessage,
+                onRefresh: () => context.read<ConnectionRequestBloc>().add(
+                      const ConnectionRequestEvent.getBlockeConnectionsEvent(),
+                    ),
+              );
+            } else if (state.blockedConnections!.isEmpty) {
+              return SizedBox(
+                height: khieght,
+                child: const Center(
+                  child: Text("You don't have Blocked conections"),
                 ),
               );
             }
             return ListView.builder(
-              itemCount: state.archievedCards?.length,
+              itemCount: (state.blockedConnections?.length ?? 0) +
+                  (state.blockedLoading ? 1 : 0),
               itemBuilder: (context, index) {
+                if (state.blockedLoading &&
+                    index == state.blockedConnections!.length) {
+                  return const LoadingAnimation();
+                }
                 return Column(
                   children: [
                     Container(
@@ -65,11 +109,12 @@ class BlockedConnections extends StatelessWidget {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                      text: state.archievedCards?[index].name ??
+                                      text: state.blockedConnections?[index]
+                                              .name ??
                                           'No name',
                                       style: textStyle1),
                                   TextSpan(
-                                    text: state.archievedCards?[index]
+                                    text: state.blockedConnections?[index]
                                             .designation ??
                                         'No company',
                                     style: textStyle1.copyWith(

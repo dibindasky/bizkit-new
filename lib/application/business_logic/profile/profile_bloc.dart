@@ -86,7 +86,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   FutureOr<void> pickImage(PickImageScanning event, emit) async {
     final image = await ImagePickerClass.getImage(camera: event.camera);
     if (image != null) {
-      emit(state.copyWith(imageModel: image));
+      emit(state.copyWith(
+          imageModel: image,
+          isLoading: false,
+          message: 'Now you can save Profile'));
     }
   }
 
@@ -97,21 +100,23 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     );
     log('edit profile bloc $data');
     data.fold(
-      (l) => emit(state.copyWith(
-        isLoading: false,
-        hasError: false,
-        message: errorMessage,
-      )),
-      (r) => emit(
+        (l) => emit(state.copyWith(
+              isLoading: false,
+              hasError: false,
+              message: errorMessage,
+            )), (r) async {
+      emit(
         state.copyWith(
           isLoading: false,
           hasError: false,
           uploaded: true,
+          message: 'Profile uploaded',
           imageModel: null,
           userInfoChangeResponceModel: r,
         ),
-      ),
-    );
+      );
+      await SecureStorage.setUserName(userName: r.name ?? 'No name');
+    });
     add(const ProfileEvent.getProfile(isLoad: true));
   }
 

@@ -88,7 +88,7 @@ class BusinessSignIn extends StatelessWidget {
                     controller: companyMailController,
                     autocompleteItems: companyWebsiteController.text.length < 3
                         ? []
-                        : ['info@$web', 'admin@$web','sales@$web'],
+                        : ['info@$web', 'admin@$web', 'sales@$web'],
                   );
                 },
               ),

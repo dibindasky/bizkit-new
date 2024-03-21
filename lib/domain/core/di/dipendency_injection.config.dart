@@ -128,10 +128,7 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i36.ProfileBloc>(
         () => _i36.ProfileBloc(gh<_i25.ProfileRepo>()));
-    gh.factory<_i37.QrBloc>(() => _i37.QrBloc(
-          gh<_i27.QrServiceRepo>(),
-          gh<_i25.ProfileRepo>(),
-        ));
+    gh.factory<_i37.QrBloc>(() => _i37.QrBloc(gh<_i27.QrServiceRepo>()));
     gh.factory<_i38.ReminderBloc>(
         () => _i38.ReminderBloc(gh<_i29.ReminderRepo>()));
     return this;

@@ -7,8 +7,6 @@ import 'package:bizkit/domain/model/profile/get_user_info_model/get_user_info_mo
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_responce_model/user_info_change_responce_model.dart';
 import 'package:bizkit/domain/model/profile/username_change_responce_model/username_change_responce_model.dart';
-
-import 'package:bizkit/domain/model/qr/defauilt_qr/defauilt_qr.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
 import 'package:dartz/dartz.dart';
 
@@ -26,10 +24,6 @@ abstract class ProfileRepo {
     required ReportAProblemRequestModel reportAProblemRequestModel,
   });
 
-  Future<Either<Failure, DefauiltQr>> getDefaultQr();
-  Future<Either<Failure, DefauiltQr>> defaultQr({
-    required DefauiltQr defauiltQr,
-  });
   Future<Either<Failure, BlockedConnectionModel>> getBlockeConnections({
     required PageQuery pageQuery,
   });

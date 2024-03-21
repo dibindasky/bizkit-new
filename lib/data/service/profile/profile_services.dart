@@ -12,7 +12,6 @@ import 'package:bizkit/domain/model/profile/get_user_info_model/result.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_responce_model/user_info_change_responce_model.dart';
 import 'package:bizkit/domain/model/profile/username_change_responce_model/username_change_responce_model.dart';
-import 'package:bizkit/domain/model/qr/defauilt_qr/defauilt_qr.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
 import 'package:bizkit/domain/repository/service/profile_repo.dart';
 import 'package:dartz/dartz.dart';
@@ -101,45 +100,6 @@ class ProfileService implements ProfileRepo {
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log('getProfile catch $e');
-      return Left(Failure(message: errorMessage));
-    }
-  }
-
-  @override
-  Future<Either<Failure, DefauiltQr>> defaultQr({
-    required DefauiltQr defauiltQr,
-  }) async {
-    try {
-      log('data before ${defauiltQr.toJson()}');
-      final responce = await apiService.patch(
-        ApiEndPoints.defaultQr,
-        data: defauiltQr.toJson(),
-      );
-      log('defaultQr ${responce.data}');
-      log('data after ${defauiltQr.toJson()}');
-      return Right(DefauiltQr.fromJson(responce.data));
-    } on DioException catch (e) {
-      log('defaultQr DioException ${e.response?.statusCode} $e');
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
-    } catch (e) {
-      log('defaultQr catch $e');
-      return Left(Failure(message: errorMessage));
-    }
-  }
-
-  @override
-  Future<Either<Failure, DefauiltQr>> getDefaultQr() async {
-    try {
-      final responce = await apiService.get(
-        ApiEndPoints.defaultQr,
-      );
-      log('${responce.data}');
-      return Right(DefauiltQr.fromJson(responce.data));
-    } on DioException catch (e) {
-      log('getDefaultQr DioException ${e.response?.statusCode} $e');
-      return Left(Failure(message: errorMessage));
-    } catch (e) {
-      log('getDefaultQr catch $e');
       return Left(Failure(message: errorMessage));
     }
   }

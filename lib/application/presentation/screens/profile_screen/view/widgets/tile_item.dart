@@ -16,27 +16,23 @@ class TileItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
-      child: InkWell(
-        splashColor: kblack,
-        onTap: onTap,
-        child: SizedBox(
-          child: Row(
-            children: [
-              Text(
-                text,
-                style: TextStyle(fontSize: 12.sp),
+      child: SizedBox(
+        child: Row(
+          children: [
+            Text(
+              text,
+              style: TextStyle(fontSize: 12.sp),
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed: onTap,
+              icon: const Icon(
+                Icons.arrow_forward_ios,
+                size: 13,
+                color: kwhite,
               ),
-              const Spacer(),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 13,
-                  color: kwhite,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

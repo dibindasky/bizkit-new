@@ -10,6 +10,13 @@ class UserInfoChangeRequestModel {
 
   UserInfoChangeRequestModel({this.name, this.profilePic});
 
+  UserInfoChangeRequestModel copyWith({String? name, String? profilePic}) {
+    return UserInfoChangeRequestModel(
+      name: name ?? this.name,
+      profilePic: profilePic ?? this.profilePic,
+    );
+  }
+
   factory UserInfoChangeRequestModel.fromJson(Map<String, dynamic> json) {
     return _$UserInfoChangeRequestModelFromJson(json);
   }

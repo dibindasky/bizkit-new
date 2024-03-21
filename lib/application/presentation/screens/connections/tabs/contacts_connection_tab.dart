@@ -16,7 +16,7 @@ class ContactConnectionsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ContactsBloc>().add(const ContactsEvent.getContactsList());
+      context.read<ContactsBloc>().add(const ContactsEvent.getConnections());
     });
     return Expanded(
       child: BlocConsumer<ContactsBloc, ContactsState>(
@@ -31,7 +31,7 @@ class ContactConnectionsTab extends StatelessWidget {
         builder: (context, state) {
           print('contacts list length ==> (${state.contactList?.length})');
 
-          if (state.isLoading || state.fetchingLoading) {
+          if (state.firstLoading) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -44,6 +44,11 @@ class ContactConnectionsTab extends StatelessWidget {
                   textAlign: TextAlign.center,
                 )
               ],
+            );
+          }
+          if (state.fetchingLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           } else if (state.contactList == null || state.contactList == []) {
             return const Center(

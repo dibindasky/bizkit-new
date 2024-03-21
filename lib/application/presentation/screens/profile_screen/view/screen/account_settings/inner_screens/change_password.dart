@@ -49,27 +49,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                   inputType: TextInputType.visiblePassword,
                   controller: context.read<ProfileBloc>().oldPasswordController,
                   text: 'Old password',
-                  suffix: const Icon(
-                    Icons.remove_red_eye_outlined,
-                    color: kwhite,
-                  ),
+                  obscureText: true,
                 ),
                 TTextFormField(
                   validate: Validate.password,
                   inputType: TextInputType.visiblePassword,
                   controller: context.read<ProfileBloc>().newPasswordController,
                   text: 'New password',
-                  suffix: IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off,
-                      color: klightgrey,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                  ),
+                  obscureText: true,
                 ),
                 TTextFormField(
                   password: context.read<ProfileBloc>().newPasswordController,
@@ -78,10 +65,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   inputType: TextInputType.visiblePassword,
                   controller:
                       context.read<ProfileBloc>().reEnterNewPasswordController,
-                  suffix: const Icon(
-                    Icons.remove_red_eye_outlined,
-                    color: kwhite,
-                  ),
+                  obscureText: true,
                 ),
                 adjustHieght(khieght * .4),
                 BlocConsumer<ProfileBloc, ProfileState>(

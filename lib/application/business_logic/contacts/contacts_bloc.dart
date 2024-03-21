@@ -28,6 +28,33 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     on<CheckContactsInBizkit>(checkContactsInBizkit);
     on<GetConnectionsFromLocalStorage>(getConnectionsFromLocalStorage);
     on<GetConnections>(getConnections);
+    on<SearchContact>(searchContact);
+  }
+
+  // search connections in contacts
+  FutureOr<void> searchContact(SearchContact event, emit) {
+    print('search contacts block ============');
+    if (state.contactFilterdList == null || state.contactFilterdList == []) {
+      return emit(state);
+    }
+    emit(state.copyWith(searchLoading: true));
+    if (event.query == '') {
+      return emit(state.copyWith(
+          contactList: state.contactFilterdList, searchLoading: false));
+    }
+    var list = state.contactFilterdList!.where((element) {
+      print('============ contacts ============');
+      if (element.name != null && element.name!.toLowerCase().contains(event.query.toLowerCase())) {
+        return true;
+      }
+      if (element.email != null && element.email!.toLowerCase().contains(event.query.toLowerCase())) {
+        return true;
+      }
+      if (element.phoneNumber != null &&
+          element.phoneNumber!.contains(event.query)) return true;
+      return false;
+    }).toList();
+    return emit(state.copyWith(contactList: list, searchLoading: false));
   }
 
   // get connections from and check for new connections
@@ -39,22 +66,29 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
         (failure) => emit(
             state.copyWith(isLoading: false, hasError: true, message: null)),
         (contactsList) {
-      emit(state.copyWith(contactList: contactsList));
+      emit(state.copyWith(
+          contactList: contactsList,
+          contactFilterdList: contactsList,
+          firstLoading: contactsList.isEmpty));
       add(const ContactsEvent.getContactsList());
     });
   }
 
   // fetch the contact list form phone
   FutureOr<void> getContactsList(GetContactsList event, emit) async {
-    if (state.contactList != null && state.contactList!.isNotEmpty) return;
+    // if (state.contactList != null && state.contactList!.isNotEmpty) return;
     emit(state.copyWith(hasError: false, message: null, fetchingLoading: true));
     print('fetch start');
     final result = await contactFetchFeature.getContactsList();
     print('fetch end');
     result.fold((failure) {
       emit(state.copyWith(
-          hasError: true, isLoading: false, fetchingLoading: false));
+          firstLoading: false,
+          hasError: true,
+          isLoading: false,
+          fetchingLoading: false));
     }, (contactList) {
+      emit(state.copyWith(fetchingLoading: false));
       add(ContactsEvent.checkContactsInBizkit(contactList: contactList));
     });
   }
@@ -77,6 +111,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
           (failure) => emit(state.copyWith(
               isLoading: false,
               hasError: true,
+              firstLoading: false,
               message: null,
               fetchingLoading: false)), (contactResponseModel) async {
         // add every contact to the local storage if the user is present in bizkit store the id and photo also other wise add left over details
@@ -130,7 +165,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
         }
         // add(const ContactsEvent.getConnectionsFromLocalStorage());
       });
-        add(const ContactsEvent.getConnectionsFromLocalStorage());
+      add(const ContactsEvent.getConnectionsFromLocalStorage());
     } catch (e) {
       print('fetch error =$e');
       // add(const ContactsEvent.getConnectionsFromLocalStorage());
@@ -147,12 +182,17 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
             isLoading: false,
             message: errorMessage,
             fetchingLoading: false,
+            firstLoading: false,
             hasError: true)), (connections) {
       print('get contacts form local storage checking');
       print("connections.length");
       print(connections.length);
       return emit(state.copyWith(
-          isLoading: false, contactList: connections, fetchingLoading: false));
+          isLoading: false,
+          contactList: connections,
+          contactFilterdList: connections,
+          fetchingLoading: false,
+          firstLoading: false));
     });
   }
 }

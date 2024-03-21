@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/application/presentation/screens/connections/tabs/bizkit_connection_tab.dart';
@@ -7,6 +8,7 @@ import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyConnectionsViewAllContacts extends StatelessWidget {
   MyConnectionsViewAllContacts({super.key});
@@ -68,6 +70,17 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
         child: Column(
           children: [
             CupertinoTextField(
+              onChanged: (value) {
+                print('search bar =====================');
+                if (tabNotifier.value == 1) {
+                  print('search bar ');
+                  context
+                      .read<ContactsBloc>()
+                      .add(ContactsEvent.searchContact(query: value));
+                } else {
+                  // search for bizkit connection
+                }
+              },
               prefix: const Icon(
                 Icons.search,
                 color: kwhite,

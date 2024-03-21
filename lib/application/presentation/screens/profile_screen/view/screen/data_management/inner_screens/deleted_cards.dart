@@ -10,16 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ArchivedCards extends StatefulWidget {
-  const ArchivedCards({super.key, this.scrollController});
-
+class DeletedCards extends StatefulWidget {
+  const DeletedCards({super.key, this.scrollController});
   final ScrollController? scrollController;
-
   @override
-  State<ArchivedCards> createState() => _ArchivedCardsState();
+  State<DeletedCards> createState() => _DeletedCardsState();
 }
 
-class _ArchivedCardsState extends State<ArchivedCards> {
+class _DeletedCardsState extends State<DeletedCards> {
   _scrollCallBack() {
     if (widget.scrollController!.position.pixels ==
         widget.scrollController!.position.maxScrollExtent) {
@@ -54,7 +52,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
         ),
         backgroundColor: knill,
         title: Text(
-          'Archived cards',
+          'Deleted cards',
           style: textHeadStyle1,
         ),
       ),
@@ -69,19 +67,18 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                 width: kwidth * 0.9,
                 seprator: const SizedBox(height: 10),
               );
-            } else if (state.archievedCards == null) {
+            } else if (state.deletedCards == null) {
               return RefreshIndicatorCustom(
                 message: errorMessage,
                 onRefresh: () => context
                     .read<CardBloc>()
-                    .add(const CardEvent.getArchievedCardsEvent()),
+                    .add(const CardEvent.getdeleteCardsEvent(isLoad: true)),
               );
-            }
-            if (state.archievedCards!.isEmpty) {
+            } else if (state.deletedCards!.isEmpty) {
               return SizedBox(
                 height: khieght,
                 child: const Center(
-                  child: Text("You don't have Archived cards"),
+                  child: Text("You don't have deleted cards"),
                 ),
               );
             }
@@ -89,15 +86,15 @@ class _ArchivedCardsState extends State<ArchivedCards> {
               controller: widget.scrollController,
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: (state.archievedCards?.length ?? 0) +
-                  (state.archiveCardLoading ? 1 : 0),
+              itemCount: (state.deletedCards?.length ?? 0) +
+                  (state.deleteCardLoading ? 1 : 0),
               separatorBuilder: (context, index) => adjustWidth(kwidth * .05),
               itemBuilder: (context, index) {
-                if (state.archiveCardLoading &&
-                    index == state.archievedCards!.length) {
+                if (state.deleteCardLoading &&
+                    index == state.deletedCards!.length) {
                   return const LoadingAnimation();
                 }
-                final card = state.archievedCards![index];
+                final card = state.deletedCards![index];
                 return Container(
                   decoration: BoxDecoration(
                     color: textFieldFillColr,
@@ -118,9 +115,8 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                                   topLeft: Radius.circular(25),
                                   topRight: Radius.circular(20),
                                 ),
-                                child: state.archievedCards == null ||
-                                        state.archievedCards![index].logo ==
-                                            null
+                                child: state.deletedCards == null ||
+                                        state.deletedCards![index].logo == null
                                     ? Image.network(imageDummyNetwork,
                                         fit: BoxFit.cover)
                                     : Image.network(
@@ -137,7 +133,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                         children: [
                           adjustWidth(kwidth * .02),
                           Text(
-                            '${state.archievedCards![index].name ?? ''}\n${state.archievedCards![index].designation}',
+                            '${state.deletedCards![index].name ?? ''}\n  ${state.deletedCards![index].designation}',
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w700,
@@ -148,14 +144,16 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                             onTap: () {
                               CardActionRewuestModel cardActionRewuestModel =
                                   CardActionRewuestModel(
-                                isArchived: false,
+                                isArchived:
+                                    state.deletedCards![index].isArchived,
+                                isActive: true,
                               );
                               context.read<CardBloc>().add(
                                     CardEvent.restoreArchiveDeleteCard(
-                                        cardActionRewuestModel:
-                                            cardActionRewuestModel,
-                                        cardId:
-                                            state.archievedCards![index].id!),
+                                      cardActionRewuestModel:
+                                          cardActionRewuestModel,
+                                      cardId: state.deletedCards![index].id!,
+                                    ),
                                   );
                               showSnackbar(
                                 context,

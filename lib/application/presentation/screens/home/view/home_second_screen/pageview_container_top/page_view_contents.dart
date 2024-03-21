@@ -78,7 +78,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                     ),
                     Text(
                       DateTimeFormater.formatDateTime(
-                          reminder?.date??'', reminder?.time??''),
+                          reminder?.date ?? '', reminder?.time ?? ''),
                       style: TextStyle(
                         fontSize: kwidth * 0.03,
                         fontWeight: FontWeight.w700,

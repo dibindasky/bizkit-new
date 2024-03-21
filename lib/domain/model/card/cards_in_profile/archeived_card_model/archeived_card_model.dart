@@ -9,9 +9,10 @@ class ArcheivedCardModel {
   int? count;
   dynamic next;
   dynamic previous;
-  List<ArcheivedCard>? results;
+  @JsonKey(name: 'results')
+  List<ArcheivedCard>? archiveCards;
 
-  ArcheivedCardModel({this.count, this.next, this.previous, this.results});
+  ArcheivedCardModel({this.count, this.next, this.previous, this.archiveCards});
 
   factory ArcheivedCardModel.fromJson(Map<String, dynamic> json) {
     return _$ArcheivedCardModelFromJson(json);

@@ -3,13 +3,14 @@ import 'package:bizkit/data/features/pdf/pdf_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/blocked_cards_responce_moede/blocked%20cards.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 part 'card_event.dart';
 part 'card_state.dart';
 part 'card_bloc.freezed.dart';
@@ -18,7 +19,7 @@ part 'card_bloc.freezed.dart';
 class CardBloc extends Bloc<CardEvent, CardState> {
   final CardRepo cardService;
   final PdfPickerImpl pdfPicker;
-  int cardPage = 1, archevedCards = 1;
+  int cardPage = 1, archevedCards = 1, deletedCards = 1;
 
   CardBloc(this.cardService, this.pdfPicker) : super(CardState.initial()) {
     on<GetCards>(getCards);
@@ -26,11 +27,72 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     on<GetCardyUserId>(getCardyUserId);
     on<GetCardyCardId>(getCardyCardId);
     on<SetDefault>(setDefault);
-    on<DeleteCard>(deleteCard);
-    on<ArchiveCard>(archiveCard);
+    //on<DeleteCard>(deleteCard);
+    on<GetdeleteCards>(getDeleteCards);
+    on<GetdeleteCardsEvent>(getdeleteCardsEvent);
+    // on<RestroreDeleteCard>(restroreDeleteCard);
+    on<CardAction>(cardAction);
     on<GetArchievedCards>(getArchievedCards);
     on<GetArchievedCardsEvent>(getArchievedCardsEvent);
-    on<RestoreArchieveCards>(restoreArchieveCards);
+    on<RestoreArchiveDeleteCard>(restoreArchieveCards);
+  }
+
+  // FutureOr<void> restroreDeleteCard(RestroreDeleteCard event, emit) async {
+  //   emit(state.copyWith(isLoading: true, hasError: false, message: null));
+  //   final data = await cardService.restoreDeleteCard(id: event.id);
+  //   data.fold(
+  //       (l) => emit(
+  //           state.copyWith(isLoading: false, hasError: true, message: null)),
+  //       (r) {
+  //     emit(state.copyWith(
+  //       isLoading: false,
+  //       hasError: false,
+  //       message: r.message,
+  //     ));
+  //     add(const CardEvent.getdeleteCards(isLoad: true));
+  //     add(const CardEvent.getCards(call: true));
+  //   });
+  // }
+
+  FutureOr<void> getdeleteCardsEvent(GetdeleteCardsEvent event, emit) async {
+    emit(state.copyWith(
+        deleteCardLoading: true, hasError: false, message: null));
+    final data = await cardService.getDeletedCardsList(
+        pageQuery: PageQuery(page: ++deletedCards));
+    data.fold(
+        (l) => emit(state.copyWith(
+              deleteCardLoading: false,
+              hasError: true,
+              message: null,
+            )), (r) {
+      emit(state.copyWith(
+        deleteCardLoading: false,
+        hasError: true,
+        deletedCards: [
+          ...state.deletedCards!,
+          ...r.blockedCards!,
+        ],
+      ));
+    });
+  }
+
+  FutureOr<void> getDeleteCards(GetdeleteCards event, emit) async {
+    deletedCards = 1;
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final data = await cardService.getDeletedCardsList(
+        pageQuery: PageQuery(page: deletedCards));
+    data.fold(
+        (l) => emit(state.copyWith(
+              isLoading: false,
+              hasError: true,
+              message: null,
+            )), (r) {
+      emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        deletedCards: r.blockedCards!,
+      ));
+    });
   }
 
   FutureOr<void> getArchievedCards(GetArchievedCards event, emit) async {
@@ -44,30 +106,33 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             state.copyWith(isLoading: false, hasError: true, message: null)),
         (r) {
       emit(state.copyWith(
-          isLoading: false, hasError: false, archievedCards: r.results));
+          isLoading: false, hasError: false, archievedCards: r.archiveCards));
     });
   }
 
   FutureOr<void> getArchievedCardsEvent(event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+        archiveCardLoading: true, hasError: false, message: null));
 
     final data = await cardService.archievedCardsList(
         pageQuery: PageQuery(page: ++archevedCards));
     data.fold(
-        (l) => emit(
-            state.copyWith(isLoading: false, hasError: true, message: null)),
-        (r) {
+        (l) => emit(state.copyWith(
+            archiveCardLoading: false, hasError: true, message: null)), (r) {
       emit(state.copyWith(
-        isLoading: false,
+        archiveCardLoading: false,
         hasError: false,
-        archievedCards: [...state.archievedCards!, ...r.results!],
+        archievedCards: [...state.archievedCards!, ...r.archiveCards!],
       ));
     });
   }
 
-  FutureOr<void> archiveCard(ArchiveCard event, emit) async {
+  FutureOr<void> cardAction(CardAction event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final result = await cardService.archiveCard(id: event.id);
+    final result = await cardService.cardAction(
+      id: event.id,
+      cardActionRewuestModel: event.cardActionRewuestModel,
+    );
     result.fold(
         (failure) => emit(state.copyWith(
             isLoading: false,
@@ -79,9 +144,13 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     });
   }
 
-  FutureOr<void> restoreArchieveCards(RestoreArchieveCards event, emit) async {
+  FutureOr<void> restoreArchieveCards(
+      RestoreArchiveDeleteCard event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data = await cardService.restoreArchiveCard(cardId: event.cardId);
+    final data = await cardService.restoreArchiveDeleteCard(
+      cardId: event.cardId,
+      cardActionRewuestModel: event.cardActionRewuestModel,
+    );
     data.fold(
         (l) => emit(
             state.copyWith(isLoading: false, hasError: true, message: null)),
@@ -96,18 +165,18 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     });
   }
 
-  FutureOr<void> deleteCard(DeleteCard event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final result = await cardService.deleteCard(id: event.id);
-    result.fold(
-        (failure) => emit(state.copyWith(
-            isLoading: false,
-            message: 'failed to delete card',
-            hasError: true)), (success) {
-      emit(state.copyWith(message: 'card deleted successfully'));
-      add(const CardEvent.getCards(call: true));
-    });
-  }
+  // FutureOr<void> deleteCard(DeleteCard event, emit) async {
+  //   emit(state.copyWith(isLoading: true, hasError: false, message: null));
+  //   final result = await cardService.deleteCard(id: event.id);
+  //   result.fold(
+  //       (failure) => emit(state.copyWith(
+  //           isLoading: false,
+  //           message: 'failed to delete card',
+  //           hasError: true)), (success) {
+  //     emit(state.copyWith(message: 'card deleted successfully'));
+  //     add(const CardEvent.getCards(call: true));
+  //   });
+  // }
 
   FutureOr<void> setDefault(SetDefault event, emit) async {
     final result = await cardService.setDefault(id: event.id);
@@ -187,8 +256,9 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       if (getCardResposnseModel.results != null &&
           getCardResposnseModel.results!.isNotEmpty) {
         print('get default card');
-        defaultCard = getCardResposnseModel.results!
-            .firstWhere((card) => card.isDefault!);
+        final def =
+            getCardResposnseModel.results!.where((card) => card.isDefault!);
+        defaultCard = def.isEmpty ? null : def.first;
       }
       print('get card bloc success1');
       emit(state.copyWith(

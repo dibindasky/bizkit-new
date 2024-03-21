@@ -4,7 +4,6 @@ import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/domain/model/qr/create_qr_model/create_qr_model.dart';
 import 'package:bizkit/domain/model/qr/defauilt_qr/defauilt_qr.dart';
 import 'package:bizkit/domain/model/qr/get_qr_code_response_model/qr_model.dart';
-import 'package:bizkit/domain/repository/service/profile_repo.dart';
 import 'package:bizkit/domain/repository/service/qr_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -16,10 +15,9 @@ part 'qr_bloc.freezed.dart';
 @injectable
 class QrBloc extends Bloc<QrEvent, QrState> {
   final QrServiceRepo qrServiceImpl;
-  final ProfileRepo profileRepo;
   CreateQrModel createQrModel = CreateQrModel();
   DefauiltQr defauiltQr = DefauiltQr();
-  QrBloc(this.qrServiceImpl, this.profileRepo) : super(QrState.initial()) {
+  QrBloc(this.qrServiceImpl) : super(QrState.initial()) {
     on<AddNewLevelSharing>(addNewLevelSharing);
     on<GetQrCodes>(getQrCodes);
     on<ChangeQRSelection>(changeQRSelection);
@@ -30,7 +28,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
   FutureOr<void> getDefaultQr(GetDefaultQr event, emit) async {
     if (state.defauiltQr != null) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data = await profileRepo.getDefaultQr();
+    final data = await qrServiceImpl.getDefaultQr();
     data.fold(
         (l) => emit(state.copyWith(
               isLoading: false,
@@ -50,7 +48,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
 
   FutureOr<void> defaultQr(DefaultQr event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final data = await profileRepo.defaultQr(defauiltQr: defauiltQr);
+    final data = await qrServiceImpl.defaultQr(defauiltQr: defauiltQr);
     data.fold(
       (l) => emit(state.copyWith(
         isLoading: false,
@@ -70,7 +68,8 @@ class QrBloc extends Bloc<QrEvent, QrState> {
   FutureOr<void> addNewLevelSharing(AddNewLevelSharing event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final result = await qrServiceImpl.updateLevelSharing(
-        createQrModel: event.createQrModel,id: state.qrList[state.selectedQrIndex].id!);
+        createQrModel: event.createQrModel,
+        id: state.qrList[state.selectedQrIndex].id!);
     result.fold((failure) {
       List<QRModel> list = List.from(state.qrList);
       final model = list[state.selectedQrIndex];
@@ -87,7 +86,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
       return emit(state.copyWith(
         isLoading: false,
         hasError: true,
-        message: failure.message??errorMessage,
+        message: failure.message ?? errorMessage,
       ));
     }, (response) {
       List<QRModel> list = List.from(state.qrList);

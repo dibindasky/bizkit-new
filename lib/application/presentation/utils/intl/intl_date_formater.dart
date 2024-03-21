@@ -10,8 +10,8 @@ class DateTimeFormater {
       // Handle parsing error (optional: throw exception or return default value)
       print('Invalid date or time format: $e');
       return '$dateString , $timeString'; // Or return any default value you prefer
-    }catch (e){
-       print('Invalid date time exxception: $e');
+    } catch (e) {
+      print('Invalid date time exxception: $e');
       return '$dateString , $timeString';
     }
 

@@ -1,14 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'archeived_card.dart';
+part of 'blocked cards.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ArcheivedCard _$ArcheivedCardFromJson(Map<String, dynamic> json) =>
-    ArcheivedCard(
-      isActive: json['is_active'] as bool?,
+BlockedCards _$BlockedCardsFromJson(Map<String, dynamic> json) => BlockedCards(
       id: json['id'] as int?,
       name: json['name'] as String?,
       designation: json['designation'] as String?,
@@ -16,6 +14,7 @@ ArcheivedCard _$ArcheivedCardFromJson(Map<String, dynamic> json) =>
       company: json['company'] as String?,
       isDefault: json['is_default'] as bool?,
       isArchived: json['is_archived'] as bool?,
+      isActive: json['is_active'] as bool?,
       views: json['views'] as int?,
       share: json['share'] as int?,
       isVerified: json['is_verified'] as bool?,
@@ -25,7 +24,7 @@ ArcheivedCard _$ArcheivedCardFromJson(Map<String, dynamic> json) =>
       cardLink: json['card_link'] as String?,
     );
 
-Map<String, dynamic> _$ArcheivedCardToJson(ArcheivedCard instance) =>
+Map<String, dynamic> _$BlockedCardsToJson(BlockedCards instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

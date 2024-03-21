@@ -2511,6 +2511,7 @@ mixin _$ConnectionRequestState {
   bool get isPageLoading => throw _privateConstructorUsedError;
   bool get connected => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  bool get blockedLoading => throw _privateConstructorUsedError;
   int get requestLoadingIndex => throw _privateConstructorUsedError;
   int? get connectedId => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
@@ -2537,6 +2538,7 @@ abstract class $ConnectionRequestStateCopyWith<$Res> {
       bool isPageLoading,
       bool connected,
       bool hasError,
+      bool blockedLoading,
       int requestLoadingIndex,
       int? connectedId,
       String? message,
@@ -2564,6 +2566,7 @@ class _$ConnectionRequestStateCopyWithImpl<$Res,
     Object? isPageLoading = null,
     Object? connected = null,
     Object? hasError = null,
+    Object? blockedLoading = null,
     Object? requestLoadingIndex = null,
     Object? connectedId = freezed,
     Object? message = freezed,
@@ -2588,6 +2591,10 @@ class _$ConnectionRequestStateCopyWithImpl<$Res,
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      blockedLoading: null == blockedLoading
+          ? _value.blockedLoading
+          : blockedLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       requestLoadingIndex: null == requestLoadingIndex
           ? _value.requestLoadingIndex
@@ -2634,6 +2641,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool isPageLoading,
       bool connected,
       bool hasError,
+      bool blockedLoading,
       int requestLoadingIndex,
       int? connectedId,
       String? message,
@@ -2658,6 +2666,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isPageLoading = null,
     Object? connected = null,
     Object? hasError = null,
+    Object? blockedLoading = null,
     Object? requestLoadingIndex = null,
     Object? connectedId = freezed,
     Object? message = freezed,
@@ -2682,6 +2691,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      blockedLoading: null == blockedLoading
+          ? _value.blockedLoading
+          : blockedLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       requestLoadingIndex: null == requestLoadingIndex
           ? _value.requestLoadingIndex
@@ -2723,6 +2736,7 @@ class _$InitialImpl implements _Initial {
       required this.isPageLoading,
       required this.connected,
       required this.hasError,
+      required this.blockedLoading,
       required this.requestLoadingIndex,
       this.connectedId,
       this.message,
@@ -2743,6 +2757,8 @@ class _$InitialImpl implements _Initial {
   final bool connected;
   @override
   final bool hasError;
+  @override
+  final bool blockedLoading;
   @override
   final int requestLoadingIndex;
   @override
@@ -2793,7 +2809,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ConnectionRequestState(isLoading: $isLoading, isPageLoading: $isPageLoading, connected: $connected, hasError: $hasError, requestLoadingIndex: $requestLoadingIndex, connectedId: $connectedId, message: $message, bizkitConnections: $bizkitConnections, bizkitUsers: $bizkitUsers, requestList: $requestList, blockedConnections: $blockedConnections)';
+    return 'ConnectionRequestState(isLoading: $isLoading, isPageLoading: $isPageLoading, connected: $connected, hasError: $hasError, blockedLoading: $blockedLoading, requestLoadingIndex: $requestLoadingIndex, connectedId: $connectedId, message: $message, bizkitConnections: $bizkitConnections, bizkitUsers: $bizkitUsers, requestList: $requestList, blockedConnections: $blockedConnections)';
   }
 
   @override
@@ -2809,6 +2825,8 @@ class _$InitialImpl implements _Initial {
                 other.connected == connected) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
+            (identical(other.blockedLoading, blockedLoading) ||
+                other.blockedLoading == blockedLoading) &&
             (identical(other.requestLoadingIndex, requestLoadingIndex) ||
                 other.requestLoadingIndex == requestLoadingIndex) &&
             (identical(other.connectedId, connectedId) ||
@@ -2831,6 +2849,7 @@ class _$InitialImpl implements _Initial {
       isPageLoading,
       connected,
       hasError,
+      blockedLoading,
       requestLoadingIndex,
       connectedId,
       message,
@@ -2852,6 +2871,7 @@ abstract class _Initial implements ConnectionRequestState {
       required final bool isPageLoading,
       required final bool connected,
       required final bool hasError,
+      required final bool blockedLoading,
       required final int requestLoadingIndex,
       final int? connectedId,
       final String? message,
@@ -2868,6 +2888,8 @@ abstract class _Initial implements ConnectionRequestState {
   bool get connected;
   @override
   bool get hasError;
+  @override
+  bool get blockedLoading;
   @override
   int get requestLoadingIndex;
   @override

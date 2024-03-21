@@ -83,14 +83,6 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                   }
                   if (state.userInfoChangeResponceModel != null &&
                       state.message == 'Profile updated uccessfully') {
-                    showSnackbar(
-                      context,
-                      message: 'Profile changing Sucessfully',
-                      backgroundColor: state.hasError ? kred : neonShade,
-                      textColor: kwhite,
-                    );
-                    print(
-                        '==================================================================================');
                     Navigator.pop(context);
                   }
                 },
@@ -103,12 +95,13 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                     onTap: () {
                       if (userameFrom.currentState!.validate()) {
                         UserInfoChangeRequestModel userInfoChangeRequestModel =
-                            UserInfoChangeRequestModel(
-                                name: context
-                                    .read<ProfileBloc>()
-                                    .userNameController
-                                    .text,
-                                profilePic: state.imageModel?.base64);
+                            UserInfoChangeRequestModel();
+                        userInfoChangeRequestModel.copyWith(
+                          name: context
+                              .read<ProfileBloc>()
+                              .userNameController
+                              .text,
+                        );
                         context.read<ProfileBloc>().add(
                               ProfileEvent.editProfile(
                                 userInfoChangeRequestModel:

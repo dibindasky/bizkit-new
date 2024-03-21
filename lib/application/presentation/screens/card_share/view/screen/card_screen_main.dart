@@ -4,6 +4,8 @@ import 'package:bizkit/application/presentation/screens/card_share/view/widgets/
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
     as card;
 import 'package:flutter/material.dart';
@@ -53,7 +55,16 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 adjustHieght(khieght * .05),
-                BlocBuilder<CardBloc, CardState>(
+                BlocConsumer<CardBloc, CardState>(
+                  listener: (context, state) {
+                    if (state.hasError) {
+                      return showSnackbar(
+                        context,
+                        message: state.message!,
+                        backgroundColor: kred,
+                      );
+                    }
+                  },
                   builder: (context, state) {
                     if (state.isLoading) {
                       return const LoadingAnimation();
@@ -156,14 +167,22 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             PopupMenuItem(
                                               onTap: () =>
                                                   showConfirmationDialog(
-                                                actionButton: 'Arcieve',
+                                                actionButton: 'Archive',
                                                 heading:
                                                     'Are you want to archieve your card',
                                                 context,
-                                                onPressed: () => context
-                                                    .read<CardBloc>()
-                                                    .add(CardEvent.archiveCard(
-                                                        id: card.id!)),
+                                                onPressed: () {
+                                                  CardActionRewuestModel
+                                                      cardActionRewuestModel =
+                                                      CardActionRewuestModel(
+                                                    isArchived: true,
+                                                  );
+                                                  context.read<CardBloc>().add(
+                                                      CardEvent.cardAction(
+                                                          cardActionRewuestModel:
+                                                              cardActionRewuestModel,
+                                                          id: card.id!));
+                                                },
                                               ),
                                               value: 'Archive',
                                               child: const Text('Archive'),
@@ -174,10 +193,17 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                 heading:
                                                     'Are you want to Delete your card',
                                                 context,
-                                                onPressed: () => context
-                                                    .read<CardBloc>()
-                                                    .add(CardEvent.deleteCard(
-                                                        id: card.id!)),
+                                                onPressed: () {
+                                                  CardActionRewuestModel
+                                                      cardActionRewuestModel =
+                                                      CardActionRewuestModel(
+                                                          isActive: false);
+                                                  context.read<CardBloc>().add(
+                                                      CardEvent.cardAction(
+                                                          cardActionRewuestModel:
+                                                              cardActionRewuestModel,
+                                                          id: card.id!));
+                                                },
                                               ),
                                               value: 'Delete Card',
                                               child: const Text('Delete Card'),

@@ -32,6 +32,12 @@ class SecureStorage {
     return TokenModel(accessToken: accessToken, refreshToken: refreshToken);
   }
 
+  static Future<void> setUserName({required String userName}) async {
+    final prefs = await _getPrefs();
+    log('set access token =>() $userName');
+    await prefs.setString(userNameKey, userName);
+  }
+
   static Future<void> setAccessToken({required String accessToken}) async {
     final prefs = await _getPrefs();
     log('set access token =>() $accessToken');

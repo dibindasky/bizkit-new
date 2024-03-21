@@ -9,6 +9,7 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -61,67 +62,102 @@ class _ProfileScreenState extends State<ProfileScreen>
             opacity: animation,
             child: Column(
               children: [
-                BlocBuilder<ProfileBloc, ProfileState>(
+                BlocConsumer<ProfileBloc, ProfileState>(
+                  listener: (context, state) {
+                    if (state.imageModel != null) {
+                      showSnackbar(context, message: state.message!);
+                    }
+                    if (state.userInfoChangeResponceModel != null) {
+                      showSnackbar(context, message: state.message!);
+                    }
+                  },
                   builder: (context, state) {
                     return Stack(
                       children: [
                         CircleAvatar(
-                          radius: 75,
+                          radius: 70,
                           backgroundColor: neonShade,
-                          child: GestureDetector(
-                              onTap: () {
-                                cardscanimagesSelectingDailogu(context);
-                              },
-                              child: state.isLoading
-                                  ? const CircularProgressIndicator(
-                                      color: kwhite,
+                          child: state.isLoading
+                              ? const CircularProgressIndicator(
+                                  color: neonShade,
+                                )
+                              : state.imageModel != null
+                                  ? CircleAvatar(
+                                      backgroundColor: kblack,
+                                      radius: 67,
+                                      backgroundImage: FileImage(
+                                          state.imageModel!.fileImage),
                                     )
-                                  : state.imageModel != null
+                                  : (state.getUserInfoModel != null &&
+                                          state.getUserInfoModel!.results !=
+                                              null &&
+                                          state.getUserInfoModel!.results!
+                                                  .profilePic !=
+                                              null)
                                       ? CircleAvatar(
+                                          backgroundColor: kblack,
                                           radius: 67,
-                                          backgroundImage: FileImage(
-                                              state.imageModel!.fileImage),
+                                          backgroundImage: NetworkImage(
+                                            state.getUserInfoModel!.results!
+                                                .profilePic!,
+                                          ),
                                         )
-                                      : (state.getUserInfoModel != null &&
-                                              state.getUserInfoModel!.results !=
-                                                  null &&
-                                              state.getUserInfoModel!.results!
-                                                      .profilePic !=
-                                                  null)
-                                          ? CircleAvatar(
-                                              radius: 67,
-                                              backgroundImage: NetworkImage(
-                                                state.getUserInfoModel!.results!
-                                                    .profilePic!,
-                                              ),
-                                            )
-                                          : const CircleAvatar(
-                                              backgroundImage:
-                                                  NetworkImage(personProfile))),
+                                      : const CircleAvatar(
+                                          radius: 66,
+                                          backgroundColor: kblack,
+                                          backgroundImage:
+                                              NetworkImage(personProfile),
+                                        ),
                         ),
-                        if (state.imageModel != null)
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: IconButton(
-                              onPressed: () {
-                                UserInfoChangeRequestModel
-                                    userInfoChangeRequestModel =
-                                    UserInfoChangeRequestModel(
-                                        profilePic: state.imageModel!.base64);
-                                context.read<ProfileBloc>().add(
-                                    ProfileEvent.editProfile(
-                                        userInfoChangeRequestModel:
-                                            userInfoChangeRequestModel));
-                              },
-                              icon: const Icon(Icons.cloud_upload),
-                            ),
-                          ),
+                        state.imageModel != null
+                            ? Positioned(
+                                bottom: 0,
+                                right: 20,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: neonShade,
+                                      borderRadius: BorderRadius.circular(6)),
+                                  height: 30,
+                                  width: 34,
+                                  child: InkWell(
+                                    onTap: () {
+                                      UserInfoChangeRequestModel
+                                          userInfoChangeRequestModel =
+                                          UserInfoChangeRequestModel();
+                                      userInfoChangeRequestModel.copyWith(
+                                          profilePic: state.imageModel!.base64);
+                                      context.read<ProfileBloc>().add(
+                                          ProfileEvent.editProfile(
+                                              userInfoChangeRequestModel:
+                                                  userInfoChangeRequestModel));
+                                    },
+                                    child: const Icon(
+                                      Icons.upload,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Positioned(
+                                bottom: 0,
+                                right: 20,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: neonShade,
+                                      borderRadius: BorderRadius.circular(6)),
+                                  height: 30,
+                                  width: 34,
+                                  child: InkWell(
+                                      onTap: () =>
+                                          cardscanimagesSelectingDailogu(
+                                              context),
+                                      child: const Icon(Icons.camera_alt)),
+                                ),
+                              ),
                       ],
                     );
                   },
                 ),
-                adjustHieght(khieght * .03),
+                adjustHieght(khieght * .06),
                 const ProfileTiles(
                   heading: 'Account Settings',
                   subtittle: 'Profile, Password, Email Etc.',
@@ -142,11 +178,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                   subtittle: 'Blocked, Restricted, Report Connections',
                   widget: ConnectionNetworkScreen(),
                 ),
-                ProfileTiles(
-                  heading: 'Help & Support',
-                  subtittle: 'Contact, Faq etc.',
-                  widget: HelpSupport(),
-                ),
+                // ProfileTiles(
+                //   heading: 'Help & Support',
+                //   subtittle: 'Contact, Faq etc.',
+                //   widget: HelpSupport(),
+                // ),
                 ProfileTiles(
                   heading: 'Logout',
                   onTap: () {
@@ -185,55 +221,52 @@ class ProfileTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (onTap != null) {
-          onTap!();
-        } else {
-          Navigator.of(context).push(fadePageRoute(widget!));
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: ColoredBox(
-          color: textFieldFillColr,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(heading,
-                        style: TextStyle(
-                          fontSize: kwidth * 0.045,
-                          fontWeight: FontWeight.w200,
-                          color: kwhite,
-                        )),
-                    subtittle == null
-                        ? const SizedBox()
-                        : Text(
-                            subtittle!,
-                            style: TextStyle(
-                              fontSize: kwidth * 0.03,
-                              fontWeight: FontWeight.w200,
-                              color: klightgrey,
-                            ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: ColoredBox(
+        color: textFieldFillColr,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(heading,
+                      style: TextStyle(
+                        fontSize: kwidth * 0.045,
+                        fontWeight: FontWeight.w200,
+                        color: kwhite,
+                      )),
+                  subtittle == null
+                      ? const SizedBox()
+                      : Text(
+                          subtittle!,
+                          style: TextStyle(
+                            fontSize: kwidth * 0.03,
+                            fontWeight: FontWeight.w200,
+                            color: klightgrey,
                           ),
-                  ],
+                        ),
+                ],
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: () {
+                  if (onTap != null) {
+                    onTap!();
+                  } else {
+                    Navigator.of(context).push(fadePageRoute(widget!));
+                  }
+                },
+                icon: const Icon(
+                  Icons.arrow_forward_ios_sharp,
+                  color: kwhite,
+                  size: 17,
                 ),
-                const Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.arrow_forward_ios_sharp,
-                    color: kwhite,
-                    size: 17,
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),

@@ -1,25 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'archeived_card_model.dart';
+part of 'blocked_cards_responce_moede.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ArcheivedCardModel _$ArcheivedCardModelFromJson(Map<String, dynamic> json) =>
-    ArcheivedCardModel(
+BlockedCardsResponceMoede _$BlockedCardsResponceMoedeFromJson(
+        Map<String, dynamic> json) =>
+    BlockedCardsResponceMoede(
       count: json['count'] as int?,
       next: json['next'],
       previous: json['previous'],
-      archiveCards: (json['results'] as List<dynamic>?)
-          ?.map((e) => ArcheivedCard.fromJson(e as Map<String, dynamic>))
+      blockedCards: (json['results'] as List<dynamic>?)
+          ?.map((e) => BlockedCards.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$ArcheivedCardModelToJson(ArcheivedCardModel instance) =>
+Map<String, dynamic> _$BlockedCardsResponceMoedeToJson(
+        BlockedCardsResponceMoede instance) =>
     <String, dynamic>{
       'count': instance.count,
       'next': instance.next,
       'previous': instance.previous,
-      'results': instance.archiveCards,
+      'results': instance.blockedCards,
     };

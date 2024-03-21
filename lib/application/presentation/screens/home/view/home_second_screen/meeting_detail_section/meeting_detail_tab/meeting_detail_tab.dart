@@ -14,7 +14,7 @@ class MeetingDetailTabBarItems extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-           const  SizedBox(width: double.infinity),
+            const SizedBox(width: double.infinity),
             // TabBar(
             //   dividerHeight: 0,
             //   isScrollable: true,

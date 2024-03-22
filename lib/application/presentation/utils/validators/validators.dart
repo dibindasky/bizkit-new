@@ -21,7 +21,7 @@ bool isValidPassword(String value) {
 
 // Regular expression for email validation
 bool isValidEmail(String value) {
-  final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{1,10}$');
   return emailRegExp.hasMatch(value);
 }
 

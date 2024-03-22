@@ -68,14 +68,14 @@ class CompanyAndBankingDetails extends StatelessWidget {
             adjustHieght(khieght * .05),
             BlocConsumer<BusinessDataBloc, BusinessDataState>(
               listenWhen: (previous, current) =>
-                  previous.businessDetailsCreateId !=
-                  current.businessDetailsCreateId,
+                  previous.businessData !=
+                  current.businessData,
               listener: (context, state) {
                 if (state.message != null && state.hasError) {
                   showSnackbar(context,
                       message: state.message!, backgroundColor: kred);
                 }
-                if (state.businessDetailsCreateId != null) {
+                if (state.businessData != null) {
                   Navigator.push(context,
                       fadePageRoute(const BusinessCardCreationPreviewScreen()));
                   // GoRouter.of(context).pushReplacementNamed(Routes.cardCreationPreview);

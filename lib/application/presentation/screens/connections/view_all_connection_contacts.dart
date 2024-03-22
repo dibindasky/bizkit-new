@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/application/presentation/screens/connections/connection_request_sscreen.dart';
@@ -38,11 +39,11 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
           style: textHeadStyle1,
         ),
         actions: [
-          IconButton(
-              onPressed: () => Navigator.push(
-                  context, fadePageRoute(const ScreenAddConnections())),
-              icon: const Icon(Icons.add_circle, color: kneonShade)),
-          adjustWidth(10),
+          // IconButton(
+          //     onPressed: () => Navigator.push(
+          //         context, fadePageRoute(const ScreenAddConnections())),
+          //     icon: const Icon(Icons.add_circle, color: kneonShade)),
+          // adjustWidth(10),
           InkWell(
             onTap: () => Navigator.push(
                 context, fadePageRoute(const ScreenConnectionRequests())),
@@ -52,17 +53,24 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.asset(iconConnectionPeople),
-                  const Positioned(
-                      right: 10,
-                      child: Text(
-                        '4',
-                        style: TextStyle(color: kblack),
-                      ))
+                  BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
+                    builder: (context, state) {
+                      return Positioned(
+                          right: 10,
+                          child: Text(
+                            state.requestList != null &&
+                                    state.requestList!.isNotEmpty
+                                ? state.requestList!.length.toString()
+                                : '0',
+                            style: const TextStyle(color: kblack),
+                          ));
+                    },
+                  )
                 ],
               ),
             ),
           ),
-          adjustWidth(20)
+          adjustWidth(40)
         ],
       ),
       body: Padding(
@@ -155,6 +163,14 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+          shape: const CircleBorder(),
+          // label: Text('Add Connection',style: textStyle1),
+          // icon: const Icon(Icons.add),
+          onPressed: () => Navigator.push(
+              context, fadePageRoute(const ScreenAddConnections())),
+          child: const Icon(Icons.add)),
     );
   }
 }

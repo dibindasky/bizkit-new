@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.dart';
@@ -10,17 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
 
 class PreviewProductsBrandsLists extends StatelessWidget {
-  const PreviewProductsBrandsLists(
-      {super.key,
-      this.fileImages,
-      this.networkImages,
-      this.pdf,
-      this.pdfBase64});
+  const PreviewProductsBrandsLists({super.key, this.networkImages, this.pdf});
 
-  final List<File>? fileImages;
   final List<String>? networkImages;
   final List<String>? pdf;
-  final List<String>? pdfBase64;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +36,8 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(
                     fadePageRoute(
-                      const BrochersAndProductsTab(),
+                      BrochersAndProductsTab(
+                          networkImages: networkImages ?? [], pdf: pdf ?? []),
                     ),
                   ),
                   child: Container(
@@ -68,39 +61,30 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 children: [
                   ListView.separated(
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) => adjustWidth(
-                      kwidth * .01,
-                    ),
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ScreenImagePreview(
-                                      image: networkImages?[index] ??
-                                          fileImages![index].path,
-                                      isFileIamge: networkImages == null,
-                                    ))),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: ColoredBox(
-                            color: smallBigGrey,
-                            child: networkImages != null
-                                ? Image.network(networkImages![index])
-                                : Image.file(
-                                    fileImages![index],
-                                  ),
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) => adjustWidth(
+                            kwidth * .01,
                           ),
-                        ),
-                      );
-                    },
-                    itemCount: networkImages != null
-                        ? networkImages!.length
-                        : fileImages!.length,
-                  ),
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ScreenImagePreview(
+                                        image: networkImages![index],
+                                        isFileIamge: networkImages == null,
+                                      ))),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: ColoredBox(
+                                color: smallBigGrey,
+                                child: Image.network(networkImages![index])),
+                          ),
+                        );
+                      },
+                      itemCount: networkImages!.length),
                   adjustWidth(kwidth * .01),
                   ListView.separated(
                     shrinkWrap: true,
@@ -115,11 +99,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ScreenPdfPreview(
-                                      filePath:
-                                          pdf != null ? pdf![index] : null,
-                                      base64: pdfBase64 != null
-                                          ? pdfBase64![index]
-                                          : null,
+                                      base64: pdf![index],
                                     ))),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
@@ -133,7 +113,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                                       params:
                                           const PdfViewerParams(pageNumber: 1))
                                   : PdfViewer.openData(
-                                      base64Decode(pdfBase64![index]),
+                                      base64Decode(pdf![index]),
                                       params:
                                           const PdfViewerParams(pageNumber: 1)),
                             ),
@@ -141,7 +121,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                         ),
                       );
                     },
-                    itemCount: pdf != null ? pdf!.length : pdfBase64!.length,
+                    itemCount: pdf!.length,
                   ),
                 ],
               ),

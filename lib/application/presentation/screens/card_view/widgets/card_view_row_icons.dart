@@ -17,7 +17,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            //phone number botom sheet
+//phone number botom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -42,7 +42,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: imagePhone,
             ),
-            // email bottom sheet
+// email bottom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -79,7 +79,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: gifGlobe,
             ),
-            // social media bottom sheet
+// social media bottom sheet
             DetailSharingIconWidget(
               onTap: () => showModalBottomSheet(
                 context: context,

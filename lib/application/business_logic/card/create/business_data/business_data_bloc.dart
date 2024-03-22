@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
+import 'package:bizkit/domain/model/card/card/business_detail/business_details.dart';
 import 'package:bizkit/domain/model/card/create_card/accridition/accredition.dart';
 import 'package:bizkit/domain/model/card/create_card/banking_detail/bank_details.dart';
 import 'package:bizkit/domain/model/card/create_card/branch_offices/branch_offices.dart';
@@ -103,7 +104,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             gotCompanyData: false)),
         (success) => emit(state.copyWith(
             isLoading: false,
-            businessDetailsCreateId: success.id,
+            businessData: success,
             gotCompanyData: false)));
   }
 
@@ -187,7 +188,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             gotCompanyData: false,
             message: 'failed to add company data to profile')), (business) {
       emit(state.copyWith(
-          businessDetailsCreateId: event.id,
+          // businessDetailsCreateId: event.id,
+          businessData:business,
           gotCompanyData: true,
           loadCompanyData: false,
           message: 'selected company data added to your profile'));

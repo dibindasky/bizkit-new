@@ -3570,7 +3570,7 @@ mixin _$UserDataState {
   bool get isBusiness => throw _privateConstructorUsedError;
   SuccessResponseModel? get cardAdded => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
-  int? get personalDataCreateId => throw _privateConstructorUsedError;
+  PersonalDetails? get personalData => throw _privateConstructorUsedError;
   PersonalDetailsCreate get personalDetails =>
       throw _privateConstructorUsedError;
   List<ImageModel> get scannedImagesCardCreation =>
@@ -3602,7 +3602,7 @@ abstract class $UserDataStateCopyWith<$Res> {
       bool isBusiness,
       SuccessResponseModel? cardAdded,
       String? message,
-      int? personalDataCreateId,
+      PersonalDetails? personalData,
       PersonalDetailsCreate personalDetails,
       List<ImageModel> scannedImagesCardCreation,
       ImageModel? userPhotos,
@@ -3631,7 +3631,7 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
     Object? isBusiness = null,
     Object? cardAdded = freezed,
     Object? message = freezed,
-    Object? personalDataCreateId = freezed,
+    Object? personalData = freezed,
     Object? personalDetails = null,
     Object? scannedImagesCardCreation = null,
     Object? userPhotos = freezed,
@@ -3662,10 +3662,10 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      personalDataCreateId: freezed == personalDataCreateId
-          ? _value.personalDataCreateId
-          : personalDataCreateId // ignore: cast_nullable_to_non_nullable
-              as int?,
+      personalData: freezed == personalData
+          ? _value.personalData
+          : personalData // ignore: cast_nullable_to_non_nullable
+              as PersonalDetails?,
       personalDetails: null == personalDetails
           ? _value.personalDetails
           : personalDetails // ignore: cast_nullable_to_non_nullable
@@ -3716,7 +3716,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool isBusiness,
       SuccessResponseModel? cardAdded,
       String? message,
-      int? personalDataCreateId,
+      PersonalDetails? personalData,
       PersonalDetailsCreate personalDetails,
       List<ImageModel> scannedImagesCardCreation,
       ImageModel? userPhotos,
@@ -3743,7 +3743,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isBusiness = null,
     Object? cardAdded = freezed,
     Object? message = freezed,
-    Object? personalDataCreateId = freezed,
+    Object? personalData = freezed,
     Object? personalDetails = null,
     Object? scannedImagesCardCreation = null,
     Object? userPhotos = freezed,
@@ -3774,10 +3774,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      personalDataCreateId: freezed == personalDataCreateId
-          ? _value.personalDataCreateId
-          : personalDataCreateId // ignore: cast_nullable_to_non_nullable
-              as int?,
+      personalData: freezed == personalData
+          ? _value.personalData
+          : personalData // ignore: cast_nullable_to_non_nullable
+              as PersonalDetails?,
       personalDetails: null == personalDetails
           ? _value.personalDetails
           : personalDetails // ignore: cast_nullable_to_non_nullable
@@ -3823,7 +3823,7 @@ class _$InitialImpl implements _Initial {
       required this.isBusiness,
       this.cardAdded,
       this.message,
-      this.personalDataCreateId,
+      this.personalData,
       required this.personalDetails,
       required final List<ImageModel> scannedImagesCardCreation,
       this.userPhotos,
@@ -3849,7 +3849,7 @@ class _$InitialImpl implements _Initial {
   @override
   final String? message;
   @override
-  final int? personalDataCreateId;
+  final PersonalDetails? personalData;
   @override
   final PersonalDetailsCreate personalDetails;
   final List<ImageModel> _scannedImagesCardCreation;
@@ -3901,7 +3901,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, isBusiness: $isBusiness, cardAdded: $cardAdded, message: $message, personalDataCreateId: $personalDataCreateId, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, businessCategories: $businessCategories, datesToRemember: $datesToRemember, socialMedias: $socialMedias, scannedImageDatasModel: $scannedImageDatasModel)';
+    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, isBusiness: $isBusiness, cardAdded: $cardAdded, message: $message, personalData: $personalData, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, businessCategories: $businessCategories, datesToRemember: $datesToRemember, socialMedias: $socialMedias, scannedImageDatasModel: $scannedImageDatasModel)';
   }
 
   @override
@@ -3918,8 +3918,8 @@ class _$InitialImpl implements _Initial {
             (identical(other.cardAdded, cardAdded) ||
                 other.cardAdded == cardAdded) &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.personalDataCreateId, personalDataCreateId) ||
-                other.personalDataCreateId == personalDataCreateId) &&
+            (identical(other.personalData, personalData) ||
+                other.personalData == personalData) &&
             (identical(other.personalDetails, personalDetails) ||
                 other.personalDetails == personalDetails) &&
             const DeepCollectionEquality().equals(
@@ -3946,7 +3946,7 @@ class _$InitialImpl implements _Initial {
       isBusiness,
       cardAdded,
       message,
-      personalDataCreateId,
+      personalData,
       personalDetails,
       const DeepCollectionEquality().hash(_scannedImagesCardCreation),
       userPhotos,
@@ -3970,7 +3970,7 @@ abstract class _Initial implements UserDataState {
       required final bool isBusiness,
       final SuccessResponseModel? cardAdded,
       final String? message,
-      final int? personalDataCreateId,
+      final PersonalDetails? personalData,
       required final PersonalDetailsCreate personalDetails,
       required final List<ImageModel> scannedImagesCardCreation,
       final ImageModel? userPhotos,
@@ -3991,7 +3991,7 @@ abstract class _Initial implements UserDataState {
   @override
   String? get message;
   @override
-  int? get personalDataCreateId;
+  PersonalDetails? get personalData;
   @override
   PersonalDetailsCreate get personalDetails;
   @override

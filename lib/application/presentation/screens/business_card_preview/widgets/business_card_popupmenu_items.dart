@@ -10,33 +10,33 @@ class BusinessCardCreationPreviewAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actions: [
-        PopupMenuButton<String>(
-          color: backgroundColour,
-          icon: const Icon(
-            Icons.more_vert,
-            size: 23,
-            color: kwhite,
-          ),
-          onSelected: (value) {
-            handlePopupMenuSelection(context, value);
-          },
-          itemBuilder: (context) => [
-            const PopupMenuItem(
-              value: 'Edit Bizkit card',
-              child: Text('Edit Bizkit card'),
-            ),
-            const PopupMenuItem(
-              value: 'Add information',
-              child: Text('Add information'),
-            ),
-            const PopupMenuItem(
-              value: 'Report a problem',
-              child: Text('Report a problem'),
-            ),
-          ],
-        ),
-      ],
+      // actions: [
+      //   PopupMenuButton<String>(
+      //     color: backgroundColour,
+      //     icon: const Icon( 
+      //       Icons.more_vert,
+      //       size: 23,
+      //       color: kwhite,
+      //     ),
+      //     onSelected: (value) {
+      //       handlePopupMenuSelection(context, value);
+      //     },
+      //     itemBuilder: (context) => [
+      //       const PopupMenuItem(
+      //         value: 'Edit Bizkit card',
+      //         child: Text('Edit Bizkit card'),
+      //       ),
+      //       const PopupMenuItem(
+      //         value: 'Add information',
+      //         child: Text('Add information'),
+      //       ),
+      //       const PopupMenuItem(
+      //         value: 'Report a problem',
+      //         child: Text('Report a problem'),
+      //       ),
+      //     ],
+      //   ),
+      // ],
       leading: IconButton(
         icon: const Icon(
           Icons.arrow_back_ios,

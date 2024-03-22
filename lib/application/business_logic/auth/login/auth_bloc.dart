@@ -70,21 +70,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
       (loginResponseModel) async {
         print('login success');
-        print(loginResponseModel.toJson());
-        emit(
-          state.copyWith(
-            isLoading: false,
-            loginResponseModel: loginResponseModel,
-            message: loginResponseModel.message ?? 'login successfully',
-          ),
-        );
         print('saveToken');
         print(loginResponseModel.accessToken);
-        await SecureStorage.saveToken(
+        SecureStorage.saveToken(
           tokenModel: TokenModel(
               id: loginResponseModel.user?.id,
               accessToken: loginResponseModel.accessToken,
               refreshToken: loginResponseModel.refreshToken),
+        );
+        print(loginResponseModel.toJson());
+        emit(
+          state.copyWith(
+            userName: loginResponseModel.user?.name ?? '',
+            isFirstLogin: loginResponseModel.user?.isLogined ?? true,
+            hasCard: loginResponseModel.user?.hasCard ?? true,
+            isLoading: false,
+            loginResponseModel: loginResponseModel,
+            message: loginResponseModel.message ?? 'login successfully',
+          ),
         );
         print('sqflite');
         if (loginResponseModel.user != null) {

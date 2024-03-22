@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
 import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/category.dart';
 import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
@@ -124,13 +125,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     result.fold(
         (failure) => emit(state.copyWith(
             personalDetails: personalData,
-            personalDataCreateId: null,
+            personalData: null,
             hasError: true,
             isLoading: false)),
         (personalDetails) => emit(state.copyWith(
             personalDetails: personalData,
             message: null,
-            personalDataCreateId: personalDetails.id,
+            personalData: personalDetails,
             isLoading: false)));
   }
 

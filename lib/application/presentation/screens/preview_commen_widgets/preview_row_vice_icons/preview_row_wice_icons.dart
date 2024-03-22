@@ -3,6 +3,7 @@ import 'package:bizkit/application/business_logic/card/create/business_data/busi
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_vice_accounts_bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
@@ -30,13 +31,13 @@ class PreviewRowWiceIcons extends StatelessWidget {
                       onTap: () {
                         List<String> items = [];
                         if (fromPreview) {
-                          if (userState.personalDetails.phoneNumber != null) {
-                            items.add(userState.personalDetails.phoneNumber!);
+                          if (userState.personalData?.phoneNumber != null) {
+                            items.add(userState.personalData!.phoneNumber!);
                           }
-                          if (businessState.businessDetails.mobileNumber !=
+                          if (businessState.businessData?.mobileNumber !=
                               null) {
-                            items.add(
-                                businessState.businessDetails.mobileNumber!);
+                            items
+                                .add(businessState.businessData!.mobileNumber!);
                           }
                         } else {
                           if (state.anotherCard != null &&
@@ -59,6 +60,10 @@ class PreviewRowWiceIcons extends StatelessWidget {
                         }
                         showModalBottomSheet(
                           context: context,
+                          enableDrag: true,
+                          isDismissible: true,
+                          showDragHandle: true,
+                          backgroundColor: kblack,
                           builder: (context) => PreviewScreenRowIconsModelSheet(
                             fromPreview: fromPreview,
                             image: imagePhone,
@@ -73,11 +78,11 @@ class PreviewRowWiceIcons extends StatelessWidget {
                       onTap: () {
                         List<String> items = [];
                         if (fromPreview) {
-                          if (userState.personalDetails.email != null) {
-                            items.add(userState.personalDetails.email!);
+                          if (userState.personalData?.email != null) {
+                            items.add(userState.personalData!.email!);
                           }
-                          if (businessState.businessDetails.email != null) {
-                            items.add(businessState.businessDetails.email!);
+                          if (businessState.businessData?.email != null) {
+                            items.add(businessState.businessData!.email!);
                           }
                         } else {
                           if (state.anotherCard != null &&
@@ -99,6 +104,10 @@ class PreviewRowWiceIcons extends StatelessWidget {
                         }
                         showModalBottomSheet(
                           context: context,
+                          enableDrag: true,
+                          isDismissible: true,
+                          showDragHandle: true,
+                          backgroundColor: kblack,
                           builder: (context) => PreviewScreenRowIconsModelSheet(
                             fromPreview: fromPreview,
                             image: imagePhone,
@@ -112,9 +121,9 @@ class PreviewRowWiceIcons extends StatelessWidget {
                     DetailSharingIconWidget(
                       onTap: () {
                         if (fromPreview &&
-                            businessState.businessDetails.websiteLink != null) {
+                            businessState.businessData?.websiteLink != null) {
                           LaunchUrl.launchUrls(
-                              url: businessState.businessDetails.websiteLink!);
+                              url: businessState.businessData!.websiteLink!);
                         } else if (!fromPreview &&
                             state.anotherCard != null &&
                             state.anotherCard!.businessDetails != null &&
@@ -131,19 +140,23 @@ class PreviewRowWiceIcons extends StatelessWidget {
                     DetailSharingIconWidget(
                       onTap: () => showModalBottomSheet(
                         context: context,
+                        enableDrag: true,
+                        isDismissible: true,
+                        showDragHandle: true,
+                        backgroundColor: kblack,
                         builder: (context) {
                           List personal = [], business = [];
                           if (fromPreview) {
-                            if (userState.personalDetails.personalSocialMedia !=
+                            if (userState.personalData?.personalSocialMedia !=
                                 null) {
-                              personal = userState
-                                  .personalDetails.personalSocialMedia!;
+                              personal =
+                                  userState.personalData!.personalSocialMedia!;
                             }
                             if (businessState
-                                    .businessDetails.socialMediaHandles !=
+                                    .businessData?.socialMediaHandles !=
                                 null) {
                               business = businessState
-                                  .businessDetails.socialMediaHandles!;
+                                  .businessData!.socialMediaHandles!;
                             }
                           } else {
                             if (state.anotherCard != null &&

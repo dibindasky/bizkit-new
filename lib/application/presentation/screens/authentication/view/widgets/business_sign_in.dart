@@ -97,13 +97,7 @@ class BusinessSignIn extends StatelessWidget {
                 controller: addressController,
                 validate: Validate.notNull,
               ),
-              TTextFormField(
-                text: 'Password',
-                validate: Validate.password,
-                controller: passwordController,
-                obscureText: true,
-                inputType: TextInputType.visiblePassword,
-              ),
+              PasswordHintmakers(passwordController: passwordController),
               TTextFormField(
                 text: 'ReEnter Password',
                 controller: rePasswordController,
@@ -176,6 +170,47 @@ class BusinessSignIn extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class PasswordHintmakers extends StatefulWidget {
+  const PasswordHintmakers({super.key, required this.passwordController});
+
+  final TextEditingController passwordController;
+  @override
+  State<PasswordHintmakers> createState() => _PasswordHintmakersState();
+}
+
+class _PasswordHintmakersState extends State<PasswordHintmakers> {
+  bool showHint = false;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Visibility(visible: showHint, child: adjustHieght(5)),
+        Visibility(
+          visible: showHint,
+          child: Text(
+            'Password must contains 1 Uppercase, 1 Lowercase, 1 Special character, 1 number and also should contain atleast 8 characters',
+            style: textStyle1.copyWith(color: kred.withOpacity(0.7)),
+          ),
+        ),
+        TTextFormField(
+          onTap: () {
+            if (!showHint) {
+              setState(() {
+                showHint = true;
+              });
+            }
+          },
+          text: 'Password',
+          validate: Validate.password,
+          controller: widget.passwordController,
+          obscureText: true,
+          inputType: TextInputType.visiblePassword,
+        ),
+      ],
     );
   }
 }

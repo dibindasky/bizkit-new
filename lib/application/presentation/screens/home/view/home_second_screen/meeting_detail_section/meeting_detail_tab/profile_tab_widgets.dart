@@ -20,7 +20,7 @@ class MeetingDetailProfileTabWidgets extends StatelessWidget {
             adjustHieght(khieght * .01),
             const PreviewBankPersonAchivedRows(fromPreview: false),
             adjustHieght(khieght * .02),
-            const PreviewProductsBrandsLists(fileImages: []),
+            const PreviewProductsBrandsLists(),
             adjustHieght(khieght * .02),
           ],
         ),

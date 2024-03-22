@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
@@ -12,9 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductsBuilder extends StatelessWidget {
-  const ProductsBuilder({super.key, this.fileImages, this.networkImages});
-  final List<File>? fileImages;
-  final List<String>? networkImages;
+  const ProductsBuilder({super.key, required this.networkImages});
+  final List<String> networkImages;
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +25,14 @@ class ProductsBuilder extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               adjustHieght(khieght * .04),
-              BlocBuilder<CardBloc, CardState>(
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return const LoadingAnimation();
-                  } else {
-                    List<Product> list = [];
-                    if (state.anotherCard != null &&
-                        state.anotherCard!.businessDetails != null &&
-                        state.anotherCard!.businessDetails!.product != null) {
-                      list = state.anotherCard!.businessDetails!.product!;
-                    }
-                    return ListView.separated(
+             ListView.separated(
                       separatorBuilder: (context, index) =>
                           adjustHieght(kwidth * .03),
-                      itemCount: list.length,
+                      itemCount: networkImages.length,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        final data = list[index];
+                        final data = networkImages[index];
                         return SizedBox(
                           height: 260,
                           width: double.infinity,
@@ -54,7 +41,7 @@ class ProductsBuilder extends StatelessWidget {
                               SizedBox(
                                 height: 200,
                                 width: double.infinity,
-                                child: Image.network(data.product!,
+                                child: Image.network(data,
                                     fit: BoxFit.cover,
                                     errorBuilder:
                                         (context, error, stackTrace) =>
@@ -74,19 +61,19 @@ class ProductsBuilder extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              data.label ?? '',
-                                              style: textStyle1.copyWith(
-                                                fontSize: kwidth * .04,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            Text(
-                                              data.description ?? '',
-                                              style: textStyle1.copyWith(
-                                                fontSize: kwidth * .03,
-                                              ),
-                                            ),
+                                          //   Text(
+                                          //     data.label ?? '',
+                                          //     style: textStyle1.copyWith(
+                                          //       fontSize: kwidth * .04,
+                                          //       fontWeight: FontWeight.w700,
+                                          //     ),
+                                          //   ),
+                                          //   Text(
+                                          //     data.description ?? '',
+                                          //     style: textStyle1.copyWith(
+                                          //       fontSize: kwidth * .03,
+                                          //     ),
+                                          //   ),
                                           ],
                                         ),
                                       ),
@@ -96,9 +83,9 @@ class ProductsBuilder extends StatelessWidget {
                                         wdth: 90,
                                         text: 'View',
                                         onTap: () {
-                                          Navigator.of(context).push(
-                                              fadePageRoute(ProductViewDetail(
-                                                  product: data)));
+                                          // Navigator.of(context).push(
+                                          //     fadePageRoute(ProductViewDetail(
+                                          //         product: data)));
                                         },
                                       ),
                                       adjustWidth(kwidth * .02),
@@ -110,10 +97,7 @@ class ProductsBuilder extends StatelessWidget {
                           ),
                         );
                       },
-                    );
-                  }
-                },
-              ),
+                    ),
               adjustHieght(khieght * .03),
             ],
           ),

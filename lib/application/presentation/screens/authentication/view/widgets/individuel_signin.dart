@@ -91,13 +91,7 @@ class IndividuelSignIn extends StatelessWidget {
                     controller: emailIdController,
                     inputType: TextInputType.emailAddress,
                   )),
-              TTextFormField(
-                validate: Validate.password,
-                text: 'Password',
-                controller: passwordController,
-                obscureText: true,
-                inputType: TextInputType.visiblePassword,
-              ),
+              PasswordHintmaker(passwordController: passwordController),
               TTextFormField(
                 validate: Validate.rePassword,
                 password: passwordController,
@@ -133,6 +127,47 @@ class IndividuelSignIn extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class PasswordHintmaker extends StatefulWidget {
+  const PasswordHintmaker({super.key, required this.passwordController});
+
+  final TextEditingController passwordController;
+  @override
+  State<PasswordHintmaker> createState() => _PasswordHintmakerState();
+}
+
+class _PasswordHintmakerState extends State<PasswordHintmaker> {
+  bool showHint = false;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Visibility(visible: showHint, child: adjustHieght(5)),
+        Visibility(
+          visible: showHint,
+          child: Text(
+            'Password must contains 1 Uppercase, 1 Lowercase, 1 Special character, 1 number and also should contain atleast 8 characters',
+            style: textStyle1.copyWith(color: kred.withOpacity(0.7)),
+          ),
+        ),
+        TTextFormField(
+          onTap: () {
+            if (!showHint) {
+              setState(() {
+                showHint = true;
+              });
+            }
+          },
+          validate: Validate.password,
+          text: 'Password',
+          controller: widget.passwordController,
+          obscureText: true,
+          inputType: TextInputType.visiblePassword,
+        ),
+      ],
     );
   }
 }

@@ -42,21 +42,13 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                 builder: (context, business) {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
-                      final logo = business.logo != null
-                          ? [business.logo!.fileImage]
-                          : <File>[];
-                      List<File> images = user.userPhotos != null
-                          ? [user.userPhotos!.fileImage]
-                          : <File>[] +
-                              business.accreditions
-                                  .map((e) => e.image.fileImage as File)
-                                  .toList() +
-                              user.accolades
-                                  .map(
-                                      (e) => e.accoladesImage.fileImage as File)
-                                  .toList() +
-                              logo;
-                      return PreviewPageviewImageBuilder(images: images);
+                      final logo = business.businessData?.logo != null
+                          ? [business.businessData!.logo!]
+                          : <String>[];
+                      List<String> images = user.personalData?.photos != null
+                          ? [user.personalData!.photos!]
+                          : <String>[] + logo;
+                      return PreviewPageviewImageBuilder(imagesList: images);
                     },
                   );
                 },
@@ -69,10 +61,10 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                 return Column(
                   children: [
                     Text(
-                      user.personalDetails.name ?? 'Name',
+                      user.personalData?.name ?? 'Name',
                       style: TextStyle(fontSize: 26.sp),
                     ),
-                    Text(user.personalDetails.designation ?? 'Designation'),
+                    Text(user.personalData?.designation ?? 'Designation'),
                   ],
                 );
               },
@@ -87,14 +79,20 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
             // products and brochers horizontal List view
             BlocBuilder<BusinessDataBloc, BusinessDataState>(
               builder: (context, business) {
-                final images = business.products
-                    .map((e) => e.product.fileImage as File)
-                    .toList();
-                final pdf = business.brochures
-                    .map((e) => e.file.file.path as String)
-                    .toList();
+                List<String> images = [];
+                if (business.businessData?.product != null) {
+                  images = business.businessData!.product!
+                      .map((e) => e.product!)
+                      .toList();
+                }
+                List<String> pdf = [];
+                if (business.businessData?.brochure != null) {
+                  pdf = business.brochures
+                      .map((e) => e.file.file.path as String)
+                      .toList();
+                }
                 return PreviewProductsBrandsLists(
-                  fileImages: images,
+                  networkImages: images,
                   pdf: pdf,
                 );
               },
@@ -115,9 +113,11 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                           .read<CardBloc>()
                           .add(const CardEvent.getCards(call: true));
                       if (fromHomeAddCard) {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        print('go homw from home add card');
+                         context.go(Routes.homePage);
+                        // Navigator.pop(context);
+                        // Navigator.pop(context);
+                        // Navigator.pop(context);
                       } else {
                         context.go(Routes.homePage);
                         // Navigator.pushAndRemoveUntil(
@@ -181,9 +181,9 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                               UserDataEvent.createCard(
                                 createCardByIdModel: CreateCardByIdModel(
                                     businessDetails:
-                                        businessSate.businessDetailsCreateId,
+                                        businessSate.businessData!.id!,
                                     personalDetails:
-                                        userState.personalDataCreateId),
+                                        userState.personalData!.id!),
                               ),
                             );
                       },

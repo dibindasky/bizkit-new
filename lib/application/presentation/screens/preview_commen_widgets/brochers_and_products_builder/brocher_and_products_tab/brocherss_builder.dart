@@ -8,30 +8,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BrochersBuilder extends StatelessWidget {
   const BrochersBuilder({
     super.key,
-    this.pdf,
-    this.pdfBase64,
+    required this.pdf,
   });
-  final List<String>? pdf;
-  final List<String>? pdfBase64;
+  final List<String> pdf;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
-        child: BlocBuilder<CardBloc, CardState>(
-          builder: (context, state) {
-            if (state.isLoading) {
-              return const LoadingAnimation();
-            } else {
-              List<Brochure> list = [];
-              if (state.anotherCard != null &&
-                  state.anotherCard!.businessDetails != null &&
-                  state.anotherCard!.businessDetails!.brochure != null) {
-                list = state.anotherCard!.businessDetails!.brochure!;
-              }
-              return GridView.builder(
-                itemCount: list.length,
+        child:   GridView.builder(
+                itemCount: pdf.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                   crossAxisSpacing: 10,
@@ -40,10 +27,7 @@ class BrochersBuilder extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Image.asset(pdfImage);
                 },
-              );
-            }
-          },
-        ),
+              )
       ),
     );
   }

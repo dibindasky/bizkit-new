@@ -186,7 +186,8 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                     if (!isValidEmail(value!)) {
                       return 'Please enter a valid email address';
                     } else if (value.contains('info@') ||
-                        value.contains('admin@')) {
+                        value.contains('admin@') ||
+                        value.contains('sales@')) {
                       return null;
                     }
                     return 'Enter your organization\'s registered email';

@@ -7,7 +7,7 @@ class BusinessDataState with _$BusinessDataState {
       required bool hasError,
       required bool loadCompanyData,
       required bool isBusiness,
-      int? businessDetailsCreateId,
+      BusinessDetails? businessData,
       int? bankDetailsCreateId,
       required List<SocialMediaHandleCreate> socialMedias,
       required List<AccreditionCreate> accreditions,

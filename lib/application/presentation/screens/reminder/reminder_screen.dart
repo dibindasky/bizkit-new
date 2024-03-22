@@ -123,6 +123,7 @@ class _PreviewHomeAddReminderScreenState
                       TTextFormField(
                         controller:
                             context.read<ReminderBloc>().messageController,
+                        validate: Validate.notNull,
                         text: 'write here',
                         maxLines: 3,
                         maxlegth: 300,
@@ -184,7 +185,8 @@ class _PreviewHomeAddReminderScreenState
                     );
                     if (selectedTime != null) {
                       setState(() {
-                        time = '${selectedTime.hour}:${selectedTime.minute}';
+                        time =
+                            '${'${selectedTime.hour}'.length == 1 ? '0${selectedTime.hour}' : selectedTime.hour}:${'${selectedTime.minute}'.length == 1 ? '0${selectedTime.minute}' : selectedTime.minute}';
                       });
                     }
                   },
@@ -314,8 +316,9 @@ class _PreviewHomeAddReminderScreenState
                                 Radius.circular(8),
                               ),
                             ),
+                            padding: const EdgeInsets.all(10),
                             child: const Center(
-                              child: Text('Save & Notify'),
+                              child: FittedBox(child: Text('Save & Notify')),
                             ),
                           ),
                         ),

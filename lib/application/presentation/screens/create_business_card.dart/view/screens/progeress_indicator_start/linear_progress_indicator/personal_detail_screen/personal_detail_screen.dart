@@ -44,13 +44,20 @@ class PersonlDetails extends StatelessWidget {
               ),
               adjustHieght(khieght * .02),
               // home address text field
-              TTextFormField(
-                validate: Validate.notNull,
-                maxLines: 2,
-                text: 'Home address',
-                maxlegth: 250,
-                controller: context.read<UserDataBloc>().homeAddress,
-                inputType: TextInputType.name,
+              BlocBuilder<UserDataBloc, UserDataState>(
+                builder: (context, state) {
+                  return AutocompleteTextField(
+                    autocompleteItems:
+                        state.scannedImageDatasModel?.unknown ?? [],
+                    showDropdownOnTap: true,
+                    validate: Validate.notNull,
+                    maxLines: 2,
+                    label: 'Home address',
+                    maxLength: 250,
+                    controller: context.read<UserDataBloc>().homeAddress,
+                    inputType: TextInputType.name,
+                  );
+                },
               ),
               // blood group selection
               AutocompleteTextField(
@@ -238,8 +245,7 @@ class PersonlDetails extends StatelessWidget {
               adjustHieght(khieght * .05),
               BlocConsumer<UserDataBloc, UserDataState>(
                 listenWhen: (previous, current) =>
-                    previous.personalData !=
-                    current.personalData,
+                    previous.personalData != current.personalData,
                 listener: (context, state) {
                   if (state.personalData != null) {
                     pageController.nextPage(

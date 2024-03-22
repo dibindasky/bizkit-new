@@ -1,5 +1,6 @@
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
@@ -9,11 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenAddConnections extends StatelessWidget {
-  const ScreenAddConnections({super.key});
+  ScreenAddConnections({super.key});
+
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.text = '';
       context.read<ConnectionRequestBloc>().add(
           ConnectionRequestEvent.searchBizkitUsers(
               searchQuery: SearchQuery(search: '')));
@@ -41,6 +45,7 @@ class ScreenAddConnections extends StatelessWidget {
         child: Column(
           children: [
             TTextFormField(
+              controller: controller,
               onChanaged: (value) {
                 context.read<ConnectionRequestBloc>().add(
                     ConnectionRequestEvent.searchBizkitUsers(
@@ -53,31 +58,56 @@ class ScreenAddConnections extends StatelessWidget {
             Expanded(
               child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
                 builder: (context, state) {
-                  return RefreshIndicator(
-                    onRefresh: () async {
-                      context.read<ConnectionRequestBloc>().add(
-                          ConnectionRequestEvent.searchBizkitUsers(
-                              searchQuery: SearchQuery(search: '')));
-                      await Future.delayed(const Duration(milliseconds: 1500));
-                    },
-                    child: GridView.builder(
-                      itemCount: state.bizkitUsers?.length ?? 0,
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 1 / 1.15,
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20),
-                      itemBuilder: (context, index) {
-                        final data = state.bizkitUsers![index];
-                        return GridTileAddRequestConnection(
-                          data: data,
-                          index: index,
-                        );
+                  if (state.isLoading) {
+                    return const Center(
+                        child: CircularProgressIndicator(color: neonShade));
+                  } else if (state.bizkitUsers != null &&
+                      state.bizkitUsers!.isNotEmpty) {
+                    return RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<ConnectionRequestBloc>().add(
+                            ConnectionRequestEvent.searchBizkitUsers(
+                                searchQuery:
+                                    SearchQuery(search: controller.text)));
+                        await Future.delayed(
+                            const Duration(milliseconds: 1500));
                       },
-                    ),
-                  );
+                      child: GridView.builder(
+                        itemCount: state.bizkitUsers?.length ?? 0,
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 1 / 1.15,
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20),
+                        itemBuilder: (context, index) {
+                          final data = state.bizkitUsers![index];
+                          return GridTileAddRequestConnection(
+                            data: data,
+                            index: index,
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return RefreshIndicator(
+                        onRefresh: () async {
+                          context.read<ConnectionRequestBloc>().add(
+                              ConnectionRequestEvent.searchBizkitUsers(
+                                  searchQuery:
+                                      SearchQuery(search: controller.text)));
+                          await Future.delayed(
+                              const Duration(milliseconds: 1500));
+                        },
+                        child: ListView(
+                          children: [
+                            adjustHieght(40),
+                            Center(child: Image.asset(emptyNodata3)),
+                            adjustHieght(80),
+                          ],
+                        ));
+                  }
                 },
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:bizkit/application/business_logic/card/create/business_data/busi
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/commen_banking_personal_tiles.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,12 +43,12 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                 ? [
                     BlocBuilder<UserDataBloc, UserDataState>(
                       builder: (context, state) {
-                        if (state.personalDetails.bloodGroup == null) {
-                          return const SizedBox();
+                        if (state.personalData?.bloodGroup == null) {
+                          return Image.asset(emptyNodata3);
                         }
                         return CommenbankingPersnalTiles(
                           first: 'Blood Group',
-                          second: state.personalDetails.bloodGroup ?? '',
+                          second: state.personalData!.bloodGroup ?? '',
                         );
                       },
                     ),
@@ -55,34 +56,34 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                 : [
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.bankDetails.acccountNumber == null) {
+                        if (state.businessData?.bankDetails?.accountNumber == null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'Account Number',
-                          second: state.bankDetails.acccountNumber ?? '',
+                          second: state.businessData?.bankDetails?.accountNumber ?? '',
                         );
                       },
                     ),
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.bankDetails.ifscCode == null) {
+                        if (state.businessData?.bankDetails?.ifscCode == null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'IFSC',
-                          second: state.bankDetails.ifscCode ?? '',
+                          second: state.businessData?.bankDetails?.ifscCode ?? '',
                         );
                       },
                     ),
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.bankDetails.gstMembershipDetails == null) {
+                        if (state.businessData?.bankDetails?.gstMembershipDetails == null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'GST ',
-                          second: state.bankDetails.gstMembershipDetails ?? '',
+                          second: state.businessData?.bankDetails?.gstMembershipDetails ?? '',
                         );
                       },
                     ),

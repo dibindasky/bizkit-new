@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
@@ -79,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                           backgroundColor: neonShade,
                           child: state.isLoading
                               ? const CircularProgressIndicator(
-                                  color: neonShade,
+                                  color: backgroundColour,
                                 )
                               : state.imageModel != null
                                   ? CircleAvatar(
@@ -104,10 +105,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                                         )
                                       : const CircleAvatar(
                                           radius: 66,
-                                          backgroundColor: kblack,
-                                          backgroundImage:
-                                              NetworkImage(personProfile),
-                                        ),
+                                          backgroundColor: backgroundColour,
+                                          child: Center(
+                                              child: Icon(Icons.person,
+                                                  color: neonShade, size: 30))),
                         ),
                         state.imageModel != null
                             ? Positioned(

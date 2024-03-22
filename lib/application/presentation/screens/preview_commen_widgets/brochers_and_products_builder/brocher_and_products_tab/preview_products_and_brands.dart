@@ -5,13 +5,14 @@ import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.d
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/brocher_and_products_tab.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
 
 class PreviewProductsBrandsLists extends StatelessWidget {
   const PreviewProductsBrandsLists({super.key, this.networkImages, this.pdf});
 
-  final List<String>? networkImages;
+  final List<Product>? networkImages;
   final List<String>? pdf;
 
   @override
@@ -37,7 +38,10 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                   onTap: () => Navigator.of(context).push(
                     fadePageRoute(
                       BrochersAndProductsTab(
-                          networkImages: networkImages ?? [], pdf: pdf ?? []),
+                          networkImages:
+                              networkImages ??
+                                  [],
+                          pdf: pdf ?? []),
                     ),
                   ),
                   child: Container(
@@ -73,14 +77,14 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ScreenImagePreview(
-                                        image: networkImages![index],
+                                        image: networkImages![index].product!,
                                         isFileIamge: networkImages == null,
                                       ))),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: ColoredBox(
                                 color: smallBigGrey,
-                                child: Image.network(networkImages![index])),
+                                child: Image.network(networkImages![index].product!)),
                           ),
                         );
                       },
@@ -108,11 +112,13 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                             child: SizedBox(
                               height: kwidth * .2,
                               width: kwidth * 0.17,
-                              child: pdf != null
-                                  ? PdfViewer.openFile(pdf![index],
-                                      params:
-                                          const PdfViewerParams(pageNumber: 1))
-                                  : PdfViewer.openData(
+                              child:
+                              //  pdf != null
+                              //     ? PdfViewer.openFile(pdf![index],
+                              //         params:
+                              //             const PdfViewerParams(pageNumber: 1))
+                              //     : 
+                                  PdfViewer.openData(
                                       base64Decode(pdf![index]),
                                       params:
                                           const PdfViewerParams(pageNumber: 1)),

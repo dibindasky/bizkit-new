@@ -6,11 +6,13 @@ class RefreshIndicatorCustom extends StatelessWidget {
     super.key,
     required this.message,
     required this.onRefresh,
+    this.image,
     this.height = 0.3,
   });
   final String message;
   final VoidCallback onRefresh;
   final double height;
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class RefreshIndicatorCustom extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.refresh),
+              image == null ? const Icon(Icons.refresh) : Expanded(child: Image.asset(image!)),
               adjustHieght(20),
               Text(message),
             ],

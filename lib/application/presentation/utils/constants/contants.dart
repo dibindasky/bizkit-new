@@ -64,7 +64,10 @@ const imageHistoryLog3 = 'asset/images/meeting profile png3.png';
 const imageHistoryLog4 = 'asset/images/meeting profile png4.png';
 
 // empty images
-const emptyNodata1 = 'asset/images/Reminders-pana 1.png';
+const emptyNodata1 = 'asset/images/Reminders-pana 1 (1).png';
+const emptyNodata2 = 'asset/images/No data-pana 1.png';
+const emptyNodata3 = 'asset/images/No data-amico 1.png';
+const emptyNodata4 = 'asset/images/Menstrual calendar-pana 1.png';
 
 // dummy image for development
 const dummyPersonImage = 'asset/images/person.jpeg';

@@ -186,7 +186,11 @@ class PreviewRowWiceIcons extends StatelessWidget {
                     ),
                     // location navigator
                     DetailSharingIconWidget(
-                      onTap: () {},
+                      onTap: () {
+                        LaunchUrl.launchMap(
+                            address: businessState.businessData?.address ?? '',
+                            context: context);
+                      },
                       image: gifLocation,
                     ),
                   ],

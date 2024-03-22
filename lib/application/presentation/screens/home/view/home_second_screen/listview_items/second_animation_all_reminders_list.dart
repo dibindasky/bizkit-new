@@ -75,22 +75,8 @@ class _SecondAnimationPageListViewAllRemindersState
                   width: kwidth * 0.9,
                   seprator: const SizedBox(height: 10),
                 );
-              } else if (state.allReminderList == null) {
-                return RefreshIndicatorCustom(
-                  message: errorMessage,
-                  onRefresh: () => context
-                      .read<ReminderBloc>()
-                      .add(const ReminderEvent.getAllRemindersEvent()),
-                );
-              } else if (state.allReminderList!.isEmpty) {
-                return RefreshIndicatorCustom(
-                  message: 'you have no reminders',
-                  onRefresh: () => context
-                      .read<ReminderBloc>()
-                      .add(const ReminderEvent.getAllRemindersEvent()),
-                );
-              }
-              return ListView.separated(
+              } else if(state.allReminderList!=null && state.allReminderList!.isNotEmpty) {
+                return ListView.separated(
                 controller: widget.scrollController,
                 separatorBuilder: (context, index) =>
                     adjustHieght(khieght * .02),
@@ -114,6 +100,12 @@ class _SecondAnimationPageListViewAllRemindersState
                   return ReminderTile(reminder: state.allReminderList![index]);
                 },
               );
+              }else {
+               return RefreshIndicatorCustom(image: emptyNodata1,
+                  message: 'No Reminders', onRefresh:(){
+                  context.read<ReminderBloc>().add(const ReminderEvent.getAllRemindersEvent());
+                } );
+              }
             },
           );
         });

@@ -130,6 +130,7 @@ class ProfileCreationScreen extends StatelessWidget {
                                   .map((e) => e.category!)
                                   .toList()),
                           AutocompleteTextField(
+                            showDropdownOnTap: true,
                             validate: Validate.notNull,
                             label: 'Designation',
                             controller: context

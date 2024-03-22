@@ -12,6 +12,7 @@ import 'package:bizkit/application/presentation/screens/preview_commen_widgets/b
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_wice_icons.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/card/create_card/create_card_model/create_card_model.dart';
 import 'package:bizkit/domain/model/card/create_card_by_id_model/create_card_by_id_model.dart';
 import 'package:flutter/material.dart';
@@ -47,8 +48,9 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                           : <String>[];
                       List<String> images = user.personalData?.photos != null
                           ? [user.personalData!.photos!]
-                          : <String>[] + logo;
-                      return PreviewPageviewImageBuilder(imagesList: images);
+                          : <String>[];
+                      return PreviewPageviewImageBuilder(
+                          imagesList: images + logo);
                     },
                   );
                 },
@@ -79,16 +81,15 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
             // products and brochers horizontal List view
             BlocBuilder<BusinessDataBloc, BusinessDataState>(
               builder: (context, business) {
-                List<String> images = [];
+                List<Product> images = [];
                 if (business.businessData?.product != null) {
-                  images = business.businessData!.product!
-                      .map((e) => e.product!)
-                      .toList();
+                  images = business.businessData!.product!;
                 }
                 List<String> pdf = [];
                 if (business.businessData?.brochure != null) {
-                  pdf = business.brochures
-                      .map((e) => e.file.file.path as String)
+                  pdf = business.businessData!.brochure!
+                      .map((e) => e.file!
+                          .substring('data:application/pdf;base64,'.length))
                       .toList();
                 }
                 return PreviewProductsBrandsLists(
@@ -114,7 +115,7 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                           .add(const CardEvent.getCards(call: true));
                       if (fromHomeAddCard) {
                         print('go homw from home add card');
-                         context.go(Routes.homePage);
+                        context.go(Routes.homePage);
                         // Navigator.pop(context);
                         // Navigator.pop(context);
                         // Navigator.pop(context);
@@ -140,43 +141,43 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                       text: 'Create business card',
                       onTap: () {
                         print('on tap card creation');
-                        final CreateCardModel createCardModel = CreateCardModel(
-                          personalDetails: userState.personalDetails,
-                          bankDetails: businessSate.bankDetails,
-                          businessDetails: businessSate.businessDetails,
-                        );
-                        print('on tap card creation model created');
-                        print(
-                            'personal details ()=> ${createCardModel.personalDetails!.toJson()}');
-                        print('personal details  ()=> accolades ');
-                        for (var x
-                            in createCardModel.personalDetails!.accolades!) {
-                          print('personal accolades  ()=> ${x.toJson()}');
-                        }
-                        print('personal details  ()=> dates ');
-                        for (var x in createCardModel
-                            .personalDetails!.datesToRemember!) {
-                          print('personal dates  ()=> ${x.toJson()}');
-                        }
-                        print('personal details  ()=> socialmedia ');
-                        for (var x in createCardModel
-                            .personalDetails!.personalSocialMedia!) {
-                          print('personal social media  ()=> ${x.toJson()}');
-                        }
-                        print(
-                            'business details ()=> ${createCardModel.businessDetails!.toJson()}');
-                        print('business details  ()=> brochure ');
-                        for (var x
-                            in createCardModel.businessDetails!.brochure!) {
-                          print('personal social brochure  ()=> ${x.toJson()}');
-                        }
-                        print('business details  ()=> social ');
-                        for (var x in createCardModel
-                            .businessDetails!.socialMediaHandles!) {
-                          print('personal social brochure  ()=> ${x.toJson()}');
-                        }
-                        print(
-                            'bank details ()=> ${createCardModel.bankDetails!.toJson()}');
+                        // final CreateCardModel createCardModel = CreateCardModel(
+                        //   personalDetails: userState.personalDetails,
+                        //   bankDetails: businessSate.bankDetails,
+                        //   businessDetails: businessSate.businessDetails,
+                        // );
+                        // print('on tap card creation model created');
+                        // print(
+                        //     'personal details ()=> ${createCardModel.personalDetails!.toJson()}');
+                        // print('personal details  ()=> accolades ');
+                        // for (var x
+                        //     in createCardModel.personalDetails!.accolades!) {
+                        //   print('personal accolades  ()=> ${x.toJson()}');
+                        // }
+                        // print('personal details  ()=> dates ');
+                        // for (var x in createCardModel
+                        //     .personalDetails!.datesToRemember!) {
+                        //   print('personal dates  ()=> ${x.toJson()}');
+                        // }
+                        // print('personal details  ()=> socialmedia ');
+                        // for (var x in createCardModel
+                        //     .personalDetails!.personalSocialMedia!) {
+                        //   print('personal social media  ()=> ${x.toJson()}');
+                        // }
+                        // print(
+                        //     'business details ()=> ${createCardModel.businessDetails!.toJson()}');
+                        // print('business details  ()=> brochure ');
+                        // for (var x
+                        //     in createCardModel.businessDetails!.brochure!) {
+                        //   print('personal social brochure  ()=> ${x.toJson()}');
+                        // }
+                        // print('business details  ()=> social ');
+                        // for (var x in createCardModel
+                        //     .businessDetails!.socialMediaHandles!) {
+                        //   print('personal social brochure  ()=> ${x.toJson()}');
+                        // }
+                        // print(
+                        //     'bank details ()=> ${createCardModel.bankDetails!.toJson()}');
                         context.read<UserDataBloc>().add(
                               UserDataEvent.createCard(
                                 createCardByIdModel: CreateCardByIdModel(

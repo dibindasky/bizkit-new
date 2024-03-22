@@ -1,6 +1,7 @@
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/widgets/refresh_indicator.dart';
 import 'package:bizkit/domain/model/connections/create_connection_with_card_id_model/create_connection_with_card_id_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,28 +41,8 @@ class ScreenConnectionRequests extends StatelessWidget {
             if (state.isLoading) {
               return const Center(
                   child: CircularProgressIndicator(color: neonShade));
-            }
-            if (state.hasError) {
-              return InkWell(
-                onTap: () => context
-                    .read<ConnectionRequestBloc>()
-                    .add(const ConnectionRequestEvent.getRequestLists()),
-                child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.refresh_sharp, color: neonShade),
-                      SizedBox(height: 30),
-                      Text(errorMessage),
-                      SizedBox(width: double.infinity)
-                    ]),
-              );
-            }
-            if (state.requestList == null) {
-              return const Center(child: Text(errorMessage));
-            }
-            if (state.requestList!.isEmpty) {
-              return const Center(child: Text('You have no new requests'));
-            } else {
+            } else if (state.requestList != null &&
+                state.requestList!.isNotEmpty) {
               return RefreshIndicator(
                 onRefresh: () async {
                   context
@@ -221,6 +202,15 @@ class ScreenConnectionRequests extends StatelessWidget {
                   },
                 ),
               );
+            } else {
+              return RefreshIndicatorCustom(
+                  image: emptyNodata3,
+                  message: 'You have no new requests',
+                  onRefresh: () {
+                    context
+                        .read<ConnectionRequestBloc>()
+                        .add(const ConnectionRequestEvent.getRequestLists());
+                  });
             }
           },
         ),

@@ -1,18 +1,14 @@
-import 'dart:io';
-
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
-import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductsBuilder extends StatelessWidget {
   const ProductsBuilder({super.key, required this.networkImages});
-  final List<String> networkImages;
+  final List<Product> networkImages;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +37,7 @@ class ProductsBuilder extends StatelessWidget {
                               SizedBox(
                                 height: 200,
                                 width: double.infinity,
-                                child: Image.network(data,
+                                child: Image.network(data.product!,
                                     fit: BoxFit.cover,
                                     errorBuilder:
                                         (context, error, stackTrace) =>
@@ -61,19 +57,19 @@ class ProductsBuilder extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                          //   Text(
-                                          //     data.label ?? '',
-                                          //     style: textStyle1.copyWith(
-                                          //       fontSize: kwidth * .04,
-                                          //       fontWeight: FontWeight.w700,
-                                          //     ),
-                                          //   ),
-                                          //   Text(
-                                          //     data.description ?? '',
-                                          //     style: textStyle1.copyWith(
-                                          //       fontSize: kwidth * .03,
-                                          //     ),
-                                          //   ),
+                                            Text(
+                                              data.label ?? '',
+                                              style: textStyle1.copyWith(
+                                                fontSize: kwidth * .04,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            Text(
+                                              data.description ?? '',
+                                              style: textStyle1.copyWith(
+                                                fontSize: kwidth * .03,
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -83,9 +79,9 @@ class ProductsBuilder extends StatelessWidget {
                                         wdth: 90,
                                         text: 'View',
                                         onTap: () {
-                                          // Navigator.of(context).push(
-                                          //     fadePageRoute(ProductViewDetail(
-                                          //         product: data)));
+                                          Navigator.of(context).push(
+                                              fadePageRoute(ProductViewDetail(
+                                                  product: data)));
                                         },
                                       ),
                                       adjustWidth(kwidth * .02),
@@ -117,18 +113,18 @@ class ProductViewDetail extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size(kwidth, 70),
-          child: const AppbarCommen(tittle: 'Products')),
+          child:  const AppbarCommen(tittle: 'Product')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            children: [
-              Image.asset(dummyPersonImage),
+            children: [product.product !=null?
+              Image.network(product.product!):Image.asset(emptyNodata3),
               adjustHieght(30),
-              const Text('Best employee Award'),
+              Text(product.label??""),
               adjustHieght(30),
-              const Text(
-                  'Lorem Ipsum Sic Mundus Creatus Est. Lorem Ipsum Sic Mundus Creatus Est. Lorem Ipsum Sic Mundus Creatus Est. Lorem Ipsum Sic Mundus Creatus'),
+              Text(
+                  product.description??""),
             ],
           ),
         ),

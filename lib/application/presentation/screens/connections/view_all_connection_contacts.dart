@@ -20,6 +20,9 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // context.read<ContactsBloc>().add(const ContactsEvent.getConnections());
+      context
+          .read<ConnectionRequestBloc>()
+          .add(const ConnectionRequestEvent.getRequestLists());
     });
     return Scaffold(
       appBar: AppBar(
@@ -169,7 +172,7 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
           // label: Text('Add Connection',style: textStyle1),
           // icon: const Icon(Icons.add),
           onPressed: () => Navigator.push(
-              context, fadePageRoute(const ScreenAddConnections())),
+              context, fadePageRoute( ScreenAddConnections())),
           child: const Icon(Icons.add)),
     );
   }

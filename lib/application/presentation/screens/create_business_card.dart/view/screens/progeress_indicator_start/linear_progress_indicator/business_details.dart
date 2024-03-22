@@ -48,11 +48,8 @@ class BusinessDetailsScreen extends StatelessWidget {
               previous.loadCompanyData != current.loadCompanyData,
           listener: (context, state) {
             if (state.gotCompanyData) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const BusinessCardCreationPreviewScreen()));
+             Navigator.push(context,
+                      fadePageRoute(const BusinessCardCreationPreviewScreen()));
             }
           },
           buildWhen: (previous, current) =>
@@ -404,61 +401,25 @@ class CompanyAddingPopUp extends StatelessWidget {
             ),
             adjustWidth(20),
             Expanded(
-              child: BlocConsumer<UserDataBloc, UserDataState>(
-                listener: (context, state) {
-                  // if (state.message != null) {
-                  //     showSnackbar(context,
-                  //         message: state.message!,
-                  //         backgroundColor: state.hasError ? kred : neonShade);
-                  //   }
-                  //  if (state.cardAdded != null) {
-                  //     context
-                  //         .read<CardBloc>()
-                  //         .add(const CardEvent.getCards(call: true));
-                  //     if (fromHomeAddCard) {
-                  //       Navigator.pop(context);
-                  //       Navigator.pop(context);
-                  //       Navigator.pop(context);
-                  //     } else {
-                  //       context.go(Routes.homePage);
-                  //     }
-                  //     context.read<UserDataBloc>().add(UserDataEvent.clear());
-                  //     context
-                  //         .read<BusinessDataBloc>()
-                  //         .add(BusinessDataEvent.clear());
-                  //   }else{
-                  //      Navigator.pop(context);
-                  //   }
-                },
-                builder: (context, state) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      context.read<BusinessDataBloc>().add(
-                            BusinessDataEvent.getCompnayDetails(id: id),
-                          );
-                      // context.read<UserDataBloc>().add(UserDataEvent.createCard(
-                      //     createCardByIdModel: CreateCardByIdModel(
-                      //         isVerified: true,
-                      //         personalDetails: state.personalDataCreateId,
-                      //         businessDetails: id)));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: neonShade,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5)),
-                        border: Border.all(color: neonShade),
-                      ),
-                      child: const Center(
-                        child: Text('Continue'),
-                      ),
-                    ),
-                  );
-                },
+                child: InkWell(
+              onTap: () {
+                context.read<BusinessDataBloc>().add(
+                      BusinessDataEvent.getCompnayDetails(id: id),
+                    );
+                Navigator.pop(context);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: neonShade,
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  border: Border.all(color: neonShade),
+                ),
+                child: const Center(
+                  child: Text('Continue'),
+                ),
               ),
-            ),
+            )),
             adjustWidth(20),
           ],
         )

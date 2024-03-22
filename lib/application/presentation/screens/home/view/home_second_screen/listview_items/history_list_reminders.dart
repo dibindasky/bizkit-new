@@ -72,47 +72,44 @@ class _SecondAnimationPageListViewHistoryRemindersState
                   width: kwidth * 0.9,
                   seprator: const SizedBox(height: 10),
                 );
-              } else if (state.historyReminderList == null) {
-                return RefreshIndicatorCustom(
-                  message: errorMessage,
-                  onRefresh: () => context
-                      .read<ReminderBloc>()
-                      .add(const ReminderEvent.getHistoryRemindersEvent()),
+              } else if (state.historyReminderList != null &&
+                  state.historyReminderList!.isNotEmpty) {
+                return ListView.separated(
+                  controller: widget.scrollController,
+                  separatorBuilder: (context, index) =>
+                      adjustHieght(khieght * .02),
+                  itemCount: (state.historyReminderList?.length ?? 0) +
+                      (state.historyLoading ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (state.historyLoading &&
+                        index == state.historyReminderList!.length) {
+                      return const LoadingAnimation();
+                    }
+                    if (widget.doTransition && index == 0) {
+                      return Transform.translate(
+                          offset: Offset(0, 100 * _animation.value),
+                          child: ReminderTile(
+                              reminder: state.historyReminderList![index]));
+                    } else if (widget.doTransition && index == 1) {
+                      return Transform.translate(
+                          offset: Offset(0, -100 * _animation.value),
+                          child: ReminderTile(
+                              reminder: state.historyReminderList![index]));
+                    }
+                    return ReminderTile(
+                        reminder: state.historyReminderList![index]);
+                  },
                 );
-              } else if (state.historyReminderList!.isEmpty) {
+              } else {
                 return RefreshIndicatorCustom(
-                  message: 'you have no reminders',
-                  onRefresh: () => context
-                      .read<ReminderBloc>()
-                      .add(const ReminderEvent.getHistoryRemindersEvent()),
-                );
+                    image: emptyNodata2,
+                    message: 'No History',
+                    onRefresh: () {
+                      context
+                          .read<ReminderBloc>()
+                          .add(const ReminderEvent.getHistoryRemindersEvent());
+                    });
               }
-              return ListView.separated(
-                controller: widget.scrollController,
-                separatorBuilder: (context, index) =>
-                    adjustHieght(khieght * .02),
-                itemCount: (state.historyReminderList?.length ?? 0) +
-                    (state.historyLoading ? 1 : 0),
-                itemBuilder: (context, index) {
-                  if (state.historyLoading &&
-                      index == state.historyReminderList!.length) {
-                    return const LoadingAnimation();
-                  }
-                  if (widget.doTransition && index == 0) {
-                    return Transform.translate(
-                        offset: Offset(0, 100 * _animation.value),
-                        child: ReminderTile(
-                            reminder: state.historyReminderList![index]));
-                  } else if (widget.doTransition && index == 1) {
-                    return Transform.translate(
-                        offset: Offset(0, -100 * _animation.value),
-                        child: ReminderTile(
-                            reminder: state.historyReminderList![index]));
-                  }
-                  return ReminderTile(
-                      reminder: state.historyReminderList![index]);
-                },
-              );
             },
           );
         });

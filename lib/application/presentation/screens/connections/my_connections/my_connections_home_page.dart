@@ -89,7 +89,7 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 15),
                       child: InkWell(
                         onTap: () => Navigator.push(context,
-                            fadePageRoute(const ScreenAddConnections())),
+                            fadePageRoute(ScreenAddConnections())),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
                           child: const ColoredBox(

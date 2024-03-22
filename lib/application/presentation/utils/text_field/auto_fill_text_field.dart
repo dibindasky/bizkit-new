@@ -62,7 +62,6 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
 
   @override
   Widget build(BuildContext context) {
-    print('rebuild in autocomplete');
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Material(

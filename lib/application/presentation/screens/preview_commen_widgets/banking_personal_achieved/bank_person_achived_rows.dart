@@ -1,4 +1,4 @@
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/achivements_screen.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/banking_and_presonal_screens.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -49,7 +49,7 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
             padding: const EdgeInsets.only(left: 5, right: 7),
             child: InkWell(
               onTap: () => Navigator.of(context).push(
-                fadePageRoute(const AccolodesScreen(accolade: null)),
+                fadePageRoute(const AchivementsScreen()),
               ),
               child: containerStyle(iconAchivementsMedal, 'Achieved'),
             ),

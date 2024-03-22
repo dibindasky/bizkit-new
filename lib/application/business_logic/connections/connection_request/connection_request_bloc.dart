@@ -125,8 +125,10 @@ class ConnectionRequestBloc
         connectionId: event.connectionId);
     result.fold(
         (l) => emit(state.copyWith(
-            isLoading: false, hasError: true, message: l.message)),
-        (r) => emit(state.copyWith(isLoading: false, message: r.message)));
+            isLoading: false, hasError: true, message: l.message)), (r) {
+      emit(state.copyWith(isLoading: false, message: r.message));
+      add(const ConnectionRequestEvent.getBizkitConnections());
+    });
   }
 
   FutureOr<void> getBizkitConnections(GetBizkitConnections event, emit) async {

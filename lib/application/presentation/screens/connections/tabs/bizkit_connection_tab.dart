@@ -4,6 +4,7 @@ import 'package:bizkit/application/presentation/screens/card_view/card_detail_vi
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,7 +30,8 @@ class BizkitConnectionsTab extends StatelessWidget {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state.bizkitConnections == null || state.hasError) {
+          } else if (state.bizkitConnections == null &&
+              (state.bizkitConnections == null || state.hasError)) {
             return InkWell(
                 onTap: () => context
                     .read<ConnectionRequestBloc>()
@@ -74,24 +76,38 @@ class BizkitConnectionsTab extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final data = state.bizkitConnections![index];
                   return ListTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          fadePageRoute(
-                              ScreenCardDetailView(cardId: data.cardId)));
-                    },
-                    leading: CircleAvatar(
-                      backgroundColor: textFieldFillColr,
-                      backgroundImage: data.photos != null
-                          ? NetworkImage(data.photos!)
-                          : null,
-                      child: data.photos != null
-                          ? null
-                          : const Icon(Icons.person, color: neonShade),
-                    ),
-                    title: Text(data.name ?? ''),
-                    subtitle: Text(data.company ?? ''),
-                  );
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            fadePageRoute(
+                                ScreenCardDetailView(cardId: data.cardId)));
+                      },
+                      leading: CircleAvatar(
+                        backgroundColor: textFieldFillColr,
+                        backgroundImage: data.photos != null
+                            ? NetworkImage(data.photos!)
+                            : null,
+                        child: data.photos != null
+                            ? null
+                            : const Icon(Icons.person, color: neonShade),
+                      ),
+                      title: Text(data.name ?? ''),
+                      subtitle: Text(data.company ?? ''),
+                      trailing: PopupMenuButton(itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                              onTap: () {
+                                context.read<ConnectionRequestBloc>().add(
+                                    ConnectionRequestEvent
+                                        .blockBizkitConnections(
+                                            blockBizkitConnection:
+                                                BlockBizkitConnection(
+                                                    isBlock: true),
+                                            connectionId: data.id!));
+                              },
+                              child: const Text('Block'))
+                        ];
+                      }));
                 },
               ),
             );

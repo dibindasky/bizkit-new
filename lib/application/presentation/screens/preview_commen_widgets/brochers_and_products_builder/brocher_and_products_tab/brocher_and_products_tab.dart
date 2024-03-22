@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/brocherss_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/products_builder.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +5,12 @@ import 'package:flutter/material.dart';
 class BrochersAndProductsTab extends StatelessWidget {
   const BrochersAndProductsTab(
       {super.key,
-      this.fileImages,
-      this.networkImages,
-      this.pdf,
-      this.pdfBase64});
+      required this.networkImages,
+      required this.pdf,
+});
 
-  final List<File>? fileImages;
-  final List<String>? networkImages;
-  final List<String>? pdf;
-  final List<String>? pdfBase64;
+  final List<String> networkImages;
+  final List<String> pdf;
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +43,10 @@ class BrochersAndProductsTab extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            BrochersBuilder(),
-            ProductsBuilder(),
+            BrochersBuilder(pdf: pdf),
+            ProductsBuilder(networkImages: networkImages),
           ],
         ),
       ),

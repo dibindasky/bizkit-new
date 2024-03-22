@@ -86,16 +86,16 @@ class BusinessDetailsScreen extends StatelessWidget {
                         },
                         onDropDownSelection: (value) {
                           // call for company details with the selected value
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (context) => Dialog(
-                          //     child: CompanyAddingPopUp(
-                          //         id: state.companiesList
-                          //             .firstWhere(
-                          //                 (element) => element.company == value)
-                          //             .id!),
-                          //   ),
-                          // );
+                          showDialog(
+                            context: context,
+                            builder: (context) => Dialog(
+                              child: CompanyAddingPopUp(
+                                  id: state.companiesList
+                                      .firstWhere(
+                                          (element) => element.company == value)
+                                      .id!),
+                            ),
+                          );
                         },
                         label: 'Company',
                         controller:

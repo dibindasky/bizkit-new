@@ -238,10 +238,10 @@ class PersonlDetails extends StatelessWidget {
               adjustHieght(khieght * .05),
               BlocConsumer<UserDataBloc, UserDataState>(
                 listenWhen: (previous, current) =>
-                    previous.personalDataCreateId !=
-                    current.personalDataCreateId,
+                    previous.personalData !=
+                    current.personalData,
                 listener: (context, state) {
-                  if (state.personalDataCreateId != null) {
+                  if (state.personalData != null) {
                     pageController.nextPage(
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.ease,

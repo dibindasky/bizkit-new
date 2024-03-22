@@ -1,15 +1,11 @@
-import 'dart:io';
-
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 
 class PreviewPageviewImageBuilder extends StatefulWidget {
-  const PreviewPageviewImageBuilder({super.key, this.images, this.imagesList});
+  const PreviewPageviewImageBuilder({super.key, required this.imagesList});
 
-  final List<File>? images;
-  final List<String>? imagesList;
+  final List<String> imagesList;
 
   @override
   State<PreviewPageviewImageBuilder> createState() =>
@@ -39,11 +35,7 @@ class _PreviewPageviewImageBuilderState
     return HomeScreenPagviewAnimateBuilder(
       pageController: pageController,
       pageValue: pageValue,
-      pageCount: widget.images == null && widget.imagesList == null
-          ? 1
-          : widget.images != null
-              ? widget.images!.length
-              : widget.imagesList!.length,
+      pageCount: widget.imagesList.length,
       onpageCallBack: (index) {
         setState(() {
           currentIndex = index;
@@ -55,23 +47,18 @@ class _PreviewPageviewImageBuilderState
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
-              // onTap: () => showModalBottomSheet(
-              //   context: context,
-              //   isScrollControlled: true,
-              //   builder: (context) => PreviewPageViewBottomSheet(
-              //     image: widget.images?[index],
-              //     imageNetwork: widget.imagesList?[index],
-              //   ),
-              // ),
+              onTap: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) => PreviewPageViewBottomSheet(
+                  imageNetwork: widget.imagesList[index],
+                ),
+              ),
               child: SizedBox(
                 width: double.infinity,
                 height: 200,
-                child: widget.images == null && widget.imagesList == null
-                    ? Image.asset(imageDummyAsset)
-                    : widget.imagesList != null
-                        ? Image.network(widget.imagesList![index],
-                            fit: BoxFit.cover)
-                        : Image.file(widget.images![index], fit: BoxFit.cover),
+                child:
+                    Image.network(widget.imagesList[index], fit: BoxFit.cover),
               ),
             ),
           ),

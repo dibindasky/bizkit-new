@@ -1012,6 +1012,8 @@ mixin _$AuthState {
   bool get isLogin => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
+  bool get hasCard => throw _privateConstructorUsedError;
+  bool get isFirstLogin => throw _privateConstructorUsedError;
   LoginResponseModel? get loginResponseModel =>
       throw _privateConstructorUsedError;
 
@@ -1034,6 +1036,8 @@ abstract class $AuthStateCopyWith<$Res> {
       bool isLogin,
       String? message,
       String? userName,
+      bool hasCard,
+      bool isFirstLogin,
       LoginResponseModel? loginResponseModel});
 }
 
@@ -1058,6 +1062,8 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? isLogin = null,
     Object? message = freezed,
     Object? userName = freezed,
+    Object? hasCard = null,
+    Object? isFirstLogin = null,
     Object? loginResponseModel = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1093,6 +1099,14 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String?,
+      hasCard: null == hasCard
+          ? _value.hasCard
+          : hasCard // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFirstLogin: null == isFirstLogin
+          ? _value.isFirstLogin
+          : isFirstLogin // ignore: cast_nullable_to_non_nullable
+              as bool,
       loginResponseModel: freezed == loginResponseModel
           ? _value.loginResponseModel
           : loginResponseModel // ignore: cast_nullable_to_non_nullable
@@ -1118,6 +1132,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool isLogin,
       String? message,
       String? userName,
+      bool hasCard,
+      bool isFirstLogin,
       LoginResponseModel? loginResponseModel});
 }
 
@@ -1140,6 +1156,8 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isLogin = null,
     Object? message = freezed,
     Object? userName = freezed,
+    Object? hasCard = null,
+    Object? isFirstLogin = null,
     Object? loginResponseModel = freezed,
   }) {
     return _then(_$InitialImpl(
@@ -1175,6 +1193,14 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String?,
+      hasCard: null == hasCard
+          ? _value.hasCard
+          : hasCard // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFirstLogin: null == isFirstLogin
+          ? _value.isFirstLogin
+          : isFirstLogin // ignore: cast_nullable_to_non_nullable
+              as bool,
       loginResponseModel: freezed == loginResponseModel
           ? _value.loginResponseModel
           : loginResponseModel // ignore: cast_nullable_to_non_nullable
@@ -1195,6 +1221,8 @@ class _$InitialImpl implements _Initial {
       required this.isLogin,
       this.message,
       this.userName,
+      required this.hasCard,
+      required this.isFirstLogin,
       this.loginResponseModel});
 
   @override
@@ -1214,11 +1242,15 @@ class _$InitialImpl implements _Initial {
   @override
   final String? userName;
   @override
+  final bool hasCard;
+  @override
+  final bool isFirstLogin;
+  @override
   final LoginResponseModel? loginResponseModel;
 
   @override
   String toString() {
-    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, isLogin: $isLogin, message: $message, userName: $userName, loginResponseModel: $loginResponseModel)';
+    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, isLogin: $isLogin, message: $message, userName: $userName, hasCard: $hasCard, isFirstLogin: $isFirstLogin, loginResponseModel: $loginResponseModel)';
   }
 
   @override
@@ -1240,6 +1272,9 @@ class _$InitialImpl implements _Initial {
             (identical(other.message, message) || other.message == message) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
+            (identical(other.hasCard, hasCard) || other.hasCard == hasCard) &&
+            (identical(other.isFirstLogin, isFirstLogin) ||
+                other.isFirstLogin == isFirstLogin) &&
             (identical(other.loginResponseModel, loginResponseModel) ||
                 other.loginResponseModel == loginResponseModel));
   }
@@ -1255,6 +1290,8 @@ class _$InitialImpl implements _Initial {
       isLogin,
       message,
       userName,
+      hasCard,
+      isFirstLogin,
       loginResponseModel);
 
   @JsonKey(ignore: true)
@@ -1274,6 +1311,8 @@ abstract class _Initial implements AuthState {
       required final bool isLogin,
       final String? message,
       final String? userName,
+      required final bool hasCard,
+      required final bool isFirstLogin,
       final LoginResponseModel? loginResponseModel}) = _$InitialImpl;
 
   @override
@@ -1292,6 +1331,10 @@ abstract class _Initial implements AuthState {
   String? get message;
   @override
   String? get userName;
+  @override
+  bool get hasCard;
+  @override
+  bool get isFirstLogin;
   @override
   LoginResponseModel? get loginResponseModel;
   @override

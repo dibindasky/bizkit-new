@@ -88,14 +88,23 @@ class ScreenCardDetailView extends StatelessWidget {
                               children: [
                                 const SizedBox(height: 20),
                                 Text(
-                                  state.anotherCard?.personalDetails?.name ??
-                                      'Name',
+                                  state.anotherCard?.isVerified == false
+                                      ? state.anotherCard?.personalDetails
+                                              ?.name ??
+                                          'Name'
+                                      : state.anotherCard?.businessDetails
+                                              ?.company ??
+                                          'Company',
                                   style: custumText(fontSize: kwidth * 0.06),
                                 ),
                                 Text(
-                                  state.anotherCard?.personalDetails
-                                          ?.designation ??
-                                      'Designation',
+                                  state.anotherCard?.isVerified == false
+                                      ? state.anotherCard?.personalDetails
+                                              ?.designation ??
+                                          'Designation'
+                                      : state.anotherCard?.personalDetails
+                                              ?.name ??
+                                          'Name',
                                 ),
                                 adjustHieght(khieght * .02),
                               ],

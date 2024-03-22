@@ -100,8 +100,7 @@ class CardService implements CardRepo {
       final response = await apiService.post(ApiEndPoints.createCardBusiness,
           data: businessDetailsCreate.toJson());
       log('createBusinessDataCard creation done');
-      var data = response.data as Map<String, dynamic>;
-      return Right(BusinessDetails(id: data['id'] as int?));
+      return Right(BusinessDetails.fromJson(response.data));
     } on DioException catch (e) {
       log('createBusinessDataCard creation dio error');
       log(e.toString());
@@ -124,8 +123,7 @@ class CardService implements CardRepo {
       final response = await apiService.post(ApiEndPoints.createCardPersonal,
           data: personalDetailsCreate.toJson());
       log('createPersonalDataCard creation done');
-      final data = response.data as Map<String, dynamic>;
-      return Right(PersonalDetails(id: data['id'] as int?));
+      return Right(PersonalDetails.fromJson(response.data));
     } on DioException catch (e) {
       log('createPersonalDataCard creation dio error');
       log(e.toString());

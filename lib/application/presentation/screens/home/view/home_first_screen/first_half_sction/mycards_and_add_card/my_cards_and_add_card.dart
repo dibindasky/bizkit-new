@@ -4,7 +4,7 @@ import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
-import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,95 +28,104 @@ class MyCardsAndAddCardSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BlocBuilder<CardBloc, CardState>(
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return SizedBox(
-                        height: kwidth * 0.35,
-                        width: kwidth * 0.55,
-                        child: const LoadingAnimation());
-                  } else if (state.defaultCard == null) {
-                    return SizedBox(
-                        height: kwidth * 0.35,
-                        width: kwidth * 0.55,
-                        child: const Center(
-                            child: Text('Create Your BizKit Card')));
-                  } else {
-                    final data = state.defaultCard!;
-                    return InkWell(
-                      onTap: () {
-                        final map = data.id != null
-                            ? {'myCard': 'true', 'cardId': data.id!.toString()}
-                            : <String, String>{};
-                        GoRouter.of(context).pushNamed(Routes.cardDetailView,
-                            pathParameters: map);
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        height: kwidth * 0.35,
-                        width: kwidth * 0.55,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1,
-                              color: neonShade,
-                            ),
-                            borderRadius: BorderRadius.circular(5),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    data.logo ?? imageDummyNetwork),
-                                fit: BoxFit.cover)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                    state.defaultCard?.name != null
-                                        ? state.defaultCard!.name!.length > 20
-                                            ? '${state.defaultCard!.name!.substring(0, 18)}..'
-                                            : state.defaultCard!.name!
-                                        : '',
-                                    style: textHeadStyle1.copyWith(shadows: [
-                                      const Shadow(
-                                          color: kblack,
-                                          offset: Offset(1, 2),
-                                          blurRadius: 5)
-                                    ])),
-                                Text(
-                                  state.defaultCard?.designation != null
-                                      ? state.defaultCard!.designation!.length >
-                                              20
-                                          ? '${state.defaultCard!.designation!.substring(0, 18)}..'
-                                          : state.defaultCard!.designation!
-                                      : '',
-                                  style: TextStyle(
-                                      fontSize: kwidth * .037,
-                                      shadows: const [
-                                        Shadow(
+              Expanded(
+                flex: 2,
+                child: BlocBuilder<CardBloc, CardState>(
+                  builder: (context, state) {
+                    if (state.isLoading) {
+                      return ShimmerLoader(
+                          itemCount: 1,
+                          height: kwidth * 0.35,
+                          width: kwidth * 0.55);
+                    } else if (state.defaultCard == null) {
+                      return SizedBox(
+                          height: kwidth * 0.35,
+                          width: kwidth * 0.55,
+                          child: const Center(
+                              child: Text('Create Your BizKit Card')));
+                    } else {
+                      final data = state.defaultCard!;
+                      return InkWell(
+                        onTap: () {
+                          final map = data.id != null
+                              ? {
+                                  'myCard': 'true',
+                                  'cardId': data.id!.toString()
+                                }
+                              : <String, String>{};
+                          GoRouter.of(context).pushNamed(Routes.cardDetailView,
+                              pathParameters: map);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          height: kwidth * 0.35,
+                          width: kwidth * 0.55,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: neonShade,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                              // image: DecorationImage(
+                              //     image: NetworkImage(
+                              //         data.logo ?? imageDummyNetwork),
+                              //     fit: BoxFit.cover)
+                                  ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                      state.defaultCard?.name != null
+                                          ? state.defaultCard!.name!.length > 20
+                                              ? '${state.defaultCard!.name!.substring(0, 18)}..'
+                                              : state.defaultCard!.name!
+                                          : '',
+                                      style: textHeadStyle1.copyWith(shadows: [
+                                        const Shadow(
                                             color: kblack,
-                                            offset: Offset(0, 2),
+                                            offset: Offset(1, 2),
                                             blurRadius: 5)
-                                      ]),
-                                ),
-                                SizedBox(
-                                  height: 40.dm,
-                                  child: Image.network(
-                                      data.logo ?? imageDummyNetwork),
-                                ),
-                              ],
-                            ),
-                            const Icon(
-                              Icons.arrow_right,
-                              color: kwhite,
-                            )
-                          ],
+                                      ])),
+                                  Text(
+                                    state.defaultCard?.designation != null
+                                        ? state.defaultCard!.designation!
+                                                    .length >
+                                                20
+                                            ? '${state.defaultCard!.designation!.substring(0, 18)}..'
+                                            : state.defaultCard!.designation!
+                                        : '',
+                                    style: TextStyle(
+                                        fontSize: kwidth * .037,
+                                        shadows: const [
+                                          Shadow(
+                                              color: kblack,
+                                              offset: Offset(0, 2),
+                                              blurRadius: 5)
+                                        ]),
+                                  ),
+                                  SizedBox(
+                                    height: 40.dm,
+                                    child: Image.network(
+                                        data.logo ?? imageDummyNetwork),
+                                  ),
+                                ],
+                              ),
+                              const Icon(
+                                Icons.arrow_right,
+                                color: kwhite,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }
-                },
+                      );
+                    }
+                  },
+                ),
               ),
               adjustWidth(kwidth * .03),
               Expanded(

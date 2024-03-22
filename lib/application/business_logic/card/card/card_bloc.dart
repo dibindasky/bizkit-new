@@ -187,8 +187,9 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       if (getCardResposnseModel.results != null &&
           getCardResposnseModel.results!.isNotEmpty) {
         print('get default card');
-        defaultCard = getCardResposnseModel.results!
-            .firstWhere((card) => card.isDefault!);
+        final def =
+            getCardResposnseModel.results!.where((card) => card.isDefault!);
+        defaultCard = def.isEmpty ? null : def.first;
       }
       print('get card bloc success1');
       emit(state.copyWith(

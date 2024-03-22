@@ -4169,7 +4169,7 @@ mixin _$BusinessDataState {
   bool get hasError => throw _privateConstructorUsedError;
   bool get loadCompanyData => throw _privateConstructorUsedError;
   bool get isBusiness => throw _privateConstructorUsedError;
-  int? get businessDetailsCreateId => throw _privateConstructorUsedError;
+  BusinessDetails? get businessData => throw _privateConstructorUsedError;
   int? get bankDetailsCreateId => throw _privateConstructorUsedError;
   List<SocialMediaHandleCreate> get socialMedias =>
       throw _privateConstructorUsedError;
@@ -4202,7 +4202,7 @@ abstract class $BusinessDataStateCopyWith<$Res> {
       bool hasError,
       bool loadCompanyData,
       bool isBusiness,
-      int? businessDetailsCreateId,
+      BusinessDetails? businessData,
       int? bankDetailsCreateId,
       List<SocialMediaHandleCreate> socialMedias,
       List<AccreditionCreate> accreditions,
@@ -4234,7 +4234,7 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
     Object? hasError = null,
     Object? loadCompanyData = null,
     Object? isBusiness = null,
-    Object? businessDetailsCreateId = freezed,
+    Object? businessData = freezed,
     Object? bankDetailsCreateId = freezed,
     Object? socialMedias = null,
     Object? accreditions = null,
@@ -4265,10 +4265,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.isBusiness
           : isBusiness // ignore: cast_nullable_to_non_nullable
               as bool,
-      businessDetailsCreateId: freezed == businessDetailsCreateId
-          ? _value.businessDetailsCreateId
-          : businessDetailsCreateId // ignore: cast_nullable_to_non_nullable
-              as int?,
+      businessData: freezed == businessData
+          ? _value.businessData
+          : businessData // ignore: cast_nullable_to_non_nullable
+              as BusinessDetails?,
       bankDetailsCreateId: freezed == bankDetailsCreateId
           ? _value.bankDetailsCreateId
           : bankDetailsCreateId // ignore: cast_nullable_to_non_nullable
@@ -4334,7 +4334,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool hasError,
       bool loadCompanyData,
       bool isBusiness,
-      int? businessDetailsCreateId,
+      BusinessDetails? businessData,
       int? bankDetailsCreateId,
       List<SocialMediaHandleCreate> socialMedias,
       List<AccreditionCreate> accreditions,
@@ -4364,7 +4364,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? hasError = null,
     Object? loadCompanyData = null,
     Object? isBusiness = null,
-    Object? businessDetailsCreateId = freezed,
+    Object? businessData = freezed,
     Object? bankDetailsCreateId = freezed,
     Object? socialMedias = null,
     Object? accreditions = null,
@@ -4395,10 +4395,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.isBusiness
           : isBusiness // ignore: cast_nullable_to_non_nullable
               as bool,
-      businessDetailsCreateId: freezed == businessDetailsCreateId
-          ? _value.businessDetailsCreateId
-          : businessDetailsCreateId // ignore: cast_nullable_to_non_nullable
-              as int?,
+      businessData: freezed == businessData
+          ? _value.businessData
+          : businessData // ignore: cast_nullable_to_non_nullable
+              as BusinessDetails?,
       bankDetailsCreateId: freezed == bankDetailsCreateId
           ? _value.bankDetailsCreateId
           : bankDetailsCreateId // ignore: cast_nullable_to_non_nullable
@@ -4459,7 +4459,7 @@ class _$InitialImpl implements _Initial {
       required this.hasError,
       required this.loadCompanyData,
       required this.isBusiness,
-      this.businessDetailsCreateId,
+      this.businessData,
       this.bankDetailsCreateId,
       required final List<SocialMediaHandleCreate> socialMedias,
       required final List<AccreditionCreate> accreditions,
@@ -4488,7 +4488,7 @@ class _$InitialImpl implements _Initial {
   @override
   final bool isBusiness;
   @override
-  final int? businessDetailsCreateId;
+  final BusinessDetails? businessData;
   @override
   final int? bankDetailsCreateId;
   final List<SocialMediaHandleCreate> _socialMedias;
@@ -4552,7 +4552,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessDetailsCreateId: $businessDetailsCreateId, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
+    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessData: $businessData, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
   }
 
   @override
@@ -4568,9 +4568,8 @@ class _$InitialImpl implements _Initial {
                 other.loadCompanyData == loadCompanyData) &&
             (identical(other.isBusiness, isBusiness) ||
                 other.isBusiness == isBusiness) &&
-            (identical(
-                    other.businessDetailsCreateId, businessDetailsCreateId) ||
-                other.businessDetailsCreateId == businessDetailsCreateId) &&
+            (identical(other.businessData, businessData) ||
+                other.businessData == businessData) &&
             (identical(other.bankDetailsCreateId, bankDetailsCreateId) ||
                 other.bankDetailsCreateId == bankDetailsCreateId) &&
             const DeepCollectionEquality()
@@ -4601,7 +4600,7 @@ class _$InitialImpl implements _Initial {
       hasError,
       loadCompanyData,
       isBusiness,
-      businessDetailsCreateId,
+      businessData,
       bankDetailsCreateId,
       const DeepCollectionEquality().hash(_socialMedias),
       const DeepCollectionEquality().hash(_accreditions),
@@ -4628,7 +4627,7 @@ abstract class _Initial implements BusinessDataState {
       required final bool hasError,
       required final bool loadCompanyData,
       required final bool isBusiness,
-      final int? businessDetailsCreateId,
+      final BusinessDetails? businessData,
       final int? bankDetailsCreateId,
       required final List<SocialMediaHandleCreate> socialMedias,
       required final List<AccreditionCreate> accreditions,
@@ -4651,7 +4650,7 @@ abstract class _Initial implements BusinessDataState {
   @override
   bool get isBusiness;
   @override
-  int? get businessDetailsCreateId;
+  BusinessDetails? get businessData;
   @override
   int? get bankDetailsCreateId;
   @override

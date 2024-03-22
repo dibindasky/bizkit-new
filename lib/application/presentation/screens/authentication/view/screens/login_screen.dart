@@ -100,14 +100,14 @@ class _LoGInScreenState extends State<LoGInScreen>
     kwidth = size.width;
     return GestureDetector(
       onTap: () {
-        FocusScopeNode focusScope = FocusScope.of(context);
-        if (!focusScope.hasPrimaryFocus) {
-          focusScope.unfocus();
-          setState(() {
-            animate(0, 0);
-            indexOfEye = 0;
-          });
-        }
+        // FocusScopeNode focusScope = FocusScope.of(context);
+        // if (!focusScope.hasPrimaryFocus) {
+        //   focusScope.unfocus();
+        //   setState(() {
+        //     animate(0, 0);
+        //     indexOfEye = 0;
+        //   });
+        // }
       },
       child: BlocListener<InternetConnectionCheckCubit,
           InternetConnectionCheckState>(
@@ -234,7 +234,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                         animate(30, -20);
                       });
                     },
-                    validate: Validate.password,
+                    validate: Validate.notNull,
                     text: 'Password',
                     controller: passwordController,
                     inputType: TextInputType.visiblePassword,
@@ -262,15 +262,19 @@ class _LoGInScreenState extends State<LoGInScreen>
                   BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
                       if (state.hasError || state.message != null) {
-                        print('snack from loginScreen');
                         showSnackbar(context,
                             message: state.message!,
                             backgroundColor: state.hasError ? kred : neonShade,
                             textColor: kwhite);
                       }
                       if (state.loginResponseModel != null) {
-                        GoRouter.of(context)
-                            .pushReplacementNamed(Routes.cardCreation);
+                        if (state.isFirstLogin || !state.hasCard) {
+                          GoRouter.of(context)
+                              .pushReplacementNamed(Routes.cardCreation);
+                        } else {
+                          GoRouter.of(context)
+                              .pushReplacementNamed(Routes.homePage);
+                        }
                       }
                     },
                     builder: (context, state) {
@@ -281,6 +285,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                         text: 'Login',
                         onTap: () {
                           if (loginKey.currentState!.validate()) {
+                            FocusScope.of(context).unfocus();
                             context.read<AuthBloc>().add(AuthEvent.login(
                                 loginModel: LoginModel(
                                     email: emailController.text.trim(),

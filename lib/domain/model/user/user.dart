@@ -17,6 +17,10 @@ class User {
   String? phoneNumber;
   @JsonKey(name: 'website_link')
   String? websiteLink;
+  @JsonKey(name: 'has_card')
+  bool? hasCard;
+  @JsonKey(name: 'is_logined')
+  bool? isLogined;
   int? id;
   int? localId;
 
@@ -31,6 +35,8 @@ class User {
     this.isVerified,
     this.id,
     this.localId,
+    this.hasCard,
+    this.isLogined,
   });
 
   static const String colId = 'id';

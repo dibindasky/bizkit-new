@@ -48,7 +48,7 @@ class CardDetailScreenSecondHalf extends StatelessWidget {
             }
             return PreviewProductsBrandsLists(
               networkImages: images,
-              pdfBase64: pdfBase64,
+              pdf: pdfBase64,
             );
           },
         ),

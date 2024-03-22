@@ -84,7 +84,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
         color: textFieldFillColr,
         child: TextFormField(
           onTapOutside: (event) {
-            FocusScope.of(context).unfocus();
+            _focusNode.unfocus();
           },
           // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
           enabled: widget.enabled,

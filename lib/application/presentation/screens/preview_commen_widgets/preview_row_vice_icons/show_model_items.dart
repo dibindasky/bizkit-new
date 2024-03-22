@@ -22,23 +22,23 @@ class PreviewScreenRowIconsModelSheet extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: backgroundColour,
+        // color: backgroundColour,
       ),
       child: ListView(
         children: [
-          Center(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: kwhite,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              height: 5.dm,
-              width: 85,
-            ),
-          ),
-          adjustHieght(khieght * .03),
+          // Center(
+          //   child: Container(
+          //     decoration: const BoxDecoration(
+          //       color: kwhite,
+          //       borderRadius: BorderRadius.all(
+          //         Radius.circular(10),
+          //       ),
+          //     ),
+          //     height: 5.dm,
+          //     width: 85,
+          //   ),
+          // ),
+          // adjustHieght(khieght * .03),
           SizedBox(
             height: 270,
             child: items == null || items!.isEmpty
@@ -51,7 +51,7 @@ class PreviewScreenRowIconsModelSheet extends StatelessWidget {
                       return Container(
                         height: 70,
                         decoration: const BoxDecoration(
-                          color: Color.fromRGBO(53, 53, 53, 0.42),
+                          color: textFieldFillColr,
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),

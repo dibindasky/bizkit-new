@@ -17,6 +17,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       isVerified: json['is_verified'] as bool?,
       id: json['id'] as int?,
       localId: json['localId'] as int?,
+      hasCard: json['has_card'] as bool?,
+      isLogined: json['is_logined'] as bool?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -28,6 +30,8 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'is_verified': instance.isVerified,
       'phone_number': instance.phoneNumber,
       'website_link': instance.websiteLink,
+      'has_card': instance.hasCard,
+      'is_logined': instance.isLogined,
       'id': instance.id,
       'localId': instance.localId,
     };

@@ -11,6 +11,8 @@ class AuthState with _$AuthState {
     required bool isLogin,
     String? message,
     String? userName,
+    required bool hasCard,
+    required bool isFirstLogin,
     LoginResponseModel? loginResponseModel,
   }) = _Initial;
 
@@ -18,6 +20,8 @@ class AuthState with _$AuthState {
         isLoading: false,
         hasError: false,
         otpSend: false,
+        isFirstLogin: true,
+        hasCard: true,
         userName: '',
         otpVerificationError: false,
         isLogin: false,

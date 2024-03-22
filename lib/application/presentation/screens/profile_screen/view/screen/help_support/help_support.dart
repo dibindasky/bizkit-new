@@ -1,15 +1,55 @@
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/widgets/refresh_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HelpSupport extends StatelessWidget {
-  HelpSupport({super.key});
+class HelpSupport extends StatefulWidget {
+  const HelpSupport({super.key, this.scrollController});
+  final ScrollController? scrollController;
+  @override
+  State<HelpSupport> createState() => _HelpSupportState();
+}
+
+class _HelpSupportState extends State<HelpSupport> {
+  _scrollCallBack() {
+    if (widget.scrollController!.position.pixels ==
+        widget.scrollController!.position.maxScrollExtent) {
+      context
+          .read<ProfileBloc>()
+          .add(const ProfileEvent.getQuestionEvent(serachQuery: ''));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.scrollController != null) {
+      widget.scrollController!.addListener(() {
+        widget.scrollController!.animateTo(.1,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.fastEaseInToSlowEaseOut);
+        _scrollCallBack();
+      });
+    }
+  }
 
   final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        context
+            .read<ProfileBloc>()
+            .add(const ProfileEvent.getQuestions(serachQuery: ''));
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -29,150 +69,84 @@ class HelpSupport extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: Column(
             children: [
+              adjustHieght(khieght * .02),
               Text(
                 'How can we Help You',
-                style: TextStyle(fontSize: 20.sp),
+                style: TextStyle(fontSize: 18.sp),
               ),
-              TTextFormField(
-                su: const Icon(Icons.search_rounded),
-                text: 'Enter your Keyword',
-                clr: Colors.grey,
-                controller: textEditingController,
-                inputType: TextInputType.name,
+              adjustHieght(khieght * .01),
+              BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  return TTextFormField(
+                    onChanaged: (value) {
+                      context
+                          .read<ProfileBloc>()
+                          .add(ProfileEvent.searchQuestion(serachQuery: value));
+                    },
+                    su: const Icon(Icons.search_rounded),
+                    text: 'Search here',
+                    controller: textEditingController,
+                    inputType: TextInputType.name,
+                  );
+                },
               ),
               adjustHieght(khieght * .02),
-              SizedBox(
-                height: 120,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      adjustWidth(kwidth * .03),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    final List<Map<String, dynamic>> items = [
-                      {
-                        'color': Colors.red[100],
-                        'text': 'Red Text',
-                        'icon': Icons.favorite,
-                        'sub': 'das',
-                        'iconcolor': Colors.red
-                      },
-                      {
-                        'color': Colors.blue[100],
-                        'text': 'Blue Text',
-                        'icon': Icons.accessibility,
-                        'sub': 'Ask me',
-                        'iconcolor': Colors.blue
-                      },
-                      {
-                        'color': Colors.green[300],
-                        'text': 'Green Text',
-                        'icon': Icons.star,
-                        'sub': 'More about',
-                        'iconcolor': Colors.green
-                      },
-                      {
-                        'color': Colors.purple[300],
-                        'text': 'Yellow Text',
-                        'icon': Icons.flash_on,
-                        'sub': 'Ending signal',
-                        'iconcolor': Colors.purple
-                      },
-                    ];
-
-                    return Container(
-                      padding: const EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                        color: items[index]['color'],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      width: 150,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          adjustHieght(khieght * .02),
-                          Icon(
-                            items[index]['icon'],
-                            size: 27,
-                            color: items[index]['iconcolor'],
-                          ),
-                          adjustHieght(khieght * .02),
-                          Text(
-                            items[index]['text'],
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                          Text(
-                            items[index]['sub'],
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
+              Text(
+                'Top questions',
+                style: TextStyle(fontSize: 16.sp),
+              ),
+              adjustHieght(khieght * .02),
+              BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  if (state.questionLoading) {
+                    return ShimmerLoader(
+                      itemCount: 10,
+                      height: 60,
+                      width: kwidth * 0.9,
+                      seprator: const SizedBox(height: 10),
+                    );
+                  } else if (state.questionList == null) {
+                    return RefreshIndicatorCustom(
+                      message: errorMessage,
+                      onRefresh: () => context.read<ProfileBloc>().add(
+                          const ProfileEvent.getQuestionEvent(serachQuery: '')),
+                    );
+                  } else if (state.questionList!.isEmpty) {
+                    return const SizedBox(
+                      child: Center(
+                        child: Text('No questions'),
                       ),
                     );
-                  },
-                ),
-              ),
-              adjustHieght(khieght * .02),
-              Row(
-                children: [
-                  Text(
-                    'Top questions',
-                    style: TextStyle(fontSize: 16.sp),
-                  ),
-                  const Spacer(),
-                  Text(
-                    'View all',
-                    style: TextStyle(
-                      color: Colors.red[200],
-                    ),
-                  ),
-                ],
-              ),
-              adjustHieght(khieght * .02),
-              const ExpansionTile(
-                title: Text(
-                  'How to create an account',
-                  style: TextStyle(color: kwhite),
-                ),
-                children: [
-                  Text(
-                    "This example uses the lorem package to generate three paragraphs of Lorem Ipsum text in a Flutter widget. You can adjust the number of paragraphs as needed.",
-                  ),
-                ],
-              ),
-              adjustHieght(khieght * .02),
-              const ExpansionTile(
-                title: Text(
-                  'How to create an Biziness card',
-                  style: TextStyle(color: kwhite),
-                ),
-                children: [
-                  Text(
-                    "This example uses the lorem package to generate three paragraphs of Lorem Ipsum text in a Flutter widget. You can adjust the number of paragraphs as needed.",
-                  ),
-                ],
-              ),
-              adjustHieght(khieght * .02),
-              const ExpansionTile(
-                title: Text(
-                  'How to connect',
-                  style: TextStyle(color: kwhite),
-                ),
-                children: [
-                  Text(
-                    "This example uses the lorem package to generate three paragraphs of Lorem Ipsum text in a Flutter widget. You can adjust the number of paragraphs as needed.",
-                  ),
-                ],
-              ),
+                  }
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: (state.questionList?.length ?? 0) +
+                        (state.questionLoading ? 1 : 0),
+                    itemBuilder: (context, index) {
+                      final question = state.questionList![index];
+                      if (state.questionLoading &&
+                          index == state.questionList!.length) {
+                        return const LoadingAnimation();
+                      }
+                      return ExpansionTile(
+                        title: Text(
+                          question.question!,
+                          style: const TextStyle(color: kwhite),
+                        ),
+                        children: [
+                          Text(question.answer!),
+                        ],
+                      );
+                    },
+                  );
+                },
+              )
             ],
           ),
         ),

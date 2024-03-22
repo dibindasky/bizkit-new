@@ -4,6 +4,7 @@ part of 'profile_bloc.dart';
 class ProfileState with _$ProfileState {
   const factory ProfileState({
     required bool isLoading,
+    required bool questionLoading,
     required bool hasError,
     String? message,
     GetUserInfoModel? getUserInfoModel,
@@ -15,6 +16,7 @@ class ProfileState with _$ProfileState {
   }) = _Initial;
   factory ProfileState.initial() => const ProfileState(
         isLoading: false,
+        questionLoading: false,
         hasError: false,
       );
 }

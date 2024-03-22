@@ -81,10 +81,10 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                       textColor: kwhite,
                     );
                   }
-                  if (state.userInfoChangeResponceModel != null &&
-                      state.message == 'Profile updated uccessfully') {
-                    Navigator.pop(context);
-                  }
+                  // if (state.userInfoChangeResponceModel != null &&
+                  //     state.message == 'Profile updated uccessfully') {
+                  //   Navigator.pop(context);
+                  // }
                 },
                 builder: (context, state) {
                   if (state.isLoading) {
@@ -101,6 +101,7 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                               .read<ProfileBloc>()
                               .userNameController
                               .text,
+                          isActive: true,
                         );
                         context.read<ProfileBloc>().add(
                               ProfileEvent.editProfile(

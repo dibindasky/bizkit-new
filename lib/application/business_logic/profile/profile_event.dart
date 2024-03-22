@@ -19,11 +19,12 @@ class ProfileEvent with _$ProfileEvent {
     required ReportAProblemRequestModel reportAProblemRequestModel,
   }) = ReportAProblem;
   const factory ProfileEvent.getQuestions({
-    required GetQuestionsModel questionsModel,
-    required String userId,
+    required String serachQuery,
   }) = GetQuestions;
   const factory ProfileEvent.getQuestionEvent({
-    required GetQuestionsModel getQuestionsModel,
-    required String userId,
+    required String serachQuery,
   }) = GetQuestionEvent;
+  const factory ProfileEvent.searchQuestion({
+    required String serachQuery,
+  }) = SearchQuestion;
 }

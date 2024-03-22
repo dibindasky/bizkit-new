@@ -58,4 +58,5 @@ class ApiEndPoints {
       '/connections/list-blocked-connections/';
   static String restreArcheivedCard = '/card/get-card/{card_id}/';
   static String faq = '/faq/';
+  static String notification = '/notification/notifications-list/';
 }

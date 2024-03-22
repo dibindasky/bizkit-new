@@ -4,14 +4,21 @@ part 'user_info_change_request_model.g.dart';
 
 @JsonSerializable()
 class UserInfoChangeRequestModel {
+  @JsonKey(name: 'is_active')
+  bool? isActive;
   String? name;
   @JsonKey(name: 'profile_pic')
   String? profilePic;
 
-  UserInfoChangeRequestModel({this.name, this.profilePic});
+  UserInfoChangeRequestModel({this.isActive, this.name, this.profilePic});
 
-  UserInfoChangeRequestModel copyWith({String? name, String? profilePic}) {
+  UserInfoChangeRequestModel copyWith({
+    String? profilePic,
+    bool? isActive,
+    String? name,
+  }) {
     return UserInfoChangeRequestModel(
+      isActive: isActive ?? this.isActive,
       name: name ?? this.name,
       profilePic: profilePic ?? this.profilePic,
     );

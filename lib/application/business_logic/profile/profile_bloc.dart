@@ -7,12 +7,12 @@ import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
-import 'package:bizkit/domain/model/profile/get_questions_model/get_questions_model.dart';
 import 'package:bizkit/domain/model/profile/get_questions_model/questions.dart';
 import 'package:bizkit/domain/model/profile/get_user_info_model/get_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/update_user_info_model/update_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
+import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/model/token/token_model.dart';
 import 'package:bizkit/domain/repository/service/profile_repo.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +27,7 @@ part 'profile_bloc.freezed.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileRepo profileRepo;
   int archevedCards = 1, blockedCards = 1, faq = 1;
+  List<Questions> questionList = [];
   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController reEnterNewPasswordController = TextEditingController();
@@ -43,14 +44,27 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ReportAProblem>(reportAProblem);
     on<GetQuestions>(getQuestios);
     on<GetQuestionEvent>(getQuestionsEvent);
+    on<SearchQuestion>(searchQuestion);
+  }
+
+  FutureOr<void> searchQuestion(SearchQuestion event, emit) async {
+    final String searchQuery = event.serachQuery.toLowerCase().trim();
+    final List<Questions> questionLists = questionList.where((question) {
+      final String questionName = question.question!.toLowerCase();
+      return questionName.contains(searchQuery);
+    }).toList();
+    emit(state.copyWith(
+      questionList: questionLists,
+    ));
   }
 
   FutureOr<void> getQuestionsEvent(GetQuestionEvent event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final data = await profileRepo.getQuestions(
-      pageQuery: PageQuery(page: ++faq),
-      userId: event.userId,
-    );
+        pageQuery: PageQuery(page: ++faq),
+        serachQuery: SearchQuery(
+          search: event.serachQuery,
+        ));
     data.fold((l) {
       emit(state.copyWith(
         isLoading: false,
@@ -59,33 +73,36 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ));
     }, (r) {
       emit(
+        questionList.addAll([...state.questionList!, ...r.results!]),
         state.copyWith(
           isLoading: false,
           hasError: false,
-          questionList: [...state.questionList!, ...r.results!],
+          questionList: questionList,
         ),
       );
     });
   }
 
   FutureOr<void> getQuestios(GetQuestions event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(questionLoading: true, hasError: false, message: null));
     final data = await profileRepo.getQuestions(
       pageQuery: PageQuery(page: faq),
-      userId: event.userId,
+      serachQuery: SearchQuery(search: event.serachQuery),
     );
     data.fold((l) {
       emit(state.copyWith(
-        isLoading: false,
+        questionLoading: false,
         hasError: false,
         message: errorMessage,
       ));
     }, (r) {
+      questionList.clear();
+      questionList.addAll(r.results!);
       emit(
         state.copyWith(
-          isLoading: false,
+          questionLoading: false,
           hasError: false,
-          questionList: r.results,
+          questionList: questionList,
         ),
       );
     });
@@ -175,6 +192,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     if (state.getUserInfoModel != null && event.isLoad == false) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final data = await profileRepo.getProfile();
+
     data.fold(
         (l) => emit(
               state.copyWith(

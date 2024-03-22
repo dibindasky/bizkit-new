@@ -9,6 +9,7 @@ import 'package:bizkit/domain/model/profile/update_user_info_model/update_user_i
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:bizkit/domain/model/profile/username_change_responce_model/username_change_responce_model.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
+import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class ProfileRepo {
@@ -30,6 +31,6 @@ abstract class ProfileRepo {
   });
   Future<Either<Failure, GetQuestionsModel>> getQuestions({
     required PageQuery pageQuery,
-    required String userId,
+    required SearchQuery serachQuery,
   });
 }

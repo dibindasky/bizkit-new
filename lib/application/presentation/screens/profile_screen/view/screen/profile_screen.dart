@@ -67,9 +67,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                     if (state.imageModel != null) {
                       showSnackbar(context, message: state.message!);
                     }
-                    if (state.userInfoChangeResponceModel != null) {
-                      showSnackbar(context, message: state.message!);
-                    }
+                    // if (state.userInfoChangeResponceModel != null) {
+                    //   showSnackbar(context, message: state.message!);
+                    // }
                   },
                   builder: (context, state) {
                     return Stack(
@@ -178,11 +178,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                   subtittle: 'Blocked, Restricted, Report Connections',
                   widget: ConnectionNetworkScreen(),
                 ),
-                // ProfileTiles(
-                //   heading: 'Help & Support',
-                //   subtittle: 'Contact, Faq etc.',
-                //   widget: HelpSupport(),
-                // ),
+                ProfileTiles(
+                  heading: 'Help & support',
+                  subtittle: 'Contact, Faq etc.',
+                  widget: HelpSupport(),
+                ),
                 ProfileTiles(
                   heading: 'Logout',
                   onTap: () {

@@ -18,7 +18,6 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   final GlobalKey<FormState> passwrdChangeFrom = GlobalKey();
-  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {

@@ -103,10 +103,12 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         pageQuery: PageQuery(page: archevedCards));
     data.fold(
         (l) => emit(
-            state.copyWith(isLoading: false, hasError: true, message: null)),
-        (r) {
-      emit(state.copyWith(
-          isLoading: false, hasError: false, archievedCards: r.archiveCards));
+              state.copyWith(isLoading: false, hasError: true, message: null),
+            ), (r) {
+      emit(
+        state.copyWith(
+            isLoading: false, hasError: false, archievedCards: r.archiveCards),
+      );
     });
   }
 

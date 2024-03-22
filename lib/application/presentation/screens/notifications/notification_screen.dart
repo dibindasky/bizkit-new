@@ -55,11 +55,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPersistentFrameCallback(
-    //   (timeStamp) {
-
-    //   },
-    // );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notifications'),
@@ -93,7 +88,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       ),
                     );
                   }
-
                   return ListView.separated(
                     controller: widget.scrollController,
                     physics: const NeverScrollableScrollPhysics(),

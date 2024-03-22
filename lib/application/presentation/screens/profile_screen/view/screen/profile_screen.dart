@@ -227,46 +227,55 @@ class ProfileTiles extends StatelessWidget {
         color: textFieldFillColr,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(heading,
-                      style: TextStyle(
-                        fontSize: kwidth * 0.045,
-                        fontWeight: FontWeight.w200,
-                        color: kwhite,
-                      )),
-                  subtittle == null
-                      ? const SizedBox()
-                      : Text(
-                          subtittle!,
-                          style: TextStyle(
-                            fontSize: kwidth * 0.03,
-                            fontWeight: FontWeight.w200,
-                            color: klightgrey,
+          child: GestureDetector(
+            onTap: () {
+              if (onTap != null) {
+                onTap!();
+              } else {
+                Navigator.of(context).push(fadePageRoute(widget!));
+              }
+            },
+            child: Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(heading,
+                        style: TextStyle(
+                          fontSize: kwidth * 0.045,
+                          fontWeight: FontWeight.w200,
+                          color: kwhite,
+                        )),
+                    subtittle == null
+                        ? const SizedBox()
+                        : Text(
+                            subtittle!,
+                            style: TextStyle(
+                              fontSize: kwidth * 0.03,
+                              fontWeight: FontWeight.w200,
+                              color: klightgrey,
+                            ),
                           ),
-                        ),
-                ],
-              ),
-              const Spacer(),
-              IconButton(
-                onPressed: () {
-                  if (onTap != null) {
-                    onTap!();
-                  } else {
-                    Navigator.of(context).push(fadePageRoute(widget!));
-                  }
-                },
-                icon: const Icon(
-                  Icons.arrow_forward_ios_sharp,
-                  color: kwhite,
-                  size: 17,
+                  ],
                 ),
-              )
-            ],
+                const Spacer(),
+                IconButton(
+                  onPressed: () {
+                    if (onTap != null) {
+                      onTap!();
+                    } else {
+                      Navigator.of(context).push(fadePageRoute(widget!));
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.arrow_forward_ios_sharp,
+                    color: kwhite,
+                    size: 17,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

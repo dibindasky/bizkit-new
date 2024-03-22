@@ -27,32 +27,13 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     on<GetCardyUserId>(getCardyUserId);
     on<GetCardyCardId>(getCardyCardId);
     on<SetDefault>(setDefault);
-    //on<DeleteCard>(deleteCard);
     on<GetdeleteCards>(getDeleteCards);
     on<GetdeleteCardsEvent>(getdeleteCardsEvent);
-    // on<RestroreDeleteCard>(restroreDeleteCard);
     on<CardAction>(cardAction);
     on<GetArchievedCards>(getArchievedCards);
     on<GetArchievedCardsEvent>(getArchievedCardsEvent);
-    on<RestoreArchiveDeleteCard>(restoreArchieveCards);
+    on<RestoreArchiveDeleteCard>(restoreArchieveDeleteCards);
   }
-
-  // FutureOr<void> restroreDeleteCard(RestroreDeleteCard event, emit) async {
-  //   emit(state.copyWith(isLoading: true, hasError: false, message: null));
-  //   final data = await cardService.restoreDeleteCard(id: event.id);
-  //   data.fold(
-  //       (l) => emit(
-  //           state.copyWith(isLoading: false, hasError: true, message: null)),
-  //       (r) {
-  //     emit(state.copyWith(
-  //       isLoading: false,
-  //       hasError: false,
-  //       message: r.message,
-  //     ));
-  //     add(const CardEvent.getdeleteCards(isLoad: true));
-  //     add(const CardEvent.getCards(call: true));
-  //   });
-  // }
 
   FutureOr<void> getdeleteCardsEvent(GetdeleteCardsEvent event, emit) async {
     emit(state.copyWith(
@@ -146,7 +127,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     });
   }
 
-  FutureOr<void> restoreArchieveCards(
+  FutureOr<void> restoreArchieveDeleteCards(
       RestoreArchiveDeleteCard event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final data = await cardService.restoreArchiveDeleteCard(
@@ -163,6 +144,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         message: r.message,
       ));
       add(const CardEvent.getArchievedCards(isLoad: true));
+      add(const CardEvent.getdeleteCards(isLoad: true));
       add(const CardEvent.getCards(call: true));
     });
   }

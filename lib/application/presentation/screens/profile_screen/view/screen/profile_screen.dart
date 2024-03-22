@@ -178,11 +178,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                   subtittle: 'Blocked, Restricted, Report Connections',
                   widget: ConnectionNetworkScreen(),
                 ),
-                // ProfileTiles(
-                //   heading: 'Help & Support',
-                //   subtittle: 'Contact, Faq etc.',
-                //   widget: HelpSupport(),
-                // ),
                 ProfileTiles(
                   heading: 'Logout',
                   onTap: () {

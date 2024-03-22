@@ -7,10 +7,11 @@ import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgo
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
+import 'package:bizkit/domain/model/profile/get_questions_model/get_questions_model.dart';
 import 'package:bizkit/domain/model/profile/get_user_info_model/get_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/get_user_info_model/result.dart';
+import 'package:bizkit/domain/model/profile/update_user_info_model/update_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
-import 'package:bizkit/domain/model/profile/user_info_change_responce_model/user_info_change_responce_model.dart';
 import 'package:bizkit/domain/model/profile/username_change_responce_model/username_change_responce_model.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
 import 'package:bizkit/domain/repository/service/profile_repo.dart';
@@ -49,7 +50,7 @@ class ProfileService implements ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, UserInfoChangeResponceModel>> editProfile({
+  Future<Either<Failure, UpdateUserInfoModel>> editProfile({
     required UserInfoChangeRequestModel userInfoChangeRequestModel,
   }) async {
     try {
@@ -59,7 +60,7 @@ class ProfileService implements ProfileRepo {
       );
       log('editProfile data ${userInfoChangeRequestModel.toJson()}');
       log('editProfile Status code ${responce.statusCode}');
-      return Right(UserInfoChangeResponceModel.fromJson(responce.data));
+      return Right(UpdateUserInfoModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('editProfile DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));
@@ -118,6 +119,28 @@ class ProfileService implements ProfileRepo {
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log('getBlockeConnections catch $e');
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetQuestionsModel>> getQuestions({
+    required PageQuery pageQuery,
+    required String userId,
+  }) async {
+    try {
+      final responce = await apiService.get(
+        ApiEndPoints.faq,
+        queryParameters: pageQuery.toJson(),
+        data: {"user_id": userId},
+      );
+      log('getQuestions data ${responce.data}');
+      return Right(GetQuestionsModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getQuestions DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      log('getQuestions catch $e');
       return Left(Failure(message: errorMessage));
     }
   }

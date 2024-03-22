@@ -9,8 +9,9 @@ class ProfileState with _$ProfileState {
     GetUserInfoModel? getUserInfoModel,
     ImageModel? imageModel,
     bool? uploaded,
-    UserInfoChangeResponceModel? userInfoChangeResponceModel,
+    UpdateUserInfoModel? userInfoChangeResponceModel,
     ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
+    List<Questions>? questionList,
   }) = _Initial;
   factory ProfileState.initial() => const ProfileState(
         isLoading: false,

@@ -10,11 +10,11 @@ class ContactsState with _$ContactsState {
       required bool firstLoading,
       String? message,
       List<ContactModel>? contactList,
-      List<ContactModel>? contactFilterdList
-      }) = _Initial;
+      List<ContactModel>? contactFilterdList}) = _Initial;
   factory ContactsState.initial() => const ContactsState(
       isLoading: false,
       hasError: false,
-      fetchingLoading: false,searchLoading: false,
+      fetchingLoading: false,
+      searchLoading: false,
       firstLoading: false);
 }

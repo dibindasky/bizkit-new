@@ -1,23 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_info_change_responce_model.dart';
+part of 'update_user_info_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserInfoChangeResponceModel _$UserInfoChangeResponceModelFromJson(
-        Map<String, dynamic> json) =>
-    UserInfoChangeResponceModel(
-      id: json['id'] as int?,
+UpdateUserInfoModel _$UpdateUserInfoModelFromJson(Map<String, dynamic> json) =>
+    UpdateUserInfoModel(
+      isActive: json['is_active'] as bool?,
       name: json['name'] as String?,
       profilePic: json['profile_pic'] as String?,
     );
 
-Map<String, dynamic> _$UserInfoChangeResponceModelToJson(
-        UserInfoChangeResponceModel instance) =>
+Map<String, dynamic> _$UpdateUserInfoModelToJson(
+        UpdateUserInfoModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'is_active': instance.isActive,
       'name': instance.name,
       'profile_pic': instance.profilePic,
     };

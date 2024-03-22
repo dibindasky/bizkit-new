@@ -33,6 +33,11 @@ mixin _$ProfileEvent {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
+    required TResult Function(GetQuestionsModel questionsModel, String userId)
+        getQuestions,
+    required TResult Function(
+            GetQuestionsModel getQuestionsModel, String userId)
+        getQuestionEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -48,6 +53,10 @@ mixin _$ProfileEvent {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult? Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult? Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +72,10 @@ mixin _$ProfileEvent {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -75,6 +88,8 @@ mixin _$ProfileEvent {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetQuestions value) getQuestions,
+    required TResult Function(GetQuestionEvent value) getQuestionEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -86,6 +101,8 @@ mixin _$ProfileEvent {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetQuestions value)? getQuestions,
+    TResult? Function(GetQuestionEvent value)? getQuestionEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -97,6 +114,8 @@ mixin _$ProfileEvent {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetQuestions value)? getQuestions,
+    TResult Function(GetQuestionEvent value)? getQuestionEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -200,6 +219,11 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
+    required TResult Function(GetQuestionsModel questionsModel, String userId)
+        getQuestions,
+    required TResult Function(
+            GetQuestionsModel getQuestionsModel, String userId)
+        getQuestionEvent,
   }) {
     return pickImageScanning(camera);
   }
@@ -218,6 +242,10 @@ class _$PickImageScanningImpl implements PickImageScanning {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult? Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult? Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
   }) {
     return pickImageScanning?.call(camera);
   }
@@ -236,6 +264,10 @@ class _$PickImageScanningImpl implements PickImageScanning {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
     required TResult orElse(),
   }) {
     if (pickImageScanning != null) {
@@ -254,6 +286,8 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetQuestions value) getQuestions,
+    required TResult Function(GetQuestionEvent value) getQuestionEvent,
   }) {
     return pickImageScanning(this);
   }
@@ -268,6 +302,8 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetQuestions value)? getQuestions,
+    TResult? Function(GetQuestionEvent value)? getQuestionEvent,
   }) {
     return pickImageScanning?.call(this);
   }
@@ -282,6 +318,8 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetQuestions value)? getQuestions,
+    TResult Function(GetQuestionEvent value)? getQuestionEvent,
     required TResult orElse(),
   }) {
     if (pickImageScanning != null) {
@@ -380,6 +418,11 @@ class _$GetProfileImpl implements GetProfile {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
+    required TResult Function(GetQuestionsModel questionsModel, String userId)
+        getQuestions,
+    required TResult Function(
+            GetQuestionsModel getQuestionsModel, String userId)
+        getQuestionEvent,
   }) {
     return getProfile(isLoad);
   }
@@ -398,6 +441,10 @@ class _$GetProfileImpl implements GetProfile {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult? Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult? Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
   }) {
     return getProfile?.call(isLoad);
   }
@@ -416,6 +463,10 @@ class _$GetProfileImpl implements GetProfile {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
     required TResult orElse(),
   }) {
     if (getProfile != null) {
@@ -434,6 +485,8 @@ class _$GetProfileImpl implements GetProfile {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetQuestions value) getQuestions,
+    required TResult Function(GetQuestionEvent value) getQuestionEvent,
   }) {
     return getProfile(this);
   }
@@ -448,6 +501,8 @@ class _$GetProfileImpl implements GetProfile {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetQuestions value)? getQuestions,
+    TResult? Function(GetQuestionEvent value)? getQuestionEvent,
   }) {
     return getProfile?.call(this);
   }
@@ -462,6 +517,8 @@ class _$GetProfileImpl implements GetProfile {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetQuestions value)? getQuestions,
+    TResult Function(GetQuestionEvent value)? getQuestionEvent,
     required TResult orElse(),
   }) {
     if (getProfile != null) {
@@ -562,6 +619,11 @@ class _$EditProfileImpl implements EditProfile {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
+    required TResult Function(GetQuestionsModel questionsModel, String userId)
+        getQuestions,
+    required TResult Function(
+            GetQuestionsModel getQuestionsModel, String userId)
+        getQuestionEvent,
   }) {
     return editProfile(userInfoChangeRequestModel);
   }
@@ -580,6 +642,10 @@ class _$EditProfileImpl implements EditProfile {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult? Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult? Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
   }) {
     return editProfile?.call(userInfoChangeRequestModel);
   }
@@ -598,6 +664,10 @@ class _$EditProfileImpl implements EditProfile {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
     required TResult orElse(),
   }) {
     if (editProfile != null) {
@@ -616,6 +686,8 @@ class _$EditProfileImpl implements EditProfile {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetQuestions value) getQuestions,
+    required TResult Function(GetQuestionEvent value) getQuestionEvent,
   }) {
     return editProfile(this);
   }
@@ -630,6 +702,8 @@ class _$EditProfileImpl implements EditProfile {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetQuestions value)? getQuestions,
+    TResult? Function(GetQuestionEvent value)? getQuestionEvent,
   }) {
     return editProfile?.call(this);
   }
@@ -644,6 +718,8 @@ class _$EditProfileImpl implements EditProfile {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetQuestions value)? getQuestions,
+    TResult Function(GetQuestionEvent value)? getQuestionEvent,
     required TResult orElse(),
   }) {
     if (editProfile != null) {
@@ -717,6 +793,11 @@ class _$DeleteProfileImpl implements DeleteProfile {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
+    required TResult Function(GetQuestionsModel questionsModel, String userId)
+        getQuestions,
+    required TResult Function(
+            GetQuestionsModel getQuestionsModel, String userId)
+        getQuestionEvent,
   }) {
     return deleteProfile();
   }
@@ -735,6 +816,10 @@ class _$DeleteProfileImpl implements DeleteProfile {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult? Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult? Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
   }) {
     return deleteProfile?.call();
   }
@@ -753,6 +838,10 @@ class _$DeleteProfileImpl implements DeleteProfile {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
     required TResult orElse(),
   }) {
     if (deleteProfile != null) {
@@ -771,6 +860,8 @@ class _$DeleteProfileImpl implements DeleteProfile {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetQuestions value) getQuestions,
+    required TResult Function(GetQuestionEvent value) getQuestionEvent,
   }) {
     return deleteProfile(this);
   }
@@ -785,6 +876,8 @@ class _$DeleteProfileImpl implements DeleteProfile {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetQuestions value)? getQuestions,
+    TResult? Function(GetQuestionEvent value)? getQuestionEvent,
   }) {
     return deleteProfile?.call(this);
   }
@@ -799,6 +892,8 @@ class _$DeleteProfileImpl implements DeleteProfile {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetQuestions value)? getQuestions,
+    TResult Function(GetQuestionEvent value)? getQuestionEvent,
     required TResult orElse(),
   }) {
     if (deleteProfile != null) {
@@ -895,6 +990,11 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
+    required TResult Function(GetQuestionsModel questionsModel, String userId)
+        getQuestions,
+    required TResult Function(
+            GetQuestionsModel getQuestionsModel, String userId)
+        getQuestionEvent,
   }) {
     return userInfoChange(userNameChanginRequestModel);
   }
@@ -913,6 +1013,10 @@ class _$UserInfoChangeImpl implements UserInfoChange {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult? Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult? Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
   }) {
     return userInfoChange?.call(userNameChanginRequestModel);
   }
@@ -931,6 +1035,10 @@ class _$UserInfoChangeImpl implements UserInfoChange {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
     required TResult orElse(),
   }) {
     if (userInfoChange != null) {
@@ -949,6 +1057,8 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetQuestions value) getQuestions,
+    required TResult Function(GetQuestionEvent value) getQuestionEvent,
   }) {
     return userInfoChange(this);
   }
@@ -963,6 +1073,8 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetQuestions value)? getQuestions,
+    TResult? Function(GetQuestionEvent value)? getQuestionEvent,
   }) {
     return userInfoChange?.call(this);
   }
@@ -977,6 +1089,8 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetQuestions value)? getQuestions,
+    TResult Function(GetQuestionEvent value)? getQuestionEvent,
     required TResult orElse(),
   }) {
     if (userInfoChange != null) {
@@ -1079,6 +1193,11 @@ class _$ResetPasswodImpl implements ResetPasswod {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
+    required TResult Function(GetQuestionsModel questionsModel, String userId)
+        getQuestions,
+    required TResult Function(
+            GetQuestionsModel getQuestionsModel, String userId)
+        getQuestionEvent,
   }) {
     return resetPasswod(forgottPasswordRequestModel);
   }
@@ -1097,6 +1216,10 @@ class _$ResetPasswodImpl implements ResetPasswod {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult? Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult? Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
   }) {
     return resetPasswod?.call(forgottPasswordRequestModel);
   }
@@ -1115,6 +1238,10 @@ class _$ResetPasswodImpl implements ResetPasswod {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
     required TResult orElse(),
   }) {
     if (resetPasswod != null) {
@@ -1133,6 +1260,8 @@ class _$ResetPasswodImpl implements ResetPasswod {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetQuestions value) getQuestions,
+    required TResult Function(GetQuestionEvent value) getQuestionEvent,
   }) {
     return resetPasswod(this);
   }
@@ -1147,6 +1276,8 @@ class _$ResetPasswodImpl implements ResetPasswod {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetQuestions value)? getQuestions,
+    TResult? Function(GetQuestionEvent value)? getQuestionEvent,
   }) {
     return resetPasswod?.call(this);
   }
@@ -1161,6 +1292,8 @@ class _$ResetPasswodImpl implements ResetPasswod {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetQuestions value)? getQuestions,
+    TResult Function(GetQuestionEvent value)? getQuestionEvent,
     required TResult orElse(),
   }) {
     if (resetPasswod != null) {
@@ -1264,6 +1397,11 @@ class _$ReportAProblemImpl implements ReportAProblem {
     required TResult Function(
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
+    required TResult Function(GetQuestionsModel questionsModel, String userId)
+        getQuestions,
+    required TResult Function(
+            GetQuestionsModel getQuestionsModel, String userId)
+        getQuestionEvent,
   }) {
     return reportAProblem(reportAProblemRequestModel);
   }
@@ -1282,6 +1420,10 @@ class _$ReportAProblemImpl implements ReportAProblem {
         resetPasswod,
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult? Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult? Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
   }) {
     return reportAProblem?.call(reportAProblemRequestModel);
   }
@@ -1300,6 +1442,10 @@ class _$ReportAProblemImpl implements ReportAProblem {
         resetPasswod,
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
+    TResult Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
     required TResult orElse(),
   }) {
     if (reportAProblem != null) {
@@ -1318,6 +1464,8 @@ class _$ReportAProblemImpl implements ReportAProblem {
     required TResult Function(UserInfoChange value) userInfoChange,
     required TResult Function(ResetPasswod value) resetPasswod,
     required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetQuestions value) getQuestions,
+    required TResult Function(GetQuestionEvent value) getQuestionEvent,
   }) {
     return reportAProblem(this);
   }
@@ -1332,6 +1480,8 @@ class _$ReportAProblemImpl implements ReportAProblem {
     TResult? Function(UserInfoChange value)? userInfoChange,
     TResult? Function(ResetPasswod value)? resetPasswod,
     TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetQuestions value)? getQuestions,
+    TResult? Function(GetQuestionEvent value)? getQuestionEvent,
   }) {
     return reportAProblem?.call(this);
   }
@@ -1346,6 +1496,8 @@ class _$ReportAProblemImpl implements ReportAProblem {
     TResult Function(UserInfoChange value)? userInfoChange,
     TResult Function(ResetPasswod value)? resetPasswod,
     TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetQuestions value)? getQuestions,
+    TResult Function(GetQuestionEvent value)? getQuestionEvent,
     required TResult orElse(),
   }) {
     if (reportAProblem != null) {
@@ -1367,6 +1519,429 @@ abstract class ReportAProblem implements ProfileEvent {
 }
 
 /// @nodoc
+abstract class _$$GetQuestionsImplCopyWith<$Res> {
+  factory _$$GetQuestionsImplCopyWith(
+          _$GetQuestionsImpl value, $Res Function(_$GetQuestionsImpl) then) =
+      __$$GetQuestionsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({GetQuestionsModel questionsModel, String userId});
+}
+
+/// @nodoc
+class __$$GetQuestionsImplCopyWithImpl<$Res>
+    extends _$ProfileEventCopyWithImpl<$Res, _$GetQuestionsImpl>
+    implements _$$GetQuestionsImplCopyWith<$Res> {
+  __$$GetQuestionsImplCopyWithImpl(
+      _$GetQuestionsImpl _value, $Res Function(_$GetQuestionsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? questionsModel = null,
+    Object? userId = null,
+  }) {
+    return _then(_$GetQuestionsImpl(
+      questionsModel: null == questionsModel
+          ? _value.questionsModel
+          : questionsModel // ignore: cast_nullable_to_non_nullable
+              as GetQuestionsModel,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetQuestionsImpl implements GetQuestions {
+  const _$GetQuestionsImpl(
+      {required this.questionsModel, required this.userId});
+
+  @override
+  final GetQuestionsModel questionsModel;
+  @override
+  final String userId;
+
+  @override
+  String toString() {
+    return 'ProfileEvent.getQuestions(questionsModel: $questionsModel, userId: $userId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetQuestionsImpl &&
+            (identical(other.questionsModel, questionsModel) ||
+                other.questionsModel == questionsModel) &&
+            (identical(other.userId, userId) || other.userId == userId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, questionsModel, userId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetQuestionsImplCopyWith<_$GetQuestionsImpl> get copyWith =>
+      __$$GetQuestionsImplCopyWithImpl<_$GetQuestionsImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
+        editProfile,
+    required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(GetQuestionsModel questionsModel, String userId)
+        getQuestions,
+    required TResult Function(
+            GetQuestionsModel getQuestionsModel, String userId)
+        getQuestionEvent,
+  }) {
+    return getQuestions(questionsModel, userId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult? Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
+  }) {
+    return getQuestions?.call(questionsModel, userId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
+    required TResult orElse(),
+  }) {
+    if (getQuestions != null) {
+      return getQuestions(questionsModel, userId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
+    required TResult Function(GetProfile value) getProfile,
+    required TResult Function(EditProfile value) editProfile,
+    required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetQuestions value) getQuestions,
+    required TResult Function(GetQuestionEvent value) getQuestionEvent,
+  }) {
+    return getQuestions(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
+    TResult? Function(GetProfile value)? getProfile,
+    TResult? Function(EditProfile value)? editProfile,
+    TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetQuestions value)? getQuestions,
+    TResult? Function(GetQuestionEvent value)? getQuestionEvent,
+  }) {
+    return getQuestions?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
+    TResult Function(GetProfile value)? getProfile,
+    TResult Function(EditProfile value)? editProfile,
+    TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetQuestions value)? getQuestions,
+    TResult Function(GetQuestionEvent value)? getQuestionEvent,
+    required TResult orElse(),
+  }) {
+    if (getQuestions != null) {
+      return getQuestions(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetQuestions implements ProfileEvent {
+  const factory GetQuestions(
+      {required final GetQuestionsModel questionsModel,
+      required final String userId}) = _$GetQuestionsImpl;
+
+  GetQuestionsModel get questionsModel;
+  String get userId;
+  @JsonKey(ignore: true)
+  _$$GetQuestionsImplCopyWith<_$GetQuestionsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetQuestionEventImplCopyWith<$Res> {
+  factory _$$GetQuestionEventImplCopyWith(_$GetQuestionEventImpl value,
+          $Res Function(_$GetQuestionEventImpl) then) =
+      __$$GetQuestionEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({GetQuestionsModel getQuestionsModel, String userId});
+}
+
+/// @nodoc
+class __$$GetQuestionEventImplCopyWithImpl<$Res>
+    extends _$ProfileEventCopyWithImpl<$Res, _$GetQuestionEventImpl>
+    implements _$$GetQuestionEventImplCopyWith<$Res> {
+  __$$GetQuestionEventImplCopyWithImpl(_$GetQuestionEventImpl _value,
+      $Res Function(_$GetQuestionEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? getQuestionsModel = null,
+    Object? userId = null,
+  }) {
+    return _then(_$GetQuestionEventImpl(
+      getQuestionsModel: null == getQuestionsModel
+          ? _value.getQuestionsModel
+          : getQuestionsModel // ignore: cast_nullable_to_non_nullable
+              as GetQuestionsModel,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetQuestionEventImpl implements GetQuestionEvent {
+  const _$GetQuestionEventImpl(
+      {required this.getQuestionsModel, required this.userId});
+
+  @override
+  final GetQuestionsModel getQuestionsModel;
+  @override
+  final String userId;
+
+  @override
+  String toString() {
+    return 'ProfileEvent.getQuestionEvent(getQuestionsModel: $getQuestionsModel, userId: $userId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetQuestionEventImpl &&
+            (identical(other.getQuestionsModel, getQuestionsModel) ||
+                other.getQuestionsModel == getQuestionsModel) &&
+            (identical(other.userId, userId) || other.userId == userId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, getQuestionsModel, userId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetQuestionEventImplCopyWith<_$GetQuestionEventImpl> get copyWith =>
+      __$$GetQuestionEventImplCopyWithImpl<_$GetQuestionEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(bool isLoad) getProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userInfoChangeRequestModel)
+        editProfile,
+    required TResult Function() deleteProfile,
+    required TResult Function(
+            UserInfoChangeRequestModel userNameChanginRequestModel)
+        userInfoChange,
+    required TResult Function(
+            ForgottPasswordRequestModel forgottPasswordRequestModel)
+        resetPasswod,
+    required TResult Function(
+            ReportAProblemRequestModel reportAProblemRequestModel)
+        reportAProblem,
+    required TResult Function(GetQuestionsModel questionsModel, String userId)
+        getQuestions,
+    required TResult Function(
+            GetQuestionsModel getQuestionsModel, String userId)
+        getQuestionEvent,
+  }) {
+    return getQuestionEvent(getQuestionsModel, userId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(bool isLoad)? getProfile,
+    TResult? Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult? Function()? deleteProfile,
+    TResult? Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult? Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult? Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult? Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
+  }) {
+    return getQuestionEvent?.call(getQuestionsModel, userId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(bool isLoad)? getProfile,
+    TResult Function(UserInfoChangeRequestModel userInfoChangeRequestModel)?
+        editProfile,
+    TResult Function()? deleteProfile,
+    TResult Function(UserInfoChangeRequestModel userNameChanginRequestModel)?
+        userInfoChange,
+    TResult Function(ForgottPasswordRequestModel forgottPasswordRequestModel)?
+        resetPasswod,
+    TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
+        reportAProblem,
+    TResult Function(GetQuestionsModel questionsModel, String userId)?
+        getQuestions,
+    TResult Function(GetQuestionsModel getQuestionsModel, String userId)?
+        getQuestionEvent,
+    required TResult orElse(),
+  }) {
+    if (getQuestionEvent != null) {
+      return getQuestionEvent(getQuestionsModel, userId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
+    required TResult Function(GetProfile value) getProfile,
+    required TResult Function(EditProfile value) editProfile,
+    required TResult Function(DeleteProfile value) deleteProfile,
+    required TResult Function(UserInfoChange value) userInfoChange,
+    required TResult Function(ResetPasswod value) resetPasswod,
+    required TResult Function(ReportAProblem value) reportAProblem,
+    required TResult Function(GetQuestions value) getQuestions,
+    required TResult Function(GetQuestionEvent value) getQuestionEvent,
+  }) {
+    return getQuestionEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
+    TResult? Function(GetProfile value)? getProfile,
+    TResult? Function(EditProfile value)? editProfile,
+    TResult? Function(DeleteProfile value)? deleteProfile,
+    TResult? Function(UserInfoChange value)? userInfoChange,
+    TResult? Function(ResetPasswod value)? resetPasswod,
+    TResult? Function(ReportAProblem value)? reportAProblem,
+    TResult? Function(GetQuestions value)? getQuestions,
+    TResult? Function(GetQuestionEvent value)? getQuestionEvent,
+  }) {
+    return getQuestionEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
+    TResult Function(GetProfile value)? getProfile,
+    TResult Function(EditProfile value)? editProfile,
+    TResult Function(DeleteProfile value)? deleteProfile,
+    TResult Function(UserInfoChange value)? userInfoChange,
+    TResult Function(ResetPasswod value)? resetPasswod,
+    TResult Function(ReportAProblem value)? reportAProblem,
+    TResult Function(GetQuestions value)? getQuestions,
+    TResult Function(GetQuestionEvent value)? getQuestionEvent,
+    required TResult orElse(),
+  }) {
+    if (getQuestionEvent != null) {
+      return getQuestionEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetQuestionEvent implements ProfileEvent {
+  const factory GetQuestionEvent(
+      {required final GetQuestionsModel getQuestionsModel,
+      required final String userId}) = _$GetQuestionEventImpl;
+
+  GetQuestionsModel get getQuestionsModel;
+  String get userId;
+  @JsonKey(ignore: true)
+  _$$GetQuestionEventImplCopyWith<_$GetQuestionEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ProfileState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
@@ -1374,10 +1949,11 @@ mixin _$ProfileState {
   GetUserInfoModel? get getUserInfoModel => throw _privateConstructorUsedError;
   ImageModel? get imageModel => throw _privateConstructorUsedError;
   bool? get uploaded => throw _privateConstructorUsedError;
-  UserInfoChangeResponceModel? get userInfoChangeResponceModel =>
+  UpdateUserInfoModel? get userInfoChangeResponceModel =>
       throw _privateConstructorUsedError;
   ForegottPasswordResponceMdel? get foregottPasswordResponceMdel =>
       throw _privateConstructorUsedError;
+  List<Questions>? get questionList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProfileStateCopyWith<ProfileState> get copyWith =>
@@ -1397,8 +1973,9 @@ abstract class $ProfileStateCopyWith<$Res> {
       GetUserInfoModel? getUserInfoModel,
       ImageModel? imageModel,
       bool? uploaded,
-      UserInfoChangeResponceModel? userInfoChangeResponceModel,
-      ForegottPasswordResponceMdel? foregottPasswordResponceMdel});
+      UpdateUserInfoModel? userInfoChangeResponceModel,
+      ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
+      List<Questions>? questionList});
 }
 
 /// @nodoc
@@ -1422,6 +1999,7 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? uploaded = freezed,
     Object? userInfoChangeResponceModel = freezed,
     Object? foregottPasswordResponceMdel = freezed,
+    Object? questionList = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -1451,11 +2029,15 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
       userInfoChangeResponceModel: freezed == userInfoChangeResponceModel
           ? _value.userInfoChangeResponceModel
           : userInfoChangeResponceModel // ignore: cast_nullable_to_non_nullable
-              as UserInfoChangeResponceModel?,
+              as UpdateUserInfoModel?,
       foregottPasswordResponceMdel: freezed == foregottPasswordResponceMdel
           ? _value.foregottPasswordResponceMdel
           : foregottPasswordResponceMdel // ignore: cast_nullable_to_non_nullable
               as ForegottPasswordResponceMdel?,
+      questionList: freezed == questionList
+          ? _value.questionList
+          : questionList // ignore: cast_nullable_to_non_nullable
+              as List<Questions>?,
     ) as $Val);
   }
 }
@@ -1475,8 +2057,9 @@ abstract class _$$InitialImplCopyWith<$Res>
       GetUserInfoModel? getUserInfoModel,
       ImageModel? imageModel,
       bool? uploaded,
-      UserInfoChangeResponceModel? userInfoChangeResponceModel,
-      ForegottPasswordResponceMdel? foregottPasswordResponceMdel});
+      UpdateUserInfoModel? userInfoChangeResponceModel,
+      ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
+      List<Questions>? questionList});
 }
 
 /// @nodoc
@@ -1498,6 +2081,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? uploaded = freezed,
     Object? userInfoChangeResponceModel = freezed,
     Object? foregottPasswordResponceMdel = freezed,
+    Object? questionList = freezed,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -1527,11 +2111,15 @@ class __$$InitialImplCopyWithImpl<$Res>
       userInfoChangeResponceModel: freezed == userInfoChangeResponceModel
           ? _value.userInfoChangeResponceModel
           : userInfoChangeResponceModel // ignore: cast_nullable_to_non_nullable
-              as UserInfoChangeResponceModel?,
+              as UpdateUserInfoModel?,
       foregottPasswordResponceMdel: freezed == foregottPasswordResponceMdel
           ? _value.foregottPasswordResponceMdel
           : foregottPasswordResponceMdel // ignore: cast_nullable_to_non_nullable
               as ForegottPasswordResponceMdel?,
+      questionList: freezed == questionList
+          ? _value._questionList
+          : questionList // ignore: cast_nullable_to_non_nullable
+              as List<Questions>?,
     ));
   }
 }
@@ -1547,7 +2135,9 @@ class _$InitialImpl implements _Initial {
       this.imageModel,
       this.uploaded,
       this.userInfoChangeResponceModel,
-      this.foregottPasswordResponceMdel});
+      this.foregottPasswordResponceMdel,
+      final List<Questions>? questionList})
+      : _questionList = questionList;
 
   @override
   final bool isLoading;
@@ -1562,13 +2152,22 @@ class _$InitialImpl implements _Initial {
   @override
   final bool? uploaded;
   @override
-  final UserInfoChangeResponceModel? userInfoChangeResponceModel;
+  final UpdateUserInfoModel? userInfoChangeResponceModel;
   @override
   final ForegottPasswordResponceMdel? foregottPasswordResponceMdel;
+  final List<Questions>? _questionList;
+  @override
+  List<Questions>? get questionList {
+    final value = _questionList;
+    if (value == null) return null;
+    if (_questionList is EqualUnmodifiableListView) return _questionList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, hasError: $hasError, message: $message, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, userInfoChangeResponceModel: $userInfoChangeResponceModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel)';
+    return 'ProfileState(isLoading: $isLoading, hasError: $hasError, message: $message, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, userInfoChangeResponceModel: $userInfoChangeResponceModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, questionList: $questionList)';
   }
 
   @override
@@ -1594,7 +2193,9 @@ class _$InitialImpl implements _Initial {
             (identical(other.foregottPasswordResponceMdel,
                     foregottPasswordResponceMdel) ||
                 other.foregottPasswordResponceMdel ==
-                    foregottPasswordResponceMdel));
+                    foregottPasswordResponceMdel) &&
+            const DeepCollectionEquality()
+                .equals(other._questionList, _questionList));
   }
 
   @override
@@ -1607,7 +2208,8 @@ class _$InitialImpl implements _Initial {
       imageModel,
       uploaded,
       userInfoChangeResponceModel,
-      foregottPasswordResponceMdel);
+      foregottPasswordResponceMdel,
+      const DeepCollectionEquality().hash(_questionList));
 
   @JsonKey(ignore: true)
   @override
@@ -1618,15 +2220,15 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements ProfileState {
   const factory _Initial(
-          {required final bool isLoading,
-          required final bool hasError,
-          final String? message,
-          final GetUserInfoModel? getUserInfoModel,
-          final ImageModel? imageModel,
-          final bool? uploaded,
-          final UserInfoChangeResponceModel? userInfoChangeResponceModel,
-          final ForegottPasswordResponceMdel? foregottPasswordResponceMdel}) =
-      _$InitialImpl;
+      {required final bool isLoading,
+      required final bool hasError,
+      final String? message,
+      final GetUserInfoModel? getUserInfoModel,
+      final ImageModel? imageModel,
+      final bool? uploaded,
+      final UpdateUserInfoModel? userInfoChangeResponceModel,
+      final ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
+      final List<Questions>? questionList}) = _$InitialImpl;
 
   @override
   bool get isLoading;
@@ -1641,9 +2243,11 @@ abstract class _Initial implements ProfileState {
   @override
   bool? get uploaded;
   @override
-  UserInfoChangeResponceModel? get userInfoChangeResponceModel;
+  UpdateUserInfoModel? get userInfoChangeResponceModel;
   @override
   ForegottPasswordResponceMdel? get foregottPasswordResponceMdel;
+  @override
+  List<Questions>? get questionList;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

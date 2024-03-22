@@ -44,10 +44,12 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     }
     var list = state.contactFilterdList!.where((element) {
       print('============ contacts ============');
-      if (element.name != null && element.name!.toLowerCase().contains(event.query.toLowerCase())) {
+      if (element.name != null &&
+          element.name!.toLowerCase().contains(event.query.toLowerCase())) {
         return true;
       }
-      if (element.email != null && element.email!.toLowerCase().contains(event.query.toLowerCase())) {
+      if (element.email != null &&
+          element.email!.toLowerCase().contains(event.query.toLowerCase())) {
         return true;
       }
       if (element.phoneNumber != null &&

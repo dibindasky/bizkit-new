@@ -18,4 +18,12 @@ class ProfileEvent with _$ProfileEvent {
   const factory ProfileEvent.reportAProblem({
     required ReportAProblemRequestModel reportAProblemRequestModel,
   }) = ReportAProblem;
+  const factory ProfileEvent.getQuestions({
+    required GetQuestionsModel questionsModel,
+    required String userId,
+  }) = GetQuestions;
+  const factory ProfileEvent.getQuestionEvent({
+    required GetQuestionsModel getQuestionsModel,
+    required String userId,
+  }) = GetQuestionEvent;
 }

@@ -3,12 +3,15 @@ import 'dart:developer';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
+import 'package:bizkit/domain/model/profile/get_questions_model/get_questions_model.dart';
+import 'package:bizkit/domain/model/profile/get_questions_model/questions.dart';
 import 'package:bizkit/domain/model/profile/get_user_info_model/get_user_info_model.dart';
+import 'package:bizkit/domain/model/profile/update_user_info_model/update_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
-import 'package:bizkit/domain/model/profile/user_info_change_responce_model/user_info_change_responce_model.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
 import 'package:bizkit/domain/model/token/token_model.dart';
 import 'package:bizkit/domain/repository/service/profile_repo.dart';
@@ -23,7 +26,7 @@ part 'profile_bloc.freezed.dart';
 @injectable
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileRepo profileRepo;
-  int archevedCards = 1, blockedCards = 1;
+  int archevedCards = 1, blockedCards = 1, faq = 1;
   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController reEnterNewPasswordController = TextEditingController();
@@ -38,6 +41,54 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<PickImageScanning>(pickImage);
     on<ResetPasswod>(profilePasswordChange);
     on<ReportAProblem>(reportAProblem);
+    on<GetQuestions>(getQuestios);
+    on<GetQuestionEvent>(getQuestionsEvent);
+  }
+
+  FutureOr<void> getQuestionsEvent(GetQuestionEvent event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final data = await profileRepo.getQuestions(
+      pageQuery: PageQuery(page: ++faq),
+      userId: event.userId,
+    );
+    data.fold((l) {
+      emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        message: errorMessage,
+      ));
+    }, (r) {
+      emit(
+        state.copyWith(
+          isLoading: false,
+          hasError: false,
+          questionList: [...state.questionList!, ...r.results!],
+        ),
+      );
+    });
+  }
+
+  FutureOr<void> getQuestios(GetQuestions event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    final data = await profileRepo.getQuestions(
+      pageQuery: PageQuery(page: faq),
+      userId: event.userId,
+    );
+    data.fold((l) {
+      emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        message: errorMessage,
+      ));
+    }, (r) {
+      emit(
+        state.copyWith(
+          isLoading: false,
+          hasError: false,
+          questionList: r.results,
+        ),
+      );
+    });
   }
 
   FutureOr<void> reportAProblem(ReportAProblem event, emit) async {

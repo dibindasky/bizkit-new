@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/business_detail/business_details.dart';
 import 'package:bizkit/domain/model/card/create_card/accridition/accredition.dart';
 import 'package:bizkit/domain/model/card/create_card/banking_detail/bank_details.dart';
@@ -32,7 +33,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   final TextEditingController mailController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
-  final TextEditingController websiteLinkController = TextEditingController();
+  final TextEditingController websiteLinkController =
+      TextEditingController(text: 'https://');
   final TextEditingController logoStoryController = TextEditingController();
   final TextEditingController nameOfCompanyController = TextEditingController();
   final TextEditingController upiDetailController = TextEditingController();
@@ -246,11 +248,11 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
 
   FutureOr<void> getUserData(GetUserData event, emit) async {
     final result = await userLocalService.getUserData();
+    final business = await SecureStorage.getRole();
     result.fold((l) => null, (userData) {
       websiteLinkController.text =
           userData.first.websiteLink ?? websiteLinkController.text;
-      emit(state.copyWith(
-          isBusiness: userData.first.isBusiness!, gotCompanyData: false));
+      emit(state.copyWith(isBusiness: business, gotCompanyData: false));
     });
   }
 

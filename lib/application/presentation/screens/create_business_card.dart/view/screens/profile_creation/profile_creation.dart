@@ -87,7 +87,7 @@ class ProfileCreationScreen extends StatelessWidget {
                           // personal name field
                           AutocompleteTextField(
                             validate: Validate.notNull,
-                            label: 'Name',
+                            label: 'Name *',
                             controller:
                                 context.read<UserDataBloc>().nameController,
                             inputType: TextInputType.text,
@@ -98,7 +98,7 @@ class ProfileCreationScreen extends StatelessWidget {
                           AutocompleteTextField(
                             validate: Validate.phone,
                             maxLength: 10,
-                            label: 'Phone number',
+                            label: 'Phone number *',
                             controller:
                                 context.read<UserDataBloc>().phoneController,
                             inputType: TextInputType.phone,
@@ -108,7 +108,7 @@ class ProfileCreationScreen extends StatelessWidget {
                           // personal email
                           AutocompleteTextField(
                             validate: Validate.email,
-                            label: 'Email',
+                            label: 'Email *',
                             controller:
                                 context.read<UserDataBloc>().emailController,
                             inputType: TextInputType.emailAddress,
@@ -121,7 +121,7 @@ class ProfileCreationScreen extends StatelessWidget {
                                   FocusManager.instance.primaryFocus?.unfocus(),
                               enabled: false,
                               validate: Validate.notNull,
-                              label: 'BusinessCategory',
+                              label: 'BusinessCategory *',
                               controller: context
                                   .read<UserDataBloc>()
                                   .businessCategoryController,
@@ -132,7 +132,7 @@ class ProfileCreationScreen extends StatelessWidget {
                           AutocompleteTextField(
                             showDropdownOnTap: true,
                             validate: Validate.notNull,
-                            label: 'Designation',
+                            label: 'Designation *',
                             controller: context
                                 .read<UserDataBloc>()
                                 .designationController,

@@ -61,3 +61,18 @@ bool hasSpecialChar(String input) {
   final hasSpecialCharsRegExp = RegExp(r'[^\w\s]');
   return hasSpecialCharsRegExp.hasMatch(input);
 }
+
+bool isValidIFSC(String input) {
+  final hasRegExp = RegExp(r'^[A-Z]{4}0[A-Z0-9]{6}$');
+  return hasRegExp.hasMatch(input);
+}
+
+bool isValidUpiId(String input) {
+  final hasRegExp = RegExp(r'^[a-zA-Z0-9.\-]{2,256}@[a-zA-Z]{2,64}$');
+  return hasRegExp.hasMatch(input);
+}
+
+bool isValidGst(String input) {
+  final hasRegExp = RegExp(r'^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$');
+  return hasRegExp.hasMatch(input);
+}

@@ -94,7 +94,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        label: 'Company',
+                        label: 'Company *',
                         controller:
                             context.read<BusinessDataBloc>().companyController,
                       );
@@ -102,7 +102,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   ),
                   // business name
                   TTextFormField(
-                    text: 'Business Name',
+                    text: 'Business Name *',
                     validate: Validate.notNull,
                     controller:
                         context.read<BusinessDataBloc>().businessNameController,
@@ -112,7 +112,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return AutocompleteTextField(
                         validate: Validate.email,
-                        label: 'Mail ID',
+                        label: 'Mail ID *',
                         inputType: TextInputType.emailAddress,
                         controller:
                             context.read<BusinessDataBloc>().mailController,
@@ -125,7 +125,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
-                        label: 'Mobile number',
+                        label: 'Mobile number *',
                         validate: Validate.phone,
                         maxLength: 10,
                         controller:

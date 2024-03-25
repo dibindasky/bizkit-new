@@ -5,8 +5,9 @@ part 'page_query.g.dart';
 @JsonSerializable()
 class PageQuery {
   int? page;
+  String? search;
 
-  PageQuery({this.page});
+  PageQuery({this.page, this.search});
 
   factory PageQuery.fromJson(Map<String, dynamic> json) {
     return _$PageQueryFromJson(json);

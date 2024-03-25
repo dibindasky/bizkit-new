@@ -1,4 +1,5 @@
 import 'package:bizkit/domain/core/failure/failure.dart';
+import 'package:bizkit/domain/model/commen/card_id_model/card_id_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/reminders/create_reminder_model/create_reminder_model.dart';
@@ -22,4 +23,6 @@ abstract class ReminderRepo {
       {required PageQuery pageQuery});
   Future<Either<Failure, GetReminderResponseModel>> getReminderDetails(
       {required int id});
+  Future<Either<Failure, GetReminderModel>> getCardReminders(
+      {required CardIdModel cardIdModel,required PageQuery pageQuery});
 }

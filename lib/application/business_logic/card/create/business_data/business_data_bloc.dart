@@ -103,9 +103,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             message: l.message,
             gotCompanyData: false)),
         (success) => emit(state.copyWith(
-            isLoading: false,
-            businessData: success,
-            gotCompanyData: false)));
+            isLoading: false, businessData: success, gotCompanyData: false)));
   }
 
   FutureOr<void> createBusinessData(CreateBusinessData event, emit) async {
@@ -187,11 +185,12 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             hasError: true,
             gotCompanyData: false,
             message: 'failed to add company data to profile')), (business) {
-              print('====================================***********************************************************=====================================');
-              print('got company detaisa');
+      print(
+          '====================================***********************************************************=====================================');
+      print('got company detaisa');
       emit(state.copyWith(
           // businessDetailsCreateId: event.id,
-          businessData:business,
+          businessData: business,
           gotCompanyData: true,
           loadCompanyData: false,
           message: 'selected company data added to your profile'));

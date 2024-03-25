@@ -73,7 +73,7 @@ class ScreenAddConnections extends StatelessWidget {
                             const Duration(milliseconds: 1500));
                       },
                       child: GridView.builder(
-                        itemCount: state.bizkitUsers?.length ?? 0,
+                        itemCount: state.bizkitUsers!.length,
                         shrinkWrap: true,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(

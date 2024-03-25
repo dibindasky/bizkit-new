@@ -37,8 +37,10 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
       onPopInvoked: (bool didPop) async {
         if (didPop) {
           return;
-        }
-        if (_selectedIndex == 0) {
+        } else if (_selectedIndex == 0 &&
+            homeFirstAnimationController.isCompleted) {
+          showFirstScreen();
+        } else if (_selectedIndex == 0) {
           final bool? exit = await showDialog(
             context: context,
             builder: (context) => Dialog(
@@ -75,7 +77,9 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
                         adjustWidth(20),
                         Expanded(
                           child: InkWell(
-                            onTap: () => Navigator.pop(context, true),
+                            onTap: () {
+                              Navigator.pop(context, true);
+                            },
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -100,8 +104,12 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
           if (exit == false) {
             return;
           } else {
+            Navigator.pop(context);
             return;
           }
+        } else if (_selectedIndex == 0 &&
+            !homeFirstAnimationController.isCompleted) {
+          Navigator.pop(context);
         } else {
           setState(() {
             _selectedIndex = 0;

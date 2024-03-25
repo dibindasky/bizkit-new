@@ -38,10 +38,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                   onTap: () => Navigator.of(context).push(
                     fadePageRoute(
                       BrochersAndProductsTab(
-                          networkImages:
-                              networkImages ??
-                                  [],
-                          pdf: pdf ?? []),
+                          networkImages: networkImages ?? [], pdf: pdf ?? []),
                     ),
                   ),
                   child: Container(
@@ -84,7 +81,8 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             child: ColoredBox(
                                 color: smallBigGrey,
-                                child: Image.network(networkImages![index].product!)),
+                                child: Image.network(
+                                    networkImages![index].product!)),
                           ),
                         );
                       },
@@ -113,13 +111,12 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                               height: kwidth * .2,
                               width: kwidth * 0.17,
                               child:
-                              //  pdf != null
-                              //     ? PdfViewer.openFile(pdf![index],
-                              //         params:
-                              //             const PdfViewerParams(pageNumber: 1))
-                              //     : 
-                                  PdfViewer.openData(
-                                      base64Decode(pdf![index]),
+                                  //  pdf != null
+                                  //     ? PdfViewer.openFile(pdf![index],
+                                  //         params:
+                                  //             const PdfViewerParams(pageNumber: 1))
+                                  //     :
+                                  PdfViewer.openData(base64Decode(pdf![index]),
                                       params:
                                           const PdfViewerParams(pageNumber: 1)),
                             ),

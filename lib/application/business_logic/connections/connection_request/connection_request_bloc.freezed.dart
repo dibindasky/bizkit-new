@@ -18,8 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ConnectionRequestEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -41,8 +41,8 @@ mixin _$ConnectionRequestEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -64,8 +64,8 @@ mixin _$ConnectionRequestEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -167,6 +167,8 @@ abstract class _$$GetBizkitConnectionsImplCopyWith<$Res> {
   factory _$$GetBizkitConnectionsImplCopyWith(_$GetBizkitConnectionsImpl value,
           $Res Function(_$GetBizkitConnectionsImpl) then) =
       __$$GetBizkitConnectionsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String query});
 }
 
 /// @nodoc
@@ -177,33 +179,58 @@ class __$$GetBizkitConnectionsImplCopyWithImpl<$Res>
   __$$GetBizkitConnectionsImplCopyWithImpl(_$GetBizkitConnectionsImpl _value,
       $Res Function(_$GetBizkitConnectionsImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+  }) {
+    return _then(_$GetBizkitConnectionsImpl(
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
-  const _$GetBizkitConnectionsImpl();
+  const _$GetBizkitConnectionsImpl({required this.query});
+
+  @override
+  final String query;
 
   @override
   String toString() {
-    return 'ConnectionRequestEvent.getBizkitConnections()';
+    return 'ConnectionRequestEvent.getBizkitConnections(query: $query)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GetBizkitConnectionsImpl);
+            other is _$GetBizkitConnectionsImpl &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetBizkitConnectionsImplCopyWith<_$GetBizkitConnectionsImpl>
+      get copyWith =>
+          __$$GetBizkitConnectionsImplCopyWithImpl<_$GetBizkitConnectionsImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -222,14 +249,14 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
   }) {
-    return getBizkitConnections();
+    return getBizkitConnections(query);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -248,14 +275,14 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
   }) {
-    return getBizkitConnections?.call();
+    return getBizkitConnections?.call(query);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -276,7 +303,7 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     required TResult orElse(),
   }) {
     if (getBizkitConnections != null) {
-      return getBizkitConnections();
+      return getBizkitConnections(query);
     }
     return orElse();
   }
@@ -350,7 +377,13 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
 }
 
 abstract class GetBizkitConnections implements ConnectionRequestEvent {
-  const factory GetBizkitConnections() = _$GetBizkitConnectionsImpl;
+  const factory GetBizkitConnections({required final String query}) =
+      _$GetBizkitConnectionsImpl;
+
+  String get query;
+  @JsonKey(ignore: true)
+  _$$GetBizkitConnectionsImplCopyWith<_$GetBizkitConnectionsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -359,6 +392,8 @@ abstract class _$$GetBizkitConnectionsNextPageImplCopyWith<$Res> {
           _$GetBizkitConnectionsNextPageImpl value,
           $Res Function(_$GetBizkitConnectionsNextPageImpl) then) =
       __$$GetBizkitConnectionsNextPageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String query});
 }
 
 /// @nodoc
@@ -370,34 +405,59 @@ class __$$GetBizkitConnectionsNextPageImplCopyWithImpl<$Res>
       _$GetBizkitConnectionsNextPageImpl _value,
       $Res Function(_$GetBizkitConnectionsNextPageImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+  }) {
+    return _then(_$GetBizkitConnectionsNextPageImpl(
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetBizkitConnectionsNextPageImpl
     implements GetBizkitConnectionsNextPage {
-  const _$GetBizkitConnectionsNextPageImpl();
+  const _$GetBizkitConnectionsNextPageImpl({required this.query});
+
+  @override
+  final String query;
 
   @override
   String toString() {
-    return 'ConnectionRequestEvent.getBizkitConnectionsNextPage()';
+    return 'ConnectionRequestEvent.getBizkitConnectionsNextPage(query: $query)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GetBizkitConnectionsNextPageImpl);
+            other is _$GetBizkitConnectionsNextPageImpl &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetBizkitConnectionsNextPageImplCopyWith<
+          _$GetBizkitConnectionsNextPageImpl>
+      get copyWith => __$$GetBizkitConnectionsNextPageImplCopyWithImpl<
+          _$GetBizkitConnectionsNextPageImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -416,14 +476,14 @@ class _$GetBizkitConnectionsNextPageImpl
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
   }) {
-    return getBizkitConnectionsNextPage();
+    return getBizkitConnectionsNextPage(query);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -442,14 +502,14 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
   }) {
-    return getBizkitConnectionsNextPage?.call();
+    return getBizkitConnectionsNextPage?.call(query);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -470,7 +530,7 @@ class _$GetBizkitConnectionsNextPageImpl
     required TResult orElse(),
   }) {
     if (getBizkitConnectionsNextPage != null) {
-      return getBizkitConnectionsNextPage();
+      return getBizkitConnectionsNextPage(query);
     }
     return orElse();
   }
@@ -544,8 +604,14 @@ class _$GetBizkitConnectionsNextPageImpl
 }
 
 abstract class GetBizkitConnectionsNextPage implements ConnectionRequestEvent {
-  const factory GetBizkitConnectionsNextPage() =
+  const factory GetBizkitConnectionsNextPage({required final String query}) =
       _$GetBizkitConnectionsNextPageImpl;
+
+  String get query;
+  @JsonKey(ignore: true)
+  _$$GetBizkitConnectionsNextPageImplCopyWith<
+          _$GetBizkitConnectionsNextPageImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -628,8 +694,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -654,8 +720,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -680,8 +746,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -854,8 +920,8 @@ class _$AddConnectionImpl implements AddConnection {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -880,8 +946,8 @@ class _$AddConnectionImpl implements AddConnection {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -906,8 +972,8 @@ class _$AddConnectionImpl implements AddConnection {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -1092,8 +1158,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -1118,8 +1184,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -1144,8 +1210,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -1317,8 +1383,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -1343,8 +1409,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -1369,8 +1435,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -1553,8 +1619,8 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -1579,8 +1645,8 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -1605,8 +1671,8 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -1750,8 +1816,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -1776,8 +1842,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -1802,8 +1868,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -1965,8 +2031,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -1991,8 +2057,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -2017,8 +2083,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -2161,8 +2227,8 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -2187,8 +2253,8 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -2213,8 +2279,8 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -2354,8 +2420,8 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getBizkitConnections,
-    required TResult Function() getBizkitConnectionsNextPage,
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
     required TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)
         blockBizkitConnections,
@@ -2380,8 +2446,8 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBizkitConnections,
-    TResult? Function()? getBizkitConnectionsNextPage,
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
     TResult? Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,
@@ -2406,8 +2472,8 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBizkitConnections,
-    TResult Function()? getBizkitConnectionsNextPage,
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
     TResult Function(
             BlockBizkitConnection blockBizkitConnection, int connectionId)?
         blockBizkitConnections,

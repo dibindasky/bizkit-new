@@ -10,6 +10,7 @@ import 'package:bizkit/domain/model/connections/get_serch_connection_response_mo
 import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/repository/service/connection_request_repo.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -23,7 +24,7 @@ class ConnectionRequestBloc
     extends Bloc<ConnectionRequestEvent, ConnectionRequestState> {
   final ConnectionRequestRepo _connectionRepo;
   int page = 1, blockedCards = 1;
-
+  final TextEditingController connectionController = TextEditingController();
   ConnectionRequestBloc(this._connectionRepo)
       : super(ConnectionRequestState.initial()) {
     on<GetBizkitConnections>(getBizkitConnections);
@@ -112,7 +113,7 @@ class ConnectionRequestBloc
         (l) => emit(state.copyWith(
             isLoading: false, hasError: true, message: l.message)), (r) {
       emit(state.copyWith(isLoading: false, message: r.message));
-      add(const ConnectionRequestEvent.getBizkitConnections());
+      add(const ConnectionRequestEvent.getBizkitConnections(query: ''));
     });
   }
 
@@ -127,7 +128,7 @@ class ConnectionRequestBloc
         (l) => emit(state.copyWith(
             isLoading: false, hasError: true, message: l.message)), (r) {
       emit(state.copyWith(isLoading: false, message: r.message));
-      add(const ConnectionRequestEvent.getBizkitConnections());
+      add(const ConnectionRequestEvent.getBizkitConnections(query: ''));
     });
   }
 
@@ -136,7 +137,7 @@ class ConnectionRequestBloc
         isLoading: true, hasError: false, message: null, connected: false));
     page = 1;
     final result = await _connectionRepo.getBizkitConnections(
-        pageQuery: PageQuery(page: 1));
+        pageQuery: PageQuery(page: 1, search: event.query));
     result.fold(
         (l) => emit(state.copyWith(
             isLoading: false, hasError: true, message: l.message)),
@@ -150,7 +151,7 @@ class ConnectionRequestBloc
         isPageLoading: true, hasError: false, message: null, connected: false));
 
     final result = await _connectionRepo.getBizkitConnections(
-        pageQuery: PageQuery(page: ++page));
+        pageQuery: PageQuery(page: ++page, search: event.query));
     result.fold(
         (l) => emit(state.copyWith(isPageLoading: false, hasError: true)),
         (r) => emit(state.copyWith(isPageLoading: false, bizkitConnections: [
@@ -173,7 +174,6 @@ class ConnectionRequestBloc
       AddConnectionRequests event, emit) async {
     emit(state.copyWith(
         requestLoadingIndex: event.index,
-        isLoading: true,
         hasError: false,
         message: null,
         connected: false));
@@ -182,15 +182,9 @@ class ConnectionRequestBloc
         addConnectionRequestModel: event.addConnectionRequestModel);
     result.fold(
         (l) => emit(state.copyWith(
-            requestLoadingIndex: -1,
-            isLoading: false,
-            hasError: true,
-            message: l.message)),
+            requestLoadingIndex: -1, hasError: true, message: l.message)),
         (r) => emit(state.copyWith(
-            requestLoadingIndex: -1,
-            isLoading: false,
-            message: r.message,
-            connected: true)));
+            requestLoadingIndex: -1, message: r.message, connected: true)));
   }
 
   FutureOr<void> getRequestLists(GetRequestLists event, emit) async {

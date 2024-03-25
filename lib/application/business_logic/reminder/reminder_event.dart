@@ -21,4 +21,6 @@ class ReminderEvent with _$ReminderEvent {
       GetTodaysRemindersEvent;
   const factory ReminderEvent.getReminderDetails({required int id}) =
       GetReminderDetails;
+  const factory ReminderEvent.getCardReminder({required CardIdModel cardIdModel}) = GetCardReminder;
+  const factory ReminderEvent.getCardReminderNext({required CardIdModel cardIdModel}) = GetCardReminderNext;
 }

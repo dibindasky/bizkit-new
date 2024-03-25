@@ -3,6 +3,8 @@ import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
@@ -50,11 +52,8 @@ class ContactConnectionsTab extends StatelessWidget {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state.contactList == null || state.contactList == []) {
-            return const Center(
-              child: Text('Contacts List is Empty'),
-            );
-          } else {
+          } else if (state.contactList != null &&
+              state.contactList!.isNotEmpty) {
             return AlphabetScrollView(
               list: state.contactList!
                   .map((e) => AlphaModel(e.name ?? 'Names'))
@@ -154,6 +153,16 @@ class ContactConnectionsTab extends StatelessWidget {
                   ),
                 );
               },
+            );
+          } else {
+            return ErrorRefreshIndicator(
+              onRefresh: () {
+                context
+                    .read<ContactsBloc>()
+                    .add(const ContactsEvent.getConnections());
+              },
+              errorMessage: 'No contacts',
+              image: emptyNodata2,
             );
           }
         },

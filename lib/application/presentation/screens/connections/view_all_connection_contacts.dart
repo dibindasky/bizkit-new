@@ -84,12 +84,14 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
               onChanged: (value) {
                 print('search bar =====================');
                 if (tabNotifier.value == 1) {
-                  print('search bar ');
                   context
                       .read<ContactsBloc>()
                       .add(ContactsEvent.searchContact(query: value));
                 } else {
                   // search for bizkit connection
+                  context.read<ConnectionRequestBloc>().add(
+                      ConnectionRequestEvent.getBizkitConnections(
+                          query: value));
                 }
               },
               prefix: const Icon(
@@ -171,8 +173,8 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
           shape: const CircleBorder(),
           // label: Text('Add Connection',style: textStyle1),
           // icon: const Icon(Icons.add),
-          onPressed: () => Navigator.push(
-              context, fadePageRoute( ScreenAddConnections())),
+          onPressed: () =>
+              Navigator.push(context, fadePageRoute(ScreenAddConnections())),
           child: const Icon(Icons.add)),
     );
   }

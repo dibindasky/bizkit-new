@@ -2,10 +2,10 @@ part of 'connection_request_bloc.dart';
 
 @freezed
 class ConnectionRequestEvent with _$ConnectionRequestEvent {
-  const factory ConnectionRequestEvent.getBizkitConnections() =
-      GetBizkitConnections;
-  const factory ConnectionRequestEvent.getBizkitConnectionsNextPage() =
-      GetBizkitConnectionsNextPage;
+  const factory ConnectionRequestEvent.getBizkitConnections(
+      {required String query}) = GetBizkitConnections;
+  const factory ConnectionRequestEvent.getBizkitConnectionsNextPage(
+      {required String query}) = GetBizkitConnectionsNextPage;
   const factory ConnectionRequestEvent.blockBizkitConnections(
       {required BlockBizkitConnection blockBizkitConnection,
       required int connectionId}) = BlockBizkitConnections;

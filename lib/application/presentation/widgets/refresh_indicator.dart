@@ -29,7 +29,9 @@ class RefreshIndicatorCustom extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              image == null ? const Icon(Icons.refresh) : Expanded(child: Image.asset(image!)),
+              image == null
+                  ? const Icon(Icons.refresh)
+                  : Expanded(child: Image.asset(image!)),
               adjustHieght(20),
               Text(message),
             ],

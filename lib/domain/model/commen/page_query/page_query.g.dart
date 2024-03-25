@@ -8,8 +8,10 @@ part of 'page_query.dart';
 
 PageQuery _$PageQueryFromJson(Map<String, dynamic> json) => PageQuery(
       page: json['page'] as int?,
+      search: json['search'] as String?,
     );
 
 Map<String, dynamic> _$PageQueryToJson(PageQuery instance) => <String, dynamic>{
       'page': instance.page,
+      'search': instance.search,
     };

@@ -13,7 +13,7 @@ class BusinessCardCreationPreviewAppBar extends StatelessWidget {
       // actions: [
       //   PopupMenuButton<String>(
       //     color: backgroundColour,
-      //     icon: const Icon( 
+      //     icon: const Icon(
       //       Icons.more_vert,
       //       size: 23,
       //       color: kwhite,

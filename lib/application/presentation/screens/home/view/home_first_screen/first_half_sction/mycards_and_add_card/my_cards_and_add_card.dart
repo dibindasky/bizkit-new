@@ -61,16 +61,16 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                           height: kwidth * 0.35,
                           width: kwidth * 0.55,
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: neonShade,
-                              ),
-                              borderRadius: BorderRadius.circular(5),
-                              // image: DecorationImage(
-                              //     image: NetworkImage(
-                              //         data.logo ?? imageDummyNetwork),
-                              //     fit: BoxFit.cover)
-                                  ),
+                            border: Border.all(
+                              width: 1,
+                              color: neonShade,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                            // image: DecorationImage(
+                            //     image: NetworkImage(
+                            //         data.logo ?? imageDummyNetwork),
+                            //     fit: BoxFit.cover)
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

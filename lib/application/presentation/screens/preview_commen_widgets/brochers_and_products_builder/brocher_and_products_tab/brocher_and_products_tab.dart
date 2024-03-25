@@ -4,11 +4,11 @@ import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
 
 class BrochersAndProductsTab extends StatelessWidget {
-  const BrochersAndProductsTab(
-      {super.key,
-      required this.networkImages,
-      required this.pdf,
-});
+  const BrochersAndProductsTab({
+    super.key,
+    required this.networkImages,
+    required this.pdf,
+  });
 
   final List<Product> networkImages;
   final List<String> pdf;

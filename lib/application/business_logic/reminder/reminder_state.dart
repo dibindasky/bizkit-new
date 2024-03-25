@@ -17,6 +17,7 @@ class ReminderState with _$ReminderState {
     List<Reminders>? historyReminderList,
     List<Reminders>? upcomingRminderList,
     List<Reminders>? toDaysRminderList,
+    List<Reminders>? cardReminderList,
     String? message,
   }) = _Initial;
   factory ReminderState.initial() => const ReminderState(

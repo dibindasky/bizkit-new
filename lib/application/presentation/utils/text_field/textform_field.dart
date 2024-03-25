@@ -2,7 +2,18 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 
-enum Validate { phone, email, password, none, rePassword, adminEmail, notNull }
+enum Validate {
+  phone,
+  email,
+  password,
+  none,
+  rePassword,
+  adminEmail,
+  notNull,
+  ifsc,
+  upi,
+  gst
+}
 
 class TTextFormField extends StatefulWidget {
   final String text;
@@ -176,6 +187,15 @@ class _TTextFormFieldState extends State<TTextFormField> {
             } else if (Validate.rePassword == widget.validate &&
                 widget.password!.text.trim() != value) {
               return 'Password must be same';
+            } else if (Validate.ifsc == widget.validate &&
+                !isValidIFSC(value!)) {
+              return 'enter valid IFSC code';
+            } else if (Validate.upi == widget.validate &&
+                !isValidUpiId(value!)) {
+              return 'enter valid upi id';
+            } else if (Validate.gst == widget.validate &&
+                !isValidGst(value!)) {
+              return 'enter valid gst no';
             } else if (value == 'Content' && value!.length < 20) {
               return 'Content must be at least 20 characters';
             }

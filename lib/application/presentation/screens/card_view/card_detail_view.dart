@@ -1,7 +1,9 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/screens/card_view/widgets/card_bottom_part.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/domain/model/commen/card_id_model/card_id_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +20,8 @@ class ScreenCardDetailView extends StatelessWidget {
       if (cardId != null) {
         print("card id $cardId");
         context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
+        context.read<ReminderBloc>().add(ReminderEvent.getCardReminder(
+            cardIdModel: CardIdModel(cardId: cardId!)));
       } else {
         context.read<CardBloc>().add(CardEvent.getCardyUserId(id: userId!));
       }
@@ -112,7 +116,7 @@ class ScreenCardDetailView extends StatelessWidget {
                           },
                         ),
                         // card details
-                        CardDetailScreenSecondHalf(myCard: myCard)
+                        CardDetailScreenSecondHalf(myCard: myCard,cardId: state.anotherCard!.id!)
                       ],
                     ),
                   ),

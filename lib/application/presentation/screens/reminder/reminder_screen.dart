@@ -26,6 +26,7 @@ class _PreviewHomeAddReminderScreenState
     extends State<PreviewHomeAddReminderScreen> {
   String time = '';
   String date = '';
+  bool showError = false;
 
   @override
   void initState() {
@@ -135,9 +136,12 @@ class _PreviewHomeAddReminderScreenState
                 Container(
                   padding: const EdgeInsets.all(10),
                   height: kwidth * 0.13,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: textFieldFillColr,
-                    borderRadius: BorderRadius.all(
+                    border: date == '' && showError
+                        ? Border.all(color: kred)
+                        : null,
+                    borderRadius: const BorderRadius.all(
                       Radius.circular(7),
                     ),
                   ),
@@ -193,9 +197,12 @@ class _PreviewHomeAddReminderScreenState
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     height: kwidth * 0.13,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: textFieldFillColr,
-                      borderRadius: BorderRadius.all(
+                      border: time == '' && showError
+                          ? Border.all(color: kred)
+                          : null,
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(7),
                       ),
                     ),
@@ -257,12 +264,21 @@ class _PreviewHomeAddReminderScreenState
                           onTap: () {
                             if (reminderKey.currentState!.validate()) {
                               if (date == '') {
+                                setState(() {
+                                  showError = true;
+                                });
                                 showSnackbar(context,
                                     message: 'choose date to continue');
                               } else if (time == '') {
+                                setState(() {
+                                  showError = true;
+                                });
                                 showSnackbar(context,
                                     message: 'choose time to continue');
                               } else {
+                                setState(() {
+                                  showError = false;
+                                });
                                 final model = CreateReminderModel(
                                     cardId: widget.cardId,
                                     connectionId: widget.connectionId,

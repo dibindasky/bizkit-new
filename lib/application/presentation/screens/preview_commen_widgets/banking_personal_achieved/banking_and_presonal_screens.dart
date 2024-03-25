@@ -56,12 +56,15 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                 : [
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.businessData?.bankDetails?.accountNumber == null) {
+                        if (state.businessData?.bankDetails?.accountNumber ==
+                            null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'Account Number',
-                          second: state.businessData?.bankDetails?.accountNumber ?? '',
+                          second:
+                              state.businessData?.bankDetails?.accountNumber ??
+                                  '',
                         );
                       },
                     ),
@@ -72,18 +75,23 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                         }
                         return CommenbankingPersnalTiles(
                           first: 'IFSC',
-                          second: state.businessData?.bankDetails?.ifscCode ?? '',
+                          second:
+                              state.businessData?.bankDetails?.ifscCode ?? '',
                         );
                       },
                     ),
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.businessData?.bankDetails?.gstMembershipDetails == null) {
+                        if (state.businessData?.bankDetails
+                                ?.gstMembershipDetails ==
+                            null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'GST ',
-                          second: state.businessData?.bankDetails?.gstMembershipDetails ?? '',
+                          second: state.businessData?.bankDetails
+                                  ?.gstMembershipDetails ??
+                              '',
                         );
                       },
                     ),

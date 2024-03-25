@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
@@ -155,14 +153,21 @@ class _LogoStoryState extends State<LogoStory> {
             BlocBuilder<BusinessDataBloc, BusinessDataState>(
               builder: (context, state) {
                 return LastSkipContinueButtons(onTap: () {
-                  if (state.logo == null) {
-                    showSnackbar(context, message: 'add logo to continue');
-                  } else if (context
-                          .read<BusinessDataBloc>()
-                          .logoStoryController
-                          .text ==
-                      '') {
-                    showSnackbar(context, message: 'enter logo story ');
+                  if (state.isBusiness) {
+                    if (state.logo == null) {
+                      showSnackbar(context, message: 'add logo to continue');
+                    } else if (context
+                            .read<BusinessDataBloc>()
+                            .logoStoryController
+                            .text ==
+                        '') {
+                      showSnackbar(context, message: 'enter logo story ');
+                    } else {
+                      widget.pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
+                    }
                   } else {
                     widget.pageController.nextPage(
                       duration: const Duration(milliseconds: 300),

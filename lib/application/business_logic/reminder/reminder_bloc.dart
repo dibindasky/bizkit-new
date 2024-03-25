@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bizkit/domain/model/commen/card_id_model/card_id_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/reminders/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/domain/model/reminders/get_reminder_model/reminders.dart';
@@ -15,7 +16,7 @@ part 'reminder_bloc.freezed.dart';
 @injectable
 class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
   final ReminderRepo reminderRepo;
-  int getAllPage = 1, getUpcoming = 1, getHistory = 1;
+  int getAllPage = 1, getUpcoming = 1, getHistory = 1, cardReminder = 1;
   final TextEditingController labelController = TextEditingController();
   final TextEditingController venueController = TextEditingController();
   final TextEditingController occationController = TextEditingController();
@@ -31,6 +32,8 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
     on<GetUpcomingRemindersEventPage>(getUpcomingRemindersEventPage);
     on<GetTodaysRemindersEvent>(getTodaysRemindersEvent);
     on<GetReminderDetails>(getReminderDetails);
+    on<GetCardReminder>(getCardReminder);
+    on<GetCardReminderNext>(getCardReminderNext);
   }
 
   FutureOr<void> editReminder(EditReminder event, emit) async {
@@ -69,6 +72,31 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
           message: 'Reminder updated succssfully',
           reminderUpdated: true));
     });
+  }
+
+  FutureOr<void> getCardReminder(GetCardReminder event, emit) async {
+    emit(state.copyWith(
+        isLoading: true, hasError: false, cardReminderList: null));
+    cardReminder = 1;
+    final result = await reminderRepo.getCardReminders(
+        cardIdModel: event.cardIdModel,
+        pageQuery: PageQuery(page: cardReminder));
+    result.fold(
+        (l) => emit(state.copyWith(isLoading: false, hasError: true)),
+        (r) => emit(
+            state.copyWith(isLoading: false, cardReminderList: r.results)));
+  }
+
+  FutureOr<void> getCardReminderNext(GetCardReminderNext event, emit) async {
+    emit(state.copyWith(
+        isPageLoading: true, hasError: false, cardReminderList: null));
+    final result = await reminderRepo.getCardReminders(
+        cardIdModel: event.cardIdModel,
+        pageQuery: PageQuery(page: ++cardReminder));
+    result.fold(
+        (l) => emit(state.copyWith(isPageLoading: false, hasError: true)),
+        (r) => emit(
+            state.copyWith(isPageLoading: false, cardReminderList: r.results)));
   }
 
   FutureOr<void> createReminder(CreateReminder event, emit) async {

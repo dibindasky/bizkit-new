@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:bizkit/data/service/api_service.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
+import 'package:bizkit/domain/model/commen/card_id_model/card_id_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/reminders/create_reminder_model/create_reminder_model.dart';
@@ -110,6 +111,27 @@ class ReminderService implements ReminderRepo {
       return Left(Failure());
     } catch (e) {
       log('getAllReminder exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetReminderModel>> getCardReminders(
+      {required CardIdModel cardIdModel, required PageQuery pageQuery}) async {
+    try {
+      log('getCardReminders ');
+      final response = await _apiService.get(ApiEndPoints.getCardReminders,
+          data: cardIdModel.toJson(), queryParameters: pageQuery.toJson());
+      log('getCardReminders done');
+      return Right(GetReminderModel.fromJson(response.data));
+    } on DioException catch (e) {
+      log('getCardReminders dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('getCardReminders exception error');
       log(e.toString());
       return Left(Failure());
     }

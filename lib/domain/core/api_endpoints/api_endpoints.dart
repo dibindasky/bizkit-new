@@ -37,6 +37,7 @@ class ApiEndPoints {
   static String createReminder = '/reminder/create-reminder/';
   static String editReminder = '/reminder/edit-reminder/{reminder_id}/';
   static String getReminderDetails = '/reminder/get-reminder/{reminder_id}/';
+  static String getCardReminders = '/reminder/current-user-to-card-reminder/';
   static String getAllReminder = '/reminder/all-reminder-list/';
   static String getTodaysReminder = '/reminder/today-reminder-list/';
   static String getUpcomingReminder = '/reminder/upcoming-reminder-list/';

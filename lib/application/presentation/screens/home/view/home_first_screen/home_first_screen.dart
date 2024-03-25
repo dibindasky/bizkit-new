@@ -27,14 +27,24 @@ class HomeScreenFirstAnimationScreen extends StatefulWidget {
       _HomeScreenFirstAnimationScreenState();
 }
 
+showFirstScreen() {
+  homeFirstAnimationController.reverse();
+  homeSecondAnimationController2
+      .reverse()
+      .whenComplete(() => homeSecondAnimationController.reverse());
+  showCardsNotifier.value = HomeScreensList.first;
+  showCardsNotifier.notifyListeners();
+}
+
+// for fade trancition and slide trancition of home screen first part
+late AnimationController homeFirstAnimationController;
+// for list animation in home screen first part sliding part
+late AnimationController homeSecondAnimationController;
+late AnimationController homeSecondAnimationController2;
+
 class _HomeScreenFirstAnimationScreenState
     extends State<HomeScreenFirstAnimationScreen>
     with TickerProviderStateMixin {
-  // for fade trancition and slide trancition of home screen first part
-  late AnimationController _homeFirstAnimationController;
-  // for list animation in home screen first part sliding part
-  late AnimationController _homeSecondAnimationController;
-  late AnimationController _homeSecondAnimationController2;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation2;
@@ -44,15 +54,15 @@ class _HomeScreenFirstAnimationScreenState
   void initState() {
     super.initState();
 
-    _homeFirstAnimationController = AnimationController(
+    homeFirstAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _homeSecondAnimationController = AnimationController(
+    homeSecondAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _homeSecondAnimationController2 = AnimationController(
+    homeSecondAnimationController2 = AnimationController(
       vsync: this,
       duration: const Duration(microseconds: 1),
     );
@@ -62,7 +72,7 @@ class _HomeScreenFirstAnimationScreenState
       end: const Offset(0, -1.1), // Move upwards by the height of the screen
     ).animate(
       CurvedAnimation(
-        parent: _homeFirstAnimationController,
+        parent: homeFirstAnimationController,
         curve: Curves.linear,
       ),
     );
@@ -72,7 +82,7 @@ class _HomeScreenFirstAnimationScreenState
       end: const Offset(0, -0.22),
     ).animate(
       CurvedAnimation(
-        parent: _homeSecondAnimationController,
+        parent: homeSecondAnimationController,
         curve: Curves.linear,
       ),
     );
@@ -82,20 +92,20 @@ class _HomeScreenFirstAnimationScreenState
       end: const Offset(0, 1.5),
     ).animate(
       CurvedAnimation(
-        parent: _homeSecondAnimationController2,
+        parent: homeSecondAnimationController2,
         curve: Curves.fastLinearToSlowEaseIn,
       ),
     );
 
     _fadeAnimation =
-        Tween<double>(begin: 1, end: 0).animate(_homeFirstAnimationController);
+        Tween<double>(begin: 1, end: 0).animate(homeFirstAnimationController);
   }
 
   @override
   void dispose() {
-    _homeFirstAnimationController.dispose();
-    _homeSecondAnimationController.dispose();
-    _homeSecondAnimationController2.dispose();
+    homeFirstAnimationController.dispose();
+    homeSecondAnimationController.dispose();
+    homeSecondAnimationController2.dispose();
     super.dispose();
   }
 
@@ -123,12 +133,12 @@ class _HomeScreenFirstAnimationScreenState
                   Align(
                     alignment: Alignment.topLeft,
                     child: Visibility(
-                      visible: _homeFirstAnimationController.isCompleted,
+                      visible: homeFirstAnimationController.isCompleted,
                       child: SecondAnimation(
                         animationController: [
-                          _homeFirstAnimationController,
-                          _homeSecondAnimationController,
-                          _homeSecondAnimationController2
+                          homeFirstAnimationController,
+                          homeSecondAnimationController,
+                          homeSecondAnimationController2
                         ],
                       ),
                     ),
@@ -137,7 +147,7 @@ class _HomeScreenFirstAnimationScreenState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AnimatedBuilder(
-                        animation: _homeFirstAnimationController,
+                        animation: homeFirstAnimationController,
                         builder: (context, child) {
                           return FadeTransition(
                             opacity: _fadeAnimation,
@@ -167,8 +177,8 @@ class _HomeScreenFirstAnimationScreenState
                       Expanded(
                         child: AnimatedBuilder(
                           animation: Listenable.merge([
-                            _homeSecondAnimationController,
-                            _homeSecondAnimationController2
+                            homeSecondAnimationController,
+                            homeSecondAnimationController2
                           ]),
                           builder: (context, child) {
                             return SlideTransition(
@@ -177,9 +187,9 @@ class _HomeScreenFirstAnimationScreenState
                                 position: _slideAnimation2,
                                 child: HomeScreenSecondPart(
                                   animationController: [
-                                    _homeFirstAnimationController,
-                                    _homeSecondAnimationController,
-                                    _homeSecondAnimationController2
+                                    homeFirstAnimationController,
+                                    homeSecondAnimationController,
+                                    homeSecondAnimationController2
                                   ],
                                 ),
                               ),

@@ -17,7 +17,7 @@ class MyConnectionContainerHomePage extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context
           .read<ConnectionRequestBloc>()
-          .add(const ConnectionRequestEvent.getBizkitConnections());
+          .add(const ConnectionRequestEvent.getBizkitConnections(query: ''));
     });
     return Column(
       children: [
@@ -88,8 +88,8 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: InkWell(
-                        onTap: () => Navigator.push(context,
-                            fadePageRoute(ScreenAddConnections())),
+                        onTap: () => Navigator.push(
+                            context, fadePageRoute(ScreenAddConnections())),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
                           child: const ColoredBox(

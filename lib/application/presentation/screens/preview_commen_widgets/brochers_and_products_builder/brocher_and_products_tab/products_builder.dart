@@ -21,79 +21,77 @@ class ProductsBuilder extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               adjustHieght(khieght * .04),
-             ListView.separated(
-                      separatorBuilder: (context, index) =>
-                          adjustHieght(kwidth * .03),
-                      itemCount: networkImages.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final data = networkImages[index];
-                        return SizedBox(
-                          height: 260,
+              ListView.separated(
+                separatorBuilder: (context, index) =>
+                    adjustHieght(kwidth * .03),
+                itemCount: networkImages.length,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final data = networkImages[index];
+                  return SizedBox(
+                    height: 260,
+                    width: double.infinity,
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                          height: 200,
                           width: double.infinity,
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                height: 200,
-                                width: double.infinity,
-                                child: Image.network(data.product!,
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(Icons.image)),
-                              ),
-                              Positioned(
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                child: Container(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  color: klightgrey.withOpacity(.1),
-                                  child: Row(
+                          child: Image.network(data.product!,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.image)),
+                        ),
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 10),
+                            color: klightgrey.withOpacity(.1),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              data.label ?? '',
-                                              style: textStyle1.copyWith(
-                                                fontSize: kwidth * .04,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            Text(
-                                              data.description ?? '',
-                                              style: textStyle1.copyWith(
-                                                fontSize: kwidth * .03,
-                                              ),
-                                            ),
-                                          ],
+                                      Text(
+                                        data.label ?? '',
+                                        style: textStyle1.copyWith(
+                                          fontSize: kwidth * .04,
+                                          fontWeight: FontWeight.w700,
                                         ),
                                       ),
-                                      adjustWidth(kwidth * .02),
-                                      AuthButton(
-                                        hieght: 35,
-                                        wdth: 90,
-                                        text: 'View',
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              fadePageRoute(ProductViewDetail(
-                                                  product: data)));
-                                        },
+                                      Text(
+                                        data.description ?? '',
+                                        style: textStyle1.copyWith(
+                                          fontSize: kwidth * .03,
+                                        ),
                                       ),
-                                      adjustWidth(kwidth * .02),
                                     ],
                                   ),
                                 ),
-                              ),
-                            ],
+                                adjustWidth(kwidth * .02),
+                                AuthButton(
+                                  hieght: 35,
+                                  wdth: 90,
+                                  text: 'View',
+                                  onTap: () {
+                                    Navigator.of(context).push(fadePageRoute(
+                                        ProductViewDetail(product: data)));
+                                  },
+                                ),
+                                adjustWidth(kwidth * .02),
+                              ],
+                            ),
                           ),
-                        );
-                      },
+                        ),
+                      ],
                     ),
+                  );
+                },
+              ),
               adjustHieght(khieght * .03),
             ],
           ),
@@ -113,18 +111,19 @@ class ProductViewDetail extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size(kwidth, 70),
-          child:  const AppbarCommen(tittle: 'Product')),
+          child: const AppbarCommen(tittle: 'Product')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            children: [product.product !=null?
-              Image.network(product.product!):Image.asset(emptyNodata3),
+            children: [
+              product.product != null
+                  ? Image.network(product.product!)
+                  : Image.asset(emptyNodata3),
               adjustHieght(30),
-              Text(product.label??""),
+              Text(product.label ?? ""),
               adjustHieght(30),
-              Text(
-                  product.description??""),
+              Text(product.description ?? ""),
             ],
           ),
         ),

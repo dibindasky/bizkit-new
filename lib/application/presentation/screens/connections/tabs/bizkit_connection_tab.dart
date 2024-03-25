@@ -3,6 +3,7 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
 import 'package:flutter/material.dart';
@@ -30,40 +31,13 @@ class BizkitConnectionsTab extends StatelessWidget {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state.bizkitConnections == null &&
-              (state.bizkitConnections == null || state.hasError)) {
-            return InkWell(
-                onTap: () => context
-                    .read<ConnectionRequestBloc>()
-                    .add(const ConnectionRequestEvent.getBizkitConnections()),
-                child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.refresh_sharp, color: neonShade),
-                      SizedBox(height: 30),
-                      Text(errorMessage),
-                      SizedBox(width: double.infinity)
-                    ]));
-          } else if (state.bizkitConnections!.isEmpty) {
-            return GestureDetector(
-              onTap: () => context
-                  .read<ConnectionRequestBloc>()
-                  .add(const ConnectionRequestEvent.getBizkitConnections()),
-              child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.refresh_sharp, color: neonShade),
-                    SizedBox(height: 30),
-                    Text('no connections to show'),
-                    SizedBox(width: double.infinity)
-                  ]),
-            );
-          } else {
+          } else if (state.bizkitConnections != null &&
+              state.bizkitConnections!.isNotEmpty) {
             return RefreshIndicator(
               onRefresh: () async {
-                context
-                    .read<ConnectionRequestBloc>()
-                    .add(const ConnectionRequestEvent.getBizkitConnections());
+                context.read<ConnectionRequestBloc>().add(
+                    const ConnectionRequestEvent.getBizkitConnections(
+                        query: ''));
                 await Future.delayed(const Duration(seconds: 2));
               },
               child: ListView.separated(
@@ -111,6 +85,17 @@ class BizkitConnectionsTab extends StatelessWidget {
                 },
               ),
             );
+          } else {
+            return ErrorRefreshIndicator(
+                image: emptyNodata3,
+                errorMessage: state.hasError
+                    ? 'Something went wrong pull to refresh'
+                    : 'No bizkit connections',
+                onRefresh: () {
+                  context.read<ConnectionRequestBloc>().add(
+                      const ConnectionRequestEvent.getBizkitConnections(
+                          query: ''));
+                });
           }
         },
       ),

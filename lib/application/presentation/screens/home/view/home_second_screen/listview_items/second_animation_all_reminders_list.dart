@@ -75,36 +75,42 @@ class _SecondAnimationPageListViewAllRemindersState
                   width: kwidth * 0.9,
                   seprator: const SizedBox(height: 10),
                 );
-              } else if(state.allReminderList!=null && state.allReminderList!.isNotEmpty) {
+              } else if (state.allReminderList != null &&
+                  state.allReminderList!.isNotEmpty) {
                 return ListView.separated(
-                controller: widget.scrollController,
-                separatorBuilder: (context, index) =>
-                    adjustHieght(khieght * .02),
-                itemCount: (state.allReminderList?.length ?? 0) +
-                    (state.allReminderLoading ? 1 : 0),
-                itemBuilder: (context, index) {
-                  if (state.allReminderLoading &&
-                      index == state.allReminderList!.length) {
-                    return const LoadingAnimation();
-                  } else if (widget.doTransition && index == 0) {
-                    return Transform.translate(
-                        offset: Offset(0, 100 * _animation.value),
-                        child: ReminderTile(
-                            reminder: state.allReminderList![index]));
-                  } else if (widget.doTransition && index == 1) {
-                    return Transform.translate(
-                        offset: Offset(0, -100 * _animation.value),
-                        child: ReminderTile(
-                            reminder: state.allReminderList![index]));
-                  }
-                  return ReminderTile(reminder: state.allReminderList![index]);
-                },
-              );
-              }else {
-               return RefreshIndicatorCustom(image: emptyNodata1,
-                  message: 'No Reminders', onRefresh:(){
-                  context.read<ReminderBloc>().add(const ReminderEvent.getAllRemindersEvent());
-                } );
+                  controller: widget.scrollController,
+                  separatorBuilder: (context, index) =>
+                      adjustHieght(khieght * .02),
+                  itemCount: (state.allReminderList?.length ?? 0) +
+                      (state.allReminderLoading ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (state.allReminderLoading &&
+                        index == state.allReminderList!.length) {
+                      return const LoadingAnimation();
+                    } else if (widget.doTransition && index == 0) {
+                      return Transform.translate(
+                          offset: Offset(0, 100 * _animation.value),
+                          child: ReminderTile(
+                              reminder: state.allReminderList![index]));
+                    } else if (widget.doTransition && index == 1) {
+                      return Transform.translate(
+                          offset: Offset(0, -100 * _animation.value),
+                          child: ReminderTile(
+                              reminder: state.allReminderList![index]));
+                    }
+                    return ReminderTile(
+                        reminder: state.allReminderList![index]);
+                  },
+                );
+              } else {
+                return RefreshIndicatorCustom(
+                    image: emptyNodata1,
+                    message: 'No Reminders',
+                    onRefresh: () {
+                      context
+                          .read<ReminderBloc>()
+                          .add(const ReminderEvent.getAllRemindersEvent());
+                    });
               }
             },
           );

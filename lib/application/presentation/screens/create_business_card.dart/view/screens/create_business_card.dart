@@ -98,6 +98,7 @@ class _StartingBusinessCardCreationState
                           color: kwhite,
                           fontSize: 10.sp,
                           decoration: TextDecoration.underline,
+                          decorationColor: kwhite,
                         ),
                       ),
                     ),

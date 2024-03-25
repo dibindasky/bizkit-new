@@ -13,7 +13,6 @@ import 'package:bizkit/application/presentation/screens/preview_commen_widgets/p
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
-import 'package:bizkit/domain/model/card/create_card/create_card_model/create_card_model.dart';
 import 'package:bizkit/domain/model/card/create_card_by_id_model/create_card_by_id_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -138,7 +137,7 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                     }
                     return AuthButton(
                       wdth: 180,
-                      text: 'Create business card',
+                      text: 'Create Business Card',
                       onTap: () {
                         print('on tap card creation');
                         // final CreateCardModel createCardModel = CreateCardModel(

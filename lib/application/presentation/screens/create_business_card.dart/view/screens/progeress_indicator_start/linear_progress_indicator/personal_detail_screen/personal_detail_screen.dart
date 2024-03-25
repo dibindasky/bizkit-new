@@ -128,14 +128,17 @@ class PersonlDetails extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.only(left: 12, right: 12),
                         height: 48.0,
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               'Accolades',
-                              style: TextStyle(color: klightgrey),
+                              style: custumText(
+                                fontSize: 16,
+                                colr: klightgrey,
+                              ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.arrow_forward_ios_rounded,
                               size: 16,
                               color: klightgrey,
@@ -177,10 +180,10 @@ class PersonlDetails extends StatelessWidget {
                         children: [
                           Text(
                             'Social Media Handles',
-                            style: TextStyle(
-                                color: state.socialMedias.isNotEmpty
-                                    ? kwhite
-                                    : klightgrey),
+                            style: custumText(
+                              fontSize: 16,
+                              colr: klightgrey,
+                            ),
                           ),
                           const Icon(
                             Icons.arrow_forward_ios_rounded,
@@ -226,10 +229,10 @@ class PersonlDetails extends StatelessWidget {
                         children: [
                           Text(
                             'Dates To Remember',
-                            style: TextStyle(
-                                color: state.datesToRemember.isNotEmpty
-                                    ? kwhite
-                                    : klightgrey),
+                            style: custumText(
+                              fontSize: 16,
+                              colr: klightgrey,
+                            ),
                           ),
                           const Icon(
                             Icons.arrow_forward_ios_rounded,

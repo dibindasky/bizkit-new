@@ -1,6 +1,7 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
@@ -61,7 +62,9 @@ class _ArchivedCardsState extends State<ArchivedCards> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
-          child: BlocBuilder<CardBloc, CardState>(builder: (context, state) {
+          child: BlocConsumer<CardBloc, CardState>(listener: (context, state) {
+            if (state.successResponseModel != null) {}
+          }, builder: (context, state) {
             if (state.isLoading) {
               return ShimmerLoader(
                 itemCount: 10,
@@ -146,20 +149,28 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                           const Spacer(),
                           InkWell(
                             onTap: () {
-                              CardActionRewuestModel cardActionRewuestModel =
-                                  CardActionRewuestModel(
-                                isArchived: false,
-                              );
-                              context.read<CardBloc>().add(
-                                    CardEvent.restoreArchiveDeleteCard(
-                                        cardActionRewuestModel:
-                                            cardActionRewuestModel,
-                                        cardId:
-                                            state.archievedCards![index].id!),
-                                  );
-                              showSnackbar(
+                              showConfirmationDialog(
+                                heading: 'Restore Card',
+                                actionButton: 'Restore',
                                 context,
-                                message: 'Card restored',
+                                onPressed: () {
+                                  CardActionRewuestModel
+                                      cardActionRewuestModel =
+                                      CardActionRewuestModel(
+                                    isArchived: false,
+                                  );
+                                  context.read<CardBloc>().add(
+                                        CardEvent.restoreArchiveDeleteCard(
+                                            cardActionRewuestModel:
+                                                cardActionRewuestModel,
+                                            cardId: state
+                                                .archievedCards![index].id!),
+                                      );
+                                  showSnackbar(
+                                    context,
+                                    message: 'Card restored',
+                                  );
+                                },
                               );
                             },
                             child: Container(

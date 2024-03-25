@@ -21,7 +21,7 @@ class SocialMediahandlesScreen extends StatefulWidget {
 
 class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
   TextEditingController linkController = TextEditingController();
-  String selectedCategory = 'SocialMedia';
+  String selectedCategory = 'Social Media';
   List<String> socialMedias = socialMedia;
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,16 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 17,
+            ),
+          ),
+          backgroundColor: knill,
           title: Text('Social media accounts', style: textHeadStyle1),
           actions: [
             IconButton(
@@ -52,6 +62,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                 builder: (context, user) {
                   return Column(
                     children: [
+                      adjustHieght(40),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
@@ -77,7 +88,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                             ),
                             hint: Text(
                               selectedCategory,
-                              style: selectedCategory == 'SocialMedia'
+                              style: selectedCategory == 'Social Media'
                                   ? null
                                   : textStyle1.copyWith(color: kwhite),
                             ),
@@ -105,7 +116,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                       AuthButton(
                         text: 'Add',
                         onTap: () {
-                          if (selectedCategory == 'SocialMedia') {
+                          if (selectedCategory == 'Social Media') {
                             showSnackbar(context,
                                 message: 'Select social media first',
                                 textColor: kwhite,
@@ -134,7 +145,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                   BusinessDataEvent.addSocialMedia(
                                       socialMediaHandle: model));
                           linkController.text = '';
-                          selectedCategory = 'SocialMedia';
+                          selectedCategory = 'Social Media';
                           setState(() {});
                         },
                       ),

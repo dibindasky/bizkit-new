@@ -66,7 +66,8 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Selected date'),
+                    adjustHieght(40),
+                    const Text('Select Date'),
                     adjustHieght(20),
                     InkWell(
                       onTap: () => showModalBottomSheet(
@@ -97,7 +98,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                             Expanded(
                               child: Text(
                                 dateController.text.isEmpty
-                                    ? 'Choose date'
+                                    ? 'Choose Date'
                                     : dateController.text,
                                 style: dateController.text.isEmpty
                                     ? const TextStyle(color: kwhite)
@@ -113,7 +114,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                       ),
                     ),
                     adjustHieght(20),
-                    const Text('Message'),
+                    const Text('Message  *'),
                     TTextFormField(
                       maxlegth: 250,
                       maxLines: 7,

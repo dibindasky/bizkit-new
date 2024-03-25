@@ -1,6 +1,5 @@
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/change_password.dart';
-import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/notification_settings.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/report_a_problem.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/username_edit.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
@@ -42,7 +41,7 @@ class AccountSettigsScreen extends StatelessWidget {
               text: 'Change password',
               onTap: () => Navigator.push(
                 context,
-                fadePageRoute(ChangePassword()),
+                fadePageRoute(const ChangePassword()),
               ),
             ),
             // TileItem(

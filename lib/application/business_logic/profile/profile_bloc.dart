@@ -4,6 +4,7 @@ import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
+import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
@@ -124,7 +125,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         state.copyWith(
           isLoading: false,
           hasError: false,
-          message: 'Problem created successfully',
+          successResponseModel: r,
+          message: 'Problem reported Sucessfully',
         ),
       );
       reportContent.clear();

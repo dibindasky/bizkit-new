@@ -10,6 +10,7 @@ class ProfileState with _$ProfileState {
     GetUserInfoModel? getUserInfoModel,
     ImageModel? imageModel,
     bool? uploaded,
+    SuccessResponseModel? successResponseModel,
     UpdateUserInfoModel? userInfoChangeResponceModel,
     ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
     List<Questions>? questionList,

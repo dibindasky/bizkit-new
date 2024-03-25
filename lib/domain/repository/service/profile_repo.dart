@@ -1,4 +1,5 @@
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
+import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection_model.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
@@ -22,7 +23,7 @@ abstract class ProfileRepo {
     required UserInfoChangeRequestModel userInfoChangeRequestModel,
   });
   Future<Either<Failure, UsernameChangeResponceModel>> deleteProfile();
-  Future<Either<Failure, Map>> reportAProblem({
+  Future<Either<Failure, SuccessResponseModel>> reportAProblem({
     required ReportAProblemRequestModel reportAProblemRequestModel,
   });
 

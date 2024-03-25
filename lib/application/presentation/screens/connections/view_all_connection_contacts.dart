@@ -73,7 +73,7 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
               ),
             ),
           ),
-          adjustWidth(40)
+          adjustWidth(20)
         ],
       ),
       body: Padding(
@@ -171,8 +171,8 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
           shape: const CircleBorder(),
           // label: Text('Add Connection',style: textStyle1),
           // icon: const Icon(Icons.add),
-          onPressed: () => Navigator.push(
-              context, fadePageRoute( ScreenAddConnections())),
+          onPressed: () =>
+              Navigator.push(context, fadePageRoute(ScreenAddConnections())),
           child: const Icon(Icons.add)),
     );
   }

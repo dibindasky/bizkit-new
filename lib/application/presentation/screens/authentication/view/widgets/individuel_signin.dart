@@ -57,53 +57,64 @@ class IndividuelSignIn extends StatelessWidget {
               ),
               // company mail
               BlocListener<SignUpBloc, SignUpState>(
-                  listener: (context, state) {
-                    if (state.message != null) {
-                      showSnackbar(context,
-                          message: state.message!,
-                          backgroundColor: state.hasError ? kred : neonShade);
-                    }
-                    if (state.otpSendIndividual) {
-                      // navigate to otp screen when send
-                      final SignUpIndivudalModel signUpModel =
-                          SignUpIndivudalModel(
-                              isBusiness: false,
-                              isVerified: false,
-                              name: nameController.text.trim(),
-                              email: emailIdController.text.trim(),
-                              password: passwordController.text.trim(),
-                              phoneNumber: mobileController.text.trim());
-                      print('otp individual got');
-                      GoRouter.of(context)
-                          .pushNamed(Routes.otpPage, pathParameters: {
-                        'email': emailIdController.text.trim(),
-                        'fromBusiness': 'false',
-                        'model': jsonEncode({
-                          'signUpIndivudalModel':
-                              jsonEncode(signUpModel.toJson())
-                        })
-                      });
-                    }
-                  },
-                  child: TTextFormField(
-                    validate: Validate.email,
-                    text: 'Mail',
-                    controller: emailIdController,
-                    inputType: TextInputType.emailAddress,
-                  )),
-              PasswordHintmaker(passwordController: passwordController),
+                listener: (context, state) {
+                  if (state.message != null) {
+                    showSnackbar(context,
+                        message: state.message!,
+                        backgroundColor: state.hasError ? kred : neonShade);
+                  }
+                  if (state.otpSendIndividual) {
+                    // navigate to otp screen when send
+                    final SignUpIndivudalModel signUpModel =
+                        SignUpIndivudalModel(
+                            isBusiness: false,
+                            isVerified: false,
+                            name: nameController.text.trim(),
+                            email: emailIdController.text.trim(),
+                            password: passwordController.text.trim(),
+                            phoneNumber: mobileController.text.trim());
+                    print('otp individual got');
+                    GoRouter.of(context)
+                        .pushNamed(Routes.otpPage, pathParameters: {
+                      'email': emailIdController.text.trim(),
+                      'fromBusiness': 'false',
+                      'model': jsonEncode({
+                        'signUpIndivudalModel': jsonEncode(signUpModel.toJson())
+                      })
+                    });
+                  }
+                },
+                child: TTextFormField(
+                  validate: Validate.email,
+                  text: 'Mail',
+                  controller: emailIdController,
+                  inputType: TextInputType.emailAddress,
+                ),
+              ),
+              TTextFormField(
+                validate: Validate.password,
+                password: passwordController,
+                text: 'Password',
+                controller: passwordController,
+                inputType: TextInputType.visiblePassword,
+                obscureText: true,
+              ),
+              //PasswordHintmaker(passwordController: passwordController),
               TTextFormField(
                 validate: Validate.rePassword,
                 password: passwordController,
-                text: 'Re-enter password',
+                text: 'Re-Enter Password',
                 controller: rePasswordController,
                 inputType: TextInputType.visiblePassword,
                 obscureText: true,
               ),
               adjustHieght(khieght * .01),
               InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: const Text('Alredy have an account?  Login')),
+                onTap: () => Navigator.pop(context),
+                child: const Text(
+                  'Already have an account?  Login',
+                ),
+              ),
               adjustHieght(khieght * .04),
               BlocBuilder<SignUpBloc, SignUpState>(
                 builder: (context, state) {
@@ -111,18 +122,22 @@ class IndividuelSignIn extends StatelessWidget {
                     return const LoadingAnimation();
                   }
                   return AuthButton(
-                    text: 'Sign-Up',
+                    text: 'SignUp',
                     onTap: () {
                       if (personalSignup.currentState!.validate()) {
-                        context.read<SignUpBloc>().add(SignUpEvent.sendOtp(
-                            emailModel: EmailModel(
-                                email: emailIdController.text.trim()),
-                            isBusiness: false));
+                        context.read<SignUpBloc>().add(
+                              SignUpEvent.sendOtp(
+                                emailModel: EmailModel(
+                                    email: emailIdController.text.trim()),
+                                isBusiness: false,
+                              ),
+                            );
                       }
                     },
                   );
                 },
               ),
+              adjustHieght(khieght * .04),
             ],
           ),
         ),

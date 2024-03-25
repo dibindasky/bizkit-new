@@ -7,6 +7,7 @@ import 'package:bizkit/domain/model/card/cards_in_profile/blocked_cards_responce
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
+import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -141,7 +142,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       emit(state.copyWith(
         isLoading: false,
         hasError: false,
-        message: r.message,
+        successResponseModel: r,
       ));
       add(const CardEvent.getArchievedCards(isLoad: true));
       add(const CardEvent.getdeleteCards(isLoad: true));

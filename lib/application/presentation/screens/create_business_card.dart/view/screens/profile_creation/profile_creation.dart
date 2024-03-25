@@ -8,10 +8,15 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-final GlobalKey<FormState> personalDataFirstFormKey = GlobalKey();
-
-class ProfileCreationScreen extends StatelessWidget {
+class ProfileCreationScreen extends StatefulWidget {
   const ProfileCreationScreen({super.key});
+
+  @override
+  State<ProfileCreationScreen> createState() => _ProfileCreationScreenState();
+}
+
+class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
+  final GlobalKey<FormState> personalDataFirstFormKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +103,11 @@ class ProfileCreationScreen extends StatelessWidget {
                           AutocompleteTextField(
                             validate: Validate.phone,
                             maxLength: 10,
+<<<<<<< HEAD
                             label: 'Phone number *',
+=======
+                            label: 'Phone Number',
+>>>>>>> modification
                             controller:
                                 context.read<UserDataBloc>().phoneController,
                             inputType: TextInputType.phone,
@@ -117,6 +126,7 @@ class ProfileCreationScreen extends StatelessWidget {
                           ),
                           // business category
                           AutocompleteTextField(
+<<<<<<< HEAD
                               onTap: () =>
                                   FocusManager.instance.primaryFocus?.unfocus(),
                               enabled: false,
@@ -129,6 +139,21 @@ class ProfileCreationScreen extends StatelessWidget {
                               autocompleteItems: state.businessCategories
                                   .map((e) => e.category!)
                                   .toList()),
+=======
+                            onTap: () =>
+                                FocusManager.instance.primaryFocus?.unfocus(),
+                            enabled: false,
+                            validate: Validate.notNull,
+                            label: 'Business Category',
+                            controller: context
+                                .read<UserDataBloc>()
+                                .businessCategoryController,
+                            inputType: TextInputType.name,
+                            autocompleteItems: state.businessCategories
+                                .map((e) => e.category!)
+                                .toList(),
+                          ),
+>>>>>>> modification
                           AutocompleteTextField(
                             showDropdownOnTap: true,
                             validate: Validate.notNull,

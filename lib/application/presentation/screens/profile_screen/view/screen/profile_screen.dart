@@ -179,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                   subtittle: 'Blocked, Restricted, Report Connections',
                   widget: ConnectionNetworkScreen(),
                 ),
-                ProfileTiles(
+                const ProfileTiles(
                   heading: 'Help & support',
                   subtittle: 'Contact, Faq etc.',
                   widget: HelpSupport(),
@@ -222,20 +222,20 @@ class ProfileTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: ColoredBox(
-        color: textFieldFillColr,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-          child: GestureDetector(
-            onTap: () {
-              if (onTap != null) {
-                onTap!();
-              } else {
-                Navigator.of(context).push(fadePageRoute(widget!));
-              }
-            },
+    return GestureDetector(
+      onTap: () {
+        if (onTap != null) {
+          onTap!();
+        } else {
+          Navigator.of(context).push(fadePageRoute(widget!));
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: ColoredBox(
+          color: textFieldFillColr,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
             child: Row(
               children: [
                 Column(

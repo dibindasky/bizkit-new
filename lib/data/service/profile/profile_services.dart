@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:bizkit/data/service/api_service.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
+import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_connection_model.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
@@ -87,21 +88,21 @@ class ProfileService implements ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, Map>> reportAProblem({
+  Future<Either<Failure, SuccessResponseModel>> reportAProblem({
     required ReportAProblemRequestModel reportAProblemRequestModel,
   }) async {
     try {
-      final responce = await apiService.post(
+      await apiService.post(
         ApiEndPoints.reportAProblem,
         data: reportAProblemRequestModel.toJson(),
       );
-      log('getProfile statusCode ${responce.statusCode}');
-      return const Right({'Mesage': 'created'});
+      return Right(
+          SuccessResponseModel(message: 'Problem reported successfully'));
     } on DioException catch (e) {
       log('reportAProblem DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
-      log('getProfile catch $e');
+      log('reportAProblem catch $e');
       return Left(Failure(message: errorMessage));
     }
   }

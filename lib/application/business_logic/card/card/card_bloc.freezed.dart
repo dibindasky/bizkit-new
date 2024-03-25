@@ -2310,6 +2310,8 @@ mixin _$CardState {
   List<BlockedCards>? get deletedCards => throw _privateConstructorUsedError;
   CardResponse? get defaultCard => throw _privateConstructorUsedError;
   Card? get anotherCard => throw _privateConstructorUsedError;
+  SuccessResponseModel? get successResponseModel =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CardStateCopyWith<CardState> get copyWith =>
@@ -2333,7 +2335,8 @@ abstract class $CardStateCopyWith<$Res> {
       List<ArcheivedCard>? archievedCards,
       List<BlockedCards>? deletedCards,
       CardResponse? defaultCard,
-      Card? anotherCard});
+      Card? anotherCard,
+      SuccessResponseModel? successResponseModel});
 }
 
 /// @nodoc
@@ -2361,6 +2364,7 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
     Object? deletedCards = freezed,
     Object? defaultCard = freezed,
     Object? anotherCard = freezed,
+    Object? successResponseModel = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -2411,6 +2415,10 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
           ? _value.anotherCard
           : anotherCard // ignore: cast_nullable_to_non_nullable
               as Card?,
+      successResponseModel: freezed == successResponseModel
+          ? _value.successResponseModel
+          : successResponseModel // ignore: cast_nullable_to_non_nullable
+              as SuccessResponseModel?,
     ) as $Val);
   }
 }
@@ -2435,7 +2443,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       List<ArcheivedCard>? archievedCards,
       List<BlockedCards>? deletedCards,
       CardResponse? defaultCard,
-      Card? anotherCard});
+      Card? anotherCard,
+      SuccessResponseModel? successResponseModel});
 }
 
 /// @nodoc
@@ -2461,6 +2470,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? deletedCards = freezed,
     Object? defaultCard = freezed,
     Object? anotherCard = freezed,
+    Object? successResponseModel = freezed,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -2511,6 +2521,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.anotherCard
           : anotherCard // ignore: cast_nullable_to_non_nullable
               as Card?,
+      successResponseModel: freezed == successResponseModel
+          ? _value.successResponseModel
+          : successResponseModel // ignore: cast_nullable_to_non_nullable
+              as SuccessResponseModel?,
     ));
   }
 }
@@ -2530,7 +2544,8 @@ class _$InitialImpl implements _Initial {
       final List<ArcheivedCard>? archievedCards,
       final List<BlockedCards>? deletedCards,
       this.defaultCard,
-      this.anotherCard})
+      this.anotherCard,
+      this.successResponseModel})
       : _cards = cards,
         _archievedCards = archievedCards,
         _deletedCards = deletedCards;
@@ -2581,10 +2596,12 @@ class _$InitialImpl implements _Initial {
   final CardResponse? defaultCard;
   @override
   final Card? anotherCard;
+  @override
+  final SuccessResponseModel? successResponseModel;
 
   @override
   String toString() {
-    return 'CardState(isLoading: $isLoading, pageLoading: $pageLoading, hasError: $hasError, businessUser: $businessUser, archiveCardLoading: $archiveCardLoading, deleteCardLoading: $deleteCardLoading, cards: $cards, message: $message, archievedCards: $archievedCards, deletedCards: $deletedCards, defaultCard: $defaultCard, anotherCard: $anotherCard)';
+    return 'CardState(isLoading: $isLoading, pageLoading: $pageLoading, hasError: $hasError, businessUser: $businessUser, archiveCardLoading: $archiveCardLoading, deleteCardLoading: $deleteCardLoading, cards: $cards, message: $message, archievedCards: $archievedCards, deletedCards: $deletedCards, defaultCard: $defaultCard, anotherCard: $anotherCard, successResponseModel: $successResponseModel)';
   }
 
   @override
@@ -2613,7 +2630,9 @@ class _$InitialImpl implements _Initial {
             (identical(other.defaultCard, defaultCard) ||
                 other.defaultCard == defaultCard) &&
             (identical(other.anotherCard, anotherCard) ||
-                other.anotherCard == anotherCard));
+                other.anotherCard == anotherCard) &&
+            (identical(other.successResponseModel, successResponseModel) ||
+                other.successResponseModel == successResponseModel));
   }
 
   @override
@@ -2630,7 +2649,8 @@ class _$InitialImpl implements _Initial {
       const DeepCollectionEquality().hash(_archievedCards),
       const DeepCollectionEquality().hash(_deletedCards),
       defaultCard,
-      anotherCard);
+      anotherCard,
+      successResponseModel);
 
   @JsonKey(ignore: true)
   @override
@@ -2652,7 +2672,8 @@ abstract class _Initial implements CardState {
       final List<ArcheivedCard>? archievedCards,
       final List<BlockedCards>? deletedCards,
       final CardResponse? defaultCard,
-      final Card? anotherCard}) = _$InitialImpl;
+      final Card? anotherCard,
+      final SuccessResponseModel? successResponseModel}) = _$InitialImpl;
 
   @override
   bool get isLoading;
@@ -2678,6 +2699,8 @@ abstract class _Initial implements CardState {
   CardResponse? get defaultCard;
   @override
   Card? get anotherCard;
+  @override
+  SuccessResponseModel? get successResponseModel;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

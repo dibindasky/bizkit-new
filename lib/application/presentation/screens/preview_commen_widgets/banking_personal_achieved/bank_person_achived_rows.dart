@@ -73,7 +73,10 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               child: Image.asset(image)),
-          Text(text, style: TextStyle(fontSize: 10.sp)),
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Text(text, style: TextStyle(fontSize: 10.sp)),
+          ),
         ],
       ),
     );

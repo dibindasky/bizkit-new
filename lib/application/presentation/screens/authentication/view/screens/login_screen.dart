@@ -241,7 +241,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                     obscureText: true,
                   ),
                   Text(
-                    'Don\'t have an acount?',
+                    'Don\'t have an account?',
                     style: TextStyle(
                       fontSize: kwidth * 0.026,
                     ),
@@ -251,10 +251,11 @@ class _LoGInScreenState extends State<LoGInScreen>
                     onTap: () =>
                         GoRouter.of(context).pushNamed(Routes.signUpPage),
                     child: Text(
-                      'Signup',
+                      'SignUp',
                       style: TextStyle(
                         fontSize: kwidth * 0.037,
                         decoration: TextDecoration.underline,
+                        decorationColor: kwhite,
                       ),
                     ),
                   ),

@@ -2118,6 +2118,8 @@ mixin _$ProfileState {
   GetUserInfoModel? get getUserInfoModel => throw _privateConstructorUsedError;
   ImageModel? get imageModel => throw _privateConstructorUsedError;
   bool? get uploaded => throw _privateConstructorUsedError;
+  SuccessResponseModel? get successResponseModel =>
+      throw _privateConstructorUsedError;
   UpdateUserInfoModel? get userInfoChangeResponceModel =>
       throw _privateConstructorUsedError;
   ForegottPasswordResponceMdel? get foregottPasswordResponceMdel =>
@@ -2143,6 +2145,7 @@ abstract class $ProfileStateCopyWith<$Res> {
       GetUserInfoModel? getUserInfoModel,
       ImageModel? imageModel,
       bool? uploaded,
+      SuccessResponseModel? successResponseModel,
       UpdateUserInfoModel? userInfoChangeResponceModel,
       ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
       List<Questions>? questionList});
@@ -2168,6 +2171,7 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? getUserInfoModel = freezed,
     Object? imageModel = freezed,
     Object? uploaded = freezed,
+    Object? successResponseModel = freezed,
     Object? userInfoChangeResponceModel = freezed,
     Object? foregottPasswordResponceMdel = freezed,
     Object? questionList = freezed,
@@ -2201,6 +2205,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.uploaded
           : uploaded // ignore: cast_nullable_to_non_nullable
               as bool?,
+      successResponseModel: freezed == successResponseModel
+          ? _value.successResponseModel
+          : successResponseModel // ignore: cast_nullable_to_non_nullable
+              as SuccessResponseModel?,
       userInfoChangeResponceModel: freezed == userInfoChangeResponceModel
           ? _value.userInfoChangeResponceModel
           : userInfoChangeResponceModel // ignore: cast_nullable_to_non_nullable
@@ -2233,6 +2241,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       GetUserInfoModel? getUserInfoModel,
       ImageModel? imageModel,
       bool? uploaded,
+      SuccessResponseModel? successResponseModel,
       UpdateUserInfoModel? userInfoChangeResponceModel,
       ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
       List<Questions>? questionList});
@@ -2256,6 +2265,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? getUserInfoModel = freezed,
     Object? imageModel = freezed,
     Object? uploaded = freezed,
+    Object? successResponseModel = freezed,
     Object? userInfoChangeResponceModel = freezed,
     Object? foregottPasswordResponceMdel = freezed,
     Object? questionList = freezed,
@@ -2289,6 +2299,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.uploaded
           : uploaded // ignore: cast_nullable_to_non_nullable
               as bool?,
+      successResponseModel: freezed == successResponseModel
+          ? _value.successResponseModel
+          : successResponseModel // ignore: cast_nullable_to_non_nullable
+              as SuccessResponseModel?,
       userInfoChangeResponceModel: freezed == userInfoChangeResponceModel
           ? _value.userInfoChangeResponceModel
           : userInfoChangeResponceModel // ignore: cast_nullable_to_non_nullable
@@ -2316,6 +2330,7 @@ class _$InitialImpl implements _Initial {
       this.getUserInfoModel,
       this.imageModel,
       this.uploaded,
+      this.successResponseModel,
       this.userInfoChangeResponceModel,
       this.foregottPasswordResponceMdel,
       final List<Questions>? questionList})
@@ -2336,6 +2351,8 @@ class _$InitialImpl implements _Initial {
   @override
   final bool? uploaded;
   @override
+  final SuccessResponseModel? successResponseModel;
+  @override
   final UpdateUserInfoModel? userInfoChangeResponceModel;
   @override
   final ForegottPasswordResponceMdel? foregottPasswordResponceMdel;
@@ -2351,7 +2368,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, questionLoading: $questionLoading, hasError: $hasError, message: $message, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, userInfoChangeResponceModel: $userInfoChangeResponceModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, questionList: $questionList)';
+    return 'ProfileState(isLoading: $isLoading, questionLoading: $questionLoading, hasError: $hasError, message: $message, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, successResponseModel: $successResponseModel, userInfoChangeResponceModel: $userInfoChangeResponceModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, questionList: $questionList)';
   }
 
   @override
@@ -2372,6 +2389,8 @@ class _$InitialImpl implements _Initial {
                 other.imageModel == imageModel) &&
             (identical(other.uploaded, uploaded) ||
                 other.uploaded == uploaded) &&
+            (identical(other.successResponseModel, successResponseModel) ||
+                other.successResponseModel == successResponseModel) &&
             (identical(other.userInfoChangeResponceModel,
                     userInfoChangeResponceModel) ||
                 other.userInfoChangeResponceModel ==
@@ -2394,6 +2413,7 @@ class _$InitialImpl implements _Initial {
       getUserInfoModel,
       imageModel,
       uploaded,
+      successResponseModel,
       userInfoChangeResponceModel,
       foregottPasswordResponceMdel,
       const DeepCollectionEquality().hash(_questionList));
@@ -2414,6 +2434,7 @@ abstract class _Initial implements ProfileState {
       final GetUserInfoModel? getUserInfoModel,
       final ImageModel? imageModel,
       final bool? uploaded,
+      final SuccessResponseModel? successResponseModel,
       final UpdateUserInfoModel? userInfoChangeResponceModel,
       final ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
       final List<Questions>? questionList}) = _$InitialImpl;
@@ -2432,6 +2453,8 @@ abstract class _Initial implements ProfileState {
   ImageModel? get imageModel;
   @override
   bool? get uploaded;
+  @override
+  SuccessResponseModel? get successResponseModel;
   @override
   UpdateUserInfoModel? get userInfoChangeResponceModel;
   @override

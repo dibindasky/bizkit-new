@@ -72,6 +72,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<BusinessDataBloc, BusinessDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
+                        validate: Validate.notNull,
                         showDropdown: true,
                         autocompleteItems:
                             state.companiesList.map((e) => e.company!).toList(),
@@ -125,7 +126,11 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
+<<<<<<< HEAD
                         label: 'Mobile number *',
+=======
+                        label: 'Mobile Number',
+>>>>>>> modification
                         validate: Validate.phone,
                         maxLength: 10,
                         controller:
@@ -199,10 +204,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                             children: [
                               Text(
                                 'Social Media Handles',
-                                style: TextStyle(
-                                    color: state.socialMedias.isNotEmpty
-                                        ? kwhite
-                                        : klightgrey),
+                                style:
+                                    custumText(colr: klightgrey, fontSize: 17),
                               ),
                               const Icon(
                                 Icons.arrow_forward_ios_rounded,
@@ -321,14 +324,15 @@ class BusinessDetailsScreen extends StatelessWidget {
                           ),
                           padding: const EdgeInsets.only(left: 12, right: 12),
                           height: 48.0,
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Accredition Details',
-                                style: TextStyle(color: klightgrey),
+                                style:
+                                    custumText(colr: klightgrey, fontSize: 17),
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.arrow_forward_ios_rounded,
                                 size: 16,
                                 color: klightgrey,
@@ -339,7 +343,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  adjustHieght(khieght * .02),
+                  adjustHieght(khieght * .03),
                   LastSkipContinueButtons(
                     onTap: () {
                       if (businessFormKey.currentState!.validate()) {
@@ -350,7 +354,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                       }
                     },
                   ),
-                  adjustHieght(khieght * .02),
+                  adjustHieght(khieght * .04),
                 ],
               ),
             );

@@ -73,7 +73,7 @@ class MyConnectionsViewAllContacts extends StatelessWidget {
               ),
             ),
           ),
-          adjustWidth(40)
+          adjustWidth(20)
         ],
       ),
       body: Padding(

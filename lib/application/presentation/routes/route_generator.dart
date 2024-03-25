@@ -61,7 +61,7 @@ class GoRouterConfig {
       GoRoute(
         name: Routes.cardCreationProfilePage,
         path: Routes.cardCreationProfilePage,
-        builder: (context, state) => const ProfileCreationScreen(),
+        builder: (context, state) => ProfileCreationScreen(),
       ),
       GoRoute(
         name: Routes.signUpPage,

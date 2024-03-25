@@ -2,6 +2,7 @@ import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
@@ -47,45 +48,44 @@ class ReportProblemPage extends StatelessWidget {
                         maxLines: 6,
                       ),
                       adjustHieght(kwidth * .03),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          iconContainer(
-                              'asset/images/roport_problem_camera_icon.png'),
-                          adjustWidth(kwidth * .03),
-                          iconContainer(
-                              'asset/images/report_problem_gallery_icon.png'),
-                          adjustWidth(kwidth * .03),
-                          iconContainer(
-                              'asset/images/reprort_problem_file_icon.png'),
-                        ],
-                      )
                     ],
                   ),
                 ),
               ),
-              LastSkipContinueButtons(
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    final subject =
-                        context.read<ProfileBloc>().reportSubject.text;
-                    final content =
-                        context.read<ProfileBloc>().reportContent.text;
-                    ReportAProblemRequestModel reportAProblemRequestModel =
-                        ReportAProblemRequestModel(
-                            label: subject, message: content);
-                    context.read<ProfileBloc>().add(
-                          ProfileEvent.reportAProblem(
-                            reportAProblemRequestModel:
-                                reportAProblemRequestModel,
-                          ),
-                        );
+              BlocConsumer<ProfileBloc, ProfileState>(
+                listener: (context, state) {
+                  if (state.successResponseModel != null) {
+                    showSnackbar(context, message: state.message!);
                     Navigator.of(context).pop();
-                    showSnackbar(
-                      context,
-                      message: 'Problem created successfully',
-                    );
                   }
+                },
+                builder: (context, state) {
+                  return state.isLoading
+                      ? LastSkipContinueButtons(
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              final subject = context
+                                  .read<ProfileBloc>()
+                                  .reportSubject
+                                  .text;
+                              final content = context
+                                  .read<ProfileBloc>()
+                                  .reportContent
+                                  .text;
+                              ReportAProblemRequestModel
+                                  reportAProblemRequestModel =
+                                  ReportAProblemRequestModel(
+                                      label: subject, message: content);
+                              context.read<ProfileBloc>().add(
+                                    ProfileEvent.reportAProblem(
+                                      reportAProblemRequestModel:
+                                          reportAProblemRequestModel,
+                                    ),
+                                  );
+                            }
+                          },
+                        )
+                      : const LoadingAnimation();
                 },
               ),
             ],

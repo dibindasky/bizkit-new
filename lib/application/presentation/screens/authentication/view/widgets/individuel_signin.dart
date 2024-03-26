@@ -47,6 +47,7 @@ class IndividuelSignIn extends StatelessWidget {
                 text: 'Name',
                 controller: nameController,
                 validate: Validate.notNull,
+                inputType: TextInputType.text,
               ),
               TTextFormField(
                 validate: Validate.phone,
@@ -91,15 +92,15 @@ class IndividuelSignIn extends StatelessWidget {
                   inputType: TextInputType.emailAddress,
                 ),
               ),
-              TTextFormField(
-                validate: Validate.password,
-                password: passwordController,
-                text: 'Password',
-                controller: passwordController,
-                inputType: TextInputType.visiblePassword,
-                obscureText: true,
-              ),
-              //PasswordHintmaker(passwordController: passwordController),
+              // TTextFormField(
+              //   validate: Validate.password,
+              //   password: passwordController,
+              //   text: 'Password',
+              //   controller: passwordController,
+              //   inputType: TextInputType.visiblePassword,
+              //   obscureText: true,
+              // ),
+              PasswordHintmaker(passwordController: passwordController),
               TTextFormField(
                 validate: Validate.rePassword,
                 password: passwordController,
@@ -164,7 +165,7 @@ class _PasswordHintmakerState extends State<PasswordHintmaker> {
         Visibility(
           visible: showHint,
           child: Text(
-            'Password must contains 1 Uppercase, 1 Lowercase, 1 Special character, 1 number and also should contain atleast 8 characters',
+            'Password must contain 8 characters and should have 1 uppercase, 1 lowercase, 1 special character and 1 number',
             style: textStyle1.copyWith(color: kred.withOpacity(0.7)),
           ),
         ),

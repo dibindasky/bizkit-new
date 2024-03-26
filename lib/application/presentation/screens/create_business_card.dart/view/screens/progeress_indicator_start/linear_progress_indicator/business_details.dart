@@ -96,6 +96,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                           );
                         },
                         label: 'Company *',
+                        textCapitalization: TextCapitalization.words,
                         controller:
                             context.read<BusinessDataBloc>().companyController,
                       );
@@ -105,6 +106,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   TTextFormField(
                     text: 'Business Name *',
                     validate: Validate.notNull,
+                    textCapitalization: TextCapitalization.words,
                     controller:
                         context.read<BusinessDataBloc>().businessNameController,
                   ),
@@ -150,6 +152,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                         // maxlegth: 250,
                         maxLength: 250,
                         label: 'Address',
+                        textCapitalization: TextCapitalization.words,
                         controller:
                             context.read<BusinessDataBloc>().addressController,
                         autocompleteItems:
@@ -241,6 +244,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                                         adjustHieght(10),
                                         TTextFormField(
                                             text: 'Branch',
+                                            textCapitalization:
+                                                TextCapitalization.words,
                                             controller: context
                                                 .read<BusinessDataBloc>()
                                                 .branchOfficeController),
@@ -286,6 +291,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                         child: const TTextFormField(
                           enabled: false,
                           text: 'Branch Offices',
+                          textCapitalization: TextCapitalization.words,
                           suffix: Icon(Icons.keyboard_arrow_right_outlined),
                         ),
                       );

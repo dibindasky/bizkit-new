@@ -96,6 +96,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                             controller:
                                 context.read<UserDataBloc>().nameController,
                             inputType: TextInputType.text,
+                            textCapitalization: TextCapitalization.words,
                             autocompleteItems:
                                 state.scannedImageDatasModel?.names ?? [],
                           ),
@@ -158,6 +159,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                             showDropdownOnTap: true,
                             validate: Validate.notNull,
                             label: 'Designation *',
+                            textCapitalization: TextCapitalization.words,
                             controller: context
                                 .read<UserDataBloc>()
                                 .designationController,

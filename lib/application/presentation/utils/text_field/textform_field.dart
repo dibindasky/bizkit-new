@@ -36,31 +36,33 @@ class TTextFormField extends StatefulWidget {
   final FocusNode? focusNode;
   final bool showUnderline;
   final Validate validate;
+  final TextCapitalization textCapitalization;
   final bool enabled;
-  const TTextFormField({
-    Key? key,
-    this.enabled = true,
-    this.prefix,
-    this.onSubmitted,
-    this.validate = Validate.none,
-    this.password,
-    this.showUnderline = false,
-    this.clr,
-    required this.text,
-    this.su,
-    this.suffix,
-    this.controller,
-    this.inputType = TextInputType.name,
-    this.obscureText = false,
-    this.maxlegth,
-    this.height,
-    this.maxLines,
-    this.function,
-    this.onTap,
-    this.onChanaged,
-    this.focusNode,
-    this.hintText,
-  }) : super(key: key);
+  const TTextFormField(
+      {Key? key,
+      this.enabled = true,
+      this.prefix,
+      this.onSubmitted,
+      this.validate = Validate.none,
+      this.password,
+      this.showUnderline = false,
+      this.clr,
+      required this.text,
+      this.su,
+      this.suffix,
+      this.controller,
+      this.inputType = TextInputType.name,
+      this.obscureText = false,
+      this.maxlegth,
+      this.height,
+      this.maxLines,
+      this.function,
+      this.onTap,
+      this.onChanaged,
+      this.focusNode,
+      this.hintText,
+      this.textCapitalization = TextCapitalization.none})
+      : super(key: key);
 
   @override
   State<TTextFormField> createState() => _TTextFormFieldState();
@@ -101,6 +103,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
           enabled: widget.enabled,
           focusNode: widget.focusNode,
           onTap: widget.onTap,
+          textCapitalization: widget.textCapitalization,
           maxLines: widget.maxLines ?? 1,
           style: TextStyle(
             color: kwhite,
@@ -193,8 +196,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
             } else if (Validate.upi == widget.validate &&
                 !isValidUpiId(value!)) {
               return 'enter valid upi id';
-            } else if (Validate.gst == widget.validate &&
-                !isValidGst(value!)) {
+            } else if (Validate.gst == widget.validate && !isValidGst(value!)) {
               return 'enter valid gst no';
             } else if (value == 'Content' && value!.length < 20) {
               return 'Content must be at least 20 characters';

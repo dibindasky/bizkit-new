@@ -78,10 +78,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               accessToken: loginResponseModel.accessToken,
               refreshToken: loginResponseModel.refreshToken),
         );
+        SecureStorage.setHasCard(
+            hasCard: loginResponseModel.user?.hasCard ?? false);
         print(loginResponseModel.toJson());
         emit(
           state.copyWith(
-            userName: loginResponseModel.user?.name ?? '',
+            userName: loginResponseModel.user?.name ??
+                loginResponseModel.user?.companyName ??
+                '',
             isFirstLogin: loginResponseModel.user?.isLogined ?? true,
             hasCard: loginResponseModel.user?.hasCard ?? true,
             isLoading: false,
@@ -89,19 +93,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             message: loginResponseModel.message ?? 'login successfully',
           ),
         );
-        print('sqflite');
         if (loginResponseModel.user != null) {
           await userLocalService.addUser(loginResponseModel.user!);
         }
-        print('setLogin');
         await SecureStorage.setLogin(
             name: loginResponseModel.user?.name ??
                 loginResponseModel.user?.companyName ??
                 '',
             isVerified: loginResponseModel.user?.isVerified ?? false);
-        print('set role');
         await SecureStorage.setRole(
             isBusiness: loginResponseModel.user!.isBusiness!);
+        await SecureStorage.setHasReminder(
+            hasReminder: loginResponseModel.user?.hasCard ?? false);
       },
     );
   }

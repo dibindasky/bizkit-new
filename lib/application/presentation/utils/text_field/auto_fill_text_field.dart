@@ -24,10 +24,12 @@ class AutocompleteTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final List<String>? autocompleteItems;
   final Validate? validate;
+  final TextCapitalization textCapitalization;
 
   const AutocompleteTextField({
     Key? key,
     this.showDropdown = false,
+    this.textCapitalization=TextCapitalization.none,
     this.enabled = true,
     this.showDropdownOnTap = false,
     this.validate,
@@ -88,6 +90,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 }
               },
               child: TextFormField(
+                textCapitalization: widget.textCapitalization,
                 focusNode: widget.focusNode ?? myFocusNode,
                 onTap: () {
                   if (widget.enabled &&

@@ -1,5 +1,5 @@
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_screen.dart';
-import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/banking_and_presonal_screens.dart';
+import 'package:bizkit/application/presentation/screens/card_view/widgets/banking_and_personal_detail_card_view.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/achivements_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
@@ -20,7 +20,7 @@ class CardViewBankPersonAchivedRows extends StatelessWidget {
             padding: const EdgeInsets.only(left: 5, right: 7),
             child: InkWell(
               onTap: () => Navigator.of(context).push(
-                fadePageRoute(const PreviewBankOrPersnalScreen(
+                fadePageRoute(const ScreenPreviewBankOrPersnalCArdView(
                   isFromBankScreen: true,
                 )),
               ),
@@ -33,7 +33,7 @@ class CardViewBankPersonAchivedRows extends StatelessWidget {
             padding: const EdgeInsets.only(left: 5, right: 7),
             child: InkWell(
               onTap: () => Navigator.of(context).push(fadePageRoute(
-                const PreviewBankOrPersnalScreen(
+                const ScreenPreviewBankOrPersnalCArdView(
                   isFromBankScreen: false,
                 ),
               )),
@@ -46,7 +46,7 @@ class CardViewBankPersonAchivedRows extends StatelessWidget {
             padding: const EdgeInsets.only(left: 5, right: 7),
             child: InkWell(
               onTap: () => Navigator.of(context).push(
-                fadePageRoute(const AccolodesScreen(accolade: null)),
+                fadePageRoute(const AchivementsScreen(isPreview: false)),
               ),
               child: containerStyle(iconAchivementsMedal, 'Achieved'),
             ),

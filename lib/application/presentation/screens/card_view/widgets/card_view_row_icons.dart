@@ -1,6 +1,7 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_vice_accounts_bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
@@ -33,6 +34,10 @@ class CardViewRowWiceIcons extends StatelessWidget {
                 }
                 showModalBottomSheet(
                   context: context,
+                  enableDrag: true,
+                  isDismissible: true,
+                  showDragHandle: true,
+                  backgroundColor: kblack,
                   builder: (context) => PreviewScreenRowIconsModelSheet(
                     fromPreview: false,
                     image: imagePhone,
@@ -58,6 +63,10 @@ class CardViewRowWiceIcons extends StatelessWidget {
                 }
                 showModalBottomSheet(
                   context: context,
+                  enableDrag: true,
+                  isDismissible: true,
+                  showDragHandle: true,
+                  backgroundColor: kblack,
                   builder: (context) => PreviewScreenRowIconsModelSheet(
                     fromPreview: false,
                     image: imagePhone,
@@ -83,6 +92,10 @@ class CardViewRowWiceIcons extends StatelessWidget {
             DetailSharingIconWidget(
               onTap: () => showModalBottomSheet(
                 context: context,
+                enableDrag: true,
+                isDismissible: true,
+                showDragHandle: true,
+                backgroundColor: kblack,
                 builder: (context) {
                   List personal = [], business = [];
                   return AccountsListsBottomSheet(

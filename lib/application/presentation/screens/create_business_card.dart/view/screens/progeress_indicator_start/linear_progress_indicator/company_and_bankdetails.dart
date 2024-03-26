@@ -39,8 +39,9 @@ class CompanyAndBankingDetails extends StatelessWidget {
               adjustHieght(khieght * .02),
               // company banking name
               TTextFormField(
-                text: 'company banking name',
+                text: 'Company Banking Name',
                 validate: Validate.notNull,
+                textCapitalization: TextCapitalization.words,
                 controller:
                     context.read<BusinessDataBloc>().nameOfCompanyController,
               ),
@@ -57,6 +58,7 @@ class CompanyAndBankingDetails extends StatelessWidget {
               TTextFormField(
                 text: 'IFSC',
                 maxlegth: 11,
+                textCapitalization: TextCapitalization.characters,
                 validate: Validate.ifsc,
                 inputType: TextInputType.name,
                 controller: context.read<BusinessDataBloc>().ifscController,
@@ -98,6 +100,32 @@ class CompanyAndBankingDetails extends StatelessWidget {
                     return const LoadingAnimation();
                   }
                   return LastSkipContinueButtons(
+                    onSkipTap: state.isBusiness
+                        ? null
+                        : () {
+                            context
+                                .read<BusinessDataBloc>()
+                                .nameOfCompanyController
+                                .text = '';
+                            context
+                                .read<BusinessDataBloc>()
+                                .accountNumberController
+                                .text = '';
+                            context
+                                .read<BusinessDataBloc>()
+                                .ifscController
+                                .text = '';
+                            context
+                                .read<BusinessDataBloc>()
+                                .upiDetailController
+                                .text = '';
+                            context
+                                .read<BusinessDataBloc>()
+                                .gstNumberController
+                                .text = '';
+                            context.read<BusinessDataBloc>().add(
+                                const BusinessDataEvent.createBankingData());
+                          },
                     onTap: () {
                       if (context
                                   .read<BusinessDataBloc>()

@@ -146,37 +146,49 @@ class _LogoStoryState extends State<LogoStory> {
               controller: context.read<BusinessDataBloc>().logoStoryController,
               maxLines: 10,
               text: 'logoStory',
+              textCapitalization: TextCapitalization.sentences,
               hintText:
                   "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
             ),
             adjustHieght(khieght * .04),
             BlocBuilder<BusinessDataBloc, BusinessDataState>(
               builder: (context, state) {
-                return LastSkipContinueButtons(onTap: () {
-                  if (state.isBusiness) {
-                    if (state.logo == null) {
-                      showSnackbar(context, message: 'add logo to continue');
-                    } else if (context
-                            .read<BusinessDataBloc>()
-                            .logoStoryController
-                            .text ==
-                        '') {
-                      showSnackbar(context, message: 'enter logo story ');
-                    } else {
-                      widget.pageController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.ease,
-                      );
-                    }
-                  } else {
-                    widget.pageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.ease,
-                    );
-                  }
-                });
+                return LastSkipContinueButtons(
+                    onSkipTap: state.isBusiness
+                        ? null
+                        : () {
+                            widget.pageController.nextPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.ease,
+                            );
+                          },
+                    onTap: () {
+                      if (state.isBusiness) {
+                        if (state.logo == null) {
+                          showSnackbar(context,
+                              message: 'add logo to continue');
+                        } else if (context
+                                .read<BusinessDataBloc>()
+                                .logoStoryController
+                                .text ==
+                            '') {
+                          showSnackbar(context, message: 'enter logo story ');
+                        } else {
+                          widget.pageController.nextPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.ease,
+                          );
+                        }
+                      } else {
+                        widget.pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.ease,
+                        );
+                      }
+                    });
               },
             ),
+            adjustHieght(khieght * .1),
           ],
         ),
       ),

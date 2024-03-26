@@ -50,9 +50,10 @@ class PersonlDetails extends StatelessWidget {
                     autocompleteItems:
                         state.scannedImageDatasModel?.unknown ?? [],
                     showDropdownOnTap: true,
-                    validate: Validate.notNull,
+                    validate: Validate.none,
                     maxLines: 2,
-                    label: 'Home address *',
+                    label: 'Home address',
+                    textCapitalization: TextCapitalization.words,
                     maxLength: 250,
                     controller: context.read<UserDataBloc>().homeAddress,
                     inputType: TextInputType.name,

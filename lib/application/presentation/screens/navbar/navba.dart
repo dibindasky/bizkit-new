@@ -1,3 +1,5 @@
+import 'package:bizkit/application/business_logic/promt/promt_bloc.dart';
+import 'package:bizkit/application/presentation/screens/navbar/widgets/prompt.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/screen/card_screen_main.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
@@ -6,6 +8,7 @@ import 'package:bizkit/application/presentation/screens/selfie_card/selfie_scree
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BizkitBottomNavigationBar extends StatefulWidget {
   const BizkitBottomNavigationBar({super.key});
@@ -28,6 +31,12 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    context.read<PromtBloc>().add(const PromtEvent.checkPrompt());
+    super.initState();
   }
 
   @override
@@ -118,7 +127,12 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
         }
       },
       child: Scaffold(
-        body: _widgetOptions.elementAt(_selectedIndex),
+        body: Stack(
+          children: [
+            _widgetOptions.elementAt(_selectedIndex),
+            const PromptHomePage()
+          ],
+        ),
         bottomNavigationBar: Material(
           elevation: 5,
           shadowColor: kblack,

@@ -1,5 +1,4 @@
-import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
-import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/commen_banking_personal_tiles.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
@@ -7,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class PreviewBankOrPersnalScreen extends StatelessWidget {
-  const PreviewBankOrPersnalScreen({
+class ScreenPreviewBankOrPersnalCArdView extends StatelessWidget {
+  const ScreenPreviewBankOrPersnalCArdView({
     super.key,
     required this.isFromBankScreen,
   });
@@ -41,76 +40,80 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
           child: Column(
             children: !isFromBankScreen
                 ? [
-                    BlocBuilder<UserDataBloc, UserDataState>(
+                    BlocBuilder<CardBloc, CardState>(
                       builder: (context, state) {
-                        if (state.personalData?.bloodGroup == null) {
+                        if (state.anotherCard?.personalDetails?.bloodGroup ==
+                            null) {
                           return Image.asset(emptyNodata3);
                         }
                         return CommenbankingPersnalTiles(
                           first: 'Blood Group',
-                          second: state.personalData!.bloodGroup ?? '',
+                          second:
+                              state.anotherCard!.personalDetails!.bloodGroup ??
+                                  '',
                         );
                       },
                     ),
                   ]
                 : [
-                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                    BlocBuilder<CardBloc, CardState>(
                       builder: (context, state) {
-                        if (state.businessData?.bankDetails?.accountNumber ==
+                        if (state.anotherCard?.businessDetails?.bankDetails
+                                ?.accountNumber ==
                             null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'Account Number',
-                          second:
-                              state.businessData?.bankDetails?.accountNumber ??
-                                  '',
+                          second: state.anotherCard?.businessDetails
+                                  ?.bankDetails?.accountNumber ??
+                              '',
                         );
                       },
                     ),
-                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                    BlocBuilder<CardBloc, CardState>(
                       builder: (context, state) {
-                        if (state.businessData?.bankDetails?.ifscCode == null) {
+                        if (state.anotherCard?.businessDetails?.bankDetails
+                                ?.ifscCode ==
+                            null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'IFSC',
-                          second:
-                              state.businessData?.bankDetails?.ifscCode ?? '',
+                          second: state.anotherCard?.businessDetails
+                                  ?.bankDetails?.ifscCode ??
+                              '',
                         );
                       },
                     ),
-                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                    BlocBuilder<CardBloc, CardState>(
                       builder: (context, state) {
-                        if (state.businessData?.bankDetails
+                        if (state.anotherCard?.businessDetails?.bankDetails
                                 ?.gstMembershipDetails ==
                             null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'GST ',
-                          second: state.businessData?.bankDetails
-                                  ?.gstMembershipDetails ??
+                          second: state.anotherCard?.businessDetails
+                                  ?.bankDetails?.gstMembershipDetails ??
                               '',
                         );
                       },
                     ),
-                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
-                      builder: (context, state) {
-                        if (state.businessData?.bankDetails
-                                    ?.gstMembershipDetails ==
-                                null &&
-                            state.businessData?.bankDetails?.accountNumber ==
-                                null &&
-                            state.businessData?.bankDetails?.ifscCode == null) {
-                          return Padding(
-                              padding: const EdgeInsets.only(top: 60),
-                              child: Image.asset(emptyNodata3));
-                        } else {
-                          return const SizedBox();
-                        }
-                      },
-                    ),
+                    BlocBuilder<CardBloc, CardState>(builder: (context,state){
+                      if(state.anotherCard?.businessDetails?.bankDetails
+                                ?.accountNumber ==
+                            null && state.anotherCard?.businessDetails?.bankDetails
+                                ?.ifscCode ==
+                            null && state.anotherCard?.businessDetails?.bankDetails
+                                ?.gstMembershipDetails ==
+                            null){
+                              return Image.asset(emptyNodata3);
+                            }else{
+                              return const SizedBox();
+                            }
+                    })
                   ],
           ),
         ),

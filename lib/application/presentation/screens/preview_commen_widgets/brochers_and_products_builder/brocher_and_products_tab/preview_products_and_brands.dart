@@ -33,7 +33,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Brochers and Products'),
+                const Text('Brochures and Products'),
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(
                     fadePageRoute(

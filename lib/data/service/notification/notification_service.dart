@@ -22,12 +22,13 @@ class NotificationService implements NotificationRepo {
       final responce = await _apiService.get(
         ApiEndPoints.notification,
       );
+      log('getNotification  ${responce.data}');
       return Right(NotificationModel.fromJson(responce.data));
     } on DioException catch (e) {
-      log('resetPassword DioException ${e.response?.statusCode} $e');
+      log('getNotification DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
-      log('resetPassword catch $e');
+      log('getNotification catch $e');
       return Left(Failure(message: errorMessage));
     }
   }

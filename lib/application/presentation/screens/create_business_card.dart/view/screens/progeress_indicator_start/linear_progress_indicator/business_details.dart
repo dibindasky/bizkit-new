@@ -126,11 +126,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
-<<<<<<< HEAD
-                        label: 'Mobile number *',
-=======
                         label: 'Mobile Number',
->>>>>>> modification
                         validate: Validate.phone,
                         maxLength: 10,
                         controller:

@@ -103,11 +103,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                           AutocompleteTextField(
                             validate: Validate.phone,
                             maxLength: 10,
-<<<<<<< HEAD
-                            label: 'Phone number *',
-=======
                             label: 'Phone Number',
->>>>>>> modification
                             controller:
                                 context.read<UserDataBloc>().phoneController,
                             inputType: TextInputType.phone,
@@ -126,20 +122,6 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                           ),
                           // business category
                           AutocompleteTextField(
-<<<<<<< HEAD
-                              onTap: () =>
-                                  FocusManager.instance.primaryFocus?.unfocus(),
-                              enabled: false,
-                              validate: Validate.notNull,
-                              label: 'BusinessCategory *',
-                              controller: context
-                                  .read<UserDataBloc>()
-                                  .businessCategoryController,
-                              inputType: TextInputType.name,
-                              autocompleteItems: state.businessCategories
-                                  .map((e) => e.category!)
-                                  .toList()),
-=======
                             onTap: () =>
                                 FocusManager.instance.primaryFocus?.unfocus(),
                             enabled: false,
@@ -153,7 +135,6 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                                 .map((e) => e.category!)
                                 .toList(),
                           ),
->>>>>>> modification
                           AutocompleteTextField(
                             showDropdownOnTap: true,
                             validate: Validate.notNull,

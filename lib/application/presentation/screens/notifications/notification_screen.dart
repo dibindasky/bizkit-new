@@ -1,9 +1,7 @@
+import 'dart:developer';
 import 'package:bizkit/application/business_logic/notification/notification_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
-import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
-import 'package:bizkit/application/presentation/widgets/refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,9 +30,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<NotificationBloc>()
-        .add(const NotificationEvent.getNotification());
+
     if (widget.scrollController != null) {
       widget.scrollController!.addListener(() {
         widget.scrollController!.animateTo(.1,
@@ -55,6 +51,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) => context
+          .read<NotificationBloc>()
+          .add(const NotificationEvent.getNotification()),
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notifications'),
@@ -74,12 +75,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       seprator: const SizedBox(height: 10),
                     );
                   } else if (state.notification == null) {
-                    return RefreshIndicatorCustom(
-                      message: errorMessage,
-                      onRefresh: () => context
-                          .read<NotificationBloc>()
-                          .add(const NotificationEvent.getNotificationEvent()),
-                    );
+                    return Center();
+                    // RefreshIndicatorCustom(
+                    //   message: errorMessage,
+                    //   onRefresh: () => context
+                    //       .read<NotificationBloc>()
+                    //       .add(const NotificationEvent.getNotificationEvent()),
+                    // );
                   } else if (state.notification!.isEmpty) {
                     return SizedBox(
                       height: khieght,
@@ -95,14 +97,34 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     separatorBuilder: (context, index) {
                       return adjustHieght(10);
                     },
-                    itemCount: (state.notification?.length ?? 0) +
-                        (state.notificationLoading ? 1 : 0),
+                    itemCount: state.notification!.length,
+                    //  (state.notification?.length ?? 0) +
+                    //     (state.notificationLoading ? 1 : 0),
                     itemBuilder: (context, index) {
+                      DateTime currentDateTime = DateTime.now();
+                      String dateTimeString = '2024-03-26T15:30:00';
+
+                      log('Noti length ${state.notification!.length}');
                       final notification = state.notification![index];
-                      if (state.notificationLoading &&
-                          index == state.notification!.length) {
-                        return const LoadingAnimation();
-                      }
+                      // Split the time string to get hours, minutes, seconds, and microseconds
+                      List<String> parts = notification.scheduledAt!.split(':');
+                      int hours = int.parse(parts[0]);
+                      int minutes = int.parse(parts[1]);
+                      List<String> secondsAndMicroseconds = parts[2].split('.');
+                      int seconds = int.parse(secondsAndMicroseconds[0]);
+                      int microseconds = int.parse(secondsAndMicroseconds[1]
+                          .padRight(6,
+                              '0')); // Pad with zeroes if microseconds are missing
+                      DateTime now = DateTime.now();
+                      DateTime dateTime = DateTime(now.year, now.month, now.day,
+                          hours, minutes, seconds, microseconds);
+                      // final date =
+                      //     calculateDaysBefore(dateTime, dateTimeString);
+
+                      // if (state.notificationLoading &&
+                      //     index == state.notification!.length) {
+                      //   return const LoadingAnimation();
+                      // }
                       return Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
@@ -126,7 +148,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       fontSize: kwidth * .038),
                                 ),
                                 const Spacer(),
-                                const Text('25 M ago'),
+                                Text(
+                                  notification.scheduledAt!,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ],
                             ),
                             Text(
@@ -158,4 +183,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
     );
   }
+}
+
+int calculateDaysBefore(DateTime currentDateTime, String notificationDate) {
+  // Calculate the difference in days
+  DateTime time = DateTime.parse(notificationDate);
+  Duration difference = time.difference(time);
+  return difference.inDays;
 }

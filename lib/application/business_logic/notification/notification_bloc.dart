@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bizkit/domain/model/notification/notification_model/notification.dart';
 import 'package:bizkit/domain/repository/service/notification.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,10 +26,12 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
               state.copyWith(
                   notificationLoading: false, hasError: true, message: null),
             ), (r) {
+      List<Notification> noti = List.from(state.notification ?? []);
+
       emit(state.copyWith(
         notificationLoading: false,
         hasError: false,
-        notification: [...state.notification!, ...r.notification!],
+        notification: [...noti, ...r.notification!],
       ));
     });
   }
@@ -37,13 +40,18 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     emit(state.copyWith(
         notificationLoading: true, hasError: false, message: null));
     final data = await notificationRepo.getNotification();
+    log('getNotification bloc ${data.toString()}');
     data.fold(
         (l) => emit(state.copyWith(
             notificationLoading: false, hasError: true, message: null)), (r) {
+      List<Notification> noti = [];
+      noti.clear();
+      noti.addAll(r.notification!);
+
       emit(state.copyWith(
         notificationLoading: false,
         hasError: false,
-        notification: r.notification,
+        notification: noti,
       ));
     });
   }

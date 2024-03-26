@@ -129,7 +129,8 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                         card.logo == null
                                                     ? Image.network(
                                                         imageDummyNetwork,
-                                                        fit: BoxFit.cover)
+                                                        fit: BoxFit.cover,
+                                                      )
                                                     : Image.network(
                                                         card.logo!,
                                                         fit: BoxFit.cover,
@@ -137,6 +138,23 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                           ),
                                         ),
                                       ),
+                                      if (state.cards[index].isDefault!)
+                                        const Positioned(
+                                          right: 10,
+                                          bottom: 0,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(6)),
+                                            child: ColoredBox(
+                                                color: neonShade,
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 2),
+                                                  child: Text('Default'),
+                                                )),
+                                          ),
+                                        ),
                                       Positioned(
                                         right: 0,
                                         top: 10,
@@ -150,65 +168,79 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             if (value == 'Add Tag') {}
                                             print('Selected: $value');
                                           },
-                                          itemBuilder: (context) => [
-                                            const PopupMenuItem(
-                                              value: 'Edit Card',
-                                              child: Text('Edit Card'),
-                                            ),
-                                            PopupMenuItem(
-                                              onTap: () => context
-                                                  .read<CardBloc>()
-                                                  .add(CardEvent.setDefault(
-                                                      id: card.id!)),
-                                              value: 'Default',
-                                              child:
-                                                  const Text('Set as default'),
-                                            ),
-                                            PopupMenuItem(
-                                              onTap: () =>
-                                                  showConfirmationDialog(
-                                                actionButton: 'Archive',
-                                                heading:
-                                                    'Are you want to archieve your card',
-                                                context,
-                                                onPressed: () {
-                                                  CardActionRewuestModel
-                                                      cardActionRewuestModel =
-                                                      CardActionRewuestModel(
-                                                    isArchived: true,
-                                                  );
-                                                  context.read<CardBloc>().add(
-                                                      CardEvent.cardAction(
-                                                          cardActionRewuestModel:
-                                                              cardActionRewuestModel,
-                                                          id: card.id!));
-                                                },
+                                          itemBuilder: (context) {
+                                            List<PopupMenuEntry<String>> items =
+                                                [
+                                              const PopupMenuItem(
+                                                value: 'Edit Card',
+                                                child: Text('Edit Card'),
                                               ),
-                                              value: 'Archive',
-                                              child: const Text('Archive'),
-                                            ),
-                                            PopupMenuItem(
-                                              onTap: () =>
-                                                  showConfirmationDialog(
-                                                heading:
-                                                    'Are you want to Delete your card',
-                                                context,
-                                                onPressed: () {
-                                                  CardActionRewuestModel
-                                                      cardActionRewuestModel =
-                                                      CardActionRewuestModel(
-                                                          isActive: false);
-                                                  context.read<CardBloc>().add(
-                                                      CardEvent.cardAction(
-                                                          cardActionRewuestModel:
-                                                              cardActionRewuestModel,
-                                                          id: card.id!));
-                                                },
+                                            ];
+                                            if (!state
+                                                .cards[index].isDefault!) {
+                                              items.add(
+                                                PopupMenuItem(
+                                                  onTap: () => context
+                                                      .read<CardBloc>()
+                                                      .add(CardEvent.setDefault(
+                                                          id: card.id!)),
+                                                  value: 'Default',
+                                                  child: const Text(
+                                                      'Set as default'),
+                                                ),
+                                              );
+                                            }
+
+                                            // Add other menu items
+                                            items.addAll([
+                                              PopupMenuItem(
+                                                onTap: () =>
+                                                    showConfirmationDialog(
+                                                  actionButton: 'Archive',
+                                                  heading:
+                                                      'Are you sure you want to archive your card',
+                                                  context,
+                                                  onPressed: () {
+                                                    CardActionRewuestModel
+                                                        cardActionRewuestModel =
+                                                        CardActionRewuestModel(
+                                                            isArchived: true);
+                                                    context.read<CardBloc>().add(
+                                                        CardEvent.cardAction(
+                                                            cardActionRewuestModel:
+                                                                cardActionRewuestModel,
+                                                            id: card.id!));
+                                                  },
+                                                ),
+                                                value: 'Archive',
+                                                child: const Text('Archive'),
                                               ),
-                                              value: 'Delete Card',
-                                              child: const Text('Delete Card'),
-                                            ),
-                                          ],
+                                              PopupMenuItem(
+                                                onTap: () =>
+                                                    showConfirmationDialog(
+                                                  heading:
+                                                      'Are you sure you want to delete your card',
+                                                  context,
+                                                  onPressed: () {
+                                                    CardActionRewuestModel
+                                                        cardActionRewuestModel =
+                                                        CardActionRewuestModel(
+                                                            isActive: false);
+                                                    context.read<CardBloc>().add(
+                                                        CardEvent.cardAction(
+                                                            cardActionRewuestModel:
+                                                                cardActionRewuestModel,
+                                                            id: card.id!));
+                                                  },
+                                                ),
+                                                value: 'Delete Card',
+                                                child:
+                                                    const Text('Delete Card'),
+                                              ),
+                                            ]);
+
+                                            return items;
+                                          },
                                         ),
                                       ),
                                     ],

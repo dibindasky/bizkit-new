@@ -27,122 +27,6 @@ class CompanyAndBankingDetails extends StatelessWidget {
             focusScope.unfocus();
           }
         },
-<<<<<<< HEAD
-        child: Form(
-          key: bankingCardCreationKey,
-          child: ListView(
-            children: [
-              adjustHieght(khieght * .04),
-              const Text(
-                'Banking Details',
-                style: TextStyle(fontSize: 20),
-              ),
-              adjustHieght(khieght * .02),
-              // company banking name
-              TTextFormField(
-                text: 'company banking name',
-                validate: Validate.notNull,
-                controller:
-                    context.read<BusinessDataBloc>().nameOfCompanyController,
-              ),
-              // banking details accound number
-              TTextFormField(
-                text: 'Account Number',
-                validate: Validate.notNull,
-                inputType: TextInputType.number,
-                maxlegth: 16,
-                controller:
-                    context.read<BusinessDataBloc>().accountNumberController,
-              ),
-              // banking details accound number
-              TTextFormField(
-                text: 'IFSC',
-                maxlegth: 11,
-                validate: Validate.ifsc,
-                inputType: TextInputType.name,
-                controller: context.read<BusinessDataBloc>().ifscController,
-              ),
-              // upi details
-              TTextFormField(
-                text: 'UPI ID',
-                validate: Validate.upi,
-                controller:
-                    context.read<BusinessDataBloc>().upiDetailController,
-              ),
-              // gst number
-              TTextFormField(
-                text: 'GST Number',
-                validate: Validate.gst,
-                maxlegth: 15,
-                controller:
-                    context.read<BusinessDataBloc>().gstNumberController,
-              ),
-              adjustHieght(khieght * .05),
-              BlocConsumer<BusinessDataBloc, BusinessDataState>(
-                listenWhen: (previous, current) =>
-                    previous.businessData != current.businessData,
-                listener: (context, state) {
-                  if (state.message != null && state.hasError) {
-                    showSnackbar(context,
-                        message: state.message!, backgroundColor: kred);
-                  }
-                  if (state.businessData != null) {
-                    Navigator.push(
-                        context,
-                        fadePageRoute(
-                            const BusinessCardCreationPreviewScreen()));
-                    // GoRouter.of(context).pushReplacementNamed(Routes.cardCreationPreview);
-                  }
-                },
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return const LoadingAnimation();
-                  }
-                  return LastSkipContinueButtons(
-                    onTap: () {
-                      if (context
-                                  .read<BusinessDataBloc>()
-                                  .nameOfCompanyController
-                                  .text !=
-                              '' ||
-                          context
-                                  .read<BusinessDataBloc>()
-                                  .accountNumberController
-                                  .text !=
-                              '' ||
-                          context
-                                  .read<BusinessDataBloc>()
-                                  .ifscController
-                                  .text !=
-                              '' ||
-                          context
-                                  .read<BusinessDataBloc>()
-                                  .upiDetailController
-                                  .text !=
-                              '' ||
-                          context
-                                  .read<BusinessDataBloc>()
-                                  .gstNumberController
-                                  .text !=
-                              '') {
-                        if (bankingCardCreationKey.currentState!.validate()) {
-                          context
-                              .read<BusinessDataBloc>()
-                              .add(const BusinessDataEvent.createBankingData());
-                        }
-                      } else {
-                        context
-                            .read<BusinessDataBloc>()
-                            .add(const BusinessDataEvent.createBankingData());
-                      }
-                    },
-                  );
-                },
-              ),
-              adjustHieght(khieght * .02),
-            ],
-          ),
-=======
         child: ListView(
           children: [
             adjustHieght(khieght * .04),
@@ -212,7 +96,6 @@ class CompanyAndBankingDetails extends StatelessWidget {
             ),
             adjustHieght(khieght * .02),
           ],
->>>>>>> modification
         ),
       ),
     );

@@ -247,16 +247,19 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                   ),
                                   adjustHieght(khieght * .02),
                                   Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
-                                      adjustWidth(kwidth * .02),
-                                      Text(
-                                        '${state.cards[index].name ?? ''}\n${state.cards[index].designation}',
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w700,
+                                      Expanded(
+                                        child: Text(
+                                          '${state.cards[index].name ?? ''}\n${state.cards[index].designation}',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                         ),
                                       ),
-                                      const Spacer(),
                                       InkWell(
                                         onTap: () => bottomSheet(context, card),
                                         child: Container(
@@ -273,7 +276,6 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                           ),
                                         ),
                                       ),
-                                      adjustWidth(kwidth * .02)
                                     ],
                                   ),
                                   adjustHieght(khieght * .02),

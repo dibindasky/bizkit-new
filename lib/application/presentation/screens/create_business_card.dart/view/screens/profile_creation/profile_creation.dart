@@ -127,7 +127,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                                   FocusManager.instance.primaryFocus?.unfocus(),
                               enabled: false,
                               validate: Validate.notNull,
-                              label: 'BusinessCategory *',
+                              label: 'Business Category *',
                               controller: context
                                   .read<UserDataBloc>()
                                   .businessCategoryController,

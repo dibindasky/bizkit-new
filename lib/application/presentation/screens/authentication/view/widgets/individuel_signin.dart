@@ -46,7 +46,7 @@ class IndividuelSignIn extends StatelessWidget {
               TTextFormField(
                 text: 'Name',
                 controller: nameController,
-                validate: Validate.notNull,
+                validate: Validate.notNull,textCapitalization: TextCapitalization.words,
                 inputType: TextInputType.text,
               ),
               TTextFormField(

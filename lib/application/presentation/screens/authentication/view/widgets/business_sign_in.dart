@@ -49,7 +49,7 @@ class BusinessSignIn extends StatelessWidget {
               adjustHieght(khieght * .04),
               TTextFormField(
                 validate: Validate.notNull,
-                text: 'Company Name',
+                text: 'Company Name',textCapitalization: TextCapitalization.words,
                 controller: companynameController,
               ),
               TTextFormField(
@@ -94,7 +94,7 @@ class BusinessSignIn extends StatelessWidget {
               ),
               TTextFormField(
                 text: 'Address',
-                controller: addressController,
+                controller: addressController,textCapitalization: TextCapitalization.words,
                 validate: Validate.notNull,
               ),
               PasswordHintmakers(passwordController: passwordController),

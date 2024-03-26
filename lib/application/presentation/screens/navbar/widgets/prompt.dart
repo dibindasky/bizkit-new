@@ -8,14 +8,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PromptHomePage extends StatelessWidget {
   const PromptHomePage({
-    super.key,
+    super.key, required this.showPrompt,
   });
+  final bool showPrompt;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PromtBloc, PromtState>(
       builder: (context, state) {
-        if (state.show) {
+        if (state.show && showPrompt) {
           return Align(
             alignment: Alignment.bottomCenter,
             child: Stack(
@@ -61,7 +62,7 @@ class PromptHomePage extends StatelessWidget {
                                     const PromtEvent.closePrompt(),
                                   );
                             },
-                            child: const Text('Go'),
+                            child: const FittedBox(child: Text('Go')),
                           ),
                         ),
                         adjustWidth(10),

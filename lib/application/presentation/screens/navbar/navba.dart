@@ -130,7 +130,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
         body: Stack(
           children: [
             _widgetOptions.elementAt(_selectedIndex),
-            const PromptHomePage()
+            PromptHomePage(showPrompt: _selectedIndex == 0)
           ],
         ),
         bottomNavigationBar: Material(

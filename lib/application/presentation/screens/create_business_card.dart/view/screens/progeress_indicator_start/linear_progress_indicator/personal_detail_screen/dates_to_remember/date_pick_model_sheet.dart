@@ -2,16 +2,17 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class DatePickingBottomSheet extends StatelessWidget {
-  const DatePickingBottomSheet({
-    super.key,
-    required this.datePicker,
-    required this.onPressed,
-    this.year = 0,
-  });
+  const DatePickingBottomSheet(
+      {super.key,
+      required this.datePicker,
+      required this.onPressed,
+      this.year = 0,
+      this.last = 0});
 
   final TextEditingController datePicker;
   final void Function(String) onPressed;
   final int year;
+  final int last;
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +43,15 @@ class DatePickingBottomSheet extends StatelessWidget {
               CalendarDatePicker(
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now().subtract(Duration(days: year * 365)),
-                lastDate: year == 0
+                lastDate: last != 0
                     ? DateTime.now().add(
-                        const Duration(days: 365 * 100),
+                        Duration(days: 365 * last),
                       )
-                    : DateTime.now(),
+                    : year == 0
+                        ? DateTime.now().add(
+                            const Duration(days: 365 * 100),
+                          )
+                        : DateTime.now(),
                 onDateChanged: (date) {
                   int year = date.year;
                   int month = date.month;

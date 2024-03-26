@@ -11,6 +11,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -32,11 +33,13 @@ class SecondScreenPageViewContents extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 20),
-            Text(
-              'Meeting With \n${reminder?.name ?? 'Bizkit connection'}',
-              style: TextStyle(
-                fontSize: kwidth * .047,
-                fontWeight: FontWeight.w700,
+            Expanded(
+              child: Text(
+                reminder?.meetingLabel??'',
+                style: TextStyle(
+                  fontSize: kwidth * .047,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ],
@@ -53,6 +56,10 @@ class SecondScreenPageViewContents extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      'Name :',
+                      style: TextStyle(fontSize: kwidth * 0.03),
+                    ),
+                    Text(
                       'Venue :',
                       style: TextStyle(fontSize: kwidth * 0.03),
                     ),
@@ -66,32 +73,42 @@ class SecondScreenPageViewContents extends StatelessWidget {
                     ),
                   ],
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      reminder?.venue ?? '',
-                      style: TextStyle(
-                        fontSize: kwidth * 0.03,
-                        fontWeight: FontWeight.w700,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        reminder?.name ?? '',overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: kwidth * 0.03,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    Text(
-                      DateTimeFormater.formatDateTime(
-                          reminder?.date ?? '', reminder?.time ?? ''),
-                      style: TextStyle(
-                        fontSize: kwidth * 0.03,
-                        fontWeight: FontWeight.w700,
+                      Text(
+                        reminder?.venue ?? '',overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: kwidth * 0.03,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    Text(
-                      reminder?.occation ?? '',
-                      style: TextStyle(
-                        fontSize: kwidth * 0.03,
-                        fontWeight: FontWeight.w700,
+                      Text(
+                        DateTimeFormater.formatDateTime(
+                            reminder?.date ?? '', reminder?.time ?? ''),overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: kwidth * 0.03,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                  ],
+                      Text(
+                        reminder?.occation ?? '',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: kwidth * 0.03,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

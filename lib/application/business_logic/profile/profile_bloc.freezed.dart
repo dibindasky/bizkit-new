@@ -34,7 +34,7 @@ mixin _$ProfileEvent {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) =>
       throw _privateConstructorUsedError;
@@ -52,7 +52,7 @@ mixin _$ProfileEvent {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) =>
       throw _privateConstructorUsedError;
@@ -70,7 +70,7 @@ mixin _$ProfileEvent {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) =>
@@ -219,7 +219,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) {
     return pickImageScanning(camera);
@@ -240,7 +240,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) {
     return pickImageScanning?.call(camera);
@@ -261,7 +261,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) {
@@ -417,7 +417,7 @@ class _$GetProfileImpl implements GetProfile {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) {
     return getProfile(isLoad);
@@ -438,7 +438,7 @@ class _$GetProfileImpl implements GetProfile {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) {
     return getProfile?.call(isLoad);
@@ -459,7 +459,7 @@ class _$GetProfileImpl implements GetProfile {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) {
@@ -617,7 +617,7 @@ class _$EditProfileImpl implements EditProfile {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) {
     return editProfile(userInfoChangeRequestModel);
@@ -638,7 +638,7 @@ class _$EditProfileImpl implements EditProfile {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) {
     return editProfile?.call(userInfoChangeRequestModel);
@@ -659,7 +659,7 @@ class _$EditProfileImpl implements EditProfile {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) {
@@ -790,7 +790,7 @@ class _$DeleteProfileImpl implements DeleteProfile {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) {
     return deleteProfile();
@@ -811,7 +811,7 @@ class _$DeleteProfileImpl implements DeleteProfile {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) {
     return deleteProfile?.call();
@@ -832,7 +832,7 @@ class _$DeleteProfileImpl implements DeleteProfile {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) {
@@ -986,7 +986,7 @@ class _$UserInfoChangeImpl implements UserInfoChange {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) {
     return userInfoChange(userNameChanginRequestModel);
@@ -1007,7 +1007,7 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) {
     return userInfoChange?.call(userNameChanginRequestModel);
@@ -1028,7 +1028,7 @@ class _$UserInfoChangeImpl implements UserInfoChange {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) {
@@ -1188,7 +1188,7 @@ class _$ResetPasswodImpl implements ResetPasswod {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) {
     return resetPasswod(forgottPasswordRequestModel);
@@ -1209,7 +1209,7 @@ class _$ResetPasswodImpl implements ResetPasswod {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) {
     return resetPasswod?.call(forgottPasswordRequestModel);
@@ -1230,7 +1230,7 @@ class _$ResetPasswodImpl implements ResetPasswod {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) {
@@ -1391,7 +1391,7 @@ class _$ReportAProblemImpl implements ReportAProblem {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) {
     return reportAProblem(reportAProblemRequestModel);
@@ -1412,7 +1412,7 @@ class _$ReportAProblemImpl implements ReportAProblem {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) {
     return reportAProblem?.call(reportAProblemRequestModel);
@@ -1433,7 +1433,7 @@ class _$ReportAProblemImpl implements ReportAProblem {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) {
@@ -1591,7 +1591,7 @@ class _$GetQuestionsImpl implements GetQuestions {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) {
     return getQuestions(serachQuery);
@@ -1612,7 +1612,7 @@ class _$GetQuestionsImpl implements GetQuestions {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) {
     return getQuestions?.call(serachQuery);
@@ -1633,7 +1633,7 @@ class _$GetQuestionsImpl implements GetQuestions {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) {
@@ -1714,8 +1714,6 @@ abstract class _$$GetQuestionEventImplCopyWith<$Res> {
   factory _$$GetQuestionEventImplCopyWith(_$GetQuestionEventImpl value,
           $Res Function(_$GetQuestionEventImpl) then) =
       __$$GetQuestionEventImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String serachQuery});
 }
 
 /// @nodoc
@@ -1725,52 +1723,26 @@ class __$$GetQuestionEventImplCopyWithImpl<$Res>
   __$$GetQuestionEventImplCopyWithImpl(_$GetQuestionEventImpl _value,
       $Res Function(_$GetQuestionEventImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? serachQuery = null,
-  }) {
-    return _then(_$GetQuestionEventImpl(
-      serachQuery: null == serachQuery
-          ? _value.serachQuery
-          : serachQuery // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$GetQuestionEventImpl implements GetQuestionEvent {
-  const _$GetQuestionEventImpl({required this.serachQuery});
-
-  @override
-  final String serachQuery;
+  const _$GetQuestionEventImpl();
 
   @override
   String toString() {
-    return 'ProfileEvent.getQuestionEvent(serachQuery: $serachQuery)';
+    return 'ProfileEvent.getQuestionEvent()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$GetQuestionEventImpl &&
-            (identical(other.serachQuery, serachQuery) ||
-                other.serachQuery == serachQuery));
+        (other.runtimeType == runtimeType && other is _$GetQuestionEventImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, serachQuery);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GetQuestionEventImplCopyWith<_$GetQuestionEventImpl> get copyWith =>
-      __$$GetQuestionEventImplCopyWithImpl<_$GetQuestionEventImpl>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -1791,10 +1763,10 @@ class _$GetQuestionEventImpl implements GetQuestionEvent {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) {
-    return getQuestionEvent(serachQuery);
+    return getQuestionEvent();
   }
 
   @override
@@ -1812,10 +1784,10 @@ class _$GetQuestionEventImpl implements GetQuestionEvent {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) {
-    return getQuestionEvent?.call(serachQuery);
+    return getQuestionEvent?.call();
   }
 
   @override
@@ -1833,12 +1805,12 @@ class _$GetQuestionEventImpl implements GetQuestionEvent {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) {
     if (getQuestionEvent != null) {
-      return getQuestionEvent(serachQuery);
+      return getQuestionEvent();
     }
     return orElse();
   }
@@ -1900,13 +1872,7 @@ class _$GetQuestionEventImpl implements GetQuestionEvent {
 }
 
 abstract class GetQuestionEvent implements ProfileEvent {
-  const factory GetQuestionEvent({required final String serachQuery}) =
-      _$GetQuestionEventImpl;
-
-  String get serachQuery;
-  @JsonKey(ignore: true)
-  _$$GetQuestionEventImplCopyWith<_$GetQuestionEventImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory GetQuestionEvent() = _$GetQuestionEventImpl;
 }
 
 /// @nodoc
@@ -1991,7 +1957,7 @@ class _$SearchQuestionImpl implements SearchQuestion {
             ReportAProblemRequestModel reportAProblemRequestModel)
         reportAProblem,
     required TResult Function(String serachQuery) getQuestions,
-    required TResult Function(String serachQuery) getQuestionEvent,
+    required TResult Function() getQuestionEvent,
     required TResult Function(String serachQuery) searchQuestion,
   }) {
     return searchQuestion(serachQuery);
@@ -2012,7 +1978,7 @@ class _$SearchQuestionImpl implements SearchQuestion {
     TResult? Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult? Function(String serachQuery)? getQuestions,
-    TResult? Function(String serachQuery)? getQuestionEvent,
+    TResult? Function()? getQuestionEvent,
     TResult? Function(String serachQuery)? searchQuestion,
   }) {
     return searchQuestion?.call(serachQuery);
@@ -2033,7 +1999,7 @@ class _$SearchQuestionImpl implements SearchQuestion {
     TResult Function(ReportAProblemRequestModel reportAProblemRequestModel)?
         reportAProblem,
     TResult Function(String serachQuery)? getQuestions,
-    TResult Function(String serachQuery)? getQuestionEvent,
+    TResult Function()? getQuestionEvent,
     TResult Function(String serachQuery)? searchQuestion,
     required TResult orElse(),
   }) {

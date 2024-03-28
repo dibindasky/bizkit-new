@@ -28,8 +28,10 @@ class PromtBloc extends Bloc<PromtEvent, PromtState> {
           hasCard: hasCard,
           hasReminder: false,
           show: true,
-          message: !hasCard ? 'Create your Bizkit Card' : 'Create Bizkit Connections'));
-    }else{
+          message: !hasCard
+              ? 'Create your Bizkit Card'
+              : 'Create Bizkit Connections'));
+    } else {
       emit(state.copyWith(show: false));
     }
   }

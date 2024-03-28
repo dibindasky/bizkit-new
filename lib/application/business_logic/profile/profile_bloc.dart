@@ -13,7 +13,6 @@ import 'package:bizkit/domain/model/profile/get_user_info_model/get_user_info_mo
 import 'package:bizkit/domain/model/profile/update_user_info_model/update_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
-import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/model/token/token_model.dart';
 import 'package:bizkit/domain/repository/service/profile_repo.dart';
 import 'package:flutter/material.dart';
@@ -62,10 +61,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   FutureOr<void> getQuestionsEvent(GetQuestionEvent event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final data = await profileRepo.getQuestions(
-        pageQuery: PageQuery(page: ++faq),
-        serachQuery: SearchQuery(
-          search: event.serachQuery,
-        ));
+      pageQuery: PageQuery(page: ++faq),
+    );
     data.fold((l) {
       emit(state.copyWith(
         isLoading: false,
@@ -88,7 +85,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(state.copyWith(questionLoading: true, hasError: false, message: null));
     final data = await profileRepo.getQuestions(
       pageQuery: PageQuery(page: faq),
-      serachQuery: SearchQuery(search: event.serachQuery),
     );
     data.fold((l) {
       emit(state.copyWith(

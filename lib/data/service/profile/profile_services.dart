@@ -15,7 +15,6 @@ import 'package:bizkit/domain/model/profile/update_user_info_model/update_user_i
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:bizkit/domain/model/profile/username_change_responce_model/username_change_responce_model.dart';
 import 'package:bizkit/domain/model/report_a_problem/report_a_problem_request_model/report_a_problem_request_model.dart';
-import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/repository/service/profile_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -128,13 +127,12 @@ class ProfileService implements ProfileRepo {
   @override
   Future<Either<Failure, GetQuestionsModel>> getQuestions({
     required PageQuery pageQuery,
-    required SearchQuery serachQuery,
   }) async {
     try {
       final responce = await apiService.get(
         ApiEndPoints.faq,
         data: pageQuery.toJson(),
-        queryParameters: serachQuery.toJson(),
+        //queryParameters: serachQuery.toJson(),
       );
       log('getQuestions data ${responce.data}');
       return Right(GetQuestionsModel.fromJson(responce.data));

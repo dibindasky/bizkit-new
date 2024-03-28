@@ -40,7 +40,6 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
           const Spacer(),
           GestureDetector(
             onTap: () {
-              print('notifiacation');
               GoRouter.of(context).pushNamed(Routes.notificationPage);
             },
             child: CircleAvatar(
@@ -48,9 +47,7 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
                 backgroundColor: textFieldFillColr,
                 backgroundImage: const AssetImage(iconNotification)),
           ),
-          const SizedBox(
-            width: 10,
-          ),
+          const SizedBox(width: 10),
           GestureDetector(
             onTap: () => Navigator.push(
               context,

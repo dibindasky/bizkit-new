@@ -29,7 +29,7 @@ class AutocompleteTextField extends StatefulWidget {
   const AutocompleteTextField({
     Key? key,
     this.showDropdown = false,
-    this.textCapitalization=TextCapitalization.none,
+    this.textCapitalization = TextCapitalization.none,
     this.enabled = true,
     this.showDropdownOnTap = false,
     this.validate,

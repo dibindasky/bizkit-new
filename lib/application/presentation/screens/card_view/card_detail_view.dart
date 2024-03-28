@@ -116,7 +116,8 @@ class ScreenCardDetailView extends StatelessWidget {
                           },
                         ),
                         // card details
-                        CardDetailScreenSecondHalf(myCard: myCard,cardId: state.anotherCard!.id!)
+                        CardDetailScreenSecondHalf(
+                            myCard: myCard, cardId: state.anotherCard!.id!)
                       ],
                     ),
                   ),

@@ -12,6 +12,7 @@ part 'notification_bloc.freezed.dart';
 @injectable
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   final NotificationRepo notificationRepo;
+  int notification = 1;
   NotificationBloc(this.notificationRepo) : super(NotificationState.initial()) {
     on<GetNotification>(getNotification);
     on<NotificationEvent>(notificationEvent);
@@ -47,7 +48,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       List<Notification> noti = [];
       noti.clear();
       noti.addAll(r.notification!);
-
       emit(state.copyWith(
         notificationLoading: false,
         hasError: false,

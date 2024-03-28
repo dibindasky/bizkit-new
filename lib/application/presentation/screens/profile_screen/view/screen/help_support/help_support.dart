@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -18,11 +20,11 @@ class HelpSupport extends StatefulWidget {
 
 class _HelpSupportState extends State<HelpSupport> {
   _scrollCallBack() {
-    if (widget.scrollController!.position.pixels ==
-        widget.scrollController!.position.maxScrollExtent) {
-      context
-          .read<ProfileBloc>()
-          .add(const ProfileEvent.getQuestionEvent(serachQuery: ''));
+    final maxScroll = widget.scrollController!.position.maxScrollExtent;
+    final currentScroll = widget.scrollController!.position.pixels;
+    var delta = 100.0;
+    if (maxScroll - currentScroll <= delta) {
+      context.read<ProfileBloc>().add(const ProfileEvent.getQuestionEvent());
     }
   }
 
@@ -112,8 +114,9 @@ class _HelpSupportState extends State<HelpSupport> {
                   } else if (state.questionList == null) {
                     return RefreshIndicatorCustom(
                       message: errorMessage,
-                      onRefresh: () => context.read<ProfileBloc>().add(
-                          const ProfileEvent.getQuestionEvent(serachQuery: '')),
+                      onRefresh: () => context
+                          .read<ProfileBloc>()
+                          .add(const ProfileEvent.getQuestionEvent()),
                     );
                   } else if (state.questionList!.isEmpty) {
                     return const SizedBox(
@@ -131,7 +134,7 @@ class _HelpSupportState extends State<HelpSupport> {
                     itemBuilder: (context, index) {
                       final question = state.questionList![index];
                       if (state.questionLoading &&
-                          index == state.questionList!.length) {
+                          index == state.questionList?.length) {
                         return const LoadingAnimation();
                       }
                       return ExpansionTile(

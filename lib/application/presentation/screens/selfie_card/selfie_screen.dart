@@ -1,8 +1,14 @@
+import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/qr_scanner_view.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selfie_preview_screen.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SelfieScreen extends StatefulWidget {
   const SelfieScreen({super.key});
@@ -89,31 +95,81 @@ class _SelfieScreenState extends State<SelfieScreen>
                           child: const QrScannerView(),
                         ),
                         adjustHieght(10),
-                        TextButton(
-                            onPressed: () async {
-                              // final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-                              //   if (image == null) {
-                              //     return; // Handle no image selected case
-                              //   }
-                              //   final file=File(image.path);
-                              //   final barcodeScanner = BarcodeScannerPlugin();
-                              //   List<Barcode> barcodes =
-                              //       await barcodeScanner.scan(file
-                              //           .path); // Replace with _image!.path
+                        // TextButton(
+                        // onPressed: () async {
+                        // context.read<CardSecondBloc>().add(
+                        //     const CardSecondEvent.galeryScannedImage());
+                        // final image = await ImagePicker()
+                        //     .pickImage(source: ImageSource.gallery);
+                        // if (image == null) {
+                        //   return; // Handle no image selected case
+                        // }
+                        // final file = File(image.path);
+                        // final barcodeScanner = BarcodeScannerPlugin();
+                        // List<Barcode> barcodes =
+                        //     await barcodeScanner.scan(file
+                        //         .path); // Replace with _image!.path
 
-                              //   if (barcodes.isEmpty) {
-                              //     print('No QR codes found in the image.');
-                              //   } else {
-                              //     // Process the extracted data (first barcode assumed):
-                              //     final data = barcodes[0].displayValue;
-                              //     print('Extracted QR code data: $data');
-                              //     // Use the extracted data as needed in your app
-                              //   }
-                            },
-                            child: const Text('Upload from gallery'))
+                        // if (barcodes.isEmpty) {
+                        //   print('No QR codes found in the image.');
+                        // } else {
+                        //   // Process the extracted data (first barcode assumed):
+                        //   final data = barcodes[0].displayValue;
+                        //   print('Extracted QR code data: $data');
+                        //   // Use the extracted data as needed in your app
+                        //}
+                        // },
+                        // child: const Text('Upload from gallery'),
+                        //),
                       ],
                     )
-                  : const SizedBox(),
+                  : indexofButton == 0
+                      ? BlocBuilder<CardSecondBloc, CardSecondState>(
+                          builder: (context, state) {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 100),
+                              child: DottedBorder(
+                                dashPattern: const [8, 8],
+                                color: neonShade,
+                                strokeWidth: 2.5,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: 110.dm,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      context.read<CardSecondBloc>().add(
+                                          const CardSecondEvent
+                                              .galeryScannedImage());
+                                      Navigator.of(context).push(
+                                          fadePageRoute(const SelectedCard()));
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: 32.dm,
+                                          height: 32.dm,
+                                          child: const CircleAvatar(
+                                            child:
+                                                Center(child: Icon(Icons.add)),
+                                          ),
+                                        ),
+                                        adjustHieght(10),
+                                        Text(
+                                          'Data fetch from Image',
+                                          style: TextStyle(fontSize: 10.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      : const SizedBox(),
               const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -122,12 +178,12 @@ class _SelfieScreenState extends State<SelfieScreen>
                   InkWell(
                     splashColor: neonShade,
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SelfiePreviewScreen(),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const SelfiePreviewScreen(),
+                      //   ),
+                      // );
                     },
                     customBorder: const CircleBorder(),
                     child: FadeTransition(

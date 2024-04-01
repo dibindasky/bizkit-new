@@ -63,8 +63,7 @@ class ApiEndPoints {
   static String createSecondCard = '/card-connections/business-card/';
   static String getSingleCardSecons =
       '/card-connections/business-card-retrieve-update/{id}/';
-  static String getAllCardSecond =
-      '/card-connections/business-card-connections/';
+  static String getAllCardSecond = '/card-connections/business-card/';
   static String updateCardSecond =
       '/card-connections/business-card-retrieve-update/{id}/';
 }

@@ -28,16 +28,13 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.createSecondCard,
         data: cardSecondCreateRequestModel.toJson(),
       );
-      log('cardSecondCreation done');
+      log('cardSecondCreation done ${responce.data}');
       return Right(CardSecondResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
-      log('cardSecondCreation dio error');
-      log(e.toString());
-      log(e.response.toString());
+      log('cardSecondCreation dio error $e');
       return Left(Failure(message: 'Failed to create card please try again'));
     } catch (e) {
       log('cardSecondCreation exception error');
-      log(e.toString());
       return Left(Failure(message: 'Failed to create card please try again'));
     }
   }
@@ -77,9 +74,9 @@ class CardSecondService implements CardSecondRepo {
   }
 
   @override
-  Future<Either<Failure, GateAllCardSecondModel>> getAllCardsSecond() async{
+  Future<Either<Failure, GateAllCardSecondModel>> getAllCardsSecond() async {
     try {
-      final responce = await _apiService.get(ApiEndPoints.createReminder);
+      final responce = await _apiService.get(ApiEndPoints.getAllCardSecond);
       log('getAllCardsSecond data ${responce.data}');
       return Right(GateAllCardSecondModel.fromJson(responce.data));
     } on DioException catch (e) {

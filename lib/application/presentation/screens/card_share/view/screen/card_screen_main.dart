@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
@@ -35,6 +36,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
     animation = Tween<double>(begin: 0, end: 1).animate(animationController);
     animationController.forward();
     context.read<CardBloc>().add(const CardEvent.getCards(call: false));
+    context
+        .read<CardSecondBloc>()
+        .add(const CardSecondEvent.getAllCardsSecond(isLoad: false));
   }
 
   @override
@@ -124,17 +128,15 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                               topLeft: Radius.circular(25),
                                               topRight: Radius.circular(20),
                                             ),
-                                            child:
-                                                card.businessDetails == null ||
-                                                        card.logo == null
-                                                    ? Image.network(
-                                                        imageDummyNetwork,
-                                                        fit: BoxFit.cover,
-                                                      )
-                                                    : Image.network(
-                                                        card.logo!,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                            child: card.logo == null
+                                                ? Image.network(
+                                                    imageDummyNetwork,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.network(
+                                                    card.logo!,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                           ),
                                         ),
                                       ),
@@ -357,6 +359,204 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     }
                   },
                 ),
+                adjustHieght(khieght * .05),
+                BlocConsumer<CardSecondBloc, CardSecondState>(
+                  listener: (context, state) {
+                    if (state.hasError) {
+                      return showSnackbar(
+                        context,
+                        message: state.message!,
+                        backgroundColor: kred,
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state.isLoading) {
+                      return const LoadingAnimation();
+                    } else if (state.secondCards.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          'You have not created any card yet\nCreate your first card now.',
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    }
+                    return SizedBox(
+                      height: 340,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.secondCards.length,
+                        separatorBuilder: (context, index) =>
+                            adjustWidth(kwidth * .05),
+                        itemBuilder: (context, index) {
+                          final seconsdCard = state.secondCards[index];
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: textFieldFillColr,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            width: 300,
+                            child: Column(
+                              children: [
+                                Stack(
+                                  children: [
+                                    SizedBox(
+                                      width: 300,
+                                      height: 200,
+                                      child: InkWell(
+                                        onTap: () {
+                                          // Navigator.push(
+                                          //     context,
+                                          //     fadePageRoute(
+                                          //         HomeFirstViewAllContactTileDetailView(
+                                          //             cardId: state
+                                          //                 .cards[index].id)));
+                                          // final map =
+                                          //     state.secondCards[index].id != null
+                                          //         ? {
+                                          //             'myCard': 'true',
+                                          //             'cardId': state
+                                          //                 .secondCards[index].id!
+                                          //                 .toString()
+                                          //           }
+                                          //         : <String, String>{};
+                                          // GoRouter.of(context).pushNamed(
+                                          //     Routes.cardDetailView,
+                                          //     pathParameters: map);
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(25),
+                                            topRight: Radius.circular(20),
+                                          ),
+                                          child: seconsdCard.selfie == null
+                                              ? Image.network(
+                                                  imageDummyNetwork,
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.network(
+                                                  seconsdCard.selfie!,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: 0,
+                                      top: 10,
+                                      child: PopupMenuButton<String>(
+                                        icon: const Icon(
+                                          Icons.more_vert,
+                                          size: 35,
+                                          color: kblack,
+                                        ),
+                                        onSelected: (value) {
+                                          if (value == 'Add Tag') {}
+                                          print('Selected: $value');
+                                        },
+                                        itemBuilder: (context) {
+                                          List<PopupMenuEntry<String>> items = [
+                                            const PopupMenuItem(
+                                              value: 'Edit Card',
+                                              child: Text('Edit Card'),
+                                            ),
+                                          ];
+
+                                          // Add other menu items
+                                          items.addAll([
+                                            PopupMenuItem(
+                                              onTap: () =>
+                                                  showConfirmationDialog(
+                                                actionButton: 'Archive',
+                                                heading:
+                                                    'Are you sure you want to archive your card',
+                                                context,
+                                                onPressed: () {
+                                                  CardActionRewuestModel
+                                                      cardActionRewuestModel =
+                                                      CardActionRewuestModel(
+                                                          isArchived: true);
+                                                  context.read<CardBloc>().add(
+                                                      CardEvent.cardAction(
+                                                          cardActionRewuestModel:
+                                                              cardActionRewuestModel,
+                                                          id: seconsdCard.id!));
+                                                },
+                                              ),
+                                              value: 'Archive',
+                                              child: const Text('Archive'),
+                                            ),
+                                            PopupMenuItem(
+                                              onTap: () =>
+                                                  showConfirmationDialog(
+                                                heading:
+                                                    'Are you sure you want to delete your card',
+                                                context,
+                                                onPressed: () {
+                                                  CardActionRewuestModel
+                                                      cardActionRewuestModel =
+                                                      CardActionRewuestModel(
+                                                          isActive: false);
+                                                  context.read<CardBloc>().add(
+                                                      CardEvent.cardAction(
+                                                          cardActionRewuestModel:
+                                                              cardActionRewuestModel,
+                                                          id: seconsdCard.id!));
+                                                },
+                                              ),
+                                              value: 'Delete Card',
+                                              child: const Text('Delete Card'),
+                                            ),
+                                          ]);
+
+                                          return items;
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                adjustHieght(khieght * .02),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        '${state.secondCards[index].name ?? ''}\n${state.secondCards[index].designation}',
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      //  onTap: () => bottomSheet(context, seconsdCard),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: kblue,
+                                        ),
+                                        width: 100,
+                                        height: 30,
+                                        child: Center(
+                                          child:
+                                              Text('Share', style: textStyle1),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                adjustHieght(khieght * .02),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                )
               ],
             ),
           ),

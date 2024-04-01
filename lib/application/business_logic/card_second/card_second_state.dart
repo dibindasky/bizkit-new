@@ -6,13 +6,23 @@ class CardSecondState with _$CardSecondState {
     required bool isLoading,
     required bool isPageLoading,
     required bool hasError,
+    required bool cardScanFinish,
     String? message,
-    List<SecondCard>? secondCards,
+    required List<ImageModel> scannedImagesSecondCardCreation,
+    ScannedImageDatasModel? scannedImageDatasModel,
+    ImageModel? selfieImageModel,
+    required CardSecondCreateRequestModel cardSecondCreateRequestModel,
+    CardSecondResponseModel? cardSecondResponseModel,
+    required List<SecondCard> secondCards,
   }) = _Initial;
 
-  factory CardSecondState.initial() => const CardSecondState(
+  factory CardSecondState.initial() => CardSecondState(
         isLoading: false,
         isPageLoading: false,
+        cardSecondCreateRequestModel: CardSecondCreateRequestModel(),
         hasError: false,
+        secondCards: [],
+        cardScanFinish: false,
+        scannedImagesSecondCardCreation: [],
       );
 }

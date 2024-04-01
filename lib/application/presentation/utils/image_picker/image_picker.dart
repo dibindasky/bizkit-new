@@ -8,10 +8,26 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 class ImagePickerClass {
-  static Future<ImageModel?> getImage({bool camera = true}) async {
+  static Future<ImageModel?> getImage(
+      {bool camera = true, bool cameraDeviceFront = false}) async {
     try {
-      XFile? pickedImage = await ImagePicker()
-          .pickImage(source: camera ? ImageSource.camera : ImageSource.gallery);
+      XFile? pickedImage;
+      if (camera) {
+        pickedImage = await ImagePicker().pickImage(
+          source: ImageSource.camera,
+          preferredCameraDevice:
+              cameraDeviceFront ? CameraDevice.front : CameraDevice.rear,
+        );
+      } else {
+        pickedImage = await ImagePicker().pickImage(
+          source: ImageSource.gallery,
+        );
+      }
+      //  = await ImagePicker().pickImage(
+      //   source: camera ? ImageSource.camera : ImageSource.gallery,
+      //   preferredCameraDevice:
+      //       cameraDeviceFront ? CameraDevice.rear : CameraDevice.front,
+      // );
       if (pickedImage != null) {
         final extension = pickedImage.path.split(".").last;
         final directory = await getTemporaryDirectory();

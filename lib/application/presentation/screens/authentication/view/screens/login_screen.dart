@@ -263,10 +263,12 @@ class _LoGInScreenState extends State<LoGInScreen>
                   BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
                       if (state.hasError || state.message != null) {
-                        showSnackbar(context,
-                            message: state.message!,
-                            backgroundColor: state.hasError ? kred : neonShade,
-                            textColor: kwhite);
+                        showSnackbar(
+                          context,
+                          message: state.message!,
+                          backgroundColor: state.hasError ? kred : neonShade,
+                          textColor: kwhite,
+                        );
                       }
                       if (state.loginResponseModel != null) {
                         if (state.isFirstLogin || !state.hasCard) {

@@ -35,10 +35,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   void initState() {
     super.initState();
-
     if (widget.scrollController != null) {
       widget.scrollController!.addListener(() {
-        
         _scrollCallBack();
       });
     }
@@ -61,6 +59,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: knill,
         title: const Text('Notifications'),
       ),
       body: Padding(

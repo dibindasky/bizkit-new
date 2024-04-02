@@ -142,8 +142,10 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                     ),
                                   ),
                                   data.isDefault ?? false
-                                      ? const Positioned(bottom: 5, right: 10,
-                                        child: ClipRRect(
+                                      ? const Positioned(
+                                          bottom: 5,
+                                          right: 10,
+                                          child: ClipRRect(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(5)),
                                             child: ColoredBox(
@@ -154,7 +156,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                      )
+                                        )
                                       : const SizedBox()
                                 ],
                               ),

@@ -8,7 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PromptHomePage extends StatelessWidget {
   const PromptHomePage({
-    super.key, required this.showPrompt,
+    super.key,
+    required this.showPrompt,
   });
   final bool showPrompt;
 

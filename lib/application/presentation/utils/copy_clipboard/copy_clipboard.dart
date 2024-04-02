@@ -14,5 +14,4 @@ void copyToClipboard({required String text, required BuildContext context}) {
     behavior: SnackBarBehavior.floating,
   );
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
 }

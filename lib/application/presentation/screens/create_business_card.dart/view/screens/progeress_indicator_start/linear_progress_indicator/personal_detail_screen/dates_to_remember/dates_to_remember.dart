@@ -75,7 +75,8 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return DatePickingBottomSheet(
-                            year: 500,last: 500,
+                            year: 500,
+                            last: 500,
                             onPressed: (date) {
                               setState(() {
                                 dateController.text = date;

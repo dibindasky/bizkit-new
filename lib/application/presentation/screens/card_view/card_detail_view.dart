@@ -138,7 +138,6 @@ class ScreenCardDetailView extends StatelessWidget {
                           ],
                         ),
                       ),
-
                     ),
         );
       },

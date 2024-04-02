@@ -121,7 +121,7 @@ class ProductViewDetail extends StatelessWidget {
                   ? Image.network(product.product!)
                   : Image.asset(emptyNodata3),
               adjustHieght(30),
-              Text(product.label ?? "",style: textHeadStyle1),
+              Text(product.label ?? "", style: textHeadStyle1),
               adjustHieght(30),
               Text(product.description ?? ""),
             ],

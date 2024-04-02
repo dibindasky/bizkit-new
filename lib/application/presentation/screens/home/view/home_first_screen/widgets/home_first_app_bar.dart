@@ -27,20 +27,23 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
       child: Row(
         children: [
           Expanded(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BlocBuilder<AuthBloc, AuthState>(
                   builder: (context, state) {
                     return Text(
                         '${state.userName != null ? state.userName!.length > 15 ? '${state.userName!.substring(0, 15)}..' : state.userName : ''}',
                         style: custumText(
-                            fontSize: kwidth * 0.05, fontWeight: FontWeight.w700));
+                            fontSize: kwidth * 0.05,
+                            fontWeight: FontWeight.w700));
                   },
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 20,top: 10),
-                  child: LinearProgressIndicator(backgroundColor: kblack,color: neonShade,),
-                )
+                // const Padding(
+                //   padding: EdgeInsets.only(right: 20, top: 10),
+                //   child: LinearProgressIndicator(
+                //       backgroundColor: kblack, color: neonShade, value: 0.5),
+                // )
               ],
             ),
           ),

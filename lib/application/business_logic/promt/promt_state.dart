@@ -8,5 +8,6 @@ class PromtState with _$PromtState {
     required bool hasReminder,
     String? message,
   }) = _Initial;
-  factory PromtState.initial()=>const PromtState(show: false, hasCard: false, hasReminder: false);
+  factory PromtState.initial() =>
+      const PromtState(show: false, hasCard: false, hasReminder: false);
 }

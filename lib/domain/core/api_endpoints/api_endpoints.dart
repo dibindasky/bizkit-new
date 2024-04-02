@@ -60,4 +60,10 @@ class ApiEndPoints {
   static String restreArcheivedCard = '/card/get-card/{card_id}/';
   static String faq = '/faq/';
   static String notification = '/notification/notifications-list/';
+  static String createSecondCard = '/card-connections/business-card/';
+  static String getSingleCardSecons =
+      '/card-connections/business-card-retrieve-update/{id}/';
+  static String getAllCardSecond = '/card-connections/business-card/';
+  static String updateCardSecond =
+      '/card-connections/business-card-retrieve-update/{id}/';
 }

@@ -71,16 +71,17 @@ class _PreviewHomeAddReminderScreenState
             child: Column(
               children: [
                 TTextFormField(
-                    validate: Validate.notNull,
-                    suffix: Icon(
-                      Icons.edit_outlined,
-                      color: kwhite.withOpacity(0.5),
-                    ),
-                    text: 'Write Meeting Label',
-                    textCapitalization: TextCapitalization.words,
-                    maxlegth: 100,
-                    controller: context.read<ReminderBloc>().labelController,
-                    inputType: TextInputType.text),
+                  validate: Validate.notNull,
+                  suffix: Icon(
+                    Icons.edit_outlined,
+                    color: kwhite.withOpacity(0.5),
+                  ),
+                  text: 'Write Meeting Label',
+                  textCapitalization: TextCapitalization.words,
+                  maxlegth: 100,
+                  controller: context.read<ReminderBloc>().labelController,
+                  inputType: TextInputType.text,
+                ),
                 TTextFormField(
                     validate: Validate.notNull,
                     suffix: Icon(

@@ -1,9 +1,14 @@
 import 'dart:developer';
 import 'package:bizkit/application/business_logic/notification/notification_bloc.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
+import 'package:bizkit/application/presentation/widgets/refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({
@@ -30,12 +35,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   void initState() {
     super.initState();
-
     if (widget.scrollController != null) {
       widget.scrollController!.addListener(() {
-        widget.scrollController!.animateTo(.1,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.fastEaseInToSlowEaseOut);
         _scrollCallBack();
       });
     }
@@ -58,6 +59,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: knill,
         title: const Text('Notifications'),
       ),
       body: Padding(
@@ -75,18 +77,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       seprator: const SizedBox(height: 10),
                     );
                   } else if (state.notification == null) {
-                    return Center();
-                    // RefreshIndicatorCustom(
-                    //   message: errorMessage,
-                    //   onRefresh: () => context
-                    //       .read<NotificationBloc>()
-                    //       .add(const NotificationEvent.getNotificationEvent()),
-                    // );
+                    //return Center();
+                    RefreshIndicatorCustom(
+                      message: errorMessage,
+                      onRefresh: () => context
+                          .read<NotificationBloc>()
+                          .add(const NotificationEvent.getNotificationEvent()),
+                    );
                   } else if (state.notification!.isEmpty) {
                     return SizedBox(
                       height: khieght,
                       child: const Center(
-                        child: Text("You don't have Notification now"),
+                        child: Text("You don't have Notifications now"),
                       ),
                     );
                   }
@@ -97,12 +99,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     separatorBuilder: (context, index) {
                       return adjustHieght(10);
                     },
-                    itemCount: state.notification!.length,
-                    //  (state.notification?.length ?? 0) +
-                    //     (state.notificationLoading ? 1 : 0),
+                    itemCount:
+                        //   state.notification!.length,
+                        (state.notification?.length ?? 0) +
+                            (state.notificationLoading ? 1 : 0),
                     itemBuilder: (context, index) {
-                      DateTime currentDateTime = DateTime.now();
-                      String dateTimeString = '2024-03-26T15:30:00';
+                      // DateTime currentDateTime = DateTime.now();
+                      // String dateTimeString = '2024-03-26T15:30:00';
 
                       log('Noti length ${state.notification!.length}');
                       final notification = state.notification![index];
@@ -121,56 +124,61 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       // final date =
                       //     calculateDaysBefore(dateTime, dateTimeString);
 
-                      // if (state.notificationLoading &&
-                      //     index == state.notification!.length) {
-                      //   return const LoadingAnimation();
-                      // }
-                      return Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        decoration: BoxDecoration(
-                            color: kblack,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            adjustHieght(20),
-                            Row(
-                              children: [
-                                const CircleAvatar(
-                                  backgroundColor: kred,
-                                  radius: 8,
-                                ),
-                                adjustWidth(10),
-                                Text(
-                                  notification.title!,
-                                  style: textStyle1.copyWith(
-                                      color: klightgrey,
-                                      fontSize: kwidth * .038),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  notification.scheduledAt!,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                            Text(
-                              notification.body!,
-                              style: textHeadStyle1.copyWith(
-                                  fontSize: kwidth * .050),
-                            ),
-                            adjustHieght(4),
-                            Text(
-                              notification.tag!,
-                              style: textStyle1.copyWith(color: klightgrey),
-                            ),
-                            adjustHieght(8),
-                            Text(
-                              'click to get more inforation',
-                              style: textStyle1.copyWith(color: klightgrey),
-                            ),
-                            adjustHieght(10),
-                          ],
+                      if (state.notificationLoading &&
+                          index == state.notification!.length) {
+                        return const LoadingAnimation();
+                      }
+                      return GestureDetector(
+                        onTap: () {
+                          GoRouter.of(context).pushNamed(Routes.cardView);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              color: kblack,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              adjustHieght(20),
+                              Row(
+                                children: [
+                                  const CircleAvatar(
+                                    backgroundColor: kred,
+                                    radius: 8,
+                                  ),
+                                  adjustWidth(10),
+                                  Text(
+                                    notification.title!,
+                                    style: textStyle1.copyWith(
+                                        color: klightgrey,
+                                        fontSize: kwidth * .034),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    notification.scheduledAt!,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                notification.body!,
+                                style: textHeadStyle1.copyWith(
+                                    fontSize: kwidth * .040),
+                              ),
+                              adjustHieght(4),
+                              Text(
+                                notification.tag!,
+                                style: textStyle1.copyWith(color: klightgrey),
+                              ),
+                              adjustHieght(8),
+                              Text(
+                                'click to get more information',
+                                style: textStyle1.copyWith(color: klightgrey),
+                              ),
+                              adjustHieght(10),
+                            ],
+                          ),
                         ),
                       );
                     },

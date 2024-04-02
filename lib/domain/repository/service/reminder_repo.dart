@@ -24,5 +24,5 @@ abstract class ReminderRepo {
   Future<Either<Failure, GetReminderResponseModel>> getReminderDetails(
       {required int id});
   Future<Either<Failure, GetReminderModel>> getCardReminders(
-      {required CardIdModel cardIdModel,required PageQuery pageQuery});
+      {required CardIdModel cardIdModel, required PageQuery pageQuery});
 }

@@ -101,18 +101,20 @@ class ScreenPreviewBankOrPersnalCArdView extends StatelessWidget {
                         );
                       },
                     ),
-                    BlocBuilder<CardBloc, CardState>(builder: (context,state){
-                      if(state.anotherCard?.businessDetails?.bankDetails
-                                ?.accountNumber ==
-                            null && state.anotherCard?.businessDetails?.bankDetails
-                                ?.ifscCode ==
-                            null && state.anotherCard?.businessDetails?.bankDetails
-                                ?.gstMembershipDetails ==
-                            null){
-                              return Image.asset(emptyNodata3);
-                            }else{
-                              return const SizedBox();
-                            }
+                    BlocBuilder<CardBloc, CardState>(builder: (context, state) {
+                      if (state.anotherCard?.businessDetails?.bankDetails
+                                  ?.accountNumber ==
+                              null &&
+                          state.anotherCard?.businessDetails?.bankDetails
+                                  ?.ifscCode ==
+                              null &&
+                          state.anotherCard?.businessDetails?.bankDetails
+                                  ?.gstMembershipDetails ==
+                              null) {
+                        return Image.asset(emptyNodata3);
+                      } else {
+                        return const SizedBox();
+                      }
                     })
                   ],
           ),

@@ -1,7 +1,9 @@
+import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/make_bizkit_card_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelfiePreviewScreen extends StatefulWidget {
   const SelfiePreviewScreen({super.key});
@@ -19,7 +21,6 @@ class _SelfiePreviewScreenState extends State<SelfiePreviewScreen> {
         height: khieght,
         child: Stack(
           children: [
-            const SizedBox(),
             Align(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,41 +33,60 @@ class _SelfiePreviewScreenState extends State<SelfiePreviewScreen> {
                   ),
                   const Spacer(),
                   TextButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            fadePageRoute(const MakeABizkitCardScreen()));
-                      },
-                      child: Text('Skip',
-                          style: TextStyle(
-                              color: kwhite,
-                              decoration: TextDecoration.underline,
-                              decorationColor: kwhite,
-                              fontSize: kwidth * 0.06,
-                              fontWeight: FontWeight.w300))),
+                    onPressed: () {
+                      Navigator.push(context,
+                          fadePageRoute(const CardSecondScannedDatas()));
+                    },
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: kwhite,
+                        decoration: TextDecoration.underline,
+                        decorationColor: kwhite,
+                        fontSize: kwidth * 0.06,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
                   adjustHieght(khieght * 0.05),
-                  Container(
-                    padding: const EdgeInsets.all(35),
-                    width: kwidth * 0.28,
-                    height: kwidth * 0.28,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(kwidth * 0.2)),
-                      image: const DecorationImage(
-                        image: AssetImage(
-                            'asset/images/cameraSelectBackground.png'),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    child: PhysicalModel(
-                      color: kwhite,
-                      elevation: 8.0,
-                      shadowColor: const Color.fromARGB(255, 15, 15, 15)
-                          .withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(50.0),
-                      child: const CircleAvatar(
-                        backgroundColor: kwhite,
-                      ),
-                    ),
+                  BlocConsumer<CardSecondBloc, CardSecondState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      return InkWell(
+                        onTap: () {
+                          context.read<CardSecondBloc>().add(
+                              const CardSecondEvent.selfieImage(
+                                  cameraDeviceFront: true));
+                          Navigator.of(context).pushReplacement(
+                              fadePageRoute(const CardSecondScannedDatas()));
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(35),
+                          width: kwidth * 0.28,
+                          height: kwidth * 0.28,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(kwidth * 0.2)),
+                            image: const DecorationImage(
+                              image: AssetImage(
+                                'asset/images/cameraSelectBackground.png',
+                              ),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          child: PhysicalModel(
+                            color: kwhite,
+                            elevation: 8.0,
+                            shadowColor: const Color.fromARGB(255, 15, 15, 15)
+                                .withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(50.0),
+                            child: const CircleAvatar(
+                              backgroundColor: kwhite,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   adjustHieght(khieght * 0.05),
                 ],

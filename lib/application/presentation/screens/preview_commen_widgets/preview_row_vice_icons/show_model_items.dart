@@ -1,7 +1,6 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PreviewScreenRowIconsModelSheet extends StatelessWidget {
   const PreviewScreenRowIconsModelSheet({
@@ -22,23 +21,9 @@ class PreviewScreenRowIconsModelSheet extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        // color: backgroundColour,
       ),
       child: ListView(
         children: [
-          // Center(
-          //   child: Container(
-          //     decoration: const BoxDecoration(
-          //       color: kwhite,
-          //       borderRadius: BorderRadius.all(
-          //         Radius.circular(10),
-          //       ),
-          //     ),
-          //     height: 5.dm,
-          //     width: 85,
-          //   ),
-          // ),
-          // adjustHieght(khieght * .03),
           SizedBox(
             height: 270,
             child: items == null || items!.isEmpty

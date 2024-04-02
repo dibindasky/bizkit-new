@@ -47,13 +47,9 @@ class PdfPickerImpl {
 
   Future<Image> getPdfPreview(String pdfPath) async {
     log(pdfPath);
-    log('getPdfPreview 1');
     final document = await PdfDocument.openFile(pdfPath);
-    log('getPdfPreview 2');
     final page = await document.getPage(0);
-    log('getPdfPreview 3');
     final image = await page.render();
-    log('getPdfPreview 4');
     return image.createImageDetached();
   }
 

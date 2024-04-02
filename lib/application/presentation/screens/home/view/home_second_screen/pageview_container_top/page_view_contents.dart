@@ -11,7 +11,6 @@ class SecondScreenPageViewContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -35,7 +34,8 @@ class SecondScreenPageViewContents extends StatelessWidget {
             const SizedBox(width: 20),
             Expanded(
               child: Text(
-                reminder?.meetingLabel??'',
+                reminder?.meetingLabel ?? '',
+                overflow: TextOverflow.clip,
                 style: TextStyle(
                   fontSize: kwidth * .047,
                   fontWeight: FontWeight.w700,
@@ -78,14 +78,16 @@ class SecondScreenPageViewContents extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        reminder?.name ?? '',overflow: TextOverflow.ellipsis,
+                        reminder?.name ?? '',
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: kwidth * 0.03,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       Text(
-                        reminder?.venue ?? '',overflow: TextOverflow.ellipsis,
+                        reminder?.venue ?? '',
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: kwidth * 0.03,
                           fontWeight: FontWeight.w700,
@@ -93,7 +95,8 @@ class SecondScreenPageViewContents extends StatelessWidget {
                       ),
                       Text(
                         DateTimeFormater.formatDateTime(
-                            reminder?.date ?? '', reminder?.time ?? ''),overflow: TextOverflow.ellipsis,
+                            reminder?.date ?? '', reminder?.time ?? ''),
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: kwidth * 0.03,
                           fontWeight: FontWeight.w700,
@@ -119,7 +122,8 @@ class SecondScreenPageViewContents extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                height: kwidth * 0.1,
+                // height: kwidth * 0.1,
+                padding: const EdgeInsets.all(10),
                 decoration: const BoxDecoration(
                   color: neonShade,
                   borderRadius:
@@ -140,7 +144,8 @@ class SecondScreenPageViewContents extends StatelessWidget {
                               reminder: reminder)));
                 },
                 child: Container(
-                  height: kwidth * 0.1,
+                  // height: kwidth * 0.1,
+                  padding: const EdgeInsets.all(9),
                   decoration: BoxDecoration(
                     border: Border.all(color: neonShade),
                     borderRadius: const BorderRadius.only(

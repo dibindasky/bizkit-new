@@ -204,6 +204,9 @@ class _PasswordHintmakersState extends State<PasswordHintmakers> {
               });
             }
           },
+          onTapOutside: () => setState(() {
+            showHint = false;
+          }),
           text: 'Password',
           validate: Validate.password,
           controller: widget.passwordController,

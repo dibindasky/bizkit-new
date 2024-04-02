@@ -72,6 +72,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         print('login success');
         print('saveToken');
         print(loginResponseModel.accessToken);
+        print(loginResponseModel.user!.toJson());
         SecureStorage.saveToken(
           tokenModel: TokenModel(
               id: loginResponseModel.user?.id,

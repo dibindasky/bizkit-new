@@ -130,8 +130,14 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                             : null,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Center(
-                          child: Icon(Icons.person, color: klightgrey)),
+                      child: Center(
+                          child: data.photos == null && data.name != null
+                              ? FittedBox(
+                                  child: Text(
+                                      data.name!.substring(0, 2).toUpperCase(),
+                                      style: textHeadStyle1),
+                                )
+                              : null),
                     ),
                   );
                 },

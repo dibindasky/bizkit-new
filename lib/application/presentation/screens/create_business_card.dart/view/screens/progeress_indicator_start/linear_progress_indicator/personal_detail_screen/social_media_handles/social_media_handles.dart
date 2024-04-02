@@ -83,7 +83,18 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                               socialMedias.length,
                               (index) => DropdownMenuItem(
                                 value: socialMedias[index],
-                                child: Text(socialMedias[index]),
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: kwhite,
+                                      backgroundImage: AssetImage(
+                                          socialMediaImage[
+                                              socialMedias[index]]!),
+                                    ),
+                                    adjustWidth(20),
+                                    Text(socialMedias[index]),
+                                  ],
+                                ),
                               ),
                             ),
                             hint: Text(
@@ -165,11 +176,28 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                     border: Border.all(color: neonShade),
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10))),
-                                child: Text(widget.fromBusiness
-                                    ? business.socialMedias[index].label ??
-                                        'accound $index'
-                                    : user.socialMedias[index].label ??
-                                        'account $index'),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 10,
+                                      backgroundImage: AssetImage(
+                                          socialMediaImage[widget.fromBusiness
+                                              ? business.socialMedias[index]
+                                                      .label ??
+                                                  'accound $index'
+                                              : user.socialMedias[index]
+                                                      .label ??
+                                                  'account $index']!),
+                                    ),
+                                    adjustWidth(10),
+                                    Text(widget.fromBusiness
+                                        ? business.socialMedias[index].label ??
+                                            'accound $index'
+                                        : user.socialMedias[index].label ??
+                                            'account $index'),
+                                  ],
+                                ),
                               ),
                               Positioned(
                                 right: 0,

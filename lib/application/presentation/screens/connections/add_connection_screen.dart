@@ -18,10 +18,11 @@ class ScreenAddConnections extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.text = '';
-      context.read<ConnectionRequestBloc>().add(
-          ConnectionRequestEvent.searchBizkitUsers(
-              searchQuery: SearchQuery(search: '')));
+      // context.read<ConnectionRequestBloc>().add(
+      //     ConnectionRequestEvent.searchBizkitUsers(
+      //         searchQuery: SearchQuery(search: '')));
     });
+    bool show = false;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -47,9 +48,12 @@ class ScreenAddConnections extends StatelessWidget {
             TTextFormField(
               controller: controller,
               onChanaged: (value) {
-                context.read<ConnectionRequestBloc>().add(
-                    ConnectionRequestEvent.searchBizkitUsers(
-                        searchQuery: SearchQuery(search: value)));
+                if (value.length > 2) {
+                  show = true;
+                  context.read<ConnectionRequestBloc>().add(
+                      ConnectionRequestEvent.searchBizkitUsers(
+                          searchQuery: SearchQuery(search: value)));
+                }
               },
               text: 'Search',
               su: const Icon(Icons.search),
@@ -58,6 +62,11 @@ class ScreenAddConnections extends StatelessWidget {
             Expanded(
               child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
                 builder: (context, state) {
+                  if (!show) {
+                    return const Center(
+                      child: Text('Start typing to get results'),
+                    );
+                  }
                   if (state.isLoading) {
                     return const Center(
                         child: CircularProgressIndicator(color: neonShade));

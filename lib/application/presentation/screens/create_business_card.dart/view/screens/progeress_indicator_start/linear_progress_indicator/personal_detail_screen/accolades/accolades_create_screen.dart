@@ -60,6 +60,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                 adjustHieght(khieght * .02),
                 TTextFormField(
                   maxlegth: 100,
+                  textCapitalization: TextCapitalization.words,
                   onChanaged: (value) {
                     title = value;
                   },
@@ -71,6 +72,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                   onChanaged: (value) {
                     description = value;
                   },
+                  textCapitalization: TextCapitalization.sentences,
                   text: 'Description',
                   maxLines: 8,
                   inputType: TextInputType.name,

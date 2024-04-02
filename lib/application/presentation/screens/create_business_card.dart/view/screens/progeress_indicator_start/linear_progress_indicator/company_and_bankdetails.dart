@@ -127,41 +127,46 @@ class CompanyAndBankingDetails extends StatelessWidget {
                                 const BusinessDataEvent.createBankingData());
                           },
                     onTap: () {
-                      if (context
-                                  .read<BusinessDataBloc>()
-                                  .nameOfCompanyController
-                                  .text !=
-                              '' ||
-                          context
-                                  .read<BusinessDataBloc>()
-                                  .accountNumberController
-                                  .text !=
-                              '' ||
-                          context
-                                  .read<BusinessDataBloc>()
-                                  .ifscController
-                                  .text !=
-                              '' ||
-                          context
-                                  .read<BusinessDataBloc>()
-                                  .upiDetailController
-                                  .text !=
-                              '' ||
-                          context
-                                  .read<BusinessDataBloc>()
-                                  .gstNumberController
-                                  .text !=
-                              '') {
-                        if (bankingCardCreationKey.currentState!.validate()) {
-                          context
-                              .read<BusinessDataBloc>()
-                              .add(const BusinessDataEvent.createBankingData());
-                        }
-                      } else {
+                      if (bankingCardCreationKey.currentState!.validate()) {
                         context
                             .read<BusinessDataBloc>()
                             .add(const BusinessDataEvent.createBankingData());
                       }
+                      // if (context
+                      //             .read<BusinessDataBloc>()
+                      //             .nameOfCompanyController
+                      //             .text !=
+                      //         '' ||
+                      //     context
+                      //             .read<BusinessDataBloc>()
+                      //             .accountNumberController
+                      //             .text !=
+                      //         '' ||
+                      //     context
+                      //             .read<BusinessDataBloc>()
+                      //             .ifscController
+                      //             .text !=
+                      //         '' ||
+                      //     context
+                      //             .read<BusinessDataBloc>()
+                      //             .upiDetailController
+                      //             .text !=
+                      //         '' ||
+                      //     context
+                      //             .read<BusinessDataBloc>()
+                      //             .gstNumberController
+                      //             .text !=
+                      //         '') {
+                      //   if (bankingCardCreationKey.currentState!.validate()) {
+                      //     context
+                      //         .read<BusinessDataBloc>()
+                      //         .add(const BusinessDataEvent.createBankingData());
+                      //   }
+                      // } else {
+                      //   context
+                      //       .read<BusinessDataBloc>()
+                      //       .add(const BusinessDataEvent.createBankingData());
+                      // }
                     },
                   );
                 },

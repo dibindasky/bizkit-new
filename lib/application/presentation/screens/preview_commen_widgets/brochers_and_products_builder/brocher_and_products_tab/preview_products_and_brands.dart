@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/brocher_and_products_tab.dart';
+import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/products_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
@@ -73,16 +73,20 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ScreenImagePreview(
-                                        image: networkImages![index].product!,
-                                        isFileIamge: networkImages == null,
+                                  builder: (context) => ProductViewDetail(
+                                        product: networkImages![index],
                                       ))),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: ColoredBox(
-                                color: smallBigGrey,
-                                child: Image.network(
-                                    networkImages![index].product!)),
+                          child: AspectRatio(
+                            aspectRatio: 0.9,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: ColoredBox(
+                                  color: smallBigGrey,
+                                  child: Image.network(
+                                    networkImages![index].product!,
+                                    fit: BoxFit.cover,
+                                  )),
+                            ),
                           ),
                         );
                       },
@@ -107,18 +111,11 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           child: ColoredBox(
                             color: smallBigGrey,
-                            child: SizedBox(
-                              height: kwidth * .2,
-                              width: kwidth * 0.17,
-                              child:
-                                  //  pdf != null
-                                  //     ? PdfViewer.openFile(pdf![index],
-                                  //         params:
-                                  //             const PdfViewerParams(pageNumber: 1))
-                                  //     :
-                                  PdfViewer.openData(base64Decode(pdf![index]),
-                                      params:
-                                          const PdfViewerParams(pageNumber: 1)),
+                            child: AspectRatio(
+                              aspectRatio: 0.9,
+                              child: PdfViewer.openData(
+                                  base64Decode(pdf![index]),
+                                  params: const PdfViewerParams(pageNumber: 1)),
                             ),
                           ),
                         ),

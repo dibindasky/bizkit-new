@@ -46,7 +46,8 @@ class IndividuelSignIn extends StatelessWidget {
               TTextFormField(
                 text: 'Name',
                 controller: nameController,
-                validate: Validate.notNull,textCapitalization: TextCapitalization.words,
+                validate: Validate.notNull,
+                textCapitalization: TextCapitalization.words,
                 inputType: TextInputType.text,
               ),
               TTextFormField(
@@ -177,6 +178,9 @@ class _PasswordHintmakerState extends State<PasswordHintmaker> {
               });
             }
           },
+          onTapOutside: () => setState(() {
+            showHint = false;
+          }),
           validate: Validate.password,
           text: 'Password',
           controller: widget.passwordController,

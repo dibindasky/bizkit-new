@@ -38,7 +38,7 @@ class MeetingDetailScreen extends StatelessWidget {
                     children: [
                       Container(
                         margin: const EdgeInsets.all(10),
-                        height: khieght * .75,
+                        height: khieght * .8,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: neonShade,

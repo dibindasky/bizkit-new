@@ -22,6 +22,7 @@ class TTextFormField extends StatefulWidget {
   final TextInputType? inputType;
   final bool obscureText;
   final VoidCallback? function;
+  final VoidCallback? onTapOutside;
   final int? maxlegth;
   final double? height;
   final int? maxLines;
@@ -61,7 +62,8 @@ class TTextFormField extends StatefulWidget {
       this.onChanaged,
       this.focusNode,
       this.hintText,
-      this.textCapitalization = TextCapitalization.none})
+      this.textCapitalization = TextCapitalization.none,
+      this.onTapOutside})
       : super(key: key);
 
   @override
@@ -97,7 +99,10 @@ class _TTextFormFieldState extends State<TTextFormField> {
         color: textFieldFillColr,
         child: TextFormField(
           onTapOutside: (event) {
-            _focusNode.unfocus();
+            if (widget.onTapOutside != null) {
+              widget.onTapOutside!();
+            }
+            // _focusNode.unfocus();
           },
           // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
           enabled: widget.enabled,

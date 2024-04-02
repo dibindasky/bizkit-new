@@ -23,47 +23,58 @@ class _LinearProgressIndicatorStartingState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: PreferredSize(
-        preferredSize: Size(kwidth, 70),
-        child: const AppbarCommen(
-          tittle: 'Make a Bizkit Card',
+    return PopScope(
+      canPop: _currentPage == 0,
+      onPopInvoked: (didPop) {
+        if (_currentPage > 0) {
+          _pageController.previousPage(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.ease,
+          );
+        }
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        appBar: PreferredSize(
+          preferredSize: Size(kwidth, 70),
+          child: const AppbarCommen(
+            tittle: 'Make a Bizkit Card',
+          ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: LinearProgressIndicator(
-                minHeight: 13,
-                value: (_currentPage + 1) / 5,
-                backgroundColor: smallBigGrey,
-                valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: LinearProgressIndicator(
+                  minHeight: 13,
+                  value: (_currentPage + 1) / 5,
+                  backgroundColor: smallBigGrey,
+                  valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
+                ),
               ),
-            ),
-            adjustHieght(10),
-            Expanded(
-              child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _pageController,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentPage = index;
-                  });
-                },
-                children: [
-                  PersonlDetails(pageController: _pageController),
-                  BusinessDetailsScreen(pageController: _pageController),
-                  LogoStory(pageController: _pageController),
-                  BrochersAndProductsScreen(pageController: _pageController),
-                  const CompanyAndBankingDetails()
-                ],
+              adjustHieght(10),
+              Expanded(
+                child: PageView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentPage = index;
+                    });
+                  },
+                  children: [
+                    PersonlDetails(pageController: _pageController),
+                    BusinessDetailsScreen(pageController: _pageController),
+                    LogoStory(pageController: _pageController),
+                    BrochersAndProductsScreen(pageController: _pageController),
+                    const CompanyAndBankingDetails()
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

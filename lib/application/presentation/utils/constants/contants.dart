@@ -11,6 +11,16 @@ const socialMedia = [
   'X'
 ];
 
+const socialMediaImage = {
+  'Instagram': imageInstagram,
+  'LinkedIn': imageLinkedIn,
+  'Whatsapp': imageWhatsap,
+  'Telegram': imageTelegram,
+  'Youtube': imageYoutube,
+  'Facebook': imageFaceBook,
+  'X': imageX
+};
+
 const pdfImage = 'asset/images/pdf iamge.png';
 
 //socoal media
@@ -18,7 +28,6 @@ const imageWhatsap = 'asset/images/watsapp account icon.png';
 const imageX = 'asset/images/x account icon.png';
 const imageLinkedIn = 'asset/images/linked in account  icon.png';
 const imageFaceBook = 'asset/images/facebok account icon.png';
-
 const imageInstagram = 'asset/images/instagram.jpeg';
 const imageYoutube = 'asset/images/youtube.jpeg';
 const imageTelegram = 'asset/images/telegram_png..png';

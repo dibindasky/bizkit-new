@@ -37,90 +37,129 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                           itemCount: 1,
                           height: kwidth * 0.35,
                           width: kwidth * 0.55);
-                    } else if (state.defaultCard == null) {
+                    } else if (state.cards.isEmpty) {
                       return SizedBox(
                           height: kwidth * 0.35,
                           width: kwidth * 0.55,
                           child: const Center(
                               child: Text('Create Your BizKit Card')));
                     } else {
-                      final data = state.defaultCard!;
-                      return InkWell(
-                        onTap: () {
-                          final map = data.id != null
-                              ? {
-                                  'myCard': 'true',
-                                  'cardId': data.id!.toString()
-                                }
-                              : <String, String>{};
-                          GoRouter.of(context).pushNamed(Routes.cardDetailView,
-                              pathParameters: map);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          height: kwidth * 0.35,
-                          width: kwidth * 0.55,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1,
-                              color: neonShade,
-                            ),
-                            borderRadius: BorderRadius.circular(5),
-                            // image: DecorationImage(
-                            //     image: NetworkImage(
-                            //         data.logo ?? imageDummyNetwork),
-                            //     fit: BoxFit.cover)
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                      return SizedBox(
+                        height: kwidth * 0.35,
+                        width: kwidth * 0.55,
+                        child: PageView.builder(
+                          itemCount: state.cards.length,
+                          itemBuilder: (context, index) {
+                            final data = state.cards[index];
+                            return InkWell(
+                              onTap: () {
+                                final map = data.id != null
+                                    ? {
+                                        'myCard': 'true',
+                                        'cardId': data.id!.toString()
+                                      }
+                                    : <String, String>{};
+                                GoRouter.of(context).pushNamed(
+                                    Routes.cardDetailView,
+                                    pathParameters: map);
+                              },
+                              child: Stack(
                                 children: [
-                                  Text(
-                                      state.defaultCard?.name != null
-                                          ? state.defaultCard!.name!.length > 20
-                                              ? '${state.defaultCard!.name!.substring(0, 18)}..'
-                                              : state.defaultCard!.name!
-                                          : '',
-                                      style: textHeadStyle1.copyWith(shadows: [
-                                        const Shadow(
-                                            color: kblack,
-                                            offset: Offset(1, 2),
-                                            blurRadius: 5)
-                                      ])),
-                                  Text(
-                                    state.defaultCard?.designation != null
-                                        ? state.defaultCard!.designation!
-                                                    .length >
-                                                20
-                                            ? '${state.defaultCard!.designation!.substring(0, 18)}..'
-                                            : state.defaultCard!.designation!
-                                        : '',
-                                    style: TextStyle(
-                                        fontSize: kwidth * .037,
-                                        shadows: const [
-                                          Shadow(
-                                              color: kblack,
-                                              offset: Offset(0, 2),
-                                              blurRadius: 5)
-                                        ]),
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    height: kwidth * 0.35,
+                                    width: kwidth * 0.55,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 1,
+                                        color: neonShade,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                      // image: DecorationImage(
+                                      //     image: NetworkImage(
+                                      //         data.logo ?? imageDummyNetwork),
+                                      //     fit: BoxFit.cover)
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                                state.defaultCard?.name != null
+                                                    ? state.defaultCard!.name!
+                                                                .length >
+                                                            20
+                                                        ? '${state.defaultCard!.name!.substring(0, 18)}..'
+                                                        : state
+                                                            .defaultCard!.name!
+                                                    : '',
+                                                style: textHeadStyle1.copyWith(
+                                                    shadows: [
+                                                      const Shadow(
+                                                          color: kblack,
+                                                          offset: Offset(1, 2),
+                                                          blurRadius: 5)
+                                                    ])),
+                                            Text(
+                                              state.defaultCard?.designation !=
+                                                      null
+                                                  ? state
+                                                              .defaultCard!
+                                                              .designation!
+                                                              .length >
+                                                          20
+                                                      ? '${state.defaultCard!.designation!.substring(0, 18)}..'
+                                                      : state.defaultCard!
+                                                          .designation!
+                                                  : '',
+                                              style: TextStyle(
+                                                  fontSize: kwidth * .037,
+                                                  shadows: const [
+                                                    Shadow(
+                                                        color: kblack,
+                                                        offset: Offset(0, 2),
+                                                        blurRadius: 5)
+                                                  ]),
+                                            ),
+                                            SizedBox(
+                                              height: 40.dm,
+                                              child: Image.network(data.logo ??
+                                                  imageDummyNetwork),
+                                            ),
+                                          ],
+                                        ),
+                                        const Icon(
+                                          Icons.arrow_right,
+                                          color: kwhite,
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(
-                                    height: 40.dm,
-                                    child: Image.network(
-                                        data.logo ?? imageDummyNetwork),
-                                  ),
+                                  data.isDefault ?? false
+                                      ? const Positioned(bottom: 5, right: 10,
+                                        child: ClipRRect(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5)),
+                                            child: ColoredBox(
+                                              color: neonShade,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(4.0),
+                                                child: Text('DEFAULT'),
+                                              ),
+                                            ),
+                                          ),
+                                      )
+                                      : const SizedBox()
                                 ],
                               ),
-                              const Icon(
-                                Icons.arrow_right,
-                                color: kwhite,
-                              )
-                            ],
-                          ),
+                            );
+                          },
                         ),
                       );
                     }

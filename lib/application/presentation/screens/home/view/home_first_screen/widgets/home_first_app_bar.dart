@@ -22,22 +22,29 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AuthBloc>().add(const AuthEvent.log());
-    });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
-          BlocBuilder<AuthBloc, AuthState>(
-            builder: (context, state) {
-              return Text(
-                  'Hello,\n${state.userName != null ? state.userName!.length > 15 ? '${state.userName!.substring(0, 15)}..' : state.userName : ''}',
-                  style: custumText(
-                      fontSize: kwidth * 0.05, fontWeight: FontWeight.w700));
-            },
+          Expanded(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    return Text(
+                        '${state.userName != null ? state.userName!.length > 15 ? '${state.userName!.substring(0, 15)}..' : state.userName : ''}',
+                        style: custumText(
+                            fontSize: kwidth * 0.05, fontWeight: FontWeight.w700));
+                  },
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(right: 20,top: 10),
+                  child: LinearProgressIndicator(backgroundColor: kblack,color: neonShade,),
+                )
+              ],
+            ),
           ),
-          const Spacer(),
+          // const Spacer(),
           GestureDetector(
             onTap: () {
               print('notifiacation');

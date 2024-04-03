@@ -127,11 +127,11 @@ class CompanyAndBankingDetails extends StatelessWidget {
                                 const BusinessDataEvent.createBankingData());
                           },
                     onTap: () {
-                      if (bankingCardCreationKey.currentState!.validate()) {
-                        context
-                            .read<BusinessDataBloc>()
-                            .add(const BusinessDataEvent.createBankingData());
-                      }
+                      // if (bankingCardCreationKey.currentState!.validate()) {
+                      //   context
+                      //       .read<BusinessDataBloc>()
+                      //       .add(const BusinessDataEvent.createBankingData());
+                      // }
                       // if (context
                       //             .read<BusinessDataBloc>()
                       //             .nameOfCompanyController

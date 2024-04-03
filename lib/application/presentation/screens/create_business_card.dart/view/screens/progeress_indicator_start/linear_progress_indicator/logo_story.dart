@@ -163,28 +163,28 @@ class _LogoStoryState extends State<LogoStory> {
                             );
                           },
                     onTap: () {
-                      if (state.isBusiness) {
-                        if (state.logo == null) {
-                          showSnackbar(context,
-                              message: 'add logo to continue');
-                        } else if (context
-                                .read<BusinessDataBloc>()
-                                .logoStoryController
-                                .text ==
-                            '') {
-                          showSnackbar(context, message: 'enter logo story ');
-                        } else {
-                          widget.pageController.nextPage(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.ease,
-                          );
-                        }
-                      } else {
-                        widget.pageController.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.ease,
-                        );
-                      }
+                      // if (state.isBusiness) {
+                      //   if (state.logo == null) {
+                      //     showSnackbar(context,
+                      //         message: 'add logo to continue');
+                      //   } else if (context
+                      //           .read<BusinessDataBloc>()
+                      //           .logoStoryController
+                      //           .text ==
+                      //       '') {
+                      //     showSnackbar(context, message: 'enter logo story ');
+                      //   } else {
+                      //     widget.pageController.nextPage(
+                      //       duration: const Duration(milliseconds: 300),
+                      //       curve: Curves.ease,
+                      //     );
+                      //   }
+                      // } else {
+                      //   widget.pageController.nextPage(
+                      //     duration: const Duration(milliseconds: 300),
+                      //     curve: Curves.ease,
+                      //   );
+                      // }
                     });
               },
             ),

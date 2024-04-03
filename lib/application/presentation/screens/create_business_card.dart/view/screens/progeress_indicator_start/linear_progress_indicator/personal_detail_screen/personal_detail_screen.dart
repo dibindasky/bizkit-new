@@ -260,6 +260,7 @@ class PersonlDetails extends StatelessWidget {
                     context.read<CardBloc>().add(
                         CardEvent.getCardyCardId(id: state.currentCard!.id!));
                     Navigator.pop(context);
+                    Navigator.pop(context);
                   }
                 },
                 builder: (context, state) {

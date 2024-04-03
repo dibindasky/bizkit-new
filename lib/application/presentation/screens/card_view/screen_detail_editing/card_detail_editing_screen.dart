@@ -38,7 +38,7 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                           ));
                     },
                     title: 'Personal Details',
-                    subTitle: '2 Fields Missing'),
+                    subTitle: ''),
                 DetailCustomTile(
                     onTap: () {
                       Navigator.push(
@@ -49,7 +49,7 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                           ));
                     },
                     title: 'Business Details',
-                    subTitle: '2 Fields Missing'),
+                    subTitle: ''),
                 DetailCustomTile(
                     onTap: () {
                       Navigator.push(
@@ -60,7 +60,7 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                           ));
                     },
                     title: 'Logo, Logo Story',
-                    subTitle: '2 Fields Missing'),
+                    subTitle: ''),
                 DetailCustomTile(
                     onTap: () {
                       Navigator.push(
@@ -71,7 +71,7 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                           ));
                     },
                     title: 'Products & Brochers',
-                    subTitle: '2 Fields Missing'),
+                    subTitle: ''),
                 DetailCustomTile(
                     onTap: () {
                       Navigator.push(
@@ -82,7 +82,7 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                           ));
                     },
                     title: 'Banking Details',
-                    subTitle: '2 Fields Missing'),
+                    subTitle: ''),
               ],
             ),
           );

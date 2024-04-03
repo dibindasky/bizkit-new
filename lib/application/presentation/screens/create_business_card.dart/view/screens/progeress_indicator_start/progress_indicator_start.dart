@@ -20,12 +20,12 @@ class LinearProgressIndicatorStarting extends StatefulWidget {
 
 class _LinearProgressIndicatorStartingState
     extends State<LinearProgressIndicatorStarting> {
-  final PageController _pageController = PageController();
+  late PageController _pageController;
 
   int _currentPage = 0;
   @override
   void initState() {
-    _currentPage = widget.index ?? _currentPage;
+    _pageController = PageController(initialPage: widget.index ?? _currentPage);
     super.initState();
   }
 

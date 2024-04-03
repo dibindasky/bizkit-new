@@ -348,12 +348,12 @@ class BusinessDetailsScreen extends StatelessWidget {
                   adjustHieght(khieght * .03),
                   LastSkipContinueButtons(
                     onTap: () {
-                      if (businessFormKey.currentState!.validate()) {
-                        pageController.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.ease,
-                        );
-                      }
+                      // if (businessFormKey.currentState!.validate()) {
+                      //   pageController.nextPage(
+                      //     duration: const Duration(milliseconds: 300),
+                      //     curve: Curves.ease,
+                      //   );
+                      // }
                     },
                   ),
                   adjustHieght(khieght * .04),

@@ -9,6 +9,7 @@ class AuthButton extends StatelessWidget {
     this.wdth,
     this.hieght,
     this.textColr,
+this.color
   });
 
   final String text;
@@ -16,6 +17,7 @@ class AuthButton extends StatelessWidget {
   final double? wdth;
   final double? hieght;
   final Color? textColr;
+  final Gradient? color;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class AuthButton extends StatelessWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(9),
           ),
-          gradient: neonShadeGradient,
+          gradient:color?? neonShadeGradient,
         ),
         child: Center(
           child: Text(

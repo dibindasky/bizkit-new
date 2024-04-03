@@ -133,13 +133,13 @@ class BrochersAndProductsScreen extends StatelessWidget {
                         );
                       },
                 onTap: () {
-                  context
-                      .read<BusinessDataBloc>()
-                      .add(const BusinessDataEvent.createBusinessData());
-                  pageController.nextPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.ease,
-                  );
+                  // context
+                  //     .read<BusinessDataBloc>()
+                  //     .add(const BusinessDataEvent.createBusinessData());
+                  // pageController.nextPage(
+                  //   duration: const Duration(milliseconds: 300),
+                  //   curve: Curves.ease,
+                  // );
                 },
               );
             },

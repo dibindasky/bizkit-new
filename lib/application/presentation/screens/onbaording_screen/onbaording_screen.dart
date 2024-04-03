@@ -19,7 +19,7 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
 
   int selectedIndex = 0;
 
-  final int totalPages = 3;
+  final int totalPages = 2;
 
   @override
   void initState() {
@@ -70,11 +70,14 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
   }) {
     return GestureDetector(
       onTap: () {
-        if (selectedIndex < totalPages - 1) {
+        if (selectedIndex < totalPages) {
           _pageController.nextPage(
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut,
           );
+        } else if (selectedIndex == 2) {
+          GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
+          context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
         }
       },
       child: Scaffold(
@@ -125,7 +128,17 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
                                   right: 70,
                                   left: 70,
                                   child: AuthButton(
-                                    textColr: kblack,
+                                    textColr: kwhite,
+                                    color: const LinearGradient(
+                                      colors: [
+                                        Color.fromRGBO(9, 29, 26, 1),
+                                        Color.fromRGBO(6, 199, 173, 1),
+                                        Color.fromRGBO(6, 199, 173, 1),
+                                        Color.fromRGBO(2, 41, 36, 1),
+                                      ],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                    ),
                                     onTap: () {
                                       GoRouter.of(context).pushReplacementNamed(
                                           Routes.loginPage);

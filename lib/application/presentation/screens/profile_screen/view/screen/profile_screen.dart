@@ -66,10 +66,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                         current.getUserInfoModel;
                   },
                   listener: (context, state) {
-                    if (state.getUserInfoModel != null &&
-                        state.imageModel != null) {
-                      showSnackbar(context, message: 'profile updated');
-                    }
+                    // if (state.getUserInfoModel != null &&
+                    //     state.imageModel != null) {
+                    //   showSnackbar(context, message: 'profile updated');
+                    // }
                     // if (state.userInfoChangeResponceModel != null) {
                     //   showSnackbar(context, message: state.message!);
                     // }

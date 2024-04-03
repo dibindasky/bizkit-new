@@ -11,7 +11,7 @@ class ProfileState with _$ProfileState {
     ImageModel? imageModel,
     bool? uploaded,
     SuccessResponseModel? successResponseModel,
-    UpdateUserInfoModel? userInfoChangeResponceModel,
+    UpdateUserInfoModel? updateUserInfoModel,
     ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
     List<Questions>? questionList,
   }) = _Initial;

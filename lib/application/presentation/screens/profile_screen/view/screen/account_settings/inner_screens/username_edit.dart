@@ -1,11 +1,7 @@
-import 'dart:developer';
-
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:flutter/material.dart';
@@ -75,18 +71,10 @@ class _EditUserDetailsState extends State<EditUserDetails> {
               const Spacer(),
               BlocConsumer<ProfileBloc, ProfileState>(
                 listener: (context, state) {
-                  if (state.hasError || state.message != null) {
-                    showSnackbar(
-                      context,
-                      message: state.message ?? errorMessage,
-                      backgroundColor: state.hasError ? kred : neonShade,
-                      textColor: kwhite,
-                    );
+                  if (state.updateUserInfoModel != null &&
+                      state.message == 'Profile updated uccessfully') {
+                    Navigator.pop(context);
                   }
-                  // if (state.userInfoChangeResponceModel != null &&
-                  //     state.message == 'Profile updated uccessfully') {
-                  //   Navigator.pop(context);
-                  // }
                 },
                 builder: (context, state) {
                   if (state.isLoading) {
@@ -106,8 +94,6 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                               .text,
                         );
 
-                        log('in usernane feild ${context.read<ProfileBloc>().userNameController.text}');
-                        log('in usernane changes ${userInfoChangeRequestModel.toJson()}');
                         context.read<ProfileBloc>().add(
                               ProfileEvent.editProfile(
                                 userInfoChangeRequestModel:

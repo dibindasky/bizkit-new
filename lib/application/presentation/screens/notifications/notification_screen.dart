@@ -130,7 +130,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       }
                       return GestureDetector(
                         onTap: () {
-                          GoRouter.of(context).pushNamed(Routes.cardView);
+                          // GoRouter.of(context).pushNamed(Routes.cardView);
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -156,7 +156,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    notification.scheduledAt!.substring(0, 6),
+                                    notification.scheduledAt!.substring(0, 5),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ],

@@ -5,6 +5,7 @@ import 'package:bizkit/application/presentation/utils/image_picker/image_picker.
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/business_detail/business_details.dart';
+import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/create_card/accridition/accredition.dart';
 import 'package:bizkit/domain/model/card/create_card/banking_detail/bank_details.dart';
 import 'package:bizkit/domain/model/card/create_card/branch_offices/branch_offices.dart';
@@ -203,12 +204,12 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       addressController.text = business.address ?? '';
       websiteLinkController.text = business.websiteLink ?? '';
       logoStoryController.text = business.logoStory ?? '';
-      nameOfCompanyController.text = business.bankDetails?.nameOfCompany ?? '';
-      upiDetailController.text = business.bankDetails?.upiDetails ?? '';
-      accountNumberController.text = business.bankDetails?.accountNumber ?? '';
-      ifscController.text = business.bankDetails?.ifscCode ?? '';
-      gstNumberController.text =
-          business.bankDetails?.gstMembershipDetails ?? '';
+      // nameOfCompanyController.text = business.bankDetails?.nameOfCompany ?? '';
+      // upiDetailController.text = business.bankDetails?.upiDetails ?? '';
+      // accountNumberController.text = business.bankDetails?.accountNumber ?? '';
+      // ifscController.text = business.bankDetails?.ifscCode ?? '';
+      // gstNumberController.text =
+      //     business.bankDetails?.gstMembershipDetails ?? '';
 
       // emit(state.copyWith(
       //     accreditions: business.accredition

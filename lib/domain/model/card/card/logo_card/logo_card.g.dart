@@ -1,23 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dates_to_remember.dart';
+part of 'logo_card.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-DatesToRemember _$DatesToRememberFromJson(Map<String, dynamic> json) =>
-    DatesToRemember(
+LogoCard _$LogoCardFromJson(Map<String, dynamic> json) => LogoCard(
       id: json['id'] as int?,
-      date: json['date'] as String?,
-      label: json['label'] as String?,
+      logo: json['logo'] as String?,
+      logoStory: json['logo_story'] as String?,
       cardId: json['card_id'] as int?,
     );
 
-Map<String, dynamic> _$DatesToRememberToJson(DatesToRemember instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$LogoCardToJson(LogoCard instance) => <String, dynamic>{
       'id': instance.id,
-      'date': instance.date,
-      'label': instance.label,
+      'logo': instance.logo,
+      'logo_story': instance.logoStory,
       'card_id': instance.cardId,
     };

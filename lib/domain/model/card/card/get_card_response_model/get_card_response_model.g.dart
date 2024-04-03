@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_card_resposnse_model.dart';
+part of 'get_card_response_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetCardResposnseModel _$GetCardResposnseModelFromJson(
+GetCardResponseModel _$GetCardResponseModelFromJson(
         Map<String, dynamic> json) =>
-    GetCardResposnseModel(
+    GetCardResponseModel(
       count: json['count'] as int?,
       next: json['next'] as String?,
       previous: json['previous'] as String?,
@@ -17,8 +17,8 @@ GetCardResposnseModel _$GetCardResposnseModelFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$GetCardResposnseModelToJson(
-        GetCardResposnseModel instance) =>
+Map<String, dynamic> _$GetCardResponseModelToJson(
+        GetCardResponseModel instance) =>
     <String, dynamic>{
       'count': instance.count,
       'next': instance.next,

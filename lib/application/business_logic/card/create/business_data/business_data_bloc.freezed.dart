@@ -4182,6 +4182,7 @@ mixin _$BusinessDataState {
   List<ProductCreate> get products => throw _privateConstructorUsedError;
   List<BrochureCreate> get brochures => throw _privateConstructorUsedError;
   ImageModel? get logo => throw _privateConstructorUsedError;
+  LogoCard? get logoCard => throw _privateConstructorUsedError;
   bool get gotCompanyData => throw _privateConstructorUsedError;
   List<Company> get companiesList => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
@@ -4212,6 +4213,7 @@ abstract class $BusinessDataStateCopyWith<$Res> {
       List<ProductCreate> products,
       List<BrochureCreate> brochures,
       ImageModel? logo,
+      LogoCard? logoCard,
       bool gotCompanyData,
       List<Company> companiesList,
       String? message});
@@ -4244,6 +4246,7 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
     Object? products = null,
     Object? brochures = null,
     Object? logo = freezed,
+    Object? logoCard = freezed,
     Object? gotCompanyData = null,
     Object? companiesList = null,
     Object? message = freezed,
@@ -4305,6 +4308,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as ImageModel?,
+      logoCard: freezed == logoCard
+          ? _value.logoCard
+          : logoCard // ignore: cast_nullable_to_non_nullable
+              as LogoCard?,
       gotCompanyData: null == gotCompanyData
           ? _value.gotCompanyData
           : gotCompanyData // ignore: cast_nullable_to_non_nullable
@@ -4344,6 +4351,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       List<ProductCreate> products,
       List<BrochureCreate> brochures,
       ImageModel? logo,
+      LogoCard? logoCard,
       bool gotCompanyData,
       List<Company> companiesList,
       String? message});
@@ -4374,6 +4382,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? products = null,
     Object? brochures = null,
     Object? logo = freezed,
+    Object? logoCard = freezed,
     Object? gotCompanyData = null,
     Object? companiesList = null,
     Object? message = freezed,
@@ -4435,6 +4444,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as ImageModel?,
+      logoCard: freezed == logoCard
+          ? _value.logoCard
+          : logoCard // ignore: cast_nullable_to_non_nullable
+              as LogoCard?,
       gotCompanyData: null == gotCompanyData
           ? _value.gotCompanyData
           : gotCompanyData // ignore: cast_nullable_to_non_nullable
@@ -4469,6 +4482,7 @@ class _$InitialImpl implements _Initial {
       required final List<ProductCreate> products,
       required final List<BrochureCreate> brochures,
       this.logo,
+      this.logoCard,
       required this.gotCompanyData,
       required final List<Company> companiesList,
       this.message})
@@ -4538,6 +4552,8 @@ class _$InitialImpl implements _Initial {
   @override
   final ImageModel? logo;
   @override
+  final LogoCard? logoCard;
+  @override
   final bool gotCompanyData;
   final List<Company> _companiesList;
   @override
@@ -4552,7 +4568,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessData: $businessData, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
+    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessData: $businessData, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, logoCard: $logoCard, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
   }
 
   @override
@@ -4586,6 +4602,8 @@ class _$InitialImpl implements _Initial {
             const DeepCollectionEquality()
                 .equals(other._brochures, _brochures) &&
             (identical(other.logo, logo) || other.logo == logo) &&
+            (identical(other.logoCard, logoCard) ||
+                other.logoCard == logoCard) &&
             (identical(other.gotCompanyData, gotCompanyData) ||
                 other.gotCompanyData == gotCompanyData) &&
             const DeepCollectionEquality()
@@ -4610,6 +4628,7 @@ class _$InitialImpl implements _Initial {
       const DeepCollectionEquality().hash(_products),
       const DeepCollectionEquality().hash(_brochures),
       logo,
+      logoCard,
       gotCompanyData,
       const DeepCollectionEquality().hash(_companiesList),
       message);
@@ -4637,6 +4656,7 @@ abstract class _Initial implements BusinessDataState {
       required final List<ProductCreate> products,
       required final List<BrochureCreate> brochures,
       final ImageModel? logo,
+      final LogoCard? logoCard,
       required final bool gotCompanyData,
       required final List<Company> companiesList,
       final String? message}) = _$InitialImpl;
@@ -4669,6 +4689,8 @@ abstract class _Initial implements BusinessDataState {
   List<BrochureCreate> get brochures;
   @override
   ImageModel? get logo;
+  @override
+  LogoCard? get logoCard;
   @override
   bool get gotCompanyData;
   @override

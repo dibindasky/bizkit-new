@@ -45,7 +45,7 @@ class ScreenCardDetailView extends StatelessWidget {
             backgroundColor: knill,
             title: state.isLoading
                 ? null
-                : Text(state.anotherCard?.personalDetails?.name ?? 'Name',
+                : Text(state.anotherCard?.personalDetails?.name ?? '',
                     style: textHeadStyle1),
           ),
           body: state.isLoading
@@ -53,7 +53,7 @@ class ScreenCardDetailView extends StatelessWidget {
                   child: CircularProgressIndicator(color: neonShade),
                 )
               : state.anotherCard == null
-                  ? const Text('Bizkit card not found')
+                  ? const Center(child: Text('Bizkit card not found'))
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: SingleChildScrollView(
@@ -74,17 +74,15 @@ class ScreenCardDetailView extends StatelessWidget {
                                       .anotherCard!.personalDetails!.photos!);
                                 }
                                 if (state.anotherCard != null &&
-                                    state.anotherCard!.businessDetails !=
-                                        null &&
-                                    state.anotherCard!.businessDetails!.logo !=
-                                        null) {
-                                  images.add(state
-                                      .anotherCard!.businessDetails!.logo!);
+                                    state.anotherCard!.logoCard != null &&
+                                    state.anotherCard!.logoCard!.logo != null) {
+                                  images
+                                      .add(state.anotherCard!.logoCard!.logo!);
                                 }
                                 return SizedBox(
                                   height: 200,
                                   child: PreviewPageviewImageBuilder(
-                                    imagesList: images,
+                                    imagesList: [],
                                   ),
                                 );
                               },

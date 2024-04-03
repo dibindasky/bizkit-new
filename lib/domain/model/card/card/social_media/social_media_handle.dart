@@ -8,8 +8,10 @@ class SocialMediaHandle {
   String? label;
   @JsonKey(name: 'social_media')
   String? socialMedia;
+  @JsonKey(name: 'card_id')
+  int? cardId;
 
-  SocialMediaHandle({this.id, this.label, this.socialMedia});
+  SocialMediaHandle({this.id, this.label, this.socialMedia, this.cardId});
 
   factory SocialMediaHandle.fromJson(Map<String, dynamic> json) {
     return _$SocialMediaHandleFromJson(json);

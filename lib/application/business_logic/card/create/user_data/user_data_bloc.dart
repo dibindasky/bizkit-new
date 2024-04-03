@@ -1,20 +1,22 @@
 import 'dart:async';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
 import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/category.dart';
 import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
 import 'package:bizkit/domain/model/card/create_card/personal_details/personal_details.dart';
 import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
-import 'package:bizkit/domain/model/card/create_card_by_id_model/create_card_by_id_model.dart';
+import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
+import 'package:bizkit/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as mat;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -29,15 +31,17 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final UserLocalRepo userLocalService;
   final CardRepo cardService;
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController homeAddress = TextEditingController();
-  final TextEditingController bloodGroup = TextEditingController();
-  final TextEditingController designationController = TextEditingController();
-  final TextEditingController birthDaycontroller = TextEditingController();
-  final TextEditingController businessCategoryController =
-      TextEditingController();
+  final mat.TextEditingController nameController = mat.TextEditingController();
+  final mat.TextEditingController phoneController = mat.TextEditingController();
+  final mat.TextEditingController emailController = mat.TextEditingController();
+  final mat.TextEditingController homeAddress = mat.TextEditingController();
+  final mat.TextEditingController bloodGroup = mat.TextEditingController();
+  final mat.TextEditingController designationController =
+      mat.TextEditingController();
+  final mat.TextEditingController birthDaycontroller =
+      mat.TextEditingController();
+  final mat.TextEditingController businessCategoryController =
+      mat.TextEditingController();
 
   UserDataBloc(this.cardScanningImpl, this.userLocalService, this.cardService)
       : super(UserDataState.initial()) {
@@ -56,6 +60,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<RemoveDateToRemember>(removeDateToRemember);
     on<CreatePersonalData>(createPersonalData);
     on<CreateCard>(createCard);
+    on<GetCurrentCard>(getCurrentCard);
     on<Clear>(clear);
   }
 
@@ -64,16 +69,16 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         isLoading: true, hasError: false, message: null, cardAdded: null));
     print('card creation requested 1');
 
-    print('card creation requested');
+    // print('card creation requested');
 
-    print(event.createCardByIdModel.toJson());
-    print('card creation requested 2');
-    event.createCardByIdModel.isVerified =
-        event.createCardByIdModel.isVerified ??
-            await SecureStorage.isVerified();
+    // print(event.createCardByIdModel.toJson());
+    // print('card creation requested 2');
+    // event.createCardByIdModel.isVerified =
+    //     event.createCardByIdModel.isVerified ??
+    //         await SecureStorage.isVerified();
 
     final result = await cardService.createCard(
-        createCardByIdModel: event.createCardByIdModel);
+        cardFirstCreationModel: event.cardFirstCreationModel);
     result.fold((l) {
       print('card creation request failed');
       return emit(
@@ -88,48 +93,74 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   FutureOr<void> createPersonalData(CreatePersonalData event, emit) async {
     // if (state.personalDataCreateId != null) return;
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
-    final personalData = PersonalDetailsCreate(
-        name: nameController.text.isEmpty ? null : nameController.text,
-        phoneNumber: phoneController.text.isEmpty ? null : phoneController.text,
-        email: emailController.text.isEmpty ? null : emailController.text,
-        designation: designationController.text.isEmpty
-            ? null
-            : designationController.text,
-        businessCategory: businessCategoryController.text.isEmpty
-            ? null
-            : state.businessCategories
-                .firstWhere((element) =>
-                    element.category == businessCategoryController.text.trim())
-                .id,
-        homeAddress: homeAddress.text.isEmpty ? null : homeAddress.text,
-        bloodGroup: bloodGroup.text.isEmpty ? null : bloodGroup.text,
-        dateOfBirth:
-            birthDaycontroller.text.isEmpty ? null : birthDaycontroller.text,
-        datesToRemember:
-            state.datesToRemember.isEmpty ? [] : state.datesToRemember,
-        accolades: state.accolades.isEmpty
-            ? []
-            : state.accolades
-                .map((e) => AccoladeCreate(
-                    accolades: e.accolades,
-                    accoladesDescription: e.accoladesDescription,
-                    accoladesImage: e.accoladesImage.base64))
-                .toList(),
-        photos: state.userPhotos?.base64,
-        personalSocialMedia:
-            state.socialMedias.isEmpty ? [] : state.socialMedias);
-    print(personalData.toJson());
-    final result = await cardService.createPersonalDataCard(
-        personalDetailsCreate: personalData);
+    emit(state.copyWith(
+        isLoading: true, hasError: false, message: null, personalData: null));
+    // final personalData = PersonalDetailsCreate(
+    //     name: nameController.text.isEmpty ? null : nameController.text,
+    //     phoneNumber: phoneController.text.isEmpty ? null : phoneController.text,
+    //     email: emailController.text.isEmpty ? null : emailController.text,
+    //     designation: designationController.text.isEmpty
+    //         ? null
+    //         : designationController.text,
+    //     businessCategory: businessCategoryController.text.isEmpty
+    //         ? null
+    //         : state.businessCategories
+    //             .firstWhere((element) =>
+    //                 element.category == businessCategoryController.text.trim())
+    //             .id,
+    //     homeAddress: homeAddress.text.isEmpty ? null : homeAddress.text,
+    //     bloodGroup: bloodGroup.text.isEmpty ? null : bloodGroup.text,
+    //     dateOfBirth:
+    //         birthDaycontroller.text.isEmpty ? null : birthDaycontroller.text,
+    //     datesToRemember:
+    //         state.datesToRemember.isEmpty ? [] : state.datesToRemember,
+    //     accolades: state.accolades.isEmpty
+    //         ? []
+    //         : state.accolades
+    //             .map((e) => AccoladeCreate(
+    //                 accolades: e.accolades,
+    //                 accoladesDescription: e.accoladesDescription,
+    //                 accoladesImage: e.accoladesImage.base64))
+    //             .toList(),
+    //     photos: state.userPhotos?.base64,
+    //     personalSocialMedia:
+    //         state.socialMedias.isEmpty ? [] : state.socialMedias);
+    print('personal business category id');
+    print(
+        'personal business category name ${state.currentCard!.personalDetails!.name}');
+    print(
+        'personal business category phone ${state.currentCard!.personalDetails!.phoneNumber}');
+    print(
+        'personal business category email ${state.currentCard!.personalDetails!.email}');
+    // print(
+    //     'personal business category id = ${state.personalData!.businessCategoryId!}');
+    final PatchPersonalData personalData = PatchPersonalData(
+        businessCategoryId: 1,
+        bloodGroup: bloodGroup.text.isNotEmpty
+            ? bloodGroup.text
+            : state.currentCard?.personalDetails?.bloodGroup,
+        dateOfBirth: birthDaycontroller.text.isNotEmpty
+            ? birthDaycontroller.text
+            : state.currentCard?.personalDetails?.dateOfBirth,
+        homeAddress: homeAddress.text.isNotEmpty
+            ? homeAddress.text
+            : state.currentCard?.personalDetails?.homeAddress,
+        designation: state.currentCard?.personalDetails?.designation,
+        email: state.currentCard?.personalDetails?.email,
+        name: state.currentCard?.personalDetails?.name,
+        phoneNumber: state.currentCard?.personalDetails?.phoneNumber,
+        photos: state.currentCard?.personalDetails?.photos);
+    final result = await cardService.patchPersonalDetails(
+        patchPersonalData: personalData,
+        personalDataId: state.currentCard!.personalDetailsId!);
     result.fold(
         (failure) => emit(state.copyWith(
-            personalDetails: personalData,
+            // personalDetails: personalData,
             personalData: null,
             hasError: true,
             isLoading: false)),
         (personalDetails) => emit(state.copyWith(
-            personalDetails: personalData,
+            // personalDetails: personalData,
             message: null,
             personalData: personalDetails,
             isLoading: false)));
@@ -145,6 +176,11 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     birthDaycontroller.clear();
     businessCategoryController.clear();
     emit(UserDataState.initial());
+  }
+
+  FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {
+    emit(state.copyWith(
+        cardAdded: null, message: null, currentCard: event.card));
   }
 
   FutureOr<void> addDateToRemember(AddDateToRemember event, emit) async {

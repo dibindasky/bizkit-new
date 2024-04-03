@@ -5,22 +5,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PreviewPageViewBottomSheet extends StatelessWidget {
-  const PreviewPageViewBottomSheet({super.key, this.image, this.imageNetwork});
+  const PreviewPageViewBottomSheet(
+      {super.key, this.image, this.imageNetwork, this.logoStory});
 
   final File? image;
   final String? imageNetwork;
+  final String? logoStory;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: backgroundColour,
       width: double.infinity,
       height: khieght * 3.3 / 4,
+      decoration: const BoxDecoration(
+          color: backgroundColour,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30))),
       child: Column(
         children: [
           adjustHieght(khieght * .005),
           Center(
             child: Container(
+              margin: const EdgeInsets.all(15),
               decoration: const BoxDecoration(
                 color: kwhite,
                 borderRadius: BorderRadius.all(
@@ -56,26 +62,14 @@ class PreviewPageViewBottomSheet extends StatelessWidget {
                   ),
                 ),
                 adjustHieght(khieght * .01),
-                const Text(
-                  "The green square represents Xbox (fun). The blue square represents Microsoft Windows (calmness). The yellow square represents Bing (optimism and creativity). If you look closely at the logo, you will notice that the Microsoft logo is inspired by the Windows logo, which is one of the company's most prominent products.",
-                  style: TextStyle(
+                Text(
+                  logoStory ?? '',
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 adjustHieght(khieght * .01),
-                Text(
-                  'When',
-                  style: TextStyle(
-                    fontFamily: 'Euclid',
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                adjustHieght(khieght * .01),
-                const Text(
-                  "t was designed in 1975 when William Gates and Paul Allen thought of foraying into the technology world. They launched Microsoft on April 4, 1975. Simon Daniels designed the first-ever logo for the Company. The logo design comprised letters in the shape of Disco music discs.",
-                ),
               ],
             ),
           ),

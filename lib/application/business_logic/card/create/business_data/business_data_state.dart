@@ -17,6 +17,7 @@ class BusinessDataState with _$BusinessDataState {
       required List<ProductCreate> products,
       required List<BrochureCreate> brochures,
       ImageModel? logo,
+      LogoCard? logoCard,
       required bool gotCompanyData,
       required List<Company> companiesList,
       String? message}) = _Initial;

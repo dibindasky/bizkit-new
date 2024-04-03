@@ -16,6 +16,7 @@ class UserDataState with _$UserDataState {
       required List<Category> businessCategories,
       required List<DatesToRememberCreate> datesToRemember,
       required List<SocialMediaHandleCreate> socialMedias,
+      Card? currentCard,
       ScannedImageDatasModel? scannedImageDatasModel}) = _Initial;
 
   factory UserDataState.initial() => UserDataState(

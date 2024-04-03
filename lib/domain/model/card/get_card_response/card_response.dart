@@ -28,6 +28,7 @@ class CardResponse {
   int? personalDetails;
   @JsonKey(name: 'business_details_id')
   int? businessDetails;
+  int? percentage;
 
   CardResponse(
       {this.id,
@@ -43,6 +44,7 @@ class CardResponse {
       this.isVerified,
       this.share,
       this.views,
+      this.percentage,
       this.name});
 
   factory CardResponse.fromJson(Map<String, dynamic> json) {

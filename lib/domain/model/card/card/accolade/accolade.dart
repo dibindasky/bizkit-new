@@ -5,18 +5,20 @@ part 'accolade.g.dart';
 @JsonSerializable()
 class Accolade {
   int? id;
-  @JsonKey(name: 'accolades_image')
+  @JsonKey(name: 'image')
   String? accoladesImage;
   String? accolades;
-  @JsonKey(name: 'accolades_description')
+  @JsonKey(name: 'description')
   String? accoladesDescription;
+  @JsonKey(name: 'card_id')
+  int? cardId;
 
-  Accolade({
-    this.id,
-    this.accoladesImage,
-    this.accolades,
-    this.accoladesDescription,
-  });
+  Accolade(
+      {this.id,
+      this.accoladesImage,
+      this.accolades,
+      this.accoladesDescription,
+      this.cardId});
 
   factory Accolade.fromJson(Map<String, dynamic> json) {
     return _$AccoladeFromJson(json);

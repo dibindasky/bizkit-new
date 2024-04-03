@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/presentation/screens/card_view/widgets/card_persentage_completion_indicator.dart';
 import 'package:bizkit/application/presentation/screens/card_view/widgets/card_view_personal_banking_achive.dart';
 import 'package:bizkit/application/presentation/screens/card_view/widgets/card_view_row_icons.dart';
 import 'package:bizkit/application/presentation/screens/card_view/widgets/history_card_view.dart';
@@ -20,6 +21,10 @@ class CardDetailScreenSecondHalf extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // completion persentage indicator
+        myCard
+            ? const CardViewCompletionPersentageIndicator()
+            : const SizedBox(),
         // add reminder button
         !myCard
             ? const CardViewAddReminderContainer()
@@ -34,15 +39,13 @@ class CardDetailScreenSecondHalf extends StatelessWidget {
           builder: (context, state) {
             List<Product> images = [];
             if (state.anotherCard != null &&
-                state.anotherCard!.businessDetails != null &&
-                state.anotherCard!.businessDetails!.product != null) {
-              images = state.anotherCard!.businessDetails!.product!;
+                state.anotherCard!.product != null) {
+              images = state.anotherCard!.product!;
             }
             List<String> pdfBase64 = [];
             if (state.anotherCard != null &&
-                state.anotherCard!.businessDetails != null &&
-                state.anotherCard!.businessDetails!.brochure != null) {
-              pdfBase64 = state.anotherCard!.businessDetails!.brochure!
+                state.anotherCard!.brochure != null) {
+              pdfBase64 = state.anotherCard!.brochure!
                   .map((e) =>
                       e.file!.substring('data:application/pdf;base64,'.length))
                   .toList();

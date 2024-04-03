@@ -60,16 +60,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   adjustHieght(khieght * .05),
-                  BlocConsumer<CardBloc, CardState>(
-                    listener: (context, state) {
-                      if (state.hasError) {
-                        return showSnackbar(
-                          context,
-                          message: state.message!,
-                          backgroundColor: kred,
-                        );
-                      }
-                    },
+                  BlocBuilder<CardBloc, CardState>(
                     builder: (context, state) {
                       if (state.isLoading) {
                         return const LoadingAnimation();

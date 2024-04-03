@@ -15,15 +15,17 @@ class BankDetails {
   String? upiDetails;
   @JsonKey(name: 'gst_membership_details')
   String? gstMembershipDetails;
+  @JsonKey(name: 'card_id')
+  int? cardId;
 
-  BankDetails({
-    this.id,
-    this.nameOfCompany,
-    this.accountNumber,
-    this.ifscCode,
-    this.upiDetails,
-    this.gstMembershipDetails,
-  });
+  BankDetails(
+      {this.id,
+      this.nameOfCompany,
+      this.accountNumber,
+      this.ifscCode,
+      this.upiDetails,
+      this.gstMembershipDetails,
+      this.cardId});
 
   factory BankDetails.fromJson(Map<String, dynamic> json) {
     return _$BankDetailsFromJson(json);

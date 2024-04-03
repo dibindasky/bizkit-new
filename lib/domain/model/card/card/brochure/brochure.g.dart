@@ -11,6 +11,7 @@ Brochure _$BrochureFromJson(Map<String, dynamic> json) => Brochure(
       file: json['file'] as String?,
       image: json['image'] as String?,
       label: json['label'] as String?,
+      cardId: json['card_id'] as int?,
     );
 
 Map<String, dynamic> _$BrochureToJson(Brochure instance) => <String, dynamic>{
@@ -18,4 +19,5 @@ Map<String, dynamic> _$BrochureToJson(Brochure instance) => <String, dynamic>{
       'file': instance.file,
       'image': instance.image,
       'label': instance.label,
+      'card_id': instance.cardId,
     };

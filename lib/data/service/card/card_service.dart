@@ -5,7 +5,7 @@ import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
 import 'package:bizkit/domain/model/card/card/business_detail/business_details.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
-import 'package:bizkit/domain/model/card/card/get_card_resposnse_model/get_card_resposnse_model.dart';
+import 'package:bizkit/domain/model/card/card/get_card_response_model/get_card_response_model.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card_model.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/blocked_cards_responce_moede/blocked_cards_responce_moede.dart';
@@ -14,8 +14,9 @@ import 'package:bizkit/domain/model/card/create_card/business_detail/business_de
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/get_business_category_response_model.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_companys/get_companys.dart';
 import 'package:bizkit/domain/model/card/create_card/personal_details/personal_details.dart';
-import 'package:bizkit/domain/model/card/create_card_by_id_model/create_card_by_id_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/get_card_response.dart';
+import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
+import 'package:bizkit/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
@@ -78,11 +79,11 @@ class CardService implements CardRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>> createCard(
-      {required CreateCardByIdModel createCardByIdModel}) async {
+      {required CardFirstCreationModel cardFirstCreationModel}) async {
     try {
       await apiService.post(ApiEndPoints.createCard,
-          data: createCardByIdModel.toJson());
-      print('create card ${createCardByIdModel.toJson()}');
+          data: cardFirstCreationModel.toJson());
+      print('create card ${cardFirstCreationModel.toJson()}');
       return Right(SuccessResponseModel(message: 'Card created successfully'));
     } on DioException catch (e) {
       log('card creation dio error');
@@ -122,12 +123,15 @@ class CardService implements CardRepo {
   }
 
   @override
-  Future<Either<Failure, PersonalDetails>> createPersonalDataCard(
-      {required PersonalDetailsCreate personalDetailsCreate}) async {
+  Future<Either<Failure, PersonalDetails>> patchPersonalDetails(
+      {required PatchPersonalData patchPersonalData,
+      required int personalDataId}) async {
     try {
-      log('createPersonalDataCard creation ${personalDetailsCreate.toJson()}');
-      final response = await apiService.post(ApiEndPoints.createCardPersonal,
-          data: personalDetailsCreate.toJson());
+      log('createPersonalDataCard creation ${patchPersonalData.toJson()}');
+      final response = await apiService.patch(
+          ApiEndPoints.patchPersonalDetails
+              .replaceFirst('{personal_details_id}', personalDataId.toString()),
+          data: patchPersonalData.toJson());
       log('createPersonalDataCard creation done');
       return Right(PersonalDetails.fromJson(response.data));
     } on DioException catch (e) {
@@ -143,12 +147,12 @@ class CardService implements CardRepo {
   }
 
   @override
-  Future<Either<Failure, GetCardResposnseModel>> getCardByUserId(
+  Future<Either<Failure, GetCardResponseModel>> getCardByUserId(
       {required int id}) async {
     try {
       final response = await apiService.get(ApiEndPoints.getCardByUserId
           .replaceFirst('{user_id}', id.toString()));
-      return Right(GetCardResposnseModel.fromJson(response.data));
+      return Right(GetCardResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());
       log('dio exception getCardByUserId');
@@ -166,7 +170,8 @@ class CardService implements CardRepo {
       final response = await apiService.get(ApiEndPoints.getCardByCardId
           .replaceFirst('{card_id}', id.toString()));
       log('get card by id success');
-      log(Card.fromJson(response.data).connectionRequestId.toString());
+      // log(response.data.toString());
+      // log(Card.fromJson(response.data).connectionRequestId.toString());
       return Right(Card.fromJson(response.data));
     } on DioException catch (e) {
       log('dio exception getCardByCardId');
@@ -183,11 +188,8 @@ class CardService implements CardRepo {
   Future<Either<Failure, GetCardResponse>> getCards(
       {required PageQuery qurey}) async {
     try {
-      print('get card apiicall');
       final response = await apiService.get(ApiEndPoints.card,
           queryParameters: qurey.toJson());
-      print('get card api success');
-      print(response.data);
       return Right(GetCardResponse.fromJson(response.data));
     } on DioException catch (e) {
       log('dio exception get cards');
@@ -223,25 +225,6 @@ class CardService implements CardRepo {
       return Left(Failure(message: errorMessage));
     }
   }
-
-  // @override
-  // Future<Either<Failure, SuccessResponseModel>> deleteCard(
-  //     {required int id}) async {
-  //   try {
-  //     await apiService.patch(data: {
-  //       "is_archived": false,
-  //       "is_active": true,
-  //     }, ApiEndPoints.deleteCard.replaceFirst('{card_id}', id.toString()));
-  //     log('deleteCard after');
-  //     return Right(SuccessResponseModel(message: 'Card deleted successfully'));
-  //   } on DioException catch (e) {
-  //     log('deleteCard DioException $e');
-  //     return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
-  //   } catch (e) {
-  //     log('deleteCard DioException $e');
-  //     return Left(Failure(message: errorMessage));
-  //   }
-  // }
 
   @override
   Future<Either<Failure, BlockedCardsResponceMoede>> getDeletedCardsList({

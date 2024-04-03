@@ -147,33 +147,27 @@ class PreviewRowWiceIcons extends StatelessWidget {
                         builder: (context) {
                           List personal = [], business = [];
                           if (fromPreview) {
-                            if (userState.personalData?.personalSocialMedia !=
-                                null) {
-                              personal =
-                                  userState.personalData!.personalSocialMedia!;
-                            }
-                            if (businessState
-                                    .businessData?.socialMediaHandles !=
-                                null) {
-                              business = businessState
-                                  .businessData!.socialMediaHandles!;
-                            }
+                            // if (userState.personalData?.personalSocialMedia !=
+                            //     null) {
+                            //   personal =
+                            //       userState.personalData!.personalSocialMedia!;
+                            // }
+                            // if (businessState
+                            //         .businessData?.socialMediaHandles !=
+                            //     null) {
+                            //   business = businessState
+                            //       .businessData!.socialMediaHandles!;
+                            // }
                           } else {
                             if (state.anotherCard != null &&
-                                state.anotherCard!.businessDetails != null &&
-                                state.anotherCard!.businessDetails!
-                                        .socialMediaHandles !=
+                                state.anotherCard!.businessSocialMedia !=
                                     null) {
-                              business = state.anotherCard!.businessDetails!
-                                  .socialMediaHandles!;
+                              business =
+                                  state.anotherCard!.businessSocialMedia!;
                             }
                             if (state.anotherCard != null &&
-                                state.anotherCard!.personalDetails != null &&
-                                state.anotherCard!.personalDetails!
-                                        .personalSocialMedia !=
-                                    null) {
-                              personal = state.anotherCard!.personalDetails!
-                                  .personalSocialMedia!;
+                                state.anotherCard!.socialMedia != null) {
+                              personal = state.anotherCard!.socialMedia!;
                             }
                           }
                           return AccountsListsBottomSheet(

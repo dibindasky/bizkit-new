@@ -8,8 +8,10 @@ class Brochure {
   String? file;
   String? image;
   String? label;
+  @JsonKey(name: 'card_id')
+  int? cardId;
 
-  Brochure({this.id, this.file, this.image, this.label});
+  Brochure({this.id, this.file, this.image, this.label, this.cardId});
 
   factory Brochure.fromJson(Map<String, dynamic> json) {
     return _$BrochureFromJson(json);

@@ -7,7 +7,6 @@ import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class MyCardsAndAddCardSection extends StatelessWidget {
@@ -80,70 +79,124 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                       //         data.logo ?? imageDummyNetwork),
                                       //     fit: BoxFit.cover)
                                     ),
-                                    child: Row(
+                                    child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                        Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                                state.defaultCard?.name != null
-                                                    ? state.defaultCard!.name!
-                                                                .length >
-                                                            20
-                                                        ? '${state.defaultCard!.name!.substring(0, 18)}..'
-                                                        : state
-                                                            .defaultCard!.name!
-                                                    : '',
-                                                style: textHeadStyle1.copyWith(
-                                                    shadows: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Text(
+                                                    state.defaultCard?.name !=
+                                                            null
+                                                        ? state
+                                                                    .defaultCard!
+                                                                    .name!
+                                                                    .length >
+                                                                20
+                                                            ? '${state.defaultCard!.name!.substring(0, 18)}..'
+                                                            : state.defaultCard!
+                                                                .name!
+                                                        : '',
+                                                    style: textHeadStyle1
+                                                        .copyWith(shadows: [
                                                       const Shadow(
                                                           color: kblack,
                                                           offset: Offset(1, 2),
                                                           blurRadius: 5)
                                                     ])),
-                                            Text(
-                                              state.defaultCard?.designation !=
-                                                      null
-                                                  ? state
-                                                              .defaultCard!
+                                                Text(
+                                                  state.defaultCard
+                                                              ?.designation !=
+                                                          null
+                                                      ? state
+                                                                  .defaultCard!
+                                                                  .designation!
+                                                                  .length >
+                                                              20
+                                                          ? '${state.defaultCard!.designation!.substring(0, 18)}..'
+                                                          : state.defaultCard!
                                                               .designation!
-                                                              .length >
-                                                          20
-                                                      ? '${state.defaultCard!.designation!.substring(0, 18)}..'
-                                                      : state.defaultCard!
-                                                          .designation!
-                                                  : '',
-                                              style: TextStyle(
-                                                  fontSize: kwidth * .037,
-                                                  shadows: const [
-                                                    Shadow(
+                                                      : '',
+                                                  style: TextStyle(
+                                                      fontSize: kwidth * .037,
+                                                      shadows: const [
+                                                        Shadow(
+                                                            color: kblack,
+                                                            offset:
+                                                                Offset(0, 2),
+                                                            blurRadius: 5)
+                                                      ]),
+                                                ),
+                                                adjustHieght(10),
+                                                SizedBox(
+                                                  height: kwidth * 0.10,
+                                                  width: kwidth * 0.10,
+                                                  child: data.logo != null
+                                                      ? Image.network(
+                                                          data.logo!,
+                                                          fit: BoxFit.cover)
+                                                      : Image.asset(
+                                                          iconBizkitPng,
+                                                          fit: BoxFit.cover),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                adjustHieght(kwidth * 0.1),
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  child: const ColoredBox(
+                                                    color: neonShade,
+                                                    child: Icon(
+                                                      Icons.arrow_right,
+                                                      color: kwhite,
+                                                    ),
+                                                  ),
+                                                ),
+                                                adjustHieght(kwidth * 0.03),
+                                                Text(
+                                                  '${data.percentage ?? 100} %',
+                                                  style: textStyle1
+                                                      .copyWith(shadows: [
+                                                    const Shadow(
                                                         color: kblack,
-                                                        offset: Offset(0, 2),
+                                                        offset: Offset(1, 2),
                                                         blurRadius: 5)
                                                   ]),
-                                            ),
-                                            SizedBox(
-                                              height: 40.dm,
-                                              child: Image.network(data.logo ??
-                                                  imageDummyNetwork),
-                                            ),
+                                                )
+                                              ],
+                                            )
                                           ],
                                         ),
-                                        const Icon(
-                                          Icons.arrow_right,
-                                          color: kwhite,
-                                        )
+                                        adjustHieght(10),
+                                        LinearProgressIndicator(
+                                          value: data.percentage == null
+                                              ? 1
+                                              : data.percentage! / 100,
+                                          backgroundColor: kgrey,
+                                          minHeight: 8,
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
                                       ],
                                     ),
                                   ),
                                   data.isDefault ?? false
                                       ? const Positioned(
-                                          bottom: 5,
+                                          top: 5,
                                           right: 10,
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.all(

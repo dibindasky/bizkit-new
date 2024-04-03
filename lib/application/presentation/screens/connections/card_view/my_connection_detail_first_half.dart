@@ -114,9 +114,8 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
                         images.add(state.anotherCard!.personalDetails!.photos!);
                       }
                       if (state.anotherCard != null &&
-                          state.anotherCard!.businessDetails != null &&
-                          state.anotherCard!.businessDetails!.logo != null) {
-                        images.add(state.anotherCard!.businessDetails!.logo!);
+                          state.anotherCard!.logoCard != null) {
+                        images.add(state.anotherCard!.logoCard!.logo!);
                       }
                       return SizedBox(
                         height: 200,

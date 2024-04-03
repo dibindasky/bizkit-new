@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_screen.dart';
@@ -252,10 +253,13 @@ class PersonlDetails extends StatelessWidget {
                     previous.personalData != current.personalData,
                 listener: (context, state) {
                   if (state.personalData != null) {
-                    pageController.nextPage(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.ease,
-                    );
+                    //   pageController.nextPage(
+                    //     duration: const Duration(milliseconds: 500),
+                    //     curve: Curves.ease,
+                    //   );
+                    context.read<CardBloc>().add(
+                        CardEvent.getCardyCardId(id: state.currentCard!.id!));
+                    Navigator.pop(context);
                   }
                 },
                 builder: (context, state) {

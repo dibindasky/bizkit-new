@@ -56,53 +56,42 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                 : [
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.businessData?.bankDetails?.accountNumber ==
-                            null) {
+                        if (state.bankDetails.acccountNumber == null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'Account Number',
-                          second:
-                              state.businessData?.bankDetails?.accountNumber ??
-                                  '',
+                          second: state.bankDetails.acccountNumber ?? '',
                         );
                       },
                     ),
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.businessData?.bankDetails?.ifscCode == null) {
+                        if (state.bankDetails.ifscCode == null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'IFSC',
-                          second:
-                              state.businessData?.bankDetails?.ifscCode ?? '',
+                          second: state.bankDetails.ifscCode ?? '',
                         );
                       },
                     ),
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.businessData?.bankDetails
-                                ?.gstMembershipDetails ==
-                            null) {
+                        if (state.bankDetails.gstMembershipDetails == null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'GST ',
-                          second: state.businessData?.bankDetails
-                                  ?.gstMembershipDetails ??
-                              '',
+                          second: state.bankDetails.gstMembershipDetails ?? '',
                         );
                       },
                     ),
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.businessData?.bankDetails
-                                    ?.gstMembershipDetails ==
-                                null &&
-                            state.businessData?.bankDetails?.accountNumber ==
-                                null &&
-                            state.businessData?.bankDetails?.ifscCode == null) {
+                        if (state.bankDetails.gstMembershipDetails == null &&
+                            state.bankDetails.acccountNumber == null &&
+                            state.bankDetails.ifscCode == null) {
                           return Padding(
                               padding: const EdgeInsets.only(top: 60),
                               child: Image.asset(emptyNodata3));

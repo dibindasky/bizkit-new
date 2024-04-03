@@ -26,5 +26,7 @@ class UserDataEvent with _$UserDataEvent {
   factory UserDataEvent.removeSocialMedia({required int index}) =
       RemoveSocialMedia;
   factory UserDataEvent.createCard(
-      {required CreateCardByIdModel createCardByIdModel}) = CreateCard;
+      {required CardFirstCreationModel cardFirstCreationModel}) = CreateCard;
+  factory UserDataEvent.getCurrentCard(
+      {required Card card}) = GetCurrentCard;
 }

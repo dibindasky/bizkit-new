@@ -20,6 +20,7 @@ CardResponse _$CardResponseFromJson(Map<String, dynamic> json) => CardResponse(
       isVerified: json['is_verified'] as bool?,
       share: json['share'] as int?,
       views: json['views'] as int?,
+      percentage: json['percentage'] as int?,
       name: json['name'] as String?,
     );
 
@@ -39,4 +40,5 @@ Map<String, dynamic> _$CardResponseToJson(CardResponse instance) =>
       'company': instance.company,
       'personal_details_id': instance.personalDetails,
       'business_details_id': instance.businessDetails,
+      'percentage': instance.percentage,
     };

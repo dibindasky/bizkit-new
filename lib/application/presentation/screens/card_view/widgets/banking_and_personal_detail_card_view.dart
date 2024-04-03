@@ -58,57 +58,50 @@ class ScreenPreviewBankOrPersnalCArdView extends StatelessWidget {
                 : [
                     BlocBuilder<CardBloc, CardState>(
                       builder: (context, state) {
-                        if (state.anotherCard?.businessDetails?.bankDetails
-                                ?.accountNumber ==
+                        if (state.anotherCard?.bankDetails?.accountNumber ==
                             null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'Account Number',
-                          second: state.anotherCard?.businessDetails
-                                  ?.bankDetails?.accountNumber ??
-                              '',
+                          second:
+                              state.anotherCard?.bankDetails?.accountNumber ??
+                                  '',
                         );
                       },
                     ),
                     BlocBuilder<CardBloc, CardState>(
                       builder: (context, state) {
-                        if (state.anotherCard?.businessDetails?.bankDetails
-                                ?.ifscCode ==
-                            null) {
+                        if (state.anotherCard?.bankDetails?.ifscCode == null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'IFSC',
-                          second: state.anotherCard?.businessDetails
-                                  ?.bankDetails?.ifscCode ??
-                              '',
+                          second:
+                              state.anotherCard?.bankDetails?.ifscCode ?? '',
                         );
                       },
                     ),
                     BlocBuilder<CardBloc, CardState>(
                       builder: (context, state) {
-                        if (state.anotherCard?.businessDetails?.bankDetails
+                        if (state.anotherCard?.bankDetails
                                 ?.gstMembershipDetails ==
                             null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'GST ',
-                          second: state.anotherCard?.businessDetails
-                                  ?.bankDetails?.gstMembershipDetails ??
+                          second: state.anotherCard?.bankDetails
+                                  ?.gstMembershipDetails ??
                               '',
                         );
                       },
                     ),
                     BlocBuilder<CardBloc, CardState>(builder: (context, state) {
-                      if (state.anotherCard?.businessDetails?.bankDetails
-                                  ?.accountNumber ==
+                      if (state.anotherCard?.bankDetails?.accountNumber ==
                               null &&
-                          state.anotherCard?.businessDetails?.bankDetails
-                                  ?.ifscCode ==
-                              null &&
-                          state.anotherCard?.businessDetails?.bankDetails
+                          state.anotherCard?.bankDetails?.ifscCode == null &&
+                          state.anotherCard?.bankDetails
                                   ?.gstMembershipDetails ==
                               null) {
                         return Image.asset(emptyNodata3);

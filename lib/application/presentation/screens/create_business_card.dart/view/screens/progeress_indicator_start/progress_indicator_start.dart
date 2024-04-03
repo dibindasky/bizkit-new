@@ -8,7 +8,10 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:flutter/material.dart';
 
 class LinearProgressIndicatorStarting extends StatefulWidget {
-  const LinearProgressIndicatorStarting({Key? key}) : super(key: key);
+  const LinearProgressIndicatorStarting({Key? key, this.index})
+      : super(key: key);
+
+  final int? index;
 
   @override
   State<LinearProgressIndicatorStarting> createState() =>
@@ -20,6 +23,11 @@ class _LinearProgressIndicatorStartingState
   final PageController _pageController = PageController();
 
   int _currentPage = 0;
+  @override
+  void initState() {
+    _currentPage = widget.index ?? _currentPage;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

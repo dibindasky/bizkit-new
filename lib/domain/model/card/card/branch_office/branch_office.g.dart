@@ -1,23 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'social_media_handle.dart';
+part of 'branch_office.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SocialMediaHandle _$SocialMediaHandleFromJson(Map<String, dynamic> json) =>
-    SocialMediaHandle(
+BranchOffice _$BranchOfficeFromJson(Map<String, dynamic> json) => BranchOffice(
       id: json['id'] as int?,
-      label: json['label'] as String?,
-      socialMedia: json['social_media'] as String?,
+      branch: json['branch'] as String?,
       cardId: json['card_id'] as int?,
     );
 
-Map<String, dynamic> _$SocialMediaHandleToJson(SocialMediaHandle instance) =>
+Map<String, dynamic> _$BranchOfficeToJson(BranchOffice instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'label': instance.label,
-      'social_media': instance.socialMedia,
+      'branch': instance.branch,
       'card_id': instance.cardId,
     };

@@ -37,7 +37,7 @@ class ProductsBuilder extends StatelessWidget {
                         SizedBox(
                           height: 200,
                           width: double.infinity,
-                          child: Image.network(data.product!,
+                          child: Image.network(data.image![0].image!,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) =>
                                   const Icon(Icons.image)),
@@ -117,8 +117,8 @@ class ProductViewDetail extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              product.product != null
-                  ? Image.network(product.product!)
+              product.image != null
+                  ? Image.network(product.image![0].image!)
                   : Image.asset(emptyNodata3),
               adjustHieght(30),
               Text(product.label ?? "", style: textHeadStyle1),

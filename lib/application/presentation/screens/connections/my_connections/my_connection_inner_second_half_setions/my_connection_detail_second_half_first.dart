@@ -28,15 +28,14 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
           builder: (context, state) {
             List<Product> images = [];
             if (state.anotherCard != null &&
-                state.anotherCard!.businessDetails != null &&
-                state.anotherCard!.businessDetails!.product != null) {
-              images = state.anotherCard!.businessDetails!.product!;
+                state.anotherCard!.product != null) {
+              images = state.anotherCard!.product!;
             }
             List<String> pdfBase64 = [];
             if (state.anotherCard != null &&
                 state.anotherCard!.businessDetails != null &&
-                state.anotherCard!.businessDetails!.brochure != null) {
-              pdfBase64 = state.anotherCard!.businessDetails!.brochure!
+                state.anotherCard!.brochure != null) {
+              pdfBase64 = state.anotherCard!.brochure!
                   .map((e) =>
                       e.file!.substring('data:application/pdf;base64,'.length))
                   .toList();

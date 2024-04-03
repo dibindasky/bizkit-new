@@ -83,7 +83,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                               child: ColoredBox(
                                   color: smallBigGrey,
                                   child: Image.network(
-                                    networkImages![index].product!,
+                                    networkImages![index].image![0].image!,
                                     fit: BoxFit.cover,
                                   )),
                             ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +59,8 @@ class _PreviewPageviewImageBuilderState
               child: SizedBox(
                 width: double.infinity,
                 height: 200,
-                child:
-                    Image.network(widget.imagesList[index], fit: BoxFit.cover),
+                child: Image.memory(base64Decode(widget.imagesList[index]),
+                    fit: BoxFit.cover),
               ),
             ),
           ),

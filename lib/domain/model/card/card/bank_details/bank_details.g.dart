@@ -13,6 +13,7 @@ BankDetails _$BankDetailsFromJson(Map<String, dynamic> json) => BankDetails(
       ifscCode: json['ifsc_code'] as String?,
       upiDetails: json['upi_details'] as String?,
       gstMembershipDetails: json['gst_membership_details'] as String?,
+      cardId: json['card_id'] as int?,
     );
 
 Map<String, dynamic> _$BankDetailsToJson(BankDetails instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$BankDetailsToJson(BankDetails instance) =>
       'ifsc_code': instance.ifscCode,
       'upi_details': instance.upiDetails,
       'gst_membership_details': instance.gstMembershipDetails,
+      'card_id': instance.cardId,
     };

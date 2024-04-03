@@ -1,19 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'branch_offices.dart';
+part of 'image_card.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BranchOffices _$BranchOfficesFromJson(Map<String, dynamic> json) =>
-    BranchOffices(
+ImageCard _$ImageCardFromJson(Map<String, dynamic> json) => ImageCard(
       id: json['id'] as int?,
-      branch: json['branch'] as String?,
+      image: json['image'] as String?,
     );
 
-Map<String, dynamic> _$BranchOfficesToJson(BranchOffices instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ImageCardToJson(ImageCard instance) => <String, dynamic>{
       'id': instance.id,
-      'branch': instance.branch,
+      'image': instance.image,
     };

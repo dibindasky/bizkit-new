@@ -31,17 +31,10 @@ class AchivementsScreen extends StatelessWidget {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
                       List achivement = isPreview
-                          ? [
-                              ...user.personalData?.accolades ?? [],
-                              ...business.businessData?.accredition ?? []
-                            ]
+                          ? [...user.accolades, ...business.accreditions]
                           : [
-                              ...state.anotherCard?.businessDetails
-                                      ?.accredition ??
-                                  [],
-                              ...state.anotherCard?.personalDetails
-                                      ?.accolades ??
-                                  []
+                              ...state.anotherCard?.accreditation ?? [],
+                              ...state.anotherCard?.accolades ?? []
                             ];
                       if (achivement.isEmpty) {
                         return Center(child: Image.asset(emptyNodata2));

@@ -80,36 +80,64 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
           context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
         }
       },
-      child: Scaffold(
-        body: SizedBox(
-          child: Column(
-            children: [
-              selectedIndex == 0
-                  ? Container(
+      child: Column(
+        children: [
+          selectedIndex == 0
+              ? Container(
+                  width: kwidth,
+                  height: khieght * .99,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage(
+                      onBoardScreenfirst,
+                    ),
+                    filterQuality: FilterQuality.high,
+                    fit: BoxFit.cover,
+                  )),
+                  // child: Image.asset(
+                  //   onBoardScreenfirst,
+                  //   fit: BoxFit.fill,
+                  // ),
+                )
+              : selectedIndex == 1
+                  ? SizedBox(
                       width: kwidth,
-                      height: khieght,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                        image: AssetImage(
-                          onBoardScreenfirst,
-                        ),
+                      height: khieght * .99,
+                      child: Image.asset(
                         filterQuality: FilterQuality.high,
-                        fit: BoxFit.fitHeight,
-                      )),
-                      // child: Image.asset(
-                      //   onBoardScreenfirst,
-                      //   fit: BoxFit.fill,
-                      // ),
+                        onBoardScreenSecond,
+                        fit: BoxFit.contain,
+                      ),
                     )
-                  : selectedIndex == 1
-                      ? SizedBox(
-                          width: kwidth,
-                          height: khieght,
-                          child: Image.asset(
-                            filterQuality: FilterQuality.high,
-                            onBoardScreenSecond,
-                            fit: BoxFit.contain,
-                          ),
+                  : selectedIndex == 2
+                      ? Stack(
+                          children: [
+                            SizedBox(
+                              width: kwidth,
+                              height: khieght * .99,
+                              child: Image.asset(
+                                onBoardScreenThird,
+                                filterQuality: FilterQuality.high,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 100,
+                              right: 70,
+                              left: 70,
+                              child: AuthButton(
+                                textColr: kblack,
+                                onTap: () {
+                                  GoRouter.of(context)
+                                      .pushReplacementNamed(Routes.loginPage);
+                                  context
+                                      .read<AuthBloc>()
+                                      .add(const AuthEvent.onBoardskip());
+                                },
+                                text: 'Get Started',
+                              ),
+                            ),
+                          ],
                         )
                       : selectedIndex == 2
                           ? Stack(
@@ -152,9 +180,7 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
                               ],
                             )
                           : const SizedBox()
-            ],
-          ),
-        ),
+        ],
       ),
     );
   }

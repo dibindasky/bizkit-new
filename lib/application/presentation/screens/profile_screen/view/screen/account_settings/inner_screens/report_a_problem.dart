@@ -53,6 +53,9 @@ class ReportProblemPage extends StatelessWidget {
                 ),
               ),
               BlocConsumer<ProfileBloc, ProfileState>(
+                buildWhen: (previous, current) {
+                  return previous.getUserInfoModel != current.getUserInfoModel;
+                },
                 listener: (context, state) {
                   if (state.successResponseModel != null) {
                     showSnackbar(context, message: state.message!);
@@ -60,7 +63,7 @@ class ReportProblemPage extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  return state.isLoading
+                  return !state.isLoading
                       ? LastSkipContinueButtons(
                           onTap: () {
                             if (_formKey.currentState!.validate()) {

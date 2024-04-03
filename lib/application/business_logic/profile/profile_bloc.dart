@@ -157,16 +157,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(
         state.copyWith(
           imageModel: image,
-          isLoading: false,
         ),
       );
       log('pick image bloc ${state.imageModel!.base64}');
-      log('pick image 3');
       UserInfoChangeRequestModel userInfoChangeRequestModel =
           UserInfoChangeRequestModel();
       userInfoChangeRequestModel = userInfoChangeRequestModel.copyWith(
-        profilePic: state.imageModel!.base64,
-      );
+          profilePic: state.imageModel!.base64,
+          name: state.getUserInfoModel?.results?.name,
+          isActive: true);
       log('pick image 4');
       add(ProfileEvent.editProfile(
         userInfoChangeRequestModel: userInfoChangeRequestModel,
@@ -176,7 +175,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   FutureOr<void> editProfile(EditProfile event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false));
-    log('in bloc editProfile ${event.userInfoChangeRequestModel.toJson()}');
+    log('in bloc editProfile name ${event.userInfoChangeRequestModel.name}');
+    log('in bloc editProfile image ${event.userInfoChangeRequestModel.profilePic}');
     final data = await profileRepo.editProfile(
       userInfoChangeRequestModel: event.userInfoChangeRequestModel,
     );
@@ -185,11 +185,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
               isLoading: false,
               hasError: false,
             )), (r) async {
+      if (r.name != null) {
+        userNameController.text = r.name!;
+      }
       emit(
         state.copyWith(
           isLoading: false,
           hasError: false,
-          userInfoChangeResponceModel: r,
+          updateUserInfoModel: r,
         ),
       );
       await SecureStorage.setUserName(userName: r.name ?? 'No name');
@@ -224,7 +227,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   FutureOr<void> profilePasswordChange(ResetPasswod event, emit) async {
     emit(
       state.copyWith(
-        isLoading: true,
+        isLoading: false,
         hasError: false,
         message: null,
       ),

@@ -1,7 +1,7 @@
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/selfie_card/widgets/make_bizkit_card_screen.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

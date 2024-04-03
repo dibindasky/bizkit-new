@@ -1,5 +1,4 @@
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
-import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
@@ -8,10 +7,8 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
-import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,9 +61,14 @@ class _ProfileScreenState extends State<ProfileScreen>
             child: Column(
               children: [
                 BlocConsumer<ProfileBloc, ProfileState>(
+                  listenWhen: (previous, current) {
+                    return previous.getUserInfoModel !=
+                        current.getUserInfoModel;
+                  },
                   listener: (context, state) {
-                    if (state.imageModel != null) {
-                      showSnackbar(context, message: state.message!);
+                    if (state.getUserInfoModel != null &&
+                        state.imageModel != null) {
+                      showSnackbar(context, message: 'profile updated');
                     }
                     // if (state.userInfoChangeResponceModel != null) {
                     //   showSnackbar(context, message: state.message!);
@@ -82,78 +84,50 @@ class _ProfileScreenState extends State<ProfileScreen>
                               ? const CircularProgressIndicator(
                                   color: backgroundColour,
                                 )
-                              : state.imageModel != null
+                              : (state.getUserInfoModel != null &&
+                                      state.getUserInfoModel!.results != null &&
+                                      state.getUserInfoModel!.results!
+                                              .profilePic !=
+                                          null)
                                   ? CircleAvatar(
                                       backgroundColor: kblack,
                                       radius: 67,
-                                      backgroundImage: FileImage(
-                                          state.imageModel!.fileImage),
+                                      backgroundImage: NetworkImage(
+                                        state.getUserInfoModel!.results!
+                                            .profilePic!,
+                                      ),
                                     )
-                                  : (state.getUserInfoModel != null &&
-                                          state.getUserInfoModel!.results !=
-                                              null &&
-                                          state.getUserInfoModel!.results!
-                                                  .profilePic !=
-                                              null)
-                                      ? CircleAvatar(
-                                          backgroundColor: kblack,
-                                          radius: 67,
-                                          backgroundImage: NetworkImage(
-                                            state.getUserInfoModel!.results!
-                                                .profilePic!,
-                                          ),
-                                        )
-                                      : const CircleAvatar(
-                                          radius: 66,
-                                          backgroundColor: backgroundColour,
-                                          child: Center(
-                                              child: Icon(Icons.person,
-                                                  color: neonShade, size: 30))),
-                        ),
-                        state.imageModel != null
-                            ? Positioned(
-                                bottom: 0,
-                                right: 20,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: neonShade,
-                                      borderRadius: BorderRadius.circular(6)),
-                                  height: 30,
-                                  width: 34,
-                                  child: InkWell(
-                                    onTap: () {
-                                      UserInfoChangeRequestModel
-                                          userInfoChangeRequestModel =
-                                          UserInfoChangeRequestModel();
-                                      userInfoChangeRequestModel.copyWith(
-                                          profilePic: state.imageModel!.base64);
-                                      context.read<ProfileBloc>().add(
-                                          ProfileEvent.editProfile(
-                                              userInfoChangeRequestModel:
-                                                  userInfoChangeRequestModel));
-                                    },
-                                    child: const Icon(
-                                      Icons.upload,
+                                  : const CircleAvatar(
+                                      radius: 66,
+                                      backgroundColor: backgroundColour,
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.person,
+                                          color: neonShade,
+                                          size: 30,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              )
-                            : Positioned(
-                                bottom: 0,
-                                right: 20,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: neonShade,
-                                      borderRadius: BorderRadius.circular(6)),
-                                  height: 30,
-                                  width: 34,
-                                  child: InkWell(
-                                      onTap: () =>
-                                          cardscanimagesSelectingDailogu(
-                                              context),
-                                      child: const Icon(Icons.camera_alt)),
-                                ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 20,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: neonShade,
+                                borderRadius: BorderRadius.circular(6)),
+                            height: 30,
+                            width: 34,
+                            child: InkWell(
+                              onTap: () {
+                                cardscanimagesSelectingDailogue(context);
+                              },
+                              child: const Icon(
+                                Icons.camera,
                               ),
+                            ),
+                          ),
+                        )
                       ],
                     );
                   },
@@ -284,7 +258,7 @@ class ProfileTiles extends StatelessWidget {
   }
 }
 
-Future<dynamic> cardscanimagesSelectingDailogu(BuildContext context) {
+Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(

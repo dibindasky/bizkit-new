@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bizkit/domain/model/token/token_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,6 +12,7 @@ class SecureStorage {
   static const String isVerifiedKey = 'is_verified';
   static const String hasCardKey = 'has_card';
   static const String hasReminderKey = 'has_reminder';
+  static const String onboardSetBool = 'on_board';
 
   static Future<SharedPreferences> _getPrefs() async =>
       await SharedPreferences.getInstance();
@@ -67,6 +67,18 @@ class SecureStorage {
     final login = prefs.getString(isLoged);
     log('get login =>() ${login == '1'}');
     return login == '1';
+  }
+
+  static Future<void> setOnBoardBool() async {
+    final prefs = await _getPrefs();
+    prefs.setString(onboardSetBool, '1');
+  }
+
+  static Future<bool> getOnBoardBool() async {
+    final prefs = await _getPrefs();
+    final onboardBool = prefs.getString(onboardSetBool);
+    log('onboard ====>> $onboardBool');
+    return onboardBool == '1';
   }
 
   static Future<bool> isVerified() async {

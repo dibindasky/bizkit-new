@@ -23,6 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepo authRepo;
   final UserLocalRepo userLocalService;
   AuthBloc(this.authRepo, this.userLocalService) : super(AuthState.initial()) {
+    on<OnBoardskip>(onBoardskip);
     on<Login>(login);
     on<ForgotPassword>(forgotPassword);
     on<ChangePassword>(changePassword);
@@ -31,21 +32,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogOut>(logOut);
   }
 
-  FutureOr<void> log(Log event, emit) async {
-    return emit(state.copyWith(
-        isLogin: await SecureStorage.getLogin(),
-        userName: await SecureStorage.getName()));
+  FutureOr<void> onBoardskip(OnBoardskip event, emit) async {
+    await SecureStorage.setOnBoardBool();
   }
 
-  FutureOr<void> logOut(LogOut event, emit) async =>
-      await SecureStorage.clearLogin();
+  FutureOr<void> log(Log event, emit) async {
+    return emit(state.copyWith(
+      onBoardSkipBool: await SecureStorage.getOnBoardBool(),
+      isLogin: await SecureStorage.getLogin(),
+      userName: await SecureStorage.getName(),
+    ));
+  }
+
+  FutureOr<void> logOut(LogOut event, emit) async {
+    await SecureStorage.clearLogin();
+    // await SecureStorage.setOnBoardBool();
+  }
 
   FutureOr<void> login(Login event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
-        isLoading: true,
-        hasError: false,
-        message: null,
-        loginResponseModel: null));
+      isLoading: true,
+      hasError: false,
+      message: null,
+      loginResponseModel: null,
+    ));
     await FirebaseMessaging.instance.requestPermission();
     final LoginModel model = LoginModel(
         email: event.loginModel.email,

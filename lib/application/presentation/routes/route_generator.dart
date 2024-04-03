@@ -4,12 +4,16 @@ import 'package:bizkit/application/presentation/screens/authentication/view/scre
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/otp_screen.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/signin_screen.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/preview_main_screen.dart';
+import 'package:bizkit/application/presentation/screens/card_share/view/screen/card_screen_main.dart';
 import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
 import 'package:bizkit/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
+import 'package:bizkit/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
@@ -20,6 +24,12 @@ class GoRouterConfig {
   static final router = GoRouter(
     initialLocation: Routes.initial,
     routes: [
+      //Onboard
+      GoRoute(
+        name: Routes.onBoarding,
+        path: Routes.onBoarding,
+        builder: (context, state) => const BizkitOnBoardingScreen(),
+      ),
 // splash
       GoRoute(
         name: Routes.initial,
@@ -61,14 +71,19 @@ class GoRouterConfig {
       GoRoute(
         name: Routes.cardCreationProfilePage,
         path: Routes.cardCreationProfilePage,
-        builder: (context, state) => ProfileCreationScreen(),
+        builder: (context, state) => const ProfileCreationScreen(),
       ),
       GoRoute(
         name: Routes.signUpPage,
         path: Routes.signUpPage,
         builder: (context, state) => const SignInscreeen(),
       ),
-// otp page
+      GoRoute(
+        name: Routes.selectedCards,
+        path: Routes.selectedCards,
+        builder: (context, state) => const SelectedCard(),
+      ),
+      // otp page
       GoRoute(
         name: Routes.otpPage,
         path: '${Routes.otpPage}/:email/:fromBusiness/:model',
@@ -99,6 +114,21 @@ class GoRouterConfig {
         name: Routes.cardCreation,
         path: Routes.cardCreation,
         builder: (context, state) => const StartingBusinessCardCreation(),
+      ),
+      GoRoute(
+        name: Routes.scanedDataFeilds,
+        path: Routes.scanedDataFeilds,
+        builder: (context, state) => const CardSecondScannedDatas(),
+      ),
+      GoRoute(
+        name: Routes.selfieDataFeilds,
+        path: Routes.selfieDataFeilds,
+        builder: (context, state) => const SelfieTextFields(),
+      ),
+      GoRoute(
+        name: Routes.cardListingboth,
+        path: Routes.cardListingboth,
+        builder: (context, state) => const CardShareMainScreen(),
       ),
       GoRoute(
         name: Routes.homePage,

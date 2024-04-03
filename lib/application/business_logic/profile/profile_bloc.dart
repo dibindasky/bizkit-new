@@ -150,34 +150,45 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> pickImage(PickImageScanning event, emit) async {
+    log('pick image 1');
     final image = await ImagePickerClass.getImage(camera: event.camera);
     if (image != null) {
-      emit(state.copyWith(
+      log('pick image 2');
+      emit(
+        state.copyWith(
           imageModel: image,
           isLoading: false,
-          message: 'Now you can save Profile'));
+        ),
+      );
+      log('pick image bloc ${state.imageModel!.base64}');
+      log('pick image 3');
+      UserInfoChangeRequestModel userInfoChangeRequestModel =
+          UserInfoChangeRequestModel();
+      userInfoChangeRequestModel = userInfoChangeRequestModel.copyWith(
+        profilePic: state.imageModel!.base64,
+      );
+      log('pick image 4');
+      add(ProfileEvent.editProfile(
+        userInfoChangeRequestModel: userInfoChangeRequestModel,
+      ));
     }
   }
 
   FutureOr<void> editProfile(EditProfile event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(isLoading: true, hasError: false));
+    log('in bloc editProfile ${event.userInfoChangeRequestModel.toJson()}');
     final data = await profileRepo.editProfile(
       userInfoChangeRequestModel: event.userInfoChangeRequestModel,
     );
-    log('edit profile bloc $data');
     data.fold(
         (l) => emit(state.copyWith(
               isLoading: false,
               hasError: false,
-              message: errorMessage,
             )), (r) async {
       emit(
         state.copyWith(
           isLoading: false,
           hasError: false,
-          uploaded: true,
-          message: 'Profile uploaded',
-          imageModel: null,
           userInfoChangeResponceModel: r,
         ),
       );
@@ -207,7 +218,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ),
       );
       userNameController.text = r.results!.name ?? 'No name';
-      log('Bloc get profile toJson ${r.results!.toJson()}');
     });
   }
 

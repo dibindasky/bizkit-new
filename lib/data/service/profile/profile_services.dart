@@ -55,12 +55,12 @@ class ProfileService implements ProfileRepo {
     required UserInfoChangeRequestModel userInfoChangeRequestModel,
   }) async {
     try {
+      log('editProfile data before ${userInfoChangeRequestModel.toJson()}');
       final responce = await apiService.patch(
         ApiEndPoints.editProfileInfo,
         data: userInfoChangeRequestModel.toJson(),
       );
       log('editProfile data ${userInfoChangeRequestModel.toJson()}');
-      log('editProfile Status code ${responce.statusCode}');
       return Right(UpdateUserInfoModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('editProfile DioException ${e.response?.statusCode} $e');

@@ -1,16 +1,16 @@
-import 'dart:convert';
-
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/domain/model/card_second/card_second_create_request_model/card_second_create_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CardSecondScannedDatas extends StatelessWidget {
   const CardSecondScannedDatas({super.key});
@@ -95,12 +95,12 @@ class CardSecondScannedDatas extends StatelessWidget {
                             inputType: TextInputType.number),
                         AutocompleteTextField(
                           autocompleteItems:
-                              state.scannedImageDatasModel?.emails ?? [],
-                          validate: Validate.email,
+                              state.scannedImageDatasModel?.websites ?? [],
+                          validate: Validate.website,
                           label: 'Website',
                           controller:
                               context.read<CardSecondBloc>().webSiteController,
-                          inputType: TextInputType.emailAddress,
+                          inputType: TextInputType.url,
                         ),
                         AutocompleteTextField(
                           autocompleteItems:
@@ -153,7 +153,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                                         .text,
                                   ));
                               Navigator.of(context).push(
-                                  fadePageRoute(const MakeABizkitCardScreen()));
+                                  fadePageRoute(const SelfieTextFields()));
                             }
                           },
                         ),
@@ -171,17 +171,16 @@ class CardSecondScannedDatas extends StatelessWidget {
   }
 }
 
-class MakeABizkitCardScreen extends StatefulWidget {
-  const MakeABizkitCardScreen({super.key});
+class SelfieTextFields extends StatefulWidget {
+  const SelfieTextFields({super.key});
 
   @override
-  State<MakeABizkitCardScreen> createState() => _MakeABizkitCardScreenState();
+  State<SelfieTextFields> createState() => _SelfieTextFieldsState();
 }
 
-class _MakeABizkitCardScreenState extends State<MakeABizkitCardScreen> {
+class _SelfieTextFieldsState extends State<SelfieTextFields> {
   final GlobalKey<FormState> meetingDataKey = GlobalKey<FormState>();
-  String time = '';
-  bool showError = false;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -203,20 +202,27 @@ class _MakeABizkitCardScreenState extends State<MakeABizkitCardScreen> {
           ),
           backgroundColor: knill,
         ),
-        body: BlocBuilder<CardSecondBloc, CardSecondState>(
+        body: BlocConsumer<CardSecondBloc, CardSecondState>(
+          listener: (context, state) {
+            if (state.cardSecondResponseModel != null) {
+              GoRouter.of(context).pushReplacement(
+                Routes.homePage,
+              );
+              showSnackbar(context, message: 'Qr Card created successfully');
+            }
+          },
           builder: (context, state) {
             return ListView(
               children: [
                 state.selfieImageModel == null
-                    ? Container(
-                        height: kwidth * 0.60,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('asset/images/person4.jpeg'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                    ? ContainerPickImage(
+                        onPressed: () => context.read<CardSecondBloc>().add(
+                              const CardSecondEvent.selfieImage(
+                                cameraDeviceFront: true,
+                              ),
+                            ),
+                        isBoth: false,
+                        heading: 'Take Selfie',
                       )
                     : Container(
                         height: kwidth * 0.60,
@@ -257,128 +263,7 @@ class _MakeABizkitCardScreenState extends State<MakeABizkitCardScreen> {
                                 .read<CardSecondBloc>()
                                 .occupationController,
                             inputType: TextInputType.name),
-                        // adjustHieght(5),
-                        // InkWell(
-                        //   onTap: () => showModalBottomSheet(
-                        //     context: context,
-                        //     isScrollControlled: true,
-                        //     builder: (BuildContext context) {
-                        //       return DatePickingBottomSheet(
-                        //         year: 500,
-                        //         last: 500,
-                        //         onPressed: (date) {
-                        //           setState(() {
-                        //             context
-                        //                 .read<CardSecondBloc>()
-                        //                 .dateControler
-                        //                 .text = date;
-                        //           });
-                        //         },
-                        //         datePicker: context
-                        //             .read<CardSecondBloc>()
-                        //             .dateControler,
-                        //       );
-                        //     },
-                        //   ),
-                        //   child: Material(
-                        //     elevation: 3,
-                        //     color: textFieldFillColr,
-                        //     child: Container(
-                        //       padding:
-                        //           const EdgeInsets.only(left: 13, right: 12),
-                        //       height: 60,
-                        //       width: double.infinity,
-                        //       decoration: BoxDecoration(
-                        //         color: textFieldFillColr,
-                        //         borderRadius: BorderRadius.circular(7),
-                        //       ),
-                        //       child: Row(
-                        //         children: [
-                        //           Expanded(
-                        //             child: Text(
-                        //               context
-                        //                       .read<CardSecondBloc>()
-                        //                       .dateControler
-                        //                       .text
-                        //                       .isEmpty
-                        //                   ? 'Select Date'
-                        //                   : context
-                        //                       .read<CardSecondBloc>()
-                        //                       .dateControler
-                        //                       .text,
-                        //               style: custumText(
-                        //                 colr: context
-                        //                         .read<CardSecondBloc>()
-                        //                         .dateControler
-                        //                         .text
-                        //                         .isEmpty
-                        //                     ? klightgrey
-                        //                     : kwhite,
-                        //                 fontSize: kwidth * 0.04,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           const Icon(
-                        //             Icons.calendar_month,
-                        //             color: neonShade,
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // adjustHieght(15),
-                        // InkWell(
-                        //   onTap: () async {
-                        //     final selectedTime = await showTimePicker(
-                        //       context: context,
-                        //       initialTime: TimeOfDay.now(),
-                        //     );
-                        //     if (selectedTime != null) {
-                        //       setState(() {
-                        //         time =
-                        //             '${'${selectedTime.hour}'.length == 1 ? '0${selectedTime.hour}' : selectedTime.hour}:${'${selectedTime.minute}'.length == 1 ? '0${selectedTime.minute}' : selectedTime.minute}';
-                        //       });
-                        //     }
-                        //   },
-                        //   child: Material(
-                        //     elevation: 3,
-                        //     color: textFieldFillColr,
-                        //     child: Container(
-                        //       padding:
-                        //           const EdgeInsets.only(left: 13, right: 12),
-                        //       height: 60,
-                        //       width: double.infinity,
-                        //       decoration: BoxDecoration(
-                        //         color: textFieldFillColr,
-                        //         borderRadius: BorderRadius.circular(7),
-                        //       ),
-                        //       child: Row(
-                        //         mainAxisAlignment:
-                        //             MainAxisAlignment.spaceBetween,
-                        //         children: [
-                        //           Text(
-                        //             time == '' ? 'Select time' : time,
-                        //             style: custumText(
-                        //               colr: time == '' ? klightgrey : kwhite,
-                        //               fontSize: kwidth * 0.04,
-                        //             ),
-                        //           ),
-                        //           const Icon(
-                        //             Icons.alarm_add_sharp,
-                        //             color: neonShade,
-                        //           )
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // adjustHieght(5),
-                        // TTextFormField(
-                        //   text: 'Time & Date',
-                        //   controller: TextEditingController(),
-                        //   inputType: TextInputType.name,
-                        // ),
+
                         TTextFormField(
                           validate: Validate.notNull,
                           maxLines: 3,
@@ -398,7 +283,7 @@ class _MakeABizkitCardScreenState extends State<MakeABizkitCardScreen> {
                                         .add(CardSecondEvent.meetingRelatedInfo(
                                           selfieImage:
                                               state.selfieImageModel?.base64 ??
-                                                  'No image',
+                                                  '',
                                           occation: context
                                               .read<CardSecondBloc>()
                                               .occationController

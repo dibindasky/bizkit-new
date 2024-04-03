@@ -205,6 +205,9 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                       return 'Password must contains special characters';
                     } else if (value.length < 8) {
                       return 'Password must contains 8 characters';
+                    } else if (Validate.website == widget.validate &&
+                        !isValidWebsite(value)) {
+                      return 'Enter valid website';
                     } else {
                       return null;
                     }

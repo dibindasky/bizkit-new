@@ -156,7 +156,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    notification.scheduledAt!,
+                                    notification.scheduledAt!.substring(0, 6),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ],

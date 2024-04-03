@@ -19,7 +19,7 @@ mixin _$CardSecondEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -38,7 +38,7 @@ mixin _$CardSecondEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -57,7 +57,7 @@ mixin _$CardSecondEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -77,7 +77,7 @@ mixin _$CardSecondEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -93,7 +93,7 @@ mixin _$CardSecondEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -108,7 +108,7 @@ mixin _$CardSecondEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -180,7 +180,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -202,7 +202,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -224,7 +224,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -250,7 +250,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -269,7 +269,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -287,7 +287,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -311,45 +311,71 @@ abstract class _Started implements CardSecondEvent {
 }
 
 /// @nodoc
-abstract class _$$GaleryScannedImageImplCopyWith<$Res> {
-  factory _$$GaleryScannedImageImplCopyWith(_$GaleryScannedImageImpl value,
-          $Res Function(_$GaleryScannedImageImpl) then) =
-      __$$GaleryScannedImageImplCopyWithImpl<$Res>;
+abstract class _$$ScanImageImplCopyWith<$Res> {
+  factory _$$ScanImageImplCopyWith(
+          _$ScanImageImpl value, $Res Function(_$ScanImageImpl) then) =
+      __$$ScanImageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isCam});
 }
 
 /// @nodoc
-class __$$GaleryScannedImageImplCopyWithImpl<$Res>
-    extends _$CardSecondEventCopyWithImpl<$Res, _$GaleryScannedImageImpl>
-    implements _$$GaleryScannedImageImplCopyWith<$Res> {
-  __$$GaleryScannedImageImplCopyWithImpl(_$GaleryScannedImageImpl _value,
-      $Res Function(_$GaleryScannedImageImpl) _then)
+class __$$ScanImageImplCopyWithImpl<$Res>
+    extends _$CardSecondEventCopyWithImpl<$Res, _$ScanImageImpl>
+    implements _$$ScanImageImplCopyWith<$Res> {
+  __$$ScanImageImplCopyWithImpl(
+      _$ScanImageImpl _value, $Res Function(_$ScanImageImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isCam = null,
+  }) {
+    return _then(_$ScanImageImpl(
+      isCam: null == isCam
+          ? _value.isCam
+          : isCam // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$GaleryScannedImageImpl implements GaleryScannedImage {
-  const _$GaleryScannedImageImpl();
+class _$ScanImageImpl implements ScanImage {
+  const _$ScanImageImpl({required this.isCam});
+
+  @override
+  final bool isCam;
 
   @override
   String toString() {
-    return 'CardSecondEvent.galeryScannedImage()';
+    return 'CardSecondEvent.scanImage(isCam: $isCam)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GaleryScannedImageImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ScanImageImpl &&
+            (identical(other.isCam, isCam) || other.isCam == isCam));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isCam);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ScanImageImplCopyWith<_$ScanImageImpl> get copyWith =>
+      __$$ScanImageImplCopyWithImpl<_$ScanImageImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -364,14 +390,14 @@ class _$GaleryScannedImageImpl implements GaleryScannedImage {
     required TResult Function() updateCardSecond,
     required TResult Function() getCardSecondEvent,
   }) {
-    return galeryScannedImage();
+    return scanImage(isCam);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -386,14 +412,14 @@ class _$GaleryScannedImageImpl implements GaleryScannedImage {
     TResult? Function()? updateCardSecond,
     TResult? Function()? getCardSecondEvent,
   }) {
-    return galeryScannedImage?.call();
+    return scanImage?.call(isCam);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -409,8 +435,8 @@ class _$GaleryScannedImageImpl implements GaleryScannedImage {
     TResult Function()? getCardSecondEvent,
     required TResult orElse(),
   }) {
-    if (galeryScannedImage != null) {
-      return galeryScannedImage();
+    if (scanImage != null) {
+      return scanImage(isCam);
     }
     return orElse();
   }
@@ -419,7 +445,7 @@ class _$GaleryScannedImageImpl implements GaleryScannedImage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -431,14 +457,14 @@ class _$GaleryScannedImageImpl implements GaleryScannedImage {
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
   }) {
-    return galeryScannedImage(this);
+    return scanImage(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -449,14 +475,14 @@ class _$GaleryScannedImageImpl implements GaleryScannedImage {
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
   }) {
-    return galeryScannedImage?.call(this);
+    return scanImage?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -468,15 +494,20 @@ class _$GaleryScannedImageImpl implements GaleryScannedImage {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     required TResult orElse(),
   }) {
-    if (galeryScannedImage != null) {
-      return galeryScannedImage(this);
+    if (scanImage != null) {
+      return scanImage(this);
     }
     return orElse();
   }
 }
 
-abstract class GaleryScannedImage implements CardSecondEvent {
-  const factory GaleryScannedImage() = _$GaleryScannedImageImpl;
+abstract class ScanImage implements CardSecondEvent {
+  const factory ScanImage({required final bool isCam}) = _$ScanImageImpl;
+
+  bool get isCam;
+  @JsonKey(ignore: true)
+  _$$ScanImageImplCopyWith<_$ScanImageImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -553,7 +584,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -575,7 +606,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -597,7 +628,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -623,7 +654,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -642,7 +673,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -660,7 +691,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -755,7 +786,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -777,7 +808,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -799,7 +830,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -825,7 +856,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -844,7 +875,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -862,7 +893,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -957,7 +988,7 @@ class _$SelfieImageImpl implements SelfieImage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -979,7 +1010,7 @@ class _$SelfieImageImpl implements SelfieImage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -1001,7 +1032,7 @@ class _$SelfieImageImpl implements SelfieImage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -1027,7 +1058,7 @@ class _$SelfieImageImpl implements SelfieImage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -1046,7 +1077,7 @@ class _$SelfieImageImpl implements SelfieImage {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -1064,7 +1095,7 @@ class _$SelfieImageImpl implements SelfieImage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -1226,7 +1257,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -1249,7 +1280,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -1272,7 +1303,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -1299,7 +1330,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -1318,7 +1349,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -1336,7 +1367,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -1490,7 +1521,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -1513,7 +1544,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -1536,7 +1567,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -1563,7 +1594,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -1582,7 +1613,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -1600,7 +1631,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -1676,7 +1707,7 @@ class _$SecondCardCreationImpl implements SecondCardCreation {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -1698,7 +1729,7 @@ class _$SecondCardCreationImpl implements SecondCardCreation {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -1720,7 +1751,7 @@ class _$SecondCardCreationImpl implements SecondCardCreation {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -1746,7 +1777,7 @@ class _$SecondCardCreationImpl implements SecondCardCreation {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -1765,7 +1796,7 @@ class _$SecondCardCreationImpl implements SecondCardCreation {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -1783,7 +1814,7 @@ class _$SecondCardCreationImpl implements SecondCardCreation {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -1872,7 +1903,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -1894,7 +1925,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -1916,7 +1947,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -1942,7 +1973,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -1961,7 +1992,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -1979,7 +2010,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -2047,7 +2078,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -2069,7 +2100,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -2091,7 +2122,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -2117,7 +2148,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -2136,7 +2167,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -2154,7 +2185,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -2216,7 +2247,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() galeryScannedImage,
+    required TResult Function(bool isCam) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront) selfieImage,
@@ -2238,7 +2269,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? galeryScannedImage,
+    TResult? Function(bool isCam)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront)? selfieImage,
@@ -2260,7 +2291,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? galeryScannedImage,
+    TResult Function(bool isCam)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront)? selfieImage,
@@ -2286,7 +2317,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(GaleryScannedImage value) galeryScannedImage,
+    required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
@@ -2305,7 +2336,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
@@ -2323,7 +2354,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(GaleryScannedImage value)? galeryScannedImage,
+    TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
@@ -2352,6 +2383,7 @@ mixin _$CardSecondState {
   bool get isPageLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   bool get cardScanFinish => throw _privateConstructorUsedError;
+  bool get secondCardLoading => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   List<ImageModel> get scannedImagesSecondCardCreation =>
       throw _privateConstructorUsedError;
@@ -2380,6 +2412,7 @@ abstract class $CardSecondStateCopyWith<$Res> {
       bool isPageLoading,
       bool hasError,
       bool cardScanFinish,
+      bool secondCardLoading,
       String? message,
       List<ImageModel> scannedImagesSecondCardCreation,
       ScannedImageDatasModel? scannedImageDatasModel,
@@ -2406,6 +2439,7 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
     Object? isPageLoading = null,
     Object? hasError = null,
     Object? cardScanFinish = null,
+    Object? secondCardLoading = null,
     Object? message = freezed,
     Object? scannedImagesSecondCardCreation = null,
     Object? scannedImageDatasModel = freezed,
@@ -2430,6 +2464,10 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
       cardScanFinish: null == cardScanFinish
           ? _value.cardScanFinish
           : cardScanFinish // ignore: cast_nullable_to_non_nullable
+              as bool,
+      secondCardLoading: null == secondCardLoading
+          ? _value.secondCardLoading
+          : secondCardLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -2476,6 +2514,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool isPageLoading,
       bool hasError,
       bool cardScanFinish,
+      bool secondCardLoading,
       String? message,
       List<ImageModel> scannedImagesSecondCardCreation,
       ScannedImageDatasModel? scannedImageDatasModel,
@@ -2500,6 +2539,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isPageLoading = null,
     Object? hasError = null,
     Object? cardScanFinish = null,
+    Object? secondCardLoading = null,
     Object? message = freezed,
     Object? scannedImagesSecondCardCreation = null,
     Object? scannedImageDatasModel = freezed,
@@ -2524,6 +2564,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       cardScanFinish: null == cardScanFinish
           ? _value.cardScanFinish
           : cardScanFinish // ignore: cast_nullable_to_non_nullable
+              as bool,
+      secondCardLoading: null == secondCardLoading
+          ? _value.secondCardLoading
+          : secondCardLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -2565,6 +2609,7 @@ class _$InitialImpl implements _Initial {
       required this.isPageLoading,
       required this.hasError,
       required this.cardScanFinish,
+      required this.secondCardLoading,
       this.message,
       required final List<ImageModel> scannedImagesSecondCardCreation,
       this.scannedImageDatasModel,
@@ -2583,6 +2628,8 @@ class _$InitialImpl implements _Initial {
   final bool hasError;
   @override
   final bool cardScanFinish;
+  @override
+  final bool secondCardLoading;
   @override
   final String? message;
   final List<ImageModel> _scannedImagesSecondCardCreation;
@@ -2612,7 +2659,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'CardSecondState(isLoading: $isLoading, isPageLoading: $isPageLoading, hasError: $hasError, cardScanFinish: $cardScanFinish, message: $message, scannedImagesSecondCardCreation: $scannedImagesSecondCardCreation, scannedImageDatasModel: $scannedImageDatasModel, selfieImageModel: $selfieImageModel, cardSecondCreateRequestModel: $cardSecondCreateRequestModel, cardSecondResponseModel: $cardSecondResponseModel, secondCards: $secondCards)';
+    return 'CardSecondState(isLoading: $isLoading, isPageLoading: $isPageLoading, hasError: $hasError, cardScanFinish: $cardScanFinish, secondCardLoading: $secondCardLoading, message: $message, scannedImagesSecondCardCreation: $scannedImagesSecondCardCreation, scannedImageDatasModel: $scannedImageDatasModel, selfieImageModel: $selfieImageModel, cardSecondCreateRequestModel: $cardSecondCreateRequestModel, cardSecondResponseModel: $cardSecondResponseModel, secondCards: $secondCards)';
   }
 
   @override
@@ -2628,6 +2675,8 @@ class _$InitialImpl implements _Initial {
                 other.hasError == hasError) &&
             (identical(other.cardScanFinish, cardScanFinish) ||
                 other.cardScanFinish == cardScanFinish) &&
+            (identical(other.secondCardLoading, secondCardLoading) ||
+                other.secondCardLoading == secondCardLoading) &&
             (identical(other.message, message) || other.message == message) &&
             const DeepCollectionEquality().equals(
                 other._scannedImagesSecondCardCreation,
@@ -2654,6 +2703,7 @@ class _$InitialImpl implements _Initial {
       isPageLoading,
       hasError,
       cardScanFinish,
+      secondCardLoading,
       message,
       const DeepCollectionEquality().hash(_scannedImagesSecondCardCreation),
       scannedImageDatasModel,
@@ -2675,6 +2725,7 @@ abstract class _Initial implements CardSecondState {
       required final bool isPageLoading,
       required final bool hasError,
       required final bool cardScanFinish,
+      required final bool secondCardLoading,
       final String? message,
       required final List<ImageModel> scannedImagesSecondCardCreation,
       final ScannedImageDatasModel? scannedImageDatasModel,
@@ -2691,6 +2742,8 @@ abstract class _Initial implements CardSecondState {
   bool get hasError;
   @override
   bool get cardScanFinish;
+  @override
+  bool get secondCardLoading;
   @override
   String? get message;
   @override

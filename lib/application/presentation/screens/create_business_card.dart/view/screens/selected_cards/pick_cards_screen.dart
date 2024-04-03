@@ -86,7 +86,9 @@ class PickCardsScreen extends StatelessWidget {
                                               "You can't add more than 2 files",
                                           context)
                                       : cardscanimagesSelectingDailogue(
-                                          context);
+                                          context,
+                                          const PickCardsScreen(),
+                                        );
                                 },
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -96,13 +98,16 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                       if (userameFrom.currentState!.validate()) {
                         UserInfoChangeRequestModel userInfoChangeRequestModel =
                             UserInfoChangeRequestModel();
-                        userInfoChangeRequestModel.copyWith(
+                        userInfoChangeRequestModel =
+                            userInfoChangeRequestModel.copyWith(
                           name: context
                               .read<ProfileBloc>()
                               .userNameController
                               .text,
-                          isActive: true,
                         );
+
+                        log('in usernane feild ${context.read<ProfileBloc>().userNameController.text}');
+                        log('in usernane changes ${userInfoChangeRequestModel.toJson()}');
                         context.read<ProfileBloc>().add(
                               ProfileEvent.editProfile(
                                 userInfoChangeRequestModel:

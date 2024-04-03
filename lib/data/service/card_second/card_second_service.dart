@@ -7,6 +7,7 @@ import 'package:bizkit/domain/model/card_second/card_second_response_model/card_
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/gate_all_card_second_model.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
 import 'package:bizkit/domain/model/card_second/update_second_card_model/update_second_card_model.dart';
+import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/repository/service/card_second.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -74,9 +75,14 @@ class CardSecondService implements CardSecondRepo {
   }
 
   @override
-  Future<Either<Failure, GateAllCardSecondModel>> getAllCardsSecond() async {
+  Future<Either<Failure, GateAllCardSecondModel>> getAllCardsSecond({
+    required PageQuery pageQuery,
+  }) async {
     try {
-      final responce = await _apiService.get(ApiEndPoints.getAllCardSecond);
+      final responce = await _apiService.get(
+        ApiEndPoints.getAllCardSecond,
+        queryParameters: pageQuery.toJson(),
+      );
       log('getAllCardsSecond data ${responce.data}');
       return Right(GateAllCardSecondModel.fromJson(responce.data));
     } on DioException catch (e) {

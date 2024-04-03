@@ -1,14 +1,13 @@
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
-import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selfie_preview_screen.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SelectedCard extends StatelessWidget {
   const SelectedCard({super.key});
@@ -32,8 +31,14 @@ class SelectedCard extends StatelessWidget {
             child: BlocConsumer<CardSecondBloc, CardSecondState>(
               listener: (context, state) {
                 if (state.cardScanFinish) {
-                  Navigator.of(context).pushReplacement(
-                      fadePageRoute(const SelfiePreviewScreen()));
+                  GoRouter.of(context).pushReplacement(
+                    Routes.scanedDataFeilds,
+                  );
+                  // context.read<CardSecondBloc>().add(
+                  //     const CardSecondEvent.selfieImage(
+                  //         cameraDeviceFront: true));
+                  // Navigator.of(context).pushReplacement(
+                  //     fadePageRoute(const SelfiePreviewScreen()));
                 }
               },
               builder: (context, state) {
@@ -64,59 +69,24 @@ class SelectedCard extends StatelessWidget {
                               ),
                             ),
                             Align(
-                                alignment: Alignment.topRight,
-                                child: IconButton(
-                                    onPressed: () {
-                                      context.read<CardSecondBloc>().add(
-                                          CardSecondEvent.removeImageScanning(
-                                              index: index));
-                                    },
-                                    icon: const Icon(Icons.delete)))
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                onPressed: () {
+                                  context.read<CardSecondBloc>().add(
+                                      CardSecondEvent.removeImageScanning(
+                                          index: index));
+                                },
+                                icon: const Icon(Icons.delete),
+                              ),
+                            )
                           ],
                         );
                       },
                     ),
                     adjustHieght(khieght * .02),
                     state.scannedImagesSecondCardCreation.length < 2
-                        ? DottedBorder(
-                            dashPattern: const [8, 8],
-                            color: neonShade,
-                            strokeWidth: 2.5,
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 110.dm,
-                              child: GestureDetector(
-                                onTap: () {
-                                  state.scannedImagesSecondCardCreation
-                                              .length >=
-                                          2
-                                      ? showSnackbar(
-                                          message:
-                                              "You can't add more than 2 files",
-                                          context)
-                                      : context.read<CardSecondBloc>().add(
-                                            const CardSecondEvent
-                                                .galeryScannedImage(),
-                                          );
-                                },
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 32.dm,
-                                      height: 32.dm,
-                                      child: const CircleAvatar(
-                                        child: Center(child: Icon(Icons.add)),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Add more images',
-                                      style: TextStyle(fontSize: 10.sp),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                        ? const ContainerPickImage(
+                            heading: 'Add more image',
                           )
                         : const SizedBox(),
                     adjustHieght(khieght * .02),

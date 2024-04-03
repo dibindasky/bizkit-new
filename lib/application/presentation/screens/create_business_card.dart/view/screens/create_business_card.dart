@@ -1,5 +1,6 @@
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/selected_cards/pick_cards_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/card_uploading_showdailogue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -53,7 +54,8 @@ class _StartingBusinessCardCreationState
                   children: [
                     GestureDetector(
                       onTap: () {
-                        cardscanimagesSelectingDailogue(context);
+                        cardscanimagesSelectingDailogue(
+                            context, const PickCardsScreen());
                       },
                       child: DottedBorder(
                         dashPattern: const [8, 8],

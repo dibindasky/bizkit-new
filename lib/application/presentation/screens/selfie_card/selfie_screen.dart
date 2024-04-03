@@ -1,14 +1,14 @@
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/qr_scanner_view.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
-import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selfie_preview_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SelfieScreen extends StatefulWidget {
   const SelfieScreen({super.key});
@@ -124,49 +124,16 @@ class _SelfieScreenState extends State<SelfieScreen>
                       ],
                     )
                   : indexofButton == 0
-                      ? BlocBuilder<CardSecondBloc, CardSecondState>(
+                      ? BlocConsumer<CardSecondBloc, CardSecondState>(
+                          listener: (context, state) {
+                            if (state
+                                .scannedImagesSecondCardCreation.isNotEmpty) {
+                              GoRouter.of(context)
+                                  .pushReplacement(Routes.selectedCards);
+                            }
+                          },
                           builder: (context, state) {
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 100),
-                              child: DottedBorder(
-                                dashPattern: const [8, 8],
-                                color: neonShade,
-                                strokeWidth: 2.5,
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  height: 110.dm,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      context.read<CardSecondBloc>().add(
-                                          const CardSecondEvent
-                                              .galeryScannedImage());
-                                      Navigator.of(context).push(
-                                          fadePageRoute(const SelectedCard()));
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          width: 32.dm,
-                                          height: 32.dm,
-                                          child: const CircleAvatar(
-                                            child:
-                                                Center(child: Icon(Icons.add)),
-                                          ),
-                                        ),
-                                        adjustHieght(10),
-                                        Text(
-                                          'Data fetch from Image',
-                                          style: TextStyle(fontSize: 10.sp),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
+                            return const ContainerPickImage();
                           },
                         )
                       : const SizedBox(),
@@ -257,6 +224,81 @@ class _SelfieScreenState extends State<SelfieScreen>
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Image.asset(image),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ContainerPickImage extends StatelessWidget {
+  const ContainerPickImage(
+      {super.key, this.heading, this.onPressed, this.isBoth = true});
+  final String? heading;
+  final VoidCallback? onPressed;
+  final bool isBoth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
+      child: DottedBorder(
+        dashPattern: const [8, 8],
+        color: neonShade,
+        strokeWidth: 2.5,
+        child: SizedBox(
+          width: double.infinity,
+          height: 150.dm,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              adjustHieght(30),
+              Text(heading ?? 'Scan information through image'),
+              adjustHieght(30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  adjustWidth(20),
+                  isBoth
+                      ? Expanded(
+                          child: InkWell(
+                            onTap: () => context.read<CardSecondBloc>().add(
+                                const CardSecondEvent.scanImage(isCam: false)),
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                                border: Border.all(color: neonShade),
+                              ),
+                              child: const Center(child: Text('Gallery')),
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
+                  adjustWidth(20),
+                  Expanded(
+                    child: InkWell(
+                      onTap: onPressed ??
+                          () {
+                            context.read<CardSecondBloc>().add(
+                                const CardSecondEvent.scanImage(isCam: true));
+                          },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5)),
+                          border: Border.all(color: neonShade),
+                        ),
+                        child: const Center(child: Text('Camera')),
+                      ),
+                    ),
+                  ),
+                  adjustWidth(20),
+                ],
+              ),
+            ],
           ),
         ),
       ),

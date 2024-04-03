@@ -40,6 +40,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   FutureOr<void> getNotification(GetNotification event, emit) async {
     emit(state.copyWith(
         notificationLoading: true, hasError: false, message: null));
+    notification = 1;
     final data = await notificationRepo.getNotification(
         pageQuery: PageQuery(page: notification));
     log('getNotification bloc ${data.toString()}');

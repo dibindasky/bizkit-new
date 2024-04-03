@@ -3,7 +3,7 @@ part of 'card_second_bloc.dart';
 @freezed
 class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.started() = _Started;
-  const factory CardSecondEvent.galeryScannedImage() = GaleryScannedImage;
+  const factory CardSecondEvent.scanImage({required bool isCam}) = ScanImage;
   const factory CardSecondEvent.processImageScanning(
       {required List<ImageModel> images}) = ProcessImageScanning;
   const factory CardSecondEvent.removeImageScanning({required int index}) =

@@ -8,12 +8,14 @@ class AuthButton extends StatelessWidget {
     required this.onTap,
     this.wdth,
     this.hieght,
+    this.textColr,
   });
 
   final String text;
   final VoidCallback onTap;
   final double? wdth;
   final double? hieght;
+  final Color? textColr;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class AuthButton extends StatelessWidget {
           child: Text(
             text,
             style: custumText(
+              colr: textColr,
               fontSize: kwidth * 0.033,
               fontWeight: FontWeight.w800,
             ),

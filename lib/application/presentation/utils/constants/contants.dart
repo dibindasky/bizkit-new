@@ -1,3 +1,8 @@
+const onBoardScreenfirst = 'asset/images/onboard_secrens/bizkit on board 1.png';
+const onBoardScreenSecond =
+    'asset/images/onboard_secrens/bizkit on board 2.png';
+const onBoardScreenThird = 'asset/images/onboard_secrens/bizkit_3.png';
+
 const errorMessage = 'Something went wrong please try again';
 const empty = 'empty';
 const bloodGroups = ['O+', 'A+', 'B+', 'A-', 'AB+', 'B-', 'O-', 'AB-'];

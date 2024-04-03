@@ -7,6 +7,7 @@ class CardSecondState with _$CardSecondState {
     required bool isPageLoading,
     required bool hasError,
     required bool cardScanFinish,
+    required bool secondCardLoading,
     String? message,
     required List<ImageModel> scannedImagesSecondCardCreation,
     ScannedImageDatasModel? scannedImageDatasModel,
@@ -19,6 +20,7 @@ class CardSecondState with _$CardSecondState {
   factory CardSecondState.initial() => CardSecondState(
         isLoading: false,
         isPageLoading: false,
+        secondCardLoading: false,
         cardSecondCreateRequestModel: CardSecondCreateRequestModel(),
         hasError: false,
         secondCards: [],

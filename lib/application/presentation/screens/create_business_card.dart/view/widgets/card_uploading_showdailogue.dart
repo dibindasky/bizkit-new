@@ -4,7 +4,8 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
+Future<dynamic> cardscanimagesSelectingDailogue(
+    BuildContext context, Widget widget) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -16,7 +17,7 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
                 .read<UserDataBloc>()
                 .add(UserDataEvent.pickImageScanning(camera: false));
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const PickCardsScreen(),
+              builder: (context) => widget,
             ));
           },
           style: ElevatedButton.styleFrom(
@@ -31,7 +32,7 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
                 .read<UserDataBloc>()
                 .add(UserDataEvent.pickImageScanning(camera: true));
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const PickCardsScreen(),
+              builder: (context) => widget,
             ));
           },
           style: ElevatedButton.styleFrom(

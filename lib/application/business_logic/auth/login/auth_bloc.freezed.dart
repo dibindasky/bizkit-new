@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
     required TResult Function(EmailModel emailModel) forgotPassword,
     required TResult Function(VerifyOtpModel verifyOtpModel)
@@ -30,6 +31,7 @@ mixin _$AuthEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -40,6 +42,7 @@ mixin _$AuthEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -51,6 +54,7 @@ mixin _$AuthEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
@@ -61,6 +65,7 @@ mixin _$AuthEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -71,6 +76,7 @@ mixin _$AuthEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -97,6 +103,140 @@ class _$AuthEventCopyWithImpl<$Res, $Val extends AuthEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$OnBoardskipImplCopyWith<$Res> {
+  factory _$$OnBoardskipImplCopyWith(
+          _$OnBoardskipImpl value, $Res Function(_$OnBoardskipImpl) then) =
+      __$$OnBoardskipImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$OnBoardskipImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$OnBoardskipImpl>
+    implements _$$OnBoardskipImplCopyWith<$Res> {
+  __$$OnBoardskipImplCopyWithImpl(
+      _$OnBoardskipImpl _value, $Res Function(_$OnBoardskipImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$OnBoardskipImpl implements OnBoardskip {
+  const _$OnBoardskipImpl();
+
+  @override
+  String toString() {
+    return 'AuthEvent.onBoardskip()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$OnBoardskipImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() onBoardskip,
+    required TResult Function(LoginModel loginModel) login,
+    required TResult Function(EmailModel emailModel) forgotPassword,
+    required TResult Function(VerifyOtpModel verifyOtpModel)
+        verifyforgotPassword,
+    required TResult Function(ChangePasswordModel changePasswordModel)
+        changePassword,
+    required TResult Function() log,
+    required TResult Function() logOut,
+  }) {
+    return onBoardskip();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onBoardskip,
+    TResult? Function(LoginModel loginModel)? login,
+    TResult? Function(EmailModel emailModel)? forgotPassword,
+    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
+    TResult? Function()? log,
+    TResult? Function()? logOut,
+  }) {
+    return onBoardskip?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onBoardskip,
+    TResult Function(LoginModel loginModel)? login,
+    TResult Function(EmailModel emailModel)? forgotPassword,
+    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
+    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
+    TResult Function()? log,
+    TResult Function()? logOut,
+    required TResult orElse(),
+  }) {
+    if (onBoardskip != null) {
+      return onBoardskip();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OnBoardskip value) onBoardskip,
+    required TResult Function(Login value) login,
+    required TResult Function(ForgotPassword value) forgotPassword,
+    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
+    required TResult Function(ChangePassword value) changePassword,
+    required TResult Function(Log value) log,
+    required TResult Function(LogOut value) logOut,
+  }) {
+    return onBoardskip(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnBoardskip value)? onBoardskip,
+    TResult? Function(Login value)? login,
+    TResult? Function(ForgotPassword value)? forgotPassword,
+    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
+    TResult? Function(ChangePassword value)? changePassword,
+    TResult? Function(Log value)? log,
+    TResult? Function(LogOut value)? logOut,
+  }) {
+    return onBoardskip?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnBoardskip value)? onBoardskip,
+    TResult Function(Login value)? login,
+    TResult Function(ForgotPassword value)? forgotPassword,
+    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
+    TResult Function(ChangePassword value)? changePassword,
+    TResult Function(Log value)? log,
+    TResult Function(LogOut value)? logOut,
+    required TResult orElse(),
+  }) {
+    if (onBoardskip != null) {
+      return onBoardskip(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class OnBoardskip implements AuthEvent {
+  const factory OnBoardskip() = _$OnBoardskipImpl;
 }
 
 /// @nodoc
@@ -164,6 +304,7 @@ class _$LoginImpl implements Login {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
     required TResult Function(EmailModel emailModel) forgotPassword,
     required TResult Function(VerifyOtpModel verifyOtpModel)
@@ -179,6 +320,7 @@ class _$LoginImpl implements Login {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -192,6 +334,7 @@ class _$LoginImpl implements Login {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -209,6 +352,7 @@ class _$LoginImpl implements Login {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
@@ -222,6 +366,7 @@ class _$LoginImpl implements Login {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -235,6 +380,7 @@ class _$LoginImpl implements Login {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -325,6 +471,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
     required TResult Function(EmailModel emailModel) forgotPassword,
     required TResult Function(VerifyOtpModel verifyOtpModel)
@@ -340,6 +487,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -353,6 +501,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -370,6 +519,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
@@ -383,6 +533,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -396,6 +547,7 @@ class _$ForgotPasswordImpl implements ForgotPassword {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -488,6 +640,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
     required TResult Function(EmailModel emailModel) forgotPassword,
     required TResult Function(VerifyOtpModel verifyOtpModel)
@@ -503,6 +656,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -516,6 +670,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -533,6 +688,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
@@ -546,6 +702,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -559,6 +716,7 @@ class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -651,6 +809,7 @@ class _$ChangePasswordImpl implements ChangePassword {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
     required TResult Function(EmailModel emailModel) forgotPassword,
     required TResult Function(VerifyOtpModel verifyOtpModel)
@@ -666,6 +825,7 @@ class _$ChangePasswordImpl implements ChangePassword {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -679,6 +839,7 @@ class _$ChangePasswordImpl implements ChangePassword {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -696,6 +857,7 @@ class _$ChangePasswordImpl implements ChangePassword {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
@@ -709,6 +871,7 @@ class _$ChangePasswordImpl implements ChangePassword {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -722,6 +885,7 @@ class _$ChangePasswordImpl implements ChangePassword {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -784,6 +948,7 @@ class _$LogImpl implements Log {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
     required TResult Function(EmailModel emailModel) forgotPassword,
     required TResult Function(VerifyOtpModel verifyOtpModel)
@@ -799,6 +964,7 @@ class _$LogImpl implements Log {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -812,6 +978,7 @@ class _$LogImpl implements Log {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -829,6 +996,7 @@ class _$LogImpl implements Log {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
@@ -842,6 +1010,7 @@ class _$LogImpl implements Log {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -855,6 +1024,7 @@ class _$LogImpl implements Log {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -912,6 +1082,7 @@ class _$LogOutImpl implements LogOut {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
     required TResult Function(EmailModel emailModel) forgotPassword,
     required TResult Function(VerifyOtpModel verifyOtpModel)
@@ -927,6 +1098,7 @@ class _$LogOutImpl implements LogOut {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
     TResult? Function(EmailModel emailModel)? forgotPassword,
     TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -940,6 +1112,7 @@ class _$LogOutImpl implements LogOut {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
     TResult Function(EmailModel emailModel)? forgotPassword,
     TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
@@ -957,6 +1130,7 @@ class _$LogOutImpl implements LogOut {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
     required TResult Function(ForgotPassword value) forgotPassword,
     required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
@@ -970,6 +1144,7 @@ class _$LogOutImpl implements LogOut {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
     TResult? Function(ForgotPassword value)? forgotPassword,
     TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -983,6 +1158,7 @@ class _$LogOutImpl implements LogOut {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
     TResult Function(ForgotPassword value)? forgotPassword,
     TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
@@ -1010,6 +1186,7 @@ mixin _$AuthState {
   bool get otpVerificationError => throw _privateConstructorUsedError;
   bool get otpVerifiedForgotPassword => throw _privateConstructorUsedError;
   bool get isLogin => throw _privateConstructorUsedError;
+  bool get onBoardSkipBool => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
   bool get hasCard => throw _privateConstructorUsedError;
@@ -1034,6 +1211,7 @@ abstract class $AuthStateCopyWith<$Res> {
       bool otpVerificationError,
       bool otpVerifiedForgotPassword,
       bool isLogin,
+      bool onBoardSkipBool,
       String? message,
       String? userName,
       bool hasCard,
@@ -1060,6 +1238,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? otpVerificationError = null,
     Object? otpVerifiedForgotPassword = null,
     Object? isLogin = null,
+    Object? onBoardSkipBool = null,
     Object? message = freezed,
     Object? userName = freezed,
     Object? hasCard = null,
@@ -1090,6 +1269,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
       isLogin: null == isLogin
           ? _value.isLogin
           : isLogin // ignore: cast_nullable_to_non_nullable
+              as bool,
+      onBoardSkipBool: null == onBoardSkipBool
+          ? _value.onBoardSkipBool
+          : onBoardSkipBool // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -1130,6 +1313,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool otpVerificationError,
       bool otpVerifiedForgotPassword,
       bool isLogin,
+      bool onBoardSkipBool,
       String? message,
       String? userName,
       bool hasCard,
@@ -1154,6 +1338,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? otpVerificationError = null,
     Object? otpVerifiedForgotPassword = null,
     Object? isLogin = null,
+    Object? onBoardSkipBool = null,
     Object? message = freezed,
     Object? userName = freezed,
     Object? hasCard = null,
@@ -1184,6 +1369,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       isLogin: null == isLogin
           ? _value.isLogin
           : isLogin // ignore: cast_nullable_to_non_nullable
+              as bool,
+      onBoardSkipBool: null == onBoardSkipBool
+          ? _value.onBoardSkipBool
+          : onBoardSkipBool // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -1219,6 +1408,7 @@ class _$InitialImpl implements _Initial {
       required this.otpVerificationError,
       required this.otpVerifiedForgotPassword,
       required this.isLogin,
+      required this.onBoardSkipBool,
       this.message,
       this.userName,
       required this.hasCard,
@@ -1238,6 +1428,8 @@ class _$InitialImpl implements _Initial {
   @override
   final bool isLogin;
   @override
+  final bool onBoardSkipBool;
+  @override
   final String? message;
   @override
   final String? userName;
@@ -1250,7 +1442,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, isLogin: $isLogin, message: $message, userName: $userName, hasCard: $hasCard, isFirstLogin: $isFirstLogin, loginResponseModel: $loginResponseModel)';
+    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, isLogin: $isLogin, onBoardSkipBool: $onBoardSkipBool, message: $message, userName: $userName, hasCard: $hasCard, isFirstLogin: $isFirstLogin, loginResponseModel: $loginResponseModel)';
   }
 
   @override
@@ -1269,6 +1461,8 @@ class _$InitialImpl implements _Initial {
                     otpVerifiedForgotPassword) ||
                 other.otpVerifiedForgotPassword == otpVerifiedForgotPassword) &&
             (identical(other.isLogin, isLogin) || other.isLogin == isLogin) &&
+            (identical(other.onBoardSkipBool, onBoardSkipBool) ||
+                other.onBoardSkipBool == onBoardSkipBool) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
@@ -1288,6 +1482,7 @@ class _$InitialImpl implements _Initial {
       otpVerificationError,
       otpVerifiedForgotPassword,
       isLogin,
+      onBoardSkipBool,
       message,
       userName,
       hasCard,
@@ -1309,6 +1504,7 @@ abstract class _Initial implements AuthState {
       required final bool otpVerificationError,
       required final bool otpVerifiedForgotPassword,
       required final bool isLogin,
+      required final bool onBoardSkipBool,
       final String? message,
       final String? userName,
       required final bool hasCard,
@@ -1327,6 +1523,8 @@ abstract class _Initial implements AuthState {
   bool get otpVerifiedForgotPassword;
   @override
   bool get isLogin;
+  @override
+  bool get onBoardSkipBool;
   @override
   String? get message;
   @override

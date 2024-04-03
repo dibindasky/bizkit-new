@@ -364,7 +364,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                       }
                     },
                   ),
-                  adjustHieght(khieght * .05),
+                  adjustHieght(khieght * .03),
+                  const Text('QR conections card'),
+                  adjustHieght(khieght * .03),
                   BlocConsumer<CardSecondBloc, CardSecondState>(
                     listener: (context, state) {
                       if (state.hasError) {
@@ -387,7 +389,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                         );
                       }
                       return SizedBox(
-                        height: 340,
+                        height: 290,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemCount: state.secondCards.length,
@@ -441,7 +443,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                     fit: BoxFit.cover,
                                                   )
                                                 : Image.network(
-                                                    seconsdCard.selfie!,
+                                                    seconsdCard.image!,
                                                     fit: BoxFit.cover,
                                                   ),
                                           ),
@@ -479,16 +481,16 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                       'Are you sure you want to archive your card',
                                                   context,
                                                   onPressed: () {
-                                                    CardActionRewuestModel
-                                                        cardActionRewuestModel =
-                                                        CardActionRewuestModel(
-                                                            isArchived: true);
-                                                    context.read<CardBloc>().add(
-                                                        CardEvent.cardAction(
-                                                            cardActionRewuestModel:
-                                                                cardActionRewuestModel,
-                                                            id: seconsdCard
-                                                                .id!));
+                                                    // CardActionRewuestModel
+                                                    //     cardActionRewuestModel =
+                                                    //     CardActionRewuestModel(
+                                                    //         isArchived: true);
+                                                    // context.read<CardBloc>().add(
+                                                    //     CardEvent.cardAction(
+                                                    //         cardActionRewuestModel:
+                                                    //             cardActionRewuestModel,
+                                                    //         id: seconsdCard
+                                                    //             .id!));
                                                   },
                                                 ),
                                                 value: 'Archive',
@@ -501,16 +503,16 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                       'Are you sure you want to delete your card',
                                                   context,
                                                   onPressed: () {
-                                                    CardActionRewuestModel
-                                                        cardActionRewuestModel =
-                                                        CardActionRewuestModel(
-                                                            isActive: false);
-                                                    context.read<CardBloc>().add(
-                                                        CardEvent.cardAction(
-                                                            cardActionRewuestModel:
-                                                                cardActionRewuestModel,
-                                                            id: seconsdCard
-                                                                .id!));
+                                                    // CardActionRewuestModel
+                                                    //     cardActionRewuestModel =
+                                                    //     CardActionRewuestModel(
+                                                    //         isActive: false);
+                                                    // context.read<CardBloc>().add(
+                                                    //     CardEvent.cardAction(
+                                                    //         cardActionRewuestModel:
+                                                    //             cardActionRewuestModel,
+                                                    //         id: seconsdCard
+                                                    //             .id!));
                                                   },
                                                 ),
                                                 value: 'Delete Card',

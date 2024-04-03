@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
         (timeStamp) => context.read<AuthBloc>().add(const AuthEvent.log()));
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        _navigateToSignInPage(context, state.isLogin);
+        _navigateToSignInPage(context, state.isLogin, state.onBoardSkipBool);
       },
       child: Scaffold(
         body: FadeInUp(
@@ -46,10 +46,19 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  void _navigateToSignInPage(BuildContext context, bool toLogin) async {
+  void _navigateToSignInPage(
+      BuildContext context, bool toLogin, bool isOnbaordSkip) async {
     Future.delayed(const Duration(milliseconds: 2000), () {
-      GoRouter.of(context)
-          .pushReplacementNamed(!toLogin ? Routes.loginPage : Routes.homePage);
+      if (toLogin && isOnbaordSkip) {
+        GoRouter.of(context).pushReplacementNamed(Routes.homePage);
+      } else if (isOnbaordSkip && !toLogin) {
+        GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
+      } else if (!isOnbaordSkip) {
+        GoRouter.of(context).pushReplacementNamed(Routes.onBoarding);
+      }
+      //GoRouter.of(context).pushReplacementNamed(Routes.onBoarding);
+      // GoRouter.of(context)
+      //     .pushReplacementNamed(!toLogin ? Routes.loginPage : Routes.homePage);
     });
   }
 }

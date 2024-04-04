@@ -121,9 +121,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                 topRight: Radius.circular(20),
                                               ),
                                               child: card.logo == null
-                                                  ? Image.network(
-                                                      imageDummyNetwork,
-                                                      fit: BoxFit.cover,
+                                                  ? Image.asset(
+                                                      iconBizkitPng,
+                                                      // fit: BoxFit.cover,
                                                     )
                                                   : Image.network(
                                                       card.logo!,

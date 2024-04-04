@@ -5,13 +5,20 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
+import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class MyCardsAndAddCardSection extends StatelessWidget {
+class MyCardsAndAddCardSection extends StatefulWidget {
   const MyCardsAndAddCardSection({super.key});
 
+  @override
+  State<MyCardsAndAddCardSection> createState() =>
+      _MyCardsAndAddCardSectionState();
+}
+
+class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -43,13 +50,18 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                           child: const Center(
                               child: Text('Create Your BizKit Card')));
                     } else {
+                      CardResponse data = state.cards[0];
                       return SizedBox(
                         height: kwidth * 0.35,
                         width: kwidth * 0.55,
                         child: PageView.builder(
                           itemCount: state.cards.length,
+                          onPageChanged: (index) {
+                            setState(() {
+                              data = state.cards[index];
+                            });
+                          },
                           itemBuilder: (context, index) {
-                            final data = state.cards[index];
                             return InkWell(
                               onTap: () {
                                 final map = data.id != null

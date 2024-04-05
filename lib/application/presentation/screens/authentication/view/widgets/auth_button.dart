@@ -2,15 +2,14 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton({
-    super.key,
-    required this.text,
-    required this.onTap,
-    this.wdth,
-    this.hieght,
-    this.textColr,
-this.color
-  });
+  const AuthButton(
+      {super.key,
+      required this.text,
+      required this.onTap,
+      this.wdth,
+      this.hieght,
+      this.textColr,
+      this.color});
 
   final String text;
   final VoidCallback onTap;
@@ -30,7 +29,7 @@ this.color
           borderRadius: const BorderRadius.all(
             Radius.circular(9),
           ),
-          gradient:color?? neonShadeGradient,
+          gradient: color ?? neonShadeGradient,
         ),
         child: Center(
           child: Text(

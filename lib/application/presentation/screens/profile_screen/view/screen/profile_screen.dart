@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -7,6 +10,7 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -62,19 +66,25 @@ class _ProfileScreenState extends State<ProfileScreen>
               children: [
                 BlocConsumer<ProfileBloc, ProfileState>(
                   listenWhen: (previous, current) {
-                    return previous.getUserInfoModel !=
-                        current.getUserInfoModel;
+                    return previous.updateUserInfoModel !=
+                        current.updateUserInfoModel;
                   },
                   listener: (context, state) {
-                    // if (state.getUserInfoModel != null &&
-                    //     state.imageModel != null) {
-                    //   showSnackbar(context, message: 'profile updated');
-                    // }
-                    // if (state.userInfoChangeResponceModel != null) {
-                    //   showSnackbar(context, message: state.message!);
-                    // }
+                    if (state.updateUserInfoModel != null) {
+                      showSnackbar(context, message: 'Profile updated');
+                    }
                   },
                   builder: (context, state) {
+                    String base64String = '';
+                    if ((state.getUserInfoModel != null &&
+                        state.getUserInfoModel!.results != null &&
+                        state.getUserInfoModel!.results!.profilePic != null)) {
+                      final image = state.getUserInfoModel!.results!.profilePic;
+                      base64String = image!;
+                      base64String = base64String.replaceFirst(
+                          RegExp(r'data:image/jpg;base64,'), '');
+                    }
+
                     return Stack(
                       children: [
                         CircleAvatar(
@@ -89,12 +99,14 @@ class _ProfileScreenState extends State<ProfileScreen>
                                       state.getUserInfoModel!.results!
                                               .profilePic !=
                                           null)
-                                  ? CircleAvatar(
-                                      backgroundColor: kblack,
-                                      radius: 67,
-                                      backgroundImage: NetworkImage(
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(67),
+                                      child: Image.network(
                                         state.getUserInfoModel!.results!
                                             .profilePic!,
+                                        width: 134,
+                                        height: 134,
+                                        fit: BoxFit.cover,
                                       ),
                                     )
                                   : const CircleAvatar(

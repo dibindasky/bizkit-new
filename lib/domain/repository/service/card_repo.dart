@@ -22,7 +22,8 @@ abstract class CardRepo {
   Future<Either<Failure, SuccessResponseModel>> createCard(
       {required CardFirstCreationModel cardFirstCreationModel});
   Future<Either<Failure, PersonalDetails>> patchPersonalDetails(
-      {required PatchPersonalData patchPersonalData,required int personalDataId});
+      {required PatchPersonalData patchPersonalData,
+      required int personalDataId});
   // Future<Either<Failure, PersonalDetails>> createPersonalDataCard(
   //     {required PersonalDetailsCreate personalDetailsCreate});
   Future<Either<Failure, BusinessDetails>> createBusinessDataCard(

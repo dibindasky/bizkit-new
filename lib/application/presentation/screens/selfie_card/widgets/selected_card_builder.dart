@@ -31,7 +31,7 @@ class SelectedCard extends StatelessWidget {
             child: BlocConsumer<CardSecondBloc, CardSecondState>(
               listener: (context, state) {
                 if (state.cardScanFinish) {
-                  GoRouter.of(context).pushReplacement(
+                  GoRouter.of(context).push(
                     Routes.scanedDataFeilds,
                   );
                   // context.read<CardSecondBloc>().add(

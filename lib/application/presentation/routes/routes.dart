@@ -15,4 +15,5 @@ class Routes {
   static const String scanedDataFeilds = '/scanned_data_fields';
   static const String selfieDataFeilds = '/selfie_data_feilds';
   static const String cardListingboth = '/card_listing_both';
+  static const String cardUpdating = '/card_updating';
 }

@@ -32,7 +32,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       emit(state.copyWith(
         notificationLoading: false,
         hasError: false,
-        notification: [...state.notification!, ...r.notification!],
+        notification: [...state.notification!, ...r.notification ?? []],
       ));
     });
   }
@@ -43,7 +43,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     notification = 1;
     final data = await notificationRepo.getNotification(
         pageQuery: PageQuery(page: notification));
-    log('getNotification bloc ${data.toString()}');
+    log('getNotification bloc ${data.length()}');
     data.fold(
         (l) => emit(state.copyWith(
             notificationLoading: false, hasError: true, message: null)), (r) {

@@ -8,6 +8,8 @@ class CardSecondState with _$CardSecondState {
     required bool hasError,
     required bool cardScanFinish,
     required bool secondCardLoading,
+    required bool deleteSecondCardLoading,
+    required bool updated,
     String? message,
     required List<ImageModel> scannedImagesSecondCardCreation,
     ScannedImageDatasModel? scannedImageDatasModel,
@@ -15,11 +17,15 @@ class CardSecondState with _$CardSecondState {
     required CardSecondCreateRequestModel cardSecondCreateRequestModel,
     CardSecondResponseModel? cardSecondResponseModel,
     required List<SecondCard> secondCards,
+    List<SecondCard>? deleteSecondCards,
+    SuccessResponseModel? successResponseModel,
   }) = _Initial;
 
   factory CardSecondState.initial() => CardSecondState(
         isLoading: false,
         isPageLoading: false,
+        updated: false,
+        deleteSecondCardLoading: false,
         secondCardLoading: false,
         cardSecondCreateRequestModel: CardSecondCreateRequestModel(),
         hasError: false,

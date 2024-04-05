@@ -19,7 +19,8 @@ class ApiEndPoints {
 
 // card
   static String createCard = '/card/create-card/';
-  static String patchPersonalDetails = '/card/card-update-delete/{personal_details_id}/';
+  static String patchPersonalDetails =
+      '/card/card-update-delete/{personal_details_id}/';
   static String createCardPersonal = '/card/personal-details/';
   static String createCardBusiness = '/card/business-details/';
   static String createCardBAnking = '/card/bank_details/';
@@ -77,8 +78,9 @@ class ApiEndPoints {
   static String getSingleCardSecons =
       '/card-connections/business-card-retrieve-update/{id}/';
 
-// second card
+  //second card
   static String getAllCardSecond = '/card-connections/business-card/';
   static String updateCardSecond =
       '/card-connections/business-card-retrieve-update/{id}/';
+  static String getDeletedSecondCard = '/card-connections/deleted-cards/';
 }

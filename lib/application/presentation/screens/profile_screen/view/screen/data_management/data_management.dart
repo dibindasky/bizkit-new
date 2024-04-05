@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/archieved_cards.dart';
@@ -21,6 +22,9 @@ class DataManagement extends StatelessWidget {
         context
             .read<CardBloc>()
             .add(const CardEvent.getdeleteCards(isLoad: false));
+        context
+            .read<CardSecondBloc>()
+            .add(const CardSecondEvent.getDeleteCardSecond(isLoad: false));
       },
     );
     return Scaffold(

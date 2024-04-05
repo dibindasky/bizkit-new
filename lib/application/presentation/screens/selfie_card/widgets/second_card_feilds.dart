@@ -30,9 +30,10 @@ class CardSecondScannedDatas extends StatelessWidget {
           title: const Text(
             'Make a Bizkit Card',
             style: TextStyle(
-                fontFamily: 'Euclid',
-                fontWeight: FontWeight.bold,
-                color: kwhite),
+              fontFamily: 'Euclid',
+              fontWeight: FontWeight.bold,
+              color: kwhite,
+            ),
           ),
           backgroundColor: knill,
         ),

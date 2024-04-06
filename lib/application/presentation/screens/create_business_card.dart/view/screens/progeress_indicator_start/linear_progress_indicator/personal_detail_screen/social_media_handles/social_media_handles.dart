@@ -183,17 +183,17 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    CircleAvatar(
-                                      radius: 10,
-                                      backgroundImage: AssetImage(
-                                          socialMediaImage[widget.fromBusiness
-                                              ? business.socialMedias[index]
-                                                      .label ??
-                                                  'accound $index'
-                                              : user.socialMedias[index]
-                                                      .label ??
-                                                  'account $index']!),
-                                    ),
+                                    // CircleAvatar(
+                                    //   radius: 10,
+                                    //   backgroundImage: AssetImage(
+                                    //       socialMediaImage[widget.fromBusiness
+                                    //           ? business.socialMedias[index]
+                                    //                   .label ??
+                                    //               'accound $index'
+                                    //           : user.socialMedias[index]
+                                    //                   .label ??
+                                    //               'account $index']!),
+                                    // ),
                                     adjustWidth(10),
                                     Text(widget.fromBusiness
                                         ? business.socialMedias[index].label ??

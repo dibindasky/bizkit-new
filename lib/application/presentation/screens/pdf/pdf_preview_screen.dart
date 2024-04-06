@@ -20,7 +20,7 @@ class ScreenPdfPreview extends StatelessWidget {
                 onError: (_) => const Center(
                       child: Text('Could not load brochure please try again'),
                     ))
-            : PdfViewer.openData(base64Decode(base64!),
+            : PdfViewer.openData(base64Decode(base64!.substring('data:application/pdf;base64,'.length)),
                 onError: (_) => const Center(
                       child: Text('Could not load brochure please try again'),
                     )));

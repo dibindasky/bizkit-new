@@ -79,10 +79,10 @@ class ScreenCardDetailView extends StatelessWidget {
                                   images
                                       .add(state.anotherCard!.logoCard!.logo!);
                                 }
-                                return const SizedBox(
+                                return SizedBox(
                                   height: 200,
                                   child: PreviewPageviewImageBuilder(
-                                    imagesList: [],
+                                    imagesList: images,
                                   ),
                                 );
                               },

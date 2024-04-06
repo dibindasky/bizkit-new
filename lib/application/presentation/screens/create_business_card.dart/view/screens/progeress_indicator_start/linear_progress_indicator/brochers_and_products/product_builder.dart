@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,8 @@ class ProductBuilder extends StatelessWidget {
                       border: Border.all(color: neonShade),
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                          image: FileImage(data.image![0].image.fileImage),
+                          image: MemoryImage(base64
+                              .decode(data.image![0].image.substring(22))),
                           fit: BoxFit.cover),
                     ),
                   ),
@@ -39,9 +42,9 @@ class ProductBuilder extends StatelessWidget {
                     top: 0,
                     right: 0,
                     child: InkWell(
-                      onTap: () => context
-                          .read<BusinessDataBloc>()
-                          .add(BusinessDataEvent.removeProduct(id: state.products[index].id!)),
+                      onTap: () => context.read<BusinessDataBloc>().add(
+                          BusinessDataEvent.removeProduct(
+                              id: state.products[index].id!)),
                       borderRadius: BorderRadius.circular(10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),

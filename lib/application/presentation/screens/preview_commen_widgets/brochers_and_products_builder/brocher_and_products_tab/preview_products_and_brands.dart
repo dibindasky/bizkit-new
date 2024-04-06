@@ -82,8 +82,11 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                               child: ColoredBox(
                                   color: smallBigGrey,
-                                  child: Image.network(
-                                    networkImages![index].image![0].image!,
+                                  child: Image.memory(
+                                    base64.decode(networkImages![index]
+                                        .image![0]
+                                        .image!
+                                        .substring(22)),
                                     fit: BoxFit.cover,
                                   )),
                             ),

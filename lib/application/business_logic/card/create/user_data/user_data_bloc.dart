@@ -139,6 +139,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         cardAdded: null,
         message: null,
         currentCard: event.card,
+        socialMedias: event.card.socialMedia??[],
         accolades: event.card.accolades ?? [],
         datesToRemember: event.card.datesToRemember ?? []));
     nameController.text = event.card.personalDetails?.name ?? '';
@@ -159,7 +160,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         datesToRemember: event.datesToRemember);
     result.fold((l) => emit(state.copyWith(datesToRememberLoading: false)),
         (r) {
-      return (state.copyWith(
+      return emit(state.copyWith(
           datesToRememberLoading: false,
           datesToRemember: [...state.datesToRemember, r]));
     });
@@ -168,12 +169,12 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> removeDateToRemember(RemoveDateToRemember event, emit) async {
     emit(state.copyWith(
         cardAdded: null, message: null, datesToRememberDeleteLoading: true));
-    final result = await cardPatchRepo.deleteAccolades(id: event.id);
+    final result = await cardPatchRepo.deleteDatesToRemember(id: event.id);
     result.fold(
         (l) => emit(state.copyWith(datesToRememberDeleteLoading: false)), (r) {
       List<DatesToRemember> list = List.from(state.datesToRemember);
       list.removeWhere((element) => element.id == event.id);
-      return (state.copyWith(
+      return emit(state.copyWith(
           datesToRememberDeleteLoading: false, datesToRemember: list));
     });
   }
@@ -184,7 +185,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     final result = await cardPatchRepo.addSocialMedia(
         socialMediaHandle: event.socialMediaHandle);
     result.fold((l) => emit(state.copyWith(socialMediaLoading: false)), (r) {
-      return (state.copyWith(
+      return emit(state.copyWith(
           socialMediaLoading: false, socialMedias: [...state.socialMedias, r]));
     });
   }
@@ -197,7 +198,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         (r) {
       List<SocialMediaHandle> list = List.from(state.socialMedias);
       list.removeWhere((element) => element.id == event.id);
-      return (state.copyWith(
+      return emit(state.copyWith(
           socialMediaDeleteLoading: false, socialMedias: list));
     });
   }
@@ -206,7 +207,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(cardAdded: null, message: null, accoladeLoading: true));
     final result = await cardPatchRepo.addAccolades(accolade: event.accolade);
     result.fold((l) => emit(state.copyWith(accoladeLoading: false)), (r) {
-      return (state.copyWith(
+      return emit(state.copyWith(
           accoladeLoading: false, accolades: [...state.accolades, r]));
     });
   }
@@ -218,7 +219,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     result.fold((l) => emit(state.copyWith(accoladeDeleteLoading: false)), (r) {
       List<Accolade> accolade = List.from(state.accolades);
       accolade.removeWhere((element) => element.id == event.id);
-      return (state.copyWith(
+      return emit(state.copyWith(
           accoladeDeleteLoading: false, accolades: accolade));
     });
   }

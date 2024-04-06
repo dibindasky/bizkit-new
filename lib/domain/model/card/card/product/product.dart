@@ -18,7 +18,8 @@ class Product {
     this.enquiry,
     this.label,
     this.description,
-    this.image
+    this.image,
+    this.cardId
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {

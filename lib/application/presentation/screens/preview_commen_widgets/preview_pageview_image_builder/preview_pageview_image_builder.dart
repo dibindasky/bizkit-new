@@ -59,7 +59,10 @@ class _PreviewPageviewImageBuilderState
               child: SizedBox(
                 width: double.infinity,
                 height: 200,
-                child: Image.memory(base64Decode(widget.imagesList[index]),
+                child: Image.memory(
+                    base64Decode(widget.imagesList[index].substring(22)),
+                    errorBuilder: (context, error, stackTrace) =>
+                        const Icon(Icons.image),
                     fit: BoxFit.cover),
               ),
             ),

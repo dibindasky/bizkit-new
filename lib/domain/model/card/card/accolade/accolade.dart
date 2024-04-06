@@ -20,12 +20,12 @@ class Accolade {
       this.accolades,
       this.accoladesDescription,
       this.cardId}) {
-    if (accoladesImage!=null && accoladesImage is String) {
-      accoladesImage =
-          accoladesImage.substring('data:image/jpg;base64,'.length);
-      // int padding = (4 - accoladesImage.length % 4) % 4 as int;
-      // accoladesImage += '=' * padding;
-    }
+    // if (accoladesImage!=null && accoladesImage is String) {
+    //   accoladesImage =
+    //       accoladesImage.substring('data:image/jpg;base64,'.length);
+    //   // int padding = (4 - accoladesImage.length % 4) % 4 as int;
+    //   // accoladesImage += '=' * padding;
+    // }
   }
 
   factory Accolade.fromJson(Map<String, dynamic> json) {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
@@ -45,6 +47,8 @@ class AchivementsScreen extends StatelessWidget {
                         itemCount: achivement.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
+                          print(
+                              'achivement==>${achivement[index] is Accolade ? achivement[index].accoladesImage : achivement[index].image}');
                           return SizedBox(
                             height: 250,
                             width: double.infinity,
@@ -53,10 +57,11 @@ class AchivementsScreen extends StatelessWidget {
                                 SizedBox(
                                   height: 230,
                                   width: double.infinity,
-                                  child: Image.network(
-                                    achivement[index] is Accolade
-                                        ? achivement[index].accoladesImage
-                                        : achivement[index].image,
+                                  child: Image.memory(
+                                    base64.decode((achivement[index] is Accolade
+                                            ? achivement[index].accoladesImage
+                                            : achivement[index].image)
+                                        .substring(22)),
                                     fit: BoxFit.cover,
                                   ),
                                 ),

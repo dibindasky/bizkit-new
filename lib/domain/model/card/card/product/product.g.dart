@@ -14,7 +14,8 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       image: (json['image'] as List<dynamic>?)
           ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
           .toList(),
-    )..cardId = json['card_id'] as int?;
+      cardId: json['card_id'] as int?,
+    );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'id': instance.id,

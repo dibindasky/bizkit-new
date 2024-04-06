@@ -27,7 +27,11 @@ class QrBloc extends Bloc<QrEvent, QrState> {
 
   FutureOr<void> getDefaultQr(GetDefaultQr event, emit) async {
     if (state.defauiltQr != null) return;
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+      isLoading: true,
+      hasError: false,
+      message: null,
+    ));
     final data = await qrServiceImpl.getDefaultQr();
     data.fold(
         (l) => emit(state.copyWith(
@@ -35,7 +39,6 @@ class QrBloc extends Bloc<QrEvent, QrState> {
               hasError: true,
               message: null,
             )), (r) {
-      log('getDefaultQr data ${r.toJson()}');
       emit(
         state.copyWith(
           isLoading: false,
@@ -47,19 +50,22 @@ class QrBloc extends Bloc<QrEvent, QrState> {
   }
 
   FutureOr<void> defaultQr(DefaultQr event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+        isLoading: true, hasError: false, message: null, qrUpdated: false));
     final data = await qrServiceImpl.defaultQr(defauiltQr: defauiltQr);
     data.fold(
       (l) => emit(state.copyWith(
         isLoading: false,
         hasError: true,
         message: null,
+        qrUpdated: false,
       )),
       (r) => emit(
         state.copyWith(
           isLoading: false,
           hasError: false,
           defauiltQr: r,
+          qrUpdated: true,
         ),
       ),
     );

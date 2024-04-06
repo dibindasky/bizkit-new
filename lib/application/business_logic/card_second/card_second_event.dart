@@ -30,7 +30,7 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.getAllCardsSecond({required bool isLoad}) =
       GetAllCardsSecond;
   const factory CardSecondEvent.updateCardSecond({
-    required UpdateSecondCardModel updateSecondCardModel,
+    required SecondCard secondCard,
     required String id,
   }) = UpdateCardSecond;
   const factory CardSecondEvent.deleteCardSecond({
@@ -53,4 +53,5 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.getSecondCardDetail({
     required int id,
   }) = GetSecondCardDetail;
+  const factory CardSecondEvent.scannedImageImpty() = ScannedImageImpty;
 }

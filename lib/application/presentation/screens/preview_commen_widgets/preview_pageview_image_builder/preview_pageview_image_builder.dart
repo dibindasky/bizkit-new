@@ -59,8 +59,10 @@ class _PreviewPageviewImageBuilderState
               child: SizedBox(
                 width: double.infinity,
                 height: 200,
-                child: Image.memory(base64Decode(widget.imagesList[index]),
-                    fit: BoxFit.cover),
+                child: Image.memory(
+                  base64Decode(widget.imagesList[index]),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

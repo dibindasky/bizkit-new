@@ -33,5 +33,6 @@ class BusinessDataEvent with _$BusinessDataEvent {
       {required SearchQuery? search}) = GetCompnayList;
   const factory BusinessDataEvent.getCompnayDetails({required int id}) =
       GetCompnayDetails;
-  factory BusinessDataEvent.getCurrentCard({required Card card}) = GetCurrentCard;
+  factory BusinessDataEvent.getCurrentCard({required Card card}) =
+      GetCurrentCard;
 }

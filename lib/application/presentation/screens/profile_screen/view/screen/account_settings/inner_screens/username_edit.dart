@@ -92,6 +92,9 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                               .read<ProfileBloc>()
                               .userNameController
                               .text,
+                          isActive: true,
+                          profilePic:
+                              state.getUserInfoModel?.results?.profilePic,
                         );
 
                         context.read<ProfileBloc>().add(

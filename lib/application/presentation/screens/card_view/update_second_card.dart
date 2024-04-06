@@ -9,15 +9,15 @@ import 'package:bizkit/application/presentation/utils/loading_indicator/loading_
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/card_second/card_second_create_request_model/card_second_create_request_model.dart';
-import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
+import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
 import 'package:bizkit/domain/model/card_second/update_pass_data/update_data_pass.dart';
 import 'package:bizkit/domain/model/card_second/update_second_card_model/update_second_card_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SecondCardUpdation extends StatefulWidget {
-  const SecondCardUpdation({super.key, required this.cardSecondResponseModel});
-  final CardSecondResponseModel cardSecondResponseModel;
+  const SecondCardUpdation({super.key, required this.secondCard});
+  final SecondCard secondCard;
 
   @override
   State<SecondCardUpdation> createState() => _SecondCardUpdationState();
@@ -27,16 +27,16 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
   String? base64image;
   @override
   void initState() {
-    if (widget.cardSecondResponseModel.selfie != null) {
-      base64image = widget.cardSecondResponseModel.selfie!;
+    if (widget.secondCard.selfie != null) {
+      base64image = widget.secondCard.selfie!;
       base64image =
-          base64image?.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
+          base64image!.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
     }
     context.read<CardSecondBloc>().updateNameController.text =
-        widget.cardSecondResponseModel.name!;
+        widget.secondCard.name!;
     context.read<CardSecondBloc>().updateCompanyController.text =
-        widget.cardSecondResponseModel.company!;
-    log('Selfie image ${widget.cardSecondResponseModel.selfie}');
+        widget.secondCard.company!;
+    log('Selfie image ${widget.secondCard.selfie}');
     super.initState();
   }
 
@@ -59,7 +59,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
             icon: const Icon(Icons.keyboard_arrow_left_outlined),
           ),
           title: const Text(
-            'Update QR Connection',
+            'Update QR Connections',
             style: TextStyle(
               fontFamily: 'Euclid',
               fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
           builder: (context, state) {
             return ListView(
               children: [
-                widget.cardSecondResponseModel.selfie != null
+                widget.secondCard.selfie != null
                     ? Stack(
                         children: [
                           SizedBox(
@@ -92,7 +92,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                 color: neonShade,
                                 child: IconButton(
                                   onPressed: () {
-                                    // widget.cardSecondResponseModel.selfie == null;
+                                    widget.secondCard.selfie == null;
                                     context
                                         .read<CardSecondBloc>()
                                         .add(const CardSecondEvent.selfieImage(
@@ -165,23 +165,22 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                       .cardUpdateKey
                                       .currentState!
                                       .validate()) {
-                                    CardSecondCreateRequestModel
-                                        cardSecondCreateRequestModel =
-                                        CardSecondCreateRequestModel(
-                                      company: context
-                                          .read<CardSecondBloc>()
-                                          .updateCompanyController
-                                          .text,
-                                      name: context
-                                          .read<CardSecondBloc>()
-                                          .updateNameController
-                                          .text,
-                                      selfie:
-                                          state.selfieImageModel?.base64 ?? '',
-                                    );
-                                    UpdateSecondCardModel
-                                        updateSecondCardModel =
-                                        UpdateSecondCardModel(
+                                    SecondCard secondCard = SecondCard(
+                                      designation:
+                                          widget.secondCard.designation,
+                                      email: widget.secondCard.email,
+                                      date: widget.secondCard.date,
+                                      id: widget.secondCard.id,
+                                      image: widget.secondCard.image,
+                                      location: widget.secondCard.location,
+                                      notes: widget.secondCard.notes,
+                                      occupation: widget.secondCard.occupation,
+                                      phoneNumber:
+                                          widget.secondCard.phoneNumber,
+                                      time: widget.secondCard.time,
+                                      userId: widget.secondCard.userId,
+                                      website: widget.secondCard.website,
+                                      whereWeMet: widget.secondCard.whereWeMet,
                                       company: context
                                           .read<CardSecondBloc>()
                                           .updateCompanyController
@@ -196,11 +195,8 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
 
                                     context.read<CardSecondBloc>().add(
                                           CardSecondEvent.updateCardSecond(
-                                            updateSecondCardModel:
-                                                updateSecondCardModel,
-                                            id: widget
-                                                .cardSecondResponseModel.id
-                                                .toString(),
+                                            secondCard: secondCard,
+                                            id: widget.secondCard.id.toString(),
                                           ),
                                         );
                                   }

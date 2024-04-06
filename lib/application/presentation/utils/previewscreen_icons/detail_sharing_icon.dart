@@ -12,9 +12,11 @@ class DetailSharingIconWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+        decoration: BoxDecoration(
+          border: Border.all(color: neonShade),
+          borderRadius: const BorderRadius.all(
             Radius.circular(6),
           ),
           // color: kblack.withOpacity(0.3),

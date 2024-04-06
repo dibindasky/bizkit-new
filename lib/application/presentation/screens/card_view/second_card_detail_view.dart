@@ -24,18 +24,11 @@ class SecondCardDetailView extends StatelessWidget {
         context
             .read<CardSecondBloc>()
             .add(CardSecondEvent.getSecondCardDetail(id: cardId!));
-        // print("card id $cardId");
-        // context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
-        // context.read<ReminderBloc>().add(ReminderEvent.getCardReminder(
-        //     cardIdModel: CardIdModel(cardId: cardId!)));
       }
-      //  else if (userId != null) {
-      //   context.read<CardBloc>().add(CardEvent.getCardyUserId(id: userId!));
-      // }
     });
 
     return BlocBuilder<CardSecondBloc, CardSecondState>(
-      //  buildWhen: (previous, current) => previous.isLoading != current.isLoading,
+      // buildWhen: (previous, current) => previous.isLoading != current.isLoading,
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -52,7 +45,7 @@ class SecondCardDetailView extends StatelessWidget {
             backgroundColor: knill,
             title: state.isLoading
                 ? null
-                : Text(state.getSecondCardModel?.name ?? 'Smile',
+                : Text(state.getSecondCardModel?.name ?? 'No name',
                     style: textHeadStyle1),
           ),
           body: state.isLoading
@@ -60,7 +53,9 @@ class SecondCardDetailView extends StatelessWidget {
                   child: CircularProgressIndicator(color: neonShade),
                 )
               : state.getSecondCardModel == null
-                  ? const Center(child: Text('Bizkit card not found'))
+                  ? const Center(
+                      child: Text('QR card not found'),
+                    )
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: SingleChildScrollView(
@@ -75,11 +70,7 @@ class SecondCardDetailView extends StatelessWidget {
                                     state.getSecondCardModel!.image != null) {
                                   images = (state.getSecondCardModel!.image!);
                                 }
-                                // if (state.getSecondCardModel != null &&
-                                //     state.getSecondCardModel!.selfie != null) {
-                                //   images.add(state.getSecondCardModel!.selfie!);
-                                // }
-                                images = image.replaceFirst(
+                                images = images.replaceFirst(
                                     RegExp(r'data:image/jpg;base64,'), '');
                                 return SizedBox(
                                   height: 200,
@@ -136,7 +127,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
     return BlocBuilder<CardSecondBloc, CardSecondState>(
       builder: (context, state) {
         return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
 //phone number botom sheet
             DetailSharingIconWidget(

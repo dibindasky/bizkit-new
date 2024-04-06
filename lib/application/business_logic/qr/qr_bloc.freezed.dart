@@ -795,6 +795,7 @@ abstract class DefaultQr implements QrEvent {
 mixin _$QrState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  bool get qrUpdated => throw _privateConstructorUsedError;
   List<QRModel> get qrList => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   int get selectedQrIndex => throw _privateConstructorUsedError;
@@ -812,6 +813,7 @@ abstract class $QrStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool hasError,
+      bool qrUpdated,
       List<QRModel> qrList,
       String? message,
       int selectedQrIndex,
@@ -833,6 +835,7 @@ class _$QrStateCopyWithImpl<$Res, $Val extends QrState>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? qrUpdated = null,
     Object? qrList = null,
     Object? message = freezed,
     Object? selectedQrIndex = null,
@@ -846,6 +849,10 @@ class _$QrStateCopyWithImpl<$Res, $Val extends QrState>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      qrUpdated: null == qrUpdated
+          ? _value.qrUpdated
+          : qrUpdated // ignore: cast_nullable_to_non_nullable
               as bool,
       qrList: null == qrList
           ? _value.qrList
@@ -877,6 +884,7 @@ abstract class _$$InitialImplCopyWith<$Res> implements $QrStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool hasError,
+      bool qrUpdated,
       List<QRModel> qrList,
       String? message,
       int selectedQrIndex,
@@ -896,6 +904,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? hasError = null,
+    Object? qrUpdated = null,
     Object? qrList = null,
     Object? message = freezed,
     Object? selectedQrIndex = null,
@@ -909,6 +918,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      qrUpdated: null == qrUpdated
+          ? _value.qrUpdated
+          : qrUpdated // ignore: cast_nullable_to_non_nullable
               as bool,
       qrList: null == qrList
           ? _value._qrList
@@ -936,6 +949,7 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
       required this.hasError,
+      required this.qrUpdated,
       required final List<QRModel> qrList,
       this.message,
       required this.selectedQrIndex,
@@ -946,6 +960,8 @@ class _$InitialImpl implements _Initial {
   final bool isLoading;
   @override
   final bool hasError;
+  @override
+  final bool qrUpdated;
   final List<QRModel> _qrList;
   @override
   List<QRModel> get qrList {
@@ -963,7 +979,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'QrState(isLoading: $isLoading, hasError: $hasError, qrList: $qrList, message: $message, selectedQrIndex: $selectedQrIndex, defauiltQr: $defauiltQr)';
+    return 'QrState(isLoading: $isLoading, hasError: $hasError, qrUpdated: $qrUpdated, qrList: $qrList, message: $message, selectedQrIndex: $selectedQrIndex, defauiltQr: $defauiltQr)';
   }
 
   @override
@@ -975,6 +991,8 @@ class _$InitialImpl implements _Initial {
                 other.isLoading == isLoading) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
+            (identical(other.qrUpdated, qrUpdated) ||
+                other.qrUpdated == qrUpdated) &&
             const DeepCollectionEquality().equals(other._qrList, _qrList) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.selectedQrIndex, selectedQrIndex) ||
@@ -988,6 +1006,7 @@ class _$InitialImpl implements _Initial {
       runtimeType,
       isLoading,
       hasError,
+      qrUpdated,
       const DeepCollectionEquality().hash(_qrList),
       message,
       selectedQrIndex,
@@ -1004,6 +1023,7 @@ abstract class _Initial implements QrState {
   const factory _Initial(
       {required final bool isLoading,
       required final bool hasError,
+      required final bool qrUpdated,
       required final List<QRModel> qrList,
       final String? message,
       required final int selectedQrIndex,
@@ -1013,6 +1033,8 @@ abstract class _Initial implements QrState {
   bool get isLoading;
   @override
   bool get hasError;
+  @override
+  bool get qrUpdated;
   @override
   List<QRModel> get qrList;
   @override

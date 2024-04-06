@@ -38,8 +38,7 @@ class BrocherBuilder extends StatelessWidget {
                         // border: Border.all(color: neonShade),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: PdfViewer.openFile(
-                          state.brochures[index].file!,
+                      child: PdfViewer.openFile(state.brochures[index].file!,
                           params: const PdfViewerParams(pageNumber: 1)),
                     ),
                   ),
@@ -47,9 +46,9 @@ class BrocherBuilder extends StatelessWidget {
                     top: 0,
                     right: 5,
                     child: InkWell(
-                      onTap: () => context
-                          .read<BusinessDataBloc>()
-                          .add(BusinessDataEvent.removeBrochure(id: state.brochures[index].id!)),
+                      onTap: () => context.read<BusinessDataBloc>().add(
+                          BusinessDataEvent.removeBrochure(
+                              id: state.brochures[index].id!)),
                       borderRadius: BorderRadius.circular(10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),

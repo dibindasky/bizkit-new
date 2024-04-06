@@ -13,13 +13,7 @@ class Product {
   @JsonKey(name: 'card_id')
   int? cardId;
 
-  Product({
-    this.id,
-    this.enquiry,
-    this.label,
-    this.description,
-    this.image
-  });
+  Product({this.id, this.enquiry, this.label, this.description, this.image});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return _$ProductFromJson(json);

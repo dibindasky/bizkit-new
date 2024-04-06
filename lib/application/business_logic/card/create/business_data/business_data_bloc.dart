@@ -399,7 +399,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   FutureOr<void> removeAccredition(RemoveAccredition event, emit) async {
     emit(state.copyWith(accreditionDeleteLoading: true));
     final result = await cardPatchRepo.deleteAcredition(id: event.id);
-    result.fold((l) => emit(state.copyWith(accreditionDeleteLoading: false)), (r) {
+    result.fold((l) => emit(state.copyWith(accreditionDeleteLoading: false)),
+        (r) {
       final List<Accredition> list = [];
       for (Accredition accredition in state.accreditions) {
         if (accredition.id != event.id) {

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -32,12 +30,7 @@ class _HelpSupportState extends State<HelpSupport> {
   void initState() {
     super.initState();
     if (widget.scrollController != null) {
-      widget.scrollController!.addListener(() {
-        widget.scrollController!.animateTo(.1,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.fastEaseInToSlowEaseOut);
-        _scrollCallBack();
-      });
+      _scrollCallBack();
     }
   }
 
@@ -119,8 +112,9 @@ class _HelpSupportState extends State<HelpSupport> {
                           .add(const ProfileEvent.getQuestionEvent()),
                     );
                   } else if (state.questionList!.isEmpty) {
-                    return const SizedBox(
-                      child: Center(
+                    return SizedBox(
+                      height: khieght * .55,
+                      child: const Center(
                         child: Text('No questions'),
                       ),
                     );

@@ -140,7 +140,8 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                                   width: kwidth * 0.10,
                                                   child: data.logo != null
                                                       ? Image.memory(
-                                                          base64.decode(data.logo!),
+                                                          base64.decode(
+                                                              data.logo!),
                                                           fit: BoxFit.cover)
                                                       : Image.asset(
                                                           iconBizkitPng,

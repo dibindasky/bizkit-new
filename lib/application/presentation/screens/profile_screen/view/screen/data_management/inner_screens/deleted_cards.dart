@@ -222,7 +222,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                   if (state.message != null && state.seondCardRestored) {
                     showSnackbar(
                       context,
-                      message: 'Card restored',
+                      message: state.message!,
                     );
                   }
                 },

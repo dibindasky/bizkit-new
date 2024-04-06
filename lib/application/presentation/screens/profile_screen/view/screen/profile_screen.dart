@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -80,7 +82,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                       base64String = base64String.replaceFirst(
                           RegExp(r'data:image/jpg;base64,'), '');
                     }
-
                     return Stack(
                       children: [
                         CircleAvatar(
@@ -97,9 +98,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                                           null)
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(67),
-                                      child: Image.network(
-                                        state.getUserInfoModel!.results!
-                                            .profilePic!,
+                                      child: Image.memory(
+                                        base64.decode(base64String),
                                         width: 134,
                                         height: 134,
                                         fit: BoxFit.cover,
@@ -122,8 +122,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                           right: 20,
                           child: Container(
                             decoration: BoxDecoration(
-                                color: neonShade,
-                                borderRadius: BorderRadius.circular(6)),
+                              color: neonShade,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
                             height: 30,
                             width: 34,
                             child: InkWell(

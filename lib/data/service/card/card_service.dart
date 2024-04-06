@@ -292,8 +292,7 @@ class CardService implements CardRepo {
       {required BusinessDetails businessDetails, required int id}) async {
     try {
       log('createBusinessDataCard creation ');
-      print(
-          'createBusinessDataCard creation  ${businessDetails.toJson()}');
+      print('createBusinessDataCard creation  ${businessDetails.toJson()}');
       final response = await apiService.patch(
           ApiEndPoints.createCardBusiness
               .replaceFirst('{card_id}', id.toString()),

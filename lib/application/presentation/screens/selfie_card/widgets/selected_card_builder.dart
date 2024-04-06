@@ -1,7 +1,9 @@
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +33,13 @@ class SelectedCard extends StatelessWidget {
             child: BlocConsumer<CardSecondBloc, CardSecondState>(
               listener: (context, state) {
                 if (state.cardScanFinish) {
-                  GoRouter.of(context).pushReplacement(
+                  GoRouter.of(context).pushReplacementNamed(
                     Routes.scanedDataFeilds,
                   );
+                  // Navigator.of(context).pushReplacement(
+                  //   fadePageRoute(const CardSecondScannedDatas()),
+                  // );
+
                   // context.read<CardSecondBloc>().add(
                   //     const CardSecondEvent.selfieImage(
                   //         cameraDeviceFront: true));

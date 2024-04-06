@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/validators/validators.dart';

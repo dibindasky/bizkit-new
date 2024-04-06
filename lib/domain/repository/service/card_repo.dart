@@ -23,7 +23,7 @@ abstract class CardRepo {
       {required PatchPersonalData patchPersonalData,
       required int personalDataId});
   Future<Either<Failure, BusinessDetails>> createBusinessDataCard(
-      {required BusinessDetails businessDetails,required int id});
+      {required BusinessDetails businessDetails, required int id});
   Future<Either<Failure, GetCardResponse>> getCards({required PageQuery qurey});
   Future<Either<Failure, GetCardResponseModel>> getCardByUserId(
       {required int id});

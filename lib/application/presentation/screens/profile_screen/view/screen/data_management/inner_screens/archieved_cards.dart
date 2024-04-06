@@ -32,12 +32,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
   void initState() {
     super.initState();
     if (widget.scrollController != null) {
-      widget.scrollController!.addListener(() {
-        widget.scrollController!.animateTo(.1,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.fastEaseInToSlowEaseOut);
-        _scrollCallBack();
-      });
+      _scrollCallBack();
     }
   }
 
@@ -63,7 +58,12 @@ class _ArchivedCardsState extends State<ArchivedCards> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: BlocConsumer<CardBloc, CardState>(listener: (context, state) {
-            if (state.successResponseModel != null) {}
+            if (state.successResponseModel != null) {
+              showSnackbar(
+                context,
+                message: 'Card restored',
+              );
+            }
           }, builder: (context, state) {
             if (state.isLoading) {
               return ShimmerLoader(
@@ -82,9 +82,9 @@ class _ArchivedCardsState extends State<ArchivedCards> {
             }
             if (state.archievedCards!.isEmpty) {
               return SizedBox(
-                height: khieght,
+                height: khieght * .9,
                 child: const Center(
-                  child: Text("You don't have Archived cards"),
+                  child: Text("You doesn't have Archived cards"),
                 ),
               );
             }
@@ -166,10 +166,6 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                                             cardId: state
                                                 .archievedCards![index].id!),
                                       );
-                                  showSnackbar(
-                                    context,
-                                    message: 'Card restored',
-                                  );
                                 },
                               );
                             },

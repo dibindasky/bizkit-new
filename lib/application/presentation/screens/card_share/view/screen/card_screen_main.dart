@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
     as card;
+import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,12 +65,17 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                   BlocBuilder<CardBloc, CardState>(
                     builder: (context, state) {
                       if (state.isLoading) {
-                        return const LoadingAnimation();
+                        return SizedBox(
+                            height: khieght * .4,
+                            child: const LoadingAnimation());
                       } else if (state.cards.isEmpty) {
-                        return const Center(
-                          child: Text(
-                              'You have not created any card yet\nCreate your first card now.',
-                              textAlign: TextAlign.center),
+                        return SizedBox(
+                          height: khieght * .4,
+                          child: const Center(
+                            child: Text(
+                                'You have not created any card yet\nCreate your first card now.',
+                                textAlign: TextAlign.center),
+                          ),
                         );
                       } else {
                         return SizedBox(
@@ -121,9 +128,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                 topRight: Radius.circular(20),
                                               ),
                                               child: card.logo == null
-                                                  ? Image.asset(
-                                                      iconBizkitPng,
-                                                      // fit: BoxFit.cover,
+                                                  ? Image.network(
+                                                      imageDummyNetwork,
+                                                      fit: BoxFit.cover,
                                                     )
                                                   : Image.network(
                                                       card.logo!,
@@ -151,18 +158,15 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             ),
                                           ),
                                         Positioned(
-                                          right: 0,
+                                          right: 10,
                                           top: 10,
                                           child: PopupMenuButton<String>(
                                             icon: const Icon(
                                               Icons.more_vert,
-                                              size: 35,
+                                              size: 32,
                                               color: kblack,
                                             ),
-                                            onSelected: (value) {
-                                              if (value == 'Add Tag') {}
-                                              print('Selected: $value');
-                                            },
+                                            onSelected: (value) {},
                                             itemBuilder: (context) {
                                               List<PopupMenuEntry<String>>
                                                   items = [
@@ -201,11 +205,14 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                           cardActionRewuestModel =
                                                           CardActionRewuestModel(
                                                               isArchived: true);
-                                                      context.read<CardBloc>().add(
-                                                          CardEvent.cardAction(
-                                                              cardActionRewuestModel:
-                                                                  cardActionRewuestModel,
-                                                              id: card.id!));
+                                                      context
+                                                          .read<CardBloc>()
+                                                          .add(CardEvent
+                                                              .cardAction(
+                                                            cardActionRewuestModel:
+                                                                cardActionRewuestModel,
+                                                            id: card.id!,
+                                                          ));
                                                     },
                                                   ),
                                                   value: 'Archive',
@@ -356,10 +363,16 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     },
                   ),
                   adjustHieght(khieght * .03),
-                  const Text('QR conections card'),
+                  const Text('QR conections cards'),
                   adjustHieght(khieght * .03),
                   BlocConsumer<CardSecondBloc, CardSecondState>(
                     listener: (context, state) {
+                      if (state.message != null && state.secondCardDeleted) {
+                        return showSnackbar(
+                          context,
+                          message: state.message!,
+                        );
+                      }
                       if (state.hasError) {
                         return showSnackbar(
                           context,
@@ -370,11 +383,13 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     },
                     builder: (context, state) {
                       if (state.isLoading) {
-                        return const LoadingAnimation();
+                        return SizedBox(
+                            height: khieght * .4,
+                            child: const LoadingAnimation());
                       } else if (state.secondCards.isEmpty) {
                         return const Center(
                           child: Text(
-                            'You have not created any card yet\nCreate your first card now.',
+                            'QR Conected cards is empty',
                             textAlign: TextAlign.center,
                           ),
                         );
@@ -388,6 +403,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                               adjustWidth(kwidth * .05),
                           itemBuilder: (context, index) {
                             final seconsdCard = state.secondCards[index];
+                            String base64String = seconsdCard.image!;
+                            base64String = base64String.replaceFirst(
+                                RegExp(r'data:image/jpg;base64,'), '');
                             return Container(
                               decoration: BoxDecoration(
                                 color: textFieldFillColr,
@@ -410,17 +428,20 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             //             cardId: state
                                             //                 .cards[index].id)));
                                             // final map =
-                                            //     state.secondCards[index].id != null
+                                            //     state.secondCards[index].id !=
+                                            //             null
                                             //         ? {
                                             //             'myCard': 'true',
                                             //             'cardId': state
-                                            //                 .secondCards[index].id!
+                                            //                 .secondCards[index]
+                                            //                 .id!
                                             //                 .toString()
                                             //           }
                                             //         : <String, String>{};
-                                            // GoRouter.of(context).pushNamed(
-                                            //     Routes.cardDetailView,
-                                            //     pathParameters: map);
+                                            GoRouter.of(context).pushNamed(
+                                              Routes.secondcardDetail,
+                                              extra: seconsdCard.id,
+                                            );
                                           },
                                           child: ClipRRect(
                                             borderRadius:
@@ -433,8 +454,8 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                     imageDummyNetwork,
                                                     fit: BoxFit.cover,
                                                   )
-                                                : Image.network(
-                                                    seconsdCard.image!,
+                                                : Image.memory(
+                                                    base64.decode(base64String),
                                                     fit: BoxFit.cover,
                                                   ),
                                           ),
@@ -444,49 +465,82 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                         right: 0,
                                         top: 10,
                                         child: PopupMenuButton<String>(
+                                          padding: const EdgeInsets.all(0),
                                           icon: const Icon(
                                             Icons.more_vert,
-                                            size: 35,
+                                            size: 32,
                                             color: kblack,
                                           ),
-                                          onSelected: (value) {
-                                            if (value == 'Add Tag') {}
-                                            print('Selected: $value');
-                                          },
+                                          onSelected: (value) {},
                                           itemBuilder: (context) {
                                             List<PopupMenuEntry<String>> items =
                                                 [
-                                              const PopupMenuItem(
+                                              PopupMenuItem(
+                                                onTap: () {
+                                                  showConfirmationDialog(
+                                                    actionButton: 'Edit',
+                                                    heading:
+                                                        'Are you sure you want to Edit your card',
+                                                    context,
+                                                    onPressed: () {
+                                                      GoRouter.of(context)
+                                                          .pushNamed(
+                                                        Routes.cardUpdating,
+                                                        extra:
+                                                            CardSecondResponseModel(
+                                                          date:
+                                                              seconsdCard.date,
+                                                          designation:
+                                                              seconsdCard
+                                                                  .designation,
+                                                          email:
+                                                              seconsdCard.email,
+                                                          image:
+                                                              seconsdCard.image,
+                                                          location: seconsdCard
+                                                              .location,
+                                                          isActive: true,
+                                                          notes:
+                                                              seconsdCard.notes,
+                                                          occupation:
+                                                              seconsdCard
+                                                                  .occupation,
+                                                          phoneNumber:
+                                                              seconsdCard
+                                                                  .phoneNumber,
+                                                          //tag: seconsdCard.,
+                                                          time:
+                                                              seconsdCard.time,
+                                                          userId: seconsdCard
+                                                              .userId,
+                                                          website: seconsdCard
+                                                              .website,
+                                                          name:
+                                                              seconsdCard.name!,
+                                                          company: seconsdCard
+                                                              .company!,
+                                                          id: seconsdCard.id!,
+                                                          selfie: seconsdCard
+                                                              .selfie,
+                                                        ),
+                                                        // (
+                                                        //   name:
+                                                        //       seconsdCard.name!,
+                                                        //   company: seconsdCard
+                                                        //       .company!,
+                                                        //   id: seconsdCard.id!,
+                                                        //   selfie: seconsdCard
+                                                        //       .selfie,
+                                                        // ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
                                                 value: 'Edit Card',
-                                                child: Text('Edit Card'),
+                                                child: const Text('Edit Card'),
                                               ),
                                             ];
-
-                                            // Add other menu items
                                             items.addAll([
-                                              PopupMenuItem(
-                                                onTap: () =>
-                                                    showConfirmationDialog(
-                                                  actionButton: 'Archive',
-                                                  heading:
-                                                      'Are you sure you want to archive your card',
-                                                  context,
-                                                  onPressed: () {
-                                                    // CardActionRewuestModel
-                                                    //     cardActionRewuestModel =
-                                                    //     CardActionRewuestModel(
-                                                    //         isArchived: true);
-                                                    // context.read<CardBloc>().add(
-                                                    //     CardEvent.cardAction(
-                                                    //         cardActionRewuestModel:
-                                                    //             cardActionRewuestModel,
-                                                    //         id: seconsdCard
-                                                    //             .id!));
-                                                  },
-                                                ),
-                                                value: 'Archive',
-                                                child: const Text('Archive'),
-                                              ),
                                               PopupMenuItem(
                                                 onTap: () =>
                                                     showConfirmationDialog(
@@ -494,6 +548,21 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                       'Are you sure you want to delete your card',
                                                   context,
                                                   onPressed: () {
+                                                    CardActionRewuestModel
+                                                        cardActionRewuestModel =
+                                                        CardActionRewuestModel(
+                                                      isActive: false,
+                                                    );
+                                                    context
+                                                        .read<CardSecondBloc>()
+                                                        .add(
+                                                          CardSecondEvent
+                                                              .deleteCardSecond(
+                                                                  cardActionRewuestModel:
+                                                                      cardActionRewuestModel,
+                                                                  id: seconsdCard
+                                                                      .id!),
+                                                        );
                                                     // CardActionRewuestModel
                                                     //     cardActionRewuestModel =
                                                     //     CardActionRewuestModel(
@@ -525,7 +594,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          '${state.secondCards[index].name ?? ''}\n${state.secondCards[index].designation}',
+                                          '${state.secondCards[index].name ?? ''}\n${state.secondCards[index].company}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 16.sp,
@@ -533,22 +602,22 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                           ),
                                         ),
                                       ),
-                                      InkWell(
-                                        //  onTap: () => bottomSheet(context, seconsdCard),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: kblue,
-                                          ),
-                                          width: 100,
-                                          height: 30,
-                                          child: Center(
-                                            child: Text('Share',
-                                                style: textStyle1),
-                                          ),
-                                        ),
-                                      ),
+                                      // InkWell(
+                                      //   //  onTap: () => bottomSheet(context, seconsdCard),
+                                      //   child: Container(
+                                      //     decoration: BoxDecoration(
+                                      //       borderRadius:
+                                      //           BorderRadius.circular(20),
+                                      //       color: kblue,
+                                      //     ),
+                                      //     width: 100,
+                                      //     height: 30,
+                                      //     child: Center(
+                                      //       child: Text('Share',
+                                      //           style: textStyle1),
+                                      //     ),
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                   adjustHieght(khieght * .02),

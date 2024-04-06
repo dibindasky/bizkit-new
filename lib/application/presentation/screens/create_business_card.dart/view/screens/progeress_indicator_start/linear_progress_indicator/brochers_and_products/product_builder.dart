@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,8 @@ class ProductBuilder extends StatelessWidget {
                       border: Border.all(color: neonShade),
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                          image: FileImage(data.image![0].image.fileImage),
+                          image: MemoryImage(base64
+                              .decode(data.image![0].image.substring(22))),
                           fit: BoxFit.cover),
                     ),
                   ),

@@ -106,7 +106,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                                     data.name != null
                                                         ? data.name!.length > 20
                                                             ? '${data.name!.substring(0, 18)}..'
-                                                            : state.defaultCard!
+                                                            : data
                                                                 .name!
                                                         : '',
                                                     style: textHeadStyle1

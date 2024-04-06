@@ -110,7 +110,7 @@ class AccolodesScreen extends StatelessWidget {
                                   height: 200,
                                   width: double.infinity,
                                   child: Image.memory(
-                                    base64.decode(accolade == null
+                                    base64.decode((accolade == null
                                         ? achivement[index] is Accolade
                                             ? achivement[index].accoladesImage
                                             : achivement[index].image
@@ -118,7 +118,7 @@ class AccolodesScreen extends StatelessWidget {
                                             ? user
                                                 .accolades[index].accoladesImage
                                             : business
-                                                .accreditions[index].image),
+                                                .accreditions[index].image).substring(22)),
                                     fit: BoxFit.cover,
                                   ),
                                 ),

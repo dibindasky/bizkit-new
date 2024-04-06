@@ -1,6 +1,7 @@
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -99,31 +100,45 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                     ),
                   ),
                   adjustHieght(khieght * .03),
-                  AuthButton(
-                    text: 'Save product',
-                    onTap: () {
-                      if (productDescriptionController.text.isEmpty ||
-                          productTitleController.text.isEmpty ||
-                          image == null) {
-                        showSnackbar(context,
-                            message: image == null
-                                ? 'Add Image'
-                                : productTitleController.text.isEmpty
-                                    ? 'Add title'
-                                    : 'Add Description',
-                            textColor: kwhite,
-                            backgroundColor: kred);
-                        return;
-                      }
-                      final product = Product(
-                          description: productDescriptionController.text.trim(),
-                          label: productTitleController.text.trim(),
-                          image: [ImageCard(image: image!.base64)],
-                          enquiry: switchValue);
-                      context
-                          .read<BusinessDataBloc>()
-                          .add(BusinessDataEvent.addProduct(product: product));
+                  BlocConsumer<BusinessDataBloc, BusinessDataState>(
+                    listenWhen: (previous, current) =>
+                        previous.productLoading && !current.productLoading,
+                    listener: (context, state) {
                       Navigator.pop(context);
+                    },
+                    builder: (context, state) {
+                      print('in product button =================');
+                      if (state.productLoading) {
+                        return const LoadingAnimation();
+                      }
+                      return AuthButton(
+                        text: 'Save product',
+                        onTap: () {
+                          if (productDescriptionController.text.isEmpty ||
+                              productTitleController.text.isEmpty ||
+                              image == null) {
+                            showSnackbar(context,
+                                message: image == null
+                                    ? 'Add Image'
+                                    : productTitleController.text.isEmpty
+                                        ? 'Add title'
+                                        : 'Add Description',
+                                textColor: kwhite,
+                                backgroundColor: kred);
+                            return;
+                          }
+                          final product = Product(
+                              description:
+                                  productDescriptionController.text.trim(),
+                              label: productTitleController.text.trim(),
+                              image: [ImageCard(image: image!.base64)],
+                              enquiry: switchValue,
+                              cardId: state.currentCard!.id);
+                          context.read<BusinessDataBloc>().add(
+                              BusinessDataEvent.addProduct(product: product));
+                          // Navigator.pop(context);
+                        },
+                      );
                     },
                   ),
                   adjustHieght(khieght * .04),

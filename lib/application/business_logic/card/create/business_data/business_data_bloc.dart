@@ -93,6 +93,9 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
           bankingAdded: false,
           logoAdded: false,
           currentCard: event.card,
+          branchOffices: event.card.branchOffices ?? <BranchOffice>[],
+          businessData: event.card.businessDetails ?? BusinessDetails(),
+          bankDetails: event.card.bankDetails ?? BankDetails(),
           accreditions: event.card.accreditation ?? <Accredition>[],
           socialMedias: event.card.businessSocialMedia ?? <SocialMediaHandle>[],
           logoCard: event.card.logoCard ?? LogoCard(),
@@ -113,7 +116,6 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     gstNumberController.text =
         event.card.bankDetails?.gstMembershipDetails ?? '';
     upiDetailController.text = event.card.bankDetails?.upiDetails ?? '';
-    print('business name = >   ${event.card.businessDetails?.businessName}');
   }
 
   FutureOr<void> createBankingData(CreateBankingData event, emit) async {
@@ -186,7 +188,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         isCompanySelected: false,
         isVerified: false);
     final result = await cardService.createBusinessDataCard(
-        businessDetails: businessDetails, id: state.currentCard!.id!);
+        businessDetails: businessDetails,
+        id: state.currentCard!.businessDetailsId!);
     result.fold(
         (l) => emit(state.copyWith(
             businessLoading: false,
@@ -311,11 +314,13 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     PdfModel pdf = PdfModel();
     result.fold((l) {
       return;
-    }, (pdf) {
-      pdf = pdf;
+    }, (r) {
+      print('got pdf');
+      pdf = r;
     });
     final response = await cardPatchRepo.addBrochure(
         brochure: Brochure(file: pdf.base64, cardId: state.currentCard!.id!));
+    print('got pdf response');
     response.fold(
         (l) => emit(state.copyWith(brochureLoading: false)),
         (r) => emit(state.copyWith(
@@ -339,9 +344,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   FutureOr<void> addBranch(AddBranch event, emit) async {
     emit(state.copyWith(branchLoading: false));
     final response = await cardPatchRepo.addBranchOffice(
-        branchOffice: BranchOffice(
-      branch: event.branch,
-    ));
+        branchOffice:
+            BranchOffice(branch: event.branch, cardId: state.currentCard!.id!));
     response.fold(
         (l) => emit(state.copyWith(branchLoading: false)),
         (r) => emit(state.copyWith(
@@ -413,10 +417,10 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
 
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
     emit(state.copyWith(message: null, socialMediaLoading: true));
-    final result = await cardPatchRepo.addSocialMedia(
+    final result = await cardPatchRepo.addBusinessSocialMedia(
         socialMediaHandle: event.socialMediaHandle);
     result.fold((l) => emit(state.copyWith(socialMediaLoading: false)), (r) {
-      return (state.copyWith(
+      return emit(state.copyWith(
           socialMediaLoading: false, socialMedias: [...state.socialMedias, r]));
     });
   }
@@ -428,8 +432,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         (r) {
       List<SocialMediaHandle> list = List.from(state.socialMedias);
       list.removeWhere((element) => element.id == event.id);
-      return (state.copyWith(
-          socialMediaDeleteLoading: false, socialMedias: list));
+      return emit(
+          state.copyWith(socialMediaDeleteLoading: false, socialMedias: list));
     });
   }
 }

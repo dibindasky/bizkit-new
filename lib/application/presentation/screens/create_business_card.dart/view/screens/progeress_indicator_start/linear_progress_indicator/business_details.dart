@@ -15,7 +15,6 @@ import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
-import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

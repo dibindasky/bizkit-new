@@ -121,18 +121,19 @@ class BrochersAndProductsScreen extends StatelessWidget {
                 return const LoadingAnimation();
               }
               return LastSkipContinueButtons(
-                onSkipTap: state.isBusiness
-                    ? null
-                    : () {
-                        context
-                            .read<BusinessDataBloc>()
-                            .add(const BusinessDataEvent.createBusinessData());
-                        pageController.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.ease,
-                        );
-                      },
+                // onSkipTap: state.isBusiness
+                //     ? null
+                //     : () {
+                //         context
+                //             .read<BusinessDataBloc>()
+                //             .add(const BusinessDataEvent.createBusinessData());
+                //         pageController.nextPage(
+                //           duration: const Duration(milliseconds: 300),
+                //           curve: Curves.ease,
+                //         );
+                //       },
                 onTap: () {
+                  Navigator.pop(context);
                   // context
                   //     .read<BusinessDataBloc>()
                   //     .add(const BusinessDataEvent.createBusinessData());

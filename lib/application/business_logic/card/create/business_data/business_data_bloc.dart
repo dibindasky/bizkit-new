@@ -6,16 +6,16 @@ import 'package:bizkit/data/features/pdf/pdf_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/accredition/accredition.dart';
 import 'package:bizkit/domain/model/card/card/bank_details/bank_details.dart';
+import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/business_detail/business_details.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
-import 'package:bizkit/domain/model/card/create_card/branch_offices/branch_offices.dart';
-import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
-import 'package:bizkit/domain/model/card/create_card/company/get_companys/company.dart';
+import 'package:bizkit/domain/model/card/company/get_company_response_model/company.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
+import 'package:bizkit/domain/model/pdf/pdf_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:bizkit/domain/repository/service/card_patch_repo.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
@@ -166,21 +166,25 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         message: null,
         gotCompanyData: false));
     final BusinessDetails businessDetails = BusinessDetails(
-      address:
-          addressController.text.trim().isEmpty ? null : addressController.text,
-      businessName: businessNameController.text.trim().isEmpty
-          ? null
-          : businessNameController.text,
-      company:
-          companyController.text.trim().isEmpty ? null : companyController.text,
-      websiteLink: websiteLinkController.text.trim().isEmpty
-          ? null
-          : websiteLinkController.text,
-      email: mailController.text.trim().isNotEmpty ? mailController.text : null,
-      mobileNumber: mobileController.text.trim().isNotEmpty
-          ? mobileController.text
-          : null,
-    );
+        address: addressController.text.trim().isEmpty
+            ? null
+            : addressController.text,
+        businessName: businessNameController.text.trim().isEmpty
+            ? null
+            : businessNameController.text,
+        company: companyController.text.trim().isEmpty
+            ? null
+            : companyController.text,
+        websiteLink: websiteLinkController.text.trim().isEmpty
+            ? null
+            : websiteLinkController.text,
+        email:
+            mailController.text.trim().isNotEmpty ? mailController.text : null,
+        mobileNumber: mobileController.text.trim().isNotEmpty
+            ? mobileController.text
+            : null,
+        isCompanySelected: false,
+        isVerified: false);
     final result = await cardService.createBusinessDataCard(
         businessDetails: businessDetails, id: state.currentCard!.id!);
     result.fold(
@@ -302,68 +306,112 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> addBrochure(AddBrochures event, emit) async {
-    // final result = await pdfPicker.pickPDF();
-    // result.fold((l) {
-    //   return;
-    // }, (pdf) {
-    //   final List<BrochureCreate> list = List.from(state.brochures);
-    //   list.add(BrochureCreate(file: pdf));
-    //   emit(state.copyWith(brochures: list, gotCompanyData: false));
-    // });
+    emit(state.copyWith(brochureLoading: true));
+    final result = await pdfPicker.pickPDF();
+    PdfModel pdf = PdfModel();
+    result.fold((l) {
+      return;
+    }, (pdf) {
+      pdf = pdf;
+    });
+    final response = await cardPatchRepo.addBrochure(
+        brochure: Brochure(file: pdf.base64, cardId: state.currentCard!.id!));
+    response.fold(
+        (l) => emit(state.copyWith(brochureLoading: false)),
+        (r) => emit(state.copyWith(
+            brochureLoading: false, brochures: [...state.brochures, r])));
   }
 
   FutureOr<void> removeBrochure(RemoveBrochure event, emit) async {
-    // final List<BrochureCreate> list = [];
-    // for (BrochureCreate brochure in state.brochures) {
-    //   if (state.brochures[event.index] != brochure) {
-    //     list.add(brochure);
-    //   }
-    // }
-    // emit(state.copyWith(brochures: list, gotCompanyData: false));
+    emit(state.copyWith(brochureDeleteLoading: true));
+    final result = await cardPatchRepo.deleteBrochure(id: event.id);
+    result.fold((l) => emit(state.copyWith(brochureDeleteLoading: false)), (r) {
+      final List<Brochure> list = [];
+      for (Brochure brochure in state.brochures) {
+        if (brochure.id != event.id) {
+          list.add(brochure);
+        }
+      }
+      emit(state.copyWith(brochures: list, brochureDeleteLoading: false));
+    });
   }
 
   FutureOr<void> addBranch(AddBranch event, emit) async {
-    // final List<BranchOffices> list = List.from(state.branchOffices);
-    // list.add(BranchOffices(branch: event.branch));
-    // emit(state.copyWith(branchOffices: list, gotCompanyData: false));
+    emit(state.copyWith(branchLoading: false));
+    final response = await cardPatchRepo.addBranchOffice(
+        branchOffice: BranchOffice(
+      branch: event.branch,
+    ));
+    response.fold(
+        (l) => emit(state.copyWith(branchLoading: false)),
+        (r) => emit(state.copyWith(
+            branchLoading: false, branchOffices: [...state.branchOffices, r])));
   }
 
-  FutureOr<void> removeBranch(RemoveBranch event, emit) async {}
+  FutureOr<void> removeBranch(RemoveBranch event, emit) async {
+    emit(state.copyWith(branchDeleteLoading: true));
+    final result = await cardPatchRepo.deleteBranchOffice(id: event.id);
+    result.fold((l) => emit(state.copyWith(branchDeleteLoading: false)), (r) {
+      final List<BranchOffice> list = [];
+      for (BranchOffice branchOffice in state.branchOffices) {
+        if (branchOffice.id != event.id) {
+          list.add(branchOffice);
+        }
+      }
+      emit(state.copyWith(branchOffices: list, branchDeleteLoading: false));
+    });
+  }
 
   FutureOr<void> addProduct(AddProduct event, emit) async {
-    // final List<ProductCreate> list = List.from(state.products);
-    // list.add(event.product);
-    // emit(state.copyWith(products: list, gotCompanyData: false));
+    emit(state.copyWith(productLoading: false));
+    final response = await cardPatchRepo.addProduct(product: event.product);
+    response.fold(
+        (l) => emit(state.copyWith(productLoading: false)),
+        (r) => emit(state.copyWith(
+            productLoading: false, products: [...state.products, r])));
   }
 
   FutureOr<void> removeProduct(RemoveProduct event, emit) async {
-    // final List<ProductCreate> list = [];
-    // for (ProductCreate product in state.products) {
-    //   if (state.products[event.index] != product) {
-    //     list.add(product);
-    //   }
-    // }
-    // emit(state.copyWith(products: list, gotCompanyData: false));
+    emit(state.copyWith(productDeleteLoading: true));
+    final result = await cardPatchRepo.deleteProduct(id: event.id);
+    result.fold((l) => emit(state.copyWith(productDeleteLoading: false)), (r) {
+      final List<Product> list = [];
+      for (Product product in state.products) {
+        if (product.id != event.id) {
+          list.add(product);
+        }
+      }
+      emit(state.copyWith(products: list, productDeleteLoading: false));
+    });
   }
 
   FutureOr<void> addAccredition(AddAccredition event, emit) async {
-    // final List<AccreditionCreate> list = List.from(state.accreditions);
-    // list.add(event.accredition);
-    // emit(state.copyWith(accreditions: list, gotCompanyData: false));
+    emit(state.copyWith(accreditionLoading: false));
+    final response =
+        await cardPatchRepo.addAcredition(accredition: event.accredition);
+    response.fold(
+        (l) => emit(state.copyWith(accreditionLoading: false)),
+        (r) => emit(state.copyWith(
+            accreditionLoading: false,
+            accreditions: [...state.accreditions, r])));
   }
 
   FutureOr<void> removeAccredition(RemoveAccredition event, emit) async {
-    // final List<AccreditionCreate> list = [];
-    // for (AccreditionCreate accredition in state.accreditions) {
-    //   if (state.accreditions[event.index] != accredition) {
-    //     list.add(accredition);
-    //   }
-    // }
-    // emit(state.copyWith(accreditions: list, gotCompanyData: false));
+    emit(state.copyWith(accreditionDeleteLoading: true));
+    final result = await cardPatchRepo.deleteAcredition(id: event.id);
+    result.fold((l) => emit(state.copyWith(accreditionDeleteLoading: false)), (r) {
+      final List<Accredition> list = [];
+      for (Accredition accredition in state.accreditions) {
+        if (accredition.id != event.id) {
+          list.add(accredition);
+        }
+      }
+      emit(state.copyWith(accreditions: list, accreditionDeleteLoading: false));
+    });
   }
 
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
-        emit(state.copyWith(message: null, socialMediaLoading: true));
+    emit(state.copyWith(message: null, socialMediaLoading: true));
     final result = await cardPatchRepo.addSocialMedia(
         socialMediaHandle: event.socialMediaHandle);
     result.fold((l) => emit(state.copyWith(socialMediaLoading: false)), (r) {
@@ -373,7 +421,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> removeSocialMedia(RemoveSocialMedia event, emit) async {
-    emit(state.copyWith( message: null, socialMediaDeleteLoading: true));
+    emit(state.copyWith(message: null, socialMediaDeleteLoading: true));
     final result = await cardPatchRepo.deleteSocialMedia(id: event.id);
     result.fold((l) => emit(state.copyWith(socialMediaDeleteLoading: false)),
         (r) {

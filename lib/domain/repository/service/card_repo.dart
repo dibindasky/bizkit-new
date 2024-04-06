@@ -6,8 +6,8 @@ import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dar
 import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card_model.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/blocked_cards_responce_moede/blocked_cards_responce_moede.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
-import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/get_business_category_response_model.dart';
-import 'package:bizkit/domain/model/card/create_card/company/get_companys/get_companys.dart';
+import 'package:bizkit/domain/model/card/company/get_business_category_response_model/get_business_category_response_model.dart';
+import 'package:bizkit/domain/model/card/company/get_company_response_model/get_companys.dart';
 import 'package:bizkit/domain/model/card/get_card_response/get_card_response.dart';
 import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
 import 'package:bizkit/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';

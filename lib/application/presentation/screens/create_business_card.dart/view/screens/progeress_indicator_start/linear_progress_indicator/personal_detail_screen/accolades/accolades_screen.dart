@@ -135,8 +135,7 @@ class AccolodesScreen extends StatelessWidget {
                                       children: [
                                         Text(
                                           accolade == null
-                                              ? achivement[index]
-                                                      is Accolade
+                                              ? achivement[index] is Accolade
                                                   ? achivement[index].accolades
                                                   : achivement[index].label
                                               : accolade!
@@ -153,8 +152,7 @@ class AccolodesScreen extends StatelessWidget {
                                         ),
                                         Text(
                                           accolade == null
-                                              ? achivement[index]
-                                                      is Accolade
+                                              ? achivement[index] is Accolade
                                                   ? achivement[index]
                                                       .accoladesDescription
                                                   : achivement[index]

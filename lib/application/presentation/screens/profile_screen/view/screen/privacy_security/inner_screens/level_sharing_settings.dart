@@ -63,7 +63,11 @@ class DefaultLevelSharing extends StatelessWidget {
               const DefaultSwitchButtons(),
               adjustHieght(khieght * .1),
               BlocConsumer<QrBloc, QrState>(
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if (state.qrUpdated) {
+                    showSnackbar(context, message: 'Updated successfully');
+                  }
+                },
                 builder: (context, state) {
                   if (state.isLoading) {
                     return const LoadingAnimation();
@@ -73,7 +77,7 @@ class DefaultLevelSharing extends StatelessWidget {
                     onTap: () {
                       context.read<QrBloc>().add(QrEvent.defaultQr(
                           defauiltQr: context.read<QrBloc>().defauiltQr));
-                      showSnackbar(context, message: 'Updated successfully');
+
                       Navigator.pop(context);
                     },
                   );
@@ -109,7 +113,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
   Widget build(BuildContext context) {
     return BlocBuilder<QrBloc, QrState>(builder: (context, state) {
       if (state.defauiltQr != null) {
-        DefauiltQr defaultQrModel = state.defauiltQr!;
+        // DefauiltQr defaultQrModel = state.defauiltQr!;
         context.read<QrBloc>().defauiltQr = state.defauiltQr!;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,34 +132,34 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
               ),
             ),
             adjustHieght(5),
-            buildSwitch("Email", defaultQrModel.email!, (value) {
+            buildSwitch("Email", state.defauiltQr!.email!, (value) {
               setState(() {
-                defaultQrModel.email = value;
+                state.defauiltQr!.email = value;
                 context.read<QrBloc>().defauiltQr =
                     context.read<QrBloc>().defauiltQr.copyWith(email: value);
               });
             }),
-            buildSwitch("Phone Number", defaultQrModel.phoneNumber ?? false,
+            buildSwitch("Phone Number", state.defauiltQr!.phoneNumber ?? false,
                 (value) {
               setState(() {
-                defaultQrModel.phoneNumber = value;
+                state.defauiltQr!.phoneNumber = value;
                 context.read<QrBloc>().defauiltQr = context
                     .read<QrBloc>()
                     .defauiltQr
                     .copyWith(phoneNumber: value);
               });
             }),
-            buildSwitch("Company", defaultQrModel.company ?? false, (value) {
+            buildSwitch("Company", state.defauiltQr!.company ?? false, (value) {
               setState(() {
-                defaultQrModel.company = value;
+                state.defauiltQr!.company = value;
                 context.read<QrBloc>().defauiltQr =
                     context.read<QrBloc>().defauiltQr.copyWith(company: value);
               });
             }),
             buildSwitch("Personal SocialMedias",
-                defaultQrModel.personalSocialMedia ?? false, (value) {
+                state.defauiltQr!.personalSocialMedia ?? false, (value) {
               setState(() {
-                defaultQrModel.personalSocialMedia = value;
+                state.defauiltQr!.personalSocialMedia = value;
                 context.read<QrBloc>().defauiltQr = context
                     .read<QrBloc>()
                     .defauiltQr
@@ -178,46 +182,48 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
             ),
             adjustHieght(5),
             buildSwitch("Business PhoneNumber",
-                defaultQrModel.businessDetailsMobileNumber ?? false, (value) {
+                state.defauiltQr!.businessDetailsMobileNumber ?? false,
+                (value) {
               setState(() {
-                defaultQrModel.businessDetailsMobileNumber = value;
+                state.defauiltQr!.businessDetailsMobileNumber = value;
                 context.read<QrBloc>().defauiltQr = context
                     .read<QrBloc>()
                     .defauiltQr
                     .copyWith(businessDetailsMobileNumber: value);
               });
             }),
-            buildSwitch("Business Email", defaultQrModel.businessEmail ?? false,
+            buildSwitch(
+                "Business Email", state.defauiltQr!.businessEmail ?? false,
                 (value) {
               setState(() {
-                defaultQrModel.businessEmail = value;
+                state.defauiltQr!.businessEmail = value;
                 context.read<QrBloc>().defauiltQr = context
                     .read<QrBloc>()
                     .defauiltQr
                     .copyWith(businessEmail: value);
               });
             }),
-            buildSwitch("Website Link", defaultQrModel.websiteLink ?? false,
+            buildSwitch("Website Link", state.defauiltQr!.websiteLink ?? false,
                 (value) {
               setState(() {
-                defaultQrModel.websiteLink = value;
+                state.defauiltQr!.websiteLink = value;
                 context.read<QrBloc>().defauiltQr = context
                     .read<QrBloc>()
                     .defauiltQr
                     .copyWith(websiteLink: value);
               });
             }),
-            buildSwitch("Address", defaultQrModel.address ?? false, (value) {
+            buildSwitch("Address", state.defauiltQr!.address ?? false, (value) {
               setState(() {
-                defaultQrModel.address = value;
+                state.defauiltQr!.address = value;
                 context.read<QrBloc>().defauiltQr =
                     context.read<QrBloc>().defauiltQr.copyWith(address: value);
               });
             }),
             buildSwitch("Business SocialMedias",
-                defaultQrModel.socialMediaHandles ?? false, (value) {
+                state.defauiltQr!.socialMediaHandles ?? false, (value) {
               setState(() {
-                defaultQrModel.socialMediaHandles = value;
+                state.defauiltQr!.socialMediaHandles = value;
                 context.read<QrBloc>().defauiltQr = context
                     .read<QrBloc>()
                     .defauiltQr
@@ -226,10 +232,10 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
             }),
             adjustHieght(khieght * .03),
             buildSwitch(
-                "Update all cards", defaultQrModel.updateAllCards ?? false,
+                "Update all cards", state.defauiltQr!.updateAllCards ?? false,
                 (value) {
               setState(() {
-                defaultQrModel.updateAllCards = value;
+                state.defauiltQr!.updateAllCards = value;
                 context.read<QrBloc>().defauiltQr = context
                     .read<QrBloc>()
                     .defauiltQr
@@ -239,7 +245,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
           ],
         );
       } else {
-        return Text('You are not allowed');
+        return const Text('');
       }
     });
   }

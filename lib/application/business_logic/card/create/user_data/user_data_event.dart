@@ -14,8 +14,7 @@ class UserDataEvent with _$UserDataEvent {
   factory UserDataEvent.clear() = Clear;
   factory UserDataEvent.createPersonalData() = CreatePersonalData;
   factory UserDataEvent.removeUserPhoto() = RemoveUserPhoto;
-  factory UserDataEvent.addAccolade({required Accolade accolade}) =
-      AddAccolade;
+  factory UserDataEvent.addAccolade({required Accolade accolade}) = AddAccolade;
   factory UserDataEvent.removeAccolade({required int id}) = RemoveAccolade;
   factory UserDataEvent.addDateToRemember(
       {required DatesToRemember datesToRemember}) = AddDateToRemember;

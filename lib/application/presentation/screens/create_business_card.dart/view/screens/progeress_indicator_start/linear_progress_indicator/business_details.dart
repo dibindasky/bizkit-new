@@ -283,7 +283,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                         },
                         removeItem: (index) => context
                             .read<BusinessDataBloc>()
-                            .add(BusinessDataEvent.removeBranch(id: state.branchOffices[index].id!)),
+                            .add(BusinessDataEvent.removeBranch(
+                                id: state.branchOffices[index].id!)),
                         listString:
                             state.branchOffices.map((e) => e.branch!).toList(),
                         child: const TTextFormField(

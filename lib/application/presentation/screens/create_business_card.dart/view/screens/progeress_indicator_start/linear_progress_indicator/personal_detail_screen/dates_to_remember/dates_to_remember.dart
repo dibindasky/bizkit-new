@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DatesToRememberScreen extends StatefulWidget {
-  const DatesToRememberScreen({super.key,required this.cardId});
+  const DatesToRememberScreen({super.key, required this.cardId});
 
   final int cardId;
 
@@ -139,7 +139,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                             return;
                           }
                           final DatesToRemember model = DatesToRemember(
-                            cardId: widget.cardId,
+                              cardId: widget.cardId,
                               label: labelController.text,
                               date: dateController.text);
                           context.read<UserDataBloc>().add(

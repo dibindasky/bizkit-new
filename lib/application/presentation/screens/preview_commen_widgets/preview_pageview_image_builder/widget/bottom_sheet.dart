@@ -19,9 +19,12 @@ class PreviewPageViewBottomSheet extends StatelessWidget {
       width: double.infinity,
       height: khieght * 3.3 / 4,
       decoration: const BoxDecoration(
-          color: backgroundColour,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+        color: backgroundColour,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
       child: Column(
         children: [
           adjustHieght(khieght * .005),
@@ -44,10 +47,7 @@ class PreviewPageViewBottomSheet extends StatelessWidget {
             width: double.infinity,
             child: imageNetwork != null
                 ? Image.memory(base64.decode(imageNetwork!))
-                : Image.file(
-                    image!,
-                    fit: BoxFit.cover,
-                  ),
+                : Image.file(image!, fit: BoxFit.cover),
           ),
           adjustHieght(khieght * .02),
           Padding(

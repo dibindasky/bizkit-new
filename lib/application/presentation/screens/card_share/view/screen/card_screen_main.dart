@@ -11,6 +11,7 @@ import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_mo
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
     as card;
 import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
+import 'package:bizkit/domain/model/card_second/update_pass_data/update_data_pass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -382,10 +383,11 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                       }
                     },
                     builder: (context, state) {
-                      if (state.isLoading) {
+                      if (state.secondCardLoading) {
                         return SizedBox(
-                            height: khieght * .4,
-                            child: const LoadingAnimation());
+                          height: khieght * .4,
+                          child: const LoadingAnimation(),
+                        );
                       } else if (state.secondCards.isEmpty) {
                         return const Center(
                           child: Text(
@@ -486,52 +488,8 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                       GoRouter.of(context)
                                                           .pushNamed(
                                                         Routes.cardUpdating,
-                                                        extra:
-                                                            CardSecondResponseModel(
-                                                          date:
-                                                              seconsdCard.date,
-                                                          designation:
-                                                              seconsdCard
-                                                                  .designation,
-                                                          email:
-                                                              seconsdCard.email,
-                                                          image:
-                                                              seconsdCard.image,
-                                                          location: seconsdCard
-                                                              .location,
-                                                          isActive: true,
-                                                          notes:
-                                                              seconsdCard.notes,
-                                                          occupation:
-                                                              seconsdCard
-                                                                  .occupation,
-                                                          phoneNumber:
-                                                              seconsdCard
-                                                                  .phoneNumber,
-                                                          //tag: seconsdCard.,
-                                                          time:
-                                                              seconsdCard.time,
-                                                          userId: seconsdCard
-                                                              .userId,
-                                                          website: seconsdCard
-                                                              .website,
-                                                          name:
-                                                              seconsdCard.name!,
-                                                          company: seconsdCard
-                                                              .company!,
-                                                          id: seconsdCard.id!,
-                                                          selfie: seconsdCard
-                                                              .selfie,
-                                                        ),
-                                                        // (
-                                                        //   name:
-                                                        //       seconsdCard.name!,
-                                                        //   company: seconsdCard
-                                                        //       .company!,
-                                                        //   id: seconsdCard.id!,
-                                                        //   selfie: seconsdCard
-                                                        //       .selfie,
-                                                        // ),
+                                                        extra: state
+                                                            .secondCards[index],
                                                       );
                                                     },
                                                   );
@@ -558,10 +516,10 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                         .add(
                                                           CardSecondEvent
                                                               .deleteCardSecond(
-                                                                  cardActionRewuestModel:
-                                                                      cardActionRewuestModel,
-                                                                  id: seconsdCard
-                                                                      .id!),
+                                                            cardActionRewuestModel:
+                                                                cardActionRewuestModel,
+                                                            id: seconsdCard.id!,
+                                                          ),
                                                         );
                                                     // CardActionRewuestModel
                                                     //     cardActionRewuestModel =
@@ -580,7 +538,6 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                     const Text('Delete Card'),
                                               ),
                                             ]);
-
                                             return items;
                                           },
                                         ),

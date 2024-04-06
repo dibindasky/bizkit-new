@@ -127,6 +127,16 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
                               left: 70,
                               child: AuthButton(
                                 textColr: kblack,
+                                color: const LinearGradient(
+                                  colors: [
+                                    Color.fromRGBO(9, 29, 26, 1),
+                                    Color.fromRGBO(6, 199, 173, 1),
+                                    Color.fromRGBO(6, 199, 173, 1),
+                                    Color.fromRGBO(2, 41, 36, 1),
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
                                 onTap: () {
                                   GoRouter.of(context)
                                       .pushReplacementNamed(Routes.loginPage);
@@ -139,47 +149,7 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
                             ),
                           ],
                         )
-                      : selectedIndex == 2
-                          ? Stack(
-                              children: [
-                                SizedBox(
-                                  width: kwidth,
-                                  height: khieght,
-                                  child: Image.asset(
-                                    onBoardScreenThird,
-                                    filterQuality: FilterQuality.high,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 100,
-                                  right: 70,
-                                  left: 70,
-                                  child: AuthButton(
-                                    textColr: kwhite,
-                                    color: const LinearGradient(
-                                      colors: [
-                                        Color.fromRGBO(9, 29, 26, 1),
-                                        Color.fromRGBO(6, 199, 173, 1),
-                                        Color.fromRGBO(6, 199, 173, 1),
-                                        Color.fromRGBO(2, 41, 36, 1),
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    onTap: () {
-                                      GoRouter.of(context).pushReplacementNamed(
-                                          Routes.loginPage);
-                                      context
-                                          .read<AuthBloc>()
-                                          .add(const AuthEvent.onBoardskip());
-                                    },
-                                    text: 'Get Started',
-                                  ),
-                                ),
-                              ],
-                            )
-                          : const SizedBox()
+                      : const SizedBox()
         ],
       ),
     );

@@ -20,8 +20,7 @@ import 'package:bizkit/application/presentation/screens/selfie_card/widgets/sele
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
-import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
-import 'package:bizkit/domain/model/card_second/update_pass_data/update_data_pass.dart';
+import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -55,6 +54,7 @@ class GoRouterConfig {
           }
         },
       ),
+
       GoRoute(
         name: Routes.cardDetailView,
         path: '${Routes.cardDetailView}/:cardId/:myCard',
@@ -86,10 +86,11 @@ class GoRouterConfig {
         path: Routes.cardUpdating,
         builder: (context, state) {
           return SecondCardUpdation(
-            cardSecondResponseModel: state.extra as CardSecondResponseModel,
+            secondCard: state.extra as SecondCard,
           );
         },
       ),
+
       GoRoute(
         name: Routes.loginPage,
         path: Routes.loginPage,
@@ -100,6 +101,7 @@ class GoRouterConfig {
         path: Routes.cardCreationProfilePage,
         builder: (context, state) => const ProfileCreationScreen(),
       ),
+
       GoRoute(
         name: Routes.signUpPage,
         path: Routes.signUpPage,

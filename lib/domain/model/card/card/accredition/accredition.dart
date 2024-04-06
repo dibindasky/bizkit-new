@@ -5,7 +5,7 @@ part 'accredition.g.dart';
 @JsonSerializable()
 class Accredition {
   int? id;
-  String? image;
+  dynamic image;
   String? label;
   String? description;
   @JsonKey(name: 'card_id')

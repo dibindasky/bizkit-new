@@ -5,7 +5,8 @@ import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
-import 'package:bizkit/domain/model/card/create_card/product/product.dart';
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
+import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,10 +115,10 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                             backgroundColor: kred);
                         return;
                       }
-                      final product = ProductCreate(
+                      final product = Product(
                           description: productDescriptionController.text.trim(),
                           label: productTitleController.text.trim(),
-                          product: image,
+                          image: [ImageCard(image: image!.base64)],
                           enquiry: switchValue);
                       context
                           .read<BusinessDataBloc>()

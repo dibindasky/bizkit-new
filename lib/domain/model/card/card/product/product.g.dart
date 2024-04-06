@@ -11,11 +11,10 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       enquiry: json['enquiry'] as bool?,
       label: json['label'] as String?,
       description: json['description'] as String?,
-    )
-      ..image = (json['image'] as List<dynamic>?)
+      image: (json['image'] as List<dynamic>?)
           ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
-          .toList()
-      ..cardId = json['card_id'] as int?;
+          .toList(),
+    )..cardId = json['card_id'] as int?;
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'id': instance.id,

@@ -8,7 +8,7 @@ part of 'image_card.dart';
 
 ImageCard _$ImageCardFromJson(Map<String, dynamic> json) => ImageCard(
       id: json['id'] as int?,
-      image: json['image'] as String?,
+      image: json['image'],
     );
 
 Map<String, dynamic> _$ImageCardToJson(ImageCard instance) => <String, dynamic>{

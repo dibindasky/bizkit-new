@@ -5,14 +5,17 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
+import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
 import 'package:bizkit/domain/model/card/create_card/social_media_handle/social_media_handle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SocialMediahandlesScreen extends StatefulWidget {
-  const SocialMediahandlesScreen({super.key, required this.fromBusiness});
+  const SocialMediahandlesScreen(
+      {super.key, required this.fromBusiness, required this.cardId});
 
   final bool fromBusiness;
+  final int cardId;
 
   @override
   State<SocialMediahandlesScreen> createState() =>
@@ -146,8 +149,10 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                               : selectedCategory == 'Telegram'
                                   ? 'https://t.me/+${linkController.text}'
                                   : linkController.text;
-                          final model = SocialMediaHandleCreate(
-                              label: selectedCategory, socialMedia: link);
+                          final model = SocialMediaHandle(
+                              label: selectedCategory,
+                              socialMedia: link,
+                              cardId: widget.cardId);
                           !widget.fromBusiness
                               ? context.read<UserDataBloc>().add(
                                   UserDataEvent.addSocialMedia(
@@ -207,10 +212,12 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                     widget.fromBusiness
                                         ? context.read<BusinessDataBloc>().add(
                                             BusinessDataEvent.removeSocialMedia(
-                                                index: index))
+                                                id: business
+                                                    .socialMedias[index].id!))
                                         : context.read<UserDataBloc>().add(
                                             UserDataEvent.removeSocialMedia(
-                                                index: index));
+                                                id: user
+                                                    .socialMedias[index].id!));
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),

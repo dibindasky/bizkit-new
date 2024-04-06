@@ -6,17 +6,19 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
-import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
-import 'package:bizkit/domain/model/card/create_card/accridition/accredition.dart';
+import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
+import 'package:bizkit/domain/model/card/card/accredition/accredition.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccoladesAddCreateScreen extends StatefulWidget {
-  const AccoladesAddCreateScreen({super.key, required this.accolade});
+  const AccoladesAddCreateScreen(
+      {super.key, required this.accolade, required this.cardId});
 
   final bool accolade;
+  final int cardId;
 
   @override
   State<AccoladesAddCreateScreen> createState() =>
@@ -95,16 +97,18 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                       widget.accolade
                           ? context.read<UserDataBloc>().add(
                               UserDataEvent.addAccolade(
-                                  accolade: AccoladeCreate(
+                                  accolade: Accolade(
+                                      cardId: widget.cardId,
                                       accolades: title,
                                       accoladesDescription: description,
-                                      accoladesImage: image)))
+                                      accoladesImage: image!.base64)))
                           : context.read<BusinessDataBloc>().add(
                               BusinessDataEvent.addAccredition(
-                                  accredition: AccreditionCreate(
+                                  accredition: Accredition(
+                                      cardId: widget.cardId,
                                       description: description,
                                       label: title,
-                                      image: image)));
+                                      image: image!.base64)));
                       Navigator.of(context).pop();
                     }
                   },

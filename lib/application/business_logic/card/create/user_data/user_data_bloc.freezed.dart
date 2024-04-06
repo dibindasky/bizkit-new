@@ -27,14 +27,14 @@ mixin _$UserDataEvent {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -51,13 +51,12 @@ mixin _$UserDataEvent {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -74,12 +73,12 @@ mixin _$UserDataEvent {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -244,14 +243,14 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -271,13 +270,12 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -297,12 +295,12 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -475,14 +473,14 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -502,13 +500,12 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -528,12 +525,12 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -714,14 +711,14 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -741,13 +738,12 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -767,12 +763,12 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -918,14 +914,14 @@ class _$GetUserDetailImpl implements GetUserDetail {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -945,13 +941,12 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -971,12 +966,12 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -1118,14 +1113,14 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -1145,13 +1140,12 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -1171,12 +1165,12 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -1316,14 +1310,14 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -1343,13 +1337,12 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -1369,12 +1362,12 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -1514,14 +1507,14 @@ class _$ClearImpl implements Clear {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -1541,13 +1534,12 @@ class _$ClearImpl implements Clear {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -1567,12 +1559,12 @@ class _$ClearImpl implements Clear {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -1712,14 +1704,14 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -1739,13 +1731,12 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -1765,12 +1756,12 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -1910,14 +1901,14 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -1937,13 +1928,12 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -1963,12 +1953,12 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -2067,7 +2057,7 @@ abstract class _$$AddAccoladeImplCopyWith<$Res> {
           _$AddAccoladeImpl value, $Res Function(_$AddAccoladeImpl) then) =
       __$$AddAccoladeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({AccoladeCreate accolade});
+  $Res call({Accolade accolade});
 }
 
 /// @nodoc
@@ -2087,7 +2077,7 @@ class __$$AddAccoladeImplCopyWithImpl<$Res>
       accolade: null == accolade
           ? _value.accolade
           : accolade // ignore: cast_nullable_to_non_nullable
-              as AccoladeCreate,
+              as Accolade,
     ));
   }
 }
@@ -2098,7 +2088,7 @@ class _$AddAccoladeImpl implements AddAccolade {
   _$AddAccoladeImpl({required this.accolade});
 
   @override
-  final AccoladeCreate accolade;
+  final Accolade accolade;
 
   @override
   String toString() {
@@ -2135,14 +2125,14 @@ class _$AddAccoladeImpl implements AddAccolade {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -2162,13 +2152,12 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -2188,12 +2177,12 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -2283,10 +2272,9 @@ class _$AddAccoladeImpl implements AddAccolade {
 }
 
 abstract class AddAccolade implements UserDataEvent {
-  factory AddAccolade({required final AccoladeCreate accolade}) =
-      _$AddAccoladeImpl;
+  factory AddAccolade({required final Accolade accolade}) = _$AddAccoladeImpl;
 
-  AccoladeCreate get accolade;
+  Accolade get accolade;
   @JsonKey(ignore: true)
   _$$AddAccoladeImplCopyWith<_$AddAccoladeImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2298,7 +2286,7 @@ abstract class _$$RemoveAccoladeImplCopyWith<$Res> {
           $Res Function(_$RemoveAccoladeImpl) then) =
       __$$RemoveAccoladeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int index});
+  $Res call({int id});
 }
 
 /// @nodoc
@@ -2312,12 +2300,12 @@ class __$$RemoveAccoladeImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
+    Object? id = null,
   }) {
     return _then(_$RemoveAccoladeImpl(
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -2326,14 +2314,14 @@ class __$$RemoveAccoladeImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RemoveAccoladeImpl implements RemoveAccolade {
-  _$RemoveAccoladeImpl({required this.index});
+  _$RemoveAccoladeImpl({required this.id});
 
   @override
-  final int index;
+  final int id;
 
   @override
   String toString() {
-    return 'UserDataEvent.removeAccolade(index: $index)';
+    return 'UserDataEvent.removeAccolade(id: $id)';
   }
 
   @override
@@ -2341,11 +2329,11 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RemoveAccoladeImpl &&
-            (identical(other.index, index) || other.index == index));
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index);
+  int get hashCode => Object.hash(runtimeType, id);
 
   @JsonKey(ignore: true)
   @override
@@ -2366,19 +2354,19 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
   }) {
-    return removeAccolade(index);
+    return removeAccolade(id);
   }
 
   @override
@@ -2393,18 +2381,17 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
   }) {
-    return removeAccolade?.call(index);
+    return removeAccolade?.call(id);
   }
 
   @override
@@ -2419,18 +2406,18 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
   }) {
     if (removeAccolade != null) {
-      return removeAccolade(index);
+      return removeAccolade(id);
     }
     return orElse();
   }
@@ -2514,9 +2501,9 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
 }
 
 abstract class RemoveAccolade implements UserDataEvent {
-  factory RemoveAccolade({required final int index}) = _$RemoveAccoladeImpl;
+  factory RemoveAccolade({required final int id}) = _$RemoveAccoladeImpl;
 
-  int get index;
+  int get id;
   @JsonKey(ignore: true)
   _$$RemoveAccoladeImplCopyWith<_$RemoveAccoladeImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2528,7 +2515,7 @@ abstract class _$$AddDateToRememberImplCopyWith<$Res> {
           $Res Function(_$AddDateToRememberImpl) then) =
       __$$AddDateToRememberImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({DatesToRememberCreate datesToRemember});
+  $Res call({DatesToRemember datesToRemember});
 }
 
 /// @nodoc
@@ -2548,7 +2535,7 @@ class __$$AddDateToRememberImplCopyWithImpl<$Res>
       datesToRemember: null == datesToRemember
           ? _value.datesToRemember
           : datesToRemember // ignore: cast_nullable_to_non_nullable
-              as DatesToRememberCreate,
+              as DatesToRemember,
     ));
   }
 }
@@ -2559,7 +2546,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
   _$AddDateToRememberImpl({required this.datesToRemember});
 
   @override
-  final DatesToRememberCreate datesToRemember;
+  final DatesToRemember datesToRemember;
 
   @override
   String toString() {
@@ -2597,14 +2584,14 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -2624,13 +2611,12 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -2650,12 +2636,12 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -2745,11 +2731,10 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
 }
 
 abstract class AddDateToRemember implements UserDataEvent {
-  factory AddDateToRemember(
-          {required final DatesToRememberCreate datesToRemember}) =
+  factory AddDateToRemember({required final DatesToRemember datesToRemember}) =
       _$AddDateToRememberImpl;
 
-  DatesToRememberCreate get datesToRemember;
+  DatesToRemember get datesToRemember;
   @JsonKey(ignore: true)
   _$$AddDateToRememberImplCopyWith<_$AddDateToRememberImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2761,7 +2746,7 @@ abstract class _$$RemoveDateToRememberImplCopyWith<$Res> {
           $Res Function(_$RemoveDateToRememberImpl) then) =
       __$$RemoveDateToRememberImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int index});
+  $Res call({int id});
 }
 
 /// @nodoc
@@ -2775,12 +2760,12 @@ class __$$RemoveDateToRememberImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
+    Object? id = null,
   }) {
     return _then(_$RemoveDateToRememberImpl(
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -2789,14 +2774,14 @@ class __$$RemoveDateToRememberImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
-  _$RemoveDateToRememberImpl({required this.index});
+  _$RemoveDateToRememberImpl({required this.id});
 
   @override
-  final int index;
+  final int id;
 
   @override
   String toString() {
-    return 'UserDataEvent.removeDateToRemember(index: $index)';
+    return 'UserDataEvent.removeDateToRemember(id: $id)';
   }
 
   @override
@@ -2804,11 +2789,11 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RemoveDateToRememberImpl &&
-            (identical(other.index, index) || other.index == index));
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index);
+  int get hashCode => Object.hash(runtimeType, id);
 
   @JsonKey(ignore: true)
   @override
@@ -2830,19 +2815,19 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
   }) {
-    return removeDateToRemember(index);
+    return removeDateToRemember(id);
   }
 
   @override
@@ -2857,18 +2842,17 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
   }) {
-    return removeDateToRemember?.call(index);
+    return removeDateToRemember?.call(id);
   }
 
   @override
@@ -2883,18 +2867,18 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
   }) {
     if (removeDateToRemember != null) {
-      return removeDateToRemember(index);
+      return removeDateToRemember(id);
     }
     return orElse();
   }
@@ -2978,10 +2962,10 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
 }
 
 abstract class RemoveDateToRemember implements UserDataEvent {
-  factory RemoveDateToRemember({required final int index}) =
+  factory RemoveDateToRemember({required final int id}) =
       _$RemoveDateToRememberImpl;
 
-  int get index;
+  int get id;
   @JsonKey(ignore: true)
   _$$RemoveDateToRememberImplCopyWith<_$RemoveDateToRememberImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -2993,7 +2977,7 @@ abstract class _$$AddSocialMediaImplCopyWith<$Res> {
           $Res Function(_$AddSocialMediaImpl) then) =
       __$$AddSocialMediaImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({SocialMediaHandleCreate socialMediaHandle});
+  $Res call({SocialMediaHandle socialMediaHandle});
 }
 
 /// @nodoc
@@ -3013,7 +2997,7 @@ class __$$AddSocialMediaImplCopyWithImpl<$Res>
       socialMediaHandle: null == socialMediaHandle
           ? _value.socialMediaHandle
           : socialMediaHandle // ignore: cast_nullable_to_non_nullable
-              as SocialMediaHandleCreate,
+              as SocialMediaHandle,
     ));
   }
 }
@@ -3024,7 +3008,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
   _$AddSocialMediaImpl({required this.socialMediaHandle});
 
   @override
-  final SocialMediaHandleCreate socialMediaHandle;
+  final SocialMediaHandle socialMediaHandle;
 
   @override
   String toString() {
@@ -3062,14 +3046,14 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -3089,13 +3073,12 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -3115,12 +3098,12 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -3210,11 +3193,10 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
 }
 
 abstract class AddSocialMedia implements UserDataEvent {
-  factory AddSocialMedia(
-          {required final SocialMediaHandleCreate socialMediaHandle}) =
+  factory AddSocialMedia({required final SocialMediaHandle socialMediaHandle}) =
       _$AddSocialMediaImpl;
 
-  SocialMediaHandleCreate get socialMediaHandle;
+  SocialMediaHandle get socialMediaHandle;
   @JsonKey(ignore: true)
   _$$AddSocialMediaImplCopyWith<_$AddSocialMediaImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -3226,7 +3208,7 @@ abstract class _$$RemoveSocialMediaImplCopyWith<$Res> {
           $Res Function(_$RemoveSocialMediaImpl) then) =
       __$$RemoveSocialMediaImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int index});
+  $Res call({int id});
 }
 
 /// @nodoc
@@ -3240,12 +3222,12 @@ class __$$RemoveSocialMediaImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
+    Object? id = null,
   }) {
     return _then(_$RemoveSocialMediaImpl(
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -3254,14 +3236,14 @@ class __$$RemoveSocialMediaImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
-  _$RemoveSocialMediaImpl({required this.index});
+  _$RemoveSocialMediaImpl({required this.id});
 
   @override
-  final int index;
+  final int id;
 
   @override
   String toString() {
-    return 'UserDataEvent.removeSocialMedia(index: $index)';
+    return 'UserDataEvent.removeSocialMedia(id: $id)';
   }
 
   @override
@@ -3269,11 +3251,11 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RemoveSocialMediaImpl &&
-            (identical(other.index, index) || other.index == index));
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index);
+  int get hashCode => Object.hash(runtimeType, id);
 
   @JsonKey(ignore: true)
   @override
@@ -3294,19 +3276,19 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
   }) {
-    return removeSocialMedia(index);
+    return removeSocialMedia(id);
   }
 
   @override
@@ -3321,18 +3303,17 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
   }) {
-    return removeSocialMedia?.call(index);
+    return removeSocialMedia?.call(id);
   }
 
   @override
@@ -3347,18 +3328,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
   }) {
     if (removeSocialMedia != null) {
-      return removeSocialMedia(index);
+      return removeSocialMedia(id);
     }
     return orElse();
   }
@@ -3442,10 +3423,9 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
 }
 
 abstract class RemoveSocialMedia implements UserDataEvent {
-  factory RemoveSocialMedia({required final int index}) =
-      _$RemoveSocialMediaImpl;
+  factory RemoveSocialMedia({required final int id}) = _$RemoveSocialMediaImpl;
 
-  int get index;
+  int get id;
   @JsonKey(ignore: true)
   _$$RemoveSocialMediaImplCopyWith<_$RemoveSocialMediaImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -3525,14 +3505,14 @@ class _$CreateCardImpl implements CreateCard {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -3552,13 +3532,12 @@ class _$CreateCardImpl implements CreateCard {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -3578,12 +3557,12 @@ class _$CreateCardImpl implements CreateCard {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -3757,14 +3736,14 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(AccoladeCreate accolade) addAccolade,
-    required TResult Function(int index) removeAccolade,
-    required TResult Function(DatesToRememberCreate datesToRemember)
+    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
-    required TResult Function(int index) removeDateToRemember,
-    required TResult Function(SocialMediaHandleCreate socialMediaHandle)
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
-    required TResult Function(int index) removeSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
     required TResult Function(CardFirstCreationModel cardFirstCreationModel)
         createCard,
     required TResult Function(Card card) getCurrentCard,
@@ -3784,13 +3763,12 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(AccoladeCreate accolade)? addAccolade,
-    TResult? Function(int index)? removeAccolade,
-    TResult? Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult? Function(int index)? removeDateToRemember,
-    TResult? Function(SocialMediaHandleCreate socialMediaHandle)?
-        addSocialMedia,
-    TResult? Function(int index)? removeSocialMedia,
+    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
     TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
         createCard,
     TResult? Function(Card card)? getCurrentCard,
@@ -3810,12 +3788,12 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(AccoladeCreate accolade)? addAccolade,
-    TResult Function(int index)? removeAccolade,
-    TResult Function(DatesToRememberCreate datesToRemember)? addDateToRemember,
-    TResult Function(int index)? removeDateToRemember,
-    TResult Function(SocialMediaHandleCreate socialMediaHandle)? addSocialMedia,
-    TResult Function(int index)? removeSocialMedia,
+    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
     TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
     TResult Function(Card card)? getCurrentCard,
     required TResult orElse(),
@@ -3918,6 +3896,12 @@ mixin _$UserDataState {
   bool get hasError => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isBusiness => throw _privateConstructorUsedError;
+  bool get accoladeLoading => throw _privateConstructorUsedError;
+  bool get accoladeDeleteLoading => throw _privateConstructorUsedError;
+  bool get datesToRememberLoading => throw _privateConstructorUsedError;
+  bool get datesToRememberDeleteLoading => throw _privateConstructorUsedError;
+  bool get socialMediaLoading => throw _privateConstructorUsedError;
+  bool get socialMediaDeleteLoading => throw _privateConstructorUsedError;
   SuccessResponseModel? get cardAdded => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   PersonalDetails? get personalData => throw _privateConstructorUsedError;
@@ -3926,11 +3910,11 @@ mixin _$UserDataState {
   List<ImageModel> get scannedImagesCardCreation =>
       throw _privateConstructorUsedError;
   ImageModel? get userPhotos => throw _privateConstructorUsedError;
-  List<AccoladeCreate> get accolades => throw _privateConstructorUsedError;
+  List<Accolade> get accolades => throw _privateConstructorUsedError;
   List<Category> get businessCategories => throw _privateConstructorUsedError;
-  List<DatesToRememberCreate> get datesToRemember =>
+  List<DatesToRemember> get datesToRemember =>
       throw _privateConstructorUsedError;
-  List<SocialMediaHandleCreate> get socialMedias =>
+  List<SocialMediaHandle> get socialMedias =>
       throw _privateConstructorUsedError;
   Card? get currentCard => throw _privateConstructorUsedError;
   ScannedImageDatasModel? get scannedImageDatasModel =>
@@ -3951,16 +3935,22 @@ abstract class $UserDataStateCopyWith<$Res> {
       {bool hasError,
       bool isLoading,
       bool isBusiness,
+      bool accoladeLoading,
+      bool accoladeDeleteLoading,
+      bool datesToRememberLoading,
+      bool datesToRememberDeleteLoading,
+      bool socialMediaLoading,
+      bool socialMediaDeleteLoading,
       SuccessResponseModel? cardAdded,
       String? message,
       PersonalDetails? personalData,
       PersonalDetailsCreate personalDetails,
       List<ImageModel> scannedImagesCardCreation,
       ImageModel? userPhotos,
-      List<AccoladeCreate> accolades,
+      List<Accolade> accolades,
       List<Category> businessCategories,
-      List<DatesToRememberCreate> datesToRemember,
-      List<SocialMediaHandleCreate> socialMedias,
+      List<DatesToRemember> datesToRemember,
+      List<SocialMediaHandle> socialMedias,
       Card? currentCard,
       ScannedImageDatasModel? scannedImageDatasModel});
 }
@@ -3981,6 +3971,12 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
     Object? hasError = null,
     Object? isLoading = null,
     Object? isBusiness = null,
+    Object? accoladeLoading = null,
+    Object? accoladeDeleteLoading = null,
+    Object? datesToRememberLoading = null,
+    Object? datesToRememberDeleteLoading = null,
+    Object? socialMediaLoading = null,
+    Object? socialMediaDeleteLoading = null,
     Object? cardAdded = freezed,
     Object? message = freezed,
     Object? personalData = freezed,
@@ -4006,6 +4002,30 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
       isBusiness: null == isBusiness
           ? _value.isBusiness
           : isBusiness // ignore: cast_nullable_to_non_nullable
+              as bool,
+      accoladeLoading: null == accoladeLoading
+          ? _value.accoladeLoading
+          : accoladeLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      accoladeDeleteLoading: null == accoladeDeleteLoading
+          ? _value.accoladeDeleteLoading
+          : accoladeDeleteLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      datesToRememberLoading: null == datesToRememberLoading
+          ? _value.datesToRememberLoading
+          : datesToRememberLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      datesToRememberDeleteLoading: null == datesToRememberDeleteLoading
+          ? _value.datesToRememberDeleteLoading
+          : datesToRememberDeleteLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      socialMediaLoading: null == socialMediaLoading
+          ? _value.socialMediaLoading
+          : socialMediaLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      socialMediaDeleteLoading: null == socialMediaDeleteLoading
+          ? _value.socialMediaDeleteLoading
+          : socialMediaDeleteLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       cardAdded: freezed == cardAdded
           ? _value.cardAdded
@@ -4034,7 +4054,7 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
       accolades: null == accolades
           ? _value.accolades
           : accolades // ignore: cast_nullable_to_non_nullable
-              as List<AccoladeCreate>,
+              as List<Accolade>,
       businessCategories: null == businessCategories
           ? _value.businessCategories
           : businessCategories // ignore: cast_nullable_to_non_nullable
@@ -4042,11 +4062,11 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
       datesToRemember: null == datesToRemember
           ? _value.datesToRemember
           : datesToRemember // ignore: cast_nullable_to_non_nullable
-              as List<DatesToRememberCreate>,
+              as List<DatesToRemember>,
       socialMedias: null == socialMedias
           ? _value.socialMedias
           : socialMedias // ignore: cast_nullable_to_non_nullable
-              as List<SocialMediaHandleCreate>,
+              as List<SocialMediaHandle>,
       currentCard: freezed == currentCard
           ? _value.currentCard
           : currentCard // ignore: cast_nullable_to_non_nullable
@@ -4071,16 +4091,22 @@ abstract class _$$InitialImplCopyWith<$Res>
       {bool hasError,
       bool isLoading,
       bool isBusiness,
+      bool accoladeLoading,
+      bool accoladeDeleteLoading,
+      bool datesToRememberLoading,
+      bool datesToRememberDeleteLoading,
+      bool socialMediaLoading,
+      bool socialMediaDeleteLoading,
       SuccessResponseModel? cardAdded,
       String? message,
       PersonalDetails? personalData,
       PersonalDetailsCreate personalDetails,
       List<ImageModel> scannedImagesCardCreation,
       ImageModel? userPhotos,
-      List<AccoladeCreate> accolades,
+      List<Accolade> accolades,
       List<Category> businessCategories,
-      List<DatesToRememberCreate> datesToRemember,
-      List<SocialMediaHandleCreate> socialMedias,
+      List<DatesToRemember> datesToRemember,
+      List<SocialMediaHandle> socialMedias,
       Card? currentCard,
       ScannedImageDatasModel? scannedImageDatasModel});
 }
@@ -4099,6 +4125,12 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? hasError = null,
     Object? isLoading = null,
     Object? isBusiness = null,
+    Object? accoladeLoading = null,
+    Object? accoladeDeleteLoading = null,
+    Object? datesToRememberLoading = null,
+    Object? datesToRememberDeleteLoading = null,
+    Object? socialMediaLoading = null,
+    Object? socialMediaDeleteLoading = null,
     Object? cardAdded = freezed,
     Object? message = freezed,
     Object? personalData = freezed,
@@ -4124,6 +4156,30 @@ class __$$InitialImplCopyWithImpl<$Res>
       isBusiness: null == isBusiness
           ? _value.isBusiness
           : isBusiness // ignore: cast_nullable_to_non_nullable
+              as bool,
+      accoladeLoading: null == accoladeLoading
+          ? _value.accoladeLoading
+          : accoladeLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      accoladeDeleteLoading: null == accoladeDeleteLoading
+          ? _value.accoladeDeleteLoading
+          : accoladeDeleteLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      datesToRememberLoading: null == datesToRememberLoading
+          ? _value.datesToRememberLoading
+          : datesToRememberLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      datesToRememberDeleteLoading: null == datesToRememberDeleteLoading
+          ? _value.datesToRememberDeleteLoading
+          : datesToRememberDeleteLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      socialMediaLoading: null == socialMediaLoading
+          ? _value.socialMediaLoading
+          : socialMediaLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      socialMediaDeleteLoading: null == socialMediaDeleteLoading
+          ? _value.socialMediaDeleteLoading
+          : socialMediaDeleteLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       cardAdded: freezed == cardAdded
           ? _value.cardAdded
@@ -4152,7 +4208,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       accolades: null == accolades
           ? _value._accolades
           : accolades // ignore: cast_nullable_to_non_nullable
-              as List<AccoladeCreate>,
+              as List<Accolade>,
       businessCategories: null == businessCategories
           ? _value._businessCategories
           : businessCategories // ignore: cast_nullable_to_non_nullable
@@ -4160,11 +4216,11 @@ class __$$InitialImplCopyWithImpl<$Res>
       datesToRemember: null == datesToRemember
           ? _value._datesToRemember
           : datesToRemember // ignore: cast_nullable_to_non_nullable
-              as List<DatesToRememberCreate>,
+              as List<DatesToRemember>,
       socialMedias: null == socialMedias
           ? _value._socialMedias
           : socialMedias // ignore: cast_nullable_to_non_nullable
-              as List<SocialMediaHandleCreate>,
+              as List<SocialMediaHandle>,
       currentCard: freezed == currentCard
           ? _value.currentCard
           : currentCard // ignore: cast_nullable_to_non_nullable
@@ -4184,16 +4240,22 @@ class _$InitialImpl implements _Initial {
       {required this.hasError,
       required this.isLoading,
       required this.isBusiness,
+      required this.accoladeLoading,
+      required this.accoladeDeleteLoading,
+      required this.datesToRememberLoading,
+      required this.datesToRememberDeleteLoading,
+      required this.socialMediaLoading,
+      required this.socialMediaDeleteLoading,
       this.cardAdded,
       this.message,
       this.personalData,
       required this.personalDetails,
       required final List<ImageModel> scannedImagesCardCreation,
       this.userPhotos,
-      required final List<AccoladeCreate> accolades,
+      required final List<Accolade> accolades,
       required final List<Category> businessCategories,
-      required final List<DatesToRememberCreate> datesToRemember,
-      required final List<SocialMediaHandleCreate> socialMedias,
+      required final List<DatesToRemember> datesToRemember,
+      required final List<SocialMediaHandle> socialMedias,
       this.currentCard,
       this.scannedImageDatasModel})
       : _scannedImagesCardCreation = scannedImagesCardCreation,
@@ -4208,6 +4270,18 @@ class _$InitialImpl implements _Initial {
   final bool isLoading;
   @override
   final bool isBusiness;
+  @override
+  final bool accoladeLoading;
+  @override
+  final bool accoladeDeleteLoading;
+  @override
+  final bool datesToRememberLoading;
+  @override
+  final bool datesToRememberDeleteLoading;
+  @override
+  final bool socialMediaLoading;
+  @override
+  final bool socialMediaDeleteLoading;
   @override
   final SuccessResponseModel? cardAdded;
   @override
@@ -4227,9 +4301,9 @@ class _$InitialImpl implements _Initial {
 
   @override
   final ImageModel? userPhotos;
-  final List<AccoladeCreate> _accolades;
+  final List<Accolade> _accolades;
   @override
-  List<AccoladeCreate> get accolades {
+  List<Accolade> get accolades {
     if (_accolades is EqualUnmodifiableListView) return _accolades;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_accolades);
@@ -4244,17 +4318,17 @@ class _$InitialImpl implements _Initial {
     return EqualUnmodifiableListView(_businessCategories);
   }
 
-  final List<DatesToRememberCreate> _datesToRemember;
+  final List<DatesToRemember> _datesToRemember;
   @override
-  List<DatesToRememberCreate> get datesToRemember {
+  List<DatesToRemember> get datesToRemember {
     if (_datesToRemember is EqualUnmodifiableListView) return _datesToRemember;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_datesToRemember);
   }
 
-  final List<SocialMediaHandleCreate> _socialMedias;
+  final List<SocialMediaHandle> _socialMedias;
   @override
-  List<SocialMediaHandleCreate> get socialMedias {
+  List<SocialMediaHandle> get socialMedias {
     if (_socialMedias is EqualUnmodifiableListView) return _socialMedias;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_socialMedias);
@@ -4267,7 +4341,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, isBusiness: $isBusiness, cardAdded: $cardAdded, message: $message, personalData: $personalData, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, businessCategories: $businessCategories, datesToRemember: $datesToRemember, socialMedias: $socialMedias, currentCard: $currentCard, scannedImageDatasModel: $scannedImageDatasModel)';
+    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, isBusiness: $isBusiness, accoladeLoading: $accoladeLoading, accoladeDeleteLoading: $accoladeDeleteLoading, datesToRememberLoading: $datesToRememberLoading, datesToRememberDeleteLoading: $datesToRememberDeleteLoading, socialMediaLoading: $socialMediaLoading, socialMediaDeleteLoading: $socialMediaDeleteLoading, cardAdded: $cardAdded, message: $message, personalData: $personalData, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, businessCategories: $businessCategories, datesToRemember: $datesToRemember, socialMedias: $socialMedias, currentCard: $currentCard, scannedImageDatasModel: $scannedImageDatasModel)';
   }
 
   @override
@@ -4281,6 +4355,21 @@ class _$InitialImpl implements _Initial {
                 other.isLoading == isLoading) &&
             (identical(other.isBusiness, isBusiness) ||
                 other.isBusiness == isBusiness) &&
+            (identical(other.accoladeLoading, accoladeLoading) ||
+                other.accoladeLoading == accoladeLoading) &&
+            (identical(other.accoladeDeleteLoading, accoladeDeleteLoading) ||
+                other.accoladeDeleteLoading == accoladeDeleteLoading) &&
+            (identical(other.datesToRememberLoading, datesToRememberLoading) ||
+                other.datesToRememberLoading == datesToRememberLoading) &&
+            (identical(other.datesToRememberDeleteLoading,
+                    datesToRememberDeleteLoading) ||
+                other.datesToRememberDeleteLoading ==
+                    datesToRememberDeleteLoading) &&
+            (identical(other.socialMediaLoading, socialMediaLoading) ||
+                other.socialMediaLoading == socialMediaLoading) &&
+            (identical(
+                    other.socialMediaDeleteLoading, socialMediaDeleteLoading) ||
+                other.socialMediaDeleteLoading == socialMediaDeleteLoading) &&
             (identical(other.cardAdded, cardAdded) ||
                 other.cardAdded == cardAdded) &&
             (identical(other.message, message) || other.message == message) &&
@@ -4307,23 +4396,30 @@ class _$InitialImpl implements _Initial {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      hasError,
-      isLoading,
-      isBusiness,
-      cardAdded,
-      message,
-      personalData,
-      personalDetails,
-      const DeepCollectionEquality().hash(_scannedImagesCardCreation),
-      userPhotos,
-      const DeepCollectionEquality().hash(_accolades),
-      const DeepCollectionEquality().hash(_businessCategories),
-      const DeepCollectionEquality().hash(_datesToRemember),
-      const DeepCollectionEquality().hash(_socialMedias),
-      currentCard,
-      scannedImageDatasModel);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        hasError,
+        isLoading,
+        isBusiness,
+        accoladeLoading,
+        accoladeDeleteLoading,
+        datesToRememberLoading,
+        datesToRememberDeleteLoading,
+        socialMediaLoading,
+        socialMediaDeleteLoading,
+        cardAdded,
+        message,
+        personalData,
+        personalDetails,
+        const DeepCollectionEquality().hash(_scannedImagesCardCreation),
+        userPhotos,
+        const DeepCollectionEquality().hash(_accolades),
+        const DeepCollectionEquality().hash(_businessCategories),
+        const DeepCollectionEquality().hash(_datesToRemember),
+        const DeepCollectionEquality().hash(_socialMedias),
+        currentCard,
+        scannedImageDatasModel
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -4337,16 +4433,22 @@ abstract class _Initial implements UserDataState {
       {required final bool hasError,
       required final bool isLoading,
       required final bool isBusiness,
+      required final bool accoladeLoading,
+      required final bool accoladeDeleteLoading,
+      required final bool datesToRememberLoading,
+      required final bool datesToRememberDeleteLoading,
+      required final bool socialMediaLoading,
+      required final bool socialMediaDeleteLoading,
       final SuccessResponseModel? cardAdded,
       final String? message,
       final PersonalDetails? personalData,
       required final PersonalDetailsCreate personalDetails,
       required final List<ImageModel> scannedImagesCardCreation,
       final ImageModel? userPhotos,
-      required final List<AccoladeCreate> accolades,
+      required final List<Accolade> accolades,
       required final List<Category> businessCategories,
-      required final List<DatesToRememberCreate> datesToRemember,
-      required final List<SocialMediaHandleCreate> socialMedias,
+      required final List<DatesToRemember> datesToRemember,
+      required final List<SocialMediaHandle> socialMedias,
       final Card? currentCard,
       final ScannedImageDatasModel? scannedImageDatasModel}) = _$InitialImpl;
 
@@ -4356,6 +4458,18 @@ abstract class _Initial implements UserDataState {
   bool get isLoading;
   @override
   bool get isBusiness;
+  @override
+  bool get accoladeLoading;
+  @override
+  bool get accoladeDeleteLoading;
+  @override
+  bool get datesToRememberLoading;
+  @override
+  bool get datesToRememberDeleteLoading;
+  @override
+  bool get socialMediaLoading;
+  @override
+  bool get socialMediaDeleteLoading;
   @override
   SuccessResponseModel? get cardAdded;
   @override
@@ -4369,13 +4483,13 @@ abstract class _Initial implements UserDataState {
   @override
   ImageModel? get userPhotos;
   @override
-  List<AccoladeCreate> get accolades;
+  List<Accolade> get accolades;
   @override
   List<Category> get businessCategories;
   @override
-  List<DatesToRememberCreate> get datesToRemember;
+  List<DatesToRemember> get datesToRemember;
   @override
-  List<SocialMediaHandleCreate> get socialMedias;
+  List<SocialMediaHandle> get socialMedias;
   @override
   Card? get currentCard;
   @override

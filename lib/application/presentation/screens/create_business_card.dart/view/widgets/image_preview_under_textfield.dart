@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 
 // this widget will return the images under the text fieldor any widget it was wraped with
@@ -21,7 +22,7 @@ class ImagePreviewUnderTextField extends StatelessWidget {
   final Function(int index)? removeItem;
   final Function(String value)? onItemTap;
   final Widget child;
-  final List<ImageModel>? list;
+  final List<String>? list;
   final List<String>? listString;
 
   @override
@@ -48,7 +49,7 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       if (onItemTap != null) {
-                                        onItemTap!(list![index].fileImage.path);
+                                        onItemTap!(list![index]);
                                       }
                                     },
                                     child: Container(
@@ -60,7 +61,8 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
                                           image: DecorationImage(
-                                              image: FileImage(image.fileImage),
+                                              image: MemoryImage(base64.decode(
+                                                  image)),
                                               fit: BoxFit.cover)),
                                     ),
                                   ),
@@ -100,7 +102,7 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       if (onItemTap != null) {
-                                        onItemTap!(list![index].fileImage.path);
+                                        onItemTap!(list![index]);
                                       }
                                     },
                                     child: Container(

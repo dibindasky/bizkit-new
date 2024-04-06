@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
@@ -10,15 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class MyCardsAndAddCardSection extends StatefulWidget {
+class MyCardsAndAddCardSection extends StatelessWidget {
   const MyCardsAndAddCardSection({super.key});
 
-  @override
-  State<MyCardsAndAddCardSection> createState() =>
-      _MyCardsAndAddCardSectionState();
-}
-
-class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -56,12 +52,13 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                         width: kwidth * 0.55,
                         child: PageView.builder(
                           itemCount: state.cards.length,
-                          onPageChanged: (index) {
-                            setState(() {
-                              data = state.cards[index];
-                            });
-                          },
+                          // onPageChanged: (index) {
+                          //   setState(() {
+                          //     data = state.cards[index];
+                          //   });
+                          // },
                           itemBuilder: (context, index) {
+                            data = state.cards[index];
                             return InkWell(
                               onTap: () {
                                 final map = data.id != null
@@ -106,14 +103,9 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Text(
-                                                    state.defaultCard?.name !=
-                                                            null
-                                                        ? state
-                                                                    .defaultCard!
-                                                                    .name!
-                                                                    .length >
-                                                                20
-                                                            ? '${state.defaultCard!.name!.substring(0, 18)}..'
+                                                    data.name != null
+                                                        ? data.name!.length > 20
+                                                            ? '${data.name!.substring(0, 18)}..'
                                                             : state.defaultCard!
                                                                 .name!
                                                         : '',
@@ -125,17 +117,12 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                                                           blurRadius: 5)
                                                     ])),
                                                 Text(
-                                                  state.defaultCard
-                                                              ?.designation !=
-                                                          null
-                                                      ? state
-                                                                  .defaultCard!
-                                                                  .designation!
+                                                  data.designation != null
+                                                      ? data.designation!
                                                                   .length >
                                                               20
-                                                          ? '${state.defaultCard!.designation!.substring(0, 18)}..'
-                                                          : state.defaultCard!
-                                                              .designation!
+                                                          ? '${data.designation!.substring(0, 18)}..'
+                                                          : data.designation!
                                                       : '',
                                                   style: TextStyle(
                                                       fontSize: kwidth * .037,
@@ -152,8 +139,8 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                                                   height: kwidth * 0.10,
                                                   width: kwidth * 0.10,
                                                   child: data.logo != null
-                                                      ? Image.network(
-                                                          data.logo!,
+                                                      ? Image.memory(
+                                                          base64.decode(data.logo!),
                                                           fit: BoxFit.cover)
                                                       : Image.asset(
                                                           iconBizkitPng,

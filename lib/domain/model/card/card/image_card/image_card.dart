@@ -5,7 +5,7 @@ part 'image_card.g.dart';
 @JsonSerializable()
 class ImageCard {
   int? id;
-  String? image;
+  dynamic image;
 
   ImageCard({this.id, this.image});
 

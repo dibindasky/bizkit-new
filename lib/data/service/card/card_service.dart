@@ -98,31 +98,6 @@ class CardService implements CardRepo {
   }
 
   @override
-  Future<Either<Failure, BusinessDetails>> createBusinessDataCard(
-      {required BusinessDetailsCreate businessDetailsCreate}) async {
-    try {
-      log('createBusinessDataCard creation ');
-      print(
-          'createBusinessDataCard creation  ${businessDetailsCreate.toJson()}');
-      final response = await apiService.post(ApiEndPoints.createCardBusiness,
-          data: businessDetailsCreate.toJson());
-      log('createBusinessDataCard creation done');
-      return Right(BusinessDetails.fromJson(response.data));
-    } on DioException catch (e) {
-      log('createBusinessDataCard creation dio error');
-      log(e.toString());
-      log(e.response.toString());
-      return Left(
-          Failure(message: 'Failed to create business data please try again'));
-    } catch (e) {
-      log('createBusinessDataCard creation exception error');
-      log(e.toString());
-      return Left(
-          Failure(message: 'Failed to create business data please try again'));
-    }
-  }
-
-  @override
   Future<Either<Failure, PersonalDetails>> patchPersonalDetails(
       {required PatchPersonalData patchPersonalData,
       required int personalDataId}) async {
@@ -311,6 +286,33 @@ class CardService implements CardRepo {
     } catch (e) {
       log('archievedCardsList catch $e');
       return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, BusinessDetails>> createBusinessDataCard(
+      {required BusinessDetails businessDetails, required int id}) async {
+    try {
+      log('createBusinessDataCard creation ');
+      print(
+          'createBusinessDataCard creation  ${businessDetails.toJson()}');
+      final response = await apiService.patch(
+          ApiEndPoints.createCardBusiness
+              .replaceFirst('{card_id}', id.toString()),
+          data: businessDetails.toJson());
+      log('createBusinessDataCard creation done');
+      return Right(BusinessDetails.fromJson(response.data));
+    } on DioException catch (e) {
+      log('createBusinessDataCard creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(
+          Failure(message: 'Failed to create business data please try again'));
+    } catch (e) {
+      log('createBusinessDataCard creation exception error');
+      log(e.toString());
+      return Left(
+          Failure(message: 'Failed to create business data please try again'));
     }
   }
 }

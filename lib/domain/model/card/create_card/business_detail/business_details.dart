@@ -10,14 +10,6 @@ part 'business_details.g.dart';
 
 @JsonSerializable()
 class BusinessDetailsCreate {
-  @JsonKey(name: 'social_media_handles_id')
-  List<SocialMediaHandleCreate>? socialMediaHandles;
-  @JsonKey(name: 'product_id')
-  List<ProductCreate>? product;
-  @JsonKey(name: 'accredition_id')
-  List<AccreditionCreate>? accredition;
-  @JsonKey(name: 'brochure_id')
-  List<BrochureCreate>? brochure;
   String? email;
   @JsonKey(name: 'mobile_number')
   String? mobileNumber;
@@ -27,29 +19,14 @@ class BusinessDetailsCreate {
   String? address;
   @JsonKey(name: 'website_link')
   String? websiteLink;
-  dynamic logo;
-  @JsonKey(name: 'logo_story')
-  String? logoStory;
-  @JsonKey(name: 'branch_offices_id')
-  List<BranchOffices>? branchOffices;
-  @JsonKey(name: 'bank_details_id')
-  BankDetailsCreate? bankDetails;
 
   BusinessDetailsCreate({
-    this.branchOffices,
-    this.accredition,
-    this.bankDetails,
-    this.socialMediaHandles,
-    this.product,
-    this.brochure,
     this.email,
     this.mobileNumber,
     this.businessName,
     this.company,
     this.address,
     this.websiteLink,
-    this.logo,
-    this.logoStory,
   });
 
   factory BusinessDetailsCreate.fromJson(Map<String, dynamic> json) {
@@ -75,19 +52,11 @@ class BusinessDetailsCreate {
       String? logoStory,
       List<AccreditionCreate>? accredition}) {
     return BusinessDetailsCreate(
-        accredition: accredition ?? this.accredition,
-        branchOffices: branchOffices ?? this.branchOffices,
-        socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
-        product: product ?? this.product,
-        brochure: brochure ?? this.brochure,
         email: email ?? this.email,
         mobileNumber: mobileNumber ?? this.mobileNumber,
         businessName: businessName ?? this.businessName,
         company: company ?? this.company,
         address: address ?? this.address,
-        websiteLink: websiteLink ?? this.websiteLink,
-        logo: logo ?? this.logo,
-        logoStory: logoStory ?? this.logoStory,
-        bankDetails: bankDetails ?? this.bankDetails);
+        websiteLink: websiteLink ?? this.websiteLink);
   }
 }

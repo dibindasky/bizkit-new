@@ -29,7 +29,7 @@ class BrocherBuilder extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ScreenPdfPreview(
-                              filePath: state.brochures[index].file.file.path),
+                              base64: state.brochures[index].file),
                         )),
                     child: Container(
                       margin: const EdgeInsets.only(right: 10, left: 10),
@@ -39,7 +39,7 @@ class BrocherBuilder extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: PdfViewer.openFile(
-                          state.brochures[index].file.file.path,
+                          state.brochures[index].file!,
                           params: const PdfViewerParams(pageNumber: 1)),
                     ),
                   ),

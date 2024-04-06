@@ -9,7 +9,6 @@ import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_mo
 import 'package:bizkit/domain/model/card/create_card/business_detail/business_details.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/get_business_category_response_model.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_companys/get_companys.dart';
-import 'package:bizkit/domain/model/card/create_card/personal_details/personal_details.dart';
 import 'package:bizkit/domain/model/card/get_card_response/get_card_response.dart';
 import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
 import 'package:bizkit/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
@@ -22,11 +21,10 @@ abstract class CardRepo {
   Future<Either<Failure, SuccessResponseModel>> createCard(
       {required CardFirstCreationModel cardFirstCreationModel});
   Future<Either<Failure, PersonalDetails>> patchPersonalDetails(
-      {required PatchPersonalData patchPersonalData,required int personalDataId});
-  // Future<Either<Failure, PersonalDetails>> createPersonalDataCard(
-  //     {required PersonalDetailsCreate personalDetailsCreate});
+      {required PatchPersonalData patchPersonalData,
+      required int personalDataId});
   Future<Either<Failure, BusinessDetails>> createBusinessDataCard(
-      {required BusinessDetailsCreate businessDetailsCreate});
+      {required BusinessDetails businessDetails,required int id});
   Future<Either<Failure, GetCardResponse>> getCards({required PageQuery qurey});
   Future<Either<Failure, GetCardResponseModel>> getCardByUserId(
       {required int id});
@@ -36,12 +34,9 @@ abstract class CardRepo {
   Future<Either<Failure, GetBusinessCategoryResponseModel>>
       getBusinessCategories();
   Future<Either<Failure, SuccessResponseModel>> setDefault({required int id});
-  //Future<Either<Failure, SuccessResponseModel>> deleteCard({required int id});
   Future<Either<Failure, BlockedCardsResponceMoede>> getDeletedCardsList({
     required PageQuery pageQuery,
   });
-  // Future<Either<Failure, SuccessResponseModel>> restoreDeleteCard(
-  //     {required int id});
   Future<Either<Failure, SuccessResponseModel>> cardAction({
     required int id,
     required CardActionRewuestModel cardActionRewuestModel,

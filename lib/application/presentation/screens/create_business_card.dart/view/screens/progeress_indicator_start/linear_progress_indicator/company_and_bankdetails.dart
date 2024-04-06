@@ -1,10 +1,8 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/business_card_preview/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -80,93 +78,24 @@ class CompanyAndBankingDetails extends StatelessWidget {
               ),
               adjustHieght(khieght * .05),
               BlocConsumer<BusinessDataBloc, BusinessDataState>(
-                listenWhen: (previous, current) =>
-                    previous.businessData != current.businessData,
+                listenWhen: (previous, current) => current.bankingAdded,
                 listener: (context, state) {
-                  if (state.message != null && state.hasError) {
-                    showSnackbar(context,
-                        message: state.message!, backgroundColor: kred);
-                  }
-                  if (state.businessData != null) {
-                    Navigator.push(
-                        context,
-                        fadePageRoute(
-                            const BusinessCardCreationPreviewScreen()));
-                    // GoRouter.of(context).pushReplacementNamed(Routes.cardCreationPreview);
+                  if (state.bankingAdded) {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    context.read<CardBloc>().add(
+                        CardEvent.getCardyCardId(id: state.currentCard!.id!));
                   }
                 },
                 builder: (context, state) {
-                  if (state.isLoading) {
+                  if (state.bankingLoading) {
                     return const LoadingAnimation();
                   }
                   return LastSkipContinueButtons(
-                    onSkipTap: state.isBusiness
-                        ? null
-                        : () {
-                            context
-                                .read<BusinessDataBloc>()
-                                .nameOfCompanyController
-                                .text = '';
-                            context
-                                .read<BusinessDataBloc>()
-                                .accountNumberController
-                                .text = '';
-                            context
-                                .read<BusinessDataBloc>()
-                                .ifscController
-                                .text = '';
-                            context
-                                .read<BusinessDataBloc>()
-                                .upiDetailController
-                                .text = '';
-                            context
-                                .read<BusinessDataBloc>()
-                                .gstNumberController
-                                .text = '';
-                            context.read<BusinessDataBloc>().add(
-                                const BusinessDataEvent.createBankingData());
-                          },
                     onTap: () {
-                      // if (bankingCardCreationKey.currentState!.validate()) {
-                      //   context
-                      //       .read<BusinessDataBloc>()
-                      //       .add(const BusinessDataEvent.createBankingData());
-                      // }
-                      // if (context
-                      //             .read<BusinessDataBloc>()
-                      //             .nameOfCompanyController
-                      //             .text !=
-                      //         '' ||
-                      //     context
-                      //             .read<BusinessDataBloc>()
-                      //             .accountNumberController
-                      //             .text !=
-                      //         '' ||
-                      //     context
-                      //             .read<BusinessDataBloc>()
-                      //             .ifscController
-                      //             .text !=
-                      //         '' ||
-                      //     context
-                      //             .read<BusinessDataBloc>()
-                      //             .upiDetailController
-                      //             .text !=
-                      //         '' ||
-                      //     context
-                      //             .read<BusinessDataBloc>()
-                      //             .gstNumberController
-                      //             .text !=
-                      //         '') {
-                      //   if (bankingCardCreationKey.currentState!.validate()) {
-                      //     context
-                      //         .read<BusinessDataBloc>()
-                      //         .add(const BusinessDataEvent.createBankingData());
-                      //   }
-                      // } else {
-                      //   context
-                      //       .read<BusinessDataBloc>()
-                      //       .add(const BusinessDataEvent.createBankingData());
-                      // }
+                      context
+                          .read<BusinessDataBloc>()
+                          .add(const BusinessDataEvent.createBankingData());
                     },
                   );
                 },

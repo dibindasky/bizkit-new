@@ -31,7 +31,7 @@ class ProductBuilder extends StatelessWidget {
                       border: Border.all(color: neonShade),
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                          image: FileImage(data.product.fileImage),
+                          image: FileImage(data.image![0].image.fileImage),
                           fit: BoxFit.cover),
                     ),
                   ),

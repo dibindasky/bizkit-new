@@ -1,4 +1,6 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/card_view/screen_detail_editing/card_detail_editing_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +13,23 @@ class CardViewCompletionPersentageIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashFactory: NoSplash.splashFactory,
-      splashColor: knill,
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const ScreenCardDetailEditingList())),
-      child: BlocBuilder<CardBloc, CardState>(
-        builder: (context, state) {
-          return Container(
+    return BlocBuilder<CardBloc, CardState>(
+      builder: (context, state) {
+        return InkWell(
+          splashFactory: NoSplash.splashFactory,
+          splashColor: knill,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ScreenCardDetailEditingList()));
+            context
+                .read<UserDataBloc>()
+                .add(UserDataEvent.getCurrentCard(card: state.anotherCard!));
+            context.read<BusinessDataBloc>().add(
+                BusinessDataEvent.getCurrentCard(card: state.anotherCard!));
+          },
+          child: Container(
             width: kwidth,
             decoration: BoxDecoration(
                 color: kgrey.withOpacity(0.3),
@@ -59,9 +68,9 @@ class CardViewCompletionPersentageIndicator extends StatelessWidget {
                 ),
               ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

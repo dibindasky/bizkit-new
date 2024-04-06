@@ -56,12 +56,12 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                 : [
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
-                        if (state.bankDetails.acccountNumber == null) {
+                        if (state.bankDetails.accountNumber == null) {
                           return const SizedBox();
                         }
                         return CommenbankingPersnalTiles(
                           first: 'Account Number',
-                          second: state.bankDetails.acccountNumber ?? '',
+                          second: state.bankDetails.accountNumber ?? '',
                         );
                       },
                     ),
@@ -90,7 +90,7 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
                         if (state.bankDetails.gstMembershipDetails == null &&
-                            state.bankDetails.acccountNumber == null &&
+                            state.bankDetails.accountNumber == null &&
                             state.bankDetails.ifscCode == null) {
                           return Padding(
                               padding: const EdgeInsets.only(top: 60),

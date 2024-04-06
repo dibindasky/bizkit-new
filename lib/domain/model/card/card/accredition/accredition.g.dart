@@ -8,7 +8,7 @@ part of 'accredition.dart';
 
 Accredition _$AccreditionFromJson(Map<String, dynamic> json) => Accredition(
       id: json['id'] as int?,
-      image: json['image'] as String?,
+      image: json['image'],
       label: json['label'] as String?,
       description: json['description'] as String?,
       cardId: json['card_id'] as int?,

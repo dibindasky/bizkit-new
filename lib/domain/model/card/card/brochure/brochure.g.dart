@@ -9,7 +9,7 @@ part of 'brochure.dart';
 Brochure _$BrochureFromJson(Map<String, dynamic> json) => Brochure(
       id: json['id'] as int?,
       file: json['file'] as String?,
-      image: json['image'] as String?,
+      image: json['image'],
       label: json['label'] as String?,
       cardId: json['card_id'] as int?,
     );

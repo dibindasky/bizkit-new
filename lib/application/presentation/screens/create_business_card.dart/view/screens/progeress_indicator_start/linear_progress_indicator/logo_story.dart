@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:animate_do/animate_do.dart';
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/screens/image_croping/image_croping.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +53,7 @@ class _LogoStoryState extends State<LogoStory> {
                     .add(const BusinessDataEvent.addLogo()),
                 child: BlocBuilder<BusinessDataBloc, BusinessDataState>(
                   buildWhen: (previous, current) =>
-                      previous.logo != current.logo,
+                      previous.logoCard != current.logoCard,
                   builder: (context, state) {
                     return DottedBorder(
                       dashPattern: const [8, 8],
@@ -59,8 +62,9 @@ class _LogoStoryState extends State<LogoStory> {
                       child: SizedBox(
                         width: kwidth * 0.8,
                         height: kwidth * 0.25,
-                        child: state.logo != null
-                            ? Image.file(state.logo!.fileImage,
+                        child: state.logoCard != null &&
+                                state.logoCard!.logo != null
+                            ? Image.memory(base64.decode(state.logoCard!.logo!),
                                 fit: BoxFit.contain)
                             : Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -151,41 +155,27 @@ class _LogoStoryState extends State<LogoStory> {
                   "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
             ),
             adjustHieght(khieght * .04),
-            BlocBuilder<BusinessDataBloc, BusinessDataState>(
+            BlocConsumer<BusinessDataBloc, BusinessDataState>(
+              listenWhen: (previous, current) => current.logoAdded,
+              listener: (context, state) {
+                if (state.logoAdded) {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  context.read<CardBloc>().add(
+                      CardEvent.getCardyCardId(id: state.currentCard!.id!));
+                }
+              },
+              buildWhen: (previous, current) =>
+                  previous.logoLoading != current.logoLoading,
               builder: (context, state) {
-                return LastSkipContinueButtons(
-                    onSkipTap: state.isBusiness
-                        ? null
-                        : () {
-                            widget.pageController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.ease,
-                            );
-                          },
-                    onTap: () {
-                      // if (state.isBusiness) {
-                      //   if (state.logo == null) {
-                      //     showSnackbar(context,
-                      //         message: 'add logo to continue');
-                      //   } else if (context
-                      //           .read<BusinessDataBloc>()
-                      //           .logoStoryController
-                      //           .text ==
-                      //       '') {
-                      //     showSnackbar(context, message: 'enter logo story ');
-                      //   } else {
-                      //     widget.pageController.nextPage(
-                      //       duration: const Duration(milliseconds: 300),
-                      //       curve: Curves.ease,
-                      //     );
-                      //   }
-                      // } else {
-                      //   widget.pageController.nextPage(
-                      //     duration: const Duration(milliseconds: 300),
-                      //     curve: Curves.ease,
-                      //   );
-                      // }
-                    });
+                if (state.logoLoading) {
+                  return const LoadingAnimation();
+                }
+                return LastSkipContinueButtons(onTap: () {
+                  context
+                      .read<BusinessDataBloc>()
+                      .add(const BusinessDataEvent.uploadLogo());
+                });
               },
             ),
             adjustHieght(khieght * .1),

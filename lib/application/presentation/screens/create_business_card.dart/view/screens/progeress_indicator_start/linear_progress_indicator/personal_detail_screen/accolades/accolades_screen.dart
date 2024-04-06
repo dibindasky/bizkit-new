@@ -1,19 +1,23 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_create_screen.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
+import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccolodesScreen extends StatelessWidget {
-  const AccolodesScreen({super.key, this.accolade = true});
+  const AccolodesScreen(
+      {super.key, this.accolade = true, required this.cardId});
 
   final bool? accolade;
+  final int cardId;
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +51,8 @@ class AccolodesScreen extends StatelessWidget {
                       child: InkWell(
                         onTap: () async {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                AccoladesAddCreateScreen(accolade: accolade!),
+                            builder: (context) => AccoladesAddCreateScreen(
+                                accolade: accolade!, cardId: cardId),
                           ));
                         },
                         child: DottedBorder(
@@ -83,10 +87,9 @@ class AccolodesScreen extends StatelessWidget {
                 builder: (context, business) {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
-                      List achivement = [
-                        ...user.accolades,
-                        ...business.accreditions
-                      ];
+                      List achivement = accolade ?? true
+                          ? user.accolades
+                          : business.accreditions;
                       return ListView.separated(
                         separatorBuilder: (context, index) =>
                             adjustHieght(kwidth * .03),
@@ -106,18 +109,16 @@ class AccolodesScreen extends StatelessWidget {
                                 SizedBox(
                                   height: 200,
                                   width: double.infinity,
-                                  child: Image.file(
-                                    accolade == null
-                                        ? achivement[index] is AccoladeCreate
-                                            ? achivement[index]
-                                                .accoladesImage
-                                                .fileImage
-                                            : achivement[index].image.fileImage
+                                  child: Image.memory(
+                                    base64.decode(accolade == null
+                                        ? achivement[index] is Accolade
+                                            ? achivement[index].accoladesImage
+                                            : achivement[index].image
                                         : accolade!
-                                            ? user.accolades[index]
-                                                .accoladesImage.fileImage
-                                            : business.accreditions[index].image
-                                                .fileImage,
+                                            ? user
+                                                .accolades[index].accoladesImage
+                                            : business
+                                                .accreditions[index].image),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -135,7 +136,7 @@ class AccolodesScreen extends StatelessWidget {
                                         Text(
                                           accolade == null
                                               ? achivement[index]
-                                                      is AccoladeCreate
+                                                      is Accolade
                                                   ? achivement[index].accolades
                                                   : achivement[index].label
                                               : accolade!
@@ -153,7 +154,7 @@ class AccolodesScreen extends StatelessWidget {
                                         Text(
                                           accolade == null
                                               ? achivement[index]
-                                                      is AccoladeCreate
+                                                      is Accolade
                                                   ? achivement[index]
                                                       .accoladesDescription
                                                   : achivement[index]
@@ -187,14 +188,20 @@ class AccolodesScreen extends StatelessWidget {
                                                       .add(
                                                         UserDataEvent
                                                             .removeAccolade(
-                                                                index: index),
+                                                                id: user
+                                                                    .accolades[
+                                                                        index]
+                                                                    .id!),
                                                       )
                                                   : context
                                                       .read<BusinessDataBloc>()
                                                       .add(
                                                         BusinessDataEvent
                                                             .removeAccredition(
-                                                                index: index),
+                                                                index: business
+                                                                    .accreditions[
+                                                                        index]
+                                                                    .id!),
                                                       );
                                             },
                                             icon: const Icon(

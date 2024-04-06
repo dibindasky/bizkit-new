@@ -284,7 +284,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                         },
                         removeItem: (index) => context
                             .read<BusinessDataBloc>()
-                            .add(BusinessDataEvent.removeBranch(index: index)),
+                            .add(BusinessDataEvent.removeBranch(id: state.branchOffices[index].id!)),
                         listString:
                             state.branchOffices.map((e) => e.branch!).toList(),
                         child: const TTextFormField(
@@ -312,7 +312,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                         removeItem: (index) => context
                             .read<BusinessDataBloc>()
                             .add(BusinessDataEvent.removeAccredition(
-                                index: index)),
+                                id: state.accreditions[index].id!)),
                         list: state.accreditions
                             .map((e) => e.image as String)
                             .toList(),

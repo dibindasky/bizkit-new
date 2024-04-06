@@ -3905,8 +3905,7 @@ mixin _$UserDataState {
   SuccessResponseModel? get cardAdded => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   PersonalDetails? get personalData => throw _privateConstructorUsedError;
-  PersonalDetailsCreate get personalDetails =>
-      throw _privateConstructorUsedError;
+  PersonalDetails get personalDetails => throw _privateConstructorUsedError;
   List<ImageModel> get scannedImagesCardCreation =>
       throw _privateConstructorUsedError;
   ImageModel? get userPhotos => throw _privateConstructorUsedError;
@@ -3944,7 +3943,7 @@ abstract class $UserDataStateCopyWith<$Res> {
       SuccessResponseModel? cardAdded,
       String? message,
       PersonalDetails? personalData,
-      PersonalDetailsCreate personalDetails,
+      PersonalDetails personalDetails,
       List<ImageModel> scannedImagesCardCreation,
       ImageModel? userPhotos,
       List<Accolade> accolades,
@@ -4042,7 +4041,7 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
       personalDetails: null == personalDetails
           ? _value.personalDetails
           : personalDetails // ignore: cast_nullable_to_non_nullable
-              as PersonalDetailsCreate,
+              as PersonalDetails,
       scannedImagesCardCreation: null == scannedImagesCardCreation
           ? _value.scannedImagesCardCreation
           : scannedImagesCardCreation // ignore: cast_nullable_to_non_nullable
@@ -4100,7 +4099,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       SuccessResponseModel? cardAdded,
       String? message,
       PersonalDetails? personalData,
-      PersonalDetailsCreate personalDetails,
+      PersonalDetails personalDetails,
       List<ImageModel> scannedImagesCardCreation,
       ImageModel? userPhotos,
       List<Accolade> accolades,
@@ -4196,7 +4195,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       personalDetails: null == personalDetails
           ? _value.personalDetails
           : personalDetails // ignore: cast_nullable_to_non_nullable
-              as PersonalDetailsCreate,
+              as PersonalDetails,
       scannedImagesCardCreation: null == scannedImagesCardCreation
           ? _value._scannedImagesCardCreation
           : scannedImagesCardCreation // ignore: cast_nullable_to_non_nullable
@@ -4289,7 +4288,7 @@ class _$InitialImpl implements _Initial {
   @override
   final PersonalDetails? personalData;
   @override
-  final PersonalDetailsCreate personalDetails;
+  final PersonalDetails personalDetails;
   final List<ImageModel> _scannedImagesCardCreation;
   @override
   List<ImageModel> get scannedImagesCardCreation {
@@ -4442,7 +4441,7 @@ abstract class _Initial implements UserDataState {
       final SuccessResponseModel? cardAdded,
       final String? message,
       final PersonalDetails? personalData,
-      required final PersonalDetailsCreate personalDetails,
+      required final PersonalDetails personalDetails,
       required final List<ImageModel> scannedImagesCardCreation,
       final ImageModel? userPhotos,
       required final List<Accolade> accolades,
@@ -4477,7 +4476,7 @@ abstract class _Initial implements UserDataState {
   @override
   PersonalDetails? get personalData;
   @override
-  PersonalDetailsCreate get personalDetails;
+  PersonalDetails get personalDetails;
   @override
   List<ImageModel> get scannedImagesCardCreation;
   @override

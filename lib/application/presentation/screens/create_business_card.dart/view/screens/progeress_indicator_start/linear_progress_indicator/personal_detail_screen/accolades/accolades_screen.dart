@@ -198,7 +198,7 @@ class AccolodesScreen extends StatelessWidget {
                                                       .add(
                                                         BusinessDataEvent
                                                             .removeAccredition(
-                                                                index: business
+                                                                id: business
                                                                     .accreditions[
                                                                         index]
                                                                     .id!),

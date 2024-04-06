@@ -41,7 +41,7 @@ class ProductBuilder extends StatelessWidget {
                     child: InkWell(
                       onTap: () => context
                           .read<BusinessDataBloc>()
-                          .add(BusinessDataEvent.removeProduct(index: index)),
+                          .add(BusinessDataEvent.removeProduct(id: state.products[index].id!)),
                       borderRadius: BorderRadius.circular(10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),

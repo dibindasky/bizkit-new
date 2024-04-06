@@ -15,7 +15,7 @@ class UserDataState with _$UserDataState {
       SuccessResponseModel? cardAdded,
       String? message,
       PersonalDetails? personalData,
-      required PersonalDetailsCreate personalDetails,
+      required PersonalDetails personalDetails,
       required List<ImageModel> scannedImagesCardCreation,
       ImageModel? userPhotos,
       required List<Accolade> accolades,
@@ -26,7 +26,7 @@ class UserDataState with _$UserDataState {
       ScannedImageDatasModel? scannedImageDatasModel}) = _Initial;
 
   factory UserDataState.initial() => UserDataState(
-      personalDetails: PersonalDetailsCreate(),
+      personalDetails: PersonalDetails(),
       hasError: false,
       isLoading: false,
       isBusiness: false,

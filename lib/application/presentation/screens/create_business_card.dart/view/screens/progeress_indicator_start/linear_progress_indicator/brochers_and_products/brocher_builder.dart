@@ -49,7 +49,7 @@ class BrocherBuilder extends StatelessWidget {
                     child: InkWell(
                       onTap: () => context
                           .read<BusinessDataBloc>()
-                          .add(BusinessDataEvent.removeBrochure(index: index)),
+                          .add(BusinessDataEvent.removeBrochure(id: state.brochures[index].id!)),
                       borderRadius: BorderRadius.circular(10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),

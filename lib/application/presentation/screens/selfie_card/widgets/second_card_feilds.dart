@@ -28,7 +28,7 @@ class CardSecondScannedDatas extends StatelessWidget {
         appBar: AppBar(
           leading: adjustWidth(0),
           title: const Text(
-            'Make a Bizkit Card',
+            'Make QR Card',
             style: TextStyle(
               fontFamily: 'Euclid',
               fontWeight: FontWeight.bold,
@@ -195,7 +195,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
         appBar: AppBar(
           leading: adjustWidth(0),
           title: const Text(
-            'Make a Bizkit Card',
+            'Make QR Card',
             style: TextStyle(
                 fontFamily: 'Euclid',
                 fontWeight: FontWeight.bold,
@@ -205,7 +205,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
         ),
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
-            if (state.cardSecondResponseModel != null) {
+            if (state.secondCardcreated) {
               GoRouter.of(context).pushReplacement(
                 Routes.homePage,
               );

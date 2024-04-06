@@ -14,7 +14,7 @@ abstract class CardSecondRepo {
   Future<Either<Failure, CardSecondResponseModel>> cardSecondCreation({
     required CardSecondCreateRequestModel cardSecondCreateRequestModel,
   });
-  Future<Either<Failure, GetSecondCardModel>> getCardSecond();
+  Future<Either<Failure, GetSecondCardModel>> getCardSecond({required int id});
   Future<Either<Failure, CardSecondResponseModel>> updateCardSecond({
     required UpdateSecondCardModel updateSecondCardModel,
     required String id,

@@ -1,13 +1,14 @@
 import 'dart:convert';
-import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
+import 'dart:developer';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/otp_screen.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/signin_screen.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/screen/card_screen_main.dart';
-import 'package:bizkit/application/presentation/screens/card_share/view/widgets/update_second_card.dart';
+import 'package:bizkit/application/presentation/screens/card_view/update_second_card.dart';
 import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
+import 'package:bizkit/application/presentation/screens/card_view/second_card_detail_view.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
@@ -19,6 +20,7 @@ import 'package:bizkit/application/presentation/screens/selfie_card/widgets/sele
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
+import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
 import 'package:bizkit/domain/model/card_second/update_pass_data/update_data_pass.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -39,7 +41,8 @@ class GoRouterConfig {
         path: Routes.initial,
         builder: (context, state) => const SplashScreen(),
       ),
-// card view
+
+      // card view
       GoRoute(
         name: Routes.cardView,
         path: '${Routes.cardView}/:cardId',
@@ -66,13 +69,24 @@ class GoRouterConfig {
           }
         },
       ),
+      //second card detail
+      GoRoute(
+        name: Routes.secondcardDetail,
+        path: Routes.secondcardDetail,
+        builder: (context, state) {
+          log('state.extra int id ${state.extra}');
+          return SecondCardDetailView(
+            cardId: state.extra as int,
+          );
+        },
+      ),
       //Card updating
       GoRoute(
         name: Routes.cardUpdating,
         path: Routes.cardUpdating,
         builder: (context, state) {
           return SecondCardUpdation(
-            updateDataPass: state.extra as UpdateDataPass,
+            cardSecondResponseModel: state.extra as CardSecondResponseModel,
           );
         },
       ),
@@ -91,6 +105,7 @@ class GoRouterConfig {
         path: Routes.signUpPage,
         builder: (context, state) => const SignInscreeen(),
       ),
+      //Second card creation selected scanned images
       GoRoute(
         name: Routes.selectedCards,
         path: Routes.selectedCards,
@@ -128,11 +143,13 @@ class GoRouterConfig {
         path: Routes.cardCreation,
         builder: (context, state) => const StartingBusinessCardCreation(),
       ),
+      //Second card Creation scanned data fileds
       GoRoute(
         name: Routes.scanedDataFeilds,
         path: Routes.scanedDataFeilds,
         builder: (context, state) => const CardSecondScannedDatas(),
       ),
+      //Second card Creation selfie data fileds
       GoRoute(
         name: Routes.selfieDataFeilds,
         path: Routes.selfieDataFeilds,

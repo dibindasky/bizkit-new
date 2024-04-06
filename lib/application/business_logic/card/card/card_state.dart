@@ -9,6 +9,7 @@ class CardState with _$CardState {
     required bool businessUser,
     required bool archiveCardLoading,
     required bool deleteCardLoading,
+    required bool deleteCardRestored,
     required List<CardResponse> cards,
     String? message,
     List<ArcheivedCard>? archievedCards,
@@ -20,6 +21,7 @@ class CardState with _$CardState {
 
   factory CardState.initial() => const CardState(
         businessUser: true,
+        deleteCardRestored: false,
         archiveCardLoading: false,
         deleteCardLoading: false,
         cards: [],

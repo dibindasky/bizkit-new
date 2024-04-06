@@ -32,7 +32,6 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.createSecondCard,
         data: cardSecondCreateRequestModel.toJson(),
       );
-      log('cardSecondCreation done ${responce.data}');
       return Right(CardSecondResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('cardSecondCreation dio error $e');
@@ -44,27 +43,30 @@ class CardSecondService implements CardSecondRepo {
   }
 
   @override
-  Future<Either<Failure, GetSecondCardModel>> getCardSecond() async {
+  Future<Either<Failure, GetSecondCardModel>> getCardSecond({
+    required int id,
+  }) async {
     try {
-      final responce = await _apiService.get(ApiEndPoints.getAllCardSecond);
+      final responce = await _apiService
+          .get(ApiEndPoints.getSecondCard.replaceAll('{id}', id.toString()));
       log('getCardSecond data ${responce.data}');
       return Right(GetSecondCardModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getCardSecond dio error $e');
-      return Left(Failure(message: ''));
+      return Left(Failure(message: 'Failed'));
     } catch (e) {
       log('getCardSecond exception error');
-      log(e.toString());
       return Left(Failure(message: ''));
     }
   }
 
   @override
-  Future<Either<Failure, CardSecondResponseModel>> updateCardSecond(
-      {required UpdateSecondCardModel updateSecondCardModel,
-      required String id}) async {
+  Future<Either<Failure, CardSecondResponseModel>> updateCardSecond({
+    required UpdateSecondCardModel updateSecondCardModel,
+    required String id,
+  }) async {
     try {
-      log('Before send ${updateSecondCardModel.toJson()}');
+      log('updateCardSecond before ${updateSecondCardModel.toJson()}');
       final responce = await _apiService
           .patch(ApiEndPoints.updateCardSecond.replaceAll('{id}', id));
       log('updateCardSecond data ${responce.data}');
@@ -88,7 +90,6 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.getAllCardSecond,
         queryParameters: pageQuery.toJson(),
       );
-      log('getAllCardsSecond data ${responce.data}');
       return Right(GateAllCardSecondModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getAllCardsSecond dio error $e');
@@ -110,7 +111,6 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.updateCardSecond.replaceAll('{id}', id.toString()),
         data: cardActionRewuestModel.toJson(),
       );
-      log('deleteSecondCard data ${responce.data}');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('deleteSecondCard dio error $e');
@@ -131,7 +131,6 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.getDeletedSecondCard,
         data: pageQuery.toJson(),
       );
-      log('getDeleteSecondCard data ${responce.data}');
       return Right(GetDeletedSecondCards.fromJson(responce.data));
     } on DioException catch (e) {
       log('getDeleteSecondCard dio error $e');
@@ -151,7 +150,6 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.getDeletedSecondCard,
         queryParameters: pageQuery.toJson(),
       );
-      log('getDeleteSecondCardEvent data ${responce.data}');
       return Right(GetDeletedSecondCards.fromJson(responce.data));
     } on DioException catch (e) {
       log('getDeleteSecondCardEvent dio error $e');
@@ -173,7 +171,6 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.updateCardSecond.replaceAll('{id}', id.toString()),
         data: cardActionRewuestModel.toJson(),
       );
-      log('restoreDeleteSecondCardEvent data ${responce.data}');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('restoreDeleteSecondCardEvent dio error $e');

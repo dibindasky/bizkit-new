@@ -1,5 +1,8 @@
 import 'dart:developer';
 import 'package:bizkit/application/business_logic/notification/notification_bloc.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/connections/connection_request_sscreen.dart';
+import 'package:bizkit/application/presentation/screens/connections/view_all_connection_contacts.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -24,6 +27,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   _scrollCallBack() {
     if (widget.scrollController!.position.pixels ==
         widget.scrollController!.position.maxScrollExtent) {
+      log('inside _scrollCallBack');
       context
           .read<NotificationBloc>()
           .add(const NotificationEvent.getNotificationEvent());
@@ -83,7 +87,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     );
                   } else if (state.notification!.isEmpty) {
                     return SizedBox(
-                      height: khieght,
+                      height: khieght * .9,
                       child: const Center(
                         child: Text("No Notifications"),
                       ),
@@ -125,7 +129,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       }
                       return GestureDetector(
                         onTap: () {
-                          // GoRouter.of(context).pushNamed(Routes.cardView);
+                          if (notification.tag == 'Connection request') {
+                            Navigator.push(
+                              context,
+                              fadePageRoute(const ScreenConnectionRequests()),
+                            );
+                          }
+                          if (notification.tag == 'Connection accepted') {
+                            Navigator.push(
+                              context,
+                              fadePageRoute(MyConnectionsViewAllContacts()),
+                            );
+                          }
+                          if (notification.tag == 'Reminder') {}
+                          if (notification.tag == 'Reminder2') {}
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -146,8 +163,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   Text(
                                     notification.title!,
                                     style: textStyle1.copyWith(
-                                        color: klightgrey,
-                                        fontSize: kwidth * .034),
+                                      color: klightgrey,
+                                      fontSize: kwidth * .034,
+                                    ),
                                   ),
                                   const Spacer(),
                                   Text(
@@ -179,7 +197,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     },
                   );
                 },
-              )
+              ),
             ],
           ),
         ),

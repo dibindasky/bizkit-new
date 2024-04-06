@@ -50,4 +50,7 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.getCardSecondEvent({
     required bool isLoad,
   }) = GetCardSecondEvent;
+  const factory CardSecondEvent.getSecondCardDetail({
+    required int id,
+  }) = GetSecondCardDetail;
 }

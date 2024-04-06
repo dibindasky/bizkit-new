@@ -27,7 +27,6 @@ class NotificationService implements NotificationRepo {
         queryParameters: pageQuery.toJson(),
       );
       log('getNotification  ${responce.data}');
-
       return Right(NotificationModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getNotification DioException ${e.response?.statusCode} $e');

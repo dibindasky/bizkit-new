@@ -26,7 +26,9 @@ class _DeletedCardsState extends State<DeletedCards> {
   _scrollCallBack() {
     if (widget.scrollController!.position.pixels ==
         widget.scrollController!.position.maxScrollExtent) {
-      context.read<CardBloc>().add(const CardEvent.getArchievedCardsEvent());
+      context
+          .read<CardBloc>()
+          .add(const CardEvent.getdeleteCards(isLoad: false));
       context
           .read<CardSecondBloc>()
           .add(const CardSecondEvent.getDeleteCardSecondEvent(isLoad: false));
@@ -91,7 +93,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                     return SizedBox(
                       height: khieght * .4,
                       child: const Center(
-                        child: Text("You don't have deleted cards"),
+                        child: Text("You doesn't have Deleted cards"),
                       ),
                     );
                   }
@@ -217,7 +219,7 @@ class _DeletedCardsState extends State<DeletedCards> {
               adjustHieght(khieght * .02),
               BlocConsumer<CardSecondBloc, CardSecondState>(
                 listener: (context, state) {
-                  if (state.successResponseModel != null) {
+                  if (state.message != null && state.seondCardRestored) {
                     showSnackbar(
                       context,
                       message: 'Card restored',
@@ -225,7 +227,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                   }
                 },
                 builder: (context, state) {
-                  if (state.isLoading) {
+                  if (state.deleteSecondCardLoading) {
                     return ShimmerLoader(
                       itemCount: 10,
                       height: 240,
@@ -243,7 +245,8 @@ class _DeletedCardsState extends State<DeletedCards> {
                     return SizedBox(
                       height: khieght * .4,
                       child: const Center(
-                        child: Text("You don't have QR connected cards"),
+                        child:
+                            Text("You doesn't have QR connected Deleted cards"),
                       ),
                     );
                   }

@@ -2304,6 +2304,7 @@ mixin _$CardState {
   bool get businessUser => throw _privateConstructorUsedError;
   bool get archiveCardLoading => throw _privateConstructorUsedError;
   bool get deleteCardLoading => throw _privateConstructorUsedError;
+  bool get deleteCardRestored => throw _privateConstructorUsedError;
   List<CardResponse> get cards => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   List<ArcheivedCard>? get archievedCards => throw _privateConstructorUsedError;
@@ -2330,6 +2331,7 @@ abstract class $CardStateCopyWith<$Res> {
       bool businessUser,
       bool archiveCardLoading,
       bool deleteCardLoading,
+      bool deleteCardRestored,
       List<CardResponse> cards,
       String? message,
       List<ArcheivedCard>? archievedCards,
@@ -2358,6 +2360,7 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
     Object? businessUser = null,
     Object? archiveCardLoading = null,
     Object? deleteCardLoading = null,
+    Object? deleteCardRestored = null,
     Object? cards = null,
     Object? message = freezed,
     Object? archievedCards = freezed,
@@ -2390,6 +2393,10 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
       deleteCardLoading: null == deleteCardLoading
           ? _value.deleteCardLoading
           : deleteCardLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      deleteCardRestored: null == deleteCardRestored
+          ? _value.deleteCardRestored
+          : deleteCardRestored // ignore: cast_nullable_to_non_nullable
               as bool,
       cards: null == cards
           ? _value.cards
@@ -2438,6 +2445,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool businessUser,
       bool archiveCardLoading,
       bool deleteCardLoading,
+      bool deleteCardRestored,
       List<CardResponse> cards,
       String? message,
       List<ArcheivedCard>? archievedCards,
@@ -2464,6 +2472,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? businessUser = null,
     Object? archiveCardLoading = null,
     Object? deleteCardLoading = null,
+    Object? deleteCardRestored = null,
     Object? cards = null,
     Object? message = freezed,
     Object? archievedCards = freezed,
@@ -2496,6 +2505,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       deleteCardLoading: null == deleteCardLoading
           ? _value.deleteCardLoading
           : deleteCardLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      deleteCardRestored: null == deleteCardRestored
+          ? _value.deleteCardRestored
+          : deleteCardRestored // ignore: cast_nullable_to_non_nullable
               as bool,
       cards: null == cards
           ? _value._cards
@@ -2539,6 +2552,7 @@ class _$InitialImpl implements _Initial {
       required this.businessUser,
       required this.archiveCardLoading,
       required this.deleteCardLoading,
+      required this.deleteCardRestored,
       required final List<CardResponse> cards,
       this.message,
       final List<ArcheivedCard>? archievedCards,
@@ -2562,6 +2576,8 @@ class _$InitialImpl implements _Initial {
   final bool archiveCardLoading;
   @override
   final bool deleteCardLoading;
+  @override
+  final bool deleteCardRestored;
   final List<CardResponse> _cards;
   @override
   List<CardResponse> get cards {
@@ -2601,7 +2617,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'CardState(isLoading: $isLoading, pageLoading: $pageLoading, hasError: $hasError, businessUser: $businessUser, archiveCardLoading: $archiveCardLoading, deleteCardLoading: $deleteCardLoading, cards: $cards, message: $message, archievedCards: $archievedCards, deletedCards: $deletedCards, defaultCard: $defaultCard, anotherCard: $anotherCard, successResponseModel: $successResponseModel)';
+    return 'CardState(isLoading: $isLoading, pageLoading: $pageLoading, hasError: $hasError, businessUser: $businessUser, archiveCardLoading: $archiveCardLoading, deleteCardLoading: $deleteCardLoading, deleteCardRestored: $deleteCardRestored, cards: $cards, message: $message, archievedCards: $archievedCards, deletedCards: $deletedCards, defaultCard: $defaultCard, anotherCard: $anotherCard, successResponseModel: $successResponseModel)';
   }
 
   @override
@@ -2621,6 +2637,8 @@ class _$InitialImpl implements _Initial {
                 other.archiveCardLoading == archiveCardLoading) &&
             (identical(other.deleteCardLoading, deleteCardLoading) ||
                 other.deleteCardLoading == deleteCardLoading) &&
+            (identical(other.deleteCardRestored, deleteCardRestored) ||
+                other.deleteCardRestored == deleteCardRestored) &&
             const DeepCollectionEquality().equals(other._cards, _cards) &&
             (identical(other.message, message) || other.message == message) &&
             const DeepCollectionEquality()
@@ -2644,6 +2662,7 @@ class _$InitialImpl implements _Initial {
       businessUser,
       archiveCardLoading,
       deleteCardLoading,
+      deleteCardRestored,
       const DeepCollectionEquality().hash(_cards),
       message,
       const DeepCollectionEquality().hash(_archievedCards),
@@ -2667,6 +2686,7 @@ abstract class _Initial implements CardState {
       required final bool businessUser,
       required final bool archiveCardLoading,
       required final bool deleteCardLoading,
+      required final bool deleteCardRestored,
       required final List<CardResponse> cards,
       final String? message,
       final List<ArcheivedCard>? archievedCards,
@@ -2687,6 +2707,8 @@ abstract class _Initial implements CardState {
   bool get archiveCardLoading;
   @override
   bool get deleteCardLoading;
+  @override
+  bool get deleteCardRestored;
   @override
   List<CardResponse> get cards;
   @override

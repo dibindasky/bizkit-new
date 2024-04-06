@@ -29,6 +29,28 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.secondCardCreation() = SecondCardCreation;
   const factory CardSecondEvent.getAllCardsSecond({required bool isLoad}) =
       GetAllCardsSecond;
-  const factory CardSecondEvent.updateCardSecond() = UpdateCardSecond;
-  const factory CardSecondEvent.getCardSecondEvent() = GetCardSecondEvent;
+  const factory CardSecondEvent.updateCardSecond({
+    required UpdateSecondCardModel updateSecondCardModel,
+    required String id,
+  }) = UpdateCardSecond;
+  const factory CardSecondEvent.deleteCardSecond({
+    required CardActionRewuestModel cardActionRewuestModel,
+    required int id,
+  }) = DeleteCardSecond;
+  const factory CardSecondEvent.getDeleteCardSecond({
+    required bool isLoad,
+  }) = GetDeleteCardSecond;
+  const factory CardSecondEvent.getDeleteCardSecondEvent({
+    required bool isLoad,
+  }) = GetDeleteCardSecondEvent;
+  const factory CardSecondEvent.restoreDeleteCardSecond({
+    required CardActionRewuestModel cardActionRewuestModel,
+    required int id,
+  }) = RestoreDeleteCardSecond;
+  const factory CardSecondEvent.getCardSecondEvent({
+    required bool isLoad,
+  }) = GetCardSecondEvent;
+  const factory CardSecondEvent.getSecondCardDetail({
+    required int id,
+  }) = GetSecondCardDetail;
 }

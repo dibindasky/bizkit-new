@@ -62,19 +62,25 @@ class _ProfileScreenState extends State<ProfileScreen>
               children: [
                 BlocConsumer<ProfileBloc, ProfileState>(
                   listenWhen: (previous, current) {
-                    return previous.getUserInfoModel !=
-                        current.getUserInfoModel;
+                    return previous.updateUserInfoModel !=
+                        current.updateUserInfoModel;
                   },
                   listener: (context, state) {
-                    // if (state.getUserInfoModel != null &&
-                    //     state.imageModel != null) {
-                    //   showSnackbar(context, message: 'profile updated');
-                    // }
-                    // if (state.userInfoChangeResponceModel != null) {
-                    //   showSnackbar(context, message: state.message!);
-                    // }
+                    if (state.updateUserInfoModel != null) {
+                      showSnackbar(context, message: 'Profile updated');
+                    }
                   },
                   builder: (context, state) {
+                    String base64String = '';
+                    if ((state.getUserInfoModel != null &&
+                        state.getUserInfoModel!.results != null &&
+                        state.getUserInfoModel!.results!.profilePic != null)) {
+                      final image = state.getUserInfoModel!.results!.profilePic;
+                      base64String = image!;
+                      base64String = base64String.replaceFirst(
+                          RegExp(r'data:image/jpg;base64,'), '');
+                    }
+
                     return Stack(
                       children: [
                         CircleAvatar(
@@ -89,12 +95,14 @@ class _ProfileScreenState extends State<ProfileScreen>
                                       state.getUserInfoModel!.results!
                                               .profilePic !=
                                           null)
-                                  ? CircleAvatar(
-                                      backgroundColor: kblack,
-                                      radius: 67,
-                                      backgroundImage: NetworkImage(
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(67),
+                                      child: Image.network(
                                         state.getUserInfoModel!.results!
                                             .profilePic!,
+                                        width: 134,
+                                        height: 134,
+                                        fit: BoxFit.cover,
                                       ),
                                     )
                                   : const CircleAvatar(

@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'second_card.g.dart';
@@ -48,4 +52,21 @@ class SecondCard {
   }
 
   Map<String, dynamic> toJson() => _$SecondCardToJson(this);
+  // Method to encode image to base64 string
+  String getImageBase64() {
+    if (image != null) {
+      String base64String = image!;
+      base64String =
+          base64String.replaceFirst(RegExp(r'data:image/jpeg;base64,'), '');
+      return base64String;
+    }
+    return '';
+  }
+
+  // Method to decode base64 string to image
+  Image getImageFromBase64() {
+    String base64String = getImageBase64();
+    Uint8List bytes = base64.decode(base64String);
+    return Image.memory(bytes);
+  }
 }

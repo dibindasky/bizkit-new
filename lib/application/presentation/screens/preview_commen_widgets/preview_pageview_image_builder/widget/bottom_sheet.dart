@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -42,7 +43,7 @@ class PreviewPageViewBottomSheet extends StatelessWidget {
             height: 250,
             width: double.infinity,
             child: imageNetwork != null
-                ? Image.network(imageNetwork!)
+                ? Image.memory(base64.decode(imageNetwork!))
                 : Image.file(
                     image!,
                     fit: BoxFit.cover,

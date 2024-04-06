@@ -128,8 +128,7 @@ class _SelfieScreenState extends State<SelfieScreen>
                           listener: (context, state) {
                             if (state
                                 .scannedImagesSecondCardCreation.isNotEmpty) {
-                              GoRouter.of(context)
-                                  .pushReplacement(Routes.selectedCards);
+                              GoRouter.of(context).push(Routes.selectedCards);
                             }
                           },
                           builder: (context, state) {
@@ -262,8 +261,11 @@ class ContainerPickImage extends StatelessWidget {
                   isBoth
                       ? Expanded(
                           child: InkWell(
-                            onTap: () => context.read<CardSecondBloc>().add(
-                                const CardSecondEvent.scanImage(isCam: false)),
+                            onTap: () {
+                              context.read<CardSecondBloc>().add(
+                                  const CardSecondEvent.scanImage(
+                                      isCam: false));
+                            },
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(

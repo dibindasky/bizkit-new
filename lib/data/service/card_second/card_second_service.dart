@@ -2,12 +2,15 @@ import 'dart:developer';
 import 'package:bizkit/data/service/api_service.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card_second/card_second_create_request_model/card_second_create_request_model.dart';
 import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/gate_all_card_second_model.dart';
+import 'package:bizkit/domain/model/card_second/get_deleted_second_cards/get_deleted_second_cards.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
 import 'package:bizkit/domain/model/card_second/update_second_card_model/update_second_card_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
+import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/service/card_second.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -29,48 +32,52 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.createSecondCard,
         data: cardSecondCreateRequestModel.toJson(),
       );
-      log('cardSecondCreation done ${responce.data}');
       return Right(CardSecondResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('cardSecondCreation dio error $e');
-      return Left(Failure(message: 'Failed to create card please try again'));
+      return Left(Failure(message: ''));
     } catch (e) {
       log('cardSecondCreation exception error');
-      return Left(Failure(message: 'Failed to create card please try again'));
+      return Left(Failure(message: ''));
     }
   }
 
   @override
-  Future<Either<Failure, GetSecondCardModel>> getCardSecond() async {
+  Future<Either<Failure, GetSecondCardModel>> getCardSecond({
+    required int id,
+  }) async {
     try {
-      final responce = await _apiService.get(ApiEndPoints.getAllCardSecond);
+      final responce = await _apiService
+          .get(ApiEndPoints.getSecondCard.replaceAll('{id}', id.toString()));
       log('getCardSecond data ${responce.data}');
       return Right(GetSecondCardModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getCardSecond dio error $e');
-      return Left(Failure(message: 'Failed to get card please try again'));
+      return Left(Failure(message: 'Failed'));
     } catch (e) {
       log('getCardSecond exception error');
-      log(e.toString());
-      return Left(Failure(message: 'Failed to get card please try again'));
+      return Left(Failure(message: ''));
     }
   }
 
   @override
   Future<Either<Failure, CardSecondResponseModel>> updateCardSecond({
     required UpdateSecondCardModel updateSecondCardModel,
+    required String id,
   }) async {
     try {
-      final responce = await _apiService.get(ApiEndPoints.createReminder);
+      log('updateCardSecond before ${updateSecondCardModel.toJson()}');
+      final responce = await _apiService
+          .patch(ApiEndPoints.updateCardSecond.replaceAll('{id}', id));
       log('updateCardSecond data ${responce.data}');
       return Right(CardSecondResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('updateCardSecond dio error $e');
-      return Left(Failure(message: 'Failed to get card please try again'));
+      return Left(Failure(message: ''));
     } catch (e) {
       log('updateCardSecond exception error');
       log(e.toString());
-      return Left(Failure(message: 'Failed to get card please try again'));
+      return Left(Failure(message: ''));
     }
   }
 
@@ -83,15 +90,94 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.getAllCardSecond,
         queryParameters: pageQuery.toJson(),
       );
-      log('getAllCardsSecond data ${responce.data}');
       return Right(GateAllCardSecondModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getAllCardsSecond dio error $e');
-      return Left(Failure(message: 'Failed to get card please try again'));
+      return Left(Failure(message: ''));
     } catch (e) {
       log('getAllCardsSecond exception error');
       log(e.toString());
-      return Left(Failure(message: 'Failed to get card please try again'));
+      return Left(Failure(message: ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> deleteSecondCard({
+    required CardActionRewuestModel cardActionRewuestModel,
+    required int id,
+  }) async {
+    try {
+      final responce = await _apiService.patch(
+        ApiEndPoints.updateCardSecond.replaceAll('{id}', id.toString()),
+        data: cardActionRewuestModel.toJson(),
+      );
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('deleteSecondCard dio error $e');
+      return Left(Failure(message: ''));
+    } catch (e) {
+      log('deleteSecondCard exception error');
+      log(e.toString());
+      return Left(Failure(message: ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetDeletedSecondCards>> getDeleteSecondCard({
+    required PageQuery pageQuery,
+  }) async {
+    try {
+      final responce = await _apiService.get(
+        ApiEndPoints.getDeletedSecondCard,
+        data: pageQuery.toJson(),
+      );
+      return Right(GetDeletedSecondCards.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getDeleteSecondCard dio error $e');
+      return Left(Failure(message: ''));
+    } catch (e) {
+      log('getDeleteSecondCard exception error');
+      return Left(Failure(message: ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetDeletedSecondCards>> getDeleteSecondCardEvent({
+    required PageQuery pageQuery,
+  }) async {
+    try {
+      final responce = await _apiService.get(
+        ApiEndPoints.getDeletedSecondCard,
+        queryParameters: pageQuery.toJson(),
+      );
+      return Right(GetDeletedSecondCards.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getDeleteSecondCardEvent dio error $e');
+      return Left(Failure(message: ''));
+    } catch (e) {
+      log('getDeleteSecondCardEvent exception error');
+      log(e.toString());
+      return Left(Failure(message: ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> restoreDeleteSecondCardEvent({
+    required int id,
+    required CardActionRewuestModel cardActionRewuestModel,
+  }) async {
+    try {
+      final responce = await _apiService.patch(
+        ApiEndPoints.updateCardSecond.replaceAll('{id}', id.toString()),
+        data: cardActionRewuestModel.toJson(),
+      );
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('restoreDeleteSecondCardEvent dio error $e');
+      return Left(Failure(message: ''));
+    } catch (e) {
+      log('restoreDeleteSecondCardEvent exception error');
+      return Left(Failure(message: ''));
     }
   }
 }

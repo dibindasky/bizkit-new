@@ -20,8 +20,10 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   }
 
   FutureOr<void> notificationEvent(NotificationEvent event, emit) async {
+    log('notificationEvent first');
     emit(state.copyWith(
         notificationLoading: true, hasError: false, message: null));
+    log('notificationEvent scnd');
     final data = await notificationRepo.getNotification(
         pageQuery: PageQuery(page: ++notification));
     data.fold(
@@ -29,10 +31,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
               state.copyWith(
                   notificationLoading: false, hasError: true, message: null),
             ), (r) {
+      log('notificationEvent thrd success');
       emit(state.copyWith(
         notificationLoading: false,
         hasError: false,
-        notification: [...state.notification!, ...r.notification!],
+        notification: [...state.notification!, ...r.notification ?? []],
       ));
     });
   }
@@ -43,7 +46,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     notification = 1;
     final data = await notificationRepo.getNotification(
         pageQuery: PageQuery(page: notification));
-    log('getNotification bloc ${data.toString()}');
+    log('getNotification bloc ${data.length()}');
     data.fold(
         (l) => emit(state.copyWith(
             notificationLoading: false, hasError: true, message: null)), (r) {

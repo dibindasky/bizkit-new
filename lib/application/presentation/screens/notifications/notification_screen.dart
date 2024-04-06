@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:bizkit/application/business_logic/notification/notification_bloc.dart';
-import 'package:bizkit/application/presentation/routes/routes.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/connections/connection_request_sscreen.dart';
+import 'package:bizkit/application/presentation/screens/connections/view_all_connection_contacts.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -8,7 +10,6 @@ import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/widgets/refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({
@@ -26,6 +27,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   _scrollCallBack() {
     if (widget.scrollController!.position.pixels ==
         widget.scrollController!.position.maxScrollExtent) {
+      log('inside _scrollCallBack');
       context
           .read<NotificationBloc>()
           .add(const NotificationEvent.getNotificationEvent());
@@ -77,7 +79,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       seprator: const SizedBox(height: 10),
                     );
                   } else if (state.notification == null) {
-                    //return Center();
                     RefreshIndicatorCustom(
                       message: errorMessage,
                       onRefresh: () => context
@@ -86,9 +87,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     );
                   } else if (state.notification!.isEmpty) {
                     return SizedBox(
-                      height: khieght,
+                      height: khieght * .9,
                       child: const Center(
-                        child: Text("You don't have Notifications now"),
+                        child: Text("No Notifications"),
                       ),
                     );
                   }
@@ -99,10 +100,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     separatorBuilder: (context, index) {
                       return adjustHieght(10);
                     },
-                    itemCount:
-                        //   state.notification!.length,
-                        (state.notification?.length ?? 0) +
-                            (state.notificationLoading ? 1 : 0),
+                    itemCount: (state.notification?.length ?? 0) +
+                        (state.notificationLoading ? 1 : 0),
                     itemBuilder: (context, index) {
                       // DateTime currentDateTime = DateTime.now();
                       // String dateTimeString = '2024-03-26T15:30:00';
@@ -130,7 +129,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       }
                       return GestureDetector(
                         onTap: () {
-                          // GoRouter.of(context).pushNamed(Routes.cardView);
+                          if (notification.tag == 'Connection request') {
+                            Navigator.push(
+                              context,
+                              fadePageRoute(const ScreenConnectionRequests()),
+                            );
+                          }
+                          if (notification.tag == 'Connection accepted') {
+                            Navigator.push(
+                              context,
+                              fadePageRoute(MyConnectionsViewAllContacts()),
+                            );
+                          }
+                          if (notification.tag == 'Reminder') {}
+                          if (notification.tag == 'Reminder2') {}
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -151,8 +163,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   Text(
                                     notification.title!,
                                     style: textStyle1.copyWith(
-                                        color: klightgrey,
-                                        fontSize: kwidth * .034),
+                                      color: klightgrey,
+                                      fontSize: kwidth * .034,
+                                    ),
                                   ),
                                   const Spacer(),
                                   Text(
@@ -184,7 +197,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     },
                   );
                 },
-              )
+              ),
             ],
           ),
         ),

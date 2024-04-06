@@ -104,17 +104,18 @@ class PersonlDetails extends StatelessWidget {
                 builder: (context, state) {
                   return ImagePreviewUnderTextField(
                       ontap: () => Navigator.of(context).push(
-                            fadePageRoute(const AccolodesScreen()),
+                            fadePageRoute(AccolodesScreen(
+                                cardId: state.currentCard!.id!)),
                           ),
                       onItemTap: (value) => Navigator.push(
                           context,
                           fadePageRoute(ScreenImagePreview(
                               image: value, isFileIamge: true))),
-                      removeItem: (index) => context
-                          .read<UserDataBloc>()
-                          .add(UserDataEvent.removeAccolade(index: index)),
+                      removeItem: (index) => context.read<UserDataBloc>().add(
+                          UserDataEvent.removeAccolade(
+                              id: state.accolades[index].id!)),
                       list: state.accolades
-                          .map((e) => e.accoladesImage as ImageModel)
+                          .map((e) => e.accoladesImage as String)
                           .toList(),
                       child: Container(
                         decoration: const BoxDecoration(
@@ -158,11 +159,13 @@ class PersonlDetails extends StatelessWidget {
                     listString: state.socialMedias
                         .map((e) => e.socialMedia ?? 'Social Media')
                         .toList(),
-                    removeItem: (index) => context
-                        .read<UserDataBloc>()
-                        .add(UserDataEvent.removeSocialMedia(index: index)),
+                    removeItem: (index) => context.read<UserDataBloc>().add(
+                        UserDataEvent.removeSocialMedia(
+                            id: state.socialMedias[index].id!)),
                     ontap: () => Navigator.of(context).push(fadePageRoute(
-                        const SocialMediahandlesScreen(fromBusiness: false))),
+                        SocialMediahandlesScreen(
+                            fromBusiness: false,
+                            cardId: state.currentCard!.id!))),
                     child: Container(
                       decoration: const BoxDecoration(
                         color: textFieldFillColr,
@@ -205,12 +208,13 @@ class PersonlDetails extends StatelessWidget {
                   return ImagePreviewUnderTextField(
                     listString:
                         state.datesToRemember.map((e) => e.date!).toList(),
-                    removeItem: (index) => context
-                        .read<UserDataBloc>()
-                        .add(UserDataEvent.removeDateToRemember(index: index)),
+                    removeItem: (index) => context.read<UserDataBloc>().add(
+                        UserDataEvent.removeDateToRemember(
+                            id: state.datesToRemember[index].id!)),
                     ontap: () {
-                      Navigator.of(context)
-                          .push(fadePageRoute(const DatesToRememberScreen()));
+                      Navigator.of(context).push(fadePageRoute(
+                          DatesToRememberScreen(
+                              cardId: state.currentCard!.id!)));
                     },
                     child: Container(
                       decoration: const BoxDecoration(

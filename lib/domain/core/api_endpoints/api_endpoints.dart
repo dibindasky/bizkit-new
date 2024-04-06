@@ -19,10 +19,6 @@ class ApiEndPoints {
 
 // card
   static String createCard = '/card/create-card/';
-  static String patchPersonalDetails = '/card/card-update-delete/{personal_details_id}/';
-  static String createCardPersonal = '/card/personal-details/';
-  static String createCardBusiness = '/card/business-details/';
-  static String createCardBAnking = '/card/bank_details/';
   static String card = '/card/card-list/';
   static String deleteCard = '/card/get-card/{card_id}/';
   static String defaultCard = '/card/is_default/{card_id}/';
@@ -30,6 +26,35 @@ class ApiEndPoints {
   static String getCompanies = '/accounts/companies/';
   static String getCompanyDetails = '/card/company-details/{company_id}/';
   static String getBusinessCategory = '/card/business_category/';
+  static String createCardBanking =
+      '/card/bank-details-retrieve-delete/{card-id}/';
+  static String createCardBusiness = '/card/edit-business-details/{card_id}/';
+  static String patchPersonalDetails =
+      '/card/personal-detail-update-delete/{personal_details_id}/';
+
+  static String addLogo = '/card/logo-create/';
+  static String deleteLogo = '/card/logo-update-delete/{logo_id}/';
+  static String addProduct = '/card/product-create/';
+  static String deleteProduct = '/card/product-update-delete/{product_id}/';
+  static String addBranchOffice = '/card/branch-office-create/';
+  static String deleteBranchOffice =
+      '/card/branch-office-update-delete/{branch_office_id}/';
+  static String addBrochure = '/card/brochure-create/';
+  static String deleteBrochure = '/card/brochure-update-delete/{brochure_id}/';
+  static String addAccolaade = '/card/accolade-create/';
+  static String deleteAccolaade = '/card/accolade-update-delete/{accolade_id}/';
+  static String addAcredition = '/card/accreditation-create/';
+  static String deleteAcredition =
+      '/card/accreditation-update-delete/{acredition_id}/';
+  static String addSocialMedia = '/card/personal-social-media-create/';
+  static String deleteSocialMedia =
+      '/card/personal-social-media-update-delete/{social_media_id}/';
+  static String addDatesToRemember = '/card/dates-to-remember-create/';
+  static String deleteDatesToRemember =
+      '/card/dates-to-remember-update-delete/{dates_to_remember_id}/';
+  static String addBusinessSocialMedia = '/card/business-social-media-create/';
+  static String deleteBusinessSocialMedia =
+      '/card/business-social-media-update-delete/{social_media_id}/';
 
 // qr
   static String getQr = '/level/list-qr/';

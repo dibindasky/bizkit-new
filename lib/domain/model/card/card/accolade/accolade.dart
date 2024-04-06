@@ -6,7 +6,8 @@ part 'accolade.g.dart';
 class Accolade {
   int? id;
   @JsonKey(name: 'image')
-  String? accoladesImage;
+  dynamic accoladesImage;
+  @JsonKey(name: 'title')
   String? accolades;
   @JsonKey(name: 'description')
   String? accoladesDescription;
@@ -18,7 +19,14 @@ class Accolade {
       this.accoladesImage,
       this.accolades,
       this.accoladesDescription,
-      this.cardId});
+      this.cardId}) {
+    if (accoladesImage!=null && accoladesImage is String) {
+      accoladesImage =
+          accoladesImage.substring('data:image/jpg;base64,'.length);
+      // int padding = (4 - accoladesImage.length % 4) % 4 as int;
+      // accoladesImage += '=' * padding;
+    }
+  }
 
   factory Accolade.fromJson(Map<String, dynamic> json) {
     return _$AccoladeFromJson(json);

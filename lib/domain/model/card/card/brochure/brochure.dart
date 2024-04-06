@@ -6,7 +6,7 @@ part 'brochure.g.dart';
 class Brochure {
   int? id;
   String? file;
-  String? image;
+  dynamic image;
   String? label;
   @JsonKey(name: 'card_id')
   int? cardId;

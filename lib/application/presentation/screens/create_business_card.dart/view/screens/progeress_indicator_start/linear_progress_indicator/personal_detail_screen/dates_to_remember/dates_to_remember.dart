@@ -4,12 +4,14 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
-import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
+import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DatesToRememberScreen extends StatefulWidget {
-  const DatesToRememberScreen({super.key});
+  const DatesToRememberScreen({super.key,required this.cardId});
+
+  final int cardId;
 
   @override
   State<DatesToRememberScreen> createState() => _DatesToRememberScreenState();
@@ -136,10 +138,10 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                                 backgroundColor: kred);
                             return;
                           }
-                          final DatesToRememberCreate model =
-                              DatesToRememberCreate(
-                                  label: labelController.text,
-                                  date: dateController.text);
+                          final DatesToRemember model = DatesToRemember(
+                            cardId: widget.cardId,
+                              label: labelController.text,
+                              date: dateController.text);
                           context.read<UserDataBloc>().add(
                               UserDataEvent.addDateToRemember(
                                   datesToRemember: model));
@@ -172,7 +174,8 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                                 onTap: () {
                                   context.read<UserDataBloc>().add(
                                       UserDataEvent.removeDateToRemember(
-                                          index: index));
+                                          id: state
+                                              .datesToRemember[index].id!));
                                 },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),

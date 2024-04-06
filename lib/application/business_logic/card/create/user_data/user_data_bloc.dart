@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
+import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
+import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
 import 'package:bizkit/domain/model/card/create_card/accolades/accolade.dart';
 import 'package:bizkit/domain/model/card/create_card/company/get_business_category_response_model/category.dart';
 import 'package:bizkit/domain/model/card/create_card/dates_to_remember/dates_to_remember.dart';
@@ -14,6 +17,7 @@ import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart';
+import 'package:bizkit/domain/repository/service/card_patch_repo.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
 import 'package:flutter/material.dart' as mat;
@@ -30,6 +34,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final CardScanningRepo cardScanningImpl;
   final UserLocalRepo userLocalService;
   final CardRepo cardService;
+  final CardPatchRepo cardPatchRepo;
 
   final mat.TextEditingController nameController = mat.TextEditingController();
   final mat.TextEditingController phoneController = mat.TextEditingController();
@@ -43,7 +48,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final mat.TextEditingController businessCategoryController =
       mat.TextEditingController();
 
-  UserDataBloc(this.cardScanningImpl, this.userLocalService, this.cardService)
+  UserDataBloc(this.cardScanningImpl, this.userLocalService, this.cardService,
+      this.cardPatchRepo)
       : super(UserDataState.initial()) {
     on<PickImageScanning>(pickImageScanning);
     on<ProcessImageScanning>(processImageScanning);
@@ -92,48 +98,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> createPersonalData(CreatePersonalData event, emit) async {
-    // if (state.personalDataCreateId != null) return;
     emit(state.copyWith(
         isLoading: true, hasError: false, message: null, personalData: null));
-    // final personalData = PersonalDetailsCreate(
-    //     name: nameController.text.isEmpty ? null : nameController.text,
-    //     phoneNumber: phoneController.text.isEmpty ? null : phoneController.text,
-    //     email: emailController.text.isEmpty ? null : emailController.text,
-    //     designation: designationController.text.isEmpty
-    //         ? null
-    //         : designationController.text,
-    //     businessCategory: businessCategoryController.text.isEmpty
-    //         ? null
-    //         : state.businessCategories
-    //             .firstWhere((element) =>
-    //                 element.category == businessCategoryController.text.trim())
-    //             .id,
-    //     homeAddress: homeAddress.text.isEmpty ? null : homeAddress.text,
-    //     bloodGroup: bloodGroup.text.isEmpty ? null : bloodGroup.text,
-    //     dateOfBirth:
-    //         birthDaycontroller.text.isEmpty ? null : birthDaycontroller.text,
-    //     datesToRemember:
-    //         state.datesToRemember.isEmpty ? [] : state.datesToRemember,
-    //     accolades: state.accolades.isEmpty
-    //         ? []
-    //         : state.accolades
-    //             .map((e) => AccoladeCreate(
-    //                 accolades: e.accolades,
-    //                 accoladesDescription: e.accoladesDescription,
-    //                 accoladesImage: e.accoladesImage.base64))
-    //             .toList(),
-    //     photos: state.userPhotos?.base64,
-    //     personalSocialMedia:
-    //         state.socialMedias.isEmpty ? [] : state.socialMedias);
-    print('personal business category id');
-    print(
-        'personal business category name ${state.currentCard!.personalDetails!.name}');
-    print(
-        'personal business category phone ${state.currentCard!.personalDetails!.phoneNumber}');
-    print(
-        'personal business category email ${state.currentCard!.personalDetails!.email}');
-    // print(
-    //     'personal business category id = ${state.personalData!.businessCategoryId!}');
     final PatchPersonalData personalData = PatchPersonalData(
         businessCategoryId: 1,
         bloodGroup: bloodGroup.text.isNotEmpty
@@ -155,15 +121,9 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         personalDataId: state.currentCard!.personalDetailsId!);
     result.fold(
         (failure) => emit(state.copyWith(
-            // personalDetails: personalData,
-            personalData: null,
-            hasError: true,
-            isLoading: false)),
+            personalData: null, hasError: true, isLoading: false)),
         (personalDetails) => emit(state.copyWith(
-            // personalDetails: personalData,
-            message: null,
-            personalData: personalDetails,
-            isLoading: false)));
+            message: null, personalData: personalDetails, isLoading: false)));
   }
 
   FutureOr<void> clear(Clear event, emit) async {
@@ -180,53 +140,91 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {
     emit(state.copyWith(
-        cardAdded: null, message: null, currentCard: event.card));
+        cardAdded: null,
+        message: null,
+        currentCard: event.card,
+        accolades: event.card.accolades ?? [],
+        datesToRemember: event.card.datesToRemember ?? []));
+    nameController.text = event.card.personalDetails?.name ?? '';
+    emailController.text = event.card.personalDetails?.email ?? '';
+    phoneController.text = event.card.personalDetails?.phoneNumber ?? '';
+    bloodGroup.text = event.card.personalDetails?.bloodGroup ?? '';
+    designationController.text = event.card.personalDetails?.designation ?? '';
+    homeAddress.text = event.card.personalDetails?.homeAddress ?? '';
+    birthDaycontroller.text = event.card.personalDetails?.dateOfBirth ?? '';
+    businessCategoryController.text =
+        event.card.personalDetails?.businessCategory?.category ?? '';
   }
 
   FutureOr<void> addDateToRemember(AddDateToRemember event, emit) async {
-    final List<DatesToRememberCreate> list = List.from(state.datesToRemember);
-    list.add(event.datesToRemember);
-    emit(state.copyWith(datesToRemember: list, cardAdded: null, message: null));
+    emit(state.copyWith(
+        cardAdded: null, message: null, datesToRememberLoading: true));
+    final result = await cardPatchRepo.addDatesToRemember(
+        datesToRemember: event.datesToRemember);
+    result.fold((l) => emit(state.copyWith(datesToRememberLoading: false)),
+        (r) {
+      return (state.copyWith(
+          datesToRememberLoading: false,
+          datesToRemember: [...state.datesToRemember, r]));
+    });
   }
 
   FutureOr<void> removeDateToRemember(RemoveDateToRemember event, emit) async {
-    final List<DatesToRememberCreate> list = [];
-    for (DatesToRememberCreate datesToRemember in state.datesToRemember) {
-      if (state.datesToRemember[event.index] != datesToRemember) {
-        list.add(datesToRemember);
-      }
-    }
-    emit(state.copyWith(datesToRemember: list, cardAdded: null, message: null));
+    emit(state.copyWith(
+        cardAdded: null, message: null, datesToRememberDeleteLoading: true));
+    final result = await cardPatchRepo.deleteAccolades(id: event.id);
+    result.fold(
+        (l) => emit(state.copyWith(datesToRememberDeleteLoading: false)), (r) {
+      List<DatesToRemember> list = List.from(state.datesToRemember);
+      list.removeWhere((element) => element.id == event.id);
+      return (state.copyWith(
+          datesToRememberDeleteLoading: false, datesToRemember: list));
+    });
   }
 
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
-    final List<SocialMediaHandleCreate> list = List.from(state.socialMedias);
-    list.add(event.socialMediaHandle);
-    emit(state.copyWith(socialMedias: list, cardAdded: null, message: null));
+    emit(state.copyWith(
+        cardAdded: null, message: null, socialMediaLoading: true));
+    final result = await cardPatchRepo.addSocialMedia(
+        socialMediaHandle: event.socialMediaHandle);
+    result.fold((l) => emit(state.copyWith(socialMediaLoading: false)), (r) {
+      return (state.copyWith(
+          socialMediaLoading: false, socialMedias: [...state.socialMedias, r]));
+    });
   }
 
   FutureOr<void> removeSocialMedia(RemoveSocialMedia event, emit) async {
-    final List<SocialMediaHandleCreate> list = [];
-    for (SocialMediaHandleCreate socialMediaHandle in state.socialMedias) {
-      if (state.socialMedias[event.index] != socialMediaHandle) {
-        list.add(socialMediaHandle);
-      }
-    }
-    emit(state.copyWith(socialMedias: list, cardAdded: null, message: null));
+    emit(state.copyWith(
+        cardAdded: null, message: null, socialMediaDeleteLoading: true));
+    final result = await cardPatchRepo.deleteSocialMedia(id: event.id);
+    result.fold((l) => emit(state.copyWith(socialMediaDeleteLoading: false)),
+        (r) {
+      List<SocialMediaHandle> list = List.from(state.socialMedias);
+      list.removeWhere((element) => element.id == event.id);
+      return (state.copyWith(
+          socialMediaDeleteLoading: false, socialMedias: list));
+    });
   }
 
   FutureOr<void> addAccolade(AddAccolade event, emit) async {
-    final List<AccoladeCreate> list = List.from(state.accolades);
-    list.add(event.accolade);
-    emit(state.copyWith(accolades: list, cardAdded: null, message: null));
+    emit(state.copyWith(cardAdded: null, message: null, accoladeLoading: true));
+    final result = await cardPatchRepo.addAccolades(accolade: event.accolade);
+    result.fold((l) => emit(state.copyWith(accoladeLoading: false)), (r) {
+      return (state.copyWith(
+          accoladeLoading: false, accolades: [...state.accolades, r]));
+    });
   }
 
   FutureOr<void> removeAccolade(RemoveAccolade event, emit) async {
-    final List<AccoladeCreate> list = [];
-    for (AccoladeCreate accolade in state.accolades) {
-      if (state.accolades[event.index] != accolade) list.add(accolade);
-    }
-    emit(state.copyWith(accolades: list, cardAdded: null, message: null));
+    emit(state.copyWith(
+        cardAdded: null, message: null, accoladeDeleteLoading: true));
+    final result = await cardPatchRepo.deleteAccolades(id: event.id);
+    result.fold((l) => emit(state.copyWith(accoladeDeleteLoading: false)), (r) {
+      List<Accolade> accolade = List.from(state.accolades);
+      accolade.removeWhere((element) => element.id == event.id);
+      return (state.copyWith(
+          accoladeDeleteLoading: false, accolades: accolade));
+    });
   }
 
   FutureOr<void> pickUserPhotos(PickUserPhotos event, emit) async {

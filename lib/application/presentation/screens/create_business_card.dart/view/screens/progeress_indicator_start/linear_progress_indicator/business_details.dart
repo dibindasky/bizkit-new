@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/debouncer/debouncer.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -180,9 +182,10 @@ class BusinessDetailsScreen extends StatelessWidget {
                         removeItem: (index) => context
                             .read<BusinessDataBloc>()
                             .add(BusinessDataEvent.removeSocialMedia(
-                                index: index)),
+                                id: state.socialMedias[index].id!)),
                         ontap: () => Navigator.of(context).push(fadePageRoute(
-                            const SocialMediahandlesScreen(
+                            SocialMediahandlesScreen(
+                                cardId: state.currentCard!.id!,
                                 fromBusiness: true))),
                         child: Container(
                           decoration: const BoxDecoration(
@@ -299,7 +302,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return ImagePreviewUnderTextField(
                         ontap: () => Navigator.of(context).push(
-                          fadePageRoute(const AccolodesScreen(accolade: false)),
+                          fadePageRoute(AccolodesScreen(
+                              accolade: false, cardId: state.currentCard!.id!)),
                         ),
                         onItemTap: (value) => Navigator.push(
                             context,
@@ -310,7 +314,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                             .add(BusinessDataEvent.removeAccredition(
                                 index: index)),
                         list: state.accreditions
-                            .map((e) => e.image as ImageModel)
+                            .map((e) => e.image as String)
                             .toList(),
                         child: Container(
                           decoration: const BoxDecoration(
@@ -346,14 +350,33 @@ class BusinessDetailsScreen extends StatelessWidget {
                     },
                   ),
                   adjustHieght(khieght * .03),
-                  LastSkipContinueButtons(
-                    onTap: () {
-                      // if (businessFormKey.currentState!.validate()) {
-                      //   pageController.nextPage(
-                      //     duration: const Duration(milliseconds: 300),
-                      //     curve: Curves.ease,
-                      //   );
-                      // }
+                  BlocConsumer<BusinessDataBloc, BusinessDataState>(
+                    listener: (context, state) {
+                      if (state.businessAdded) {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        context.read<CardBloc>().add(CardEvent.getCardyCardId(
+                            id: state.currentCard!.id!));
+                      }
+                    },
+                    buildWhen: (previous, current) =>
+                        previous.businessLoading != current.businessLoading,
+                    builder: (context, state) {
+                      if (state.businessLoading) {
+                        return const LoadingAnimation();
+                      }
+                      return LastSkipContinueButtons(
+                        onTap: () {
+                          if (businessFormKey.currentState!.validate()) {
+                            //   pageController.nextPage(
+                            //     duration: const Duration(milliseconds: 300),
+                            //     curve: Curves.ease,
+                            //   );
+                            context.read<BusinessDataBloc>().add(
+                                const BusinessDataEvent.createBusinessData());
+                          }
+                        },
+                      );
                     },
                   ),
                   adjustHieght(khieght * .04),

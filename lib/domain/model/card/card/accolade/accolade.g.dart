@@ -8,8 +8,8 @@ part of 'accolade.dart';
 
 Accolade _$AccoladeFromJson(Map<String, dynamic> json) => Accolade(
       id: json['id'] as int?,
-      accoladesImage: json['image'] as String?,
-      accolades: json['accolades'] as String?,
+      accoladesImage: json['image'],
+      accolades: json['title'] as String?,
       accoladesDescription: json['description'] as String?,
       cardId: json['card_id'] as int?,
     );
@@ -17,7 +17,7 @@ Accolade _$AccoladeFromJson(Map<String, dynamic> json) => Accolade(
 Map<String, dynamic> _$AccoladeToJson(Accolade instance) => <String, dynamic>{
       'id': instance.id,
       'image': instance.accoladesImage,
-      'accolades': instance.accolades,
+      'title': instance.accolades,
       'description': instance.accoladesDescription,
       'card_id': instance.cardId,
     };

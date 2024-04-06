@@ -1,5 +1,4 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +26,6 @@ class ScreenCardDetailEditingList extends StatelessWidget {
               children: [
                 DetailCustomTile(
                     onTap: () {
-                      context.read<UserDataBloc>().add(
-                          UserDataEvent.getCurrentCard(
-                              card: state.anotherCard!));
                       Navigator.push(
                           context,
                           MaterialPageRoute(

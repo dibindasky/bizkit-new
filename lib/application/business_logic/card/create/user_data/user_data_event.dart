@@ -14,16 +14,16 @@ class UserDataEvent with _$UserDataEvent {
   factory UserDataEvent.clear() = Clear;
   factory UserDataEvent.createPersonalData() = CreatePersonalData;
   factory UserDataEvent.removeUserPhoto() = RemoveUserPhoto;
-  factory UserDataEvent.addAccolade({required AccoladeCreate accolade}) =
+  factory UserDataEvent.addAccolade({required Accolade accolade}) =
       AddAccolade;
-  factory UserDataEvent.removeAccolade({required int index}) = RemoveAccolade;
+  factory UserDataEvent.removeAccolade({required int id}) = RemoveAccolade;
   factory UserDataEvent.addDateToRemember(
-      {required DatesToRememberCreate datesToRemember}) = AddDateToRemember;
-  factory UserDataEvent.removeDateToRemember({required int index}) =
+      {required DatesToRemember datesToRemember}) = AddDateToRemember;
+  factory UserDataEvent.removeDateToRemember({required int id}) =
       RemoveDateToRemember;
   factory UserDataEvent.addSocialMedia(
-      {required SocialMediaHandleCreate socialMediaHandle}) = AddSocialMedia;
-  factory UserDataEvent.removeSocialMedia({required int index}) =
+      {required SocialMediaHandle socialMediaHandle}) = AddSocialMedia;
+  factory UserDataEvent.removeSocialMedia({required int id}) =
       RemoveSocialMedia;
   factory UserDataEvent.createCard(
       {required CardFirstCreationModel cardFirstCreationModel}) = CreateCard;

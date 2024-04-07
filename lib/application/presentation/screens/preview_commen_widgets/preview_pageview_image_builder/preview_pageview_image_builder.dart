@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class PreviewPageviewImageBuilder extends StatefulWidget {
   const PreviewPageviewImageBuilder({super.key, required this.imagesList});
@@ -60,10 +61,11 @@ class _PreviewPageviewImageBuilderState
                 width: double.infinity,
                 height: 200,
                 child: Image.memory(
-                    base64Decode(widget.imagesList[index].substring(22)),
-                    errorBuilder: (context, error, stackTrace) =>
-                        const Icon(Icons.image),
-                    fit: BoxFit.cover),
+                 base64Decode(widget.imagesList[index]), // Empty byte array if invalid base64 string
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.image),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -72,3 +74,4 @@ class _PreviewPageviewImageBuilderState
     );
   }
 }
+

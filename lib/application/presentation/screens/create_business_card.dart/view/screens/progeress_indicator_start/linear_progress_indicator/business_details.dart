@@ -308,7 +308,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                         onItemTap: (value) => Navigator.push(
                             context,
                             fadePageRoute(ScreenImagePreview(
-                                image: value, isFileIamge: true))),
+                                image: value, isFileIamge: false))),
                         removeItem: (index) => context
                             .read<BusinessDataBloc>()
                             .add(BusinessDataEvent.removeAccredition(

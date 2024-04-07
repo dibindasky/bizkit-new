@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -30,7 +31,9 @@ class _ScreenImagePreviewState extends State<ScreenImagePreview> {
             scale: scale,
             child: widget.isFileIamge
                 ? Image.file(File(widget.image))
-                : Image.network(widget.image),
+                : Image.memory(base64.decode(widget.image.startsWith('data')
+                    ? widget.image.substring(22)
+                    : widget.image)),
           ),
         ),
       ),

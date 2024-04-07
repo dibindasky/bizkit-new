@@ -364,7 +364,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     },
                   ),
                   adjustHieght(khieght * .03),
-                  const Text('QR conections cards'),
+                  const Text('QR connections cards'),
                   adjustHieght(khieght * .03),
                   BlocConsumer<CardSecondBloc, CardSecondState>(
                     listener: (context, state) {
@@ -391,7 +391,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                       } else if (state.secondCards.isEmpty) {
                         return const Center(
                           child: Text(
-                            'QR Conected cards is empty',
+                            'QR Connected cards is empty',
                             textAlign: TextAlign.center,
                           ),
                         );

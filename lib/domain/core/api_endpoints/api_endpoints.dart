@@ -1,8 +1,8 @@
 class ApiEndPoints {
   // static String baseUrl = 'http://192.168.152.241:8000';
   // static String baseUrl = 'http://192.168.29.216:8000';
-  static String baseUrl = 'http://44.203.134.42';
-  // static String baseUrl = 'https://bizkit.zikrabyte.in';
+  // static String baseUrl = 'http://44.203.134.42';
+  static String baseUrl = 'https://bizkit.zikrabyte.in';
 
 // refesh token
   static String refreshUrl = '/accounts/api/token/refresh/';

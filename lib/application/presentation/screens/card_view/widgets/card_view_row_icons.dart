@@ -97,7 +97,8 @@ class CardViewRowWiceIcons extends StatelessWidget {
                 showDragHandle: true,
                 backgroundColor: kblack,
                 builder: (context) {
-                  List personal = [], business = [];
+                  List personal = state.anotherCard?.socialMedia ?? [],
+                      business = state.anotherCard?.businessSocialMedia ?? [];
                   return AccountsListsBottomSheet(
                     personal: personal,
                     business: business,

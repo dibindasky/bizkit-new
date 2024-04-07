@@ -71,13 +71,22 @@ class ScreenCardDetailView extends StatelessWidget {
                                             .photos !=
                                         null) {
                                   images.add(state
-                                      .anotherCard!.personalDetails!.photos!);
+                                          .anotherCard!.personalDetails!.photos!
+                                          .startsWith('data:')
+                                      ? state
+                                          .anotherCard!.personalDetails!.photos!
+                                          .substring(22)
+                                      : state.anotherCard!.personalDetails!
+                                          .photos!);
                                 }
                                 if (state.anotherCard != null &&
                                     state.anotherCard!.logoCard != null &&
                                     state.anotherCard!.logoCard!.logo != null) {
-                                  images
-                                      .add(state.anotherCard!.logoCard!.logo!);
+                                  images.add(state.anotherCard!.logoCard!.logo!
+                                          .startsWith('data:')
+                                      ? state.anotherCard!.logoCard!.logo!
+                                          .substring(22)
+                                      : state.anotherCard!.logoCard!.logo!);
                                 }
                                 return SizedBox(
                                   height: 200,

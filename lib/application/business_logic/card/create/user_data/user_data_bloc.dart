@@ -68,7 +68,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   FutureOr<void> createCard(CreateCard event, emit) async {
     emit(state.copyWith(
-        isLoading: true, hasError: false, message: null, cardAdded: null));
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        accoladeAdded: false,
+        isLoading: true,
+        hasError: false,
+        message: null,
+        cardAdded: null));
     print('card creation requested 1');
 
     // print('card creation requested');
@@ -84,18 +90,26 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     result.fold((l) {
       print('card creation request failed');
       return emit(
+          accoladeAdded: false,
           state.copyWith(isLoading: false, hasError: true, message: l.message));
     }, (r) {
       print('card creation success');
       SecureStorage.setHasCard(hasCard: true);
       return emit(
+          accoladeAdded: false,
           state.copyWith(isLoading: false, message: r.message, cardAdded: r));
     });
   }
 
   FutureOr<void> createPersonalData(CreatePersonalData event, emit) async {
     emit(state.copyWith(
-        isLoading: true, hasError: false, message: null, personalData: null));
+        isLoading: true,
+        hasError: false,
+        message: null,
+        personalData: null,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        accoladeAdded: false));
     final PatchPersonalData personalData = PatchPersonalData(
         businessCategoryId: 1,
         bloodGroup: bloodGroup.text.isNotEmpty
@@ -138,8 +152,11 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         cardAdded: null,
         message: null,
+        accoladeAdded: false,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
         currentCard: event.card,
-        socialMedias: event.card.socialMedia??[],
+        socialMedias: event.card.socialMedia ?? [],
         accolades: event.card.accolades ?? [],
         datesToRemember: event.card.datesToRemember ?? []));
     nameController.text = event.card.personalDetails?.name ?? '';
@@ -155,20 +172,31 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   FutureOr<void> addDateToRemember(AddDateToRemember event, emit) async {
     emit(state.copyWith(
-        cardAdded: null, message: null, datesToRememberLoading: true));
+        accoladeAdded: false,
+        socialMediaAdded: false,
+        cardAdded: null,
+        message: null,
+        datesToRememberAdded: false,
+        datesToRememberLoading: true));
     final result = await cardPatchRepo.addDatesToRemember(
         datesToRemember: event.datesToRemember);
     result.fold((l) => emit(state.copyWith(datesToRememberLoading: false)),
         (r) {
       return emit(state.copyWith(
           datesToRememberLoading: false,
+          datesToRememberAdded: true,
           datesToRemember: [...state.datesToRemember, r]));
     });
   }
 
   FutureOr<void> removeDateToRemember(RemoveDateToRemember event, emit) async {
     emit(state.copyWith(
-        cardAdded: null, message: null, datesToRememberDeleteLoading: true));
+        accoladeAdded: false,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        cardAdded: null,
+        message: null,
+        datesToRememberDeleteLoading: true));
     final result = await cardPatchRepo.deleteDatesToRemember(id: event.id);
     result.fold(
         (l) => emit(state.copyWith(datesToRememberDeleteLoading: false)), (r) {
@@ -181,58 +209,96 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
     emit(state.copyWith(
-        cardAdded: null, message: null, socialMediaLoading: true));
+        accoladeAdded: false,
+        cardAdded: null,
+        message: null,
+        socialMediaLoading: true,
+        datesToRememberAdded: false,
+        socialMediaAdded: false));
     final result = await cardPatchRepo.addSocialMedia(
         socialMediaHandle: event.socialMediaHandle);
     result.fold((l) => emit(state.copyWith(socialMediaLoading: false)), (r) {
       return emit(state.copyWith(
-          socialMediaLoading: false, socialMedias: [...state.socialMedias, r]));
+          socialMediaAdded: true,
+          datesToRememberAdded: false,
+          socialMediaLoading: false,
+          socialMedias: [...state.socialMedias, r]));
     });
   }
 
   FutureOr<void> removeSocialMedia(RemoveSocialMedia event, emit) async {
     emit(state.copyWith(
-        cardAdded: null, message: null, socialMediaDeleteLoading: true));
+        accoladeAdded: false,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        cardAdded: null,
+        message: null,
+        socialMediaDeleteLoading: true));
     final result = await cardPatchRepo.deleteSocialMedia(id: event.id);
     result.fold((l) => emit(state.copyWith(socialMediaDeleteLoading: false)),
         (r) {
       List<SocialMediaHandle> list = List.from(state.socialMedias);
       list.removeWhere((element) => element.id == event.id);
-      return emit(state.copyWith(
-          socialMediaDeleteLoading: false, socialMedias: list));
+      return emit(
+          state.copyWith(socialMediaDeleteLoading: false, socialMedias: list));
     });
   }
 
   FutureOr<void> addAccolade(AddAccolade event, emit) async {
-    emit(state.copyWith(cardAdded: null, message: null, accoladeLoading: true));
+    emit(state.copyWith(
+        cardAdded: null,
+        message: null,
+        accoladeLoading: true,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        accoladeAdded: false));
     final result = await cardPatchRepo.addAccolades(accolade: event.accolade);
     result.fold((l) => emit(state.copyWith(accoladeLoading: false)), (r) {
       return emit(state.copyWith(
-          accoladeLoading: false, accolades: [...state.accolades, r]));
+          accoladeAdded: true,
+          accoladeLoading: false,
+          accolades: [...state.accolades, r]));
     });
   }
 
   FutureOr<void> removeAccolade(RemoveAccolade event, emit) async {
     emit(state.copyWith(
-        cardAdded: null, message: null, accoladeDeleteLoading: true));
+        accoladeAdded: false,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        cardAdded: null,
+        message: null,
+        accoladeDeleteLoading: true));
     final result = await cardPatchRepo.deleteAccolades(id: event.id);
     result.fold((l) => emit(state.copyWith(accoladeDeleteLoading: false)), (r) {
       List<Accolade> accolade = List.from(state.accolades);
       accolade.removeWhere((element) => element.id == event.id);
-      return emit(state.copyWith(
-          accoladeDeleteLoading: false, accolades: accolade));
+      return emit(
+          state.copyWith(accoladeDeleteLoading: false, accolades: accolade));
     });
   }
 
   FutureOr<void> pickUserPhotos(PickUserPhotos event, emit) async {
     final img = await ImagePickerClass.getImage(camera: false);
     if (img != null) {
-      emit(state.copyWith(userPhotos: img, cardAdded: null, message: null));
+      emit(state.copyWith(
+          userPhotos: img,
+          cardAdded: null,
+          accoladeAdded: false,
+          datesToRememberAdded: false,
+          socialMediaAdded: false,
+          message: null));
     }
   }
 
   FutureOr<void> removeUserPhoto(RemoveUserPhoto event, emit) async {
-    emit(state.copyWith(userPhotos: null, cardAdded: null, message: null));
+    emit(state.copyWith(
+        userPhotos: null,
+        cardAdded: null,
+        accoladeAdded: false,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        message: null));
   }
 
   FutureOr<void> removeImageScanning(RemoveImageScanning event, emit) async {
@@ -241,7 +307,12 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       if (state.scannedImagesCardCreation[event.index] != img) list.add(img);
     }
     emit(state.copyWith(
-        scannedImagesCardCreation: list, cardAdded: null, message: null));
+        scannedImagesCardCreation: list,
+        cardAdded: null,
+        message: null,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        accoladeAdded: false));
   }
 
   FutureOr<void> processImageScanning(ProcessImageScanning event, emit) async {
@@ -252,16 +323,25 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         (scannedImageText) => emit(state.copyWith(
             scannedImageDatasModel: scannedImageText,
             cardAdded: null,
+            accoladeAdded: false,
+            datesToRememberAdded: false,
+            socialMediaAdded: false,
             message: null)));
   }
 
   FutureOr<void> pickImageScanning(PickImageScanning event, emit) async {
     final image = await ImagePickerClass.getImage(camera: event.camera);
     if (image != null) {
-      emit(state.copyWith(scannedImagesCardCreation: [
-        ...state.scannedImagesCardCreation,
-        image
-      ], cardAdded: null, message: null));
+      emit(state.copyWith(
+          accoladeAdded: false,
+          datesToRememberAdded: false,
+          socialMediaAdded: false,
+          scannedImagesCardCreation: [
+            ...state.scannedImagesCardCreation,
+            image
+          ],
+          cardAdded: null,
+          message: null));
     }
   }
 
@@ -276,6 +356,9 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       }
       emit(state.copyWith(
           cardAdded: null,
+          accoladeAdded: false,
+          datesToRememberAdded: false,
+          socialMediaAdded: false,
           message: null,
           isBusiness: userList.first.isBusiness!));
     });
@@ -287,6 +370,9 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     result.fold((failure) => null, (getBusinessCategories) {
       print('get category => ${getBusinessCategories.businessCategories}');
       emit(state.copyWith(
+          accoladeAdded: false,
+          datesToRememberAdded: false,
+          socialMediaAdded: false,
           businessCategories: getBusinessCategories.businessCategories ?? []));
     });
   }

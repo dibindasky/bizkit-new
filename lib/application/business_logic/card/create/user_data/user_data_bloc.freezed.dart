@@ -3897,10 +3897,13 @@ mixin _$UserDataState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isBusiness => throw _privateConstructorUsedError;
   bool get accoladeLoading => throw _privateConstructorUsedError;
+  bool get accoladeAdded => throw _privateConstructorUsedError;
   bool get accoladeDeleteLoading => throw _privateConstructorUsedError;
   bool get datesToRememberLoading => throw _privateConstructorUsedError;
+  bool get datesToRememberAdded => throw _privateConstructorUsedError;
   bool get datesToRememberDeleteLoading => throw _privateConstructorUsedError;
   bool get socialMediaLoading => throw _privateConstructorUsedError;
+  bool get socialMediaAdded => throw _privateConstructorUsedError;
   bool get socialMediaDeleteLoading => throw _privateConstructorUsedError;
   SuccessResponseModel? get cardAdded => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
@@ -3935,10 +3938,13 @@ abstract class $UserDataStateCopyWith<$Res> {
       bool isLoading,
       bool isBusiness,
       bool accoladeLoading,
+      bool accoladeAdded,
       bool accoladeDeleteLoading,
       bool datesToRememberLoading,
+      bool datesToRememberAdded,
       bool datesToRememberDeleteLoading,
       bool socialMediaLoading,
+      bool socialMediaAdded,
       bool socialMediaDeleteLoading,
       SuccessResponseModel? cardAdded,
       String? message,
@@ -3971,10 +3977,13 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
     Object? isLoading = null,
     Object? isBusiness = null,
     Object? accoladeLoading = null,
+    Object? accoladeAdded = null,
     Object? accoladeDeleteLoading = null,
     Object? datesToRememberLoading = null,
+    Object? datesToRememberAdded = null,
     Object? datesToRememberDeleteLoading = null,
     Object? socialMediaLoading = null,
+    Object? socialMediaAdded = null,
     Object? socialMediaDeleteLoading = null,
     Object? cardAdded = freezed,
     Object? message = freezed,
@@ -4006,6 +4015,10 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
           ? _value.accoladeLoading
           : accoladeLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      accoladeAdded: null == accoladeAdded
+          ? _value.accoladeAdded
+          : accoladeAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
       accoladeDeleteLoading: null == accoladeDeleteLoading
           ? _value.accoladeDeleteLoading
           : accoladeDeleteLoading // ignore: cast_nullable_to_non_nullable
@@ -4014,6 +4027,10 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
           ? _value.datesToRememberLoading
           : datesToRememberLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      datesToRememberAdded: null == datesToRememberAdded
+          ? _value.datesToRememberAdded
+          : datesToRememberAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
       datesToRememberDeleteLoading: null == datesToRememberDeleteLoading
           ? _value.datesToRememberDeleteLoading
           : datesToRememberDeleteLoading // ignore: cast_nullable_to_non_nullable
@@ -4021,6 +4038,10 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
       socialMediaLoading: null == socialMediaLoading
           ? _value.socialMediaLoading
           : socialMediaLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      socialMediaAdded: null == socialMediaAdded
+          ? _value.socialMediaAdded
+          : socialMediaAdded // ignore: cast_nullable_to_non_nullable
               as bool,
       socialMediaDeleteLoading: null == socialMediaDeleteLoading
           ? _value.socialMediaDeleteLoading
@@ -4091,10 +4112,13 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool isLoading,
       bool isBusiness,
       bool accoladeLoading,
+      bool accoladeAdded,
       bool accoladeDeleteLoading,
       bool datesToRememberLoading,
+      bool datesToRememberAdded,
       bool datesToRememberDeleteLoading,
       bool socialMediaLoading,
+      bool socialMediaAdded,
       bool socialMediaDeleteLoading,
       SuccessResponseModel? cardAdded,
       String? message,
@@ -4125,10 +4149,13 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isBusiness = null,
     Object? accoladeLoading = null,
+    Object? accoladeAdded = null,
     Object? accoladeDeleteLoading = null,
     Object? datesToRememberLoading = null,
+    Object? datesToRememberAdded = null,
     Object? datesToRememberDeleteLoading = null,
     Object? socialMediaLoading = null,
+    Object? socialMediaAdded = null,
     Object? socialMediaDeleteLoading = null,
     Object? cardAdded = freezed,
     Object? message = freezed,
@@ -4160,6 +4187,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.accoladeLoading
           : accoladeLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      accoladeAdded: null == accoladeAdded
+          ? _value.accoladeAdded
+          : accoladeAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
       accoladeDeleteLoading: null == accoladeDeleteLoading
           ? _value.accoladeDeleteLoading
           : accoladeDeleteLoading // ignore: cast_nullable_to_non_nullable
@@ -4168,6 +4199,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.datesToRememberLoading
           : datesToRememberLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      datesToRememberAdded: null == datesToRememberAdded
+          ? _value.datesToRememberAdded
+          : datesToRememberAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
       datesToRememberDeleteLoading: null == datesToRememberDeleteLoading
           ? _value.datesToRememberDeleteLoading
           : datesToRememberDeleteLoading // ignore: cast_nullable_to_non_nullable
@@ -4175,6 +4210,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       socialMediaLoading: null == socialMediaLoading
           ? _value.socialMediaLoading
           : socialMediaLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      socialMediaAdded: null == socialMediaAdded
+          ? _value.socialMediaAdded
+          : socialMediaAdded // ignore: cast_nullable_to_non_nullable
               as bool,
       socialMediaDeleteLoading: null == socialMediaDeleteLoading
           ? _value.socialMediaDeleteLoading
@@ -4240,10 +4279,13 @@ class _$InitialImpl implements _Initial {
       required this.isLoading,
       required this.isBusiness,
       required this.accoladeLoading,
+      required this.accoladeAdded,
       required this.accoladeDeleteLoading,
       required this.datesToRememberLoading,
+      required this.datesToRememberAdded,
       required this.datesToRememberDeleteLoading,
       required this.socialMediaLoading,
+      required this.socialMediaAdded,
       required this.socialMediaDeleteLoading,
       this.cardAdded,
       this.message,
@@ -4272,13 +4314,19 @@ class _$InitialImpl implements _Initial {
   @override
   final bool accoladeLoading;
   @override
+  final bool accoladeAdded;
+  @override
   final bool accoladeDeleteLoading;
   @override
   final bool datesToRememberLoading;
   @override
+  final bool datesToRememberAdded;
+  @override
   final bool datesToRememberDeleteLoading;
   @override
   final bool socialMediaLoading;
+  @override
+  final bool socialMediaAdded;
   @override
   final bool socialMediaDeleteLoading;
   @override
@@ -4340,7 +4388,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, isBusiness: $isBusiness, accoladeLoading: $accoladeLoading, accoladeDeleteLoading: $accoladeDeleteLoading, datesToRememberLoading: $datesToRememberLoading, datesToRememberDeleteLoading: $datesToRememberDeleteLoading, socialMediaLoading: $socialMediaLoading, socialMediaDeleteLoading: $socialMediaDeleteLoading, cardAdded: $cardAdded, message: $message, personalData: $personalData, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, businessCategories: $businessCategories, datesToRemember: $datesToRemember, socialMedias: $socialMedias, currentCard: $currentCard, scannedImageDatasModel: $scannedImageDatasModel)';
+    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, isBusiness: $isBusiness, accoladeLoading: $accoladeLoading, accoladeAdded: $accoladeAdded, accoladeDeleteLoading: $accoladeDeleteLoading, datesToRememberLoading: $datesToRememberLoading, datesToRememberAdded: $datesToRememberAdded, datesToRememberDeleteLoading: $datesToRememberDeleteLoading, socialMediaLoading: $socialMediaLoading, socialMediaAdded: $socialMediaAdded, socialMediaDeleteLoading: $socialMediaDeleteLoading, cardAdded: $cardAdded, message: $message, personalData: $personalData, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, businessCategories: $businessCategories, datesToRemember: $datesToRemember, socialMedias: $socialMedias, currentCard: $currentCard, scannedImageDatasModel: $scannedImageDatasModel)';
   }
 
   @override
@@ -4356,16 +4404,22 @@ class _$InitialImpl implements _Initial {
                 other.isBusiness == isBusiness) &&
             (identical(other.accoladeLoading, accoladeLoading) ||
                 other.accoladeLoading == accoladeLoading) &&
+            (identical(other.accoladeAdded, accoladeAdded) ||
+                other.accoladeAdded == accoladeAdded) &&
             (identical(other.accoladeDeleteLoading, accoladeDeleteLoading) ||
                 other.accoladeDeleteLoading == accoladeDeleteLoading) &&
             (identical(other.datesToRememberLoading, datesToRememberLoading) ||
                 other.datesToRememberLoading == datesToRememberLoading) &&
+            (identical(other.datesToRememberAdded, datesToRememberAdded) ||
+                other.datesToRememberAdded == datesToRememberAdded) &&
             (identical(other.datesToRememberDeleteLoading,
                     datesToRememberDeleteLoading) ||
                 other.datesToRememberDeleteLoading ==
                     datesToRememberDeleteLoading) &&
             (identical(other.socialMediaLoading, socialMediaLoading) ||
                 other.socialMediaLoading == socialMediaLoading) &&
+            (identical(other.socialMediaAdded, socialMediaAdded) ||
+                other.socialMediaAdded == socialMediaAdded) &&
             (identical(
                     other.socialMediaDeleteLoading, socialMediaDeleteLoading) ||
                 other.socialMediaDeleteLoading == socialMediaDeleteLoading) &&
@@ -4401,10 +4455,13 @@ class _$InitialImpl implements _Initial {
         isLoading,
         isBusiness,
         accoladeLoading,
+        accoladeAdded,
         accoladeDeleteLoading,
         datesToRememberLoading,
+        datesToRememberAdded,
         datesToRememberDeleteLoading,
         socialMediaLoading,
+        socialMediaAdded,
         socialMediaDeleteLoading,
         cardAdded,
         message,
@@ -4433,10 +4490,13 @@ abstract class _Initial implements UserDataState {
       required final bool isLoading,
       required final bool isBusiness,
       required final bool accoladeLoading,
+      required final bool accoladeAdded,
       required final bool accoladeDeleteLoading,
       required final bool datesToRememberLoading,
+      required final bool datesToRememberAdded,
       required final bool datesToRememberDeleteLoading,
       required final bool socialMediaLoading,
+      required final bool socialMediaAdded,
       required final bool socialMediaDeleteLoading,
       final SuccessResponseModel? cardAdded,
       final String? message,
@@ -4460,13 +4520,19 @@ abstract class _Initial implements UserDataState {
   @override
   bool get accoladeLoading;
   @override
+  bool get accoladeAdded;
+  @override
   bool get accoladeDeleteLoading;
   @override
   bool get datesToRememberLoading;
   @override
+  bool get datesToRememberAdded;
+  @override
   bool get datesToRememberDeleteLoading;
   @override
   bool get socialMediaLoading;
+  @override
+  bool get socialMediaAdded;
   @override
   bool get socialMediaDeleteLoading;
   @override

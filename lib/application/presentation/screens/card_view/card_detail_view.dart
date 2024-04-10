@@ -7,7 +7,7 @@ import 'package:bizkit/domain/model/commen/card_id_model/card_id_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ScreenCardDetailView extends StatelessWidget {
+class ScreenCardDetailView extends StatefulWidget {
   const ScreenCardDetailView(
       {super.key, this.cardId, this.myCard = false, this.userId});
   final int? cardId;
@@ -15,23 +15,30 @@ class ScreenCardDetailView extends StatelessWidget {
   final bool myCard;
 
   @override
-  Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (cardId != null) {
-        print("card id $cardId");
-        context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
-        context.read<ReminderBloc>().add(ReminderEvent.getCardReminder(
-            cardIdModel: CardIdModel(cardId: cardId!)));
-      } else if (userId != null) {
-        context.read<CardBloc>().add(CardEvent.getCardyUserId(id: userId!));
-      }
-    });
+  State<ScreenCardDetailView> createState() => _ScreenCardDetailViewState();
+}
 
-    return BlocBuilder<CardBloc, CardState>(
-      buildWhen: (previous, current) => previous.isLoading != current.isLoading,
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
+class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
+  @override
+  void initState() {
+    if (widget.cardId != null) {
+      context
+          .read<CardBloc>()
+          .add(CardEvent.getCardyCardId(id: widget.cardId!));
+      context.read<ReminderBloc>().add(ReminderEvent.getCardReminder(
+          cardIdModel: CardIdModel(cardId: widget.cardId!)));
+    } else if (widget.userId != null) {
+      context
+          .read<CardBloc>()
+          .add(CardEvent.getCardyUserId(id: widget.userId!));
+    }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
             leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -43,12 +50,9 @@ class ScreenCardDetailView extends StatelessWidget {
               ),
             ),
             backgroundColor: knill,
-            title: state.isLoading
-                ? null
-                : Text(state.anotherCard?.personalDetails?.name ?? '',
-                    style: textHeadStyle1),
-          ),
-          body: state.isLoading
+            title: const Text('Card')),
+        body: BlocBuilder<CardBloc, CardState>(
+          builder: (context, state) => state.isLoading
               ? const Center(
                   child: CircularProgressIndicator(color: neonShade),
                 )
@@ -64,6 +68,17 @@ class ScreenCardDetailView extends StatelessWidget {
                             BlocBuilder<CardBloc, CardState>(
                               builder: (context, state) {
                                 List<String> images = [];
+                                bool story = false;
+                                if (state.anotherCard != null &&
+                                    state.anotherCard!.logoCard != null &&
+                                    state.anotherCard!.logoCard!.logo != null) {
+                                  images.add(state.anotherCard!.logoCard!.logo!
+                                          .startsWith('data:')
+                                      ? state.anotherCard!.logoCard!.logo!
+                                          .substring(22)
+                                      : state.anotherCard!.logoCard!.logo!);
+                                  story = true;
+                                }
                                 if (state.anotherCard != null &&
                                     state.anotherCard!.personalDetails !=
                                         null &&
@@ -79,19 +94,14 @@ class ScreenCardDetailView extends StatelessWidget {
                                       : state.anotherCard!.personalDetails!
                                           .photos!);
                                 }
-                                if (state.anotherCard != null &&
-                                    state.anotherCard!.logoCard != null &&
-                                    state.anotherCard!.logoCard!.logo != null) {
-                                  images.add(state.anotherCard!.logoCard!.logo!
-                                          .startsWith('data:')
-                                      ? state.anotherCard!.logoCard!.logo!
-                                          .substring(22)
-                                      : state.anotherCard!.logoCard!.logo!);
-                                }
                                 return SizedBox(
                                   height: 200,
                                   child: PreviewPageviewImageBuilder(
                                     imagesList: images,
+                                    story: story
+                                        ? state.anotherCard?.logoCard?.logoStory
+                                        : null,
+                                    storyIndex: story ? 0 : null,
                                   ),
                                 );
                               },
@@ -141,13 +151,12 @@ class ScreenCardDetailView extends StatelessWidget {
                             ),
                             // card details
                             CardDetailScreenSecondHalf(
-                                myCard: myCard, cardId: state.anotherCard!.id!)
+                                myCard: widget.myCard,
+                                cardId: state.anotherCard!.id!)
                           ],
                         ),
                       ),
                     ),
-        );
-      },
-    );
+        ));
   }
 }

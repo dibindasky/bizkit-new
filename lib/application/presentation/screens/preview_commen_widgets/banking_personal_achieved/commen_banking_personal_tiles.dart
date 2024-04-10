@@ -45,10 +45,10 @@ class CommenbankingPersnalTiles extends StatelessWidget {
                 ),
               ],
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_right),
-            ),
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: const Icon(Icons.arrow_right),
+            // ),
           ],
         ),
       ),

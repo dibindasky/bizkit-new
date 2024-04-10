@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,9 +43,17 @@ class ProductBuilder extends StatelessWidget {
                     top: 0,
                     right: 0,
                     child: InkWell(
-                      onTap: () => context.read<BusinessDataBloc>().add(
-                          BusinessDataEvent.removeProduct(
-                              id: state.products[index].id!)),
+                      onTap: () {
+                        showCustomConfirmationDialoge(
+                            context: context,
+                            title: 'are you sure want to delete ?',
+                            buttonText: 'Delete',
+                            onTap: () {
+                              context.read<BusinessDataBloc>().add(
+                                  BusinessDataEvent.removeProduct(
+                                      id: state.products[index].id!));
+                            });
+                      },
                       borderRadius: BorderRadius.circular(10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),

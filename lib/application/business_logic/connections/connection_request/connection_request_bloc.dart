@@ -38,6 +38,11 @@ class ConnectionRequestBloc
     on<DeleteRequest>(deleteRequest);
     on<GetBlockeConnections>(getBlockeConnections);
     on<GgetBlockeConnectionsEvent>(getBlockedConnectionsEvent);
+    on<Clear>(clear);
+  }
+
+  FutureOr<void> clear(Clear event, emit) async {
+    return emit(ConnectionRequestState.initial());
   }
 
   FutureOr<void> getBlockedConnectionsEvent(

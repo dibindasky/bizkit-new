@@ -6,6 +6,7 @@ class DatePickingBottomSheet extends StatelessWidget {
       {super.key,
       required this.datePicker,
       required this.onPressed,
+      this.initialDate,
       this.year = 0,
       this.last = 0});
 
@@ -13,6 +14,7 @@ class DatePickingBottomSheet extends StatelessWidget {
   final void Function(String) onPressed;
   final int year;
   final int last;
+  final DateTime? initialDate;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class DatePickingBottomSheet extends StatelessWidget {
           Column(
             children: [
               CalendarDatePicker(
-                initialDate: DateTime.now(),
+                initialDate: initialDate,
                 firstDate: DateTime.now().subtract(Duration(days: year * 365)),
                 lastDate: last != 0
                     ? DateTime.now().add(
@@ -54,8 +56,12 @@ class DatePickingBottomSheet extends StatelessWidget {
                         : DateTime.now(),
                 onDateChanged: (date) {
                   int year = date.year;
-                  int month = date.month;
-                  int day = date.day;
+                  String month = date.month.toString().length == 1
+                      ? '0${date.month}'
+                      : date.month.toString();
+                  String day = date.day.toString().length == 1
+                      ? '0${date.day}'
+                      : date.day.toString();
                   onPressed('$year-$month-$day');
                 },
               ),

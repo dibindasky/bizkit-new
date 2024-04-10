@@ -9,6 +9,7 @@ class Accolade {
   dynamic accoladesImage;
   @JsonKey(name: 'title')
   String? accolades;
+  String? date;
   @JsonKey(name: 'description')
   String? accoladesDescription;
   @JsonKey(name: 'card_id')
@@ -18,6 +19,7 @@ class Accolade {
       {this.id,
       this.accoladesImage,
       this.accolades,
+      this.date,
       this.accoladesDescription,
       this.cardId});
 

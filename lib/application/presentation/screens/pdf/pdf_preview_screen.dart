@@ -12,17 +12,22 @@ class ScreenPdfPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Brochure'),
-        ),
-        body: filePath != null
-            ? PdfViewer.openFile(filePath!,
-                onError: (_) => const Center(
-                      child: Text('Could not load brochure please try again'),
-                    ))
-            : PdfViewer.openData(base64Decode(base64!.substring('data:application/pdf;base64,'.length)),
-                onError: (_) => const Center(
-                      child: Text('Could not load brochure please try again'),
-                    )));
+      appBar: AppBar(
+        title: const Text('Brochure'),
+      ),
+      body: filePath != null
+          ? PdfViewer.openFile(filePath!,
+              onError: (_) => const Center(
+                    child: Text('Could not load brochure please try again'),
+                  ))
+          : PdfViewer.openData(
+              base64Decode(base64!.startsWith('data')
+                  ? base64!.substring('data:application/pdf;base64,'.length)
+                  : base64!),
+              onError: (_) => const Center(
+                child: Text('Could not load brochure please try again'),
+              ),
+            ),
+    );
   }
 }

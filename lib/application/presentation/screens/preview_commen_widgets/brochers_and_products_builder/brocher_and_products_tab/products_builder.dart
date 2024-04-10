@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
@@ -37,7 +39,11 @@ class ProductsBuilder extends StatelessWidget {
                         SizedBox(
                           height: 200,
                           width: double.infinity,
-                          child: Image.network(data.image![0].image!,
+                          child: Image.memory(
+                              base64.decode(
+                                  data.image![0].image!.startsWith('data')
+                                      ? data.image![0].image!.substring(22)
+                                      : data.image![0].image!),
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) =>
                                   const Icon(Icons.image)),
@@ -115,16 +121,21 @@ class ProductViewDetail extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              product.image != null
-                  ? Image.network(product.image![0].image!)
-                  : Image.asset(emptyNodata3),
-              adjustHieght(30),
-              Text(product.label ?? "", style: textHeadStyle1),
-              adjustHieght(30),
-              Text(product.description ?? ""),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                product.image != null
+                    ? Image.memory(base64.decode(
+                        product.image![0].image!.startsWith('data')
+                            ? product.image![0].image!.substring(22)
+                            : product.image![0].image!))
+                    : Image.asset(emptyNodata3),
+                adjustHieght(30),
+                Text(product.label ?? "", style: textHeadStyle1),
+                adjustHieght(30),
+                Text(product.description ?? ""),
+              ],
+            ),
           ),
         ),
       ),

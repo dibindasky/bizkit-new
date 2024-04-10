@@ -33,6 +33,7 @@ mixin _$CardEvent {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +52,7 @@ mixin _$CardEvent {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -68,6 +70,7 @@ mixin _$CardEvent {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -86,6 +89,7 @@ mixin _$CardEvent {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -101,6 +105,7 @@ mixin _$CardEvent {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -116,6 +121,7 @@ mixin _$CardEvent {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -217,6 +223,7 @@ class _$GetCardsImpl implements GetCards {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return getCards(call);
   }
@@ -238,6 +245,7 @@ class _$GetCardsImpl implements GetCards {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return getCards?.call(call);
   }
@@ -258,6 +266,7 @@ class _$GetCardsImpl implements GetCards {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getCards != null) {
@@ -282,6 +291,7 @@ class _$GetCardsImpl implements GetCards {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getCards(this);
   }
@@ -300,6 +310,7 @@ class _$GetCardsImpl implements GetCards {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getCards?.call(this);
   }
@@ -318,6 +329,7 @@ class _$GetCardsImpl implements GetCards {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getCards != null) {
@@ -389,6 +401,7 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return getCardsnextPage();
   }
@@ -410,6 +423,7 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return getCardsnextPage?.call();
   }
@@ -430,6 +444,7 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getCardsnextPage != null) {
@@ -454,6 +469,7 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getCardsnextPage(this);
   }
@@ -472,6 +488,7 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getCardsnextPage?.call(this);
   }
@@ -490,6 +507,7 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getCardsnextPage != null) {
@@ -583,6 +601,7 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return getCardyUserId(id);
   }
@@ -604,6 +623,7 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return getCardyUserId?.call(id);
   }
@@ -624,6 +644,7 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getCardyUserId != null) {
@@ -648,6 +669,7 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getCardyUserId(this);
   }
@@ -666,6 +688,7 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getCardyUserId?.call(this);
   }
@@ -684,6 +707,7 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getCardyUserId != null) {
@@ -782,6 +806,7 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return getCardyCardId(id);
   }
@@ -803,6 +828,7 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return getCardyCardId?.call(id);
   }
@@ -823,6 +849,7 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getCardyCardId != null) {
@@ -847,6 +874,7 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getCardyCardId(this);
   }
@@ -865,6 +893,7 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getCardyCardId?.call(this);
   }
@@ -883,6 +912,7 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getCardyCardId != null) {
@@ -980,6 +1010,7 @@ class _$SetDefaultImpl implements SetDefault {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return setDefault(id);
   }
@@ -1001,6 +1032,7 @@ class _$SetDefaultImpl implements SetDefault {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return setDefault?.call(id);
   }
@@ -1021,6 +1053,7 @@ class _$SetDefaultImpl implements SetDefault {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (setDefault != null) {
@@ -1045,6 +1078,7 @@ class _$SetDefaultImpl implements SetDefault {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return setDefault(this);
   }
@@ -1063,6 +1097,7 @@ class _$SetDefaultImpl implements SetDefault {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return setDefault?.call(this);
   }
@@ -1081,6 +1116,7 @@ class _$SetDefaultImpl implements SetDefault {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (setDefault != null) {
@@ -1179,6 +1215,7 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return getdeleteCards(isLoad);
   }
@@ -1200,6 +1237,7 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return getdeleteCards?.call(isLoad);
   }
@@ -1220,6 +1258,7 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getdeleteCards != null) {
@@ -1244,6 +1283,7 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getdeleteCards(this);
   }
@@ -1262,6 +1302,7 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getdeleteCards?.call(this);
   }
@@ -1280,6 +1321,7 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getdeleteCards != null) {
@@ -1379,6 +1421,7 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return getdeleteCardsEvent(isLoad);
   }
@@ -1400,6 +1443,7 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return getdeleteCardsEvent?.call(isLoad);
   }
@@ -1420,6 +1464,7 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getdeleteCardsEvent != null) {
@@ -1444,6 +1489,7 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getdeleteCardsEvent(this);
   }
@@ -1462,6 +1508,7 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getdeleteCardsEvent?.call(this);
   }
@@ -1480,6 +1527,7 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getdeleteCardsEvent != null) {
@@ -1588,6 +1636,7 @@ class _$CardActionImpl implements CardAction {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return cardAction(id, cardActionRewuestModel);
   }
@@ -1609,6 +1658,7 @@ class _$CardActionImpl implements CardAction {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return cardAction?.call(id, cardActionRewuestModel);
   }
@@ -1629,6 +1679,7 @@ class _$CardActionImpl implements CardAction {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (cardAction != null) {
@@ -1653,6 +1704,7 @@ class _$CardActionImpl implements CardAction {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return cardAction(this);
   }
@@ -1671,6 +1723,7 @@ class _$CardActionImpl implements CardAction {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return cardAction?.call(this);
   }
@@ -1689,6 +1742,7 @@ class _$CardActionImpl implements CardAction {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (cardAction != null) {
@@ -1791,6 +1845,7 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return getArchievedCards(isLoad);
   }
@@ -1812,6 +1867,7 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return getArchievedCards?.call(isLoad);
   }
@@ -1832,6 +1888,7 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getArchievedCards != null) {
@@ -1856,6 +1913,7 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getArchievedCards(this);
   }
@@ -1874,6 +1932,7 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getArchievedCards?.call(this);
   }
@@ -1892,6 +1951,7 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getArchievedCards != null) {
@@ -1967,6 +2027,7 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return getArchievedCardsEvent();
   }
@@ -1988,6 +2049,7 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return getArchievedCardsEvent?.call();
   }
@@ -2008,6 +2070,7 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getArchievedCardsEvent != null) {
@@ -2032,6 +2095,7 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getArchievedCardsEvent(this);
   }
@@ -2050,6 +2114,7 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getArchievedCardsEvent?.call(this);
   }
@@ -2068,6 +2133,7 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getArchievedCardsEvent != null) {
@@ -2173,6 +2239,7 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     required TResult Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)
         restoreArchiveDeleteCard,
+    required TResult Function() clear,
   }) {
     return restoreArchiveDeleteCard(cardId, cardActionRewuestModel);
   }
@@ -2194,6 +2261,7 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     TResult? Function(
             int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult? Function()? clear,
   }) {
     return restoreArchiveDeleteCard?.call(cardId, cardActionRewuestModel);
   }
@@ -2214,6 +2282,7 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     TResult Function()? getArchievedCardsEvent,
     TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
         restoreArchiveDeleteCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (restoreArchiveDeleteCard != null) {
@@ -2238,6 +2307,7 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
         getArchievedCardsEvent,
     required TResult Function(RestoreArchiveDeleteCard value)
         restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
   }) {
     return restoreArchiveDeleteCard(this);
   }
@@ -2256,6 +2326,7 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return restoreArchiveDeleteCard?.call(this);
   }
@@ -2274,6 +2345,7 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
     TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (restoreArchiveDeleteCard != null) {
@@ -2294,6 +2366,179 @@ abstract class RestoreArchiveDeleteCard implements CardEvent {
   @JsonKey(ignore: true)
   _$$RestoreArchiveDeleteCardImplCopyWith<_$RestoreArchiveDeleteCardImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ClearImplCopyWith<$Res> {
+  factory _$$ClearImplCopyWith(
+          _$ClearImpl value, $Res Function(_$ClearImpl) then) =
+      __$$ClearImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ClearImplCopyWithImpl<$Res>
+    extends _$CardEventCopyWithImpl<$Res, _$ClearImpl>
+    implements _$$ClearImplCopyWith<$Res> {
+  __$$ClearImplCopyWithImpl(
+      _$ClearImpl _value, $Res Function(_$ClearImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ClearImpl implements Clear {
+  const _$ClearImpl();
+
+  @override
+  String toString() {
+    return 'CardEvent.clear()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ClearImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool call) getCards,
+    required TResult Function() getCardsnextPage,
+    required TResult Function(int id) getCardyUserId,
+    required TResult Function(int id) getCardyCardId,
+    required TResult Function(int id) setDefault,
+    required TResult Function(bool isLoad) getdeleteCards,
+    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function(
+            int id, CardActionRewuestModel cardActionRewuestModel)
+        cardAction,
+    required TResult Function(bool isLoad) getArchievedCards,
+    required TResult Function() getArchievedCardsEvent,
+    required TResult Function(
+            int cardId, CardActionRewuestModel cardActionRewuestModel)
+        restoreArchiveDeleteCard,
+    required TResult Function() clear,
+  }) {
+    return clear();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool call)? getCards,
+    TResult? Function()? getCardsnextPage,
+    TResult? Function(int id)? getCardyUserId,
+    TResult? Function(int id)? getCardyCardId,
+    TResult? Function(int id)? setDefault,
+    TResult? Function(bool isLoad)? getdeleteCards,
+    TResult? Function(bool isLoad)? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
+        cardAction,
+    TResult? Function(bool isLoad)? getArchievedCards,
+    TResult? Function()? getArchievedCardsEvent,
+    TResult? Function(
+            int cardId, CardActionRewuestModel cardActionRewuestModel)?
+        restoreArchiveDeleteCard,
+    TResult? Function()? clear,
+  }) {
+    return clear?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool call)? getCards,
+    TResult Function()? getCardsnextPage,
+    TResult Function(int id)? getCardyUserId,
+    TResult Function(int id)? getCardyCardId,
+    TResult Function(int id)? setDefault,
+    TResult Function(bool isLoad)? getdeleteCards,
+    TResult Function(bool isLoad)? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
+        cardAction,
+    TResult Function(bool isLoad)? getArchievedCards,
+    TResult Function()? getArchievedCardsEvent,
+    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
+        restoreArchiveDeleteCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (clear != null) {
+      return clear();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCards value) getCards,
+    required TResult Function(GetCardsnextPage value) getCardsnextPage,
+    required TResult Function(GetCardyUserId value) getCardyUserId,
+    required TResult Function(GetCardyCardId value) getCardyCardId,
+    required TResult Function(SetDefault value) setDefault,
+    required TResult Function(GetdeleteCards value) getdeleteCards,
+    required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
+    required TResult Function(CardAction value) cardAction,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetArchievedCardsEvent value)
+        getArchievedCardsEvent,
+    required TResult Function(RestoreArchiveDeleteCard value)
+        restoreArchiveDeleteCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return clear(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCards value)? getCards,
+    TResult? Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult? Function(GetCardyUserId value)? getCardyUserId,
+    TResult? Function(GetCardyCardId value)? getCardyCardId,
+    TResult? Function(SetDefault value)? setDefault,
+    TResult? Function(GetdeleteCards value)? getdeleteCards,
+    TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
+    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
+    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return clear?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCards value)? getCards,
+    TResult Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult Function(GetCardyUserId value)? getCardyUserId,
+    TResult Function(GetCardyCardId value)? getCardyCardId,
+    TResult Function(SetDefault value)? setDefault,
+    TResult Function(GetdeleteCards value)? getdeleteCards,
+    TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
+    TResult Function(CardAction value)? cardAction,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
+    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (clear != null) {
+      return clear(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Clear implements CardEvent {
+  const factory Clear() = _$ClearImpl;
 }
 
 /// @nodoc

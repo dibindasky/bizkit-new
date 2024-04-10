@@ -34,6 +34,11 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     on<GetArchievedCards>(getArchievedCards);
     on<GetArchievedCardsEvent>(getArchievedCardsEvent);
     on<RestoreArchiveDeleteCard>(restoreArchieveDeleteCards);
+    on<Clear>(clear);
+  }
+
+  FutureOr<void> clear(Clear event, emit) async {
+    return emit(CardState.initial());
   }
 
   FutureOr<void> getdeleteCardsEvent(GetdeleteCardsEvent event, emit) async {

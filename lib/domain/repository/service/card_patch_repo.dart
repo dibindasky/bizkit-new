@@ -26,6 +26,7 @@ abstract class CardPatchRepo {
   Future<Either<Failure, SuccessResponseModel>> deleteSocialMedia(
       {required int id});
   Future<Either<Failure, LogoCard>> addLogo({required LogoCard logoCard});
+  Future<Either<Failure, LogoCard>> patchLogo({required LogoCard logoCard});
   Future<Either<Failure, SuccessResponseModel>> deleteLogo({required int id});
   Future<Either<Failure, SocialMediaHandle>> addBusinessSocialMedia(
       {required SocialMediaHandle socialMediaHandle});

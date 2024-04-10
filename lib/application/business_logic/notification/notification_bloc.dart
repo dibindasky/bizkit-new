@@ -17,6 +17,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   NotificationBloc(this.notificationRepo) : super(NotificationState.initial()) {
     on<GetNotification>(getNotification);
     on<NotificationEvent>(notificationEvent);
+    on<Clear>(clear);
+  }
+
+  FutureOr<void> clear(Clear event, emit) async {
+    return emit(NotificationState.initial());
   }
 
   FutureOr<void> notificationEvent(NotificationEvent event, emit) async {

@@ -20,18 +20,21 @@ mixin _$NotificationEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getNotification,
     required TResult Function() getNotificationEvent,
+    required TResult Function() clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getNotification,
     TResult? Function()? getNotificationEvent,
+    TResult? Function()? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getNotification,
     TResult Function()? getNotificationEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$NotificationEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(GetNotification value) getNotification,
     required TResult Function(GetNotificationEvent value) getNotificationEvent,
+    required TResult Function(Clear value) clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetNotification value)? getNotification,
     TResult? Function(GetNotificationEvent value)? getNotificationEvent,
+    TResult? Function(Clear value)? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetNotification value)? getNotification,
     TResult Function(GetNotificationEvent value)? getNotificationEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$GetNotificationImpl implements GetNotification {
   TResult when<TResult extends Object?>({
     required TResult Function() getNotification,
     required TResult Function() getNotificationEvent,
+    required TResult Function() clear,
   }) {
     return getNotification();
   }
@@ -123,6 +130,7 @@ class _$GetNotificationImpl implements GetNotification {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getNotification,
     TResult? Function()? getNotificationEvent,
+    TResult? Function()? clear,
   }) {
     return getNotification?.call();
   }
@@ -132,6 +140,7 @@ class _$GetNotificationImpl implements GetNotification {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getNotification,
     TResult Function()? getNotificationEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getNotification != null) {
@@ -145,6 +154,7 @@ class _$GetNotificationImpl implements GetNotification {
   TResult map<TResult extends Object?>({
     required TResult Function(GetNotification value) getNotification,
     required TResult Function(GetNotificationEvent value) getNotificationEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return getNotification(this);
   }
@@ -154,6 +164,7 @@ class _$GetNotificationImpl implements GetNotification {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetNotification value)? getNotification,
     TResult? Function(GetNotificationEvent value)? getNotificationEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return getNotification?.call(this);
   }
@@ -163,6 +174,7 @@ class _$GetNotificationImpl implements GetNotification {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetNotification value)? getNotification,
     TResult Function(GetNotificationEvent value)? getNotificationEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getNotification != null) {
@@ -217,6 +229,7 @@ class _$GetNotificationEventImpl implements GetNotificationEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getNotification,
     required TResult Function() getNotificationEvent,
+    required TResult Function() clear,
   }) {
     return getNotificationEvent();
   }
@@ -226,6 +239,7 @@ class _$GetNotificationEventImpl implements GetNotificationEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getNotification,
     TResult? Function()? getNotificationEvent,
+    TResult? Function()? clear,
   }) {
     return getNotificationEvent?.call();
   }
@@ -235,6 +249,7 @@ class _$GetNotificationEventImpl implements GetNotificationEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getNotification,
     TResult Function()? getNotificationEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getNotificationEvent != null) {
@@ -248,6 +263,7 @@ class _$GetNotificationEventImpl implements GetNotificationEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(GetNotification value) getNotification,
     required TResult Function(GetNotificationEvent value) getNotificationEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return getNotificationEvent(this);
   }
@@ -257,6 +273,7 @@ class _$GetNotificationEventImpl implements GetNotificationEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetNotification value)? getNotification,
     TResult? Function(GetNotificationEvent value)? getNotificationEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return getNotificationEvent?.call(this);
   }
@@ -266,6 +283,7 @@ class _$GetNotificationEventImpl implements GetNotificationEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetNotification value)? getNotification,
     TResult Function(GetNotificationEvent value)? getNotificationEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getNotificationEvent != null) {
@@ -277,6 +295,114 @@ class _$GetNotificationEventImpl implements GetNotificationEvent {
 
 abstract class GetNotificationEvent implements NotificationEvent {
   const factory GetNotificationEvent() = _$GetNotificationEventImpl;
+}
+
+/// @nodoc
+abstract class _$$ClearImplCopyWith<$Res> {
+  factory _$$ClearImplCopyWith(
+          _$ClearImpl value, $Res Function(_$ClearImpl) then) =
+      __$$ClearImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ClearImplCopyWithImpl<$Res>
+    extends _$NotificationEventCopyWithImpl<$Res, _$ClearImpl>
+    implements _$$ClearImplCopyWith<$Res> {
+  __$$ClearImplCopyWithImpl(
+      _$ClearImpl _value, $Res Function(_$ClearImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ClearImpl implements Clear {
+  const _$ClearImpl();
+
+  @override
+  String toString() {
+    return 'NotificationEvent.clear()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ClearImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getNotification,
+    required TResult Function() getNotificationEvent,
+    required TResult Function() clear,
+  }) {
+    return clear();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getNotification,
+    TResult? Function()? getNotificationEvent,
+    TResult? Function()? clear,
+  }) {
+    return clear?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getNotification,
+    TResult Function()? getNotificationEvent,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (clear != null) {
+      return clear();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetNotification value) getNotification,
+    required TResult Function(GetNotificationEvent value) getNotificationEvent,
+    required TResult Function(Clear value) clear,
+  }) {
+    return clear(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetNotification value)? getNotification,
+    TResult? Function(GetNotificationEvent value)? getNotificationEvent,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return clear?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetNotification value)? getNotification,
+    TResult Function(GetNotificationEvent value)? getNotificationEvent,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (clear != null) {
+      return clear(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Clear implements NotificationEvent {
+  const factory Clear() = _$ClearImpl;
 }
 
 /// @nodoc

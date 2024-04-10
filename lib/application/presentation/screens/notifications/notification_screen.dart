@@ -12,44 +12,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({
-    super.key,
-    this.scrollController,
-  });
-
-  final ScrollController? scrollController;
+  const NotificationScreen({super.key});
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  _scrollCallBack() {
-    if (widget.scrollController!.position.pixels ==
-        widget.scrollController!.position.maxScrollExtent) {
-      log('inside _scrollCallBack');
-      context
-          .read<NotificationBloc>()
-          .add(const NotificationEvent.getNotificationEvent());
-    }
-  }
+  late ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    if (widget.scrollController != null) {
-      widget.scrollController!.addListener(() {
-        _scrollCallBack();
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    if (widget.scrollController != null) {
-      widget.scrollController!.removeListener(_scrollCallBack);
-    }
-    super.dispose();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        log('inside _scrollCallBack');
+        context
+            .read<NotificationBloc>()
+            .add(const NotificationEvent.getNotificationEvent());
+      }
+    });
   }
 
   @override
@@ -61,6 +44,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
     return Scaffold(
       appBar: AppBar(
+        leading: const Icon(
+          Icons.arrow_back_ios,
+          size: 18,
+        ),
         backgroundColor: knill,
         title: const Text('Notifications'),
       ),
@@ -94,8 +81,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     );
                   }
                   return ListView.separated(
-                    controller: widget.scrollController,
-                    physics: const NeverScrollableScrollPhysics(),
+                    controller: scrollController,
+                    physics: const AlwaysScrollableScrollPhysics(),
                     shrinkWrap: true,
                     separatorBuilder: (context, index) {
                       return adjustHieght(10);

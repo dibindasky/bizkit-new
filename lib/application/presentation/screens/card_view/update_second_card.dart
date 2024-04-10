@@ -25,9 +25,10 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
   @override
   void initState() {
     if (widget.secondCard.selfie != null) {
-      base64image = widget.secondCard.selfie!;
+      base64image = widget.secondCard.selfie ?? "";
       base64image =
           base64image!.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
+      log('widget.secondCard.selfie ${widget.secondCard.selfie}');
     }
     context.read<CardSecondBloc>().updateNameController.text =
         widget.secondCard.name!;
@@ -108,12 +109,15 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                         ],
                       )
                     : state.selfieImageModel != null
-                        ? SizedBox(
+                        ? Container(
                             height: kwidth * 0.60,
                             width: double.infinity,
-                            child: Image.file(
-                              state.selfieImageModel!.fileImage,
-                              fit: BoxFit.cover,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: FileImage(
+                                  state.selfieImageModel!.fileImage,
+                                ),
+                              ),
                             ),
                           )
                         : ContainerPickImage(
@@ -154,7 +158,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.name,
                         ),
                         adjustHieght(khieght * .2),
-                        !state.isLoading
+                        !state.secondCardLoading
                             ? LastSkipContinueButtons(
                                 onTap: () {
                                   if (context

@@ -34,8 +34,8 @@ class _SelfiePreviewScreenState extends State<SelfiePreviewScreen> {
                   const Spacer(),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          fadePageRoute(const CardSecondScannedDatas()));
+                      Navigator.push(
+                          context, fadePageRoute(CardSecondScannedDatas()));
                     },
                     child: Text(
                       'Skip',
@@ -58,7 +58,7 @@ class _SelfiePreviewScreenState extends State<SelfiePreviewScreen> {
                               const CardSecondEvent.selfieImage(
                                   cameraDeviceFront: true));
                           Navigator.of(context).pushReplacement(
-                              fadePageRoute(const CardSecondScannedDatas()));
+                              fadePageRoute(CardSecondScannedDatas()));
                         },
                         child: Container(
                           padding: const EdgeInsets.all(35),

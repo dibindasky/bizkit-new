@@ -1,7 +1,6 @@
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/qr_scanner_view.dart';
-import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -20,13 +19,13 @@ class SelfieScreen extends StatefulWidget {
 class _SelfieScreenState extends State<SelfieScreen>
     with SingleTickerProviderStateMixin {
   final buttons = [
-    'asset/images/camerFromgalleryIcon.png',
     'asset/images/Vector.png',
+    'asset/images/camerFromgalleryIcon.png',
     'asset/images/ic_twotone-tap-and-play.png'
   ];
   final centerButtons = [
-    'asset/images/solar_gallery-bold.png',
     'asset/images/camera select Icon.png',
+    'asset/images/solar_gallery-bold.png',
     'asset/images/phone_connectivity_bold.png'
   ];
   int indexofButton = 1;
@@ -52,8 +51,9 @@ class _SelfieScreenState extends State<SelfieScreen>
         decoration: indexofButton == 2
             ? const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('asset/images/connecting_iphone.gif'),
-                    fit: BoxFit.cover),
+                  image: AssetImage('asset/images/connecting_iphone.gif'),
+                  fit: BoxFit.cover,
+                ),
               )
             : null,
         child: ColoredBox(
@@ -84,7 +84,7 @@ class _SelfieScreenState extends State<SelfieScreen>
                 ),
               ),
               adjustHieght(khieght * 0.05),
-              indexofButton == 1
+              indexofButton == 0
                   ? Column(
                       children: [
                         Container(
@@ -123,12 +123,13 @@ class _SelfieScreenState extends State<SelfieScreen>
                         //),
                       ],
                     )
-                  : indexofButton == 0
+                  : indexofButton == 1
                       ? BlocConsumer<CardSecondBloc, CardSecondState>(
                           listener: (context, state) {
                             if (state
                                 .scannedImagesSecondCardCreation.isNotEmpty) {
-                              GoRouter.of(context).push(Routes.selectedCards);
+                              GoRouter.of(context)
+                                  .pushNamed(Routes.selectedCards);
                             }
                           },
                           builder: (context, state) {
@@ -231,8 +232,12 @@ class _SelfieScreenState extends State<SelfieScreen>
 }
 
 class ContainerPickImage extends StatelessWidget {
-  const ContainerPickImage(
-      {super.key, this.heading, this.onPressed, this.isBoth = true});
+  const ContainerPickImage({
+    super.key,
+    this.heading,
+    this.onPressed,
+    this.isBoth = true,
+  });
   final String? heading;
   final VoidCallback? onPressed;
   final bool isBoth;

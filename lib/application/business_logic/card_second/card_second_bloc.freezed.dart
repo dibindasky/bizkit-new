@@ -29,7 +29,6 @@ mixin _$CardSecondEvent {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -59,7 +58,6 @@ mixin _$CardSecondEvent {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -86,7 +84,6 @@ mixin _$CardSecondEvent {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -111,7 +108,6 @@ mixin _$CardSecondEvent {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -134,7 +130,6 @@ mixin _$CardSecondEvent {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -155,7 +150,6 @@ mixin _$CardSecondEvent {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -237,7 +231,6 @@ class _$StartedImpl implements _Started {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -270,7 +263,6 @@ class _$StartedImpl implements _Started {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -300,7 +292,6 @@ class _$StartedImpl implements _Started {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -331,7 +322,6 @@ class _$StartedImpl implements _Started {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -357,7 +347,6 @@ class _$StartedImpl implements _Started {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -381,7 +370,6 @@ class _$StartedImpl implements _Started {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -479,7 +467,6 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -512,7 +499,6 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -542,7 +528,6 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -573,7 +558,6 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -599,7 +583,6 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -623,7 +606,6 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -735,7 +717,6 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -768,7 +749,6 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -798,7 +778,6 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -829,7 +808,6 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -855,7 +833,6 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -879,7 +856,6 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -984,7 +960,6 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -1017,7 +992,6 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -1047,7 +1021,6 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -1078,7 +1051,6 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -1104,7 +1076,6 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -1128,7 +1099,6 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -1233,7 +1203,6 @@ class _$SelfieImageImpl implements SelfieImage {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -1266,7 +1235,6 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -1296,7 +1264,6 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -1327,7 +1294,6 @@ class _$SelfieImageImpl implements SelfieImage {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -1353,7 +1319,6 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -1377,7 +1342,6 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -1549,7 +1513,6 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -1583,7 +1546,6 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -1614,7 +1576,6 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -1646,7 +1607,6 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -1672,7 +1632,6 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -1696,7 +1655,6 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -1860,7 +1818,6 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -1894,7 +1851,6 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -1925,7 +1881,6 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -1957,7 +1912,6 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -1983,7 +1937,6 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -2007,7 +1960,6 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -2042,222 +1994,6 @@ abstract class MeetingRelatedInfo implements CardSecondEvent {
   @JsonKey(ignore: true)
   _$$MeetingRelatedInfoImplCopyWith<_$MeetingRelatedInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SecondCardCreationImplCopyWith<$Res> {
-  factory _$$SecondCardCreationImplCopyWith(_$SecondCardCreationImpl value,
-          $Res Function(_$SecondCardCreationImpl) then) =
-      __$$SecondCardCreationImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$SecondCardCreationImplCopyWithImpl<$Res>
-    extends _$CardSecondEventCopyWithImpl<$Res, _$SecondCardCreationImpl>
-    implements _$$SecondCardCreationImplCopyWith<$Res> {
-  __$$SecondCardCreationImplCopyWithImpl(_$SecondCardCreationImpl _value,
-      $Res Function(_$SecondCardCreationImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$SecondCardCreationImpl implements SecondCardCreation {
-  const _$SecondCardCreationImpl();
-
-  @override
-  String toString() {
-    return 'CardSecondEvent.secondCardCreation()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SecondCardCreationImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
-    required TResult Function(List<ImageModel> images) processImageScanning,
-    required TResult Function(int index) removeImageScanning,
-    required TResult Function(bool cameraDeviceFront) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
-        autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
-        meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
-    required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
-        updateCardSecond,
-    required TResult Function(
-            CardActionRewuestModel cardActionRewuestModel, int id)
-        deleteCardSecond,
-    required TResult Function(bool isLoad) getDeleteCardSecond,
-    required TResult Function(bool isLoad) getDeleteCardSecondEvent,
-    required TResult Function(
-            CardActionRewuestModel cardActionRewuestModel, int id)
-        restoreDeleteCardSecond,
-    required TResult Function(bool isLoad) getCardSecondEvent,
-    required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
-  }) {
-    return secondCardCreation();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
-    TResult? Function(List<ImageModel> images)? processImageScanning,
-    TResult? Function(int index)? removeImageScanning,
-    TResult? Function(bool cameraDeviceFront)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
-        autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
-        meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
-    TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
-    TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
-        deleteCardSecond,
-    TResult? Function(bool isLoad)? getDeleteCardSecond,
-    TResult? Function(bool isLoad)? getDeleteCardSecondEvent,
-    TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
-        restoreDeleteCardSecond,
-    TResult? Function(bool isLoad)? getCardSecondEvent,
-    TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
-  }) {
-    return secondCardCreation?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
-    TResult Function(List<ImageModel> images)? processImageScanning,
-    TResult Function(int index)? removeImageScanning,
-    TResult Function(bool cameraDeviceFront)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
-        autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
-        meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
-    TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
-    TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
-        deleteCardSecond,
-    TResult Function(bool isLoad)? getDeleteCardSecond,
-    TResult Function(bool isLoad)? getDeleteCardSecondEvent,
-    TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
-        restoreDeleteCardSecond,
-    TResult Function(bool isLoad)? getCardSecondEvent,
-    TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
-    required TResult orElse(),
-  }) {
-    if (secondCardCreation != null) {
-      return secondCardCreation();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(ScanImage value) scanImage,
-    required TResult Function(ProcessImageScanning value) processImageScanning,
-    required TResult Function(RemoveImageScanning value) removeImageScanning,
-    required TResult Function(SelfieImage value) selfieImage,
-    required TResult Function(AutoFillTExtfieldItems value)
-        autoFillTExtfieldItems,
-    required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
-    required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
-    required TResult Function(UpdateCardSecond value) updateCardSecond,
-    required TResult Function(DeleteCardSecond value) deleteCardSecond,
-    required TResult Function(GetDeleteCardSecond value) getDeleteCardSecond,
-    required TResult Function(GetDeleteCardSecondEvent value)
-        getDeleteCardSecondEvent,
-    required TResult Function(RestoreDeleteCardSecond value)
-        restoreDeleteCardSecond,
-    required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
-    required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
-  }) {
-    return secondCardCreation(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(ScanImage value)? scanImage,
-    TResult? Function(ProcessImageScanning value)? processImageScanning,
-    TResult? Function(RemoveImageScanning value)? removeImageScanning,
-    TResult? Function(SelfieImage value)? selfieImage,
-    TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
-    TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
-    TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
-    TResult? Function(UpdateCardSecond value)? updateCardSecond,
-    TResult? Function(DeleteCardSecond value)? deleteCardSecond,
-    TResult? Function(GetDeleteCardSecond value)? getDeleteCardSecond,
-    TResult? Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
-    TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
-    TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
-    TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
-  }) {
-    return secondCardCreation?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(ScanImage value)? scanImage,
-    TResult Function(ProcessImageScanning value)? processImageScanning,
-    TResult Function(RemoveImageScanning value)? removeImageScanning,
-    TResult Function(SelfieImage value)? selfieImage,
-    TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
-    TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
-    TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
-    TResult Function(UpdateCardSecond value)? updateCardSecond,
-    TResult Function(DeleteCardSecond value)? deleteCardSecond,
-    TResult Function(GetDeleteCardSecond value)? getDeleteCardSecond,
-    TResult Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
-    TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
-    TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
-    TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
-    required TResult orElse(),
-  }) {
-    if (secondCardCreation != null) {
-      return secondCardCreation(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SecondCardCreation implements CardSecondEvent {
-  const factory SecondCardCreation() = _$SecondCardCreationImpl;
 }
 
 /// @nodoc
@@ -2336,7 +2072,6 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -2369,7 +2104,6 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -2399,7 +2133,6 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -2430,7 +2163,6 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -2456,7 +2188,6 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -2480,7 +2211,6 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -2594,7 +2324,6 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -2627,7 +2356,6 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -2657,7 +2385,6 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -2688,7 +2415,6 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -2714,7 +2440,6 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -2738,7 +2463,6 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -2855,7 +2579,6 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -2888,7 +2611,6 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -2918,7 +2640,6 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -2949,7 +2670,6 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -2975,7 +2695,6 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -2999,7 +2718,6 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -3106,7 +2824,6 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -3139,7 +2856,6 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -3169,7 +2885,6 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -3200,7 +2915,6 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -3226,7 +2940,6 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -3250,7 +2963,6 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -3357,7 +3069,6 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -3390,7 +3101,6 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -3420,7 +3130,6 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -3451,7 +3160,6 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -3477,7 +3185,6 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -3501,7 +3208,6 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -3618,7 +3324,6 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -3651,7 +3356,6 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -3681,7 +3385,6 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -3712,7 +3415,6 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -3738,7 +3440,6 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -3762,7 +3463,6 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -3869,7 +3569,6 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -3902,7 +3601,6 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -3932,7 +3630,6 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -3963,7 +3660,6 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -3989,7 +3685,6 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -4013,7 +3708,6 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -4118,7 +3812,6 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -4151,7 +3844,6 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -4181,7 +3873,6 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -4212,7 +3903,6 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -4238,7 +3928,6 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -4262,7 +3951,6 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,
@@ -4340,7 +4028,6 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
     required TResult Function(String selfieImage, String occation,
             String location, String occupation, String notes)
         meetingRelatedInfo,
-    required TResult Function() secondCardCreation,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
         updateCardSecond,
@@ -4373,7 +4060,6 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
     TResult? Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult? Function()? secondCardCreation,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -4403,7 +4089,6 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
     TResult Function(String selfieImage, String occation, String location,
             String occupation, String notes)?
         meetingRelatedInfo,
-    TResult Function()? secondCardCreation,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRewuestModel cardActionRewuestModel, int id)?
@@ -4434,7 +4119,6 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
-    required TResult Function(SecondCardCreation value) secondCardCreation,
     required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
     required TResult Function(UpdateCardSecond value) updateCardSecond,
     required TResult Function(DeleteCardSecond value) deleteCardSecond,
@@ -4460,7 +4144,6 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult? Function(SecondCardCreation value)? secondCardCreation,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult? Function(UpdateCardSecond value)? updateCardSecond,
     TResult? Function(DeleteCardSecond value)? deleteCardSecond,
@@ -4484,7 +4167,6 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
-    TResult Function(SecondCardCreation value)? secondCardCreation,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
     TResult Function(UpdateCardSecond value)? updateCardSecond,
     TResult Function(DeleteCardSecond value)? deleteCardSecond,

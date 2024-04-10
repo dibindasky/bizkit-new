@@ -100,7 +100,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
         message: 'Card restored',
       ));
       add(const CardSecondEvent.getDeleteCardSecond(isLoad: true));
-      add(const CardSecondEvent.getAllCardsSecond(isLoad: true));
+      //add(const CardSecondEvent.getAllCardsSecond(isLoad: true));
     });
   }
 
@@ -127,17 +127,17 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   FutureOr<void> getDeleteCardSecond(GetDeleteCardSecond event, emit) async {
     if (state.deleteSecondCards != null && !event.isLoad) return;
     deletedCards = 1;
-    emit(state.copyWith(isLoading: true, hasError: false));
+    emit(state.copyWith(deleteSecondCardLoading: true, hasError: false));
     final data = await _cardSecondRepo.getDeleteSecondCard(
         pageQuery: PageQuery(page: deletedCards));
     data.fold(
         (l) => emit(state.copyWith(
-              isLoading: false,
+              deleteSecondCardLoading: false,
               hasError: true,
             )), (r) {
       emit(
         state.copyWith(
-          isLoading: false,
+          deleteSecondCardLoading: false,
           hasError: false,
           deleteSecondCards: r.secondCards ?? [],
         ),
@@ -147,7 +147,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
 
   FutureOr<void> deleteCardSecond(DeleteCardSecond event, emit) async {
     emit(state.copyWith(
-      isLoading: true,
+      secondCardLoading: true,
       hasError: false,
       secondCardDeleted: false,
     ));
@@ -157,18 +157,18 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     );
     data.fold(
       (l) => emit(state.copyWith(
-          isLoading: false, hasError: true, secondCardDeleted: false)),
+          secondCardLoading: false, hasError: true, secondCardDeleted: false)),
       (r) {
         emit(
           state.copyWith(
-            isLoading: false,
+            secondCardLoading: false,
             hasError: false,
             message: 'Selcted Card Deleted',
             secondCardDeleted: true,
           ),
         );
         add(const CardSecondEvent.getAllCardsSecond(isLoad: true));
-        add(const CardSecondEvent.getDeleteCardSecond(isLoad: true));
+        //add(const CardSecondEvent.getDeleteCardSecond(isLoad: true));
       },
     );
   }
@@ -330,18 +330,19 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   }
 
   FutureOr<void> updateCardSecond(UpdateCardSecond event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+        deleteSecondCardLoading: true, hasError: false, message: null));
     final data = await _cardSecondRepo.updateCardSecond(
       secondCard: event.secondCard,
       id: event.id,
     );
     data.fold(
         (l) => emit(state.copyWith(
-              isLoading: false,
+              deleteSecondCardLoading: false,
               hasError: true,
             )), (r) {
       emit(state.copyWith(
-        isLoading: false,
+        deleteSecondCardLoading: false,
         hasError: false,
         updated: true,
         cardSecondResponseModel: r,

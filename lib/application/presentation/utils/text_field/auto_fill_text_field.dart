@@ -58,6 +58,11 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
   void initState() {
     filteredAutocompleteItems = widget.autocompleteItems ?? [];
     super.initState();
+
+    if (widget.autocompleteItems != null &&
+        widget.autocompleteItems!.length == 1) {
+      widget.controller?.text = widget.autocompleteItems![0];
+    }
   }
 
   FocusNode myFocusNode = FocusNode();

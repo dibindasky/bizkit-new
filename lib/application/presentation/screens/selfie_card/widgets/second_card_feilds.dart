@@ -78,22 +78,24 @@ class CardSecondScannedDatas extends StatelessWidget {
                           inputType: TextInputType.emailAddress,
                         ),
                         AutocompleteTextField(
-                            autocompleteItems:
-                                state.scannedImageDatasModel?.emails ?? [],
-                            validate: Validate.email,
-                            label: 'Email',
-                            controller:
-                                context.read<CardSecondBloc>().emailController,
-                            inputType: TextInputType.emailAddress),
+                          autocompleteItems:
+                              state.scannedImageDatasModel?.emails ?? [],
+                          validate: Validate.email,
+                          label: 'Email',
+                          controller:
+                              context.read<CardSecondBloc>().emailController,
+                          inputType: TextInputType.emailAddress,
+                        ),
                         AutocompleteTextField(
-                            maxLength: 10,
-                            autocompleteItems:
-                                state.scannedImageDatasModel?.phone ?? [],
-                            validate: Validate.phone,
-                            label: 'Phone number',
-                            controller:
-                                context.read<CardSecondBloc>().phoneController,
-                            inputType: TextInputType.number),
+                          maxLength: 10,
+                          autocompleteItems:
+                              state.scannedImageDatasModel?.phone ?? [],
+                          validate: Validate.phone,
+                          label: 'Phone number',
+                          controller:
+                              context.read<CardSecondBloc>().phoneController,
+                          inputType: TextInputType.number,
+                        ),
                         AutocompleteTextField(
                           autocompleteItems:
                               state.scannedImageDatasModel?.websites ?? [],
@@ -206,9 +208,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
             if (state.secondCardcreated) {
-              GoRouter.of(context).pushReplacement(
-                Routes.homePage,
-              );
+              GoRouter.of(context).pushReplacementNamed(Routes.homePage);
               showSnackbar(context, message: 'Qr Card created successfully');
             }
           },
@@ -302,11 +302,6 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                               .notesController
                                               .text,
                                         ));
-
-                                    context.read<CardSecondBloc>().add(
-                                          const CardSecondEvent
-                                              .secondCardCreation(),
-                                        );
                                   }
                                 },
                               ),

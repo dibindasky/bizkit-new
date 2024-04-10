@@ -8,10 +8,7 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
-import 'package:bizkit/domain/model/card_second/card_second_create_request_model/card_second_create_request_model.dart';
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
-import 'package:bizkit/domain/model/card_second/update_pass_data/update_data_pass.dart';
-import 'package:bizkit/domain/model/card_second/update_second_card_model/update_second_card_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,9 +25,10 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
   @override
   void initState() {
     if (widget.secondCard.selfie != null) {
-      base64image = widget.secondCard.selfie!;
+      base64image = widget.secondCard.selfie ?? "";
       base64image =
           base64image!.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
+      log('widget.secondCard.selfie ${widget.secondCard.selfie}');
     }
     context.read<CardSecondBloc>().updateNameController.text =
         widget.secondCard.name!;
@@ -111,12 +109,15 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                         ],
                       )
                     : state.selfieImageModel != null
-                        ? SizedBox(
+                        ? Container(
                             height: kwidth * 0.60,
                             width: double.infinity,
-                            child: Image.file(
-                              state.selfieImageModel!.fileImage,
-                              fit: BoxFit.cover,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: FileImage(
+                                  state.selfieImageModel!.fileImage,
+                                ),
+                              ),
                             ),
                           )
                         : ContainerPickImage(
@@ -157,7 +158,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.name,
                         ),
                         adjustHieght(khieght * .2),
-                        !state.isLoading
+                        !state.secondCardLoading
                             ? LastSkipContinueButtons(
                                 onTap: () {
                                   if (context

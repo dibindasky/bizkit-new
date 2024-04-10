@@ -108,7 +108,58 @@ class SecondCardDetailView extends StatelessWidget {
                               },
                             ),
                             // row icons
-                            const CardViewRowWiceIcons()
+                            const CardViewRowWiceIcons(),
+                            adjustHieght(khieght * .02),
+                            Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 40),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: neonShade,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const Text('Location'),
+                                      Text(
+                                          '${state.getSecondCardModel!.location}')
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const Text('Venue'),
+                                      Text(
+                                          '${state.getSecondCardModel!.whereWeMet}')
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const Text('Date'),
+                                      Text('${state.getSecondCardModel!.date}')
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const Text('Email'),
+                                      Text('${state.getSecondCardModel!.email}')
+                                    ],
+                                  )
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),

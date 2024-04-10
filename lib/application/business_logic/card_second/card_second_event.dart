@@ -26,7 +26,6 @@ class CardSecondEvent with _$CardSecondEvent {
     required String occupation,
     required String notes,
   }) = MeetingRelatedInfo;
-  const factory CardSecondEvent.secondCardCreation() = SecondCardCreation;
   const factory CardSecondEvent.getAllCardsSecond({required bool isLoad}) =
       GetAllCardsSecond;
   const factory CardSecondEvent.updateCardSecond({

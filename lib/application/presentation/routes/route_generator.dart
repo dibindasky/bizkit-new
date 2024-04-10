@@ -72,11 +72,11 @@ class GoRouterConfig {
       //second card detail
       GoRoute(
         name: Routes.secondcardDetail,
-        path: Routes.secondcardDetail,
+        path: '${Routes.secondcardDetail}/:cardId',
         builder: (context, state) {
-          log('state.extra int id ${state.extra}');
+          final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
           return SecondCardDetailView(
-            cardId: state.extra as int,
+            cardId: cardId,
           );
         },
       ),
@@ -149,7 +149,7 @@ class GoRouterConfig {
       GoRoute(
         name: Routes.scanedDataFeilds,
         path: Routes.scanedDataFeilds,
-        builder: (context, state) => const CardSecondScannedDatas(),
+        builder: (context, state) => CardSecondScannedDatas(),
       ),
       //Second card Creation selfie data fileds
       GoRoute(

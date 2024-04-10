@@ -10,8 +10,6 @@ import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
     as card;
-import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
-import 'package:bizkit/domain/model/card_second/update_pass_data/update_data_pass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -119,8 +117,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                         }
                                                       : <String, String>{};
                                               GoRouter.of(context).pushNamed(
-                                                  Routes.cardDetailView,
-                                                  pathParameters: map);
+                                                Routes.cardDetailView,
+                                                pathParameters: map,
+                                              );
                                             },
                                             child: ClipRRect(
                                               borderRadius:
@@ -364,7 +363,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     },
                   ),
                   adjustHieght(khieght * .03),
-                  const Text('QR conections cards'),
+                  const Text('QR connected cards'),
                   adjustHieght(khieght * .03),
                   BlocConsumer<CardSecondBloc, CardSecondState>(
                     listener: (context, state) {
@@ -391,7 +390,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                       } else if (state.secondCards.isEmpty) {
                         return const Center(
                           child: Text(
-                            'QR Conected cards is empty',
+                            'QR Connected cards is empty',
                             textAlign: TextAlign.center,
                           ),
                         );
@@ -440,9 +439,19 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             //                 .toString()
                                             //           }
                                             //         : <String, String>{};
+                                            final map =
+                                                state.secondCards[index].id !=
+                                                        null
+                                                    ? {
+                                                        'cardId': state
+                                                            .secondCards[index]
+                                                            .id!
+                                                            .toString()
+                                                      }
+                                                    : <String, String>{};
                                             GoRouter.of(context).pushNamed(
                                               Routes.secondcardDetail,
-                                              extra: seconsdCard.id,
+                                              pathParameters: map,
                                             );
                                           },
                                           child: ClipRRect(

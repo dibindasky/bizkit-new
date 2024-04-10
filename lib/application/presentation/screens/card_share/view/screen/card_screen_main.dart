@@ -364,11 +364,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     },
                   ),
                   adjustHieght(khieght * .03),
-<<<<<<< HEAD
                   const Text('QR connections cards'),
-=======
-                  const Text('QR connected cards'),
->>>>>>> mod
                   adjustHieght(khieght * .03),
                   BlocConsumer<CardSecondBloc, CardSecondState>(
                     listener: (context, state) {

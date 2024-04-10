@@ -80,12 +80,20 @@ class CardSharingScreen extends StatelessWidget {
                                   : null,
                               height: 50.dm,
                               width: 50.dm,
-                              child: Image.network(
-                                state.qrList[state.selectedQrIndex].logo == null
-                                    ? image
-                                    : state.qrList[index].logo!,
-                                fit: BoxFit.cover,
-                              ),
+                              child: state.qrList[index].logo ==
+                                      null
+                                  ? Image.network(
+                                      image,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.memory(
+                                      base64.decode(state.qrList[index].logo!
+                                              .startsWith('data')
+                                          ? state.qrList[index].logo!
+                                              .substring(22)
+                                          : state.qrList[index].logo!),
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                             Text(
                               'CARD ${index + 1}',
@@ -194,31 +202,31 @@ class CardSharingScreen extends StatelessWidget {
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                    model.phoneNumber ?? true
+                                    model.phoneNumber ?? false
                                         ? const Text(' Phone Number')
                                         : const SizedBox(),
-                                    model.email ?? true
+                                    model.email ?? false
                                         ? const Text(' Email')
                                         : const SizedBox(),
-                                    model.company ?? true
+                                    model.company ?? false
                                         ? const Text(' Company')
                                         : const SizedBox(),
-                                    model.personalSocialMedia ?? true
+                                    model.personalSocialMedia ?? false
                                         ? const Text(' Personal Socialmedia')
                                         : const SizedBox(),
-                                    model.address ?? true
+                                    model.address ?? false
                                         ? const Text(' Address')
                                         : const SizedBox(),
-                                    model.businessEmail ?? true
+                                    model.businessEmail ?? false
                                         ? const Text(' Business Email')
                                         : const SizedBox(),
-                                    model.businessDetailsMobileNumber!
+                                    model.businessDetailsMobileNumber?? false
                                         ? const Text(' Business Mobile')
                                         : const SizedBox(),
-                                    model.socialMediaHandles ?? true
+                                    model.socialMediaHandles ?? false
                                         ? const Text(' Business Socialmedia')
                                         : const SizedBox(),
-                                    model.websiteLink ?? true
+                                    model.websiteLink ?? false
                                         ? const Text(' Website')
                                         : const SizedBox(),
                                   ]),
@@ -231,18 +239,18 @@ class CardSharingScreen extends StatelessWidget {
                 }
               },
             ),
-            BlocBuilder<QrBloc, QrState>(
-              builder: (context, state) {
-                if (state.isLoading || state.qrList.isEmpty) {
-                  return const SizedBox();
-                }
-                return AuthButton(
-                  text: 'Share',
-                  onTap: () {},
-                  wdth: 110,
-                );
-              },
-            ),
+            // BlocBuilder<QrBloc, QrState>(
+            //   builder: (context, state) {
+            //     if (state.isLoading || state.qrList.isEmpty) {
+            //       return const SizedBox();
+            //     }
+            //     return AuthButton(
+            //       text: 'Share',
+            //       onTap: () {},
+            //       wdth: 110,
+            //     );
+            //   },
+            // ),
             // adjustHieght(khieght * .04),
           ],
         ),

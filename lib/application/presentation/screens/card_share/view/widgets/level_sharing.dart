@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
@@ -125,7 +127,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }, neonShade),
         adjustHieght(5),
-        buildSwitch("Email", context.read<QrBloc>().createQrModel.email!,
+        buildSwitch("Email", context.read<QrBloc>().createQrModel.email,
             (value) {
           setState(() {
             if (personalDetals) {
@@ -135,7 +137,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }),
         buildSwitch(
-            "Phone Number", context.read<QrBloc>().createQrModel.phoneNumber!,
+            "Phone Number", context.read<QrBloc>().createQrModel.phoneNumber,
             (value) {
           setState(() {
             if (personalDetals) {
@@ -146,7 +148,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             }
           });
         }),
-        buildSwitch("Company", context.read<QrBloc>().createQrModel.company!,
+        buildSwitch("Company", context.read<QrBloc>().createQrModel.company,
             (value) {
           setState(() {
             if (personalDetals) {
@@ -156,7 +158,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }),
         buildSwitch("Personal SocialMedias",
-            context.read<QrBloc>().createQrModel.personalSocialMedia!, (value) {
+            context.read<QrBloc>().createQrModel.personalSocialMedia, (value) {
           setState(() {
             if (personalDetals) {
               context.read<QrBloc>().createQrModel = context
@@ -185,7 +187,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
         }, neonShade),
         adjustHieght(5),
         buildSwitch("Business PhoneNumber",
-            context.read<QrBloc>().createQrModel.businessDetailsMobileNumber!,
+            context.read<QrBloc>().createQrModel.businessDetailsMobileNumber,
             (value) {
           setState(() {
             if (businessDetals) {
@@ -197,8 +199,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }),
         buildSwitch("Business Email",
-            context.read<QrBloc>().createQrModel.businessEmail ?? false,
-            (value) {
+            context.read<QrBloc>().createQrModel.businessEmail, (value) {
           setState(() {
             if (businessDetals) {
               context.read<QrBloc>().createQrModel = context
@@ -209,7 +210,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }),
         buildSwitch(
-            "Website Link", context.read<QrBloc>().createQrModel.websiteLink!,
+            "Website Link", context.read<QrBloc>().createQrModel.websiteLink,
             (value) {
           setState(() {
             if (businessDetals) {
@@ -220,7 +221,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             }
           });
         }),
-        buildSwitch("Address", context.read<QrBloc>().createQrModel.address!,
+        buildSwitch("Address", context.read<QrBloc>().createQrModel.address,
             (value) {
           setState(() {
             if (businessDetals) {
@@ -230,7 +231,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }),
         buildSwitch("Business SocialMedias",
-            context.read<QrBloc>().createQrModel.socialMediaHandles!, (value) {
+            context.read<QrBloc>().createQrModel.socialMediaHandles, (value) {
           setState(() {
             if (businessDetals) {
               context.read<QrBloc>().createQrModel = context
@@ -244,14 +245,14 @@ class _SwitchButtonsState extends State<SwitchButtons> {
     );
   }
 
-  Widget buildSwitch(String label, bool value, Function(bool) onChanged,
+  Widget buildSwitch(String label, bool? value, Function(bool) onChanged,
       [Color color = textFieldFillColr]) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: Container(
         padding: const EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
-          color: color,
+          color: value == null ? smallBigGrey : color,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
@@ -260,17 +261,26 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             Text(
               label,
               style: TextStyle(
-                fontSize: kwidth * 0.043,
-                fontWeight: FontWeight.w600,
-              ),
+                  fontSize: kwidth * 0.043,
+                  fontWeight: FontWeight.w600,
+                  color: value == null ? smallBigGrey : kwhite),
             ),
             Switch(
               inactiveTrackColor: textFieldFillColr,
-              inactiveThumbColor: kwhite,
+              inactiveThumbColor: value == null ? kgrey : kwhite,
+              trackOutlineColor: MaterialStatePropertyAll(value == null
+                  ? kgrey
+                  : value
+                      ? neonShade
+                      : kwhite),
               activeTrackColor: color == neonShade ? kwhite : neonShade,
               activeColor: color == neonShade ? neonShade : kwhite,
-              value: value,
-              onChanged: onChanged,
+              value: value ?? false,
+              onChanged: (data) {
+                if (value != null) {
+                  onChanged(data);
+                }
+              },
             ),
           ],
         ),

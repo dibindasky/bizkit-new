@@ -12,6 +12,7 @@ Accredition _$AccreditionFromJson(Map<String, dynamic> json) => Accredition(
       label: json['label'] as String?,
       description: json['description'] as String?,
       cardId: json['card_id'] as int?,
+      date: json['date'] as String?,
     );
 
 Map<String, dynamic> _$AccreditionToJson(Accredition instance) =>
@@ -19,6 +20,7 @@ Map<String, dynamic> _$AccreditionToJson(Accredition instance) =>
       'id': instance.id,
       'image': instance.image,
       'label': instance.label,
+      'date': instance.date,
       'description': instance.description,
       'card_id': instance.cardId,
     };

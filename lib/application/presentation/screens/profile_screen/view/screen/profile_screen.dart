@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
+import 'package:bizkit/application/business_logic/notification/notification_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
@@ -176,6 +179,13 @@ class _ProfileScreenState extends State<ProfileScreen>
                       context,
                       onPressed: () {
                         context.read<AuthBloc>().add(const AuthEvent.logOut());
+                        context.read<CardBloc>().add(const CardEvent.clear());
+                        context
+                            .read<ConnectionRequestBloc>()
+                            .add(const ConnectionRequestEvent.clear());
+                        context
+                            .read<NotificationBloc>()
+                            .add(const NotificationEvent.clear());
                         context.go(Routes.loginPage);
                       },
                     );

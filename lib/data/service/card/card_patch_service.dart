@@ -51,7 +51,7 @@ class CardPatchService implements CardPatchRepo {
   Future<Either<Failure, Accolade>> addAccolades(
       {required Accolade accolade}) async {
     try {
-      log('addAccolades creation ${accolade.toJson()}');
+      log('addAccolades creation ${accolade.date}');
       final response = await _apiService.post(ApiEndPoints.addAccolaade,
           data: accolade.toJson());
       log('addAccolades creation done');
@@ -177,6 +177,29 @@ class CardPatchService implements CardPatchRepo {
       log('addLogo ${logoCard.toJson()}');
       final response =
           await _apiService.post(ApiEndPoints.addLogo, data: logoCard.toJson());
+      log('addLogo done');
+      return Right(LogoCard.fromJson(response.data));
+    } on DioException catch (e) {
+      log('addLogo dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('addLogo exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, LogoCard>> patchLogo(
+      {required LogoCard logoCard}) async {
+    try {
+      log('addLogo ${logoCard.toJson()}');
+      final response = await _apiService.patch(
+          ApiEndPoints.editLogo
+              .replaceFirst('{logo_id}', logoCard.id!.toString()),
+          data: logoCard.toJson());
       log('addLogo done');
       return Right(LogoCard.fromJson(response.data));
     } on DioException catch (e) {

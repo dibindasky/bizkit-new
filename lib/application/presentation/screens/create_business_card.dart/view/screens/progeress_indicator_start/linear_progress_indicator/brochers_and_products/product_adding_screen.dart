@@ -101,13 +101,12 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                   ),
                   adjustHieght(khieght * .03),
                   BlocConsumer<BusinessDataBloc, BusinessDataState>(
-                    listenWhen: (previous, current) =>
-                        previous.productLoading && !current.productLoading,
                     listener: (context, state) {
-                      Navigator.pop(context);
+                      if (state.productAdded) {
+                        Navigator.pop(context);
+                      }
                     },
                     builder: (context, state) {
-                      print('in product button =================');
                       if (state.productLoading) {
                         return const LoadingAnimation();
                       }

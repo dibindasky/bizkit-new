@@ -46,4 +46,17 @@ class LaunchUrl {
       log(e.toString());
     }
   }
+
+  static launchEmail(String email) async {
+    try {
+      final Uri emailLaunchUri = Uri(
+        scheme: 'mailto',
+        path: email,
+      );
+      launchUrl(emailLaunchUri);
+    } catch (e) {
+      log('cannot launch url for email');
+      log(e.toString());
+    }
+  }
 }

@@ -27,4 +27,6 @@ class ConnectionRequestEvent with _$ConnectionRequestEvent {
       GetBlockeConnections;
   const factory ConnectionRequestEvent.getBlockeConnectionsEvent() =
       GgetBlockeConnectionsEvent;
+        const factory ConnectionRequestEvent.clear() = Clear;
+
 }

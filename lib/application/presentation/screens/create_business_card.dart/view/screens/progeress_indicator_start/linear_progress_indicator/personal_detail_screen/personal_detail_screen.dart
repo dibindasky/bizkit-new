@@ -9,6 +9,7 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -110,9 +111,17 @@ class PersonlDetails extends StatelessWidget {
                           context,
                           fadePageRoute(ScreenImagePreview(
                               image: value, isFileIamge: true))),
-                      removeItem: (index) => context.read<UserDataBloc>().add(
-                          UserDataEvent.removeAccolade(
-                              id: state.accolades[index].id!)),
+                      removeItem: (index) {
+                        showCustomConfirmationDialoge(
+                            context: context,
+                            title: 'are you sure want to delete ?',
+                            buttonText: 'Delete',
+                            onTap: () {
+                              context.read<UserDataBloc>().add(
+                                  UserDataEvent.removeAccolade(
+                                      id: state.accolades[index].id!));
+                            });
+                      },
                       list: state.accolades
                           .map((e) => e.accoladesImage as String)
                           .toList(),
@@ -158,9 +167,17 @@ class PersonlDetails extends StatelessWidget {
                     listString: state.socialMedias
                         .map((e) => e.socialMedia ?? 'Social Media')
                         .toList(),
-                    removeItem: (index) => context.read<UserDataBloc>().add(
-                        UserDataEvent.removeSocialMedia(
-                            id: state.socialMedias[index].id!)),
+                    removeItem: (index) {
+                      showCustomConfirmationDialoge(
+                          context: context,
+                          title: 'are you sure want to delete ?',
+                          buttonText: 'Delete',
+                          onTap: () {
+                            context.read<UserDataBloc>().add(
+                                UserDataEvent.removeSocialMedia(
+                                    id: state.socialMedias[index].id!));
+                          });
+                    },
                     ontap: () => Navigator.of(context).push(fadePageRoute(
                         SocialMediahandlesScreen(
                             fromBusiness: false,
@@ -207,9 +224,17 @@ class PersonlDetails extends StatelessWidget {
                   return ImagePreviewUnderTextField(
                     listString:
                         state.datesToRemember.map((e) => e.date!).toList(),
-                    removeItem: (index) => context.read<UserDataBloc>().add(
-                        UserDataEvent.removeDateToRemember(
-                            id: state.datesToRemember[index].id!)),
+                    removeItem: (index) {
+                      showCustomConfirmationDialoge(
+                          context: context,
+                          title: 'are you sure want to delete ?',
+                          buttonText: 'Delete',
+                          onTap: () {
+                            context.read<UserDataBloc>().add(
+                                UserDataEvent.removeDateToRemember(
+                                    id: state.datesToRemember[index].id!));
+                          });
+                    },
                     ontap: () {
                       Navigator.of(context).push(fadePageRoute(
                           DatesToRememberScreen(

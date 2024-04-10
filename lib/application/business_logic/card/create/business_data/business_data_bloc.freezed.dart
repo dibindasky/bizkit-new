@@ -4837,14 +4837,19 @@ mixin _$BusinessDataState {
   bool get bankingLoading => throw _privateConstructorUsedError;
   bool get bankingAdded => throw _privateConstructorUsedError;
   bool get socialMediaLoading => throw _privateConstructorUsedError;
+  bool get socialMediaAdded => throw _privateConstructorUsedError;
   bool get socialMediaDeleteLoading => throw _privateConstructorUsedError;
   bool get brochureLoading => throw _privateConstructorUsedError;
+  bool get brochureAdded => throw _privateConstructorUsedError;
   bool get brochureDeleteLoading => throw _privateConstructorUsedError;
   bool get productLoading => throw _privateConstructorUsedError;
+  bool get productAdded => throw _privateConstructorUsedError;
   bool get productDeleteLoading => throw _privateConstructorUsedError;
   bool get accreditionLoading => throw _privateConstructorUsedError;
+  bool get accreditionAdded => throw _privateConstructorUsedError;
   bool get accreditionDeleteLoading => throw _privateConstructorUsedError;
   bool get branchLoading => throw _privateConstructorUsedError;
+  bool get branchAdded => throw _privateConstructorUsedError;
   bool get branchDeleteLoading => throw _privateConstructorUsedError;
   BusinessDetails? get businessData => throw _privateConstructorUsedError;
   int? get bankDetailsCreateId => throw _privateConstructorUsedError;
@@ -4886,14 +4891,19 @@ abstract class $BusinessDataStateCopyWith<$Res> {
       bool bankingLoading,
       bool bankingAdded,
       bool socialMediaLoading,
+      bool socialMediaAdded,
       bool socialMediaDeleteLoading,
       bool brochureLoading,
+      bool brochureAdded,
       bool brochureDeleteLoading,
       bool productLoading,
+      bool productAdded,
       bool productDeleteLoading,
       bool accreditionLoading,
+      bool accreditionAdded,
       bool accreditionDeleteLoading,
       bool branchLoading,
+      bool branchAdded,
       bool branchDeleteLoading,
       BusinessDetails? businessData,
       int? bankDetailsCreateId,
@@ -4936,14 +4946,19 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
     Object? bankingLoading = null,
     Object? bankingAdded = null,
     Object? socialMediaLoading = null,
+    Object? socialMediaAdded = null,
     Object? socialMediaDeleteLoading = null,
     Object? brochureLoading = null,
+    Object? brochureAdded = null,
     Object? brochureDeleteLoading = null,
     Object? productLoading = null,
+    Object? productAdded = null,
     Object? productDeleteLoading = null,
     Object? accreditionLoading = null,
+    Object? accreditionAdded = null,
     Object? accreditionDeleteLoading = null,
     Object? branchLoading = null,
+    Object? branchAdded = null,
     Object? branchDeleteLoading = null,
     Object? businessData = freezed,
     Object? bankDetailsCreateId = freezed,
@@ -5006,6 +5021,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.socialMediaLoading
           : socialMediaLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      socialMediaAdded: null == socialMediaAdded
+          ? _value.socialMediaAdded
+          : socialMediaAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
       socialMediaDeleteLoading: null == socialMediaDeleteLoading
           ? _value.socialMediaDeleteLoading
           : socialMediaDeleteLoading // ignore: cast_nullable_to_non_nullable
@@ -5013,6 +5032,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
       brochureLoading: null == brochureLoading
           ? _value.brochureLoading
           : brochureLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      brochureAdded: null == brochureAdded
+          ? _value.brochureAdded
+          : brochureAdded // ignore: cast_nullable_to_non_nullable
               as bool,
       brochureDeleteLoading: null == brochureDeleteLoading
           ? _value.brochureDeleteLoading
@@ -5022,6 +5045,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.productLoading
           : productLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      productAdded: null == productAdded
+          ? _value.productAdded
+          : productAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
       productDeleteLoading: null == productDeleteLoading
           ? _value.productDeleteLoading
           : productDeleteLoading // ignore: cast_nullable_to_non_nullable
@@ -5030,6 +5057,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.accreditionLoading
           : accreditionLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      accreditionAdded: null == accreditionAdded
+          ? _value.accreditionAdded
+          : accreditionAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
       accreditionDeleteLoading: null == accreditionDeleteLoading
           ? _value.accreditionDeleteLoading
           : accreditionDeleteLoading // ignore: cast_nullable_to_non_nullable
@@ -5037,6 +5068,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
       branchLoading: null == branchLoading
           ? _value.branchLoading
           : branchLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      branchAdded: null == branchAdded
+          ? _value.branchAdded
+          : branchAdded // ignore: cast_nullable_to_non_nullable
               as bool,
       branchDeleteLoading: null == branchDeleteLoading
           ? _value.branchDeleteLoading
@@ -5126,14 +5161,19 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool bankingLoading,
       bool bankingAdded,
       bool socialMediaLoading,
+      bool socialMediaAdded,
       bool socialMediaDeleteLoading,
       bool brochureLoading,
+      bool brochureAdded,
       bool brochureDeleteLoading,
       bool productLoading,
+      bool productAdded,
       bool productDeleteLoading,
       bool accreditionLoading,
+      bool accreditionAdded,
       bool accreditionDeleteLoading,
       bool branchLoading,
+      bool branchAdded,
       bool branchDeleteLoading,
       BusinessDetails? businessData,
       int? bankDetailsCreateId,
@@ -5174,14 +5214,19 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? bankingLoading = null,
     Object? bankingAdded = null,
     Object? socialMediaLoading = null,
+    Object? socialMediaAdded = null,
     Object? socialMediaDeleteLoading = null,
     Object? brochureLoading = null,
+    Object? brochureAdded = null,
     Object? brochureDeleteLoading = null,
     Object? productLoading = null,
+    Object? productAdded = null,
     Object? productDeleteLoading = null,
     Object? accreditionLoading = null,
+    Object? accreditionAdded = null,
     Object? accreditionDeleteLoading = null,
     Object? branchLoading = null,
+    Object? branchAdded = null,
     Object? branchDeleteLoading = null,
     Object? businessData = freezed,
     Object? bankDetailsCreateId = freezed,
@@ -5244,6 +5289,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.socialMediaLoading
           : socialMediaLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      socialMediaAdded: null == socialMediaAdded
+          ? _value.socialMediaAdded
+          : socialMediaAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
       socialMediaDeleteLoading: null == socialMediaDeleteLoading
           ? _value.socialMediaDeleteLoading
           : socialMediaDeleteLoading // ignore: cast_nullable_to_non_nullable
@@ -5251,6 +5300,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       brochureLoading: null == brochureLoading
           ? _value.brochureLoading
           : brochureLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      brochureAdded: null == brochureAdded
+          ? _value.brochureAdded
+          : brochureAdded // ignore: cast_nullable_to_non_nullable
               as bool,
       brochureDeleteLoading: null == brochureDeleteLoading
           ? _value.brochureDeleteLoading
@@ -5260,6 +5313,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.productLoading
           : productLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      productAdded: null == productAdded
+          ? _value.productAdded
+          : productAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
       productDeleteLoading: null == productDeleteLoading
           ? _value.productDeleteLoading
           : productDeleteLoading // ignore: cast_nullable_to_non_nullable
@@ -5268,6 +5325,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.accreditionLoading
           : accreditionLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      accreditionAdded: null == accreditionAdded
+          ? _value.accreditionAdded
+          : accreditionAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
       accreditionDeleteLoading: null == accreditionDeleteLoading
           ? _value.accreditionDeleteLoading
           : accreditionDeleteLoading // ignore: cast_nullable_to_non_nullable
@@ -5275,6 +5336,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       branchLoading: null == branchLoading
           ? _value.branchLoading
           : branchLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      branchAdded: null == branchAdded
+          ? _value.branchAdded
+          : branchAdded // ignore: cast_nullable_to_non_nullable
               as bool,
       branchDeleteLoading: null == branchDeleteLoading
           ? _value.branchDeleteLoading
@@ -5359,14 +5424,19 @@ class _$InitialImpl implements _Initial {
       required this.bankingLoading,
       required this.bankingAdded,
       required this.socialMediaLoading,
+      required this.socialMediaAdded,
       required this.socialMediaDeleteLoading,
       required this.brochureLoading,
+      required this.brochureAdded,
       required this.brochureDeleteLoading,
       required this.productLoading,
+      required this.productAdded,
       required this.productDeleteLoading,
       required this.accreditionLoading,
+      required this.accreditionAdded,
       required this.accreditionDeleteLoading,
       required this.branchLoading,
+      required this.branchAdded,
       required this.branchDeleteLoading,
       this.businessData,
       this.bankDetailsCreateId,
@@ -5413,21 +5483,31 @@ class _$InitialImpl implements _Initial {
   @override
   final bool socialMediaLoading;
   @override
+  final bool socialMediaAdded;
+  @override
   final bool socialMediaDeleteLoading;
   @override
   final bool brochureLoading;
+  @override
+  final bool brochureAdded;
   @override
   final bool brochureDeleteLoading;
   @override
   final bool productLoading;
   @override
+  final bool productAdded;
+  @override
   final bool productDeleteLoading;
   @override
   final bool accreditionLoading;
   @override
+  final bool accreditionAdded;
+  @override
   final bool accreditionDeleteLoading;
   @override
   final bool branchLoading;
+  @override
+  final bool branchAdded;
   @override
   final bool branchDeleteLoading;
   @override
@@ -5499,7 +5579,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessLoading: $businessLoading, businessAdded: $businessAdded, logoLoading: $logoLoading, logoAdded: $logoAdded, bankingLoading: $bankingLoading, bankingAdded: $bankingAdded, socialMediaLoading: $socialMediaLoading, socialMediaDeleteLoading: $socialMediaDeleteLoading, brochureLoading: $brochureLoading, brochureDeleteLoading: $brochureDeleteLoading, productLoading: $productLoading, productDeleteLoading: $productDeleteLoading, accreditionLoading: $accreditionLoading, accreditionDeleteLoading: $accreditionDeleteLoading, branchLoading: $branchLoading, branchDeleteLoading: $branchDeleteLoading, businessData: $businessData, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, logoCard: $logoCard, currentCard: $currentCard, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
+    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessLoading: $businessLoading, businessAdded: $businessAdded, logoLoading: $logoLoading, logoAdded: $logoAdded, bankingLoading: $bankingLoading, bankingAdded: $bankingAdded, socialMediaLoading: $socialMediaLoading, socialMediaAdded: $socialMediaAdded, socialMediaDeleteLoading: $socialMediaDeleteLoading, brochureLoading: $brochureLoading, brochureAdded: $brochureAdded, brochureDeleteLoading: $brochureDeleteLoading, productLoading: $productLoading, productAdded: $productAdded, productDeleteLoading: $productDeleteLoading, accreditionLoading: $accreditionLoading, accreditionAdded: $accreditionAdded, accreditionDeleteLoading: $accreditionDeleteLoading, branchLoading: $branchLoading, branchAdded: $branchAdded, branchDeleteLoading: $branchDeleteLoading, businessData: $businessData, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, logoCard: $logoCard, currentCard: $currentCard, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
   }
 
   @override
@@ -5529,23 +5609,32 @@ class _$InitialImpl implements _Initial {
                 other.bankingAdded == bankingAdded) &&
             (identical(other.socialMediaLoading, socialMediaLoading) ||
                 other.socialMediaLoading == socialMediaLoading) &&
+            (identical(other.socialMediaAdded, socialMediaAdded) ||
+                other.socialMediaAdded == socialMediaAdded) &&
             (identical(other.socialMediaDeleteLoading, socialMediaDeleteLoading) ||
                 other.socialMediaDeleteLoading == socialMediaDeleteLoading) &&
             (identical(other.brochureLoading, brochureLoading) ||
                 other.brochureLoading == brochureLoading) &&
+            (identical(other.brochureAdded, brochureAdded) ||
+                other.brochureAdded == brochureAdded) &&
             (identical(other.brochureDeleteLoading, brochureDeleteLoading) ||
                 other.brochureDeleteLoading == brochureDeleteLoading) &&
             (identical(other.productLoading, productLoading) ||
                 other.productLoading == productLoading) &&
+            (identical(other.productAdded, productAdded) ||
+                other.productAdded == productAdded) &&
             (identical(other.productDeleteLoading, productDeleteLoading) ||
                 other.productDeleteLoading == productDeleteLoading) &&
             (identical(other.accreditionLoading, accreditionLoading) ||
                 other.accreditionLoading == accreditionLoading) &&
-            (identical(
-                    other.accreditionDeleteLoading, accreditionDeleteLoading) ||
+            (identical(other.accreditionAdded, accreditionAdded) ||
+                other.accreditionAdded == accreditionAdded) &&
+            (identical(other.accreditionDeleteLoading, accreditionDeleteLoading) ||
                 other.accreditionDeleteLoading == accreditionDeleteLoading) &&
             (identical(other.branchLoading, branchLoading) ||
                 other.branchLoading == branchLoading) &&
+            (identical(other.branchAdded, branchAdded) ||
+                other.branchAdded == branchAdded) &&
             (identical(other.branchDeleteLoading, branchDeleteLoading) ||
                 other.branchDeleteLoading == branchDeleteLoading) &&
             (identical(other.businessData, businessData) ||
@@ -5570,10 +5659,8 @@ class _$InitialImpl implements _Initial {
                 other.logoCard == logoCard) &&
             (identical(other.currentCard, currentCard) ||
                 other.currentCard == currentCard) &&
-            (identical(other.gotCompanyData, gotCompanyData) ||
-                other.gotCompanyData == gotCompanyData) &&
-            const DeepCollectionEquality()
-                .equals(other._companiesList, _companiesList) &&
+            (identical(other.gotCompanyData, gotCompanyData) || other.gotCompanyData == gotCompanyData) &&
+            const DeepCollectionEquality().equals(other._companiesList, _companiesList) &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -5591,14 +5678,19 @@ class _$InitialImpl implements _Initial {
         bankingLoading,
         bankingAdded,
         socialMediaLoading,
+        socialMediaAdded,
         socialMediaDeleteLoading,
         brochureLoading,
+        brochureAdded,
         brochureDeleteLoading,
         productLoading,
+        productAdded,
         productDeleteLoading,
         accreditionLoading,
+        accreditionAdded,
         accreditionDeleteLoading,
         branchLoading,
+        branchAdded,
         branchDeleteLoading,
         businessData,
         bankDetailsCreateId,
@@ -5637,14 +5729,19 @@ abstract class _Initial implements BusinessDataState {
       required final bool bankingLoading,
       required final bool bankingAdded,
       required final bool socialMediaLoading,
+      required final bool socialMediaAdded,
       required final bool socialMediaDeleteLoading,
       required final bool brochureLoading,
+      required final bool brochureAdded,
       required final bool brochureDeleteLoading,
       required final bool productLoading,
+      required final bool productAdded,
       required final bool productDeleteLoading,
       required final bool accreditionLoading,
+      required final bool accreditionAdded,
       required final bool accreditionDeleteLoading,
       required final bool branchLoading,
+      required final bool branchAdded,
       required final bool branchDeleteLoading,
       final BusinessDetails? businessData,
       final int? bankDetailsCreateId,
@@ -5685,21 +5782,31 @@ abstract class _Initial implements BusinessDataState {
   @override
   bool get socialMediaLoading;
   @override
+  bool get socialMediaAdded;
+  @override
   bool get socialMediaDeleteLoading;
   @override
   bool get brochureLoading;
+  @override
+  bool get brochureAdded;
   @override
   bool get brochureDeleteLoading;
   @override
   bool get productLoading;
   @override
+  bool get productAdded;
+  @override
   bool get productDeleteLoading;
   @override
   bool get accreditionLoading;
   @override
+  bool get accreditionAdded;
+  @override
   bool get accreditionDeleteLoading;
   @override
   bool get branchLoading;
+  @override
+  bool get branchAdded;
   @override
   bool get branchDeleteLoading;
   @override

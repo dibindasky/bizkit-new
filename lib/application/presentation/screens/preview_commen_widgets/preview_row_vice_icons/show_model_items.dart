@@ -1,8 +1,10 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
+import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
+import 'package:bizkit/application/presentation/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 
-class PreviewScreenRowIconsModelSheet extends StatelessWidget {
+class PreviewScreenRowIconsModelSheet extends StatefulWidget {
   const PreviewScreenRowIconsModelSheet({
     super.key,
     required this.fromPreview,
@@ -15,6 +17,13 @@ class PreviewScreenRowIconsModelSheet extends StatelessWidget {
   final String image;
 
   @override
+  State<PreviewScreenRowIconsModelSheet> createState() =>
+      _PreviewScreenRowIconsModelSheetState();
+}
+
+class _PreviewScreenRowIconsModelSheetState
+    extends State<PreviewScreenRowIconsModelSheet> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 300,
@@ -26,13 +35,14 @@ class PreviewScreenRowIconsModelSheet extends StatelessWidget {
         children: [
           SizedBox(
             height: 270,
-            child: items == null || items!.isEmpty
+            child: widget.items == null || widget.items!.isEmpty
                 ? const Center(
                     child: Text('Nothing to show'),
                   )
                 : ListView.builder(
-                    itemCount: items!.length,
+                    itemCount: widget.items!.length,
                     itemBuilder: (context, index) {
+                      final data = widget.items![index];
                       return Container(
                         height: 70,
                         decoration: const BoxDecoration(
@@ -49,13 +59,21 @@ class PreviewScreenRowIconsModelSheet extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(items![index]),
+                                TextButton(
+                                    onPressed: () {
+                                      if (isValidEmail(data)) {
+                                        LaunchUrl.launchEmail(data);
+                                      } else if (isValidPhoneNumber(data)) {
+                                        LaunchUrl.launchCall(phone: data);
+                                      }
+                                    },
+                                    child: Text(data)),
                               ],
                             ),
                             const Spacer(),
                             IconButton(
                                 onPressed: () => copyToClipboard(
-                                    text: items![index], context: context),
+                                    text: data, context: context),
                                 icon: const Icon(Icons.copy, color: neonShade)),
                             adjustWidth(kwidth * .04),
                           ],

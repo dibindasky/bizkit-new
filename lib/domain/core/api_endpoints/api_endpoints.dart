@@ -34,6 +34,7 @@ class ApiEndPoints {
 
   static String addLogo = '/card/logo-create/';
   static String deleteLogo = '/card/logo-update-delete/{logo_id}/';
+  static String editLogo = '/card/logo-update-delete/{logo_id}/';
   static String addProduct = '/card/product-create/';
   static String deleteProduct = '/card/product-update-delete/{product_id}/';
   static String addBranchOffice = '/card/branch-office-create/';

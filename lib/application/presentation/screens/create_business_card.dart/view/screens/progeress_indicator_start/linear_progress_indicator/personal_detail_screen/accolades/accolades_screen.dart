@@ -4,15 +4,17 @@ import 'package:bizkit/application/business_logic/card/create/business_data/busi
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_create_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AccolodesScreen extends StatelessWidget {
+class AccolodesScreen extends StatefulWidget {
   const AccolodesScreen(
       {super.key, this.accolade = true, required this.cardId});
 
@@ -20,14 +22,21 @@ class AccolodesScreen extends StatelessWidget {
   final int cardId;
 
   @override
+  State<AccolodesScreen> createState() => _AccolodesScreenState();
+}
+
+class _AccolodesScreenState extends State<AccolodesScreen> {
+  final dateController = TextEditingController(text: '');
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
         child: AppbarCommen(
-          tittle: accolade == null
+          tittle: widget.accolade == null
               ? 'Achivement'
-              : accolade!
+              : widget.accolade!
                   ? 'Accolades'
                   : 'Accredition',
         ),
@@ -38,21 +47,24 @@ class AccolodesScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              accolade == null
+              widget.accolade == null
                   ? const SizedBox()
                   : Text(
                       "Add your achievements here for people to know about you",
                       style: TextStyle(fontSize: kwidth * .043),
                     ),
-              accolade == null ? const SizedBox() : adjustHieght(khieght * .02),
-              accolade == null
+              widget.accolade == null
+                  ? const SizedBox()
+                  : adjustHieght(khieght * .02),
+              widget.accolade == null
                   ? const SizedBox()
                   : Center(
                       child: InkWell(
                         onTap: () async {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => AccoladesAddCreateScreen(
-                                accolade: accolade!, cardId: cardId),
+                                accolade: widget.accolade!,
+                                cardId: widget.cardId),
                           ));
                         },
                         child: DottedBorder(
@@ -84,20 +96,100 @@ class AccolodesScreen extends StatelessWidget {
                     ),
               adjustHieght(khieght * .04),
               BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                  builder: (context, business) {
+                return BlocBuilder<UserDataBloc, UserDataState>(
+                    builder: (context, user) {
+                  bool achivement = (widget.accolade ?? true
+                          ? user.accolades
+                          : business.accreditions)
+                      .isEmpty;
+                  if (achivement) {
+                    return const SizedBox();
+                  }
+                  return InkWell(
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (BuildContext context) {
+                        return DatePickingBottomSheet(
+                          // initialDate: DateTime.now(),
+                          year: 500,
+                          last: 500,
+                          onPressed: (date) {
+                            dateController.text = date;
+                            setState(() {});
+                          },
+                          datePicker: dateController,
+                        );
+                      },
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 10, right: 12),
+                      height: 60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: kgrey),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              dateController.text.isEmpty
+                                  ? 'Sort By Date '
+                                  : dateController.text,
+                              style: dateController.text.isEmpty
+                                  ? const TextStyle(color: kwhite)
+                                  : const TextStyle(color: kwhite),
+                            ),
+                          ),
+                          dateController.text != ''
+                              ? InkWell(
+                                  onTap: () => setState(() {
+                                    dateController.text = '';
+                                  }),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: const ColoredBox(
+                                          color: neonShade,
+                                          child: Icon(
+                                            Icons.close,
+                                            color: kblack,
+                                          ))),
+                                )
+                              : const Icon(
+                                  Icons.calendar_month,
+                                  color: neonShade,
+                                ),
+                        ],
+                      ),
+                    ),
+                  );
+                });
+              }),
+              adjustHieght(khieght * .04),
+              BlocBuilder<BusinessDataBloc, BusinessDataState>(
                 builder: (context, business) {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
-                      List achivement = accolade ?? true
+                      List achivement = widget.accolade ?? true
                           ? user.accolades
                           : business.accreditions;
+                      if (dateController.text != '') {
+                        achivement = achivement
+                            .where((element) =>
+                                element.date as String ==
+                                dateController.text.trim())
+                            .toList();
+                      }
+                      if (achivement.isEmpty && dateController.text != '') {
+                        return Text(
+                            'No Achivements found in ${dateController.text}');
+                      }
                       return ListView.separated(
                         separatorBuilder: (context, index) =>
                             adjustHieght(kwidth * .03),
-                        itemCount: accolade == null
-                            ? achivement.length
-                            : accolade!
-                                ? user.accolades.length
-                                : business.accreditions.length,
+                        itemCount: achivement.length,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
@@ -110,15 +202,17 @@ class AccolodesScreen extends StatelessWidget {
                                   height: 200,
                                   width: double.infinity,
                                   child: Image.memory(
-                                    base64.decode((accolade == null
-                                        ? achivement[index] is Accolade
-                                            ? achivement[index].accoladesImage
-                                            : achivement[index].image
-                                        : accolade!
-                                            ? user
-                                                .accolades[index].accoladesImage
-                                            : business
-                                                .accreditions[index].image).substring(22)),
+                                    base64.decode((widget.accolade == null
+                                            ? achivement[index] is Accolade
+                                                ? achivement[index]
+                                                    .accoladesImage
+                                                : achivement[index].image
+                                            : widget.accolade!
+                                                ? user.accolades[index]
+                                                    .accoladesImage
+                                                : business
+                                                    .accreditions[index].image)
+                                        .substring(22)),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -134,11 +228,11 @@ class AccolodesScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          accolade == null
+                                          widget.accolade == null
                                               ? achivement[index] is Accolade
                                                   ? achivement[index].accolades
                                                   : achivement[index].label
-                                              : accolade!
+                                              : widget.accolade!
                                                   ? user.accolades[index]
                                                           .accolades ??
                                                       ''
@@ -151,13 +245,13 @@ class AccolodesScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          accolade == null
+                                          widget.accolade == null
                                               ? achivement[index] is Accolade
                                                   ? achivement[index]
                                                       .accoladesDescription
                                                   : achivement[index]
                                                       .description
-                                              : accolade!
+                                              : widget.accolade!
                                                   ? user.accolades[index]
                                                           .accoladesDescription ??
                                                       ''
@@ -172,7 +266,7 @@ class AccolodesScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                accolade == null
+                                widget.accolade == null
                                     ? const SizedBox()
                                     : Positioned(
                                         right: 10,
@@ -180,27 +274,36 @@ class AccolodesScreen extends StatelessWidget {
                                         child: CircleAvatar(
                                           child: IconButton(
                                             onPressed: () {
-                                              accolade!
-                                                  ? context
-                                                      .read<UserDataBloc>()
-                                                      .add(
-                                                        UserDataEvent
-                                                            .removeAccolade(
-                                                                id: user
-                                                                    .accolades[
-                                                                        index]
-                                                                    .id!),
-                                                      )
-                                                  : context
-                                                      .read<BusinessDataBloc>()
-                                                      .add(
-                                                        BusinessDataEvent
-                                                            .removeAccredition(
-                                                                id: business
-                                                                    .accreditions[
-                                                                        index]
-                                                                    .id!),
-                                                      );
+                                              showCustomConfirmationDialoge(
+                                                  context: context,
+                                                  title:
+                                                      'Are you sure want to delete ?',
+                                                  buttonText: 'Delete',
+                                                  onTap: () {
+                                                    widget.accolade!
+                                                        ? context
+                                                            .read<
+                                                                UserDataBloc>()
+                                                            .add(
+                                                              UserDataEvent
+                                                                  .removeAccolade(
+                                                                      id: user
+                                                                          .accolades[
+                                                                              index]
+                                                                          .id!),
+                                                            )
+                                                        : context
+                                                            .read<
+                                                                BusinessDataBloc>()
+                                                            .add(
+                                                              BusinessDataEvent
+                                                                  .removeAccredition(
+                                                                      id: business
+                                                                          .accreditions[
+                                                                              index]
+                                                                          .id!),
+                                                            );
+                                                  });
                                             },
                                             icon: const Icon(
                                               Icons.delete,
@@ -218,7 +321,7 @@ class AccolodesScreen extends StatelessWidget {
                 },
               ),
               adjustHieght(khieght * .03),
-              accolade == null
+              widget.accolade == null
                   ? const SizedBox()
                   : AuthButton(
                       hieght: 48,

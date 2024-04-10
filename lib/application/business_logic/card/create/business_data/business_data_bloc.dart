@@ -89,6 +89,11 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {
     emit(
       state.copyWith(
+          accreditionAdded: false,
+          branchAdded: false,
+          brochureAdded: false,
+          productAdded: false,
+          socialMediaAdded: false,
           businessAdded: false,
           bankingAdded: false,
           logoAdded: false,
@@ -121,6 +126,11 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   FutureOr<void> createBankingData(CreateBankingData event, emit) async {
     if (state.bankDetailsCreateId != null) return;
     emit(state.copyWith(
+        accreditionAdded: false,
+        branchAdded: false,
+        brochureAdded: false,
+        productAdded: false,
+        socialMediaAdded: false,
         bankingLoading: true,
         hasError: false,
         bankingAdded: false,
@@ -162,6 +172,11 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
 
   FutureOr<void> createBusinessData(CreateBusinessData event, emit) async {
     emit(state.copyWith(
+        accreditionAdded: false,
+        branchAdded: false,
+        brochureAdded: false,
+        productAdded: false,
+        socialMediaAdded: false,
         businessLoading: true,
         businessAdded: false,
         hasError: false,
@@ -207,6 +222,11 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     result.fold(
         (l) => null,
         (getCompanysResponseModel) => emit(state.copyWith(
+            accreditionAdded: false,
+            branchAdded: false,
+            brochureAdded: false,
+            productAdded: false,
+            socialMediaAdded: false,
             gotCompanyData: false,
             companiesList:
                 getCompanysResponseModel.companies ?? state.companiesList)));
@@ -217,6 +237,11 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         loadCompanyData: true,
         message: null,
         hasError: false,
+        accreditionAdded: false,
+        branchAdded: false,
+        brochureAdded: false,
+        productAdded: false,
+        socialMediaAdded: false,
         gotCompanyData: false));
     final result = await cardService.getCompnayDetails(id: event.id);
     result.fold(
@@ -267,7 +292,15 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     result.fold((l) => null, (userData) {
       websiteLinkController.text =
           userData.first.websiteLink ?? websiteLinkController.text;
-      emit(state.copyWith(isBusiness: business, gotCompanyData: false));
+      emit(state.copyWith(
+        isBusiness: business,
+        gotCompanyData: false,
+        accreditionAdded: false,
+        branchAdded: false,
+        brochureAdded: false,
+        productAdded: false,
+        socialMediaAdded: false,
+      ));
     });
   }
 
@@ -276,21 +309,52 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     if (image != null) {
       LogoCard logoCard = state.logoCard!.copyWith(logo: image.base64);
       emit(state.copyWith(
-          logo: image, gotCompanyData: false, logoCard: logoCard));
+        logo: image,
+        gotCompanyData: false,
+        logoCard: logoCard,
+        accreditionAdded: false,
+        branchAdded: false,
+        brochureAdded: false,
+        productAdded: false,
+        socialMediaAdded: false,
+      ));
     }
   }
 
   FutureOr<void> uploadLogo(UploadLogo event, emit) async {
-    emit(state.copyWith(logoAdded: false, logoLoading: true, message: null));
+    emit(state.copyWith(
+        logoAdded: false,
+        logoLoading: true,
+        accreditionAdded: false,
+        branchAdded: false,
+        brochureAdded: false,
+        productAdded: false,
+        socialMediaAdded: false,
+        message: null));
     LogoCard logoCard = state.logoCard!.copyWith(
         logoStory: logoStoryController.text.trim(),
         cardId: state.currentCard!.id!);
-    final result = await cardPatchRepo.addLogo(logoCard: logoCard);
-    result.fold(
-        (l) => emit(state.copyWith(
-            logoAdded: false, logoLoading: false, message: null)),
-        (r) => emit(state.copyWith(
-            logoAdded: true, logoLoading: false, message: null, logoCard: r)));
+    if (state.logoCard!.id == null) {
+      final result = await cardPatchRepo.addLogo(logoCard: logoCard);
+      result.fold(
+          (l) => emit(state.copyWith(
+              logoAdded: false, logoLoading: false, message: null)),
+          (r) => emit(state.copyWith(
+              logoAdded: true,
+              logoLoading: false,
+              message: null,
+              logoCard: r)));
+    } else {
+      final result = await cardPatchRepo.patchLogo(logoCard: logoCard);
+      result.fold(
+          (l) => emit(state.copyWith(
+              logoAdded: false, logoLoading: false, message: null)),
+          (r) => emit(state.copyWith(
+              logoAdded: true,
+              logoLoading: false,
+              message: null,
+              logoCard: r)));
+    }
   }
 
   FutureOr<void> addCropedLogo(
@@ -305,11 +369,23 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     }
     emit(state.copyWith(
         logo: ImageModel(fileImage: file, base64: event.base64),
+        accreditionAdded: false,
+        branchAdded: false,
+        brochureAdded: false,
+        productAdded: false,
+        socialMediaAdded: false,
         gotCompanyData: false));
   }
 
   FutureOr<void> addBrochure(AddBrochures event, emit) async {
-    emit(state.copyWith(brochureLoading: true));
+    emit(state.copyWith(
+      brochureLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
     final result = await pdfPicker.pickPDF();
     PdfModel pdf = PdfModel();
     result.fold((l) {
@@ -323,12 +399,19 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     print('got pdf response');
     response.fold(
         (l) => emit(state.copyWith(brochureLoading: false)),
-        (r) => emit(state.copyWith(
+        (r) => emit(state.copyWith(brochureAdded:true,
             brochureLoading: false, brochures: [...state.brochures, r])));
   }
 
   FutureOr<void> removeBrochure(RemoveBrochure event, emit) async {
-    emit(state.copyWith(brochureDeleteLoading: true));
+    emit(state.copyWith(
+      brochureDeleteLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
     final result = await cardPatchRepo.deleteBrochure(id: event.id);
     result.fold((l) => emit(state.copyWith(brochureDeleteLoading: false)), (r) {
       final List<Brochure> list = [];
@@ -342,18 +425,32 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> addBranch(AddBranch event, emit) async {
-    emit(state.copyWith(branchLoading: false));
+    emit(state.copyWith(
+      branchLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
     final response = await cardPatchRepo.addBranchOffice(
         branchOffice:
             BranchOffice(branch: event.branch, cardId: state.currentCard!.id!));
     response.fold(
         (l) => emit(state.copyWith(branchLoading: false)),
-        (r) => emit(state.copyWith(
+        (r) => emit(state.copyWith(branchAdded:true,
             branchLoading: false, branchOffices: [...state.branchOffices, r])));
   }
 
   FutureOr<void> removeBranch(RemoveBranch event, emit) async {
-    emit(state.copyWith(branchDeleteLoading: true));
+    emit(state.copyWith(
+      branchDeleteLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
     final result = await cardPatchRepo.deleteBranchOffice(id: event.id);
     result.fold((l) => emit(state.copyWith(branchDeleteLoading: false)), (r) {
       final List<BranchOffice> list = [];
@@ -367,16 +464,30 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> addProduct(AddProduct event, emit) async {
-    emit(state.copyWith(productLoading: false));
+    emit(state.copyWith(
+      productLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
     final response = await cardPatchRepo.addProduct(product: event.product);
     response.fold(
         (l) => emit(state.copyWith(productLoading: false)),
-        (r) => emit(state.copyWith(
+        (r) => emit(state.copyWith(productAdded:true,
             productLoading: false, products: [...state.products, r])));
   }
 
   FutureOr<void> removeProduct(RemoveProduct event, emit) async {
-    emit(state.copyWith(productDeleteLoading: true));
+    emit(state.copyWith(
+      productDeleteLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
     final result = await cardPatchRepo.deleteProduct(id: event.id);
     result.fold((l) => emit(state.copyWith(productDeleteLoading: false)), (r) {
       final List<Product> list = [];
@@ -390,18 +501,32 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> addAccredition(AddAccredition event, emit) async {
-    emit(state.copyWith(accreditionLoading: false));
+    emit(state.copyWith(
+      accreditionLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
     final response =
         await cardPatchRepo.addAcredition(accredition: event.accredition);
     response.fold(
         (l) => emit(state.copyWith(accreditionLoading: false)),
         (r) => emit(state.copyWith(
-            accreditionLoading: false,
+            accreditionLoading: false,accreditionAdded:true,
             accreditions: [...state.accreditions, r])));
   }
 
   FutureOr<void> removeAccredition(RemoveAccredition event, emit) async {
-    emit(state.copyWith(accreditionDeleteLoading: true));
+    emit(state.copyWith(
+      accreditionDeleteLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
     final result = await cardPatchRepo.deleteAcredition(id: event.id);
     result.fold((l) => emit(state.copyWith(accreditionDeleteLoading: false)),
         (r) {
@@ -416,17 +541,33 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
-    emit(state.copyWith(message: null, socialMediaLoading: true));
+    emit(state.copyWith(
+      message: null,
+      socialMediaLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
     final result = await cardPatchRepo.addBusinessSocialMedia(
         socialMediaHandle: event.socialMediaHandle);
     result.fold((l) => emit(state.copyWith(socialMediaLoading: false)), (r) {
-      return emit(state.copyWith(
+      return emit(state.copyWith(socialMediaAdded:true,
           socialMediaLoading: false, socialMedias: [...state.socialMedias, r]));
     });
   }
 
   FutureOr<void> removeSocialMedia(RemoveSocialMedia event, emit) async {
-    emit(state.copyWith(message: null, socialMediaDeleteLoading: true));
+    emit(state.copyWith(
+      message: null,
+      socialMediaDeleteLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
     final result = await cardPatchRepo.deleteSocialMedia(id: event.id);
     result.fold((l) => emit(state.copyWith(socialMediaDeleteLoading: false)),
         (r) {

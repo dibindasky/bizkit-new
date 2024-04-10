@@ -3,6 +3,8 @@ import 'package:bizkit/application/business_logic/card/create/user_data/user_dat
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
@@ -93,7 +95,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                           socialMediaImage[
                                               socialMedias[index]]!),
                                     ),
-                                    adjustWidth(20),
+                                    // adjustWidth(20),
                                     Text(socialMedias[index]),
                                   ],
                                 ),
@@ -126,44 +128,46 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                             : TextInputType.url,
                       ),
                       adjustHieght(30),
-                      AuthButton(
-                        text: 'Add',
-                        onTap: () {
-                          if (selectedCategory == 'Social Media') {
-                            showSnackbar(context,
-                                message: 'Select social media first',
-                                textColor: kwhite,
-                                backgroundColor: kred);
-                            return;
-                          }
-                          if (linkController.text == '') {
-                            showSnackbar(context,
-                                message: 'add your social media link',
-                                textColor: kwhite,
-                                backgroundColor: kred);
-                            return;
-                          }
-                          final link = selectedCategory == 'Whatsapp'
-                              ? 'https://wa.me/${linkController.text}'
-                              : selectedCategory == 'Telegram'
-                                  ? 'https://t.me/+${linkController.text}'
-                                  : linkController.text;
-                          final model = SocialMediaHandle(
-                              label: selectedCategory,
-                              socialMedia: link,
-                              cardId: widget.cardId);
-                          !widget.fromBusiness
-                              ? context.read<UserDataBloc>().add(
-                                  UserDataEvent.addSocialMedia(
-                                      socialMediaHandle: model))
-                              : context.read<BusinessDataBloc>().add(
-                                  BusinessDataEvent.addSocialMedia(
-                                      socialMediaHandle: model));
-                          linkController.text = '';
-                          selectedCategory = 'Social Media';
-                          setState(() {});
-                        },
-                      ),
+                      business.socialMediaLoading || user.socialMediaLoading
+                          ? const LoadingAnimation()
+                          : AuthButton(
+                              text: 'Add',
+                              onTap: () {
+                                if (selectedCategory == 'Social Media') {
+                                  showSnackbar(context,
+                                      message: 'Select social media first',
+                                      textColor: kwhite,
+                                      backgroundColor: kred);
+                                  return;
+                                }
+                                if (linkController.text == '') {
+                                  showSnackbar(context,
+                                      message: 'add your social media link',
+                                      textColor: kwhite,
+                                      backgroundColor: kred);
+                                  return;
+                                }
+                                final link = selectedCategory == 'Whatsapp'
+                                    ? 'https://wa.me/${linkController.text}'
+                                    : selectedCategory == 'Telegram'
+                                        ? 'https://t.me/+${linkController.text}'
+                                        : linkController.text;
+                                final model = SocialMediaHandle(
+                                    label: selectedCategory,
+                                    socialMedia: link,
+                                    cardId: widget.cardId);
+                                !widget.fromBusiness
+                                    ? context.read<UserDataBloc>().add(
+                                        UserDataEvent.addSocialMedia(
+                                            socialMediaHandle: model))
+                                    : context.read<BusinessDataBloc>().add(
+                                        BusinessDataEvent.addSocialMedia(
+                                            socialMediaHandle: model));
+                                linkController.text = '';
+                                selectedCategory = 'Social Media';
+                                setState(() {});
+                              },
+                            ),
                       adjustHieght(30),
                       Wrap(
                         children: List.generate(
@@ -183,17 +187,17 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    // CircleAvatar(
-                                    //   radius: 10,
-                                    //   backgroundImage: AssetImage(
-                                    //       socialMediaImage[widget.fromBusiness
-                                    //           ? business.socialMedias[index]
-                                    //                   .label ??
-                                    //               'accound $index'
-                                    //           : user.socialMedias[index]
-                                    //                   .label ??
-                                    //               'account $index']!),
-                                    // ),
+                                    CircleAvatar(
+                                      radius: 10,
+                                      backgroundImage: AssetImage(
+                                          socialMediaImage[widget.fromBusiness
+                                              ? business.socialMedias[index]
+                                                      .label ??
+                                                  'accound $index'
+                                              : user.socialMedias[index]
+                                                      .label ??
+                                                  'account $index']!),
+                                    ),
                                     adjustWidth(10),
                                     Text(widget.fromBusiness
                                         ? business.socialMedias[index].label ??
@@ -208,15 +212,29 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                 top: 0,
                                 child: InkWell(
                                   onTap: () {
-                                    widget.fromBusiness
-                                        ? context.read<BusinessDataBloc>().add(
-                                            BusinessDataEvent.removeSocialMedia(
-                                                id: business
-                                                    .socialMedias[index].id!))
-                                        : context.read<UserDataBloc>().add(
-                                            UserDataEvent.removeSocialMedia(
-                                                id: user
-                                                    .socialMedias[index].id!));
+                                    showCustomConfirmationDialoge(
+                                        context: context,
+                                        title: 'are you sure want to delete ?',
+                                        buttonText: 'Delete',
+                                        onTap: () {
+                                          widget.fromBusiness
+                                              ? context
+                                                  .read<BusinessDataBloc>()
+                                                  .add(BusinessDataEvent
+                                                      .removeSocialMedia(
+                                                          id: business
+                                                              .socialMedias[
+                                                                  index]
+                                                              .id!))
+                                              : context
+                                                  .read<UserDataBloc>()
+                                                  .add(UserDataEvent
+                                                      .removeSocialMedia(
+                                                          id: user
+                                                              .socialMedias[
+                                                                  index]
+                                                              .id!));
+                                        });
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),

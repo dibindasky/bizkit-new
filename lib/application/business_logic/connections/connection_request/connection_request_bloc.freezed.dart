@@ -37,6 +37,7 @@ mixin _$ConnectionRequestEvent {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,6 +61,7 @@ mixin _$ConnectionRequestEvent {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -83,6 +85,7 @@ mixin _$ConnectionRequestEvent {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -104,6 +107,7 @@ mixin _$ConnectionRequestEvent {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -121,6 +125,7 @@ mixin _$ConnectionRequestEvent {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -138,6 +143,7 @@ mixin _$ConnectionRequestEvent {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -248,6 +254,7 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return getBizkitConnections(query);
   }
@@ -274,6 +281,7 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return getBizkitConnections?.call(query);
   }
@@ -300,6 +308,7 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getBizkitConnections != null) {
@@ -327,6 +336,7 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return getBizkitConnections(this);
   }
@@ -347,6 +357,7 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return getBizkitConnections?.call(this);
   }
@@ -367,6 +378,7 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getBizkitConnections != null) {
@@ -475,6 +487,7 @@ class _$GetBizkitConnectionsNextPageImpl
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return getBizkitConnectionsNextPage(query);
   }
@@ -501,6 +514,7 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return getBizkitConnectionsNextPage?.call(query);
   }
@@ -527,6 +541,7 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getBizkitConnectionsNextPage != null) {
@@ -554,6 +569,7 @@ class _$GetBizkitConnectionsNextPageImpl
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return getBizkitConnectionsNextPage(this);
   }
@@ -574,6 +590,7 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return getBizkitConnectionsNextPage?.call(this);
   }
@@ -594,6 +611,7 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getBizkitConnectionsNextPage != null) {
@@ -713,6 +731,7 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return blockBizkitConnections(blockBizkitConnection, connectionId);
   }
@@ -739,6 +758,7 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return blockBizkitConnections?.call(blockBizkitConnection, connectionId);
   }
@@ -765,6 +785,7 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (blockBizkitConnections != null) {
@@ -792,6 +813,7 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return blockBizkitConnections(this);
   }
@@ -812,6 +834,7 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return blockBizkitConnections?.call(this);
   }
@@ -832,6 +855,7 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (blockBizkitConnections != null) {
@@ -939,6 +963,7 @@ class _$AddConnectionImpl implements AddConnection {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return addConnection(createConnectionWithCardIdModel);
   }
@@ -965,6 +990,7 @@ class _$AddConnectionImpl implements AddConnection {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return addConnection?.call(createConnectionWithCardIdModel);
   }
@@ -991,6 +1017,7 @@ class _$AddConnectionImpl implements AddConnection {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (addConnection != null) {
@@ -1018,6 +1045,7 @@ class _$AddConnectionImpl implements AddConnection {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return addConnection(this);
   }
@@ -1038,6 +1066,7 @@ class _$AddConnectionImpl implements AddConnection {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return addConnection?.call(this);
   }
@@ -1058,6 +1087,7 @@ class _$AddConnectionImpl implements AddConnection {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (addConnection != null) {
@@ -1177,6 +1207,7 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return addTagToBizkitconnection(addConnectionTagModel, connectionId);
   }
@@ -1203,6 +1234,7 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return addTagToBizkitconnection?.call(addConnectionTagModel, connectionId);
   }
@@ -1229,6 +1261,7 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (addTagToBizkitconnection != null) {
@@ -1256,6 +1289,7 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return addTagToBizkitconnection(this);
   }
@@ -1276,6 +1310,7 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return addTagToBizkitconnection?.call(this);
   }
@@ -1296,6 +1331,7 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (addTagToBizkitconnection != null) {
@@ -1402,6 +1438,7 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return searchBizkitUsers(searchQuery);
   }
@@ -1428,6 +1465,7 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return searchBizkitUsers?.call(searchQuery);
   }
@@ -1454,6 +1492,7 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (searchBizkitUsers != null) {
@@ -1481,6 +1520,7 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return searchBizkitUsers(this);
   }
@@ -1501,6 +1541,7 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return searchBizkitUsers?.call(this);
   }
@@ -1521,6 +1562,7 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (searchBizkitUsers != null) {
@@ -1638,6 +1680,7 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return addConnectionRequests(addConnectionRequestModel, index);
   }
@@ -1664,6 +1707,7 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return addConnectionRequests?.call(addConnectionRequestModel, index);
   }
@@ -1690,6 +1734,7 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (addConnectionRequests != null) {
@@ -1717,6 +1762,7 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return addConnectionRequests(this);
   }
@@ -1737,6 +1783,7 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return addConnectionRequests?.call(this);
   }
@@ -1757,6 +1804,7 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (addConnectionRequests != null) {
@@ -1835,6 +1883,7 @@ class _$GetRequestListsImpl implements GetRequestLists {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return getRequestLists();
   }
@@ -1861,6 +1910,7 @@ class _$GetRequestListsImpl implements GetRequestLists {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return getRequestLists?.call();
   }
@@ -1887,6 +1937,7 @@ class _$GetRequestListsImpl implements GetRequestLists {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getRequestLists != null) {
@@ -1914,6 +1965,7 @@ class _$GetRequestListsImpl implements GetRequestLists {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return getRequestLists(this);
   }
@@ -1934,6 +1986,7 @@ class _$GetRequestListsImpl implements GetRequestLists {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return getRequestLists?.call(this);
   }
@@ -1954,6 +2007,7 @@ class _$GetRequestListsImpl implements GetRequestLists {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getRequestLists != null) {
@@ -2050,6 +2104,7 @@ class _$DeleteRequestImpl implements DeleteRequest {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return deleteRequest(id);
   }
@@ -2076,6 +2131,7 @@ class _$DeleteRequestImpl implements DeleteRequest {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return deleteRequest?.call(id);
   }
@@ -2102,6 +2158,7 @@ class _$DeleteRequestImpl implements DeleteRequest {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (deleteRequest != null) {
@@ -2129,6 +2186,7 @@ class _$DeleteRequestImpl implements DeleteRequest {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return deleteRequest(this);
   }
@@ -2149,6 +2207,7 @@ class _$DeleteRequestImpl implements DeleteRequest {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return deleteRequest?.call(this);
   }
@@ -2169,6 +2228,7 @@ class _$DeleteRequestImpl implements DeleteRequest {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (deleteRequest != null) {
@@ -2246,6 +2306,7 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return getBlockeConnections();
   }
@@ -2272,6 +2333,7 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return getBlockeConnections?.call();
   }
@@ -2298,6 +2360,7 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getBlockeConnections != null) {
@@ -2325,6 +2388,7 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return getBlockeConnections(this);
   }
@@ -2345,6 +2409,7 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return getBlockeConnections?.call(this);
   }
@@ -2365,6 +2430,7 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getBlockeConnections != null) {
@@ -2439,6 +2505,7 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     required TResult Function(int id) deleteRequest,
     required TResult Function() getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
   }) {
     return getBlockeConnectionsEvent();
   }
@@ -2465,6 +2532,7 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult? Function(int id)? deleteRequest,
     TResult? Function()? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
   }) {
     return getBlockeConnectionsEvent?.call();
   }
@@ -2491,6 +2559,7 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult Function(int id)? deleteRequest,
     TResult Function()? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getBlockeConnectionsEvent != null) {
@@ -2518,6 +2587,7 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
   }) {
     return getBlockeConnectionsEvent(this);
   }
@@ -2538,6 +2608,7 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
   }) {
     return getBlockeConnectionsEvent?.call(this);
   }
@@ -2558,6 +2629,7 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getBlockeConnectionsEvent != null) {
@@ -2569,6 +2641,201 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
 
 abstract class GgetBlockeConnectionsEvent implements ConnectionRequestEvent {
   const factory GgetBlockeConnectionsEvent() = _$GgetBlockeConnectionsEventImpl;
+}
+
+/// @nodoc
+abstract class _$$ClearImplCopyWith<$Res> {
+  factory _$$ClearImplCopyWith(
+          _$ClearImpl value, $Res Function(_$ClearImpl) then) =
+      __$$ClearImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ClearImplCopyWithImpl<$Res>
+    extends _$ConnectionRequestEventCopyWithImpl<$Res, _$ClearImpl>
+    implements _$$ClearImplCopyWith<$Res> {
+  __$$ClearImplCopyWithImpl(
+      _$ClearImpl _value, $Res Function(_$ClearImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ClearImpl implements Clear {
+  const _$ClearImpl();
+
+  @override
+  String toString() {
+    return 'ConnectionRequestEvent.clear()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ClearImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
+    required TResult Function(
+            BlockBizkitConnection blockBizkitConnection, int connectionId)
+        blockBizkitConnections,
+    required TResult Function(
+            CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
+        addConnection,
+    required TResult Function(
+            AddConnectionTagModel addConnectionTagModel, int connectionId)
+        addTagToBizkitconnection,
+    required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
+    required TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)
+        addConnectionRequests,
+    required TResult Function() getRequestLists,
+    required TResult Function(int id) deleteRequest,
+    required TResult Function() getBlockeConnections,
+    required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function() clear,
+  }) {
+    return clear();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
+    TResult? Function(
+            BlockBizkitConnection blockBizkitConnection, int connectionId)?
+        blockBizkitConnections,
+    TResult? Function(
+            CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
+        addConnection,
+    TResult? Function(
+            AddConnectionTagModel addConnectionTagModel, int connectionId)?
+        addTagToBizkitconnection,
+    TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
+        addConnectionRequests,
+    TResult? Function()? getRequestLists,
+    TResult? Function(int id)? deleteRequest,
+    TResult? Function()? getBlockeConnections,
+    TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function()? clear,
+  }) {
+    return clear?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
+    TResult Function(
+            BlockBizkitConnection blockBizkitConnection, int connectionId)?
+        blockBizkitConnections,
+    TResult Function(
+            CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
+        addConnection,
+    TResult Function(
+            AddConnectionTagModel addConnectionTagModel, int connectionId)?
+        addTagToBizkitconnection,
+    TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
+        addConnectionRequests,
+    TResult Function()? getRequestLists,
+    TResult Function(int id)? deleteRequest,
+    TResult Function()? getBlockeConnections,
+    TResult Function()? getBlockeConnectionsEvent,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (clear != null) {
+      return clear();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetBizkitConnections value) getBizkitConnections,
+    required TResult Function(GetBizkitConnectionsNextPage value)
+        getBizkitConnectionsNextPage,
+    required TResult Function(BlockBizkitConnections value)
+        blockBizkitConnections,
+    required TResult Function(AddConnection value) addConnection,
+    required TResult Function(AddTagToBizkitconnection value)
+        addTagToBizkitconnection,
+    required TResult Function(SearchBizkitUsers value) searchBizkitUsers,
+    required TResult Function(AddConnectionRequests value)
+        addConnectionRequests,
+    required TResult Function(GetRequestLists value) getRequestLists,
+    required TResult Function(DeleteRequest value) deleteRequest,
+    required TResult Function(GetBlockeConnections value) getBlockeConnections,
+    required TResult Function(GgetBlockeConnectionsEvent value)
+        getBlockeConnectionsEvent,
+    required TResult Function(Clear value) clear,
+  }) {
+    return clear(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetBizkitConnections value)? getBizkitConnections,
+    TResult? Function(GetBizkitConnectionsNextPage value)?
+        getBizkitConnectionsNextPage,
+    TResult? Function(BlockBizkitConnections value)? blockBizkitConnections,
+    TResult? Function(AddConnection value)? addConnection,
+    TResult? Function(AddTagToBizkitconnection value)? addTagToBizkitconnection,
+    TResult? Function(SearchBizkitUsers value)? searchBizkitUsers,
+    TResult? Function(AddConnectionRequests value)? addConnectionRequests,
+    TResult? Function(GetRequestLists value)? getRequestLists,
+    TResult? Function(DeleteRequest value)? deleteRequest,
+    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
+    TResult? Function(GgetBlockeConnectionsEvent value)?
+        getBlockeConnectionsEvent,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return clear?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetBizkitConnections value)? getBizkitConnections,
+    TResult Function(GetBizkitConnectionsNextPage value)?
+        getBizkitConnectionsNextPage,
+    TResult Function(BlockBizkitConnections value)? blockBizkitConnections,
+    TResult Function(AddConnection value)? addConnection,
+    TResult Function(AddTagToBizkitconnection value)? addTagToBizkitconnection,
+    TResult Function(SearchBizkitUsers value)? searchBizkitUsers,
+    TResult Function(AddConnectionRequests value)? addConnectionRequests,
+    TResult Function(GetRequestLists value)? getRequestLists,
+    TResult Function(DeleteRequest value)? deleteRequest,
+    TResult Function(GetBlockeConnections value)? getBlockeConnections,
+    TResult Function(GgetBlockeConnectionsEvent value)?
+        getBlockeConnectionsEvent,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (clear != null) {
+      return clear(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Clear implements ConnectionRequestEvent {
+  const factory Clear() = _$ClearImpl;
 }
 
 /// @nodoc

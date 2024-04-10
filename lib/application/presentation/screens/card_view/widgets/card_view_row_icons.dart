@@ -76,40 +76,223 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: gifMail,
             ),
-            // website navigator
+// website navigator
             DetailSharingIconWidget(
               onTap: () {
-                if (state.anotherCard != null &&
-                    state.anotherCard!.businessDetails != null &&
-                    state.anotherCard!.businessDetails!.websiteLink != null) {
-                  LaunchUrl.launchUrls(
-                      url: state.anotherCard!.businessDetails!.websiteLink!);
-                }
+                showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 20),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: neonShade),
+                          borderRadius: BorderRadius.circular(10),
+                          color: backgroundColour),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: state.anotherCard != null &&
+                                state.anotherCard!.businessDetails != null &&
+                                state.anotherCard!.businessDetails!
+                                        .websiteLink !=
+                                    null
+                            ? [
+                                Text(
+                                  'Website Link',
+                                  style: textHeadStyle1,
+                                ),
+                                adjustHieght(10),
+                                Text(
+                                  state.anotherCard?.businessDetails?.address ??
+                                      '',
+                                ),
+                                adjustHieght(10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    OutlinedButton.icon(
+                                        style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                color: neonShade)),
+                                        onPressed: () async {
+                                          if (state.anotherCard != null &&
+                                              state.anotherCard!
+                                                      .businessDetails !=
+                                                  null &&
+                                              state
+                                                      .anotherCard!
+                                                      .businessDetails!
+                                                      .websiteLink !=
+                                                  null) {
+                                            await LaunchUrl.launchUrls(
+                                                    url: state
+                                                        .anotherCard!
+                                                        .businessDetails!
+                                                        .websiteLink!)
+                                                .then((value) =>
+                                                    Navigator.pop(context));
+                                          }
+                                        },
+                                        icon: const Icon(
+                                            Icons.open_in_browser_outlined),
+                                        label: const Text(
+                                          'View Website',
+                                          style: TextStyle(color: neonShade),
+                                        )),
+                                    adjustWidth(10),
+                                    OutlinedButton(
+                                        style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                color: neonShade)),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'cancel',
+                                          style: TextStyle(color: neonShade),
+                                        )),
+                                  ],
+                                )
+                              ]
+                            : [
+                                adjustHieght(10),
+                                Text(
+                                  'Websie details not available',
+                                  style: textHeadStyle1,
+                                ),
+                                adjustHieght(10)
+                              ],
+                      ),
+                    ),
+                  ),
+                );
               },
               image: gifGlobe,
             ),
 // social media bottom sheet
             DetailSharingIconWidget(
-              onTap: () => showModalBottomSheet(
-                context: context,
-                enableDrag: true,
-                isDismissible: true,
-                showDragHandle: true,
-                backgroundColor: kblack,
-                builder: (context) {
-                  List personal = state.anotherCard?.socialMedia ?? [],
-                      business = state.anotherCard?.businessSocialMedia ?? [];
-                  return AccountsListsBottomSheet(
-                    personal: personal,
-                    business: business,
-                  );
-                },
-              ),
+              onTap: () => (state.anotherCard?.socialMedia ?? []).isEmpty &&
+                      (state.anotherCard?.businessSocialMedia ?? []).isEmpty
+                  ? showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 20),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: neonShade),
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: backgroundColour),
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    adjustHieght(10),
+                                    Text(
+                                      'No social medias available',
+                                      style: textHeadStyle1,
+                                    ),
+                                    adjustHieght(10)
+                                  ]),
+                            ),
+                          ))
+                  : showModalBottomSheet(
+                      context: context,
+                      enableDrag: true,
+                      isDismissible: true,
+                      showDragHandle: true,
+                      backgroundColor: kblack,
+                      builder: (context) {
+                        List personal = state.anotherCard?.socialMedia ?? [],
+                            business =
+                                state.anotherCard?.businessSocialMedia ?? [];
+                        return AccountsListsBottomSheet(
+                          personal: personal,
+                          business: business,
+                        );
+                      },
+                    ),
               image: imageSpinner,
             ),
-            // location navigator
+// location navigator
             DetailSharingIconWidget(
-              onTap: () {},
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 20),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: neonShade),
+                          borderRadius: BorderRadius.circular(10),
+                          color: backgroundColour),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: state.anotherCard?.businessDetails?.address ==
+                                null
+                            ? [
+                                adjustHieght(10),
+                                Text(
+                                  'Location/Address not available',
+                                  style: textHeadStyle1,
+                                ),
+                                adjustHieght(10)
+                              ]
+                            : [
+                                Text(
+                                  'Address',
+                                  style: textHeadStyle1,
+                                ),
+                                adjustHieght(10),
+                                Text(
+                                  state.anotherCard?.businessDetails?.address ??
+                                      '',
+                                ),
+                                adjustHieght(10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    OutlinedButton.icon(
+                                        style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                color: neonShade)),
+                                        onPressed: () async {
+                                          await LaunchUrl.launchMap(
+                                                  address: state
+                                                          .anotherCard
+                                                          ?.businessDetails
+                                                          ?.address ??
+                                                      '',
+                                                  context: context)
+                                              .then((value) =>
+                                                  Navigator.pop(context));
+                                        },
+                                        icon: const Icon(
+                                            Icons.location_on_outlined),
+                                        label: const Text(
+                                          'ViewMap',
+                                          style: TextStyle(color: neonShade),
+                                        )),
+                                    adjustWidth(10),
+                                    OutlinedButton(
+                                        style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                color: neonShade)),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'cancel',
+                                          style: TextStyle(color: neonShade),
+                                        )),
+                                  ],
+                                )
+                              ],
+                      ),
+                    ),
+                  ),
+                );
+              },
               image: gifLocation,
             ),
           ],

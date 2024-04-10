@@ -11,6 +11,7 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/debouncer/debouncer.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -178,10 +179,17 @@ class BusinessDetailsScreen extends StatelessWidget {
                         listString: state.socialMedias
                             .map((e) => e.socialMedia ?? 'Social Media')
                             .toList(),
-                        removeItem: (index) => context
-                            .read<BusinessDataBloc>()
-                            .add(BusinessDataEvent.removeSocialMedia(
-                                id: state.socialMedias[index].id!)),
+                        removeItem: (index) {
+                          showCustomConfirmationDialoge(
+                              context: context,
+                              title: 'are you sure want to delete ?',
+                              buttonText: 'Delete',
+                              onTap: () {
+                                context.read<BusinessDataBloc>().add(
+                                    BusinessDataEvent.removeSocialMedia(
+                                        id: state.socialMedias[index].id!));
+                              });
+                        },
                         ontap: () => Navigator.of(context).push(fadePageRoute(
                             SocialMediahandlesScreen(
                                 cardId: state.currentCard!.id!,
@@ -235,45 +243,64 @@ class BusinessDetailsScreen extends StatelessWidget {
                                   color: kblack,
                                   child: Padding(
                                     padding: const EdgeInsets.all(20),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Text('Enter Branch Office'),
-                                        adjustHieght(10),
-                                        TTextFormField(
-                                            text: 'Branch',
-                                            textCapitalization:
-                                                TextCapitalization.words,
-                                            controller: context
-                                                .read<BusinessDataBloc>()
-                                                .branchOfficeController),
-                                        adjustHieght(10),
-                                        AuthButton(
-                                            text: 'Add',
-                                            onTap: () {
-                                              if (context
-                                                      .read<BusinessDataBloc>()
-                                                      .branchOfficeController
-                                                      .text !=
-                                                  '') {
-                                                context
-                                                    .read<BusinessDataBloc>()
-                                                    .add(
-                                                      BusinessDataEvent.addBranch(
-                                                          branch: context
+                                    child: BlocConsumer<BusinessDataBloc,
+                                        BusinessDataState>(
+                                      listener: (context, state) {
+                                        if (state.branchAdded) {
+                                          Navigator.pop(context);
+                                        }
+                                      },
+                                      builder: (context, state) {
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: state.branchLoading
+                                              ? [const LoadingAnimation()]
+                                              : [
+                                                  const Text(
+                                                      'Enter Branch Office'),
+                                                  adjustHieght(10),
+                                                  TTextFormField(
+                                                      text: 'Branch',
+                                                      maxLines: 4,
+                                                      maxlegth: 250,
+                                                      textCapitalization:
+                                                          TextCapitalization
+                                                              .words,
+                                                      controller: context
+                                                          .read<
+                                                              BusinessDataBloc>()
+                                                          .branchOfficeController),
+                                                  adjustHieght(10),
+                                                  AuthButton(
+                                                      text: 'Add',
+                                                      onTap: () {
+                                                        if (context
+                                                                .read<
+                                                                    BusinessDataBloc>()
+                                                                .branchOfficeController
+                                                                .text !=
+                                                            '') {
+                                                          context
                                                               .read<
                                                                   BusinessDataBloc>()
-                                                              .branchOfficeController
-                                                              .text),
-                                                    );
-                                              }
-                                              context
-                                                  .read<BusinessDataBloc>()
-                                                  .branchOfficeController
-                                                  .text = '';
-                                              Navigator.pop(context);
-                                            })
-                                      ],
+                                                              .add(
+                                                                BusinessDataEvent.addBranch(
+                                                                    branch: context
+                                                                        .read<
+                                                                            BusinessDataBloc>()
+                                                                        .branchOfficeController
+                                                                        .text),
+                                                              );
+                                                        }
+                                                        context
+                                                            .read<
+                                                                BusinessDataBloc>()
+                                                            .branchOfficeController
+                                                            .text = '';
+                                                      })
+                                                ],
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),
@@ -281,10 +308,17 @@ class BusinessDetailsScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        removeItem: (index) => context
-                            .read<BusinessDataBloc>()
-                            .add(BusinessDataEvent.removeBranch(
-                                id: state.branchOffices[index].id!)),
+                        removeItem: (index) {
+                          showCustomConfirmationDialoge(
+                              context: context,
+                              title: 'are you sure want to delete ?',
+                              buttonText: 'Delete',
+                              onTap: () {
+                                context.read<BusinessDataBloc>().add(
+                                    BusinessDataEvent.removeBranch(
+                                        id: state.branchOffices[index].id!));
+                              });
+                        },
                         listString:
                             state.branchOffices.map((e) => e.branch!).toList(),
                         child: const TTextFormField(
@@ -309,10 +343,17 @@ class BusinessDetailsScreen extends StatelessWidget {
                             context,
                             fadePageRoute(ScreenImagePreview(
                                 image: value, isFileIamge: false))),
-                        removeItem: (index) => context
-                            .read<BusinessDataBloc>()
-                            .add(BusinessDataEvent.removeAccredition(
-                                id: state.accreditions[index].id!)),
+                        removeItem: (index) {
+                          showCustomConfirmationDialoge(
+                              context: context,
+                              title: 'are you sure want to delete ?',
+                              buttonText: 'Delete',
+                              onTap: () {
+                                context.read<BusinessDataBloc>().add(
+                                    BusinessDataEvent.removeAccredition(
+                                        id: state.accreditions[index].id!));
+                              });
+                        },
                         list: state.accreditions
                             .map((e) => e.image as String)
                             .toList(),

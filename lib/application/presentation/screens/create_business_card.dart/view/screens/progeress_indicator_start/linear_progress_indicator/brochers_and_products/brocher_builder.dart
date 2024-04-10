@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,12 +23,17 @@ class BrocherBuilder extends StatelessWidget {
         builder: (context, state) {
           return ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: state.brochures.length,
+            itemCount: state.brochureLoading
+                ? state.brochures.length + 1
+                : state.brochures.length,
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               return BrochureTile(
-                  index: index, brochure: state.brochures[index]);
+                  index: index,
+                  brochure: index >= state.brochures.length
+                      ? null
+                      : state.brochures[index]);
             },
           );
         },
@@ -42,7 +49,7 @@ class BrochureTile extends StatefulWidget {
     required this.brochure,
   });
   final int index;
-  final Brochure brochure;
+  final Brochure? brochure;
 
   @override
   State<BrochureTile> createState() => _BrochureTileState();
@@ -51,13 +58,17 @@ class BrochureTile extends StatefulWidget {
 class _BrochureTileState extends State<BrochureTile> {
   @override
   Widget build(BuildContext context) {
+    if (widget.brochure == null) {
+      return ShimmerLoaderTile(height: kwidth * 0.2, width: kwidth * 0.18);
+    }
     return Stack(
       children: [
         InkWell(
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ScreenPdfPreview(base64: widget.brochure.file),
+                builder: (context) =>
+                    ScreenPdfPreview(base64: widget.brochure!.file),
               )),
           child: Container(
             margin: const EdgeInsets.only(right: 10, left: 10),
@@ -67,7 +78,7 @@ class _BrochureTileState extends State<BrochureTile> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: PdfViewer.openData(
-                base64.decode(widget.brochure.file!
+                base64.decode(widget.brochure!.file!
                     .substring('data:application/pdf;base64,'.length)),
                 params: const PdfViewerParams(pageNumber: 1)),
           ),
@@ -76,9 +87,15 @@ class _BrochureTileState extends State<BrochureTile> {
           top: 0,
           right: 5,
           child: InkWell(
-            onTap: () => context
-                .read<BusinessDataBloc>()
-                .add(BusinessDataEvent.removeBrochure(id: widget.brochure.id!)),
+            onTap: () => showCustomConfirmationDialoge(
+                context: context,
+                title: 'are you sure want to delete ?',
+                buttonText: 'Delete',
+                onTap: () {
+                  context.read<BusinessDataBloc>().add(
+                      BusinessDataEvent.removeBrochure(
+                          id: widget.brochure!.id!));
+                }),
             borderRadius: BorderRadius.circular(10),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),

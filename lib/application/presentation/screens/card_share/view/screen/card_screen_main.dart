@@ -29,6 +29,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> animation;
+
   @override
   void initState() {
     super.initState();
@@ -129,12 +130,12 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                 topRight: Radius.circular(20),
                                               ),
                                               child: card.logo == null
-                                                  ? Image.network(
-                                                      imageDummyNetwork,
+                                                  ? Image.asset(
+                                                      imageBackgroundCard,
                                                       fit: BoxFit.cover,
                                                     )
-                                                  : Image.network(
-                                                      card.logo!,
+                                                  : Image.memory(
+                                                      base64.decode(card.logo!),
                                                       fit: BoxFit.cover,
                                                     ),
                                             ),

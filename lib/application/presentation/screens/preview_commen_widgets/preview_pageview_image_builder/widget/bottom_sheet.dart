@@ -7,10 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PreviewPageViewBottomSheet extends StatelessWidget {
   const PreviewPageViewBottomSheet(
-      {super.key, this.image, this.imageNetwork, this.logoStory});
+      {super.key, this.image, this.memoryImage, this.logoStory});
 
   final File? image;
-  final String? imageNetwork;
+  final String? memoryImage;
   final String? logoStory;
 
   @override
@@ -45,8 +45,8 @@ class PreviewPageViewBottomSheet extends StatelessWidget {
           SizedBox(
             height: 250,
             width: double.infinity,
-            child: imageNetwork != null
-                ? Image.memory(base64.decode(imageNetwork!))
+            child: memoryImage != null
+                ? Image.memory(base64.decode(memoryImage!))
                 : Image.file(image!, fit: BoxFit.cover),
           ),
           adjustHieght(khieght * .02),

@@ -118,10 +118,10 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             if (!value) {
               context.read<QrBloc>().createQrModel =
                   context.read<QrBloc>().createQrModel.copyWith(
-                        email: false,
-                        phoneNumber: false,
-                        personalSocialMedia: false,
-                        company: false,
+                        email: context.read<QrBloc>().createQrModel.email==null?null: false,
+                        phoneNumber: context.read<QrBloc>().createQrModel.phoneNumber==null?null: false,
+                        personalSocialMedia: context.read<QrBloc>().createQrModel.personalSocialMedia==null?null: false,
+                        company: context.read<QrBloc>().createQrModel.company==null?null: false,
                       );
             }
           });

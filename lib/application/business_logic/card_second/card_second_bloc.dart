@@ -307,7 +307,10 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
         list.add(img);
       }
     }
-    emit(state.copyWith(scannedImagesSecondCardCreation: list, message: null));
+    emit(state.copyWith(
+        scannedImagesSecondCardCreation: list,
+        message: null,
+        cardScanFinish: false));
   }
 
   FutureOr<void> getAllCardsSecond(GetAllCardsSecond event, emit) async {

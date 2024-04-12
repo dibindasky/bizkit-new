@@ -141,13 +141,17 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       cardActionRewuestModel: event.cardActionRewuestModel,
     );
     data.fold(
-        (l) => emit(
-            state.copyWith(isLoading: false, hasError: true, message: null)),
-        (r) {
+        (l) => emit(state.copyWith(
+              isLoading: false,
+              hasError: true,
+              message: null,
+            )), (r) {
+      // if(event.cardActionRewuestModel.isActive==false){}
       emit(state.copyWith(
         isLoading: false,
         hasError: false,
         successResponseModel: r,
+        deleteCardRestored: true,
       ));
       add(const CardEvent.getArchievedCards(isLoad: true));
       add(const CardEvent.getdeleteCards(isLoad: true));

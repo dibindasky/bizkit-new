@@ -80,6 +80,13 @@ class GoRouterConfig {
           );
         },
       ),
+      GoRoute(
+        name: Routes.cardListing,
+        path: Routes.cardListing,
+        builder: (context, state) {
+          return const CardShareMainScreen();
+        },
+      ),
       //Card updating
       GoRoute(
         name: Routes.cardUpdating,

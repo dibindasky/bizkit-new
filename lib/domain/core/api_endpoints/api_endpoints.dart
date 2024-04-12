@@ -109,5 +109,6 @@ class ApiEndPoints {
   static String getAllCardSecond = '/card-connections/business-card/';
   static String updateCardSecond =
       '/card-connections/business-card-retrieve-update/{id}/';
+
   static String getDeletedSecondCard = '/card-connections/deleted-cards/';
 }

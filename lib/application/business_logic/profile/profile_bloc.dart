@@ -150,26 +150,25 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> pickImage(PickImageScanning event, emit) async {
-    log('pick image 1');
+    emit(state.copyWith(hasError: false, isLoading: true));
     final image = await ImagePickerClass.getImage(camera: event.camera);
     if (image != null) {
-      log('pick image 2');
       emit(
         state.copyWith(
           imageModel: image,
         ),
       );
-      log('pick image bloc ${state.imageModel!.base64}');
       UserInfoChangeRequestModel userInfoChangeRequestModel =
           UserInfoChangeRequestModel();
       userInfoChangeRequestModel = userInfoChangeRequestModel.copyWith(
           profilePic: state.imageModel!.base64,
           name: state.getUserInfoModel?.results?.name,
           isActive: true);
-      log('pick image 4');
       add(ProfileEvent.editProfile(
         userInfoChangeRequestModel: userInfoChangeRequestModel,
       ));
+    } else {
+      emit(state.copyWith(hasError: true, isLoading: false));
     }
   }
 
@@ -204,7 +203,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     if (state.getUserInfoModel != null && event.isLoad == false) return;
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final data = await profileRepo.getProfile();
-
     data.fold(
         (l) => emit(
               state.copyWith(
@@ -213,6 +211,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 message: errorMessage,
               ),
             ), (r) {
+      if (r.results != null && r.results!.name != null) {
+        userNameController.text = r.results!.name!;
+      }
       emit(
         state.copyWith(
           isLoading: false,

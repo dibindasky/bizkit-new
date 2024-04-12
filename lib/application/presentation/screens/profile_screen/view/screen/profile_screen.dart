@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +73,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                         current.updateUserInfoModel;
                   },
                   listener: (context, state) {
+                    if (state.hasError) {
+                      showSnackbar(context, message: errorMessage);
+                    }
                     if (state.updateUserInfoModel != null) {
                       showSnackbar(context, message: 'Profile updated');
                     }
@@ -79,10 +84,14 @@ class _ProfileScreenState extends State<ProfileScreen>
                     String base64String = '';
                     if ((state.getUserInfoModel != null &&
                         state.getUserInfoModel!.results != null &&
-                        state.getUserInfoModel!.results!.profilePic != null)) {
-                      final image = state.getUserInfoModel!.results!.profilePic;
-                      base64String = image!;
-                      base64String = base64String.replaceFirst(
+                        state.getUserInfoModel!.results!.profilePic != null &&
+                        state.getUserInfoModel!.results!.profilePic!
+                            .isNotEmpty)) {
+                      log('${state.getUserInfoModel!.results!.profilePic?.isEmpty}');
+                      final image =
+                          state.getUserInfoModel!.results!.profilePic!;
+                      base64String = image;
+                      base64String = image.replaceFirst(
                           RegExp(r'data:image/jpg;base64,'), '');
                     }
                     return Stack(
@@ -98,7 +107,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                                       state.getUserInfoModel!.results != null &&
                                       state.getUserInfoModel!.results!
                                               .profilePic !=
-                                          null)
+                                          null &&
+                                      state.getUserInfoModel!.results!
+                                          .profilePic!.isNotEmpty)
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(67),
                                       child: Image.memory(

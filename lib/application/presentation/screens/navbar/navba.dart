@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/cubit/nav_cubit.dart';
 import 'package:bizkit/application/business_logic/promt/promt_bloc.dart';
 import 'package:bizkit/application/presentation/screens/navbar/widgets/prompt.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -19,7 +20,6 @@ class BizkitBottomNavigationBar extends StatefulWidget {
 }
 
 class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
-  int _selectedIndex = 0;
   final List<Widget> _widgetOptions = [
     const HomeScreenFirstAnimationScreen(),
     const CardShareMainScreen(),
@@ -28,9 +28,10 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    context.read<NavCubit>().navbarChange(index: index);
+    // setState(() {
+    //   state.slectedtabIndex = index;
+    // });
   }
 
   @override
@@ -41,150 +42,156 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (bool didPop) async {
-        if (didPop) {
-          return;
-        } else if (_selectedIndex == 0 &&
-            homeFirstAnimationController.isCompleted) {
-          showFirstScreen();
-        } else if (_selectedIndex == 0) {
-          final bool? exit = await showDialog(
-            context: context,
-            builder: (context) => Dialog(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  border: Border.all(color: neonShade),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text('Exit From Bizkit?'),
-                    adjustHieght(10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return BlocBuilder<NavCubit, NavState>(
+      builder: (context, state) {
+        return PopScope(
+          canPop: false,
+          onPopInvoked: (bool didPop) async {
+            if (didPop) {
+              if (didPop) true;
+              return;
+            } else if (state.slectedtabIndex == 0 &&
+                homeFirstAnimationController.isCompleted) {
+              showFirstScreen();
+            } else if (state.slectedtabIndex == 0) {
+              final bool? exit = await showDialog(
+                context: context,
+                builder: (context) => Dialog(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 20),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      border: Border.all(color: neonShade),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        adjustWidth(20),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () => Navigator.pop(context, false),
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5)),
-                                border: Border.all(color: neonShade),
+                        const Text('Exit From Bizkit?'),
+                        adjustHieght(10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            adjustWidth(20),
+                            Expanded(
+                              child: InkWell(
+                                //onTap: () => Navigator.pop(context, false),
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5)),
+                                    border: Border.all(color: neonShade),
+                                  ),
+                                  child: const Center(child: Text('Cancel')),
+                                ),
                               ),
-                              child: const Center(child: Text('Cancel')),
                             ),
-                          ),
-                        ),
-                        adjustWidth(20),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context, true);
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: neonShade,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5)),
-                                border: Border.all(color: neonShade),
+                            adjustWidth(20),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  //Navigator.pop(context, true);
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: neonShade,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5)),
+                                    border: Border.all(color: neonShade),
+                                  ),
+                                  child: const Center(child: Text('Exit')),
+                                ),
                               ),
-                              child: const Center(child: Text('Exit')),
                             ),
-                          ),
+                            adjustWidth(20),
+                          ],
                         ),
-                        adjustWidth(20),
                       ],
                     ),
-                  ],
+                  ),
                 ),
+              );
+              print('exit ===> $exit');
+              if (exit == false) {
+                return;
+              } else {
+                Navigator.pop(context);
+                return;
+              }
+            } else if (state.slectedtabIndex == 0 &&
+                !homeFirstAnimationController.isCompleted) {
+              Navigator.pop(context);
+            } else {
+              context.read<NavCubit>().navbarChange(index: 0);
+              // setState(() {
+              //   state.slectedtabIndex = 0;
+              // });
+              return;
+            }
+          },
+          child: Scaffold(
+            body: Stack(
+              children: [
+                _widgetOptions.elementAt(state.slectedtabIndex),
+                PromptHomePage(showPrompt: state.slectedtabIndex == 0)
+              ],
+            ),
+            bottomNavigationBar: Material(
+              elevation: 5,
+              shadowColor: kblack,
+              child: BottomBarBubble(
+                color: neonShade,
+                height: 55,
+                backgroundColor: backgroundColour,
+                selectedIndex: state.slectedtabIndex,
+                items: [
+                  BottomBarItem(
+                    iconBuilder: (color) => Image.asset(
+                      'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png',
+                      fit: BoxFit.cover,
+                      color: state.slectedtabIndex == 0 ? neonShade : color,
+                      height: state.slectedtabIndex == 0 ? 38 : 30,
+                      width: state.slectedtabIndex == 0 ? 38 : 30,
+                    ),
+                  ),
+                  BottomBarItem(
+                    iconBuilder: (color) => Image.asset(
+                      'asset/images/NavPngs/my connection selected.png',
+                      fit: BoxFit.cover,
+                      color: state.slectedtabIndex == 1 ? neonShade : color,
+                      height: state.slectedtabIndex == 1 ? 32 : 26,
+                      width: state.slectedtabIndex == 1 ? 32 : 26,
+                    ),
+                  ),
+                  BottomBarItem(
+                    iconBuilder: (color) => Image.asset(
+                      'asset/images/NavPngs/selfie selected.png',
+                      fit: BoxFit.cover,
+                      color: state.slectedtabIndex == 2 ? neonShade : color,
+                      height: state.slectedtabIndex == 2 ? 27 : 22,
+                      width: state.slectedtabIndex == 2 ? 27 : 22,
+                    ),
+                  ),
+                  BottomBarItem(
+                    iconBuilder: (color) => Image.asset(
+                      'asset/images/NavPngs/account un selected.png',
+                      fit: BoxFit.cover,
+                      color: state.slectedtabIndex == 3 ? neonShade : color,
+                      height: state.slectedtabIndex == 3 ? 30 : 26,
+                      width: state.slectedtabIndex == 3 ? 30 : 26,
+                    ),
+                  ),
+                ],
+                onSelect: (index) {
+                  _onItemTapped(index);
+                },
               ),
             ),
-          );
-          print('exit ===> $exit');
-          if (exit == false) {
-            return;
-          } else {
-            Navigator.pop(context);
-            return;
-          }
-        } else if (_selectedIndex == 0 &&
-            !homeFirstAnimationController.isCompleted) {
-          Navigator.pop(context);
-        } else {
-          setState(() {
-            _selectedIndex = 0;
-          });
-          return;
-        }
-      },
-      child: Scaffold(
-        body: Stack(
-          children: [
-            _widgetOptions.elementAt(_selectedIndex),
-            PromptHomePage(showPrompt: _selectedIndex == 0)
-          ],
-        ),
-        bottomNavigationBar: Material(
-          elevation: 5,
-          shadowColor: kblack,
-          child: BottomBarBubble(
-            color: neonShade,
-            height: 55,
-            backgroundColor: backgroundColour,
-            selectedIndex: _selectedIndex,
-            items: [
-              BottomBarItem(
-                iconBuilder: (color) => Image.asset(
-                  'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png',
-                  fit: BoxFit.cover,
-                  color: _selectedIndex == 0 ? neonShade : color,
-                  height: _selectedIndex == 0 ? 38 : 30,
-                  width: _selectedIndex == 0 ? 38 : 30,
-                ),
-              ),
-              BottomBarItem(
-                iconBuilder: (color) => Image.asset(
-                  'asset/images/NavPngs/my connection selected.png',
-                  fit: BoxFit.cover,
-                  color: _selectedIndex == 1 ? neonShade : color,
-                  height: _selectedIndex == 1 ? 32 : 26,
-                  width: _selectedIndex == 1 ? 32 : 26,
-                ),
-              ),
-              BottomBarItem(
-                iconBuilder: (color) => Image.asset(
-                  'asset/images/NavPngs/selfie selected.png',
-                  fit: BoxFit.cover,
-                  color: _selectedIndex == 2 ? neonShade : color,
-                  height: _selectedIndex == 2 ? 27 : 22,
-                  width: _selectedIndex == 2 ? 27 : 22,
-                ),
-              ),
-              BottomBarItem(
-                iconBuilder: (color) => Image.asset(
-                  'asset/images/NavPngs/account un selected.png',
-                  fit: BoxFit.cover,
-                  color: _selectedIndex == 3 ? neonShade : color,
-                  height: _selectedIndex == 3 ? 30 : 26,
-                  width: _selectedIndex == 3 ? 30 : 26,
-                ),
-              ),
-            ],
-            onSelect: (index) {
-              _onItemTapped(index);
-            },
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

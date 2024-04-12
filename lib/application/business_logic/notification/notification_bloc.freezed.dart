@@ -18,21 +18,21 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NotificationEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getNotification,
+    required TResult Function(bool isLoad) getNotification,
     required TResult Function() getNotificationEvent,
     required TResult Function() clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getNotification,
+    TResult? Function(bool isLoad)? getNotification,
     TResult? Function()? getNotificationEvent,
     TResult? Function()? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getNotification,
+    TResult Function(bool isLoad)? getNotification,
     TResult Function()? getNotificationEvent,
     TResult Function()? clear,
     required TResult orElse(),
@@ -85,6 +85,8 @@ abstract class _$$GetNotificationImplCopyWith<$Res> {
   factory _$$GetNotificationImplCopyWith(_$GetNotificationImpl value,
           $Res Function(_$GetNotificationImpl) then) =
       __$$GetNotificationImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isLoad});
 }
 
 /// @nodoc
@@ -94,57 +96,82 @@ class __$$GetNotificationImplCopyWithImpl<$Res>
   __$$GetNotificationImplCopyWithImpl(
       _$GetNotificationImpl _value, $Res Function(_$GetNotificationImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoad = null,
+  }) {
+    return _then(_$GetNotificationImpl(
+      isLoad: null == isLoad
+          ? _value.isLoad
+          : isLoad // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetNotificationImpl implements GetNotification {
-  const _$GetNotificationImpl();
+  const _$GetNotificationImpl({required this.isLoad});
+
+  @override
+  final bool isLoad;
 
   @override
   String toString() {
-    return 'NotificationEvent.getNotification()';
+    return 'NotificationEvent.getNotification(isLoad: $isLoad)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetNotificationImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetNotificationImpl &&
+            (identical(other.isLoad, isLoad) || other.isLoad == isLoad));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isLoad);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetNotificationImplCopyWith<_$GetNotificationImpl> get copyWith =>
+      __$$GetNotificationImplCopyWithImpl<_$GetNotificationImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getNotification,
+    required TResult Function(bool isLoad) getNotification,
     required TResult Function() getNotificationEvent,
     required TResult Function() clear,
   }) {
-    return getNotification();
+    return getNotification(isLoad);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getNotification,
+    TResult? Function(bool isLoad)? getNotification,
     TResult? Function()? getNotificationEvent,
     TResult? Function()? clear,
   }) {
-    return getNotification?.call();
+    return getNotification?.call(isLoad);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getNotification,
+    TResult Function(bool isLoad)? getNotification,
     TResult Function()? getNotificationEvent,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getNotification != null) {
-      return getNotification();
+      return getNotification(isLoad);
     }
     return orElse();
   }
@@ -185,7 +212,13 @@ class _$GetNotificationImpl implements GetNotification {
 }
 
 abstract class GetNotification implements NotificationEvent {
-  const factory GetNotification() = _$GetNotificationImpl;
+  const factory GetNotification({required final bool isLoad}) =
+      _$GetNotificationImpl;
+
+  bool get isLoad;
+  @JsonKey(ignore: true)
+  _$$GetNotificationImplCopyWith<_$GetNotificationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -227,7 +260,7 @@ class _$GetNotificationEventImpl implements GetNotificationEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getNotification,
+    required TResult Function(bool isLoad) getNotification,
     required TResult Function() getNotificationEvent,
     required TResult Function() clear,
   }) {
@@ -237,7 +270,7 @@ class _$GetNotificationEventImpl implements GetNotificationEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getNotification,
+    TResult? Function(bool isLoad)? getNotification,
     TResult? Function()? getNotificationEvent,
     TResult? Function()? clear,
   }) {
@@ -247,7 +280,7 @@ class _$GetNotificationEventImpl implements GetNotificationEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getNotification,
+    TResult Function(bool isLoad)? getNotification,
     TResult Function()? getNotificationEvent,
     TResult Function()? clear,
     required TResult orElse(),
@@ -335,7 +368,7 @@ class _$ClearImpl implements Clear {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getNotification,
+    required TResult Function(bool isLoad) getNotification,
     required TResult Function() getNotificationEvent,
     required TResult Function() clear,
   }) {
@@ -345,7 +378,7 @@ class _$ClearImpl implements Clear {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getNotification,
+    TResult? Function(bool isLoad)? getNotification,
     TResult? Function()? getNotificationEvent,
     TResult? Function()? clear,
   }) {
@@ -355,7 +388,7 @@ class _$ClearImpl implements Clear {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getNotification,
+    TResult Function(bool isLoad)? getNotification,
     TResult Function()? getNotificationEvent,
     TResult Function()? clear,
     required TResult orElse(),

@@ -364,7 +364,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     },
                   ),
                   adjustHieght(khieght * .03),
-                  const Text('QR connections cards'),
+                  const Text('Selfie connected cards'),
                   adjustHieght(khieght * .03),
                   BlocConsumer<CardSecondBloc, CardSecondState>(
                     listener: (context, state) {
@@ -374,13 +374,13 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                           message: state.message!,
                         );
                       }
-                      if (state.hasError) {
-                        return showSnackbar(
-                          context,
-                          message: state.message ?? errorMessage,
-                          backgroundColor: kred,
-                        );
-                      }
+                      // if (state.hasError) {
+                      //   return showSnackbar(
+                      //     context,
+                      //     message: state.message ?? errorMessage,
+                      //     backgroundColor: kred,
+                      //   );
+                      // }
                     },
                     builder: (context, state) {
                       if (state.secondCardLoading) {
@@ -389,10 +389,13 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                           child: const LoadingAnimation(),
                         );
                       } else if (state.secondCards.isEmpty) {
-                        return const Center(
-                          child: Text(
-                            'QR Connected cards is empty',
-                            textAlign: TextAlign.center,
+                        return SizedBox(
+                          height: khieght * .35,
+                          child: const Center(
+                            child: Text(
+                              'Selfie cards is empty',
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         );
                       }
@@ -423,23 +426,6 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                         height: 200,
                                         child: InkWell(
                                           onTap: () {
-                                            // Navigator.push(
-                                            //     context,
-                                            //     fadePageRoute(
-                                            //         HomeFirstViewAllContactTileDetailView(
-                                            //             cardId: state
-                                            //                 .cards[index].id)));
-                                            // final map =
-                                            //     state.secondCards[index].id !=
-                                            //             null
-                                            //         ? {
-                                            //             'myCard': 'true',
-                                            //             'cardId': state
-                                            //                 .secondCards[index]
-                                            //                 .id!
-                                            //                 .toString()
-                                            //           }
-                                            //         : <String, String>{};
                                             final map =
                                                 state.secondCards[index].id !=
                                                         null
@@ -489,19 +475,11 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                 [
                                               PopupMenuItem(
                                                 onTap: () {
-                                                  showConfirmationDialog(
-                                                    actionButton: 'Edit',
-                                                    heading:
-                                                        'Are you sure you want to Edit your card',
-                                                    context,
-                                                    onPressed: () {
-                                                      GoRouter.of(context)
-                                                          .pushNamed(
-                                                        Routes.cardUpdating,
-                                                        extra: state
-                                                            .secondCards[index],
-                                                      );
-                                                    },
+                                                  GoRouter.of(context)
+                                                      .pushNamed(
+                                                    Routes.cardUpdating,
+                                                    extra: state
+                                                        .secondCards[index],
                                                   );
                                                 },
                                                 value: 'Edit Card',
@@ -531,16 +509,6 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                             id: seconsdCard.id!,
                                                           ),
                                                         );
-                                                    // CardActionRewuestModel
-                                                    //     cardActionRewuestModel =
-                                                    //     CardActionRewuestModel(
-                                                    //         isActive: false);
-                                                    // context.read<CardBloc>().add(
-                                                    //     CardEvent.cardAction(
-                                                    //         cardActionRewuestModel:
-                                                    //             cardActionRewuestModel,
-                                                    //         id: seconsdCard
-                                                    //             .id!));
                                                   },
                                                 ),
                                                 value: 'Delete Card',
@@ -569,22 +537,6 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                           ),
                                         ),
                                       ),
-                                      // InkWell(
-                                      //   //  onTap: () => bottomSheet(context, seconsdCard),
-                                      //   child: Container(
-                                      //     decoration: BoxDecoration(
-                                      //       borderRadius:
-                                      //           BorderRadius.circular(20),
-                                      //       color: kblue,
-                                      //     ),
-                                      //     width: 100,
-                                      //     height: 30,
-                                      //     child: Center(
-                                      //       child: Text('Share',
-                                      //           style: textStyle1),
-                                      //     ),
-                                      //   ),
-                                      // ),
                                     ],
                                   ),
                                   adjustHieght(khieght * .02),

@@ -42,7 +42,7 @@ mixin _$CardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -68,7 +68,7 @@ mixin _$CardSecondEvent {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -94,7 +94,7 @@ mixin _$CardSecondEvent {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -118,7 +118,7 @@ mixin _$CardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -138,7 +138,7 @@ mixin _$CardSecondEvent {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -158,7 +158,7 @@ mixin _$CardSecondEvent {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -244,7 +244,7 @@ class _$StartedImpl implements _Started {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return started();
   }
@@ -273,7 +273,7 @@ class _$StartedImpl implements _Started {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return started?.call();
   }
@@ -302,7 +302,7 @@ class _$StartedImpl implements _Started {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -332,7 +332,7 @@ class _$StartedImpl implements _Started {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return started(this);
   }
@@ -355,7 +355,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return started?.call(this);
   }
@@ -378,7 +378,7 @@ class _$StartedImpl implements _Started {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -480,7 +480,7 @@ class _$ScanImageImpl implements ScanImage {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return scanImage(isCam);
   }
@@ -509,7 +509,7 @@ class _$ScanImageImpl implements ScanImage {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return scanImage?.call(isCam);
   }
@@ -538,7 +538,7 @@ class _$ScanImageImpl implements ScanImage {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (scanImage != null) {
@@ -568,7 +568,7 @@ class _$ScanImageImpl implements ScanImage {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return scanImage(this);
   }
@@ -591,7 +591,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return scanImage?.call(this);
   }
@@ -614,7 +614,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (scanImage != null) {
@@ -730,7 +730,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return processImageScanning(images);
   }
@@ -759,7 +759,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return processImageScanning?.call(images);
   }
@@ -788,7 +788,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (processImageScanning != null) {
@@ -818,7 +818,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return processImageScanning(this);
   }
@@ -841,7 +841,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return processImageScanning?.call(this);
   }
@@ -864,7 +864,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (processImageScanning != null) {
@@ -973,7 +973,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return removeImageScanning(index);
   }
@@ -1002,7 +1002,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return removeImageScanning?.call(index);
   }
@@ -1031,7 +1031,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (removeImageScanning != null) {
@@ -1061,7 +1061,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return removeImageScanning(this);
   }
@@ -1084,7 +1084,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return removeImageScanning?.call(this);
   }
@@ -1107,7 +1107,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (removeImageScanning != null) {
@@ -1216,7 +1216,7 @@ class _$SelfieImageImpl implements SelfieImage {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return selfieImage(cameraDeviceFront);
   }
@@ -1245,7 +1245,7 @@ class _$SelfieImageImpl implements SelfieImage {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return selfieImage?.call(cameraDeviceFront);
   }
@@ -1274,7 +1274,7 @@ class _$SelfieImageImpl implements SelfieImage {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (selfieImage != null) {
@@ -1304,7 +1304,7 @@ class _$SelfieImageImpl implements SelfieImage {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return selfieImage(this);
   }
@@ -1327,7 +1327,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return selfieImage?.call(this);
   }
@@ -1350,7 +1350,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (selfieImage != null) {
@@ -1526,7 +1526,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return autoFillTExtfieldItems(
         scannedImage, email, name, company, number, website, designation);
@@ -1556,7 +1556,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return autoFillTExtfieldItems?.call(
         scannedImage, email, name, company, number, website, designation);
@@ -1586,7 +1586,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (autoFillTExtfieldItems != null) {
@@ -1617,7 +1617,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return autoFillTExtfieldItems(this);
   }
@@ -1640,7 +1640,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return autoFillTExtfieldItems?.call(this);
   }
@@ -1663,7 +1663,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (autoFillTExtfieldItems != null) {
@@ -1831,7 +1831,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return meetingRelatedInfo(
         this.selfieImage, occation, location, occupation, notes);
@@ -1861,7 +1861,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return meetingRelatedInfo?.call(
         this.selfieImage, occation, location, occupation, notes);
@@ -1891,7 +1891,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (meetingRelatedInfo != null) {
@@ -1922,7 +1922,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return meetingRelatedInfo(this);
   }
@@ -1945,7 +1945,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return meetingRelatedInfo?.call(this);
   }
@@ -1968,7 +1968,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (meetingRelatedInfo != null) {
@@ -2085,7 +2085,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return getAllCardsSecond(isLoad);
   }
@@ -2114,7 +2114,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return getAllCardsSecond?.call(isLoad);
   }
@@ -2143,7 +2143,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (getAllCardsSecond != null) {
@@ -2173,7 +2173,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return getAllCardsSecond(this);
   }
@@ -2196,7 +2196,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return getAllCardsSecond?.call(this);
   }
@@ -2219,7 +2219,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (getAllCardsSecond != null) {
@@ -2337,7 +2337,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return updateCardSecond(secondCard, id);
   }
@@ -2366,7 +2366,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return updateCardSecond?.call(secondCard, id);
   }
@@ -2395,7 +2395,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (updateCardSecond != null) {
@@ -2425,7 +2425,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return updateCardSecond(this);
   }
@@ -2448,7 +2448,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return updateCardSecond?.call(this);
   }
@@ -2471,7 +2471,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (updateCardSecond != null) {
@@ -2592,7 +2592,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return deleteCardSecond(cardActionRewuestModel, id);
   }
@@ -2621,7 +2621,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return deleteCardSecond?.call(cardActionRewuestModel, id);
   }
@@ -2650,7 +2650,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (deleteCardSecond != null) {
@@ -2680,7 +2680,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return deleteCardSecond(this);
   }
@@ -2703,7 +2703,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return deleteCardSecond?.call(this);
   }
@@ -2726,7 +2726,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (deleteCardSecond != null) {
@@ -2837,7 +2837,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return getDeleteCardSecond(isLoad);
   }
@@ -2866,7 +2866,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return getDeleteCardSecond?.call(isLoad);
   }
@@ -2895,7 +2895,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (getDeleteCardSecond != null) {
@@ -2925,7 +2925,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return getDeleteCardSecond(this);
   }
@@ -2948,7 +2948,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return getDeleteCardSecond?.call(this);
   }
@@ -2971,7 +2971,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (getDeleteCardSecond != null) {
@@ -3082,7 +3082,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return getDeleteCardSecondEvent(isLoad);
   }
@@ -3111,7 +3111,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return getDeleteCardSecondEvent?.call(isLoad);
   }
@@ -3140,7 +3140,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (getDeleteCardSecondEvent != null) {
@@ -3170,7 +3170,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return getDeleteCardSecondEvent(this);
   }
@@ -3193,7 +3193,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return getDeleteCardSecondEvent?.call(this);
   }
@@ -3216,7 +3216,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (getDeleteCardSecondEvent != null) {
@@ -3337,7 +3337,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return restoreDeleteCardSecond(cardActionRewuestModel, id);
   }
@@ -3366,7 +3366,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return restoreDeleteCardSecond?.call(cardActionRewuestModel, id);
   }
@@ -3395,7 +3395,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (restoreDeleteCardSecond != null) {
@@ -3425,7 +3425,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return restoreDeleteCardSecond(this);
   }
@@ -3448,7 +3448,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return restoreDeleteCardSecond?.call(this);
   }
@@ -3471,7 +3471,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (restoreDeleteCardSecond != null) {
@@ -3582,7 +3582,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return getCardSecondEvent(isLoad);
   }
@@ -3611,7 +3611,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return getCardSecondEvent?.call(isLoad);
   }
@@ -3640,7 +3640,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (getCardSecondEvent != null) {
@@ -3670,7 +3670,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return getCardSecondEvent(this);
   }
@@ -3693,7 +3693,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return getCardSecondEvent?.call(this);
   }
@@ -3716,7 +3716,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (getCardSecondEvent != null) {
@@ -3825,7 +3825,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
     return getSecondCardDetail(id);
   }
@@ -3854,7 +3854,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
     return getSecondCardDetail?.call(id);
   }
@@ -3883,7 +3883,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
     if (getSecondCardDetail != null) {
@@ -3913,7 +3913,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
     return getSecondCardDetail(this);
   }
@@ -3936,7 +3936,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
     return getSecondCardDetail?.call(this);
   }
@@ -3959,7 +3959,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
     if (getSecondCardDetail != null) {
@@ -3980,35 +3980,35 @@ abstract class GetSecondCardDetail implements CardSecondEvent {
 }
 
 /// @nodoc
-abstract class _$$ScannedImageImptyImplCopyWith<$Res> {
-  factory _$$ScannedImageImptyImplCopyWith(_$ScannedImageImptyImpl value,
-          $Res Function(_$ScannedImageImptyImpl) then) =
-      __$$ScannedImageImptyImplCopyWithImpl<$Res>;
+abstract class _$$DataClearingImplCopyWith<$Res> {
+  factory _$$DataClearingImplCopyWith(
+          _$DataClearingImpl value, $Res Function(_$DataClearingImpl) then) =
+      __$$DataClearingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$ScannedImageImptyImplCopyWithImpl<$Res>
-    extends _$CardSecondEventCopyWithImpl<$Res, _$ScannedImageImptyImpl>
-    implements _$$ScannedImageImptyImplCopyWith<$Res> {
-  __$$ScannedImageImptyImplCopyWithImpl(_$ScannedImageImptyImpl _value,
-      $Res Function(_$ScannedImageImptyImpl) _then)
+class __$$DataClearingImplCopyWithImpl<$Res>
+    extends _$CardSecondEventCopyWithImpl<$Res, _$DataClearingImpl>
+    implements _$$DataClearingImplCopyWith<$Res> {
+  __$$DataClearingImplCopyWithImpl(
+      _$DataClearingImpl _value, $Res Function(_$DataClearingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$ScannedImageImptyImpl implements ScannedImageImpty {
-  const _$ScannedImageImptyImpl();
+class _$DataClearingImpl implements DataClearing {
+  const _$DataClearingImpl();
 
   @override
   String toString() {
-    return 'CardSecondEvent.scannedImageImpty()';
+    return 'CardSecondEvent.dataClearing()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ScannedImageImptyImpl);
+        (other.runtimeType == runtimeType && other is _$DataClearingImpl);
   }
 
   @override
@@ -4041,9 +4041,9 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
         restoreDeleteCardSecond,
     required TResult Function(bool isLoad) getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() scannedImageImpty,
+    required TResult Function() dataClearing,
   }) {
-    return scannedImageImpty();
+    return dataClearing();
   }
 
   @override
@@ -4070,9 +4070,9 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
         restoreDeleteCardSecond,
     TResult? Function(bool isLoad)? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? scannedImageImpty,
+    TResult? Function()? dataClearing,
   }) {
-    return scannedImageImpty?.call();
+    return dataClearing?.call();
   }
 
   @override
@@ -4099,11 +4099,11 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
         restoreDeleteCardSecond,
     TResult Function(bool isLoad)? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? scannedImageImpty,
+    TResult Function()? dataClearing,
     required TResult orElse(),
   }) {
-    if (scannedImageImpty != null) {
-      return scannedImageImpty();
+    if (dataClearing != null) {
+      return dataClearing();
     }
     return orElse();
   }
@@ -4129,9 +4129,9 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(ScannedImageImpty value) scannedImageImpty,
+    required TResult Function(DataClearing value) dataClearing,
   }) {
-    return scannedImageImpty(this);
+    return dataClearing(this);
   }
 
   @override
@@ -4152,9 +4152,9 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult? Function(DataClearing value)? dataClearing,
   }) {
-    return scannedImageImpty?.call(this);
+    return dataClearing?.call(this);
   }
 
   @override
@@ -4175,18 +4175,18 @@ class _$ScannedImageImptyImpl implements ScannedImageImpty {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(ScannedImageImpty value)? scannedImageImpty,
+    TResult Function(DataClearing value)? dataClearing,
     required TResult orElse(),
   }) {
-    if (scannedImageImpty != null) {
-      return scannedImageImpty(this);
+    if (dataClearing != null) {
+      return dataClearing(this);
     }
     return orElse();
   }
 }
 
-abstract class ScannedImageImpty implements CardSecondEvent {
-  const factory ScannedImageImpty() = _$ScannedImageImptyImpl;
+abstract class DataClearing implements CardSecondEvent {
+  const factory DataClearing() = _$DataClearingImpl;
 }
 
 /// @nodoc
@@ -4199,6 +4199,7 @@ mixin _$CardSecondState {
   bool get secondCardLoading => throw _privateConstructorUsedError;
   bool get deleteSecondCardLoading => throw _privateConstructorUsedError;
   bool get updated => throw _privateConstructorUsedError;
+  bool get pickImageFirst => throw _privateConstructorUsedError;
   bool get seondCardRestored => throw _privateConstructorUsedError;
   bool get secondCardDeleted => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
@@ -4238,6 +4239,7 @@ abstract class $CardSecondStateCopyWith<$Res> {
       bool secondCardLoading,
       bool deleteSecondCardLoading,
       bool updated,
+      bool pickImageFirst,
       bool seondCardRestored,
       bool secondCardDeleted,
       String? message,
@@ -4273,6 +4275,7 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
     Object? secondCardLoading = null,
     Object? deleteSecondCardLoading = null,
     Object? updated = null,
+    Object? pickImageFirst = null,
     Object? seondCardRestored = null,
     Object? secondCardDeleted = null,
     Object? message = freezed,
@@ -4318,6 +4321,10 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
       updated: null == updated
           ? _value.updated
           : updated // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pickImageFirst: null == pickImageFirst
+          ? _value.pickImageFirst
+          : pickImageFirst // ignore: cast_nullable_to_non_nullable
               as bool,
       seondCardRestored: null == seondCardRestored
           ? _value.seondCardRestored
@@ -4388,6 +4395,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool secondCardLoading,
       bool deleteSecondCardLoading,
       bool updated,
+      bool pickImageFirst,
       bool seondCardRestored,
       bool secondCardDeleted,
       String? message,
@@ -4421,6 +4429,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? secondCardLoading = null,
     Object? deleteSecondCardLoading = null,
     Object? updated = null,
+    Object? pickImageFirst = null,
     Object? seondCardRestored = null,
     Object? secondCardDeleted = null,
     Object? message = freezed,
@@ -4466,6 +4475,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       updated: null == updated
           ? _value.updated
           : updated // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pickImageFirst: null == pickImageFirst
+          ? _value.pickImageFirst
+          : pickImageFirst // ignore: cast_nullable_to_non_nullable
               as bool,
       seondCardRestored: null == seondCardRestored
           ? _value.seondCardRestored
@@ -4531,6 +4544,7 @@ class _$InitialImpl implements _Initial {
       required this.secondCardLoading,
       required this.deleteSecondCardLoading,
       required this.updated,
+      required this.pickImageFirst,
       required this.seondCardRestored,
       required this.secondCardDeleted,
       this.message,
@@ -4563,6 +4577,8 @@ class _$InitialImpl implements _Initial {
   final bool deleteSecondCardLoading;
   @override
   final bool updated;
+  @override
+  final bool pickImageFirst;
   @override
   final bool seondCardRestored;
   @override
@@ -4612,7 +4628,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'CardSecondState(isLoading: $isLoading, isPageLoading: $isPageLoading, hasError: $hasError, cardScanFinish: $cardScanFinish, secondCardcreated: $secondCardcreated, secondCardLoading: $secondCardLoading, deleteSecondCardLoading: $deleteSecondCardLoading, updated: $updated, seondCardRestored: $seondCardRestored, secondCardDeleted: $secondCardDeleted, message: $message, scannedImagesSecondCardCreation: $scannedImagesSecondCardCreation, scannedImageDatasModel: $scannedImageDatasModel, selfieImageModel: $selfieImageModel, cardSecondCreateRequestModel: $cardSecondCreateRequestModel, cardSecondResponseModel: $cardSecondResponseModel, secondCards: $secondCards, deleteSecondCards: $deleteSecondCards, getSecondCardModel: $getSecondCardModel, successResponseModel: $successResponseModel)';
+    return 'CardSecondState(isLoading: $isLoading, isPageLoading: $isPageLoading, hasError: $hasError, cardScanFinish: $cardScanFinish, secondCardcreated: $secondCardcreated, secondCardLoading: $secondCardLoading, deleteSecondCardLoading: $deleteSecondCardLoading, updated: $updated, pickImageFirst: $pickImageFirst, seondCardRestored: $seondCardRestored, secondCardDeleted: $secondCardDeleted, message: $message, scannedImagesSecondCardCreation: $scannedImagesSecondCardCreation, scannedImageDatasModel: $scannedImageDatasModel, selfieImageModel: $selfieImageModel, cardSecondCreateRequestModel: $cardSecondCreateRequestModel, cardSecondResponseModel: $cardSecondResponseModel, secondCards: $secondCards, deleteSecondCards: $deleteSecondCards, getSecondCardModel: $getSecondCardModel, successResponseModel: $successResponseModel)';
   }
 
   @override
@@ -4636,6 +4652,8 @@ class _$InitialImpl implements _Initial {
                     other.deleteSecondCardLoading, deleteSecondCardLoading) ||
                 other.deleteSecondCardLoading == deleteSecondCardLoading) &&
             (identical(other.updated, updated) || other.updated == updated) &&
+            (identical(other.pickImageFirst, pickImageFirst) ||
+                other.pickImageFirst == pickImageFirst) &&
             (identical(other.seondCardRestored, seondCardRestored) ||
                 other.seondCardRestored == seondCardRestored) &&
             (identical(other.secondCardDeleted, secondCardDeleted) ||
@@ -4676,6 +4694,7 @@ class _$InitialImpl implements _Initial {
         secondCardLoading,
         deleteSecondCardLoading,
         updated,
+        pickImageFirst,
         seondCardRestored,
         secondCardDeleted,
         message,
@@ -4707,6 +4726,7 @@ abstract class _Initial implements CardSecondState {
       required final bool secondCardLoading,
       required final bool deleteSecondCardLoading,
       required final bool updated,
+      required final bool pickImageFirst,
       required final bool seondCardRestored,
       required final bool secondCardDeleted,
       final String? message,
@@ -4736,6 +4756,8 @@ abstract class _Initial implements CardSecondState {
   bool get deleteSecondCardLoading;
   @override
   bool get updated;
+  @override
+  bool get pickImageFirst;
   @override
   bool get seondCardRestored;
   @override

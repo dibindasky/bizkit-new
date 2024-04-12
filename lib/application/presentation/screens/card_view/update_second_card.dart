@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -11,6 +12,7 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class SecondCardUpdation extends StatefulWidget {
   const SecondCardUpdation({super.key, required this.secondCard});
@@ -28,13 +30,13 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
       base64image = widget.secondCard.selfie ?? "";
       base64image =
           base64image!.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
-      log('widget.secondCard.selfie ${widget.secondCard.selfie}');
+      //log('widget.secondCard.selfie ${widget.secondCard.selfie}');
     }
     context.read<CardSecondBloc>().updateNameController.text =
         widget.secondCard.name!;
     context.read<CardSecondBloc>().updateCompanyController.text =
         widget.secondCard.company!;
-    log('Selfie image ${widget.secondCard.selfie}');
+    log('id ${widget.secondCard.id}');
     super.initState();
   }
 
@@ -66,7 +68,16 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
           ),
           backgroundColor: knill,
         ),
-        body: BlocBuilder<CardSecondBloc, CardSecondState>(
+        body: BlocConsumer<CardSecondBloc, CardSecondState>(
+          listener: (context, state) {
+            if (state.updated) {
+              state.selfieImageModel == null;
+              GoRouter.of(context).pushNamed(
+                Routes.cardListing,
+              );
+              // Navigator.of(context).pop();
+            }
+          },
           builder: (context, state) {
             return ListView(
               children: [
@@ -77,7 +88,9 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             height: kwidth * 0.60,
                             width: double.infinity,
                             child: Image.memory(
-                              base64.decode(base64image!),
+                              base64.decode(base64image!.startsWith('data')
+                                  ? base64image!.substring(22)
+                                  : base64image!),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -90,7 +103,6 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                 color: neonShade,
                                 child: IconButton(
                                   onPressed: () {
-                                    widget.secondCard.selfie == null;
                                     context
                                         .read<CardSecondBloc>()
                                         .add(const CardSecondEvent.selfieImage(
@@ -109,15 +121,11 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                         ],
                       )
                     : state.selfieImageModel != null
-                        ? Container(
+                        ? SizedBox(
                             height: kwidth * 0.60,
                             width: double.infinity,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: FileImage(
-                                  state.selfieImageModel!.fileImage,
-                                ),
-                              ),
+                            child: Image.file(
+                              state.selfieImageModel!.fileImage,
                             ),
                           )
                         : ContainerPickImage(
@@ -126,9 +134,9 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                     cameraDeviceFront: true,
                                   ),
                                 ),
-                            isBoth: false,
                             heading: 'Take Selfie',
                           ),
+                // Show container to pick image
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -158,7 +166,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.name,
                         ),
                         adjustHieght(khieght * .2),
-                        !state.secondCardLoading
+                        !state.isLoading
                             ? LastSkipContinueButtons(
                                 onTap: () {
                                   if (context
@@ -167,21 +175,6 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                       .currentState!
                                       .validate()) {
                                     SecondCard secondCard = SecondCard(
-                                      designation:
-                                          widget.secondCard.designation,
-                                      email: widget.secondCard.email,
-                                      date: widget.secondCard.date,
-                                      id: widget.secondCard.id,
-                                      image: widget.secondCard.image,
-                                      location: widget.secondCard.location,
-                                      notes: widget.secondCard.notes,
-                                      occupation: widget.secondCard.occupation,
-                                      phoneNumber:
-                                          widget.secondCard.phoneNumber,
-                                      time: widget.secondCard.time,
-                                      userId: widget.secondCard.userId,
-                                      website: widget.secondCard.website,
-                                      whereWeMet: widget.secondCard.whereWeMet,
                                       company: context
                                           .read<CardSecondBloc>()
                                           .updateCompanyController
@@ -190,10 +183,10 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                           .read<CardSecondBloc>()
                                           .updateNameController
                                           .text,
-                                      selfie:
-                                          state.selfieImageModel?.base64 ?? '',
+                                      selfie: state.selfieImageModel != null
+                                          ? state.selfieImageModel!.base64
+                                          : widget.secondCard.image,
                                     );
-
                                     context.read<CardSecondBloc>().add(
                                           CardSecondEvent.updateCardSecond(
                                             secondCard: secondCard,

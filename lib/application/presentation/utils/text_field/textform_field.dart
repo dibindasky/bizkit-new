@@ -14,6 +14,8 @@ enum Validate {
   upi,
   gst,
   website,
+  ifValidnumber,
+  ifValidWebsite
 }
 
 class TTextFormField extends StatefulWidget {

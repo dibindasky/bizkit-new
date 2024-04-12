@@ -16,31 +16,35 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DeletedCards extends StatefulWidget {
-  const DeletedCards({super.key, this.scrollController});
-  final ScrollController? scrollController;
+  const DeletedCards({super.key});
+
   @override
   State<DeletedCards> createState() => _DeletedCardsState();
 }
 
 class _DeletedCardsState extends State<DeletedCards> {
-  _scrollCallBack() {
-    if (widget.scrollController!.position.pixels ==
-        widget.scrollController!.position.maxScrollExtent) {
-      context
-          .read<CardBloc>()
-          .add(const CardEvent.getdeleteCards(isLoad: false));
-      context
-          .read<CardSecondBloc>()
-          .add(const CardSecondEvent.getDeleteCardSecondEvent(isLoad: false));
-    }
-  }
+  late ScrollController firstCardscrollController = ScrollController();
+  late ScrollController secondcardscrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    if (widget.scrollController != null) {
-      _scrollCallBack();
-    }
+    firstCardscrollController.addListener(() {
+      if (firstCardscrollController.position.pixels ==
+          firstCardscrollController.position.maxScrollExtent) {
+        context
+            .read<CardBloc>()
+            .add(const CardEvent.getdeleteCardsEvent(isLoad: true));
+      }
+    });
+    secondcardscrollController.addListener(() {
+      if (secondcardscrollController.position.pixels ==
+          secondcardscrollController.position.maxScrollExtent) {
+        context
+            .read<CardSecondBloc>()
+            .add(const CardSecondEvent.getDeleteCardSecondEvent(isLoad: true));
+      }
+    });
   }
 
   @override
@@ -68,7 +72,7 @@ class _DeletedCardsState extends State<DeletedCards> {
             children: [
               BlocConsumer<CardBloc, CardState>(
                 listener: (context, state) {
-                  if (state.successResponseModel != null) {
+                  if (state.deleteCardRestored) {
                     showSnackbar(
                       context,
                       message: 'Card restored',
@@ -86,8 +90,9 @@ class _DeletedCardsState extends State<DeletedCards> {
                   } else if (state.deletedCards == null) {
                     return RefreshIndicatorCustom(
                       message: errorMessage,
-                      onRefresh: () => context.read<CardBloc>().add(
-                          const CardEvent.getdeleteCardsEvent(isLoad: true)),
+                      onRefresh: () => context
+                          .read<CardBloc>()
+                          .add(const CardEvent.getdeleteCards(isLoad: true)),
                     );
                   } else if (state.deletedCards!.isEmpty) {
                     return SizedBox(
@@ -100,7 +105,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                   return SizedBox(
                     height: khieght * .4,
                     child: ListView.separated(
-                      controller: widget.scrollController,
+                      controller: firstCardscrollController,
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
@@ -184,10 +189,10 @@ class _DeletedCardsState extends State<DeletedCards> {
                                                       .deletedCards![index].id!,
                                                 ),
                                               );
-                                          showSnackbar(
-                                            context,
-                                            message: 'Card restored',
-                                          );
+                                          // showSnackbar(
+                                          //   context,
+                                          //   message: 'Card restored',
+                                          // );
                                         },
                                       );
                                     },
@@ -253,7 +258,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                   return SizedBox(
                     height: khieght * .4,
                     child: ListView.separated(
-                      controller: widget.scrollController,
+                      controller: secondcardscrollController,
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
@@ -271,8 +276,6 @@ class _DeletedCardsState extends State<DeletedCards> {
 
                         base64String = base64String.replaceFirst(
                             RegExp(r'data:image/jpg;base64,'), '');
-                        log('card image${card.image}');
-                        log("image ${base64.decode(base64String)}");
 
                         return Container(
                           decoration: BoxDecoration(

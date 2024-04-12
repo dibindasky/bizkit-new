@@ -55,7 +55,7 @@ class ImagePickerClass {
       }
       return null;
     } catch (e) {
-      log(e.toString());
+      log('from image pick class $e');
       return null;
     }
   }

@@ -65,17 +65,28 @@ class SecondCardDetailView extends StatelessWidget {
                             // image carosal view
                             BlocBuilder<CardSecondBloc, CardSecondState>(
                               builder: (context, state) {
-                                String images = '';
+                                List<String> imagess = [];
+
                                 if (state.getSecondCardModel != null &&
                                     state.getSecondCardModel!.image != null) {
+                                  String images = '';
                                   images = (state.getSecondCardModel!.image!);
+                                  images = images.replaceFirst(
+                                      RegExp(r'data:image/jpg;base64,'), '');
+                                  imagess.add(images);
                                 }
-                                images = images.replaceFirst(
-                                    RegExp(r'data:image/jpg;base64,'), '');
+                                if (state.getSecondCardModel != null &&
+                                    state.getSecondCardModel!.selfie != null) {
+                                  String images = '';
+                                  images = (state.getSecondCardModel!.image!);
+                                  images = images.replaceFirst(
+                                      RegExp(r'data:image/jpg;base64,'), '');
+                                  imagess.add(images);
+                                }
                                 return SizedBox(
                                   height: 200,
                                   child: PreviewPageviewImageBuilder(
-                                    imagesList: [images],
+                                    imagesList: imagess,
                                   ),
                                 );
                               },
@@ -107,12 +118,15 @@ class SecondCardDetailView extends StatelessWidget {
                                 );
                               },
                             ),
+                            // !myCard
+                            //     ? const CardViewAddReminderContainer()
+                            //     : const SizedBox(),
                             // row icons
                             const CardViewRowWiceIcons(),
                             adjustHieght(khieght * .02),
                             Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 40),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 40, vertical: 20),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: neonShade,
@@ -120,43 +134,45 @@ class SecondCardDetailView extends StatelessWidget {
                                 ),
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      const Text('Location'),
-                                      Text(
-                                          '${state.getSecondCardModel!.location}')
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
+                                      adjustHieght(10),
                                       const Text('Venue'),
-                                      Text(
-                                          '${state.getSecondCardModel!.whereWeMet}')
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
+                                      const Text('Location'),
+                                      const Text('Occupation'),
+                                      const Text('Designation'),
                                       const Text('Date'),
-                                      Text('${state.getSecondCardModel!.date}')
+                                      const Text('Time'),
+                                      const Text('Notes'),
+                                      adjustHieght(10),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      const Text('Email'),
-                                      Text('${state.getSecondCardModel!.email}')
+                                      adjustHieght(10),
+                                      Text(
+                                          '${state.getSecondCardModel!.whereWeMet}'),
+                                      Text(
+                                          '${state.getSecondCardModel!.location}'),
+                                      Text(
+                                          '${state.getSecondCardModel!.occupation}'),
+                                      Text(
+                                          '${state.getSecondCardModel!.designation}'),
+                                      Text('${state.getSecondCardModel!.date}'),
+                                      Text('${state.getSecondCardModel!.time}'),
+                                      Text(
+                                          '${state.getSecondCardModel!.notes}'),
+                                      adjustHieght(10),
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             )
@@ -180,7 +196,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-//phone number botom sheet
+            //phone number botom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -203,7 +219,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: imagePhone,
             ),
-// email bottom sheet
+            // email bottom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -211,7 +227,6 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     state.getSecondCardModel!.email != null) {
                   items.add(state.getSecondCardModel!.email!);
                 }
-
                 showModalBottomSheet(
                   context: context,
                   enableDrag: true,
@@ -236,6 +251,10 @@ class CardViewRowWiceIcons extends StatelessWidget {
                 }
               },
               image: gifGlobe,
+            ),
+            DetailSharingIconWidget(
+              onTap: () {},
+              image: gifLocation,
             ),
           ],
         );

@@ -1,13 +1,15 @@
+import 'dart:developer';
+
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/application/presentation/routes/routes.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 class SelectedCard extends StatelessWidget {
   const SelectedCard({super.key});
@@ -31,13 +33,13 @@ class SelectedCard extends StatelessWidget {
             child: BlocConsumer<CardSecondBloc, CardSecondState>(
               listener: (context, state) {
                 if (state.cardScanFinish) {
-                  GoRouter.of(context).pushReplacementNamed(
-                    Routes.scanedDataFeilds,
+                  log('cardScanFinish navigate to CardSecondScannedDatas');
+                  Navigator.of(context).push(
+                    fadePageRoute(CardSecondScannedDatas()),
                   );
                   // Navigator.of(context).pushReplacement(
                   //   fadePageRoute(const CardSecondScannedDatas()),
                   // );
-
                   // context.read<CardSecondBloc>().add(
                   //     const CardSecondEvent.selfieImage(
                   //         cameraDeviceFront: true));
@@ -90,6 +92,7 @@ class SelectedCard extends StatelessWidget {
                     adjustHieght(khieght * .02),
                     state.scannedImagesSecondCardCreation.length < 2
                         ? const ContainerPickImage(
+                            fromMain: false,
                             heading: 'Add more image',
                           )
                         : const SizedBox(),

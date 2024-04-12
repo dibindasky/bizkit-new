@@ -11,6 +11,7 @@ class CardSecondState with _$CardSecondState {
     required bool secondCardLoading,
     required bool deleteSecondCardLoading,
     required bool updated,
+    required bool pickImageFirst,
     required bool seondCardRestored,
     required bool secondCardDeleted,
     String? message,
@@ -27,6 +28,7 @@ class CardSecondState with _$CardSecondState {
 
   factory CardSecondState.initial() => CardSecondState(
         isLoading: false,
+        pickImageFirst: false,
         secondCardcreated: false,
         seondCardRestored: false,
         secondCardDeleted: false,

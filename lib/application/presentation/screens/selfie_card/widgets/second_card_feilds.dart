@@ -1,6 +1,6 @@
+import 'dart:developer';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -10,11 +10,11 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class CardSecondScannedDatas extends StatelessWidget {
-  const CardSecondScannedDatas({super.key});
-
+  CardSecondScannedDatas({super.key});
+  final GlobalKey<FormState> autoFillDataKey = GlobalKey<FormState>();
+  final String emptyData = 'No data';
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -45,18 +45,18 @@ class CardSecondScannedDatas extends StatelessWidget {
                   height: kwidth * 0.60,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: FileImage(
-                            state.scannedImagesSecondCardCreation.first
-                                .fileImage,
-                          ),
-                          fit: BoxFit.cover)),
+                    image: DecorationImage(
+                        image: FileImage(
+                          state.scannedImagesSecondCardCreation.first.fileImage,
+                        ),
+                        fit: BoxFit.cover),
+                  ),
                 ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                   child: Form(
-                    key: context.read<CardSecondBloc>().autoFillDataKey,
+                    key: autoFillDataKey,
                     child: Column(
                       children: [
                         adjustHieght(khieght * 0.008),
@@ -118,11 +118,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                         adjustHieght(khieght * .02),
                         LastSkipContinueButtons(
                           onTap: () {
-                            if (context
-                                .read<CardSecondBloc>()
-                                .autoFillDataKey
-                                .currentState!
-                                .validate()) {
+                            if (autoFillDataKey.currentState!.validate()) {
                               context
                                   .read<CardSecondBloc>()
                                   .add(CardSecondEvent.autoFillTExtfieldItems(
@@ -135,28 +131,60 @@ class CardSecondScannedDatas extends StatelessWidget {
                                         .first
                                         .base64,
                                     email: context
-                                        .read<CardSecondBloc>()
-                                        .emailController
-                                        .text,
+                                            .read<CardSecondBloc>()
+                                            .emailController
+                                            .text
+                                            .isEmpty
+                                        ? 'f@gmail.com'
+                                        : context
+                                            .read<CardSecondBloc>()
+                                            .emailController
+                                            .text,
                                     company: context
-                                        .read<CardSecondBloc>()
-                                        .copanyController
-                                        .text,
+                                            .read<CardSecondBloc>()
+                                            .copanyController
+                                            .text
+                                            .isEmpty
+                                        ? emptyData
+                                        : context
+                                            .read<CardSecondBloc>()
+                                            .copanyController
+                                            .text,
                                     number: context
-                                        .read<CardSecondBloc>()
-                                        .phoneController
-                                        .text,
+                                            .read<CardSecondBloc>()
+                                            .phoneController
+                                            .text
+                                            .isEmpty
+                                        ? emptyData
+                                        : context
+                                            .read<CardSecondBloc>()
+                                            .phoneController
+                                            .text,
                                     website: context
-                                        .read<CardSecondBloc>()
-                                        .webSiteController
-                                        .text,
+                                            .read<CardSecondBloc>()
+                                            .webSiteController
+                                            .text
+                                            .isEmpty
+                                        ? 'iin.in'
+                                        : context
+                                            .read<CardSecondBloc>()
+                                            .webSiteController
+                                            .text,
                                     designation: context
-                                        .read<CardSecondBloc>()
-                                        .designationController
-                                        .text,
+                                            .read<CardSecondBloc>()
+                                            .designationController
+                                            .text
+                                            .isEmpty
+                                        ? emptyData
+                                        : context
+                                            .read<CardSecondBloc>()
+                                            .designationController
+                                            .text,
                                   ));
+                              log('before navigating to selfie screen');
                               Navigator.of(context).push(
-                                  fadePageRoute(const SelfieTextFields()));
+                                fadePageRoute(const SelfieTextFields()),
+                              );
                             }
                           },
                         ),
@@ -183,7 +211,6 @@ class SelfieTextFields extends StatefulWidget {
 
 class _SelfieTextFieldsState extends State<SelfieTextFields> {
   final GlobalKey<FormState> meetingDataKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -207,9 +234,22 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
         ),
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
+            log('secondCardcreated listener');
             if (state.secondCardcreated) {
-              GoRouter.of(context).pushReplacementNamed(Routes.homePage);
-              showSnackbar(context, message: 'Qr Card created successfully');
+              log('secondCardcreated secondCardcreated');
+              Navigator.pop(context);
+              Navigator.pop(context);
+              Navigator.pop(context);
+              context
+                  .read<CardSecondBloc>()
+                  .add(const CardSecondEvent.dataClearing());
+              // Navigator.of(context).pushAndRemoveUntil(
+              //     fadePageRoute(
+              //       const BizkitBottomNavigationBar(),
+              //     ),
+              //     (route) => false);
+              // GoRouter.of(context).pushReplacementNamed(Routes.homePage);
+              showSnackbar(context, message: 'Card created successfully');
             }
           },
           builder: (context, state) {
@@ -222,7 +262,6 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                 cameraDeviceFront: true,
                               ),
                             ),
-                        isBoth: false,
                         heading: 'Take Selfie',
                       )
                     : Container(
@@ -244,27 +283,27 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                       children: [
                         adjustHieght(khieght * 0.008),
                         TTextFormField(
-                            validate: Validate.notNull,
-                            text: 'Occation',
-                            controller: context
-                                .read<CardSecondBloc>()
-                                .occationController,
-                            inputType: TextInputType.name),
+                          validate: Validate.notNull,
+                          text: 'Occation',
+                          controller:
+                              context.read<CardSecondBloc>().occationController,
+                          inputType: TextInputType.name,
+                        ),
                         TTextFormField(
-                            validate: Validate.notNull,
-                            text: 'Location',
-                            controller: context
-                                .read<CardSecondBloc>()
-                                .locatioNController,
-                            inputType: TextInputType.name),
+                          validate: Validate.notNull,
+                          text: 'Location',
+                          controller:
+                              context.read<CardSecondBloc>().locatioNController,
+                          inputType: TextInputType.name,
+                        ),
                         TTextFormField(
-                            validate: Validate.notNull,
-                            text: 'Occupation',
-                            controller: context
-                                .read<CardSecondBloc>()
-                                .occupationController,
-                            inputType: TextInputType.name),
-
+                          validate: Validate.notNull,
+                          text: 'Occupation',
+                          controller: context
+                              .read<CardSecondBloc>()
+                              .occupationController,
+                          inputType: TextInputType.name,
+                        ),
                         TTextFormField(
                           validate: Validate.notNull,
                           maxLines: 3,

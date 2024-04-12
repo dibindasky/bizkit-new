@@ -41,20 +41,18 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: PageView.builder(
-          controller: _pageController,
-          scrollDirection: Axis.horizontal,
-          onPageChanged: _onPageChanged,
-          itemCount: totalPages,
-          itemBuilder: (context, index) {
-            return buildOnboardingScreen(
-              selectedIndex: selectedIndex,
-              totalPages: totalPages,
-              pageIndex: index,
-            );
-          },
-        ),
+      body: PageView.builder(
+        controller: _pageController,
+        scrollDirection: Axis.horizontal,
+        onPageChanged: _onPageChanged,
+        itemCount: totalPages,
+        itemBuilder: (context, index) {
+          return buildOnboardingScreen(
+            selectedIndex: selectedIndex,
+            totalPages: totalPages,
+            pageIndex: index,
+          );
+        },
       ),
     );
   }
@@ -66,12 +64,12 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
   }) {
     return GestureDetector(
       onTap: () {
-        if (pageIndex < totalPages) {
+        if (pageIndex < totalPages - 1) {
           _pageController.nextPage(
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut,
           );
-        } else if (pageIndex == totalPages) {
+        } else {
           GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
           context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
         }

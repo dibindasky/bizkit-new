@@ -61,7 +61,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
 
     if (widget.autocompleteItems != null &&
         widget.autocompleteItems!.length == 1) {
-      widget.controller?.text = widget.autocompleteItems![0];
+      widget.controller!.text = widget.autocompleteItems![0];
     }
   }
 
@@ -177,6 +177,22 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   ),
                 ),
                 validator: (value) {
+                  if (Validate.ifValidWebsite == widget.validate) {
+                    if (value != null && value.isNotEmpty) {
+                      if (value.length != 10 || !isValidPhoneNumber(value)) {
+                        return 'Number is not valid';
+                      }
+                    }
+                    return null;
+                  }
+                  if (Validate.ifValidWebsite == widget.validate) {
+                    if (value != null && value.isNotEmpty) {
+                      if (!isValidWebsite(value)) {
+                        return 'Enter valid website';
+                      }
+                    }
+                    return null;
+                  }
                   if (Validate.none == widget.validate) {
                     return null;
                   } else if ((value == null || value.isEmpty) &&

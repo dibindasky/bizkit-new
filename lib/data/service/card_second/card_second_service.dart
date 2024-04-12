@@ -67,10 +67,12 @@ class CardSecondService implements CardSecondRepo {
     required String id,
   }) async {
     try {
-      log('updateCardSecond before ${secondCard.toJson()}');
-      final responce = await _apiService
-          .patch(ApiEndPoints.updateCardSecond.replaceAll('{id}', id));
-      log('updateCardSecond data ${responce.data}');
+      // log('updateCardSecond before ${secondCard.toJson()}');
+      final responce = await _apiService.patch(
+        ApiEndPoints.updateCardSecond.replaceAll('{id}', id),
+        data: secondCard.toJson(),
+      );
+      log('updateCardSecond data ${responce.statusCode} ${responce.data}');
       return Right(CardSecondResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('updateCardSecond dio error $e');

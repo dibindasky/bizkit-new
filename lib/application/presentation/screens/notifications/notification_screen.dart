@@ -27,7 +27,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        log('inside _scrollCallBack');
         context
             .read<NotificationBloc>()
             .add(const NotificationEvent.getNotificationEvent());
@@ -40,13 +39,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) => context
           .read<NotificationBloc>()
-          .add(const NotificationEvent.getNotification()),
+          .add(const NotificationEvent.getNotification(isLoad: true)),
     );
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(
-          Icons.arrow_back_ios,
-          size: 18,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            size: 18,
+          ),
         ),
         backgroundColor: knill,
         title: const Text('Notifications'),
@@ -74,7 +78,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     );
                   } else if (state.notification!.isEmpty) {
                     return SizedBox(
-                      height: khieght * .9,
+                      height: khieght * .86,
                       child: const Center(
                         child: Text("No Notifications"),
                       ),

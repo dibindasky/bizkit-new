@@ -41,6 +41,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   }
 
   FutureOr<void> getNotification(GetNotification event, emit) async {
+    //if (state.notification!.isNotEmpty && !event.isLoad) return;
     emit(state.copyWith(
         notificationLoading: true, hasError: false, message: null));
     notification = 1;

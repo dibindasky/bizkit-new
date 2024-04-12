@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/domain/model/qr/create_qr_model/create_qr_model.dart';
 import 'package:bizkit/domain/model/qr/defauilt_qr/defauilt_qr.dart';

@@ -1,6 +1,5 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/archieved_cards.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/deleted_cards.dart';

@@ -1,13 +1,13 @@
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/application/presentation/routes/routes.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/qr_scanner_view.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 class SelfieScreen extends StatefulWidget {
   const SelfieScreen({super.key});
@@ -124,18 +124,7 @@ class _SelfieScreenState extends State<SelfieScreen>
                       ],
                     )
                   : indexofButton == 1
-                      ? BlocConsumer<CardSecondBloc, CardSecondState>(
-                          listener: (context, state) {
-                            if (state
-                                .scannedImagesSecondCardCreation.isNotEmpty) {
-                              GoRouter.of(context)
-                                  .pushNamed(Routes.selectedCards);
-                            }
-                          },
-                          builder: (context, state) {
-                            return const ContainerPickImage();
-                          },
-                        )
+                      ? const ContainerPickImage()
                       : const SizedBox(),
               const Spacer(),
               Row(
@@ -237,10 +226,12 @@ class ContainerPickImage extends StatelessWidget {
     this.heading,
     this.onPressed,
     this.isBoth = true,
+    this.fromMain = true,
   });
   final String? heading;
   final VoidCallback? onPressed;
   final bool isBoth;
+  final bool fromMain;
 
   @override
   Widget build(BuildContext context) {
@@ -270,6 +261,10 @@ class ContainerPickImage extends StatelessWidget {
                               context.read<CardSecondBloc>().add(
                                   const CardSecondEvent.scanImage(
                                       isCam: false));
+                              fromMain
+                                  ? Navigator.of(context)
+                                      .push(fadePageRoute(const SelectedCard()))
+                                  : null;
                             },
                             child: Container(
                               padding: const EdgeInsets.all(10),
@@ -290,6 +285,10 @@ class ContainerPickImage extends StatelessWidget {
                           () {
                             context.read<CardSecondBloc>().add(
                                 const CardSecondEvent.scanImage(isCam: true));
+                            fromMain
+                                ? Navigator.of(context)
+                                    .push(fadePageRoute(const SelectedCard()))
+                                : null;
                           },
                       child: Container(
                         padding: const EdgeInsets.all(10),

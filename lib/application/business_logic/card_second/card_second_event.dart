@@ -52,5 +52,5 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.getSecondCardDetail({
     required int id,
   }) = GetSecondCardDetail;
-  const factory CardSecondEvent.scannedImageImpty() = ScannedImageImpty;
+  const factory CardSecondEvent.dataClearing() = DataClearing;
 }

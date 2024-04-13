@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
@@ -103,6 +104,8 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                   BlocConsumer<BusinessDataBloc, BusinessDataState>(
                     listener: (context, state) {
                       if (state.productAdded) {
+                        context.read<CardBloc>().add(CardEvent.getCardyCardId(
+                            id: state.currentCard!.id!));
                         Navigator.pop(context);
                       }
                     },

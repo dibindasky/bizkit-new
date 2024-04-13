@@ -159,19 +159,6 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     });
   }
 
-  // FutureOr<void> deleteCard(DeleteCard event, emit) async {
-  //   emit(state.copyWith(isLoading: true, hasError: false, message: null));
-  //   final result = await cardService.deleteCard(id: event.id);
-  //   result.fold(
-  //       (failure) => emit(state.copyWith(
-  //           isLoading: false,
-  //           message: 'failed to delete card',
-  //           hasError: true)), (success) {
-  //     emit(state.copyWith(message: 'card deleted successfully'));
-  //     add(const CardEvent.getCards(call: true));
-  //   });
-  // }
-
   FutureOr<void> setDefault(SetDefault event, emit) async {
     final result = await cardService.setDefault(id: event.id);
     result.fold(
@@ -184,13 +171,13 @@ class CardBloc extends Bloc<CardEvent, CardState> {
 
   FutureOr<void> getCardyUserId(GetCardyUserId event, emit) async {
     emit(state.copyWith(
-        isLoading: true, hasError: false, message: null, anotherCard: null));
+        cardLoading: true, hasError: false, message: null, anotherCard: null));
     final result = await cardService.getCardByUserId(id: event.id);
     result.fold(
         (left) => emit(state.copyWith(
-            isLoading: false, hasError: true, message: left.message)),
+            cardLoading: false, hasError: true, message: left.message)),
         (right) => emit(state.copyWith(
-            isLoading: false,
+            cardLoading: false,
             anotherCard: right.results != null && right.results!.isNotEmpty
                 ? right.results!.first
                 : null)));
@@ -198,29 +185,14 @@ class CardBloc extends Bloc<CardEvent, CardState> {
 
   FutureOr<void> getCardyCardId(GetCardyCardId event, emit) async {
     emit(state.copyWith(
-        isLoading: true, hasError: false, message: null, anotherCard: null));
+        cardLoading: true, hasError: false, message: null, anotherCard: null));
     final result = await cardService.getCardByCardId(id: event.id);
     result.fold(
         (left) => emit(state.copyWith(
-            isLoading: false,
+            cardLoading: false,
             hasError: true,
             message: left.message)), (right) async {
-      // List<Brochure> list = [];
-      // print(right.businessDetails!.toJson());
-      // print(right.businessDetails?.brochure);
-      // if (right.businessDetails != null &&
-      //     right.businessDetails!.brochure != null) {
-      //   for (var broc in right.businessDetails!.brochure!) {
-      //     final path = await pdfPicker.convertBase64ToFile(
-      //         broc.file!, DateTime.now().microsecondsSinceEpoch.toString());
-      //     if (path != null) {
-      //       list.add(Brochure(file: path));
-      //     }
-      //   }
-      //   right.businessDetails!.brochure = list;
-      //   print(list.length);
-      // }
-      return emit(state.copyWith(isLoading: false, anotherCard: right));
+      return emit(state.copyWith(cardLoading: false, anotherCard: right));
     });
   }
 
@@ -237,7 +209,6 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
     final business = await SecureStorage.getRole();
     cardPage = 1;
-    print('get card bloc');
     final result = await cardService.getCards(qurey: PageQuery(page: cardPage));
     result.fold(
         (failure) => emit(state.copyWith(
@@ -245,22 +216,18 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             isLoading: false,
             businessUser: business,
             message: failure.message)), (getCardResposnseModel) {
-      print('get card bloc success');
       CardResponse? defaultCard;
       if (getCardResposnseModel.results != null &&
           getCardResposnseModel.results!.isNotEmpty) {
-        print('get default card');
         final def =
             getCardResposnseModel.results!.where((card) => card.isDefault!);
         defaultCard = def.isEmpty ? null : def.first;
       }
-      print('get card bloc success1');
-      emit(state.copyWith(
+      return emit(state.copyWith(
           businessUser: business,
           isLoading: false,
           cards: getCardResposnseModel.results ?? [],
           defaultCard: defaultCard));
-      print('get card bloc success2');
     });
   }
 }

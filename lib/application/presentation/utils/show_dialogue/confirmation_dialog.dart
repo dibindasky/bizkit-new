@@ -31,7 +31,7 @@ showCustomConfirmationDialoge(
                       Navigator.pop(context);
                     },
                     child: const Text(
-                      'cancel',
+                      'Cancel',
                       style: TextStyle(color: neonShade),
                     )),
                 adjustWidth(10),

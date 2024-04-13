@@ -2544,6 +2544,7 @@ abstract class Clear implements CardEvent {
 /// @nodoc
 mixin _$CardState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get cardLoading => throw _privateConstructorUsedError;
   bool get pageLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   bool get businessUser => throw _privateConstructorUsedError;
@@ -2571,6 +2572,7 @@ abstract class $CardStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
+      bool cardLoading,
       bool pageLoading,
       bool hasError,
       bool businessUser,
@@ -2600,6 +2602,7 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? cardLoading = null,
     Object? pageLoading = null,
     Object? hasError = null,
     Object? businessUser = null,
@@ -2618,6 +2621,10 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      cardLoading: null == cardLoading
+          ? _value.cardLoading
+          : cardLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       pageLoading: null == pageLoading
           ? _value.pageLoading
@@ -2685,6 +2692,7 @@ abstract class _$$InitialImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
+      bool cardLoading,
       bool pageLoading,
       bool hasError,
       bool businessUser,
@@ -2712,6 +2720,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? cardLoading = null,
     Object? pageLoading = null,
     Object? hasError = null,
     Object? businessUser = null,
@@ -2730,6 +2739,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      cardLoading: null == cardLoading
+          ? _value.cardLoading
+          : cardLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       pageLoading: null == pageLoading
           ? _value.pageLoading
@@ -2792,6 +2805,7 @@ class __$$InitialImplCopyWithImpl<$Res>
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
+      required this.cardLoading,
       required this.pageLoading,
       required this.hasError,
       required this.businessUser,
@@ -2811,6 +2825,8 @@ class _$InitialImpl implements _Initial {
 
   @override
   final bool isLoading;
+  @override
+  final bool cardLoading;
   @override
   final bool pageLoading;
   @override
@@ -2862,7 +2878,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'CardState(isLoading: $isLoading, pageLoading: $pageLoading, hasError: $hasError, businessUser: $businessUser, archiveCardLoading: $archiveCardLoading, deleteCardLoading: $deleteCardLoading, deleteCardRestored: $deleteCardRestored, cards: $cards, message: $message, archievedCards: $archievedCards, deletedCards: $deletedCards, defaultCard: $defaultCard, anotherCard: $anotherCard, successResponseModel: $successResponseModel)';
+    return 'CardState(isLoading: $isLoading, cardLoading: $cardLoading, pageLoading: $pageLoading, hasError: $hasError, businessUser: $businessUser, archiveCardLoading: $archiveCardLoading, deleteCardLoading: $deleteCardLoading, deleteCardRestored: $deleteCardRestored, cards: $cards, message: $message, archievedCards: $archievedCards, deletedCards: $deletedCards, defaultCard: $defaultCard, anotherCard: $anotherCard, successResponseModel: $successResponseModel)';
   }
 
   @override
@@ -2872,6 +2888,8 @@ class _$InitialImpl implements _Initial {
             other is _$InitialImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.cardLoading, cardLoading) ||
+                other.cardLoading == cardLoading) &&
             (identical(other.pageLoading, pageLoading) ||
                 other.pageLoading == pageLoading) &&
             (identical(other.hasError, hasError) ||
@@ -2902,6 +2920,7 @@ class _$InitialImpl implements _Initial {
   int get hashCode => Object.hash(
       runtimeType,
       isLoading,
+      cardLoading,
       pageLoading,
       hasError,
       businessUser,
@@ -2926,6 +2945,7 @@ class _$InitialImpl implements _Initial {
 abstract class _Initial implements CardState {
   const factory _Initial(
       {required final bool isLoading,
+      required final bool cardLoading,
       required final bool pageLoading,
       required final bool hasError,
       required final bool businessUser,
@@ -2942,6 +2962,8 @@ abstract class _Initial implements CardState {
 
   @override
   bool get isLoading;
+  @override
+  bool get cardLoading;
   @override
   bool get pageLoading;
   @override

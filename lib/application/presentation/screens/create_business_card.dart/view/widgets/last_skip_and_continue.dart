@@ -1,16 +1,13 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LastSkipContinueButtons extends StatelessWidget {
-  const LastSkipContinueButtons({
-    super.key,
-    this.onTap,
-    this.onSkipTap,
-  });
+  const LastSkipContinueButtons(
+      {super.key, this.onTap, this.onSkipTap, this.continueText = 'Continue'});
 
   final VoidCallback? onTap;
   final VoidCallback? onSkipTap;
+  final String continueText;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +21,14 @@ class LastSkipContinueButtons extends StatelessWidget {
             : InkWell(
                 onTap: onSkipTap,
                 child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                   decoration: BoxDecoration(
                     border: Border.all(color: neonShade),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(5),
                     ),
                   ),
-                  width: 123.dm,
-                  height: 45.dm,
                   child: const Center(
                     child: Text('Skip'),
                   ),
@@ -40,15 +37,14 @@ class LastSkipContinueButtons extends StatelessWidget {
         InkWell(
           onTap: onTap,
           child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
             decoration: const BoxDecoration(
               color: neonShade,
               borderRadius: BorderRadius.all(
                 Radius.circular(5),
               ),
             ),
-            width: 123.dm,
-            height: 45.dm,
-            child: const Center(child: Text('Continue')),
+            child: Center(child: Text(continueText)),
           ),
         ),
       ],

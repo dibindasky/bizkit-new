@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
@@ -134,6 +135,8 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                 BlocConsumer<BusinessDataBloc, BusinessDataState>(
                   listener: (context, state) {
                     if (state.accreditionAdded) {
+                      context.read<CardBloc>().add(
+                          CardEvent.getCardyCardId(id: state.currentCard!.id!));
                       Navigator.pop(context);
                     }
                   },
@@ -141,6 +144,8 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                     return BlocConsumer<UserDataBloc, UserDataState>(
                       listener: (context, state) {
                         if (state.accoladeAdded) {
+                          context.read<CardBloc>().add(CardEvent.getCardyCardId(
+                              id: state.currentCard!.id!));
                           Navigator.pop(context);
                         }
                       },
@@ -193,6 +198,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                     );
                   },
                 ),
+                adjustHieght(30)
               ],
             ),
           ),

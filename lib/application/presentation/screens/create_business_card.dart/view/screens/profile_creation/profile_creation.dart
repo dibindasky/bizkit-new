@@ -135,7 +135,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                               controller: context
                                   .read<UserDataBloc>()
                                   .businessCategoryController,
-                              inputType: TextInputType.name,
+                              // inputType: TextInputType.name,
                               autocompleteItems: state.businessCategories
                                   .map((e) => e.category!)
                                   .toList()),
@@ -164,7 +164,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                           message: state.message!,
                           backgroundColor: state.hasError ? kred : neonShade);
                     }
-                    if (state.cardAdded != null) {
+                    if (state.cardAdded) {
                       context
                           .read<CardBloc>()
                           .add(const CardEvent.getCards(call: true));
@@ -177,7 +177,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                     if (state.isLoading) {
                       return const LoadingAnimation();
                     }
-                    return LastSkipContinueButtons(
+                    return LastSkipContinueButtons(continueText: 'Create Card',
                       onTap: () {
                         if (personalDataFirstFormKey.currentState!.validate()) {
                           // Navigator.of(context).push(

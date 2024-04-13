@@ -11,7 +11,6 @@ import 'package:bizkit/domain/model/card_first/creation/card_first_creation_mode
 import 'package:bizkit/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
-import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart';
 import 'package:bizkit/domain/repository/service/card_patch_repo.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
@@ -74,7 +73,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         isLoading: true,
         hasError: false,
         message: null,
-        cardAdded: null));
+        cardAdded: false));
     print('card creation requested 1');
 
     // print('card creation requested');
@@ -90,14 +89,12 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     result.fold((l) {
       print('card creation request failed');
       return emit(
-          accoladeAdded: false,
           state.copyWith(isLoading: false, hasError: true, message: l.message));
     }, (r) {
       print('card creation success');
       SecureStorage.setHasCard(hasCard: true);
-      return emit(
-          accoladeAdded: false,
-          state.copyWith(isLoading: false, message: r.message, cardAdded: r));
+      return emit(state.copyWith(
+          isLoading: false, message: r.message, cardAdded: true));
     });
   }
 
@@ -106,6 +103,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         isLoading: true,
         hasError: false,
         message: null,
+        cardAdded: false,
         personalData: null,
         datesToRememberAdded: false,
         socialMediaAdded: false,
@@ -150,7 +148,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {
     emit(state.copyWith(
-        cardAdded: null,
+        cardAdded: false,
         message: null,
         accoladeAdded: false,
         datesToRememberAdded: false,
@@ -174,7 +172,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         accoladeAdded: false,
         socialMediaAdded: false,
-        cardAdded: null,
+        cardAdded: false,
         message: null,
         datesToRememberAdded: false,
         datesToRememberLoading: true));
@@ -194,7 +192,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         accoladeAdded: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
-        cardAdded: null,
+        cardAdded: false,
         message: null,
         datesToRememberDeleteLoading: true));
     final result = await cardPatchRepo.deleteDatesToRemember(id: event.id);
@@ -210,7 +208,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
     emit(state.copyWith(
         accoladeAdded: false,
-        cardAdded: null,
+        cardAdded: false,
         message: null,
         socialMediaLoading: true,
         datesToRememberAdded: false,
@@ -231,7 +229,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         accoladeAdded: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
-        cardAdded: null,
+        cardAdded: false,
         message: null,
         socialMediaDeleteLoading: true));
     final result = await cardPatchRepo.deleteSocialMedia(id: event.id);
@@ -246,7 +244,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   FutureOr<void> addAccolade(AddAccolade event, emit) async {
     emit(state.copyWith(
-        cardAdded: null,
+        cardAdded: false,
         message: null,
         accoladeLoading: true,
         datesToRememberAdded: false,
@@ -266,7 +264,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         accoladeAdded: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
-        cardAdded: null,
+        cardAdded: false,
         message: null,
         accoladeDeleteLoading: true));
     final result = await cardPatchRepo.deleteAccolades(id: event.id);
@@ -283,7 +281,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     if (img != null) {
       emit(state.copyWith(
           userPhotos: img,
-          cardAdded: null,
+          cardAdded: false,
           accoladeAdded: false,
           datesToRememberAdded: false,
           socialMediaAdded: false,
@@ -294,7 +292,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> removeUserPhoto(RemoveUserPhoto event, emit) async {
     emit(state.copyWith(
         userPhotos: null,
-        cardAdded: null,
+        cardAdded: false,
         accoladeAdded: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
@@ -308,7 +306,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     }
     emit(state.copyWith(
         scannedImagesCardCreation: list,
-        cardAdded: null,
+        cardAdded: false,
         message: null,
         datesToRememberAdded: false,
         socialMediaAdded: false,
@@ -322,7 +320,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         (failure) => null,
         (scannedImageText) => emit(state.copyWith(
             scannedImageDatasModel: scannedImageText,
-            cardAdded: null,
+            cardAdded: false,
             accoladeAdded: false,
             datesToRememberAdded: false,
             socialMediaAdded: false,
@@ -340,7 +338,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
             ...state.scannedImagesCardCreation,
             image
           ],
-          cardAdded: null,
+          cardAdded: false,
           message: null));
     }
   }
@@ -355,7 +353,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         emailController.text = userList.first.email ?? emailController.text;
       }
       emit(state.copyWith(
-          cardAdded: null,
+          cardAdded: false,
           accoladeAdded: false,
           datesToRememberAdded: false,
           socialMediaAdded: false,

@@ -71,140 +71,142 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                     Routes.cardDetailView,
                                     pathParameters: map);
                               },
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                height: kwidth * 0.35,
-                                width: kwidth * 0.55,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: neonShade,
+                              child: FittedBox(
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  height: kwidth * 0.35,
+                                  width: kwidth * 0.55,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color: neonShade,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
+                                    // image: DecorationImage(
+                                    //     image: NetworkImage(
+                                    //         data.logo ?? imageDummyNetwork),
+                                    //     fit: BoxFit.cover)
                                   ),
-                                  borderRadius: BorderRadius.circular(5),
-                                  // image: DecorationImage(
-                                  //     image: NetworkImage(
-                                  //         data.logo ?? imageDummyNetwork),
-                                  //     fit: BoxFit.cover)
-                                ),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                                data.name != null
-                                                    ? data.name!.length > 20
-                                                        ? '${data.name!.substring(0, 18)}..'
-                                                        : data
-                                                            .name!
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                  data.name != null
+                                                      ? data.name!.length > 20
+                                                          ? '${data.name!.substring(0, 18)}..'
+                                                          : data
+                                                              .name!
+                                                      : '',
+                                                  style: textHeadStyle1
+                                                      .copyWith(shadows: [
+                                                    const Shadow(
+                                                        color: kblack,
+                                                        offset: Offset(1, 2),
+                                                        blurRadius: 5)
+                                                  ])),
+                                              Text(
+                                                data.designation != null
+                                                    ? data.designation!
+                                                                .length >
+                                                            20
+                                                        ? '${data.designation!.substring(0, 18)}..'
+                                                        : data.designation!
                                                     : '',
-                                                style: textHeadStyle1
+                                                style: TextStyle(
+                                                    fontSize: kwidth * .037,
+                                                    shadows: const [
+                                                      Shadow(
+                                                          color: kblack,
+                                                          offset:
+                                                              Offset(0, 2),
+                                                          blurRadius: 5)
+                                                    ]),
+                                              ),
+                                              adjustHieght(10),
+                                              Row(
+                                                children: [
+                                                  SizedBox(
+                                                    height: kwidth * 0.10,
+                                                    width: kwidth * 0.10,
+                                                    child: data.logo != null
+                                                        ? Image.memory(
+                                                            base64.decode(
+                                                                data.logo!),
+                                                            fit: BoxFit.cover)
+                                                        : Image.asset(
+                                                            iconBizkitPng,
+                                                            fit: BoxFit.cover),
+                                                  ),adjustWidth(10), 
+                                                  data.isDefault ?? false? const ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(5)),
+                                          child: ColoredBox(
+                                            color: neonShade,
+                                            child: Padding(
+                                              padding: EdgeInsets.all(4.0),
+                                              child: Text('DEFAULT'),
+                                            ),
+                                          ),
+                                        ):const SizedBox()
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              adjustHieght(kwidth * 0.1),
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                child: const ColoredBox(
+                                                  color: neonShade,
+                                                  child: Icon(
+                                                    Icons.arrow_right,
+                                                    color: kwhite,
+                                                  ),
+                                                ),
+                                              ),
+                                              adjustHieght(kwidth * 0.03),
+                                              Text(
+                                                '${data.percentage ?? 100} %',
+                                                style: textStyle1
                                                     .copyWith(shadows: [
                                                   const Shadow(
                                                       color: kblack,
                                                       offset: Offset(1, 2),
                                                       blurRadius: 5)
-                                                ])),
-                                            Text(
-                                              data.designation != null
-                                                  ? data.designation!
-                                                              .length >
-                                                          20
-                                                      ? '${data.designation!.substring(0, 18)}..'
-                                                      : data.designation!
-                                                  : '',
-                                              style: TextStyle(
-                                                  fontSize: kwidth * .037,
-                                                  shadows: const [
-                                                    Shadow(
-                                                        color: kblack,
-                                                        offset:
-                                                            Offset(0, 2),
-                                                        blurRadius: 5)
-                                                  ]),
-                                            ),
-                                            adjustHieght(10),
-                                            Row(
-                                              children: [
-                                                SizedBox(
-                                                  height: kwidth * 0.10,
-                                                  width: kwidth * 0.10,
-                                                  child: data.logo != null
-                                                      ? Image.memory(
-                                                          base64.decode(
-                                                              data.logo!),
-                                                          fit: BoxFit.cover)
-                                                      : Image.asset(
-                                                          iconBizkitPng,
-                                                          fit: BoxFit.cover),
-                                                ),adjustWidth(10), 
-                                                data.isDefault ?? false? const ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5)),
-                                        child: ColoredBox(
-                                          color: neonShade,
-                                          child: Padding(
-                                            padding: EdgeInsets.all(4.0),
-                                            child: Text('DEFAULT'),
-                                          ),
-                                        ),
-                                      ):const SizedBox()
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            adjustHieght(kwidth * 0.1),
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                              child: const ColoredBox(
-                                                color: neonShade,
-                                                child: Icon(
-                                                  Icons.arrow_right,
-                                                  color: kwhite,
-                                                ),
-                                              ),
-                                            ),
-                                            adjustHieght(kwidth * 0.03),
-                                            Text(
-                                              '${data.percentage ?? 100} %',
-                                              style: textStyle1
-                                                  .copyWith(shadows: [
-                                                const Shadow(
-                                                    color: kblack,
-                                                    offset: Offset(1, 2),
-                                                    blurRadius: 5)
-                                              ]),
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    adjustHieght(10),
-                                    LinearProgressIndicator(
-                                      value: data.percentage == null
-                                          ? 1
-                                          : data.percentage! / 100,
-                                      backgroundColor: kgrey,
-                                      minHeight: 8,
-                                      borderRadius:
-                                          BorderRadius.circular(50),
-                                    ),
-                                  ],
+                                                ]),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      adjustHieght(5),
+                                      LinearProgressIndicator(
+                                        value: data.percentage == null
+                                            ? 1
+                                            : data.percentage! / 100,
+                                        backgroundColor: kgrey,
+                                        minHeight: 8,
+                                        borderRadius:
+                                            BorderRadius.circular(50),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

@@ -81,10 +81,10 @@ class CompanyAndBankingDetails extends StatelessWidget {
                 listenWhen: (previous, current) => current.bankingAdded,
                 listener: (context, state) {
                   if (state.bankingAdded) {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     context.read<CardBloc>().add(
                         CardEvent.getCardyCardId(id: state.currentCard!.id!));
+                    Navigator.pop(context);
                   }
                 },
                 builder: (context, state) {

@@ -4,6 +4,7 @@ part of 'card_bloc.dart';
 class CardState with _$CardState {
   const factory CardState({
     required bool isLoading,
+    required bool cardLoading,
     required bool pageLoading,
     required bool hasError,
     required bool businessUser,
@@ -24,6 +25,7 @@ class CardState with _$CardState {
         deleteCardRestored: false,
         archiveCardLoading: false,
         deleteCardLoading: false,
+        cardLoading: false,
         cards: [],
         isLoading: false,
         hasError: false,

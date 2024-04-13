@@ -20,7 +20,7 @@ class DatePickingBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: khieght * 0.6,
+      height: khieght * 0.7,
       child: Column(
         children: [
           const Padding(
@@ -68,22 +68,22 @@ class DatePickingBottomSheet extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(
+                  OutlinedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                     child: const Text(
                       'Cancel',
                     ),
-                  ),
-                  TextButton(
+                  ),adjustWidth(20),
+                  OutlinedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                     child: const Text(
                       'ok',
                     ),
-                  ),
+                  ),adjustWidth(20)
                 ],
               )
             ],

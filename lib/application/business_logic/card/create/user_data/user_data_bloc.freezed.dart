@@ -3905,7 +3905,7 @@ mixin _$UserDataState {
   bool get socialMediaLoading => throw _privateConstructorUsedError;
   bool get socialMediaAdded => throw _privateConstructorUsedError;
   bool get socialMediaDeleteLoading => throw _privateConstructorUsedError;
-  SuccessResponseModel? get cardAdded => throw _privateConstructorUsedError;
+  bool get cardAdded => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   PersonalDetails? get personalData => throw _privateConstructorUsedError;
   PersonalDetails get personalDetails => throw _privateConstructorUsedError;
@@ -3946,7 +3946,7 @@ abstract class $UserDataStateCopyWith<$Res> {
       bool socialMediaLoading,
       bool socialMediaAdded,
       bool socialMediaDeleteLoading,
-      SuccessResponseModel? cardAdded,
+      bool cardAdded,
       String? message,
       PersonalDetails? personalData,
       PersonalDetails personalDetails,
@@ -3985,7 +3985,7 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
     Object? socialMediaLoading = null,
     Object? socialMediaAdded = null,
     Object? socialMediaDeleteLoading = null,
-    Object? cardAdded = freezed,
+    Object? cardAdded = null,
     Object? message = freezed,
     Object? personalData = freezed,
     Object? personalDetails = null,
@@ -4047,10 +4047,10 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
           ? _value.socialMediaDeleteLoading
           : socialMediaDeleteLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      cardAdded: freezed == cardAdded
+      cardAdded: null == cardAdded
           ? _value.cardAdded
           : cardAdded // ignore: cast_nullable_to_non_nullable
-              as SuccessResponseModel?,
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -4120,7 +4120,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool socialMediaLoading,
       bool socialMediaAdded,
       bool socialMediaDeleteLoading,
-      SuccessResponseModel? cardAdded,
+      bool cardAdded,
       String? message,
       PersonalDetails? personalData,
       PersonalDetails personalDetails,
@@ -4157,7 +4157,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? socialMediaLoading = null,
     Object? socialMediaAdded = null,
     Object? socialMediaDeleteLoading = null,
-    Object? cardAdded = freezed,
+    Object? cardAdded = null,
     Object? message = freezed,
     Object? personalData = freezed,
     Object? personalDetails = null,
@@ -4219,10 +4219,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.socialMediaDeleteLoading
           : socialMediaDeleteLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      cardAdded: freezed == cardAdded
+      cardAdded: null == cardAdded
           ? _value.cardAdded
           : cardAdded // ignore: cast_nullable_to_non_nullable
-              as SuccessResponseModel?,
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -4287,7 +4287,7 @@ class _$InitialImpl implements _Initial {
       required this.socialMediaLoading,
       required this.socialMediaAdded,
       required this.socialMediaDeleteLoading,
-      this.cardAdded,
+      required this.cardAdded,
       this.message,
       this.personalData,
       required this.personalDetails,
@@ -4330,7 +4330,7 @@ class _$InitialImpl implements _Initial {
   @override
   final bool socialMediaDeleteLoading;
   @override
-  final SuccessResponseModel? cardAdded;
+  final bool cardAdded;
   @override
   final String? message;
   @override
@@ -4498,7 +4498,7 @@ abstract class _Initial implements UserDataState {
       required final bool socialMediaLoading,
       required final bool socialMediaAdded,
       required final bool socialMediaDeleteLoading,
-      final SuccessResponseModel? cardAdded,
+      required final bool cardAdded,
       final String? message,
       final PersonalDetails? personalData,
       required final PersonalDetails personalDetails,
@@ -4536,7 +4536,7 @@ abstract class _Initial implements UserDataState {
   @override
   bool get socialMediaDeleteLoading;
   @override
-  SuccessResponseModel? get cardAdded;
+  bool get cardAdded;
   @override
   String? get message;
   @override

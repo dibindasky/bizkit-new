@@ -51,8 +51,17 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
             ),
             backgroundColor: knill,
             title: const Text('Card')),
-        body: BlocBuilder<CardBloc, CardState>(
-          builder: (context, state) => state.isLoading
+        body: BlocConsumer<CardBloc, CardState>(
+          listenWhen: (previous, current) =>
+              previous.anotherCard != null &&
+              current.anotherCard != null &&
+              previous.anotherCard?.percentage !=
+                  current.anotherCard?.percentage,
+          listener: (context, state) {
+            print('in listner card get ui ');
+            context.read<CardBloc>().add(const CardEvent.getCards(call: true));
+          },
+          builder: (context, state) => state.cardLoading
               ? const Center(
                   child: CircularProgressIndicator(color: neonShade),
                 )

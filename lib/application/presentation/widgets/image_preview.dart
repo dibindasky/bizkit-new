@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,17 @@ class ScreenImagePreview extends StatefulWidget {
 
 class _ScreenImagePreviewState extends State<ScreenImagePreview> {
   double scale = 1;
+  Uint8List? image;
+  @override
+  void initState() {
+    if (!widget.isFileIamge) {
+      image = base64.decode(widget.image.startsWith('data')
+          ? widget.image.substring(22)
+          : widget.image);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +43,7 @@ class _ScreenImagePreviewState extends State<ScreenImagePreview> {
             scale: scale,
             child: widget.isFileIamge
                 ? Image.file(File(widget.image))
-                : Image.memory(base64.decode(widget.image.startsWith('data')
-                    ? widget.image.substring(22)
-                    : widget.image)),
+                : Image.memory(image!),
           ),
         ),
       ),

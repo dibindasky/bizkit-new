@@ -394,10 +394,10 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocConsumer<BusinessDataBloc, BusinessDataState>(
                     listener: (context, state) {
                       if (state.businessAdded) {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
                         context.read<CardBloc>().add(CardEvent.getCardyCardId(
                             id: state.currentCard!.id!));
+                        Navigator.pop(context);
                       }
                     },
                     buildWhen: (previous, current) =>

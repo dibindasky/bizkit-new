@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_create_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -198,22 +200,41 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                             width: double.infinity,
                             child: Stack(
                               children: [
-                                SizedBox(
-                                  height: 200,
-                                  width: double.infinity,
-                                  child: Image.memory(
-                                    base64.decode((widget.accolade == null
-                                            ? achivement[index] is Accolade
-                                                ? achivement[index]
-                                                    .accoladesImage
-                                                : achivement[index].image
-                                            : widget.accolade!
-                                                ? user.accolades[index]
-                                                    .accoladesImage
-                                                : business
-                                                    .accreditions[index].image)
-                                        .substring(22)),
-                                    fit: BoxFit.cover,
+                                InkWell(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      fadePageRoute(ScreenImagePreview(
+                                          image: (widget.accolade == null
+                                                  ? achivement[index]
+                                                          is Accolade
+                                                      ? achivement[index]
+                                                          .accoladesImage
+                                                      : achivement[index].image
+                                                  : widget.accolade!
+                                                      ? user.accolades[index]
+                                                          .accoladesImage
+                                                      : business
+                                                          .accreditions[index]
+                                                          .image)
+                                              .substring(22),
+                                          isFileIamge: false))),
+                                  child: SizedBox(
+                                    height: 200,
+                                    width: double.infinity,
+                                    child: Image.memory(
+                                      base64.decode((widget.accolade == null
+                                              ? achivement[index] is Accolade
+                                                  ? achivement[index]
+                                                      .accoladesImage
+                                                  : achivement[index].image
+                                              : widget.accolade!
+                                                  ? user.accolades[index]
+                                                      .accoladesImage
+                                                  : business.accreditions[index]
+                                                      .image)
+                                          .substring(22)),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 Positioned(

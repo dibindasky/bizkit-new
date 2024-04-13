@@ -159,10 +159,10 @@ class _LogoStoryState extends State<LogoStory> {
               listenWhen: (previous, current) => current.logoAdded,
               listener: (context, state) {
                 if (state.logoAdded) {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                   context.read<CardBloc>().add(
                       CardEvent.getCardyCardId(id: state.currentCard!.id!));
+                  Navigator.pop(context);
                 }
               },
               buildWhen: (previous, current) =>

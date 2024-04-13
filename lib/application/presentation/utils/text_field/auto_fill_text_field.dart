@@ -81,12 +81,18 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 if ((widget.autocompleteItems != null &&
                         widget.autocompleteItems!.isNotEmpty) ||
                     widget.showDropdown) {
-                  setState(() {
-                    isDropdownVisible = true;
-                    if (!widget.enabled) {
-                      filteredAutocompleteItems = widget.autocompleteItems!;
-                    }
-                  });
+                  if (!widget.enabled && isDropdownVisible) {
+                    setState(() {
+                      isDropdownVisible = !isDropdownVisible;
+                    });
+                  } else {
+                    setState(() {
+                      isDropdownVisible = true;
+                      if (!widget.enabled) {
+                        filteredAutocompleteItems = widget.autocompleteItems!;
+                      }
+                    });
+                  }
                 }
                 if (widget.onTap != null) {
                   widget.onTap!.call();

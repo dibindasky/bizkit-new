@@ -110,7 +110,7 @@ class PersonlDetails extends StatelessWidget {
                       onItemTap: (value) => Navigator.push(
                           context,
                           fadePageRoute(ScreenImagePreview(
-                              image: value, isFileIamge: true))),
+                              image: value, isFileIamge: false))),
                       removeItem: (index) {
                         showCustomConfirmationDialoge(
                             context: context,
@@ -287,7 +287,7 @@ class PersonlDetails extends StatelessWidget {
                     //   );
                     context.read<CardBloc>().add(
                         CardEvent.getCardyCardId(id: state.currentCard!.id!));
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     Navigator.pop(context);
                   }
                 },

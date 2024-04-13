@@ -224,12 +224,14 @@ class ContainerPickImage extends StatelessWidget {
   const ContainerPickImage({
     super.key,
     this.heading,
-    this.onPressed,
+    this.onPressedCam,
+    this.onPressedGallery,
     this.isBoth = true,
     this.fromMain = true,
   });
   final String? heading;
-  final VoidCallback? onPressed;
+  final VoidCallback? onPressedCam;
+  final VoidCallback? onPressedGallery;
   final bool isBoth;
   final bool fromMain;
 
@@ -257,15 +259,16 @@ class ContainerPickImage extends StatelessWidget {
                   isBoth
                       ? Expanded(
                           child: InkWell(
-                            onTap: () {
-                              context.read<CardSecondBloc>().add(
-                                  const CardSecondEvent.scanImage(
-                                      isCam: false));
-                              fromMain
-                                  ? Navigator.of(context)
-                                      .push(fadePageRoute(const SelectedCard()))
-                                  : null;
-                            },
+                            onTap: onPressedGallery ??
+                                () {
+                                  context.read<CardSecondBloc>().add(
+                                      const CardSecondEvent.scanImage(
+                                          isCam: false));
+                                  fromMain
+                                      ? Navigator.of(context).push(
+                                          fadePageRoute(const SelectedCard()))
+                                      : null;
+                                },
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -281,7 +284,7 @@ class ContainerPickImage extends StatelessWidget {
                   adjustWidth(20),
                   Expanded(
                     child: InkWell(
-                      onTap: onPressed ??
+                      onTap: onPressedCam ??
                           () {
                             context.read<CardSecondBloc>().add(
                                 const CardSecondEvent.scanImage(isCam: true));

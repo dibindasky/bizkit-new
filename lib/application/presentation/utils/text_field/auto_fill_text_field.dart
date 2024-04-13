@@ -177,17 +177,28 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   ),
                 ),
                 validator: (value) {
-                  if (Validate.ifValidWebsite == widget.validate) {
+                  // if value exist in textForm field then only this condtition true
+                  if (Validate.ifValidnumber == widget.validate) {
                     if (value != null && value.isNotEmpty) {
                       if (value.length != 10 || !isValidPhoneNumber(value)) {
-                        return 'Number is not valid';
+                        return 'Phone Number is not valid';
                       }
                     }
                     return null;
                   }
+                  // if value exist in textForm field then only this condtition true
+                  if (Validate.ifValidEmail == widget.validate) {
+                    if (value != null && value.isNotEmpty) {
+                      if (!isValidEmail(value)) {
+                        return 'Email is not valid';
+                      }
+                    }
+                    return null;
+                  }
+                  // if value exist in textForm field then only this condtition true
                   if (Validate.ifValidWebsite == widget.validate) {
                     if (value != null && value.isNotEmpty) {
-                      if (!isValidWebsite(value)) {
+                      if (!isURLValid(value)) {
                         return 'Enter valid website';
                       }
                     }

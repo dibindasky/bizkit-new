@@ -48,7 +48,9 @@ class CardScanningImpl implements CardScanningRepo {
   void addToDetail(String input, ScannedImageDatasModel result) {
     if (isValidPhoneNumber(input) ||
         (input.contains('+91') && input.length > 10)) {
-      result.phone!.add(input);
+      String formattedNumber =
+          input.startsWith('+91') ? input.substring(3) : input;
+      result.phone!.add(formattedNumber);
     } else if (isValidWebsite(input)) {
       result.websites!.add(input);
     } else if (isValidEmail(input)) {

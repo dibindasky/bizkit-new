@@ -4,6 +4,7 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -14,7 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CardSecondScannedDatas extends StatelessWidget {
   CardSecondScannedDatas({super.key});
   final GlobalKey<FormState> autoFillDataKey = GlobalKey<FormState>();
-  final String emptyData = 'No data';
+  final String emptyData = '';
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -80,7 +81,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                         AutocompleteTextField(
                           autocompleteItems:
                               state.scannedImageDatasModel?.emails ?? [],
-                          validate: Validate.email,
+                          validate: Validate.ifValidEmail,
                           label: 'Email',
                           controller:
                               context.read<CardSecondBloc>().emailController,
@@ -90,7 +91,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                           maxLength: 10,
                           autocompleteItems:
                               state.scannedImageDatasModel?.phone ?? [],
-                          validate: Validate.phone,
+                          validate: Validate.ifValidnumber,
                           label: 'Phone number',
                           controller:
                               context.read<CardSecondBloc>().phoneController,
@@ -99,7 +100,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                         AutocompleteTextField(
                           autocompleteItems:
                               state.scannedImageDatasModel?.websites ?? [],
-                          validate: Validate.website,
+                          validate: Validate.ifValidWebsite,
                           label: 'Website',
                           controller:
                               context.read<CardSecondBloc>().webSiteController,
@@ -135,21 +136,15 @@ class CardSecondScannedDatas extends StatelessWidget {
                                             .emailController
                                             .text
                                             .isEmpty
-                                        ? 'f@gmail.com'
+                                        ? emptyData
                                         : context
                                             .read<CardSecondBloc>()
                                             .emailController
                                             .text,
                                     company: context
-                                            .read<CardSecondBloc>()
-                                            .copanyController
-                                            .text
-                                            .isEmpty
-                                        ? emptyData
-                                        : context
-                                            .read<CardSecondBloc>()
-                                            .copanyController
-                                            .text,
+                                        .read<CardSecondBloc>()
+                                        .copanyController
+                                        .text,
                                     number: context
                                             .read<CardSecondBloc>()
                                             .phoneController
@@ -165,7 +160,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                                             .webSiteController
                                             .text
                                             .isEmpty
-                                        ? 'iin.in'
+                                        ? emptyData
                                         : context
                                             .read<CardSecondBloc>()
                                             .webSiteController
@@ -226,9 +221,10 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
           title: const Text(
             'Make QR Card',
             style: TextStyle(
-                fontFamily: 'Euclid',
-                fontWeight: FontWeight.bold,
-                color: kwhite),
+              fontFamily: 'Euclid',
+              fontWeight: FontWeight.bold,
+              color: kwhite,
+            ),
           ),
           backgroundColor: knill,
         ),
@@ -257,22 +253,69 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
               children: [
                 state.selfieImageModel == null
                     ? ContainerPickImage(
-                        onPressed: () => context.read<CardSecondBloc>().add(
+                        onPressedGallery: () =>
+                            context.read<CardSecondBloc>().add(
+                                  const CardSecondEvent.selfieImage(
+                                    isCam: false,
+                                    cameraDeviceFront: false,
+                                  ),
+                                ),
+                        onPressedCam: () => context.read<CardSecondBloc>().add(
                               const CardSecondEvent.selfieImage(
+                                isCam: true,
                                 cameraDeviceFront: true,
                               ),
                             ),
                         heading: 'Take Selfie',
                       )
-                    : Container(
-                        height: kwidth * 0.60,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: FileImage(state.selfieImageModel!.fileImage),
-                            fit: BoxFit.cover,
+                    : Stack(
+                        children: [
+                          Container(
+                            height: kwidth * 0.60,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: FileImage(
+                                    state.selfieImageModel!.fileImage),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                        ),
+                          Positioned(
+                            right: 10,
+                            bottom: 10,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: ColoredBox(
+                                color: neonShade,
+                                child: IconButton(
+                                  onPressed: () {
+                                    customDailogue(
+                                      context: context,
+                                      onPressCam: () {
+                                        context.read<CardSecondBloc>().add(
+                                            const CardSecondEvent.selfieImage(
+                                                cameraDeviceFront: true,
+                                                isCam: true));
+                                      },
+                                      onPressGallery: () {
+                                        context.read<CardSecondBloc>().add(
+                                            const CardSecondEvent.selfieImage(
+                                                cameraDeviceFront: false,
+                                                isCam: false));
+                                      },
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    size: 30,
+                                    color: kwhite,
+                                    Icons.add,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                 Padding(
                   padding:

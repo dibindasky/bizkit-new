@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
+import 'package:bizkit/application/presentation/screens/card_view/widgets/reminder_adding_session.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -28,7 +29,7 @@ class SecondCardDetailView extends StatelessWidget {
     });
 
     return BlocBuilder<CardSecondBloc, CardSecondState>(
-      // buildWhen: (previous, current) => previous.isLoading != current.isLoading,
+      buildWhen: (previous, current) => previous.isLoading != current.isLoading,
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -78,7 +79,7 @@ class SecondCardDetailView extends StatelessWidget {
                                 if (state.getSecondCardModel != null &&
                                     state.getSecondCardModel!.selfie != null) {
                                   String images = '';
-                                  images = (state.getSecondCardModel!.image!);
+                                  images = (state.getSecondCardModel!.selfie!);
                                   images = images.replaceFirst(
                                       RegExp(r'data:image/jpg;base64,'), '');
                                   imagess.add(images);
@@ -119,14 +120,16 @@ class SecondCardDetailView extends StatelessWidget {
                               },
                             ),
                             // !myCard
-                            //     ? const CardViewAddReminderContainer()
+                            // const CardViewAddReminderContainer(),
                             //     : const SizedBox(),
                             // row icons
                             const CardViewRowWiceIcons(),
                             adjustHieght(khieght * .02),
                             Container(
+                              padding:
+                                  const EdgeInsets.only(right: 10, left: 20),
                               margin: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 20),
+                                  horizontal: 40, vertical: 2),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: neonShade,
@@ -134,54 +137,118 @@ class SecondCardDetailView extends StatelessWidget {
                                 ),
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                              child: Column(
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      adjustHieght(10),
-                                      const Text('Venue'),
-                                      const Text('Location'),
-                                      const Text('Occupation'),
-                                      const Text('Designation'),
-                                      const Text('Date'),
-                                      const Text('Time'),
-                                      const Text('Notes'),
-                                      adjustHieght(10),
-                                    ],
+                                  adjustHieght(10),
+                                  ItemsContainer(
+                                    heading: 'Venue',
+                                    item: state.getSecondCardModel?.whereWeMet,
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      adjustHieght(10),
-                                      Text(
-                                          '${state.getSecondCardModel!.whereWeMet}'),
-                                      Text(
-                                          '${state.getSecondCardModel!.location}'),
-                                      Text(
-                                          '${state.getSecondCardModel!.occupation}'),
-                                      Text(
-                                          '${state.getSecondCardModel!.designation}'),
-                                      Text('${state.getSecondCardModel!.date}'),
-                                      Text('${state.getSecondCardModel!.time}'),
-                                      Text(
-                                          '${state.getSecondCardModel!.notes}'),
-                                      adjustHieght(10),
-                                    ],
+                                  ItemsContainer(
+                                    heading: 'Location',
+                                    item: state.getSecondCardModel?.location,
                                   ),
+                                  ItemsContainer(
+                                    heading: 'Occupation',
+                                    item: state.getSecondCardModel?.occupation,
+                                  ),
+                                  ItemsContainer(
+                                    heading: 'Designation',
+                                    item: state.getSecondCardModel?.whereWeMet,
+                                  ),
+                                  ItemsContainer(
+                                    heading: 'Date',
+                                    item: state.getSecondCardModel?.date,
+                                  ),
+                                  ItemsContainer(
+                                    heading: 'Time',
+                                    item: state.getSecondCardModel?.time,
+                                  ),
+                                  ItemsContainer(
+                                    heading: 'Notes',
+                                    item: state.getSecondCardModel?.notes,
+                                  ),
+                                  adjustHieght(10),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
         );
       },
+    );
+  }
+}
+
+class ItemsContainer extends StatelessWidget {
+  const ItemsContainer({super.key, this.item, required this.heading});
+  final String? item;
+  final String heading;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        item != null
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                      width: kwidth * .3,
+                      child: Text(item != null ? heading : '')),
+                  Expanded(child: Text(item!)),
+                ],
+              )
+            : kempty
+      ],
+
+      // Row(
+      //   mainAxisAlignment:
+      //       MainAxisAlignment.spaceAround,
+      //   children: [
+      //     Column(
+      //       crossAxisAlignment:
+      //           CrossAxisAlignment.start,
+      //       children: [
+      //         adjustHieght(10),
+      //         const Text('Venue'),
+      //         const Text('Location'),
+      //         const Text('Occupation'),
+      //         const Text('Designation'),
+      //         const Text('Date'),
+      //         const Text('Time'),
+      //         const Text('Notes'),
+      //         adjustHieght(10),
+      //       ],
+      //     ),
+      //     SizedBox(
+      //       width: kwidth * .4,
+      //       child: Column(
+      //         crossAxisAlignment:
+      //             CrossAxisAlignment.start,
+      //         children: [
+      //           adjustHieght(10),
+      //           Text(
+      //               '${state.getSecondCardModel!.whereWeMet}'),
+      //           Text(
+      //               '${state.getSecondCardModel!.location}'),
+      //           Text(
+      //               '${state.getSecondCardModel!.occupation}'),
+      //           Text(
+      //               '${state.getSecondCardModel!.designation}'),
+      //           Text(
+      //               '${state.getSecondCardModel!.date}'),
+      //           Text(
+      //               '${state.getSecondCardModel!.time}'),
+      //           Text(
+      //               '${state.getSecondCardModel!.notes}'),
+      //           adjustHieght(10),
+      //         ],
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

@@ -15,7 +15,8 @@ enum Validate {
   gst,
   website,
   ifValidnumber,
-  ifValidWebsite
+  ifValidWebsite,
+  ifValidEmail,
 }
 
 class TTextFormField extends StatefulWidget {

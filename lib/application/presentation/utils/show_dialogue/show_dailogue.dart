@@ -2,7 +2,9 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 Future<dynamic> customDailogue(
-    {required BuildContext context, required Function onPress}) {
+    {required BuildContext context,
+    required Function onPressCam,
+    required Function onPressGallery}) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -10,7 +12,7 @@ Future<dynamic> customDailogue(
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
-            onPress();
+            onPressGallery();
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: neonShade, foregroundColor: kwhite),
@@ -20,14 +22,14 @@ Future<dynamic> customDailogue(
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
-            onPress();
+            onPressCam();
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: kred, foregroundColor: kwhite),
           child: const Text('Camera'),
         )
       ],
-      title: const Text('are you sure?'),
+      title: const Text('Select Selfie Image'),
     ),
   );
 }

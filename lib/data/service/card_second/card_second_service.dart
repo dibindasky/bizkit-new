@@ -9,7 +9,6 @@ import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/gate_
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
 import 'package:bizkit/domain/model/card_second/get_deleted_second_cards/get_deleted_second_cards.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
-import 'package:bizkit/domain/model/card_second/update_second_card_model/update_second_card_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/service/card_second.dart';
@@ -28,7 +27,7 @@ class CardSecondService implements CardSecondRepo {
       {required CardSecondCreateRequestModel
           cardSecondCreateRequestModel}) async {
     try {
-      log('cardSecondCreation  ${cardSecondCreateRequestModel.toJson()}');
+      //log('cardSecondCreation  ${cardSecondCreateRequestModel.toJson()}');
       final responce = await _apiService.post(
         ApiEndPoints.createSecondCard,
         data: cardSecondCreateRequestModel.toJson(),
@@ -50,7 +49,7 @@ class CardSecondService implements CardSecondRepo {
     try {
       final responce = await _apiService
           .get(ApiEndPoints.getSecondCard.replaceAll('{id}', id.toString()));
-      log('getCardSecond data ${responce.data}');
+      //log('getCardSecond data ${responce.data}');
       return Right(GetSecondCardModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getCardSecond dio error $e');
@@ -72,7 +71,7 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.updateCardSecond.replaceAll('{id}', id),
         data: secondCard.toJson(),
       );
-      log('updateCardSecond data ${responce.statusCode} ${responce.data}');
+      // log('updateCardSecond data ${responce.statusCode} ${responce.data}');
       return Right(CardSecondResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('updateCardSecond dio error $e');

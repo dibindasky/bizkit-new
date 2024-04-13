@@ -19,6 +19,7 @@ const Color lightColr = Color.fromRGBO(53, 53, 53, .42);
 double khieght = 850;
 double kwidth = 400;
 
+SizedBox kempty = const SizedBox(height: 0);
 // void sizeFinder(BuildContext context) {
 //   final size = MediaQuery.of(context).size;
 //   print(size.height);

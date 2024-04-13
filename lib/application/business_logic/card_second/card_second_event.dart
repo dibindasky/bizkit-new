@@ -8,8 +8,8 @@ class CardSecondEvent with _$CardSecondEvent {
       {required List<ImageModel> images}) = ProcessImageScanning;
   const factory CardSecondEvent.removeImageScanning({required int index}) =
       RemoveImageScanning;
-  const factory CardSecondEvent.selfieImage({required bool cameraDeviceFront}) =
-      SelfieImage;
+  const factory CardSecondEvent.selfieImage(
+      {required bool cameraDeviceFront, required bool isCam}) = SelfieImage;
   const factory CardSecondEvent.autoFillTExtfieldItems({
     required String scannedImage,
     required String email,

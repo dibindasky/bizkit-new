@@ -23,10 +23,9 @@ class ConnectionRequestEvent with _$ConnectionRequestEvent {
   const factory ConnectionRequestEvent.getRequestLists() = GetRequestLists;
   const factory ConnectionRequestEvent.deleteRequest({required int id}) =
       DeleteRequest;
-  const factory ConnectionRequestEvent.getBlockeConnections() =
-      GetBlockeConnections;
+  const factory ConnectionRequestEvent.getBlockeConnections(
+      {required bool isLoad}) = GetBlockeConnections;
   const factory ConnectionRequestEvent.getBlockeConnectionsEvent() =
       GgetBlockeConnectionsEvent;
-        const factory ConnectionRequestEvent.clear() = Clear;
-
+  const factory ConnectionRequestEvent.clear() = Clear;
 }

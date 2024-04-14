@@ -3,37 +3,29 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
-import 'package:bizkit/application/presentation/widgets/refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BlockedConnections extends StatefulWidget {
-  const BlockedConnections({super.key, this.scrollController});
-  final ScrollController? scrollController;
+  const BlockedConnections({super.key});
+
   @override
   State<BlockedConnections> createState() => _BlockedConnectionsState();
 }
 
 class _BlockedConnectionsState extends State<BlockedConnections> {
-  _scrollCallBack() {
-    if (widget.scrollController!.position.pixels ==
-        widget.scrollController!.position.maxScrollExtent) {
-      context
-          .read<ConnectionRequestBloc>()
-          .add(const ConnectionRequestEvent.getBlockeConnectionsEvent());
-    }
-  }
+  late ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
-    if (widget.scrollController != null) {
-      widget.scrollController!.addListener(() {
-        widget.scrollController!.animateTo(.1,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.fastEaseInToSlowEaseOut);
-        _scrollCallBack();
-      });
-    }
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        context
+            .read<ConnectionRequestBloc>()
+            .add(const ConnectionRequestEvent.getBlockeConnectionsEvent());
+      }
+    });
     super.initState();
   }
 
@@ -59,21 +51,15 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
           builder: (context, state) {
-            if (state.isLoading) {
+            if (state.blockedConnectionsLoading) {
               return ShimmerLoader(
                 itemCount: 10,
                 height: 70,
                 width: kwidth * 0.9,
                 seprator: const SizedBox(height: 10),
               );
-            } else if (state.blockedConnections == null) {
-              return RefreshIndicatorCustom(
-                message: errorMessage,
-                onRefresh: () => context.read<ConnectionRequestBloc>().add(
-                      const ConnectionRequestEvent.getBlockeConnectionsEvent(),
-                    ),
-              );
-            } else if (state.blockedConnections!.isEmpty) {
+            } else if (state.blockedConnections == null ||
+                state.blockedConnections!.isEmpty) {
               return SizedBox(
                 height: khieght,
                 child: const Center(
@@ -82,10 +68,13 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
               );
             }
             return ListView.builder(
+              controller: scrollController,
+              shrinkWrap: true,
+              //  physics: const AlwaysScrollableScrollPhysics(),
               itemCount: (state.blockedConnections?.length ?? 0) +
-                  (state.blockedLoading ? 1 : 0),
+                  (state.blockedConnectionsLoading ? 1 : 0),
               itemBuilder: (context, index) {
-                if (state.blockedLoading &&
+                if (state.blockedConnectionsLoading &&
                     index == state.blockedConnections!.length) {
                   return const LoadingAnimation();
                 }
@@ -125,7 +114,6 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
                             ),
                             const Spacer(),
                             GestureDetector(
-                              // onTap: () => context.read<ProfileBloc>().add(event),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
                                 child: const ColoredBox(

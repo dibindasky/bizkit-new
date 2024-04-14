@@ -216,15 +216,15 @@ class ConnectionService implements ConnectionRequestRepo {
     try {
       final responce = await _apiService.get(
         ApiEndPoints.getBlockedConnections,
+        data: pageQuery.toJson(),
       );
+      log('getBlockeConnections data ${responce.data}');
       return Right(BlockedConnectionModel.fromJson(responce.data));
     } on DioException catch (e) {
-      log('deleteConnectionRequest dio error');
-      log(e.toString());
-      log(e.response.toString());
+      log('getBlockeConnections dio error $e');
       return Left(Failure());
     } catch (e) {
-      log('deleteConnectionRequest exception error');
+      log('getBlockeConnections exception error');
       log(e.toString());
       return Left(Failure());
     }

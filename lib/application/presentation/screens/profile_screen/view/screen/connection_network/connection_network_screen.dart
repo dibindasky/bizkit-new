@@ -1,15 +1,21 @@
+import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/blocked_connections.dart';
-import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/restricted_connections.dart';
+import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/business_card_members.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ConnectionNetworkScreen extends StatelessWidget {
   const ConnectionNetworkScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) => context.read<ConnectionRequestBloc>().add(
+          const ConnectionRequestEvent.getBlockeConnections(isLoad: false)),
+    );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

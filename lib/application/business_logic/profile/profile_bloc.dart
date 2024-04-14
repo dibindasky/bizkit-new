@@ -213,6 +213,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             ), (r) {
       if (r.results != null && r.results!.name != null) {
         userNameController.text = r.results!.name!;
+        emit(state.copyWith(userName: r.results!.name ?? ''));
       }
       emit(
         state.copyWith(

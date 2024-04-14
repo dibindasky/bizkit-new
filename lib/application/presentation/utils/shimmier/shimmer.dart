@@ -22,7 +22,7 @@ class ShimmerLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       separatorBuilder: (context, index) => seprator,
-      physics: const NeverScrollableScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
       itemCount: itemCount,
       scrollDirection: scrollDirection,

@@ -23,7 +23,6 @@ part 'card_second_bloc.freezed.dart';
 @injectable
 class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   int secondCard = 1, deletedCards = 1;
-
   final GlobalKey<FormState> cardUpdateKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -54,17 +53,26 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     on<ProcessImageScanning>(processImageScanning);
     on<RemoveImageScanning>(removeImageScanning);
     on<SelfieImage>(selfieImage);
-    on<GetAllCardsSecond>(getAllCardsSecond);
-    on<GetCardSecondEvent>(getCardSecondEvent);
-    on<UpdateCardSecond>(updateCardSecond);
     on<AutoFillTExtfieldItems>(autoFillTExtfieldItems);
     on<MeetingRelatedInfo>(meetingRelatedInfo);
+    on<GetAllCardsSecond>(getAllCardsSecond);
+    on<GetCardSecondEvent>(getCardSecondEvent);
     on<DeleteCardSecond>(deleteCardSecond);
     on<GetDeleteCardSecond>(getDeleteCardSecond);
     on<GetDeleteCardSecondEvent>(getDeleteCardSecondEvent);
     on<RestoreDeleteCardSecond>(restoreDeleteCardSecond);
     on<GetSecondCardDetail>(getSecondCardDetail);
+    on<UpdateCardSecond>(updateCardSecond);
     on<DataClearing>(dataClearing);
+    on<ImageClear>(imageClear);
+  }
+
+  FutureOr<void> imageClear(ImageClear event, emit) {
+    emit(state.copyWith(
+      scannedImageDatasModel: null,
+      selfieImageModel: null,
+      scannedImagesSecondCardCreation: [],
+    ));
   }
 
   FutureOr<void> dataClearing(DataClearing devent, emit) {
@@ -87,7 +95,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   FutureOr<void> restoreDeleteCardSecond(
       RestoreDeleteCardSecond event, emit) async {
     emit(state.copyWith(
-      deleteSecondCardLoading: true,
+      isLoading: true,
       hasError: false,
       seondCardRestored: false,
     ));
@@ -97,12 +105,12 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     );
     data.fold(
         (l) => emit(state.copyWith(
-              deleteSecondCardLoading: false,
+              isLoading: false,
               seondCardRestored: false,
               hasError: true,
             )), (r) {
       emit(state.copyWith(
-        deleteSecondCardLoading: false,
+        isLoading: false,
         hasError: false,
         seondCardRestored: true,
         message: 'Card restored',
@@ -114,15 +122,18 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
 
   FutureOr<void> getDeleteCardSecondEvent(
       GetDeleteCardSecondEvent event, emit) async {
-    emit(state.copyWith(deleteSecondCardLoading: true, hasError: false));
+    emit(state.copyWith(
+      deleteSecondCardEventLoading: true,
+      hasError: false,
+      seondCardRestored: false,
+    ));
     final data = await _cardSecondRepo.getDeleteSecondCardEvent(
         pageQuery: PageQuery(page: ++deletedCards));
     data.fold(
-        (l) => emit(
-            state.copyWith(deleteSecondCardLoading: false, hasError: true)),
-        (r) {
+        (l) => emit(state.copyWith(
+            deleteSecondCardEventLoading: false, hasError: true)), (r) {
       emit(state.copyWith(
-        deleteSecondCardLoading: false,
+        deleteSecondCardEventLoading: false,
         hasError: false,
         deleteSecondCards: [
           ...state.deleteSecondCards!,
@@ -175,7 +186,10 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     );
     data.fold(
       (l) => emit(state.copyWith(
-          secondCardLoading: false, hasError: true, secondCardDeleted: false)),
+        secondCardLoading: false,
+        hasError: true,
+        secondCardDeleted: false,
+      )),
       (r) {
         emit(
           state.copyWith(
@@ -387,7 +401,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
 
   FutureOr<void> getCardSecondEvent(GetCardSecondEvent event, emit) async {
     emit(state.copyWith(
-      secondCardLoading: true,
+      secondCardEventLoading: true,
       hasError: false,
       message: null,
       updated: false,
@@ -396,18 +410,16 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
         pageQuery: PageQuery(page: ++secondCard));
     data.fold(
       (l) => emit(state.copyWith(
-        secondCardLoading: false,
+        secondCardEventLoading: false,
         hasError: true,
-        updated: false,
       )),
       (r) => emit(state.copyWith(
-        secondCardLoading: false,
+        secondCardEventLoading: false,
         hasError: false,
         secondCards: [
           ...state.secondCards,
           ...r.results ?? [],
         ],
-        updated: false,
       )),
     );
   }

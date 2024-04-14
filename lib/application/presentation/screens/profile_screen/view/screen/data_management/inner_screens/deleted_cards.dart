@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
@@ -32,9 +31,7 @@ class _DeletedCardsState extends State<DeletedCards> {
     firstCardscrollController.addListener(() {
       if (firstCardscrollController.position.pixels ==
           firstCardscrollController.position.maxScrollExtent) {
-        context
-            .read<CardBloc>()
-            .add(const CardEvent.getdeleteCardsEvent(isLoad: true));
+        context.read<CardBloc>().add(const CardEvent.getdeleteCardsEvent());
       }
     });
     secondcardscrollController.addListener(() {
@@ -42,7 +39,7 @@ class _DeletedCardsState extends State<DeletedCards> {
           secondcardscrollController.position.maxScrollExtent) {
         context
             .read<CardSecondBloc>()
-            .add(const CardSecondEvent.getDeleteCardSecondEvent(isLoad: true));
+            .add(const CardSecondEvent.getDeleteCardSecondEvent());
       }
     });
   }
@@ -81,11 +78,15 @@ class _DeletedCardsState extends State<DeletedCards> {
                 },
                 builder: (context, state) {
                   if (state.deleteCardLoading) {
-                    return ShimmerLoader(
-                      itemCount: 10,
-                      height: 240,
-                      width: kwidth * 0.9,
-                      seprator: const SizedBox(height: 10),
+                    return SizedBox(
+                      height: khieght * .4,
+                      child: ShimmerLoader(
+                        itemCount: 10,
+                        height: 240,
+                        scrollDirection: Axis.horizontal,
+                        width: kwidth * 0.9,
+                        seprator: const SizedBox(width: 10),
+                      ),
                     );
                   } else if (state.deletedCards == null) {
                     return RefreshIndicatorCustom(
@@ -110,11 +111,11 @@ class _DeletedCardsState extends State<DeletedCards> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: (state.deletedCards?.length ?? 0) +
-                          (state.deleteCardLoading ? 1 : 0),
+                          (state.deleteCardEventLoading ? 1 : 0),
                       separatorBuilder: (context, index) =>
                           adjustWidth(kwidth * .05),
                       itemBuilder: (context, index) {
-                        if (state.deleteCardLoading &&
+                        if (state.deleteCardEventLoading &&
                             index == state.deletedCards!.length) {
                           return const LoadingAnimation();
                         }
@@ -139,7 +140,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                                             topLeft: Radius.circular(25),
                                             topRight: Radius.circular(20),
                                           ),
-                                          child: state.deletedCards != null ||
+                                          child: state.deletedCards != null &&
                                                   state.deletedCards![index]
                                                           .logo !=
                                                       null
@@ -158,7 +159,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                                 children: [
                                   adjustWidth(kwidth * .02),
                                   Text(
-                                    '${state.deletedCards![index].name ?? ''}\n  ${state.deletedCards![index].designation}',
+                                    '${state.deletedCards![index].name ?? ''}\n${state.deletedCards![index].designation ?? ''}',
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w700,
@@ -172,27 +173,22 @@ class _DeletedCardsState extends State<DeletedCards> {
                                         heading: 'Restore Deleted cards',
                                         context,
                                         onPressed: () {
-                                          CardActionRewuestModel
+                                          CardActionRequestModel
                                               cardActionRewuestModel =
-                                              CardActionRewuestModel(
+                                              CardActionRequestModel(
                                             isArchived: state
                                                 .deletedCards![index]
                                                 .isArchived,
                                             isActive: true,
                                           );
                                           context.read<CardBloc>().add(
-                                                CardEvent
-                                                    .restoreArchiveDeleteCard(
-                                                  cardActionRewuestModel:
+                                                CardEvent.restoreDeletedCard(
+                                                  cardActionRequestModel:
                                                       cardActionRewuestModel,
                                                   cardId: state
                                                       .deletedCards![index].id!,
                                                 ),
                                               );
-                                          // showSnackbar(
-                                          //   context,
-                                          //   message: 'Card restored',
-                                          // );
                                         },
                                       );
                                     },
@@ -233,25 +229,27 @@ class _DeletedCardsState extends State<DeletedCards> {
                 },
                 builder: (context, state) {
                   if (state.deleteSecondCardLoading) {
-                    return ShimmerLoader(
-                      itemCount: 10,
-                      height: 240,
-                      width: kwidth * 0.9,
-                      seprator: const SizedBox(height: 10),
+                    return SizedBox(
+                      height: khieght * .4,
+                      child: ShimmerLoader(
+                        itemCount: 10,
+                        height: 240,
+                        scrollDirection: Axis.horizontal,
+                        width: kwidth * 0.9,
+                        seprator: const SizedBox(height: 10),
+                      ),
                     );
                   } else if (state.deleteSecondCards == null) {
                     return RefreshIndicatorCustom(
                       message: errorMessage,
                       onRefresh: () => context.read<CardSecondBloc>().add(
-                          const CardSecondEvent.getDeleteCardSecondEvent(
-                              isLoad: true)),
+                          const CardSecondEvent.getDeleteCardSecondEvent()),
                     );
                   } else if (state.deleteSecondCards!.isEmpty) {
                     return SizedBox(
                       height: khieght * .4,
                       child: const Center(
-                        child:
-                            Text("You doesn't have QR connected Deleted cards"),
+                        child: Text("You doesn't have Selfie deeleted cards"),
                       ),
                     );
                   }
@@ -263,11 +261,11 @@ class _DeletedCardsState extends State<DeletedCards> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: (state.deleteSecondCards?.length ?? 0) +
-                          (state.deleteSecondCardLoading ? 1 : 0),
+                          (state.deleteSecondCardEventLoading ? 1 : 0),
                       separatorBuilder: (context, index) =>
                           adjustWidth(kwidth * .05),
                       itemBuilder: (context, index) {
-                        if (state.deleteSecondCardLoading &&
+                        if (state.deleteSecondCardEventLoading &&
                             index == state.deleteSecondCards!.length) {
                           return const LoadingAnimation();
                         }
@@ -293,27 +291,28 @@ class _DeletedCardsState extends State<DeletedCards> {
                                     child: InkWell(
                                       onTap: () {},
                                       child: ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(25),
-                                          topRight: Radius.circular(20),
-                                        ),
-                                        child: state.deleteSecondCards ==
-                                                    null ||
-                                                state.deleteSecondCards![index]
-                                                        .image ==
-                                                    null
-                                            ? Image.network(imageDummyNetwork,
-                                                fit: BoxFit.cover)
-                                            : Image.memory(
-                                                base64.decode(base64String),
-                                                fit: BoxFit.cover,
-                                                errorBuilder: (context, error,
-                                                    stackTrace) {
-                                                  return const Icon(
-                                                      Icons.error);
-                                                },
-                                              ),
-                                      ),
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(25),
+                                            topRight: Radius.circular(20),
+                                          ),
+                                          child: state.deleteSecondCards !=
+                                                      null &&
+                                                  state
+                                                          .deleteSecondCards![
+                                                              index]
+                                                          .image !=
+                                                      null
+                                              ? Image.memory(
+                                                  base64.decode(base64String),
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    return const Icon(
+                                                        Icons.error);
+                                                  },
+                                                )
+                                              : Image.network(imageDummyNetwork,
+                                                  fit: BoxFit.cover)),
                                     ),
                                   ),
                                 ],
@@ -337,9 +336,9 @@ class _DeletedCardsState extends State<DeletedCards> {
                                         heading: 'Restore Deleted cards',
                                         context,
                                         onPressed: () {
-                                          CardActionRewuestModel
+                                          CardActionRequestModel
                                               cardActionRewuestModel =
-                                              CardActionRewuestModel(
+                                              CardActionRequestModel(
                                                   isActive: true);
                                           context.read<CardSecondBloc>().add(
                                                 CardSecondEvent

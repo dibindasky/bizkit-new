@@ -23,7 +23,7 @@ class TileItem extends StatelessWidget {
             children: [
               Text(
                 text,
-                style: TextStyle(fontSize: 12.sp),
+                style: TextStyle(fontSize: 15.sp),
               ),
               const Spacer(),
               IconButton(

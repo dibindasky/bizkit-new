@@ -33,7 +33,7 @@ class CardService implements CardRepo {
   @override
   Future<Either<Failure, SuccessResponseModel>> cardAction({
     required int id,
-    required CardActionRewuestModel cardActionRewuestModel,
+    required CardActionRequestModel cardActionRewuestModel,
   }) async {
     try {
       log('cardAction ${cardActionRewuestModel.toJson()}');
@@ -56,7 +56,7 @@ class CardService implements CardRepo {
   @override
   Future<Either<Failure, SuccessResponseModel>> restoreArchiveDeleteCard({
     required int cardId,
-    required CardActionRewuestModel cardActionRewuestModel,
+    required CardActionRequestModel cardActionRewuestModel,
   }) async {
     try {
       final responce = await apiService.patch(
@@ -208,7 +208,6 @@ class CardService implements CardRepo {
         ApiEndPoints.getDeletedCards,
         data: pageQuery.toJson(),
       );
-      log('deletedCardsList data ${responce.data}');
       return Right(BlockedCardsResponceMoede.fromJson(responce.data));
     } on DioException catch (e) {
       log('deletedCardsList DioException ${e.response?.statusCode} $e');
@@ -225,7 +224,6 @@ class CardService implements CardRepo {
     try {
       final response = await apiService.get(ApiEndPoints.getCompanies,
           queryParameters: search?.toJson());
-
       return Right(GetCompanysResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());
@@ -280,6 +278,7 @@ class CardService implements CardRepo {
       return Right(ArcheivedCardModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('archievedCardsList DioException ${e.response?.statusCode} $e');
+      log('error ${e.response?.data}');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
       log('archievedCardsList catch $e');

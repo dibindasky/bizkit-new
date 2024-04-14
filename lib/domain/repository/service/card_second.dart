@@ -23,7 +23,7 @@ abstract class CardSecondRepo {
     required PageQuery pageQuery,
   });
   Future<Either<Failure, SuccessResponseModel>> deleteSecondCard({
-    required CardActionRewuestModel cardActionRewuestModel,
+    required CardActionRequestModel cardActionRewuestModel,
     required int id,
   });
   Future<Either<Failure, GetDeletedSecondCards>> getDeleteSecondCard({
@@ -33,7 +33,7 @@ abstract class CardSecondRepo {
     required PageQuery pageQuery,
   });
   Future<Either<Failure, SuccessResponseModel>> restoreDeleteSecondCardEvent({
-    required CardActionRewuestModel cardActionRewuestModel,
+    required CardActionRequestModel cardActionRewuestModel,
     required int id,
   });
 }

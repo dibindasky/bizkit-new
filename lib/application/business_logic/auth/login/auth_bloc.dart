@@ -37,7 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   FutureOr<void> log(Log event, emit) async {
-    return emit(state.copyWith(
+    emit(state.copyWith(
       onBoardSkipBool: await SecureStorage.getOnBoardBool(),
       isLogin: await SecureStorage.getLogin(),
       userName: await SecureStorage.getName(),

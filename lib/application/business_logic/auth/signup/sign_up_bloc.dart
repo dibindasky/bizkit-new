@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/domain/model/auth/email_model/email_model.dart';
 import 'package:bizkit/domain/model/auth/login_response_model/login_response_model.dart';
@@ -10,7 +9,6 @@ import 'package:bizkit/domain/repository/service/auth_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 part 'sign_up_bloc.freezed.dart';

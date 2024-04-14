@@ -23,7 +23,7 @@ part 'connection_request_bloc.freezed.dart';
 class ConnectionRequestBloc
     extends Bloc<ConnectionRequestEvent, ConnectionRequestState> {
   final ConnectionRequestRepo _connectionRepo;
-  int page = 1, blockedCards = 1;
+  int page = 1, blockedConnetions = 1;
   final TextEditingController connectionController = TextEditingController();
   ConnectionRequestBloc(this._connectionRepo)
       : super(ConnectionRequestState.initial()) {
@@ -47,16 +47,18 @@ class ConnectionRequestBloc
 
   FutureOr<void> getBlockedConnectionsEvent(
       GgetBlockeConnectionsEvent event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+        blockedConnectionsLoading: true, hasError: false, message: null));
 
     final data = await _connectionRepo.getBlockeConnections(
-        pageQuery: PageQuery(page: ++blockedCards));
+        pageQuery: PageQuery(page: ++blockedConnetions));
     data.fold(
-        (l) => emit(
-            state.copyWith(isLoading: false, hasError: true, message: null)),
-        (r) {
+        (l) => emit(state.copyWith(
+            blockedConnectionsLoading: false,
+            hasError: true,
+            message: null)), (r) {
       emit(state.copyWith(
-        isLoading: false,
+        blockedConnectionsLoading: false,
         hasError: false,
         blockedConnections: [...state.blockedConnections!, ...r.results!],
       ));
@@ -64,20 +66,22 @@ class ConnectionRequestBloc
   }
 
   FutureOr<void> getBlockeConnections(GetBlockeConnections event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    blockedConnetions = 1;
+    emit(state.copyWith(
+        blockedConnectionsLoading: true, hasError: false, message: null));
     final data = await _connectionRepo.getBlockeConnections(
-        pageQuery: PageQuery(page: blockedCards));
+        pageQuery: PageQuery(page: blockedConnetions));
     data.fold(
       (l) => emit(
         state.copyWith(
-          isLoading: false,
+          blockedConnectionsLoading: false,
           hasError: true,
         ),
       ),
       (r) => emit(state.copyWith(
-        isLoading: false,
+        blockedConnectionsLoading: false,
         hasError: false,
-        blockedConnections: [...state.blockedConnections!, ...r.results!],
+        blockedConnections: [...r.results ?? []],
       )),
     );
   }

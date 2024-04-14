@@ -6,6 +6,7 @@ import 'package:bizkit/application/presentation/screens/card_share/view/widgets/
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
@@ -27,10 +28,19 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> animation;
+  late ScrollController secondCardScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
+    secondCardScrollController.addListener(() {
+      if (secondCardScrollController.position.pixels ==
+          secondCardScrollController.position.maxScrollExtent) {
+        context
+            .read<CardSecondBloc>()
+            .add(const CardSecondEvent.getCardSecondEvent());
+      }
+    });
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),
@@ -64,7 +74,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                   adjustHieght(khieght * .05),
                   BlocBuilder<CardBloc, CardState>(
                     builder: (context, state) {
-                      if (state.isLoading) {
+                      if (state.deleteCardLoading) {
                         return SizedBox(
                             height: khieght * .4,
                             child: const LoadingAnimation());
@@ -77,290 +87,281 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                 textAlign: TextAlign.center),
                           ),
                         );
-                      } else {
-                        return SizedBox(
-                          height: 340,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: state.cards.length,
-                            separatorBuilder: (context, index) =>
-                                adjustWidth(kwidth * .05),
-                            itemBuilder: (context, index) {
-                              final card = state.cards[index];
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: textFieldFillColr,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                width: 300,
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        SizedBox(
-                                          width: 300,
-                                          height: 200,
-                                          child: InkWell(
-                                            onTap: () {
-                                              // Navigator.push(
-                                              //     context,
-                                              //     fadePageRoute(
-                                              //         HomeFirstViewAllContactTileDetailView(
-                                              //             cardId: state
-                                              //                 .cards[index].id)));
-                                              final map =
-                                                  state.cards[index].id != null
-                                                      ? {
-                                                          'myCard': 'true',
-                                                          'cardId': state
-                                                              .cards[index].id!
-                                                              .toString()
-                                                        }
-                                                      : <String, String>{};
-                                              GoRouter.of(context).pushNamed(
-                                                Routes.cardDetailView,
-                                                pathParameters: map,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(25),
-                                                topRight: Radius.circular(20),
-                                              ),
-                                              child: card.logo == null
-                                                  ? Image.asset(
-                                                      imageBackgroundCard,
-                                                      fit: BoxFit.cover,
-                                                    )
-                                                  : Image.memory(
-                                                      base64.decode(card.logo!),
-                                                      fit: BoxFit.cover,
-                                                    ),
+                      }
+                      return SizedBox(
+                        height: 340,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.cards.length,
+                          separatorBuilder: (context, index) =>
+                              adjustWidth(kwidth * .05),
+                          itemBuilder: (context, index) {
+                            final card = state.cards[index];
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: textFieldFillColr,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              width: 300,
+                              child: Column(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      SizedBox(
+                                        width: 300,
+                                        height: 200,
+                                        child: InkWell(
+                                          onTap: () {
+                                            // Navigator.push(
+                                            //     context,
+                                            //     fadePageRoute(
+                                            //         HomeFirstViewAllContactTileDetailView(
+                                            //             cardId: state
+                                            //                 .cards[index].id)));
+                                            final map =
+                                                state.cards[index].id != null
+                                                    ? {
+                                                        'myCard': 'true',
+                                                        'cardId': state
+                                                            .cards[index].id!
+                                                            .toString()
+                                                      }
+                                                    : <String, String>{};
+                                            GoRouter.of(context).pushNamed(
+                                              Routes.cardDetailView,
+                                              pathParameters: map,
+                                            );
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              topRight: Radius.circular(20),
                                             ),
+                                            child: card.logo == null
+                                                ? Image.asset(
+                                                    imageBackgroundCard,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.memory(
+                                                    base64.decode(card.logo!),
+                                                    fit: BoxFit.cover,
+                                                  ),
                                           ),
                                         ),
-                                        if (state.cards[index].isDefault!)
-                                          const Positioned(
-                                            right: 10,
-                                            bottom: 0,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(6)),
-                                              child: ColoredBox(
-                                                  color: neonShade,
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 8,
-                                                            vertical: 2),
-                                                    child: Text('Default'),
-                                                  )),
-                                            ),
-                                          ),
-                                        Positioned(
+                                      ),
+                                      if (state.cards[index].isDefault!)
+                                        const Positioned(
                                           right: 10,
-                                          top: 10,
-                                          child: PopupMenuButton<String>(
-                                            icon: const Icon(
-                                              Icons.more_vert,
-                                              size: 32,
-                                              color: kblack,
-                                            ),
-                                            onSelected: (value) {},
-                                            itemBuilder: (context) {
-                                              List<PopupMenuEntry<String>>
-                                                  items = [
-                                                const PopupMenuItem(
-                                                  value: 'Edit Card',
-                                                  child: Text('Edit Card'),
+                                          bottom: 0,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(6)),
+                                            child: ColoredBox(
+                                                color: neonShade,
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 2),
+                                                  child: Text('Default'),
+                                                )),
+                                          ),
+                                        ),
+                                      Positioned(
+                                        right: 10,
+                                        top: 10,
+                                        child: PopupMenuButton<String>(
+                                          icon: const Icon(
+                                            Icons.more_vert,
+                                            size: 32,
+                                            color: kblack,
+                                          ),
+                                          onSelected: (value) {},
+                                          itemBuilder: (context) {
+                                            List<PopupMenuEntry<String>> items =
+                                                [];
+                                            if (!state
+                                                .cards[index].isDefault!) {
+                                              items.add(
+                                                PopupMenuItem(
+                                                  onTap: () => context
+                                                      .read<CardBloc>()
+                                                      .add(CardEvent.setDefault(
+                                                          id: card.id!)),
+                                                  value: 'Default',
+                                                  child: const Text(
+                                                      'Set as default'),
                                                 ),
-                                              ];
-                                              if (!state
-                                                  .cards[index].isDefault!) {
-                                                items.add(
-                                                  PopupMenuItem(
-                                                    onTap: () => context
+                                              );
+                                            }
+
+                                            // Add other menu items
+                                            items.addAll([
+                                              PopupMenuItem(
+                                                onTap: () =>
+                                                    showConfirmationDialog(
+                                                  actionButton: 'Archive',
+                                                  heading:
+                                                      'Are you sure you want to archive your card',
+                                                  context,
+                                                  onPressed: () {
+                                                    CardActionRequestModel
+                                                        cardActionRewuestModel =
+                                                        CardActionRequestModel(
+                                                            isActive: false,
+                                                            isArchived: true);
+                                                    context
                                                         .read<CardBloc>()
                                                         .add(CardEvent
-                                                            .setDefault(
-                                                                id: card.id!)),
-                                                    value: 'Default',
-                                                    child: const Text(
-                                                        'Set as default'),
-                                                  ),
-                                                );
-                                              }
-
-                                              // Add other menu items
-                                              items.addAll([
-                                                PopupMenuItem(
-                                                  onTap: () =>
-                                                      showConfirmationDialog(
-                                                    actionButton: 'Archive',
-                                                    heading:
-                                                        'Are you sure you want to archive your card',
-                                                    context,
-                                                    onPressed: () {
-                                                      CardActionRewuestModel
-                                                          cardActionRewuestModel =
-                                                          CardActionRewuestModel(
-                                                              isArchived: true);
-                                                      context
-                                                          .read<CardBloc>()
-                                                          .add(CardEvent
-                                                              .cardAction(
-                                                            cardActionRewuestModel:
+                                                            .cardArchive(
+                                                          cardActionRequestModel:
+                                                              cardActionRewuestModel,
+                                                          id: card.id!,
+                                                        ));
+                                                  },
+                                                ),
+                                                value: 'Archive',
+                                                child: const Text('Archive'),
+                                              ),
+                                              PopupMenuItem(
+                                                onTap: () =>
+                                                    showConfirmationDialog(
+                                                  heading:
+                                                      'Are you sure you want to delete your card',
+                                                  context,
+                                                  onPressed: () {
+                                                    CardActionRequestModel
+                                                        cardActionRewuestModel =
+                                                        CardActionRequestModel(
+                                                            isActive: false);
+                                                    context.read<CardBloc>().add(
+                                                        CardEvent.cardDelete(
+                                                            cardActionRequestModel:
                                                                 cardActionRewuestModel,
-                                                            id: card.id!,
-                                                          ));
-                                                    },
-                                                  ),
-                                                  value: 'Archive',
-                                                  child: const Text('Archive'),
+                                                            id: card.id!));
+                                                  },
                                                 ),
-                                                PopupMenuItem(
-                                                  onTap: () =>
-                                                      showConfirmationDialog(
-                                                    heading:
-                                                        'Are you sure you want to delete your card',
-                                                    context,
-                                                    onPressed: () {
-                                                      CardActionRewuestModel
-                                                          cardActionRewuestModel =
-                                                          CardActionRewuestModel(
-                                                              isActive: false);
-                                                      context.read<CardBloc>().add(
-                                                          CardEvent.cardAction(
-                                                              cardActionRewuestModel:
-                                                                  cardActionRewuestModel,
-                                                              id: card.id!));
-                                                    },
-                                                  ),
-                                                  value: 'Delete Card',
-                                                  child:
-                                                      const Text('Delete Card'),
-                                                ),
-                                              ]);
+                                                value: 'Delete Card',
+                                                child:
+                                                    const Text('Delete Card'),
+                                              ),
+                                            ]);
 
-                                              return items;
-                                            },
+                                            return items;
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  adjustHieght(khieght * .02),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          '${state.cards[index].name ?? ''}\n${state.cards[index].designation}',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w700,
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    adjustHieght(khieght * .02),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            '${state.cards[index].name ?? ''}\n${state.cards[index].designation}',
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w700,
-                                            ),
+                                      ),
+                                      InkWell(
+                                        onTap: () => bottomSheet(context, card),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: kblue,
+                                          ),
+                                          width: 100,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text('Share',
+                                                style: textStyle1),
                                           ),
                                         ),
-                                        InkWell(
-                                          onTap: () =>
-                                              bottomSheet(context, card),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: kblue,
-                                            ),
-                                            width: 100,
-                                            height: 30,
-                                            child: Center(
-                                              child: Text('Share',
-                                                  style: textStyle1),
-                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  adjustHieght(khieght * .02),
+                                  Row(
+                                    children: [
+                                      adjustWidth(kwidth * .02),
+                                      Expanded(
+                                        child: Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: kwhite),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              adjustWidth(kwidth * .01),
+                                              const Icon(
+                                                Icons.remove_red_eye,
+                                                size: 19,
+                                                color: kwhite,
+                                              ),
+                                              adjustWidth(kwidth * .01),
+                                              Text(
+                                                state.cards[index].views
+                                                    .toString(),
+                                              ),
+                                              adjustWidth(kwidth * .01),
+                                              const Expanded(
+                                                child: Text('views',
+                                                    overflow:
+                                                        TextOverflow.ellipsis),
+                                              ),
+                                              adjustWidth(kwidth * .01),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    adjustHieght(khieght * .02),
-                                    Row(
-                                      children: [
-                                        adjustWidth(kwidth * .02),
-                                        Expanded(
-                                          child: Container(
-                                            height: 50,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(color: kwhite),
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                adjustWidth(kwidth * .01),
-                                                const Icon(
-                                                  Icons.remove_red_eye,
-                                                  size: 19,
-                                                  color: kwhite,
-                                                ),
-                                                adjustWidth(kwidth * .01),
-                                                Text(
-                                                  state.cards[index].views
-                                                      .toString(),
-                                                ),
-                                                adjustWidth(kwidth * .01),
-                                                const Expanded(
-                                                  child: Text('views',
-                                                      overflow: TextOverflow
-                                                          .ellipsis),
-                                                ),
-                                                adjustWidth(kwidth * .01),
-                                              ],
-                                            ),
+                                      ),
+                                      adjustWidth(kwidth * .04),
+                                      Expanded(
+                                        child: Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: kwhite),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              adjustWidth(kwidth * .01),
+                                              const Icon(
+                                                Icons.share,
+                                                color: kwhite,
+                                                size: 19,
+                                              ),
+                                              adjustWidth(kwidth * .01),
+                                              Text(
+                                                state.cards[index].share
+                                                    .toString(),
+                                              ),
+                                              adjustWidth(kwidth * .01),
+                                              const Expanded(
+                                                child: Text('share',
+                                                    overflow:
+                                                        TextOverflow.ellipsis),
+                                              ),
+                                              adjustWidth(kwidth * .01),
+                                            ],
                                           ),
                                         ),
-                                        adjustWidth(kwidth * .04),
-                                        Expanded(
-                                          child: Container(
-                                            height: 50,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(color: kwhite),
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                adjustWidth(kwidth * .01),
-                                                const Icon(
-                                                  Icons.share,
-                                                  color: kwhite,
-                                                  size: 19,
-                                                ),
-                                                adjustWidth(kwidth * .01),
-                                                Text(
-                                                  state.cards[index].share
-                                                      .toString(),
-                                                ),
-                                                adjustWidth(kwidth * .01),
-                                                const Expanded(
-                                                  child: Text('share',
-                                                      overflow: TextOverflow
-                                                          .ellipsis),
-                                                ),
-                                                adjustWidth(kwidth * .01),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        adjustWidth(kwidth * .02),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      }
+                                      ),
+                                      adjustWidth(kwidth * .02),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      );
                     },
                   ),
                   adjustHieght(khieght * .03),
@@ -384,9 +385,19 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     },
                     builder: (context, state) {
                       if (state.secondCardLoading) {
+                        // return SizedBox(
+                        //   height: khieght * .4,
+                        //   child: const LoadingAnimation(),
+                        // );
                         return SizedBox(
-                          height: khieght * .4,
-                          child: const LoadingAnimation(),
+                          height: khieght * .35,
+                          child: ShimmerLoader(
+                            itemCount: 10,
+                            height: 240,
+                            scrollDirection: Axis.horizontal,
+                            width: kwidth * 0.9,
+                            seprator: const SizedBox(width: 10),
+                          ),
                         );
                       } else if (state.secondCards.isEmpty) {
                         return SizedBox(
@@ -403,10 +414,16 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                         height: 290,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          itemCount: state.secondCards.length,
+                          // itemCount: state.secondCards.length,
+                          itemCount: (state.secondCards.length) +
+                              (state.secondCardEventLoading ? 1 : 0),
                           separatorBuilder: (context, index) =>
                               adjustWidth(kwidth * .05),
                           itemBuilder: (context, index) {
+                            if (state.secondCardEventLoading &&
+                                index == state.secondCards.length) {
+                              return const LoadingAnimation();
+                            }
                             final seconsdCard = state.secondCards[index];
                             String base64String = seconsdCard.image!;
                             base64String = base64String.replaceFirst(
@@ -475,6 +492,10 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                 [
                                               PopupMenuItem(
                                                 onTap: () {
+                                                  context
+                                                      .read<CardSecondBloc>()
+                                                      .add(const CardSecondEvent
+                                                          .imageClear());
                                                   GoRouter.of(context)
                                                       .pushNamed(
                                                     Routes.cardUpdating,
@@ -494,9 +515,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                       'Are you sure you want to delete your card',
                                                   context,
                                                   onPressed: () {
-                                                    CardActionRewuestModel
+                                                    CardActionRequestModel
                                                         cardActionRewuestModel =
-                                                        CardActionRewuestModel(
+                                                        CardActionRequestModel(
                                                       isActive: false,
                                                     );
                                                     context

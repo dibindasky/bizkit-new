@@ -42,7 +42,7 @@ class ApiService {
         },
       );
       log('api uri ==> get  ${_dio.options.baseUrl + url}');
-      log('accessToken ==>  ${_dio.options.headers['Authorization']}');
+      // log('accessToken ==>  ${_dio.options.headers['Authorization']}');
       final response =
           await _dio.get(url, data: data, queryParameters: queryParameters);
       return response;
@@ -194,9 +194,9 @@ class ApiService {
 
   _refreshAccessToken() async {
     try {
-      log('=====================================================');
-      log('=======================refresh=======================');
-      log('=====================================================');
+      // log('=====================================================');
+      // log('=======================refresh=======================');
+      // log('=====================================================');
       final token =
           await SecureStorage.getToken().then((token) => token.refreshToken);
       final response = await Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl))
@@ -212,11 +212,11 @@ class ApiService {
     try {
       final accessToken =
           await SecureStorage.getToken().then((token) => token.accessToken);
-      log('accessToken ======================================================');
-      log('access token =>$accessToken');
+      // log('accessToken ======================================================');
+      //  log('access token =>$accessToken');
       _dio.options.headers['Authorization'] = "Bearer $accessToken";
-      log('headers');
-      log('headers=> ${_dio.options.headers}');
+      //log('headers');
+      // log('headers=> ${_dio.options.headers}');
       return await _dio.request(requestOptions.path,
           queryParameters: requestOptions.queryParameters,
           data: requestOptions.data);

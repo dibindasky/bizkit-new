@@ -33,24 +33,22 @@ class CardSecondEvent with _$CardSecondEvent {
     required String id,
   }) = UpdateCardSecond;
   const factory CardSecondEvent.deleteCardSecond({
-    required CardActionRewuestModel cardActionRewuestModel,
+    required CardActionRequestModel cardActionRewuestModel,
     required int id,
   }) = DeleteCardSecond;
   const factory CardSecondEvent.getDeleteCardSecond({
     required bool isLoad,
   }) = GetDeleteCardSecond;
-  const factory CardSecondEvent.getDeleteCardSecondEvent({
-    required bool isLoad,
-  }) = GetDeleteCardSecondEvent;
+  const factory CardSecondEvent.getDeleteCardSecondEvent() =
+      GetDeleteCardSecondEvent;
   const factory CardSecondEvent.restoreDeleteCardSecond({
-    required CardActionRewuestModel cardActionRewuestModel,
+    required CardActionRequestModel cardActionRewuestModel,
     required int id,
   }) = RestoreDeleteCardSecond;
-  const factory CardSecondEvent.getCardSecondEvent({
-    required bool isLoad,
-  }) = GetCardSecondEvent;
+  const factory CardSecondEvent.getCardSecondEvent() = GetCardSecondEvent;
   const factory CardSecondEvent.getSecondCardDetail({
     required int id,
   }) = GetSecondCardDetail;
   const factory CardSecondEvent.dataClearing() = DataClearing;
+  const factory CardSecondEvent.imageClear() = ImageClear;
 }

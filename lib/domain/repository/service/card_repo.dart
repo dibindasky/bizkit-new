@@ -38,11 +38,11 @@ abstract class CardRepo {
   });
   Future<Either<Failure, SuccessResponseModel>> cardAction({
     required int id,
-    required CardActionRewuestModel cardActionRewuestModel,
+    required CardActionRequestModel cardActionRewuestModel,
   });
   Future<Either<Failure, SuccessResponseModel>> restoreArchiveDeleteCard({
     required int cardId,
-    required CardActionRewuestModel cardActionRewuestModel,
+    required CardActionRequestModel cardActionRewuestModel,
   });
   Future<Either<Failure, BusinessDetails>> getCompnayDetails({required int id});
   Future<Either<Failure, ArcheivedCardModel>> archievedCardsList({

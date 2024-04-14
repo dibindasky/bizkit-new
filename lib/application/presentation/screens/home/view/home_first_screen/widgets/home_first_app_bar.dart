@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
@@ -33,10 +34,12 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
                 BlocBuilder<AuthBloc, AuthState>(
                   builder: (context, state) {
                     return Text(
-                        '${state.userName != null ? state.userName!.length > 15 ? '${state.userName!.substring(0, 15)}..' : state.userName : ''}',
-                        style: custumText(
-                            fontSize: kwidth * 0.05,
-                            fontWeight: FontWeight.w700));
+                      '${state.userName != null ? state.userName!.length > 15 ? '${state.userName!.substring(0, 15)}..' : state.userName : ''}',
+                      style: custumText(
+                        fontSize: kwidth * 0.05,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    );
                   },
                 ),
                 // const Padding(

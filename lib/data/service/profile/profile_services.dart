@@ -60,7 +60,7 @@ class ProfileService implements ProfileRepo {
         ApiEndPoints.editProfileInfo,
         data: userInfoChangeRequestModel.toJson(),
       );
-      log('editProfile data ${userInfoChangeRequestModel.toJson()}');
+
       return Right(UpdateUserInfoModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('editProfile DioException ${e.response?.statusCode} $e');
@@ -75,7 +75,7 @@ class ProfileService implements ProfileRepo {
   Future<Either<Failure, GetUserInfoModel>> getProfile() async {
     try {
       final responce = await apiService.get(ApiEndPoints.getProfileInfo);
-      log('getProfile data ${responce.data}');
+
       return Right(GetUserInfoModel(results: Result.fromJson(responce.data)));
     } on DioException catch (e) {
       log('getProfile DioException $e');
@@ -132,9 +132,7 @@ class ProfileService implements ProfileRepo {
       final responce = await apiService.get(
         ApiEndPoints.faq,
         data: pageQuery.toJson(),
-        //queryParameters: serachQuery.toJson(),
       );
-      log('getQuestions data ${responce.data}');
       return Right(GetQuestionsModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getQuestions DioException ${e.response?.statusCode} $e');

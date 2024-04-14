@@ -9,18 +9,25 @@ class CardEvent with _$CardEvent {
   const factory CardEvent.setDefault({required int id}) = SetDefault;
   const factory CardEvent.getdeleteCards({required bool isLoad}) =
       GetdeleteCards;
-  const factory CardEvent.getdeleteCardsEvent({required bool isLoad}) =
-      GetdeleteCardsEvent;
-  const factory CardEvent.cardAction({
+  const factory CardEvent.getdeleteCardsEvent() = GetdeleteCardsEvent;
+  const factory CardEvent.cardDelete({
     required int id,
-    required CardActionRewuestModel cardActionRewuestModel,
-  }) = CardAction;
+    required CardActionRequestModel cardActionRequestModel,
+  }) = CardDelete;
+  const factory CardEvent.cardArchive({
+    required int id,
+    required CardActionRequestModel cardActionRequestModel,
+  }) = CardArchive;
   const factory CardEvent.getArchievedCards({required bool isLoad}) =
       GetArchievedCards;
   const factory CardEvent.getArchievedCardsEvent() = GetArchievedCardsEvent;
-  const factory CardEvent.restoreArchiveDeleteCard({
+  const factory CardEvent.restoreArchiveCard({
     required int cardId,
-    required CardActionRewuestModel cardActionRewuestModel,
-  }) = RestoreArchiveDeleteCard;
+    required CardActionRequestModel cardActionRequestModel,
+  }) = RestoreArchiveCard;
+  const factory CardEvent.restoreDeletedCard({
+    required int cardId,
+    required CardActionRequestModel cardActionRequestModel,
+  }) = RestoreDeletedCard;
   const factory CardEvent.clear() = Clear;
 }

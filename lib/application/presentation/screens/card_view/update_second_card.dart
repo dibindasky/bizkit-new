@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
@@ -14,7 +13,6 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class SecondCardUpdation extends StatefulWidget {
   const SecondCardUpdation({super.key, required this.secondCard});
@@ -25,14 +23,14 @@ class SecondCardUpdation extends StatefulWidget {
 }
 
 class _SecondCardUpdationState extends State<SecondCardUpdation> {
-  String? base64image;
+  String? base64imageSelfie;
   String? base64imagecard;
   @override
   void initState() {
     if (widget.secondCard.selfie != null) {
-      base64image = widget.secondCard.selfie ?? "";
-      base64image =
-          base64image!.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
+      base64imageSelfie = widget.secondCard.selfie ?? "";
+      base64imageSelfie = base64imageSelfie!
+          .replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
       //log('widget.secondCard.selfie ${widget.secondCard.selfie}');
     }
     if (widget.secondCard.image != null) {
@@ -80,7 +78,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              context.read<CardSecondBloc>().state.selfieImageModel == null;
+              //context.read<CardSecondBloc>().state.selfieImageModel == null;
               Navigator.pop(context);
             },
             icon: const Icon(Icons.keyboard_arrow_left_outlined),
@@ -98,13 +96,16 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
             if (state.updated) {
-              state.selfieImageModel == null;
+              context
+                  .read<CardSecondBloc>()
+                  .add(const CardSecondEvent.imageClear());
+              Navigator.pop(context);
               // GoRouter.of(context).pushNamed(
               //   Routes.homePage,
               // );
-              Navigator.of(context).pushAndRemoveUntil(
-                  fadePageRoute(const BizkitBottomNavigationBar()),
-                  (route) => false);
+              // Navigator.of(context).pushAndRemoveUntil(
+              //     fadePageRoute(const BizkitBottomNavigationBar()),
+              //     (route) => false);
               showSnackbar(context, message: 'Card updated Successfully');
             }
           },
@@ -125,10 +126,10 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: FileImage(
-                                      state.scannedImagesSecondCardCreation
-                                          .first.fileImage,
+                                      state.scannedImagesSecondCardCreation.last
+                                          .fileImage,
                                     ),
-                                    fit: BoxFit.cover),
+                                    fit: BoxFit.fitWidth),
                               ),
                             ),
                             Positioned(
@@ -262,9 +263,9 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                   width: double.infinity,
                                   child: Image.memory(
                                     base64.decode(
-                                        base64image!.startsWith('data')
-                                            ? base64image!.substring(22)
-                                            : base64image!),
+                                        base64imageSelfie!.startsWith('data')
+                                            ? base64imageSelfie!.substring(22)
+                                            : base64imageSelfie!),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -466,7 +467,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                               .isNotEmpty
                                           ? state
                                               .scannedImagesSecondCardCreation
-                                              .first
+                                              .last
                                               .base64
                                           : widget.secondCard.image!,
                                       company: context

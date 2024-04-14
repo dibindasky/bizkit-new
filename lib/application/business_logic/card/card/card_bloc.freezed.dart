@@ -24,15 +24,21 @@ mixin _$CardEvent {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) =>
       throw _privateConstructorUsedError;
@@ -44,14 +50,19 @@ mixin _$CardEvent {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) =>
       throw _privateConstructorUsedError;
@@ -63,13 +74,17 @@ mixin _$CardEvent {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) =>
@@ -83,12 +98,13 @@ mixin _$CardEvent {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) =>
       throw _privateConstructorUsedError;
@@ -101,10 +117,12 @@ mixin _$CardEvent {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) =>
       throw _privateConstructorUsedError;
@@ -117,10 +135,12 @@ mixin _$CardEvent {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) =>
@@ -214,15 +234,21 @@ class _$GetCardsImpl implements GetCards {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
     return getCards(call);
@@ -237,14 +263,19 @@ class _$GetCardsImpl implements GetCards {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
     return getCards?.call(call);
@@ -259,13 +290,17 @@ class _$GetCardsImpl implements GetCards {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -285,12 +320,13 @@ class _$GetCardsImpl implements GetCards {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
     return getCards(this);
@@ -306,10 +342,12 @@ class _$GetCardsImpl implements GetCards {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
     return getCards?.call(this);
@@ -325,10 +363,12 @@ class _$GetCardsImpl implements GetCards {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -392,15 +432,21 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
     return getCardsnextPage();
@@ -415,14 +461,19 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
     return getCardsnextPage?.call();
@@ -437,13 +488,17 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -463,12 +518,13 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
     return getCardsnextPage(this);
@@ -484,10 +540,12 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
     return getCardsnextPage?.call(this);
@@ -503,10 +561,12 @@ class _$GetCardsnextPageImpl implements GetCardsnextPage {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -592,15 +652,21 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
     return getCardyUserId(id);
@@ -615,14 +681,19 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
     return getCardyUserId?.call(id);
@@ -637,13 +708,17 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -663,12 +738,13 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
     return getCardyUserId(this);
@@ -684,10 +760,12 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
     return getCardyUserId?.call(this);
@@ -703,10 +781,12 @@ class _$GetCardyUserIdImpl implements GetCardyUserId {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -797,15 +877,21 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
     return getCardyCardId(id);
@@ -820,14 +906,19 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
     return getCardyCardId?.call(id);
@@ -842,13 +933,17 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -868,12 +963,13 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
     return getCardyCardId(this);
@@ -889,10 +985,12 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
     return getCardyCardId?.call(this);
@@ -908,10 +1006,12 @@ class _$GetCardyCardIdImpl implements GetCardyCardId {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -1001,15 +1101,21 @@ class _$SetDefaultImpl implements SetDefault {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
     return setDefault(id);
@@ -1024,14 +1130,19 @@ class _$SetDefaultImpl implements SetDefault {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
     return setDefault?.call(id);
@@ -1046,13 +1157,17 @@ class _$SetDefaultImpl implements SetDefault {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -1072,12 +1187,13 @@ class _$SetDefaultImpl implements SetDefault {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
     return setDefault(this);
@@ -1093,10 +1209,12 @@ class _$SetDefaultImpl implements SetDefault {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
     return setDefault?.call(this);
@@ -1112,10 +1230,12 @@ class _$SetDefaultImpl implements SetDefault {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -1206,15 +1326,21 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
     return getdeleteCards(isLoad);
@@ -1229,14 +1355,19 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
     return getdeleteCards?.call(isLoad);
@@ -1251,13 +1382,17 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -1277,12 +1412,13 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
     return getdeleteCards(this);
@@ -1298,10 +1434,12 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
     return getdeleteCards?.call(this);
@@ -1317,10 +1455,12 @@ class _$GetdeleteCardsImpl implements GetdeleteCards {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -1346,8 +1486,6 @@ abstract class _$$GetdeleteCardsEventImplCopyWith<$Res> {
   factory _$$GetdeleteCardsEventImplCopyWith(_$GetdeleteCardsEventImpl value,
           $Res Function(_$GetdeleteCardsEventImpl) then) =
       __$$GetdeleteCardsEventImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isLoad});
 }
 
 /// @nodoc
@@ -1357,51 +1495,27 @@ class __$$GetdeleteCardsEventImplCopyWithImpl<$Res>
   __$$GetdeleteCardsEventImplCopyWithImpl(_$GetdeleteCardsEventImpl _value,
       $Res Function(_$GetdeleteCardsEventImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isLoad = null,
-  }) {
-    return _then(_$GetdeleteCardsEventImpl(
-      isLoad: null == isLoad
-          ? _value.isLoad
-          : isLoad // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
-  const _$GetdeleteCardsEventImpl({required this.isLoad});
-
-  @override
-  final bool isLoad;
+  const _$GetdeleteCardsEventImpl();
 
   @override
   String toString() {
-    return 'CardEvent.getdeleteCardsEvent(isLoad: $isLoad)';
+    return 'CardEvent.getdeleteCardsEvent()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GetdeleteCardsEventImpl &&
-            (identical(other.isLoad, isLoad) || other.isLoad == isLoad));
+            other is _$GetdeleteCardsEventImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoad);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GetdeleteCardsEventImplCopyWith<_$GetdeleteCardsEventImpl> get copyWith =>
-      __$$GetdeleteCardsEventImplCopyWithImpl<_$GetdeleteCardsEventImpl>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -1412,18 +1526,24 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
-    return getdeleteCardsEvent(isLoad);
+    return getdeleteCardsEvent();
   }
 
   @override
@@ -1435,17 +1555,22 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
-    return getdeleteCardsEvent?.call(isLoad);
+    return getdeleteCardsEvent?.call();
   }
 
   @override
@@ -1457,18 +1582,22 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getdeleteCardsEvent != null) {
-      return getdeleteCardsEvent(isLoad);
+      return getdeleteCardsEvent();
     }
     return orElse();
   }
@@ -1483,12 +1612,13 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
     return getdeleteCardsEvent(this);
@@ -1504,10 +1634,12 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
     return getdeleteCardsEvent?.call(this);
@@ -1523,10 +1655,12 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -1538,85 +1672,79 @@ class _$GetdeleteCardsEventImpl implements GetdeleteCardsEvent {
 }
 
 abstract class GetdeleteCardsEvent implements CardEvent {
-  const factory GetdeleteCardsEvent({required final bool isLoad}) =
-      _$GetdeleteCardsEventImpl;
-
-  bool get isLoad;
-  @JsonKey(ignore: true)
-  _$$GetdeleteCardsEventImplCopyWith<_$GetdeleteCardsEventImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory GetdeleteCardsEvent() = _$GetdeleteCardsEventImpl;
 }
 
 /// @nodoc
-abstract class _$$CardActionImplCopyWith<$Res> {
-  factory _$$CardActionImplCopyWith(
-          _$CardActionImpl value, $Res Function(_$CardActionImpl) then) =
-      __$$CardActionImplCopyWithImpl<$Res>;
+abstract class _$$CardDeleteImplCopyWith<$Res> {
+  factory _$$CardDeleteImplCopyWith(
+          _$CardDeleteImpl value, $Res Function(_$CardDeleteImpl) then) =
+      __$$CardDeleteImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int id, CardActionRewuestModel cardActionRewuestModel});
+  $Res call({int id, CardActionRequestModel cardActionRequestModel});
 }
 
 /// @nodoc
-class __$$CardActionImplCopyWithImpl<$Res>
-    extends _$CardEventCopyWithImpl<$Res, _$CardActionImpl>
-    implements _$$CardActionImplCopyWith<$Res> {
-  __$$CardActionImplCopyWithImpl(
-      _$CardActionImpl _value, $Res Function(_$CardActionImpl) _then)
+class __$$CardDeleteImplCopyWithImpl<$Res>
+    extends _$CardEventCopyWithImpl<$Res, _$CardDeleteImpl>
+    implements _$$CardDeleteImplCopyWith<$Res> {
+  __$$CardDeleteImplCopyWithImpl(
+      _$CardDeleteImpl _value, $Res Function(_$CardDeleteImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
-    Object? cardActionRewuestModel = null,
+    Object? cardActionRequestModel = null,
   }) {
-    return _then(_$CardActionImpl(
+    return _then(_$CardDeleteImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      cardActionRewuestModel: null == cardActionRewuestModel
-          ? _value.cardActionRewuestModel
-          : cardActionRewuestModel // ignore: cast_nullable_to_non_nullable
-              as CardActionRewuestModel,
+      cardActionRequestModel: null == cardActionRequestModel
+          ? _value.cardActionRequestModel
+          : cardActionRequestModel // ignore: cast_nullable_to_non_nullable
+              as CardActionRequestModel,
     ));
   }
 }
 
 /// @nodoc
 
-class _$CardActionImpl implements CardAction {
-  const _$CardActionImpl(
-      {required this.id, required this.cardActionRewuestModel});
+class _$CardDeleteImpl implements CardDelete {
+  const _$CardDeleteImpl(
+      {required this.id, required this.cardActionRequestModel});
 
   @override
   final int id;
   @override
-  final CardActionRewuestModel cardActionRewuestModel;
+  final CardActionRequestModel cardActionRequestModel;
 
   @override
   String toString() {
-    return 'CardEvent.cardAction(id: $id, cardActionRewuestModel: $cardActionRewuestModel)';
+    return 'CardEvent.cardDelete(id: $id, cardActionRequestModel: $cardActionRequestModel)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CardActionImpl &&
+            other is _$CardDeleteImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.cardActionRewuestModel, cardActionRewuestModel) ||
-                other.cardActionRewuestModel == cardActionRewuestModel));
+            (identical(other.cardActionRequestModel, cardActionRequestModel) ||
+                other.cardActionRequestModel == cardActionRequestModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, cardActionRewuestModel);
+  int get hashCode => Object.hash(runtimeType, id, cardActionRequestModel);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CardActionImplCopyWith<_$CardActionImpl> get copyWith =>
-      __$$CardActionImplCopyWithImpl<_$CardActionImpl>(this, _$identity);
+  _$$CardDeleteImplCopyWith<_$CardDeleteImpl> get copyWith =>
+      __$$CardDeleteImplCopyWithImpl<_$CardDeleteImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1627,18 +1755,24 @@ class _$CardActionImpl implements CardAction {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
-    return cardAction(id, cardActionRewuestModel);
+    return cardDelete(id, cardActionRequestModel);
   }
 
   @override
@@ -1650,17 +1784,22 @@ class _$CardActionImpl implements CardAction {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
-    return cardAction?.call(id, cardActionRewuestModel);
+    return cardDelete?.call(id, cardActionRequestModel);
   }
 
   @override
@@ -1672,18 +1811,22 @@ class _$CardActionImpl implements CardAction {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
-    if (cardAction != null) {
-      return cardAction(id, cardActionRewuestModel);
+    if (cardDelete != null) {
+      return cardDelete(id, cardActionRequestModel);
     }
     return orElse();
   }
@@ -1698,15 +1841,16 @@ class _$CardActionImpl implements CardAction {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
-    return cardAction(this);
+    return cardDelete(this);
   }
 
   @override
@@ -1719,13 +1863,15 @@ class _$CardActionImpl implements CardAction {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
-    return cardAction?.call(this);
+    return cardDelete?.call(this);
   }
 
   @override
@@ -1738,30 +1884,270 @@ class _$CardActionImpl implements CardAction {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
-    if (cardAction != null) {
-      return cardAction(this);
+    if (cardDelete != null) {
+      return cardDelete(this);
     }
     return orElse();
   }
 }
 
-abstract class CardAction implements CardEvent {
-  const factory CardAction(
+abstract class CardDelete implements CardEvent {
+  const factory CardDelete(
           {required final int id,
-          required final CardActionRewuestModel cardActionRewuestModel}) =
-      _$CardActionImpl;
+          required final CardActionRequestModel cardActionRequestModel}) =
+      _$CardDeleteImpl;
 
   int get id;
-  CardActionRewuestModel get cardActionRewuestModel;
+  CardActionRequestModel get cardActionRequestModel;
   @JsonKey(ignore: true)
-  _$$CardActionImplCopyWith<_$CardActionImpl> get copyWith =>
+  _$$CardDeleteImplCopyWith<_$CardDeleteImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CardArchiveImplCopyWith<$Res> {
+  factory _$$CardArchiveImplCopyWith(
+          _$CardArchiveImpl value, $Res Function(_$CardArchiveImpl) then) =
+      __$$CardArchiveImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id, CardActionRequestModel cardActionRequestModel});
+}
+
+/// @nodoc
+class __$$CardArchiveImplCopyWithImpl<$Res>
+    extends _$CardEventCopyWithImpl<$Res, _$CardArchiveImpl>
+    implements _$$CardArchiveImplCopyWith<$Res> {
+  __$$CardArchiveImplCopyWithImpl(
+      _$CardArchiveImpl _value, $Res Function(_$CardArchiveImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? cardActionRequestModel = null,
+  }) {
+    return _then(_$CardArchiveImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      cardActionRequestModel: null == cardActionRequestModel
+          ? _value.cardActionRequestModel
+          : cardActionRequestModel // ignore: cast_nullable_to_non_nullable
+              as CardActionRequestModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CardArchiveImpl implements CardArchive {
+  const _$CardArchiveImpl(
+      {required this.id, required this.cardActionRequestModel});
+
+  @override
+  final int id;
+  @override
+  final CardActionRequestModel cardActionRequestModel;
+
+  @override
+  String toString() {
+    return 'CardEvent.cardArchive(id: $id, cardActionRequestModel: $cardActionRequestModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CardArchiveImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.cardActionRequestModel, cardActionRequestModel) ||
+                other.cardActionRequestModel == cardActionRequestModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, cardActionRequestModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CardArchiveImplCopyWith<_$CardArchiveImpl> get copyWith =>
+      __$$CardArchiveImplCopyWithImpl<_$CardArchiveImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool call) getCards,
+    required TResult Function() getCardsnextPage,
+    required TResult Function(int id) getCardyUserId,
+    required TResult Function(int id) getCardyCardId,
+    required TResult Function(int id) setDefault,
+    required TResult Function(bool isLoad) getdeleteCards,
+    required TResult Function() getdeleteCardsEvent,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
+    required TResult Function(bool isLoad) getArchievedCards,
+    required TResult Function() getArchievedCardsEvent,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
+    required TResult Function() clear,
+  }) {
+    return cardArchive(id, cardActionRequestModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool call)? getCards,
+    TResult? Function()? getCardsnextPage,
+    TResult? Function(int id)? getCardyUserId,
+    TResult? Function(int id)? getCardyCardId,
+    TResult? Function(int id)? setDefault,
+    TResult? Function(bool isLoad)? getdeleteCards,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
+    TResult? Function(bool isLoad)? getArchievedCards,
+    TResult? Function()? getArchievedCardsEvent,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
+    TResult? Function()? clear,
+  }) {
+    return cardArchive?.call(id, cardActionRequestModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool call)? getCards,
+    TResult Function()? getCardsnextPage,
+    TResult Function(int id)? getCardyUserId,
+    TResult Function(int id)? getCardyCardId,
+    TResult Function(int id)? setDefault,
+    TResult Function(bool isLoad)? getdeleteCards,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
+    TResult Function(bool isLoad)? getArchievedCards,
+    TResult Function()? getArchievedCardsEvent,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (cardArchive != null) {
+      return cardArchive(id, cardActionRequestModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCards value) getCards,
+    required TResult Function(GetCardsnextPage value) getCardsnextPage,
+    required TResult Function(GetCardyUserId value) getCardyUserId,
+    required TResult Function(GetCardyCardId value) getCardyCardId,
+    required TResult Function(SetDefault value) setDefault,
+    required TResult Function(GetdeleteCards value) getdeleteCards,
+    required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetArchievedCardsEvent value)
+        getArchievedCardsEvent,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return cardArchive(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCards value)? getCards,
+    TResult? Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult? Function(GetCardyUserId value)? getCardyUserId,
+    TResult? Function(GetCardyCardId value)? getCardyCardId,
+    TResult? Function(SetDefault value)? setDefault,
+    TResult? Function(GetdeleteCards value)? getdeleteCards,
+    TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return cardArchive?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCards value)? getCards,
+    TResult Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult Function(GetCardyUserId value)? getCardyUserId,
+    TResult Function(GetCardyCardId value)? getCardyCardId,
+    TResult Function(SetDefault value)? setDefault,
+    TResult Function(GetdeleteCards value)? getdeleteCards,
+    TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (cardArchive != null) {
+      return cardArchive(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CardArchive implements CardEvent {
+  const factory CardArchive(
+          {required final int id,
+          required final CardActionRequestModel cardActionRequestModel}) =
+      _$CardArchiveImpl;
+
+  int get id;
+  CardActionRequestModel get cardActionRequestModel;
+  @JsonKey(ignore: true)
+  _$$CardArchiveImplCopyWith<_$CardArchiveImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1836,15 +2222,21 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
     return getArchievedCards(isLoad);
@@ -1859,14 +2251,19 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
     return getArchievedCards?.call(isLoad);
@@ -1881,13 +2278,17 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -1907,12 +2308,13 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
     return getArchievedCards(this);
@@ -1928,10 +2330,12 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
     return getArchievedCards?.call(this);
@@ -1947,10 +2351,12 @@ class _$GetArchievedCardsImpl implements GetArchievedCards {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -2018,15 +2424,21 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
     return getArchievedCardsEvent();
@@ -2041,14 +2453,19 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
     return getArchievedCardsEvent?.call();
@@ -2063,13 +2480,17 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -2089,12 +2510,13 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
     return getArchievedCardsEvent(this);
@@ -2110,10 +2532,12 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
     return getArchievedCardsEvent?.call(this);
@@ -2129,10 +2553,12 @@ class _$GetArchievedCardsEventImpl implements GetArchievedCardsEvent {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -2148,78 +2574,76 @@ abstract class GetArchievedCardsEvent implements CardEvent {
 }
 
 /// @nodoc
-abstract class _$$RestoreArchiveDeleteCardImplCopyWith<$Res> {
-  factory _$$RestoreArchiveDeleteCardImplCopyWith(
-          _$RestoreArchiveDeleteCardImpl value,
-          $Res Function(_$RestoreArchiveDeleteCardImpl) then) =
-      __$$RestoreArchiveDeleteCardImplCopyWithImpl<$Res>;
+abstract class _$$RestoreArchiveCardImplCopyWith<$Res> {
+  factory _$$RestoreArchiveCardImplCopyWith(_$RestoreArchiveCardImpl value,
+          $Res Function(_$RestoreArchiveCardImpl) then) =
+      __$$RestoreArchiveCardImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int cardId, CardActionRewuestModel cardActionRewuestModel});
+  $Res call({int cardId, CardActionRequestModel cardActionRequestModel});
 }
 
 /// @nodoc
-class __$$RestoreArchiveDeleteCardImplCopyWithImpl<$Res>
-    extends _$CardEventCopyWithImpl<$Res, _$RestoreArchiveDeleteCardImpl>
-    implements _$$RestoreArchiveDeleteCardImplCopyWith<$Res> {
-  __$$RestoreArchiveDeleteCardImplCopyWithImpl(
-      _$RestoreArchiveDeleteCardImpl _value,
-      $Res Function(_$RestoreArchiveDeleteCardImpl) _then)
+class __$$RestoreArchiveCardImplCopyWithImpl<$Res>
+    extends _$CardEventCopyWithImpl<$Res, _$RestoreArchiveCardImpl>
+    implements _$$RestoreArchiveCardImplCopyWith<$Res> {
+  __$$RestoreArchiveCardImplCopyWithImpl(_$RestoreArchiveCardImpl _value,
+      $Res Function(_$RestoreArchiveCardImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? cardId = null,
-    Object? cardActionRewuestModel = null,
+    Object? cardActionRequestModel = null,
   }) {
-    return _then(_$RestoreArchiveDeleteCardImpl(
+    return _then(_$RestoreArchiveCardImpl(
       cardId: null == cardId
           ? _value.cardId
           : cardId // ignore: cast_nullable_to_non_nullable
               as int,
-      cardActionRewuestModel: null == cardActionRewuestModel
-          ? _value.cardActionRewuestModel
-          : cardActionRewuestModel // ignore: cast_nullable_to_non_nullable
-              as CardActionRewuestModel,
+      cardActionRequestModel: null == cardActionRequestModel
+          ? _value.cardActionRequestModel
+          : cardActionRequestModel // ignore: cast_nullable_to_non_nullable
+              as CardActionRequestModel,
     ));
   }
 }
 
 /// @nodoc
 
-class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
-  const _$RestoreArchiveDeleteCardImpl(
-      {required this.cardId, required this.cardActionRewuestModel});
+class _$RestoreArchiveCardImpl implements RestoreArchiveCard {
+  const _$RestoreArchiveCardImpl(
+      {required this.cardId, required this.cardActionRequestModel});
 
   @override
   final int cardId;
   @override
-  final CardActionRewuestModel cardActionRewuestModel;
+  final CardActionRequestModel cardActionRequestModel;
 
   @override
   String toString() {
-    return 'CardEvent.restoreArchiveDeleteCard(cardId: $cardId, cardActionRewuestModel: $cardActionRewuestModel)';
+    return 'CardEvent.restoreArchiveCard(cardId: $cardId, cardActionRequestModel: $cardActionRequestModel)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RestoreArchiveDeleteCardImpl &&
+            other is _$RestoreArchiveCardImpl &&
             (identical(other.cardId, cardId) || other.cardId == cardId) &&
-            (identical(other.cardActionRewuestModel, cardActionRewuestModel) ||
-                other.cardActionRewuestModel == cardActionRewuestModel));
+            (identical(other.cardActionRequestModel, cardActionRequestModel) ||
+                other.cardActionRequestModel == cardActionRequestModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, cardId, cardActionRewuestModel);
+  int get hashCode => Object.hash(runtimeType, cardId, cardActionRequestModel);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RestoreArchiveDeleteCardImplCopyWith<_$RestoreArchiveDeleteCardImpl>
-      get copyWith => __$$RestoreArchiveDeleteCardImplCopyWithImpl<
-          _$RestoreArchiveDeleteCardImpl>(this, _$identity);
+  _$$RestoreArchiveCardImplCopyWith<_$RestoreArchiveCardImpl> get copyWith =>
+      __$$RestoreArchiveCardImplCopyWithImpl<_$RestoreArchiveCardImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2230,18 +2654,24 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
-    return restoreArchiveDeleteCard(cardId, cardActionRewuestModel);
+    return restoreArchiveCard(cardId, cardActionRequestModel);
   }
 
   @override
@@ -2253,17 +2683,22 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
-    return restoreArchiveDeleteCard?.call(cardId, cardActionRewuestModel);
+    return restoreArchiveCard?.call(cardId, cardActionRequestModel);
   }
 
   @override
@@ -2275,18 +2710,22 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
-    if (restoreArchiveDeleteCard != null) {
-      return restoreArchiveDeleteCard(cardId, cardActionRewuestModel);
+    if (restoreArchiveCard != null) {
+      return restoreArchiveCard(cardId, cardActionRequestModel);
     }
     return orElse();
   }
@@ -2301,15 +2740,16 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
-    return restoreArchiveDeleteCard(this);
+    return restoreArchiveCard(this);
   }
 
   @override
@@ -2322,13 +2762,15 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
-    return restoreArchiveDeleteCard?.call(this);
+    return restoreArchiveCard?.call(this);
   }
 
   @override
@@ -2341,31 +2783,272 @@ class _$RestoreArchiveDeleteCardImpl implements RestoreArchiveDeleteCard {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
-    if (restoreArchiveDeleteCard != null) {
-      return restoreArchiveDeleteCard(this);
+    if (restoreArchiveCard != null) {
+      return restoreArchiveCard(this);
     }
     return orElse();
   }
 }
 
-abstract class RestoreArchiveDeleteCard implements CardEvent {
-  const factory RestoreArchiveDeleteCard(
+abstract class RestoreArchiveCard implements CardEvent {
+  const factory RestoreArchiveCard(
           {required final int cardId,
-          required final CardActionRewuestModel cardActionRewuestModel}) =
-      _$RestoreArchiveDeleteCardImpl;
+          required final CardActionRequestModel cardActionRequestModel}) =
+      _$RestoreArchiveCardImpl;
 
   int get cardId;
-  CardActionRewuestModel get cardActionRewuestModel;
+  CardActionRequestModel get cardActionRequestModel;
   @JsonKey(ignore: true)
-  _$$RestoreArchiveDeleteCardImplCopyWith<_$RestoreArchiveDeleteCardImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$RestoreArchiveCardImplCopyWith<_$RestoreArchiveCardImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RestoreDeletedCardImplCopyWith<$Res> {
+  factory _$$RestoreDeletedCardImplCopyWith(_$RestoreDeletedCardImpl value,
+          $Res Function(_$RestoreDeletedCardImpl) then) =
+      __$$RestoreDeletedCardImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int cardId, CardActionRequestModel cardActionRequestModel});
+}
+
+/// @nodoc
+class __$$RestoreDeletedCardImplCopyWithImpl<$Res>
+    extends _$CardEventCopyWithImpl<$Res, _$RestoreDeletedCardImpl>
+    implements _$$RestoreDeletedCardImplCopyWith<$Res> {
+  __$$RestoreDeletedCardImplCopyWithImpl(_$RestoreDeletedCardImpl _value,
+      $Res Function(_$RestoreDeletedCardImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cardId = null,
+    Object? cardActionRequestModel = null,
+  }) {
+    return _then(_$RestoreDeletedCardImpl(
+      cardId: null == cardId
+          ? _value.cardId
+          : cardId // ignore: cast_nullable_to_non_nullable
+              as int,
+      cardActionRequestModel: null == cardActionRequestModel
+          ? _value.cardActionRequestModel
+          : cardActionRequestModel // ignore: cast_nullable_to_non_nullable
+              as CardActionRequestModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RestoreDeletedCardImpl implements RestoreDeletedCard {
+  const _$RestoreDeletedCardImpl(
+      {required this.cardId, required this.cardActionRequestModel});
+
+  @override
+  final int cardId;
+  @override
+  final CardActionRequestModel cardActionRequestModel;
+
+  @override
+  String toString() {
+    return 'CardEvent.restoreDeletedCard(cardId: $cardId, cardActionRequestModel: $cardActionRequestModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RestoreDeletedCardImpl &&
+            (identical(other.cardId, cardId) || other.cardId == cardId) &&
+            (identical(other.cardActionRequestModel, cardActionRequestModel) ||
+                other.cardActionRequestModel == cardActionRequestModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, cardId, cardActionRequestModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RestoreDeletedCardImplCopyWith<_$RestoreDeletedCardImpl> get copyWith =>
+      __$$RestoreDeletedCardImplCopyWithImpl<_$RestoreDeletedCardImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool call) getCards,
+    required TResult Function() getCardsnextPage,
+    required TResult Function(int id) getCardyUserId,
+    required TResult Function(int id) getCardyCardId,
+    required TResult Function(int id) setDefault,
+    required TResult Function(bool isLoad) getdeleteCards,
+    required TResult Function() getdeleteCardsEvent,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
+    required TResult Function(bool isLoad) getArchievedCards,
+    required TResult Function() getArchievedCardsEvent,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
+    required TResult Function() clear,
+  }) {
+    return restoreDeletedCard(cardId, cardActionRequestModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool call)? getCards,
+    TResult? Function()? getCardsnextPage,
+    TResult? Function(int id)? getCardyUserId,
+    TResult? Function(int id)? getCardyCardId,
+    TResult? Function(int id)? setDefault,
+    TResult? Function(bool isLoad)? getdeleteCards,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
+    TResult? Function(bool isLoad)? getArchievedCards,
+    TResult? Function()? getArchievedCardsEvent,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
+    TResult? Function()? clear,
+  }) {
+    return restoreDeletedCard?.call(cardId, cardActionRequestModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool call)? getCards,
+    TResult Function()? getCardsnextPage,
+    TResult Function(int id)? getCardyUserId,
+    TResult Function(int id)? getCardyCardId,
+    TResult Function(int id)? setDefault,
+    TResult Function(bool isLoad)? getdeleteCards,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
+    TResult Function(bool isLoad)? getArchievedCards,
+    TResult Function()? getArchievedCardsEvent,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (restoreDeletedCard != null) {
+      return restoreDeletedCard(cardId, cardActionRequestModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCards value) getCards,
+    required TResult Function(GetCardsnextPage value) getCardsnextPage,
+    required TResult Function(GetCardyUserId value) getCardyUserId,
+    required TResult Function(GetCardyCardId value) getCardyCardId,
+    required TResult Function(SetDefault value) setDefault,
+    required TResult Function(GetdeleteCards value) getdeleteCards,
+    required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
+    required TResult Function(GetArchievedCards value) getArchievedCards,
+    required TResult Function(GetArchievedCardsEvent value)
+        getArchievedCardsEvent,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return restoreDeletedCard(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCards value)? getCards,
+    TResult? Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult? Function(GetCardyUserId value)? getCardyUserId,
+    TResult? Function(GetCardyCardId value)? getCardyCardId,
+    TResult? Function(SetDefault value)? setDefault,
+    TResult? Function(GetdeleteCards value)? getdeleteCards,
+    TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
+    TResult? Function(GetArchievedCards value)? getArchievedCards,
+    TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return restoreDeletedCard?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCards value)? getCards,
+    TResult Function(GetCardsnextPage value)? getCardsnextPage,
+    TResult Function(GetCardyUserId value)? getCardyUserId,
+    TResult Function(GetCardyCardId value)? getCardyCardId,
+    TResult Function(SetDefault value)? setDefault,
+    TResult Function(GetdeleteCards value)? getdeleteCards,
+    TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
+    TResult Function(GetArchievedCards value)? getArchievedCards,
+    TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (restoreDeletedCard != null) {
+      return restoreDeletedCard(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RestoreDeletedCard implements CardEvent {
+  const factory RestoreDeletedCard(
+          {required final int cardId,
+          required final CardActionRequestModel cardActionRequestModel}) =
+      _$RestoreDeletedCardImpl;
+
+  int get cardId;
+  CardActionRequestModel get cardActionRequestModel;
+  @JsonKey(ignore: true)
+  _$$RestoreDeletedCardImplCopyWith<_$RestoreDeletedCardImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2412,15 +3095,21 @@ class _$ClearImpl implements Clear {
     required TResult Function(int id) getCardyCardId,
     required TResult Function(int id) setDefault,
     required TResult Function(bool isLoad) getdeleteCards,
-    required TResult Function(bool isLoad) getdeleteCardsEvent,
+    required TResult Function() getdeleteCardsEvent,
     required TResult Function(
-            int id, CardActionRewuestModel cardActionRewuestModel)
-        cardAction,
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardDelete,
+    required TResult Function(
+            int id, CardActionRequestModel cardActionRequestModel)
+        cardArchive,
     required TResult Function(bool isLoad) getArchievedCards,
     required TResult Function() getArchievedCardsEvent,
     required TResult Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreArchiveCard,
+    required TResult Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)
+        restoreDeletedCard,
     required TResult Function() clear,
   }) {
     return clear();
@@ -2435,14 +3124,19 @@ class _$ClearImpl implements Clear {
     TResult? Function(int id)? getCardyCardId,
     TResult? Function(int id)? setDefault,
     TResult? Function(bool isLoad)? getdeleteCards,
-    TResult? Function(bool isLoad)? getdeleteCardsEvent,
-    TResult? Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult? Function()? getdeleteCardsEvent,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult? Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult? Function(bool isLoad)? getArchievedCards,
     TResult? Function()? getArchievedCardsEvent,
     TResult? Function(
-            int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult? Function(
+            int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult? Function()? clear,
   }) {
     return clear?.call();
@@ -2457,13 +3151,17 @@ class _$ClearImpl implements Clear {
     TResult Function(int id)? getCardyCardId,
     TResult Function(int id)? setDefault,
     TResult Function(bool isLoad)? getdeleteCards,
-    TResult Function(bool isLoad)? getdeleteCardsEvent,
-    TResult Function(int id, CardActionRewuestModel cardActionRewuestModel)?
-        cardAction,
+    TResult Function()? getdeleteCardsEvent,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardDelete,
+    TResult Function(int id, CardActionRequestModel cardActionRequestModel)?
+        cardArchive,
     TResult Function(bool isLoad)? getArchievedCards,
     TResult Function()? getArchievedCardsEvent,
-    TResult Function(int cardId, CardActionRewuestModel cardActionRewuestModel)?
-        restoreArchiveDeleteCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreArchiveCard,
+    TResult Function(int cardId, CardActionRequestModel cardActionRequestModel)?
+        restoreDeletedCard,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -2483,12 +3181,13 @@ class _$ClearImpl implements Clear {
     required TResult Function(SetDefault value) setDefault,
     required TResult Function(GetdeleteCards value) getdeleteCards,
     required TResult Function(GetdeleteCardsEvent value) getdeleteCardsEvent,
-    required TResult Function(CardAction value) cardAction,
+    required TResult Function(CardDelete value) cardDelete,
+    required TResult Function(CardArchive value) cardArchive,
     required TResult Function(GetArchievedCards value) getArchievedCards,
     required TResult Function(GetArchievedCardsEvent value)
         getArchievedCardsEvent,
-    required TResult Function(RestoreArchiveDeleteCard value)
-        restoreArchiveDeleteCard,
+    required TResult Function(RestoreArchiveCard value) restoreArchiveCard,
+    required TResult Function(RestoreDeletedCard value) restoreDeletedCard,
     required TResult Function(Clear value) clear,
   }) {
     return clear(this);
@@ -2504,10 +3203,12 @@ class _$ClearImpl implements Clear {
     TResult? Function(SetDefault value)? setDefault,
     TResult? Function(GetdeleteCards value)? getdeleteCards,
     TResult? Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult? Function(CardAction value)? cardAction,
+    TResult? Function(CardDelete value)? cardDelete,
+    TResult? Function(CardArchive value)? cardArchive,
     TResult? Function(GetArchievedCards value)? getArchievedCards,
     TResult? Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult? Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult? Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult? Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult? Function(Clear value)? clear,
   }) {
     return clear?.call(this);
@@ -2523,10 +3224,12 @@ class _$ClearImpl implements Clear {
     TResult Function(SetDefault value)? setDefault,
     TResult Function(GetdeleteCards value)? getdeleteCards,
     TResult Function(GetdeleteCardsEvent value)? getdeleteCardsEvent,
-    TResult Function(CardAction value)? cardAction,
+    TResult Function(CardDelete value)? cardDelete,
+    TResult Function(CardArchive value)? cardArchive,
     TResult Function(GetArchievedCards value)? getArchievedCards,
     TResult Function(GetArchievedCardsEvent value)? getArchievedCardsEvent,
-    TResult Function(RestoreArchiveDeleteCard value)? restoreArchiveDeleteCard,
+    TResult Function(RestoreArchiveCard value)? restoreArchiveCard,
+    TResult Function(RestoreDeletedCard value)? restoreDeletedCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -2548,8 +3251,11 @@ mixin _$CardState {
   bool get pageLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   bool get businessUser => throw _privateConstructorUsedError;
+  bool get isArcheveCard => throw _privateConstructorUsedError;
   bool get archiveCardLoading => throw _privateConstructorUsedError;
+  bool get archiveCardRestored => throw _privateConstructorUsedError;
   bool get deleteCardLoading => throw _privateConstructorUsedError;
+  bool get deleteCardEventLoading => throw _privateConstructorUsedError;
   bool get deleteCardRestored => throw _privateConstructorUsedError;
   List<CardResponse> get cards => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
@@ -2557,8 +3263,6 @@ mixin _$CardState {
   List<BlockedCards>? get deletedCards => throw _privateConstructorUsedError;
   CardResponse? get defaultCard => throw _privateConstructorUsedError;
   Card? get anotherCard => throw _privateConstructorUsedError;
-  SuccessResponseModel? get successResponseModel =>
-      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CardStateCopyWith<CardState> get copyWith =>
@@ -2576,16 +3280,18 @@ abstract class $CardStateCopyWith<$Res> {
       bool pageLoading,
       bool hasError,
       bool businessUser,
+      bool isArcheveCard,
       bool archiveCardLoading,
+      bool archiveCardRestored,
       bool deleteCardLoading,
+      bool deleteCardEventLoading,
       bool deleteCardRestored,
       List<CardResponse> cards,
       String? message,
       List<ArcheivedCard>? archievedCards,
       List<BlockedCards>? deletedCards,
       CardResponse? defaultCard,
-      Card? anotherCard,
-      SuccessResponseModel? successResponseModel});
+      Card? anotherCard});
 }
 
 /// @nodoc
@@ -2606,8 +3312,11 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
     Object? pageLoading = null,
     Object? hasError = null,
     Object? businessUser = null,
+    Object? isArcheveCard = null,
     Object? archiveCardLoading = null,
+    Object? archiveCardRestored = null,
     Object? deleteCardLoading = null,
+    Object? deleteCardEventLoading = null,
     Object? deleteCardRestored = null,
     Object? cards = null,
     Object? message = freezed,
@@ -2615,7 +3324,6 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
     Object? deletedCards = freezed,
     Object? defaultCard = freezed,
     Object? anotherCard = freezed,
-    Object? successResponseModel = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -2638,13 +3346,25 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
           ? _value.businessUser
           : businessUser // ignore: cast_nullable_to_non_nullable
               as bool,
+      isArcheveCard: null == isArcheveCard
+          ? _value.isArcheveCard
+          : isArcheveCard // ignore: cast_nullable_to_non_nullable
+              as bool,
       archiveCardLoading: null == archiveCardLoading
           ? _value.archiveCardLoading
           : archiveCardLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      archiveCardRestored: null == archiveCardRestored
+          ? _value.archiveCardRestored
+          : archiveCardRestored // ignore: cast_nullable_to_non_nullable
+              as bool,
       deleteCardLoading: null == deleteCardLoading
           ? _value.deleteCardLoading
           : deleteCardLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      deleteCardEventLoading: null == deleteCardEventLoading
+          ? _value.deleteCardEventLoading
+          : deleteCardEventLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       deleteCardRestored: null == deleteCardRestored
           ? _value.deleteCardRestored
@@ -2674,10 +3394,6 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
           ? _value.anotherCard
           : anotherCard // ignore: cast_nullable_to_non_nullable
               as Card?,
-      successResponseModel: freezed == successResponseModel
-          ? _value.successResponseModel
-          : successResponseModel // ignore: cast_nullable_to_non_nullable
-              as SuccessResponseModel?,
     ) as $Val);
   }
 }
@@ -2696,16 +3412,18 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool pageLoading,
       bool hasError,
       bool businessUser,
+      bool isArcheveCard,
       bool archiveCardLoading,
+      bool archiveCardRestored,
       bool deleteCardLoading,
+      bool deleteCardEventLoading,
       bool deleteCardRestored,
       List<CardResponse> cards,
       String? message,
       List<ArcheivedCard>? archievedCards,
       List<BlockedCards>? deletedCards,
       CardResponse? defaultCard,
-      Card? anotherCard,
-      SuccessResponseModel? successResponseModel});
+      Card? anotherCard});
 }
 
 /// @nodoc
@@ -2724,8 +3442,11 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? pageLoading = null,
     Object? hasError = null,
     Object? businessUser = null,
+    Object? isArcheveCard = null,
     Object? archiveCardLoading = null,
+    Object? archiveCardRestored = null,
     Object? deleteCardLoading = null,
+    Object? deleteCardEventLoading = null,
     Object? deleteCardRestored = null,
     Object? cards = null,
     Object? message = freezed,
@@ -2733,7 +3454,6 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? deletedCards = freezed,
     Object? defaultCard = freezed,
     Object? anotherCard = freezed,
-    Object? successResponseModel = freezed,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -2756,13 +3476,25 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.businessUser
           : businessUser // ignore: cast_nullable_to_non_nullable
               as bool,
+      isArcheveCard: null == isArcheveCard
+          ? _value.isArcheveCard
+          : isArcheveCard // ignore: cast_nullable_to_non_nullable
+              as bool,
       archiveCardLoading: null == archiveCardLoading
           ? _value.archiveCardLoading
           : archiveCardLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      archiveCardRestored: null == archiveCardRestored
+          ? _value.archiveCardRestored
+          : archiveCardRestored // ignore: cast_nullable_to_non_nullable
+              as bool,
       deleteCardLoading: null == deleteCardLoading
           ? _value.deleteCardLoading
           : deleteCardLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      deleteCardEventLoading: null == deleteCardEventLoading
+          ? _value.deleteCardEventLoading
+          : deleteCardEventLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       deleteCardRestored: null == deleteCardRestored
           ? _value.deleteCardRestored
@@ -2792,10 +3524,6 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.anotherCard
           : anotherCard // ignore: cast_nullable_to_non_nullable
               as Card?,
-      successResponseModel: freezed == successResponseModel
-          ? _value.successResponseModel
-          : successResponseModel // ignore: cast_nullable_to_non_nullable
-              as SuccessResponseModel?,
     ));
   }
 }
@@ -2809,16 +3537,18 @@ class _$InitialImpl implements _Initial {
       required this.pageLoading,
       required this.hasError,
       required this.businessUser,
+      required this.isArcheveCard,
       required this.archiveCardLoading,
+      required this.archiveCardRestored,
       required this.deleteCardLoading,
+      required this.deleteCardEventLoading,
       required this.deleteCardRestored,
       required final List<CardResponse> cards,
       this.message,
       final List<ArcheivedCard>? archievedCards,
       final List<BlockedCards>? deletedCards,
       this.defaultCard,
-      this.anotherCard,
-      this.successResponseModel})
+      this.anotherCard})
       : _cards = cards,
         _archievedCards = archievedCards,
         _deletedCards = deletedCards;
@@ -2834,9 +3564,15 @@ class _$InitialImpl implements _Initial {
   @override
   final bool businessUser;
   @override
+  final bool isArcheveCard;
+  @override
   final bool archiveCardLoading;
   @override
+  final bool archiveCardRestored;
+  @override
   final bool deleteCardLoading;
+  @override
+  final bool deleteCardEventLoading;
   @override
   final bool deleteCardRestored;
   final List<CardResponse> _cards;
@@ -2873,12 +3609,10 @@ class _$InitialImpl implements _Initial {
   final CardResponse? defaultCard;
   @override
   final Card? anotherCard;
-  @override
-  final SuccessResponseModel? successResponseModel;
 
   @override
   String toString() {
-    return 'CardState(isLoading: $isLoading, cardLoading: $cardLoading, pageLoading: $pageLoading, hasError: $hasError, businessUser: $businessUser, archiveCardLoading: $archiveCardLoading, deleteCardLoading: $deleteCardLoading, deleteCardRestored: $deleteCardRestored, cards: $cards, message: $message, archievedCards: $archievedCards, deletedCards: $deletedCards, defaultCard: $defaultCard, anotherCard: $anotherCard, successResponseModel: $successResponseModel)';
+    return 'CardState(isLoading: $isLoading, cardLoading: $cardLoading, pageLoading: $pageLoading, hasError: $hasError, businessUser: $businessUser, isArcheveCard: $isArcheveCard, archiveCardLoading: $archiveCardLoading, archiveCardRestored: $archiveCardRestored, deleteCardLoading: $deleteCardLoading, deleteCardEventLoading: $deleteCardEventLoading, deleteCardRestored: $deleteCardRestored, cards: $cards, message: $message, archievedCards: $archievedCards, deletedCards: $deletedCards, defaultCard: $defaultCard, anotherCard: $anotherCard)';
   }
 
   @override
@@ -2896,10 +3630,16 @@ class _$InitialImpl implements _Initial {
                 other.hasError == hasError) &&
             (identical(other.businessUser, businessUser) ||
                 other.businessUser == businessUser) &&
+            (identical(other.isArcheveCard, isArcheveCard) ||
+                other.isArcheveCard == isArcheveCard) &&
             (identical(other.archiveCardLoading, archiveCardLoading) ||
                 other.archiveCardLoading == archiveCardLoading) &&
+            (identical(other.archiveCardRestored, archiveCardRestored) ||
+                other.archiveCardRestored == archiveCardRestored) &&
             (identical(other.deleteCardLoading, deleteCardLoading) ||
                 other.deleteCardLoading == deleteCardLoading) &&
+            (identical(other.deleteCardEventLoading, deleteCardEventLoading) ||
+                other.deleteCardEventLoading == deleteCardEventLoading) &&
             (identical(other.deleteCardRestored, deleteCardRestored) ||
                 other.deleteCardRestored == deleteCardRestored) &&
             const DeepCollectionEquality().equals(other._cards, _cards) &&
@@ -2911,9 +3651,7 @@ class _$InitialImpl implements _Initial {
             (identical(other.defaultCard, defaultCard) ||
                 other.defaultCard == defaultCard) &&
             (identical(other.anotherCard, anotherCard) ||
-                other.anotherCard == anotherCard) &&
-            (identical(other.successResponseModel, successResponseModel) ||
-                other.successResponseModel == successResponseModel));
+                other.anotherCard == anotherCard));
   }
 
   @override
@@ -2924,16 +3662,18 @@ class _$InitialImpl implements _Initial {
       pageLoading,
       hasError,
       businessUser,
+      isArcheveCard,
       archiveCardLoading,
+      archiveCardRestored,
       deleteCardLoading,
+      deleteCardEventLoading,
       deleteCardRestored,
       const DeepCollectionEquality().hash(_cards),
       message,
       const DeepCollectionEquality().hash(_archievedCards),
       const DeepCollectionEquality().hash(_deletedCards),
       defaultCard,
-      anotherCard,
-      successResponseModel);
+      anotherCard);
 
   @JsonKey(ignore: true)
   @override
@@ -2949,16 +3689,18 @@ abstract class _Initial implements CardState {
       required final bool pageLoading,
       required final bool hasError,
       required final bool businessUser,
+      required final bool isArcheveCard,
       required final bool archiveCardLoading,
+      required final bool archiveCardRestored,
       required final bool deleteCardLoading,
+      required final bool deleteCardEventLoading,
       required final bool deleteCardRestored,
       required final List<CardResponse> cards,
       final String? message,
       final List<ArcheivedCard>? archievedCards,
       final List<BlockedCards>? deletedCards,
       final CardResponse? defaultCard,
-      final Card? anotherCard,
-      final SuccessResponseModel? successResponseModel}) = _$InitialImpl;
+      final Card? anotherCard}) = _$InitialImpl;
 
   @override
   bool get isLoading;
@@ -2971,9 +3713,15 @@ abstract class _Initial implements CardState {
   @override
   bool get businessUser;
   @override
+  bool get isArcheveCard;
+  @override
   bool get archiveCardLoading;
   @override
+  bool get archiveCardRestored;
+  @override
   bool get deleteCardLoading;
+  @override
+  bool get deleteCardEventLoading;
   @override
   bool get deleteCardRestored;
   @override
@@ -2988,8 +3736,6 @@ abstract class _Initial implements CardState {
   CardResponse? get defaultCard;
   @override
   Card? get anotherCard;
-  @override
-  SuccessResponseModel? get successResponseModel;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

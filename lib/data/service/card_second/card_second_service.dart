@@ -105,7 +105,7 @@ class CardSecondService implements CardSecondRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>> deleteSecondCard({
-    required CardActionRewuestModel cardActionRewuestModel,
+    required CardActionRequestModel cardActionRewuestModel,
     required int id,
   }) async {
     try {
@@ -166,7 +166,7 @@ class CardSecondService implements CardSecondRepo {
   @override
   Future<Either<Failure, SuccessResponseModel>> restoreDeleteSecondCardEvent({
     required int id,
-    required CardActionRewuestModel cardActionRewuestModel,
+    required CardActionRequestModel cardActionRewuestModel,
   }) async {
     try {
       final responce = await _apiService.patch(

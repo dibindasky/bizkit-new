@@ -12,28 +12,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ArchivedCards extends StatefulWidget {
-  const ArchivedCards({super.key, this.scrollController});
-
-  final ScrollController? scrollController;
+  const ArchivedCards({super.key});
 
   @override
   State<ArchivedCards> createState() => _ArchivedCardsState();
 }
 
 class _ArchivedCardsState extends State<ArchivedCards> {
-  _scrollCallBack() {
-    if (widget.scrollController!.position.pixels ==
-        widget.scrollController!.position.maxScrollExtent) {
-      context.read<CardBloc>().add(const CardEvent.getArchievedCardsEvent());
-    }
-  }
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    if (widget.scrollController != null) {
-      _scrollCallBack();
-    }
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        context.read<CardBloc>().add(const CardEvent.getArchievedCardsEvent());
+      }
+    });
   }
 
   @override
@@ -58,10 +54,10 @@ class _ArchivedCardsState extends State<ArchivedCards> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: BlocConsumer<CardBloc, CardState>(listener: (context, state) {
-            if (state.successResponseModel != null) {
+            if (state.archiveCardRestored) {
               showSnackbar(
                 context,
-                message: 'Card restored',
+                message: 'Archive card restored',
               );
             }
           }, builder: (context, state) {
@@ -77,7 +73,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                 message: errorMessage,
                 onRefresh: () => context
                     .read<CardBloc>()
-                    .add(const CardEvent.getArchievedCardsEvent()),
+                    .add(const CardEvent.getArchievedCards(isLoad: true)),
               );
             }
             if (state.archievedCards!.isEmpty) {
@@ -89,8 +85,8 @@ class _ArchivedCardsState extends State<ArchivedCards> {
               );
             }
             return ListView.separated(
-              controller: widget.scrollController,
-              physics: const NeverScrollableScrollPhysics(),
+              controller: scrollController,
+              // physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: (state.archievedCards?.length ?? 0) +
                   (state.archiveCardLoading ? 1 : 0),
@@ -154,14 +150,14 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                                 actionButton: 'Restore',
                                 context,
                                 onPressed: () {
-                                  CardActionRewuestModel
+                                  CardActionRequestModel
                                       cardActionRewuestModel =
-                                      CardActionRewuestModel(
+                                      CardActionRequestModel(
                                     isArchived: false,
                                   );
                                   context.read<CardBloc>().add(
-                                        CardEvent.restoreArchiveDeleteCard(
-                                            cardActionRewuestModel:
+                                        CardEvent.restoreArchiveCard(
+                                            cardActionRequestModel:
                                                 cardActionRewuestModel,
                                             cardId: state
                                                 .archievedCards![index].id!),

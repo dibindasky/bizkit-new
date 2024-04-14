@@ -2081,6 +2081,7 @@ mixin _$ProfileState {
   bool get questionLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
+  String? get userName => throw _privateConstructorUsedError;
   GetUserInfoModel? get getUserInfoModel => throw _privateConstructorUsedError;
   ImageModel? get imageModel => throw _privateConstructorUsedError;
   bool? get uploaded => throw _privateConstructorUsedError;
@@ -2108,6 +2109,7 @@ abstract class $ProfileStateCopyWith<$Res> {
       bool questionLoading,
       bool hasError,
       String? message,
+      String? userName,
       GetUserInfoModel? getUserInfoModel,
       ImageModel? imageModel,
       bool? uploaded,
@@ -2134,6 +2136,7 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? questionLoading = null,
     Object? hasError = null,
     Object? message = freezed,
+    Object? userName = freezed,
     Object? getUserInfoModel = freezed,
     Object? imageModel = freezed,
     Object? uploaded = freezed,
@@ -2158,6 +2161,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
       getUserInfoModel: freezed == getUserInfoModel
           ? _value.getUserInfoModel
@@ -2204,6 +2211,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool questionLoading,
       bool hasError,
       String? message,
+      String? userName,
       GetUserInfoModel? getUserInfoModel,
       ImageModel? imageModel,
       bool? uploaded,
@@ -2228,6 +2236,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? questionLoading = null,
     Object? hasError = null,
     Object? message = freezed,
+    Object? userName = freezed,
     Object? getUserInfoModel = freezed,
     Object? imageModel = freezed,
     Object? uploaded = freezed,
@@ -2252,6 +2261,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
       getUserInfoModel: freezed == getUserInfoModel
           ? _value.getUserInfoModel
@@ -2293,6 +2306,7 @@ class _$InitialImpl implements _Initial {
       required this.questionLoading,
       required this.hasError,
       this.message,
+      this.userName,
       this.getUserInfoModel,
       this.imageModel,
       this.uploaded,
@@ -2310,6 +2324,8 @@ class _$InitialImpl implements _Initial {
   final bool hasError;
   @override
   final String? message;
+  @override
+  final String? userName;
   @override
   final GetUserInfoModel? getUserInfoModel;
   @override
@@ -2334,7 +2350,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, questionLoading: $questionLoading, hasError: $hasError, message: $message, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, successResponseModel: $successResponseModel, updateUserInfoModel: $updateUserInfoModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, questionList: $questionList)';
+    return 'ProfileState(isLoading: $isLoading, questionLoading: $questionLoading, hasError: $hasError, message: $message, userName: $userName, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, successResponseModel: $successResponseModel, updateUserInfoModel: $updateUserInfoModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, questionList: $questionList)';
   }
 
   @override
@@ -2349,6 +2365,8 @@ class _$InitialImpl implements _Initial {
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
             (identical(other.message, message) || other.message == message) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
             (identical(other.getUserInfoModel, getUserInfoModel) ||
                 other.getUserInfoModel == getUserInfoModel) &&
             (identical(other.imageModel, imageModel) ||
@@ -2374,6 +2392,7 @@ class _$InitialImpl implements _Initial {
       questionLoading,
       hasError,
       message,
+      userName,
       getUserInfoModel,
       imageModel,
       uploaded,
@@ -2395,6 +2414,7 @@ abstract class _Initial implements ProfileState {
       required final bool questionLoading,
       required final bool hasError,
       final String? message,
+      final String? userName,
       final GetUserInfoModel? getUserInfoModel,
       final ImageModel? imageModel,
       final bool? uploaded,
@@ -2411,6 +2431,8 @@ abstract class _Initial implements ProfileState {
   bool get hasError;
   @override
   String? get message;
+  @override
+  String? get userName;
   @override
   GetUserInfoModel? get getUserInfoModel;
   @override

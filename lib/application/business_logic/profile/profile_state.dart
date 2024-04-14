@@ -7,6 +7,7 @@ class ProfileState with _$ProfileState {
     required bool questionLoading,
     required bool hasError,
     String? message,
+    String? userName,
     GetUserInfoModel? getUserInfoModel,
     ImageModel? imageModel,
     bool? uploaded,

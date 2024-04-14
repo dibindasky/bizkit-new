@@ -24,7 +24,7 @@ class QRServiceImpl implements QrServiceRepo {
   Future<Either<Failure, GetQrCodeResponseModel>> getAllQrCode() async {
     try {
       final response = await apiService.get(ApiEndPoints.getQr);
-      log('get QR ${response.data}');
+      //log('get QR ${response.data}');
       return Right(GetQrCodeResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log('getQR dioExcepton = > ${e.toString()}');
@@ -74,8 +74,8 @@ class QRServiceImpl implements QrServiceRepo {
         ApiEndPoints.defaultQr,
         data: defauiltQr.toJson(),
       );
-      log('defaultQr ${responce.data}');
-      log('data after ${defauiltQr.toJson()}');
+      // log('defaultQr ${responce.data}');
+      // log('data after ${defauiltQr.toJson()}');
       return Right(DefauiltQr.fromJson(responce.data));
     } on DioException catch (e) {
       log('defaultQr DioException ${e.response?.statusCode} $e');
@@ -92,7 +92,7 @@ class QRServiceImpl implements QrServiceRepo {
       final responce = await apiService.get(
         ApiEndPoints.defaultQr,
       );
-      log('${responce.data}');
+      //log('${responce.data}');
       return Right(DefauiltQr.fromJson(responce.data));
     } on DioException catch (e) {
       log('getDefaultQr DioException ${e.response?.statusCode} $e');

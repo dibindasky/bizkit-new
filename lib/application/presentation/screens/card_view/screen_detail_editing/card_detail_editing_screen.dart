@@ -1,8 +1,17 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/application/presentation/screens/card_view/screen_detail_editing/widgets/company_banking_tiles.dart';
+import 'package:bizkit/application/presentation/screens/card_view/screen_detail_editing/widgets/company_search_add_popup.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
+import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
+import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+ValueNotifier<int> companySearchNotifier = ValueNotifier<int>(0);
 
 class ScreenCardDetailEditingList extends StatelessWidget {
   const ScreenCardDetailEditingList({super.key});
@@ -22,104 +31,123 @@ class ScreenCardDetailEditingList extends StatelessWidget {
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                DetailCustomTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const LinearProgressIndicatorStarting(index: 0),
-                          ));
-                    },
-                    title: 'Personal Details',
-                    subTitle: ''),
-                DetailCustomTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const LinearProgressIndicatorStarting(index: 1),
-                          ));
-                    },
-                    title: 'Business Details',
-                    subTitle: ''),
-                DetailCustomTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const LinearProgressIndicatorStarting(index: 2),
-                          ));
-                    },
-                    title: 'Logo, Logo Story',
-                    subTitle: ''),
-                DetailCustomTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const LinearProgressIndicatorStarting(index: 3),
-                          ));
-                    },
-                    title: 'Products & Brochers',
-                    subTitle: ''),
-                DetailCustomTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const LinearProgressIndicatorStarting(index: 4),
-                          ));
-                    },
-                    title: 'Banking Details',
-                    subTitle: ''),
-              ],
+            child: BlocBuilder<CardBloc, CardState>(
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    DetailCustomTile(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const LinearProgressIndicatorStarting(
+                                        index: 0),
+                              ));
+                        },
+                        title: 'Personal Details',
+                        subTitle: ''),
+                    adjustHieght(10),
+                    state.businessUser
+                        ? kempty
+                        : ValueListenableBuilder(
+                            valueListenable: companySearchNotifier,
+                            builder: (context, value, _) {
+                              value;
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  AuthButton(
+                                      text: 'Add Company',
+                                      onTap: () {
+                                        companySearchNotifier.value = 0;
+                                        companySearchNotifier.notifyListeners();
+                                      },
+                                      color: value == 0
+                                          ? null
+                                          : const LinearGradient(colors: [
+                                              smallBigGrey,
+                                              kgrey,
+                                              smallBigGrey
+                                            ])),
+                                  AuthButton(
+                                      text: 'Search Company',
+                                      onTap: () {
+                                        companySearchNotifier.value = 1;
+                                        companySearchNotifier.notifyListeners();
+                                      },
+                                      color: value == 1
+                                          ? null
+                                          : const LinearGradient(colors: [
+                                              smallBigGrey,
+                                              kgrey,
+                                              smallBigGrey
+                                            ]))
+                                ],
+                              );
+                            },
+                          ),
+                    state.businessUser ? kempty : adjustHieght(10),
+                    state.businessUser
+                        ? kempty
+                        : ValueListenableBuilder(
+                            valueListenable: companySearchNotifier,
+                            builder: (context, value, _) {
+                              if (value == 0) {
+                                return const BusinessAndBankingDetailsAddingTiles();
+                              } else {
+                                return BlocBuilder<BusinessDataBloc,
+                                    BusinessDataState>(
+                                  builder: (context, state) {
+                                    return AutocompleteTextField(
+                                      validate: Validate.notNull,
+                                      showDropdown: true,
+                                      autocompleteItems: state.companiesList
+                                          .map((e) => e.company!)
+                                          .toList(),
+                                      onChanged: (value) {
+                                        // call company api and fetch companys to dropdown
+                                        context.read<BusinessDataBloc>().add(
+                                            BusinessDataEvent.getCompnayList(
+                                                search: SearchQuery(
+                                                    search: value)));
+                                      },
+                                      onDropDownSelection: (value) {
+                                        // call for company details with the selected value
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => Dialog(
+                                            child: CompanyAddingPopUp(
+                                                id: state.companiesList
+                                                    .firstWhere((element) =>
+                                                        element.company ==
+                                                        value)
+                                                    .id!),
+                                          ),
+                                        );
+                                      },
+                                      label: 'Company',
+                                      textCapitalization:
+                                          TextCapitalization.words,
+                                      controller: context
+                                          .read<BusinessDataBloc>()
+                                          .companyController,
+                                    );
+                                  },
+                                );
+                              }
+                            },
+                          ),
+                    state.businessUser
+                        ? const BusinessAndBankingDetailsAddingTiles()
+                        : kempty,
+                  ],
+                );
+              },
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class DetailCustomTile extends StatelessWidget {
-  const DetailCustomTile({
-    super.key,
-    required this.title,
-    required this.onTap,
-    required this.subTitle,
-  });
-  final String title;
-  final VoidCallback onTap;
-  final String subTitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        color: smallBigGrey,
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          children: [
-            Text(title),
-            adjustWidth(10),
-            Text(
-              subTitle,
-              style:
-                  textStyle1.copyWith(fontSize: kwidth * 0.0245, color: kred),
-            ),
-            const Spacer(),
-            const Icon(Icons.keyboard_arrow_right_rounded)
-          ],
-        ),
       ),
     );
   }

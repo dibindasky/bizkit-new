@@ -12,9 +12,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BrochersAndProductsScreen extends StatelessWidget {
-  const BrochersAndProductsScreen({Key? key, required this.pageController})
-      : super(key: key);
+  const BrochersAndProductsScreen(
+      {super.key, required this.pageController, required this.fromBusiness});
 
+  final bool fromBusiness;
   final PageController pageController;
 
   @override
@@ -121,26 +122,15 @@ class BrochersAndProductsScreen extends StatelessWidget {
                 return const LoadingAnimation();
               }
               return LastSkipContinueButtons(
-                // onSkipTap: state.isBusiness
-                //     ? null
-                //     : () {
-                //         context
-                //             .read<BusinessDataBloc>()
-                //             .add(const BusinessDataEvent.createBusinessData());
-                //         pageController.nextPage(
-                //           duration: const Duration(milliseconds: 300),
-                //           curve: Curves.ease,
-                //         );
-                //       },
                 onTap: () {
-                  Navigator.pop(context);
-                  // context
-                  //     .read<BusinessDataBloc>()
-                  //     .add(const BusinessDataEvent.createBusinessData());
-                  // pageController.nextPage(
-                  //   duration: const Duration(milliseconds: 300),
-                  //   curve: Curves.ease,
-                  // );
+                  if (state.isBusiness && fromBusiness) {
+                    pageController.nextPage(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.ease,
+                    );
+                  } else {
+                    Navigator.pop(context);
+                  }
                 },
               );
             },

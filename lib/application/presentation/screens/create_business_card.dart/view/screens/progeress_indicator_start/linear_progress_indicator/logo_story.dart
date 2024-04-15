@@ -15,8 +15,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LogoStory extends StatefulWidget {
-  const LogoStory({super.key, required this.pageController});
+  const LogoStory(
+      {super.key, required this.pageController, required this.fromBusiness});
 
+  final bool fromBusiness;
   final PageController pageController;
 
   @override
@@ -159,10 +161,16 @@ class _LogoStoryState extends State<LogoStory> {
               listenWhen: (previous, current) => current.logoAdded,
               listener: (context, state) {
                 if (state.logoAdded) {
-                  // Navigator.pop(context);
                   context.read<CardBloc>().add(
                       CardEvent.getCardyCardId(id: state.currentCard!.id!));
-                  Navigator.pop(context);
+                  if (state.isBusiness && widget.fromBusiness) {
+                    widget.pageController.nextPage(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.ease,
+                    );
+                  } else {
+                    Navigator.pop(context);
+                  }
                 }
               },
               buildWhen: (previous, current) =>

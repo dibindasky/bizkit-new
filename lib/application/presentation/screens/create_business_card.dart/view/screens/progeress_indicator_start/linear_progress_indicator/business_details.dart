@@ -77,8 +77,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                       return AutocompleteTextField(
                         validate: Validate.notNull,
                         showDropdown: true,
-                        autocompleteItems:
-                            state.companiesList.map((e) => e.company!).toList(),
+                        autocompleteItems: const [],
                         onChanged: (value) {},
                         onDropDownSelection: (value) {},
                         label: 'Company *',

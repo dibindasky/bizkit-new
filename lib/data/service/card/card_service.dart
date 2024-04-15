@@ -224,6 +224,7 @@ class CardService implements CardRepo {
     try {
       final response = await apiService.get(ApiEndPoints.getCompanies,
           queryParameters: search?.toJson());
+          print(response.data);
       return Right(GetCompanysResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());

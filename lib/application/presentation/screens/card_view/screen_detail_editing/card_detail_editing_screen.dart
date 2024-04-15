@@ -11,7 +11,7 @@ import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-ValueNotifier<int> companySearchNotifier = ValueNotifier<int>(0);
+ValueNotifier<int> companySearchNotifier = ValueNotifier<int>(2);
 
 class ScreenCardDetailEditingList extends StatelessWidget {
   const ScreenCardDetailEditingList({super.key});
@@ -25,7 +25,7 @@ class ScreenCardDetailEditingList extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
         backgroundColor: backgroundColour,
-        title: const Text('Bizzkit Details '),
+        title: const Text('Bizkit Details '),
       ),
       body: BlocBuilder<CardBloc, CardState>(
         builder: (context, state) {
@@ -59,31 +59,37 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   AuthButton(
-                                      text: 'Add Company',
-                                      onTap: () {
-                                        companySearchNotifier.value = 0;
-                                        companySearchNotifier.notifyListeners();
-                                      },
-                                      color: value == 0
-                                          ? null
-                                          : const LinearGradient(colors: [
+                                    text: 'Add Company',
+                                    onTap: () {
+                                      companySearchNotifier.value = 0;
+                                      companySearchNotifier.notifyListeners();
+                                    },
+                                    color: value == 0
+                                        ? null
+                                        : const LinearGradient(
+                                            colors: [
                                               smallBigGrey,
                                               kgrey,
                                               smallBigGrey
-                                            ])),
+                                            ],
+                                          ),
+                                  ),
                                   AuthButton(
-                                      text: 'Search Company',
-                                      onTap: () {
-                                        companySearchNotifier.value = 1;
-                                        companySearchNotifier.notifyListeners();
-                                      },
-                                      color: value == 1
-                                          ? null
-                                          : const LinearGradient(colors: [
+                                    text: 'Search Company',
+                                    onTap: () {
+                                      companySearchNotifier.value = 1;
+                                      companySearchNotifier.notifyListeners();
+                                    },
+                                    color: value == 1
+                                        ? null
+                                        : const LinearGradient(
+                                            colors: [
                                               smallBigGrey,
                                               kgrey,
                                               smallBigGrey
-                                            ]))
+                                            ],
+                                          ),
+                                  )
                                 ],
                               );
                             },
@@ -94,7 +100,10 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                         : ValueListenableBuilder(
                             valueListenable: companySearchNotifier,
                             builder: (context, value, _) {
-                              if (value == 0) {
+                              if (value > 1) {
+                                return const Text(
+                                    'You can add your own company or if you are part of a company then you can search and choose your compnay.');
+                              } else if (value == 0) {
                                 return const BusinessAndBankingDetailsAddingTiles();
                               } else {
                                 return BlocBuilder<BusinessDataBloc,

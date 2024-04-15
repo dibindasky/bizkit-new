@@ -11,6 +11,7 @@ import 'package:bizkit/application/presentation/screens/card_view/second_card_de
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
@@ -77,6 +78,13 @@ class GoRouterConfig {
           return SecondCardDetailView(
             cardId: cardId,
           );
+        },
+      ),
+      GoRoute(
+        name: Routes.linerarProgressBar,
+        path: Routes.linerarProgressBar,
+        builder: (context, state) {
+          return const LinearProgressIndicatorStarting();
         },
       ),
       GoRoute(

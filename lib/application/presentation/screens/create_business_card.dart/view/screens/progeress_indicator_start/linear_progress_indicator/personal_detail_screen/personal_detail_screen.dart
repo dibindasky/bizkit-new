@@ -18,8 +18,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PersonlDetails extends StatelessWidget {
-  PersonlDetails({super.key, required this.pageController});
+  PersonlDetails({super.key, required this.pageController,required this.fromBusiness});
 
+  final bool fromBusiness;
   final PageController pageController;
   final GlobalKey<FormState> personalDeatilFormKey = GlobalKey();
 
@@ -67,7 +68,7 @@ class PersonlDetails extends StatelessWidget {
                 enabled: false,
                 autocompleteItems: bloodGroups,
                 showDropdown: true,
-                label: 'Blood Group *',
+                label: 'Blood Group',
                 controller: context.read<UserDataBloc>().bloodGroup,
                 inputType: TextInputType.name,
               ),
@@ -90,7 +91,7 @@ class PersonlDetails extends StatelessWidget {
                 ),
                 child: TTextFormField(
                   validate: Validate.notNull,
-                  text: 'Birthday *',
+                  text: 'Birthday',
                   enabled: false,
                   controller: context.read<UserDataBloc>().birthDaycontroller,
                   inputType: TextInputType.name,
@@ -281,14 +282,16 @@ class PersonlDetails extends StatelessWidget {
                     previous.personalData != current.personalData,
                 listener: (context, state) {
                   if (state.personalData != null) {
-                    //   pageController.nextPage(
-                    //     duration: const Duration(milliseconds: 500),
-                    //     curve: Curves.ease,
-                    //   );
                     context.read<CardBloc>().add(
                         CardEvent.getCardyCardId(id: state.currentCard!.id!));
-                    // Navigator.pop(context);
-                    Navigator.pop(context);
+                    if (state.isBusiness && fromBusiness) {
+                      pageController.nextPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.ease,
+                      );
+                    } else {
+                      Navigator.pop(context);
+                    }
                   }
                 },
                 builder: (context, state) {
@@ -297,11 +300,11 @@ class PersonlDetails extends StatelessWidget {
                   }
                   return LastSkipContinueButtons(
                     onTap: () {
-                      if (personalDeatilFormKey.currentState!.validate()) {
+                      // if (personalDeatilFormKey.currentState!.validate()) {
                         context
                             .read<UserDataBloc>()
                             .add(UserDataEvent.createPersonalData());
-                      }
+                      // }
                     },
                   );
                 },

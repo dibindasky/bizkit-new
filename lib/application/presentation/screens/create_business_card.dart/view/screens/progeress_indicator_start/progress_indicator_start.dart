@@ -73,11 +73,20 @@ class _LinearProgressIndicatorStartingState
                     });
                   },
                   children: [
-                    PersonlDetails(pageController: _pageController),
-                    BusinessDetailsScreen(pageController: _pageController),
-                    LogoStory(pageController: _pageController),
-                    BrochersAndProductsScreen(pageController: _pageController),
-                    const CompanyAndBankingDetails()
+                    PersonlDetails(
+                        pageController: _pageController,
+                        fromBusiness: widget.index == null),
+                    BusinessDetailsScreen(
+                        pageController: _pageController,
+                        fromBusiness: widget.index == null),
+                    LogoStory(
+                        pageController: _pageController,
+                        fromBusiness: widget.index == null),
+                    BrochersAndProductsScreen(
+                        pageController: _pageController,
+                        fromBusiness: widget.index == null),
+                    CompanyAndBankingDetails(
+                        fromBusiness: widget.index == null)
                   ],
                 ),
               ),

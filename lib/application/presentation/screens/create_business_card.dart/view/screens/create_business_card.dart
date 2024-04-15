@@ -87,10 +87,10 @@ class _StartingBusinessCardCreationState
                       onPressed: () {
                         context
                             .read<UserDataBloc>()
-                            .add(UserDataEvent.getUserDetail());
+                            .add(UserDataEvent.getBusinessCategories());
                         context
                             .read<UserDataBloc>()
-                            .add(UserDataEvent.getBusinessCategories());
+                            .add(UserDataEvent.getUserDetail());
                         GoRouter.of(context)
                             .push(Routes.cardCreationProfilePage);
                       },

@@ -240,7 +240,8 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             cardLoading: false,
             hasError: true,
             message: left.message)), (right) async {
-      return emit(state.copyWith(cardLoading: false, anotherCard: right));
+      return emit(state.copyWith(
+          cardLoading: false, anotherCard: right));
     });
   }
 

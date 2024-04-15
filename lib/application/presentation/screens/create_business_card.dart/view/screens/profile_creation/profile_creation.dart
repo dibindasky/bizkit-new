@@ -168,9 +168,13 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                       context
                           .read<CardBloc>()
                           .add(const CardEvent.getCards(call: true));
-                      context.go(Routes.homePage);
-
+                      if(state.isBusiness){
+                        context.go(Routes.homePage);
+                        Navigator.of(context).pushNamed(Routes.linerarProgressBar);
+                      }else{
+                        context.go(Routes.homePage);
                       context.read<UserDataBloc>().add(UserDataEvent.clear());
+                      }
                     }
                   },
                   builder: (context, state) {

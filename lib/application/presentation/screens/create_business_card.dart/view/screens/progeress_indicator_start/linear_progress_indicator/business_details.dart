@@ -16,15 +16,16 @@ import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
-import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 final GlobalKey<FormState> businessFormKey = GlobalKey<FormState>();
 
 class BusinessDetailsScreen extends StatelessWidget {
-  BusinessDetailsScreen({super.key, required this.pageController});
+  BusinessDetailsScreen(
+      {super.key, required this.pageController, required this.fromBusiness});
 
+  final bool fromBusiness;
   final PageController pageController;
   final Debouncer debouncer = Debouncer();
 
@@ -78,25 +79,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                         showDropdown: true,
                         autocompleteItems:
                             state.companiesList.map((e) => e.company!).toList(),
-                        onChanged: (value) {
-                          // call company api and fetch companys to dropdown
-                          context.read<BusinessDataBloc>().add(
-                              BusinessDataEvent.getCompnayList(
-                                  search: SearchQuery(search: value)));
-                        },
-                        onDropDownSelection: (value) {
-                          // call for company details with the selected value
-                          showDialog(
-                            context: context,
-                            builder: (context) => Dialog(
-                              child: CompanyAddingPopUp(
-                                  id: state.companiesList
-                                      .firstWhere(
-                                          (element) => element.company == value)
-                                      .id!),
-                            ),
-                          );
-                        },
+                        onChanged: (value) {},
+                        onDropDownSelection: (value) {},
                         label: 'Company *',
                         textCapitalization: TextCapitalization.words,
                         controller:
@@ -394,10 +378,16 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocConsumer<BusinessDataBloc, BusinessDataState>(
                     listener: (context, state) {
                       if (state.businessAdded) {
-                        // Navigator.pop(context);
                         context.read<CardBloc>().add(CardEvent.getCardyCardId(
                             id: state.currentCard!.id!));
-                        Navigator.pop(context);
+                        if (state.isBusiness && fromBusiness) {
+                          pageController.nextPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.ease,
+                          );
+                        } else {
+                          Navigator.pop(context);
+                        }
                       }
                     },
                     buildWhen: (previous, current) =>
@@ -427,73 +417,6 @@ class BusinessDetailsScreen extends StatelessWidget {
           },
         ),
       ),
-    );
-  }
-}
-
-class CompanyAddingPopUp extends StatelessWidget {
-  const CompanyAddingPopUp({
-    super.key,
-    required this.id,
-  });
-  final int id;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        border: Border.all(color: neonShade),
-      ),
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        const Text(
-            """Are you sure to add this company details to your profile? you will be part of the organisation once the verification is completed?"""),
-        adjustHieght(10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            adjustWidth(20),
-            Expanded(
-              child: InkWell(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    border: Border.all(color: neonShade),
-                  ),
-                  child: const Center(
-                    child: Text('Cancel'),
-                  ),
-                ),
-              ),
-            ),
-            adjustWidth(20),
-            Expanded(
-                child: InkWell(
-              onTap: () {
-                context.read<BusinessDataBloc>().add(
-                      BusinessDataEvent.getCompnayDetails(id: id),
-                    );
-                Navigator.pop(context);
-              },
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: neonShade,
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  border: Border.all(color: neonShade),
-                ),
-                child: const Center(
-                  child: Text('Continue'),
-                ),
-              ),
-            )),
-            adjustWidth(20),
-          ],
-        )
-      ]),
     );
   }
 }

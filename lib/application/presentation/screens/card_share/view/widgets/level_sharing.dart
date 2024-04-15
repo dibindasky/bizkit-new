@@ -116,13 +116,29 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             personalDetals = value;
             // If "Personal Details" is false, disable other switches
             if (!value) {
-              context.read<QrBloc>().createQrModel =
-                  context.read<QrBloc>().createQrModel.copyWith(
-                        email: context.read<QrBloc>().createQrModel.email==null?null: false,
-                        phoneNumber: context.read<QrBloc>().createQrModel.phoneNumber==null?null: false,
-                        personalSocialMedia: context.read<QrBloc>().createQrModel.personalSocialMedia==null?null: false,
-                        company: context.read<QrBloc>().createQrModel.company==null?null: false,
-                      );
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(
+                    email: context.read<QrBloc>().createQrModel.email == null
+                        ? null
+                        : false,
+                    phoneNumber:
+                        context.read<QrBloc>().createQrModel.phoneNumber == null
+                            ? null
+                            : false,
+                    personalSocialMedia: context
+                                .read<QrBloc>()
+                                .createQrModel
+                                .personalSocialMedia ==
+                            null
+                        ? null
+                        : false,
+                    company:
+                        context.read<QrBloc>().createQrModel.company == null
+                            ? null
+                            : false,
+                  );
             }
           });
         }, neonShade),
@@ -174,14 +190,38 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             businessDetals = value;
             // If "Busiess Details" is false, disable other switches
             if (!value) {
-              context.read<QrBloc>().createQrModel =
-                  context.read<QrBloc>().createQrModel.copyWith(
-                        address: false,
-                        socialMediaHandles: false,
-                        businessDetailsMobileNumber: false,
-                        businessEmail: false,
-                        websiteLink: false,
-                      );
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(
+                    address:
+                        context.read<QrBloc>().createQrModel.address == null
+                            ? null
+                            : false,
+                    socialMediaHandles: context
+                                .read<QrBloc>()
+                                .createQrModel
+                                .socialMediaHandles ==
+                            null
+                        ? null
+                        : false,
+                    businessDetailsMobileNumber: context
+                                .read<QrBloc>()
+                                .createQrModel
+                                .businessDetailsMobileNumber ==
+                            null
+                        ? null
+                        : false,
+                    businessEmail:
+                        context.read<QrBloc>().createQrModel.businessEmail ==
+                                null
+                            ? null
+                            : false,
+                    websiteLink:
+                        context.read<QrBloc>().createQrModel.websiteLink == null
+                            ? null
+                            : false,
+                  );
             }
           });
         }, neonShade),

@@ -345,6 +345,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   FutureOr<void> getUserDetail(GetUserDetail event, emit) async {
     final result = await userLocalService.getUserData();
+    final business = await SecureStorage.getRole();
     result.fold((failure) => null, (userList) {
       if (userList.isNotEmpty) {
         nameController.text = userList.first.name ?? nameController.text;
@@ -358,7 +359,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           datesToRememberAdded: false,
           socialMediaAdded: false,
           message: null,
-          isBusiness: userList.first.isBusiness!));
+          isBusiness: business));
     });
   }
 

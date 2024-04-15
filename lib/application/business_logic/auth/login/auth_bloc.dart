@@ -113,7 +113,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 '',
             isVerified: loginResponseModel.user?.isVerified ?? false);
         await SecureStorage.setRole(
-            isBusiness: loginResponseModel.user!.isBusiness!);
+            isBusiness: loginResponseModel.user?.isBusiness ?? true);
         await SecureStorage.setHasReminder(
             hasReminder: loginResponseModel.user?.hasCard ?? false);
       },

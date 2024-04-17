@@ -6,6 +6,7 @@ class CardEvent with _$CardEvent {
   const factory CardEvent.getCardsnextPage() = GetCardsnextPage;
   const factory CardEvent.getCardyUserId({required int id}) = GetCardyUserId;
   const factory CardEvent.getCardyCardId({required int id}) = GetCardyCardId;
+  const factory CardEvent.getCardViews({required int id}) = GetCardViews;
   const factory CardEvent.setDefault({required int id}) = SetDefault;
   const factory CardEvent.getdeleteCards({required bool isLoad}) =
       GetdeleteCards;

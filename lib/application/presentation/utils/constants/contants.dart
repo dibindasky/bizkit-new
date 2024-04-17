@@ -5,7 +5,17 @@ const onBoardScreenThird = 'asset/images/onboard_secrens/bizkit_3.png';
 
 const errorMessage = 'Something went wrong please try again';
 const empty = 'empty';
-const bloodGroups = ['O+', 'A+', 'B+', 'A-', 'AB+', 'B-', 'O-', 'AB-',"Don't know"];
+const bloodGroups = [
+  'O+',
+  'A+',
+  'B+',
+  'A-',
+  'AB+',
+  'B-',
+  'O-',
+  'AB-',
+  "Don't know"
+];
 const socialMedia = [
   'Instagram',
   'LinkedIn',

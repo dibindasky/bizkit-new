@@ -85,8 +85,7 @@ class _LinearProgressIndicatorStartingState
                     BrochersAndProductsScreen(
                         pageController: _pageController,
                         fromBusiness: widget.index == null),
-                    CompanyAndBankingDetails(
-                        fromBusiness: widget.index == null)
+                    CompanyAndBankingDetails(fromBusiness: widget.index == null)
                   ],
                 ),
               ),

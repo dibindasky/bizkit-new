@@ -103,7 +103,8 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                 ),
                                 adjustHieght(10),
                                 Text(
-                                  state.anotherCard?.businessDetails?.websiteLink ??
+                                  state.anotherCard?.businessDetails
+                                          ?.websiteLink ??
                                       '',
                                 ),
                                 adjustHieght(10),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
@@ -173,7 +175,9 @@ class _GridTileAddRequestConnectionState
           radius: kwidth * 0.08,
           backgroundColor: textFieldFillColr,
           backgroundImage: widget.data.image != null
-              ? NetworkImage(widget.data.image!)
+              ? MemoryImage(base64.decode(widget.data.image!.startsWith('data')
+                  ? widget.data.image!.substring(22)
+                  : widget.data.image!))
               : null,
           child: widget.data.image != null
               ? null
@@ -181,11 +185,13 @@ class _GridTileAddRequestConnectionState
         ),
         adjustHieght(10),
         Text(
-          name.length > 12 ? '${name.substring(0, 11)}..' : name,
+          name == '' && company != '' ? company : name,
+          overflow: TextOverflow.ellipsis,
           style: textStyle1.copyWith(fontSize: kwidth * 0.045),
         ),
         Text(
-          '${company.length > 8 ? '${company.substring(0, 7)}..' : company} | ${designation.length > 8 ? '${designation.substring(0, 7)}..' : designation}',
+          name == '' && company != '' ? designation : company,
+          overflow: TextOverflow.ellipsis,
           style: textStyle1,
         ),
         adjustHieght(10),

@@ -56,6 +56,7 @@ class ApiEndPoints {
   static String addBusinessSocialMedia = '/card/business-social-media-create/';
   static String deleteBusinessSocialMedia =
       '/card/business-social-media-update-delete/{social_media_id}/';
+  static String getCardViewsList = '/card/views/{card_id}/';
 
 // qr
   static String getQr = '/level/list-qr/';

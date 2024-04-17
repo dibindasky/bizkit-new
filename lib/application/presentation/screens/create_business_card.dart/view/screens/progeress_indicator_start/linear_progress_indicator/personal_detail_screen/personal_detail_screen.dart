@@ -18,7 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PersonlDetails extends StatelessWidget {
-  PersonlDetails({super.key, required this.pageController,required this.fromBusiness});
+  PersonlDetails(
+      {super.key, required this.pageController, required this.fromBusiness});
 
   final bool fromBusiness;
   final PageController pageController;
@@ -301,9 +302,9 @@ class PersonlDetails extends StatelessWidget {
                   return LastSkipContinueButtons(
                     onTap: () {
                       // if (personalDeatilFormKey.currentState!.validate()) {
-                        context
-                            .read<UserDataBloc>()
-                            .add(UserDataEvent.createPersonalData());
+                      context
+                          .read<UserDataBloc>()
+                          .add(UserDataEvent.createPersonalData());
                       // }
                     },
                   );

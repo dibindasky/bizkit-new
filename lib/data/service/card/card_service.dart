@@ -15,6 +15,7 @@ import 'package:bizkit/domain/model/card/company/get_company_response_model/get_
 import 'package:bizkit/domain/model/card/get_card_response/get_card_response.dart';
 import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
 import 'package:bizkit/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
+import 'package:bizkit/domain/model/card_first/get_views_response_model/get_views_response_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
@@ -224,7 +225,7 @@ class CardService implements CardRepo {
     try {
       final response = await apiService.get(ApiEndPoints.getCompanies,
           queryParameters: search?.toJson());
-          print(response.data);
+      print(response.data);
       return Right(GetCompanysResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());
@@ -310,6 +311,25 @@ class CardService implements CardRepo {
       log(e.toString());
       return Left(
           Failure(message: 'Failed to create business data please try again'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetViewsResponseModel>> getCardViews(
+      {required int id}) async {
+    try {
+      final responce = await apiService.get(
+        ApiEndPoints.getCardViewsList.replaceFirst('{card_id}', id.toString()),
+      );
+      log('get card views ==> ${responce.data}');
+      return Right(GetViewsResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getCardViews DioException ${e.response?.statusCode} $e');
+      log('error ${e.response?.data}');
+      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+    } catch (e) {
+      log('getCardViews catch $e');
+      return Left(Failure(message: errorMessage));
     }
   }
 }

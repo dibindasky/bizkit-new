@@ -61,7 +61,7 @@ showConfirmationDialog(
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
               ],
             ),
           ],

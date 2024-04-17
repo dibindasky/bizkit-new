@@ -291,34 +291,112 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                     children: [
                                       adjustWidth(kwidth * .02),
                                       Expanded(
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(color: kwhite),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              adjustWidth(kwidth * .01),
-                                              const Icon(
-                                                Icons.remove_red_eye,
-                                                size: 19,
-                                                color: kwhite,
-                                              ),
-                                              adjustWidth(kwidth * .01),
-                                              Text(
-                                                state.cards[index].views
-                                                    .toString(),
-                                              ),
-                                              adjustWidth(kwidth * .01),
-                                              const Expanded(
-                                                child: Text('views',
-                                                    overflow:
-                                                        TextOverflow.ellipsis),
-                                              ),
-                                              adjustWidth(kwidth * .01),
-                                            ],
+                                        child: InkWell(
+                                          onTap: () {
+                                            context.read<CardBloc>().add(
+                                                CardEvent.getCardViews(
+                                                    id: card.id!));
+                                            showModalBottomSheet(
+                                              context: context,
+                                              enableDrag: true,
+                                              isDismissible: true,
+                                              showDragHandle: true,
+                                              backgroundColor: kblack,
+                                              builder: (context) {
+                                                return Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 20),
+                                                  child: BlocBuilder<CardBloc,
+                                                      CardState>(
+                                                    builder: (context, state) {
+                                                      if (state.viewsLoading) {
+                                                        return const Center(
+                                                          child:
+                                                              CircularProgressIndicator(),
+                                                        );
+                                                      } else if (state
+                                                                  .cardViewList !=
+                                                              null &&
+                                                          state.cardViewList!
+                                                              .isNotEmpty) {
+                                                        return ListView.builder(
+                                                          itemCount: state
+                                                              .cardViewList!
+                                                              .length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            final data = state
+                                                                .cardViewList![
+                                                                    index]
+                                                                .profile;
+                                                            return Container(
+                                                              decoration:
+                                                                  const BoxDecoration(
+                                                                color:
+                                                                    smallBigGrey,
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            10)),
+                                                              ),
+                                                              child: ListTile(
+                                                                leading:
+                                                                    const CircleAvatar(
+                                                                  backgroundColor:
+                                                                      kgrey,
+                                                                  child: Icon(Icons
+                                                                      .person),
+                                                                ),
+                                                                title: Text(
+                                                                    data?.name ??
+                                                                        ''),
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      } else {
+                                                        return const Center(
+                                                          child:
+                                                              Text('No views'),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Container(
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: kwhite),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                adjustWidth(kwidth * .01),
+                                                const Icon(
+                                                  Icons.remove_red_eye,
+                                                  size: 19,
+                                                  color: kwhite,
+                                                ),
+                                                adjustWidth(kwidth * .01),
+                                                Text(
+                                                  state.cards[index].views
+                                                      .toString(),
+                                                ),
+                                                adjustWidth(kwidth * .01),
+                                                const Expanded(
+                                                  child: Text('views',
+                                                      overflow: TextOverflow
+                                                          .ellipsis),
+                                                ),
+                                                adjustWidth(kwidth * .01),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),

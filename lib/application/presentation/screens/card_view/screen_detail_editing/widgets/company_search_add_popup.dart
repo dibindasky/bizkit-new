@@ -35,7 +35,9 @@ class CompanyAddingPopUp extends StatelessWidget {
               !state.loadCompanyData) {
             if (state.message != null) {
               showSnackbar(context,
-                  message: state.message!, backgroundColor: kred,textColor: kwhite);
+                  message: state.message!,
+                  backgroundColor: kred,
+                  textColor: kwhite);
             }
             Navigator.pop(context);
           }

@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 GlobalKey<FormState> bankingCardCreationKey = GlobalKey<FormState>();
 
 class CompanyAndBankingDetails extends StatelessWidget {
-  const CompanyAndBankingDetails({super.key,required this.fromBusiness});
+  const CompanyAndBankingDetails({super.key, required this.fromBusiness});
 
   final bool fromBusiness;
 

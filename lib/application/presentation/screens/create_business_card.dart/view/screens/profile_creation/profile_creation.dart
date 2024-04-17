@@ -168,12 +168,13 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                       context
                           .read<CardBloc>()
                           .add(const CardEvent.getCards(call: true));
-                      if(state.isBusiness){
+                      if (state.isBusiness) {
                         context.go(Routes.homePage);
-                        Navigator.of(context).pushNamed(Routes.linerarProgressBar);
-                      }else{
+                        Navigator.of(context)
+                            .pushNamed(Routes.linerarProgressBar);
+                      } else {
                         context.go(Routes.homePage);
-                      context.read<UserDataBloc>().add(UserDataEvent.clear());
+                        context.read<UserDataBloc>().add(UserDataEvent.clear());
                       }
                     }
                   },
@@ -181,7 +182,8 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                     if (state.isLoading) {
                       return const LoadingAnimation();
                     }
-                    return LastSkipContinueButtons(continueText: 'Create Card',
+                    return LastSkipContinueButtons(
+                      continueText: 'Create Card',
                       onTap: () {
                         if (personalDataFirstFormKey.currentState!.validate()) {
                           // Navigator.of(context).push(

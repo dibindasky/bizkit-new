@@ -52,9 +52,10 @@ class ContactLocalService implements ContactLocalRepo {
       for (var x in data) {
         contacts.add(ContactModel.fromJson(x));
       }
+      log('getContactFromLocalStorage success =====> ${contacts.length}');
       return Right(contacts);
     } catch (e) {
-      log('getContactFromLocalStorage =====> ${e.toString()}');
+      log('getContactFromLocalStorage exception =====> ${e.toString()}');
       return Left(Failure());
     }
   }

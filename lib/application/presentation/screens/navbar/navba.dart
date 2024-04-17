@@ -37,6 +37,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
   @override
   void initState() {
     context.read<PromtBloc>().add(const PromtEvent.checkPrompt());
+    context.read<NavCubit>().navbarChange(index: 0);
     super.initState();
   }
 
@@ -45,7 +46,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
     return BlocBuilder<NavCubit, NavState>(
       builder: (context, state) {
         return PopScope(
-          canPop: false,
+          canPop: state.slectedtabIndex == 0,
           onPopInvoked: (bool didPop) async {
             if (didPop) {
               if (didPop) true;
@@ -125,9 +126,6 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
               Navigator.pop(context);
             } else {
               context.read<NavCubit>().navbarChange(index: 0);
-              // setState(() {
-              //   state.slectedtabIndex = 0;
-              // });
               return;
             }
           },

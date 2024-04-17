@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
+import 'package:bizkit/application/business_logic/cubit/nav_cubit.dart';
 import 'package:bizkit/application/business_logic/notification/notification_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -186,7 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                   onTap: () {
                     showConfirmationDialog(
                       actionButton: 'Log-out',
-                      heading: 'Are really want to logout from Bizkit',
+                      heading: 'Are you sure want to logout from Bizkit',
                       context,
                       onPressed: () {
                         context.read<AuthBloc>().add(const AuthEvent.logOut());

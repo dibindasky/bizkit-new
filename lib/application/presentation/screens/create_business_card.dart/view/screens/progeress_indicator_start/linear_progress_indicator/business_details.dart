@@ -80,7 +80,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                         autocompleteItems: const [],
                         onChanged: (value) {},
                         onDropDownSelection: (value) {},
-                        label: 'Company *',
+                        label: 'Company',
                         textCapitalization: TextCapitalization.words,
                         controller:
                             context.read<BusinessDataBloc>().companyController,
@@ -89,7 +89,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   ),
                   // business name
                   TTextFormField(
-                    text: 'Business Name *',
+                    text: 'Business Name',
                     validate: Validate.notNull,
                     textCapitalization: TextCapitalization.words,
                     controller:
@@ -100,7 +100,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return AutocompleteTextField(
                         validate: Validate.email,
-                        label: 'Mail ID *',
+                        label: 'Mail ID',
                         inputType: TextInputType.emailAddress,
                         controller:
                             context.read<BusinessDataBloc>().mailController,
@@ -113,7 +113,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
-                        label: 'Mobile number *',
+                        label: 'Mobile number',
                         validate: Validate.phone,
                         maxLength: 10,
                         controller:
@@ -397,14 +397,14 @@ class BusinessDetailsScreen extends StatelessWidget {
                       }
                       return LastSkipContinueButtons(
                         onTap: () {
-                          if (businessFormKey.currentState!.validate()) {
-                            //   pageController.nextPage(
-                            //     duration: const Duration(milliseconds: 300),
-                            //     curve: Curves.ease,
-                            //   );
-                            context.read<BusinessDataBloc>().add(
-                                const BusinessDataEvent.createBusinessData());
-                          }
+                          // if (businessFormKey.currentState!.validate()) {
+                          //   pageController.nextPage(
+                          //     duration: const Duration(milliseconds: 300),
+                          //     curve: Curves.ease,
+                          //   );
+                          context.read<BusinessDataBloc>().add(
+                              const BusinessDataEvent.createBusinessData());
+                          // }
                         },
                       );
                     },

@@ -114,7 +114,8 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10))),
                                       child: FittedBox(
-                                        child: Text(listString![index].length > 20
+                                        child: Text(listString![index].length >
+                                                20
                                             ? '${listString![index].substring(0, 17)} ...'
                                             : listString![index]),
                                       ),

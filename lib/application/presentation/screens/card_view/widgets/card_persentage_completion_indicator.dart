@@ -15,6 +15,9 @@ class CardViewCompletionPersentageIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CardBloc, CardState>(
       builder: (context, state) {
+        if (state.anotherCard!.percentage! == 100) {
+          return const SizedBox();
+        }
         return InkWell(
           splashFactory: NoSplash.splashFactory,
           splashColor: knill,

@@ -24,9 +24,8 @@ class CardDetailScreenSecondHalf extends StatelessWidget {
         // completion persentage indicator
         myCard
             ? const CardViewCompletionPersentageIndicator()
-            : const SizedBox(),
-        // add reminder button
-        !myCard ? const CardViewAddReminderContainer() : const SizedBox(),
+            // add reminder button
+            : const CardViewAddReminderContainer(),
         // row icons call,mail,website,socialmedia ,location
         const CardViewRowWiceIcons(),
         adjustHieght(khieght * .02),

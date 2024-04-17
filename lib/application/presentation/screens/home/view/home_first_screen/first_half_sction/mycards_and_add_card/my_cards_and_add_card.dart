@@ -105,8 +105,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                                   data.name != null
                                                       ? data.name!.length > 20
                                                           ? '${data.name!.substring(0, 18)}..'
-                                                          : data
-                                                              .name!
+                                                          : data.name!
                                                       : '',
                                                   style: textHeadStyle1
                                                       .copyWith(shadows: [
@@ -117,8 +116,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                                   ])),
                                               Text(
                                                 data.designation != null
-                                                    ? data.designation!
-                                                                .length >
+                                                    ? data.designation!.length >
                                                             20
                                                         ? '${data.designation!.substring(0, 18)}..'
                                                         : data.designation!
@@ -128,8 +126,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                                     shadows: const [
                                                       Shadow(
                                                           color: kblack,
-                                                          offset:
-                                                              Offset(0, 2),
+                                                          offset: Offset(0, 2),
                                                           blurRadius: 5)
                                                     ]),
                                               ),
@@ -147,18 +144,27 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                                         : Image.asset(
                                                             iconBizkitPng,
                                                             fit: BoxFit.cover),
-                                                  ),adjustWidth(10), 
-                                                  data.isDefault ?? false? const ClipRRect(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5)),
-                                          child: ColoredBox(
-                                            color: neonShade,
-                                            child: Padding(
-                                              padding: EdgeInsets.all(4.0),
-                                              child: Text('DEFAULT'),
-                                            ),
-                                          ),
-                                        ):const SizedBox()
+                                                  ),
+                                                  adjustWidth(10),
+                                                  data.isDefault ?? false
+                                                      ? const ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          5)),
+                                                          child: ColoredBox(
+                                                            color: neonShade,
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(4.0),
+                                                              child: Text(
+                                                                  'DEFAULT'),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      : const SizedBox()
                                                 ],
                                               ),
                                             ],
@@ -183,13 +189,13 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                               adjustHieght(kwidth * 0.03),
                                               Text(
                                                 '${data.percentage ?? 100} %',
-                                                style: textStyle1
-                                                    .copyWith(shadows: [
-                                                  const Shadow(
-                                                      color: kblack,
-                                                      offset: Offset(1, 2),
-                                                      blurRadius: 5)
-                                                ]),
+                                                style: textStyle1.copyWith(
+                                                    shadows: [
+                                                      const Shadow(
+                                                          color: kblack,
+                                                          offset: Offset(1, 2),
+                                                          blurRadius: 5)
+                                                    ]),
                                               )
                                             ],
                                           )
@@ -202,8 +208,7 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                             : data.percentage! / 100,
                                         backgroundColor: kgrey,
                                         minHeight: 8,
-                                        borderRadius:
-                                            BorderRadius.circular(50),
+                                        borderRadius: BorderRadius.circular(50),
                                       ),
                                     ],
                                   ),

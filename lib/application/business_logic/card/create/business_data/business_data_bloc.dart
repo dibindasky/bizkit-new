@@ -98,29 +98,67 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
           bankingAdded: false,
           logoAdded: false,
           currentCard: event.card,
-          branchOffices: event.card.branchOffices ?? <BranchOffice>[],
-          businessData: event.card.businessDetails ?? BusinessDetails(),
-          bankDetails: event.card.bankDetails ?? BankDetails(),
-          accreditions: event.card.accreditation ?? <Accredition>[],
-          socialMedias: event.card.businessSocialMedia ?? <SocialMediaHandle>[],
-          logoCard: event.card.logoCard ?? LogoCard(),
-          products: event.card.product ?? [],
-          brochures: event.card.brochure ?? []),
+          branchOffices: event.card.isCompanyAutofilled == true
+              ? <BranchOffice>[]
+              : event.card.branchOffices ?? <BranchOffice>[],
+          businessData: event.card.isCompanyAutofilled == true
+              ? BusinessDetails()
+              : event.card.businessDetails ?? BusinessDetails(),
+          bankDetails: event.card.isCompanyAutofilled == true
+              ? BankDetails()
+              : event.card.bankDetails ?? BankDetails(),
+          accreditions: event.card.isCompanyAutofilled == true
+              ? <Accredition>[]
+              : event.card.accreditation ?? <Accredition>[],
+          socialMedias: event.card.isCompanyAutofilled == true
+              ? <SocialMediaHandle>[]
+              : event.card.businessSocialMedia ?? <SocialMediaHandle>[],
+          logoCard: event.card.isCompanyAutofilled == true
+              ? LogoCard()
+              : event.card.logoCard ?? LogoCard(),
+          products: event.card.isCompanyAutofilled == true
+              ? []
+              : event.card.product ?? [],
+          brochures: event.card.isCompanyAutofilled == true
+              ? []
+              : event.card.brochure ?? []),
     );
-    businessNameController.text =
-        event.card.businessDetails?.businessName ?? '';
-    companyController.text = event.card.businessDetails?.company ?? '';
-    mailController.text = event.card.businessDetails?.email ?? '';
-    mobileController.text = event.card.businessDetails?.mobileNumber ?? '';
-    websiteLinkController.text = event.card.businessDetails?.websiteLink ?? '';
-    addressController.text = event.card.businessDetails?.address ?? '';
-    logoStoryController.text = event.card.logoCard?.logoStory ?? '';
-    accountNumberController.text = event.card.bankDetails?.accountNumber ?? '';
-    ifscController.text = event.card.bankDetails?.ifscCode ?? '';
-    nameOfCompanyController.text = event.card.bankDetails?.nameOfCompany ?? '';
-    gstNumberController.text =
-        event.card.bankDetails?.gstMembershipDetails ?? '';
-    upiDetailController.text = event.card.bankDetails?.upiDetails ?? '';
+    businessNameController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.businessDetails?.businessName ?? '';
+    companyController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.businessDetails?.company ?? '';
+    mailController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.businessDetails?.email ?? '';
+    mobileController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.businessDetails?.mobileNumber ?? '';
+    websiteLinkController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.businessDetails?.websiteLink ?? '';
+    addressController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.businessDetails?.address ?? '';
+    logoStoryController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.logoCard?.logoStory ?? '';
+    accountNumberController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.bankDetails?.accountNumber ?? '';
+    ifscController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.bankDetails?.ifscCode ?? '';
+    nameOfCompanyController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.bankDetails?.nameOfCompany ?? '';
+    gstNumberController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.bankDetails?.gstMembershipDetails ?? '';
+    upiDetailController.text = event.card.isCompanyAutofilled == true
+        ? ''
+        : event.card.bankDetails?.upiDetails ?? '';
   }
 
   FutureOr<void> createBankingData(CreateBankingData event, emit) async {
@@ -254,7 +292,9 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         gotCompanyData: false));
     final result = await cardService.createBusinessDataCard(
         businessDetails: BusinessDetails(
-            company: event.id.toString(), isCompanySelected: true),
+            company: event.id.toString(),
+            isCompanySelected: true,
+            isVerified: true),
         id: state.currentCard!.businessDetails!.id!);
     result.fold(
         (failure) => emit(state.copyWith(

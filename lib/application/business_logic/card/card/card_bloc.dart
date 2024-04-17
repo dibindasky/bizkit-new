@@ -6,6 +6,7 @@ import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/a
 import 'package:bizkit/domain/model/card/cards_in_profile/blocked_cards_responce_moede/blocked%20cards.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
+import 'package:bizkit/domain/model/card_first/get_views_response_model/user_view.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,11 +36,25 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     on<GetArchievedCardsEvent>(getArchievedCardsEvent);
     on<RestoreArchiveCard>(restoreArchiveCard);
     on<RestoreDeletedCard>(restoreDeletedCard);
+    on<GetCardViews>(getCardViews);
     on<Clear>(clear);
   }
 
   FutureOr<void> clear(Clear event, emit) async {
     return emit(CardState.initial());
+  }
+
+  FutureOr<void> getCardViews(GetCardViews event, emit) async {
+    emit(state.copyWith(
+        viewsLoading: true,
+        hasError: false,
+        message: null,
+        cardViewList: null));
+    final result = await cardService.getCardViews(id: event.id);
+    result.fold(
+        (l) => emit(state.copyWith(viewsLoading: false)),
+        (r) => emit(state.copyWith(
+            viewsLoading: false, cardViewList: r.results ?? <UserView>[])));
   }
 
   FutureOr<void> getdeleteCardsEvent(GetdeleteCardsEvent event, emit) async {
@@ -240,8 +255,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             cardLoading: false,
             hasError: true,
             message: left.message)), (right) async {
-      return emit(state.copyWith(
-          cardLoading: false, anotherCard: right));
+      return emit(state.copyWith(cardLoading: false, anotherCard: right));
     });
   }
 

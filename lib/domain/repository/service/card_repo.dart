@@ -11,6 +11,7 @@ import 'package:bizkit/domain/model/card/company/get_company_response_model/get_
 import 'package:bizkit/domain/model/card/get_card_response/get_card_response.dart';
 import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
 import 'package:bizkit/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
+import 'package:bizkit/domain/model/card_first/get_views_response_model/get_views_response_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
@@ -28,6 +29,7 @@ abstract class CardRepo {
   Future<Either<Failure, GetCardResponseModel>> getCardByUserId(
       {required int id});
   Future<Either<Failure, Card>> getCardByCardId({required int id});
+  Future<Either<Failure, GetViewsResponseModel>> getCardViews({required int id});
   Future<Either<Failure, GetCompanysResponseModel>> getCompanies(
       {required SearchQuery? search});
   Future<Either<Failure, GetBusinessCategoryResponseModel>>

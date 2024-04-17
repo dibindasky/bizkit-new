@@ -96,4 +96,3 @@ class DetailCustomTile extends StatelessWidget {
     );
   }
 }
-

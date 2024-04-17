@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
+import 'package:bizkit/application/presentation/screens/authentication/view/screens/forgot_password/email_verify_field.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -240,11 +242,28 @@ class _LoGInScreenState extends State<LoGInScreen>
                     inputType: TextInputType.visiblePassword,
                     obscureText: true,
                   ),
-                  Text(
-                    'Don\'t have an account?',
-                    style: TextStyle(
-                      fontSize: kwidth * 0.026,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Don\'t have an account?',
+                        style: TextStyle(
+                          fontSize: kwidth * 0.026,
+                        ),
+                      ),
+                      //  adjustWidth(2),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(context,
+                              fadePageRoute(const EmailFieldForGottPassword()));
+                        },
+                        child: Text(
+                          'Forgot password',
+                          style: TextStyle(
+                              fontSize: kwidth * 0.026, color: kwhite),
+                        ),
+                      ),
+                    ],
                   ),
                   adjustHieght(khieght * .01),
                   InkWell(

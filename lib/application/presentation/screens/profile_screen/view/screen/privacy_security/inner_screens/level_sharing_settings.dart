@@ -3,7 +3,6 @@ import 'package:bizkit/application/presentation/screens/authentication/view/widg
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
-import 'package:bizkit/domain/model/qr/defauilt_qr/defauilt_qr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +23,7 @@ class DefaultLevelSharing extends StatelessWidget {
         ),
         backgroundColor: knill,
         title: const Text(
-          'Default level settings',
+          'Commen level share settings',
         ),
       ),
       body: Padding(
@@ -46,7 +45,7 @@ class DefaultLevelSharing extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          'Level Sharing',
+                          'Commen Level Sharing',
                           style: TextStyle(fontSize: kwidth * 0.037),
                         ),
                       ],
@@ -65,7 +64,10 @@ class DefaultLevelSharing extends StatelessWidget {
               BlocConsumer<QrBloc, QrState>(
                 listener: (context, state) {
                   if (state.qrUpdated) {
-                    showSnackbar(context, message: 'Updated successfully');
+                    showSnackbar(
+                      context,
+                      message: 'Level sharing Updated successfully',
+                    );
                   }
                 },
                 builder: (context, state) {

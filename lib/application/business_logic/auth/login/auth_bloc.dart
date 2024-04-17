@@ -2,11 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/domain/model/auth/change_password_model/change_password_model.dart';
-import 'package:bizkit/domain/model/auth/email_model/email_model.dart';
 import 'package:bizkit/domain/model/auth/login_model/login_model.dart';
 import 'package:bizkit/domain/model/auth/login_response_model/login_response_model.dart';
-import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
 import 'package:bizkit/domain/model/token/token_model.dart';
 import 'package:bizkit/domain/repository/service/auth_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
@@ -22,12 +19,10 @@ part 'auth_bloc.freezed.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepo authRepo;
   final UserLocalRepo userLocalService;
+
   AuthBloc(this.authRepo, this.userLocalService) : super(AuthState.initial()) {
     on<OnBoardskip>(onBoardskip);
     on<Login>(login);
-    on<ForgotPassword>(forgotPassword);
-    on<ChangePassword>(changePassword);
-    on<VerifyforgotPassword>(verifyForgotPassword);
     on<Log>(log);
     on<LogOut>(logOut);
   }
@@ -117,83 +112,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await SecureStorage.setHasReminder(
             hasReminder: loginResponseModel.user?.hasCard ?? false);
       },
-    );
-  }
-
-  FutureOr<void> forgotPassword(
-      ForgotPassword event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(
-        isLoading: true,
-        message: null,
-        hasError: false,
-        otpVerificationError: false,
-        otpSend: false));
-    final result = await authRepo.forgotPassword(emailModel: event.emailModel);
-    result.fold(
-      (failure) => emit(
-        state.copyWith(
-            isLoading: false,
-            hasError: true,
-            message: failure.message ?? errorMessage),
-      ),
-      (successResponseModel) => emit(
-        state.copyWith(
-            isLoading: false,
-            message: successResponseModel.message,
-            otpSend: true),
-      ),
-    );
-  }
-
-  FutureOr<void> verifyForgotPassword(
-      VerifyforgotPassword event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(
-        isLoading: true,
-        message: null,
-        otpVerificationError: false,
-        hasError: false,
-        otpSend: false,
-        otpVerifiedForgotPassword: false));
-    final result = await authRepo.verifyOtpForgotPassword(
-        verifyOtpModel: event.verifyOtpModel);
-    result.fold(
-      (failure) => emit(
-        state.copyWith(
-            otpVerificationError: true,
-            isLoading: false,
-            hasError: true,
-            message: failure.message ?? errorMessage),
-      ),
-      (successResponseModel) => emit(
-        state.copyWith(
-            isLoading: false,
-            message: successResponseModel.message,
-            otpVerifiedForgotPassword: true),
-      ),
-    );
-  }
-
-  FutureOr<void> changePassword(
-      ChangePassword event, Emitter<AuthState> emit) async {
-    emit(
-      state.copyWith(
-          isLoading: true,
-          message: null,
-          hasError: false,
-          otpVerificationError: false),
-    );
-    final result = await authRepo.changePassword(
-        changePasswordModel: event.changePasswordModel);
-    result.fold(
-      (failure) => emit(
-        state.copyWith(
-            isLoading: false,
-            hasError: true,
-            message: failure.message ?? errorMessage),
-      ),
-      (successResponseModel) => emit(
-        state.copyWith(isLoading: false, message: successResponseModel.message),
-      ),
     );
   }
 }

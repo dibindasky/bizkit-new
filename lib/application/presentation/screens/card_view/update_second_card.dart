@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
-import 'package:bizkit/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -31,13 +29,11 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
       base64imageSelfie = widget.secondCard.selfie ?? "";
       base64imageSelfie = base64imageSelfie!
           .replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
-      //log('widget.secondCard.selfie ${widget.secondCard.selfie}');
     }
     if (widget.secondCard.image != null) {
       base64imagecard = widget.secondCard.image ?? "";
       base64imagecard =
           base64imagecard!.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
-      //log('widget.secondCard.selfie ${widget.secondCard.selfie}');
     }
     context.read<CardSecondBloc>().updateEmailController.text =
         widget.secondCard.email ?? '';
@@ -78,7 +74,6 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              //context.read<CardSecondBloc>().state.selfieImageModel == null;
               Navigator.pop(context);
             },
             icon: const Icon(Icons.keyboard_arrow_left_outlined),
@@ -428,6 +423,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                         adjustHieght(20),
                         !state.isLoading
                             ? LastSkipContinueButtons(
+                                continueText: 'Save',
                                 onTap: () {
                                   if (context
                                       .read<CardSecondBloc>()
@@ -435,6 +431,10 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                       .currentState!
                                       .validate()) {
                                     SecondCard secondCard = SecondCard(
+                                      whereWeMet: context
+                                          .read<CardSecondBloc>()
+                                          .occationController
+                                          .text,
                                       designation: context
                                           .read<CardSecondBloc>()
                                           .updatedesignationController
@@ -480,7 +480,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                           .text,
                                       selfie: state.selfieImageModel != null
                                           ? state.selfieImageModel!.base64
-                                          : widget.secondCard.image,
+                                          : widget.secondCard.selfie,
                                     );
                                     context.read<CardSecondBloc>().add(
                                           CardSecondEvent.updateCardSecond(

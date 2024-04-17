@@ -18,12 +18,12 @@ abstract class AuthRepo {
       {required SignUpIndivudalModel signUpIndivudalModel});
   Future<Either<Failure, SuccessResponseModel>> sendOtp(
       {required EmailModel emailModel});
-  Future<Either<Failure, SuccessResponseModel>> verifyOtp(
+  Future<Either<Failure, SuccessResponseModel>> signUpVerifyOtp(
       {required VerifyOtpModel verifyOtpModel});
-  Future<Either<Failure, SuccessResponseModel>> forgotPassword(
+  Future<Either<Failure, SuccessResponseModel>> forgotPasswordemailVerify(
       {required EmailModel emailModel});
-  Future<Either<Failure, SuccessResponseModel>> verifyOtpForgotPassword(
+  Future<Either<Failure, SuccessResponseModel>> forgotPasswordVerifyOtp(
       {required VerifyOtpModel verifyOtpModel});
-  Future<Either<Failure, SuccessResponseModel>> changePassword(
+  Future<Either<Failure, SuccessResponseModel>> forgottPassword(
       {required ChangePasswordModel changePasswordModel});
 }

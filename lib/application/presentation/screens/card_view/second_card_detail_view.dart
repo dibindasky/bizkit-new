@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/application/presentation/screens/card_view/widgets/reminder_adding_session.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -8,8 +8,9 @@ import 'package:bizkit/application/presentation/utils/previewscreen_icons/detail
 import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
-class SecondCardDetailView extends StatelessWidget {
+class SecondCardDetailView extends StatefulWidget {
   const SecondCardDetailView({
     super.key,
     this.cardId,
@@ -19,18 +20,42 @@ class SecondCardDetailView extends StatelessWidget {
   final bool myCard;
 
   @override
-  Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (cardId != null) {
-        context
-            .read<CardSecondBloc>()
-            .add(CardSecondEvent.getSecondCardDetail(id: cardId!));
-      }
-    });
+  State<SecondCardDetailView> createState() => _SecondCardDetailViewState();
+}
 
+class _SecondCardDetailViewState extends State<SecondCardDetailView> {
+  @override
+  void initState() {
+    if (widget.cardId != null) {
+      context
+          .read<CardSecondBloc>()
+          .add(CardSecondEvent.getSecondCardDetail(id: widget.cardId!));
+    }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<CardSecondBloc, CardSecondState>(
       buildWhen: (previous, current) => previous.isLoading != current.isLoading,
       builder: (context, state) {
+        String formattedTime = '';
+        if (state.getSecondCardModel != null &&
+            state.getSecondCardModel!.time != null) {
+          final timestampStr = state.getSecondCardModel?.time ?? '';
+          DateTime timestamp = DateFormat("HH:mm:ss.S").parse(timestampStr);
+          // Extract hour, minute, and second
+          int hour = timestamp.hour;
+          int minute = timestamp.minute;
+          int second = timestamp.second;
+          // Determine AM or PM
+          String amPm = hour >= 12 ? 'PM' : 'AM';
+          // Convert to 12-hour format
+          int hour12 = hour % 12 == 0 ? 12 : hour % 12;
+          // Format the time
+          formattedTime =
+              '$hour12:${minute.toString().padLeft(2, '0')}:${second.toString().padLeft(2, '0')} $amPm';
+        }
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
@@ -55,7 +80,7 @@ class SecondCardDetailView extends StatelessWidget {
                 )
               : state.getSecondCardModel == null
                   ? const Center(
-                      child: Text('QR card not found'),
+                      child: Text('Card not found'),
                     )
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -119,10 +144,6 @@ class SecondCardDetailView extends StatelessWidget {
                                 );
                               },
                             ),
-                            // !myCard
-                            // const CardViewAddReminderContainer(),
-                            //     : const SizedBox(),
-                            // row icons
                             const CardViewRowWiceIcons(),
                             adjustHieght(khieght * .02),
                             Container(
@@ -141,32 +162,39 @@ class SecondCardDetailView extends StatelessWidget {
                                 children: [
                                   adjustHieght(10),
                                   ItemsContainer(
-                                    heading: 'Venue',
-                                    item: state.getSecondCardModel?.whereWeMet,
+                                    heading: 'Location',
+                                    item: state.getSecondCardModel?.location ??
+                                        '',
                                   ),
                                   ItemsContainer(
-                                    heading: 'Location',
-                                    item: state.getSecondCardModel?.location,
+                                    heading: 'Occasion',
+                                    item:
+                                        state.getSecondCardModel?.whereWeMet ??
+                                            '',
                                   ),
                                   ItemsContainer(
                                     heading: 'Occupation',
-                                    item: state.getSecondCardModel?.occupation,
+                                    item:
+                                        state.getSecondCardModel?.occupation ??
+                                            '',
                                   ),
                                   ItemsContainer(
                                     heading: 'Designation',
-                                    item: state.getSecondCardModel?.whereWeMet,
+                                    item:
+                                        state.getSecondCardModel?.designation ??
+                                            '',
                                   ),
                                   ItemsContainer(
-                                    heading: 'Date',
-                                    item: state.getSecondCardModel?.date,
-                                  ),
+                                      heading: 'Date',
+                                      item:
+                                          state.getSecondCardModel?.date ?? ''),
                                   ItemsContainer(
                                     heading: 'Time',
-                                    item: state.getSecondCardModel?.time,
+                                    item: formattedTime,
                                   ),
                                   ItemsContainer(
                                     heading: 'Notes',
-                                    item: state.getSecondCardModel?.notes,
+                                    item: state.getSecondCardModel?.notes ?? '',
                                   ),
                                   adjustHieght(10),
                                 ],
@@ -183,72 +211,26 @@ class SecondCardDetailView extends StatelessWidget {
 }
 
 class ItemsContainer extends StatelessWidget {
-  const ItemsContainer({super.key, this.item, required this.heading});
-  final String? item;
+  const ItemsContainer({super.key, required this.item, required this.heading});
+  final String item;
   final String heading;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        item != null
+        item != ''
             ? Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                      width: kwidth * .3,
-                      child: Text(item != null ? heading : '')),
-                  Expanded(child: Text(item!)),
+                    width: kwidth * .3,
+                    child: Text(item != "" ? heading : ''),
+                  ),
+                  Expanded(child: Text(item)),
                 ],
               )
             : kempty
       ],
-
-      // Row(
-      //   mainAxisAlignment:
-      //       MainAxisAlignment.spaceAround,
-      //   children: [
-      //     Column(
-      //       crossAxisAlignment:
-      //           CrossAxisAlignment.start,
-      //       children: [
-      //         adjustHieght(10),
-      //         const Text('Venue'),
-      //         const Text('Location'),
-      //         const Text('Occupation'),
-      //         const Text('Designation'),
-      //         const Text('Date'),
-      //         const Text('Time'),
-      //         const Text('Notes'),
-      //         adjustHieght(10),
-      //       ],
-      //     ),
-      //     SizedBox(
-      //       width: kwidth * .4,
-      //       child: Column(
-      //         crossAxisAlignment:
-      //             CrossAxisAlignment.start,
-      //         children: [
-      //           adjustHieght(10),
-      //           Text(
-      //               '${state.getSecondCardModel!.whereWeMet}'),
-      //           Text(
-      //               '${state.getSecondCardModel!.location}'),
-      //           Text(
-      //               '${state.getSecondCardModel!.occupation}'),
-      //           Text(
-      //               '${state.getSecondCardModel!.designation}'),
-      //           Text(
-      //               '${state.getSecondCardModel!.date}'),
-      //           Text(
-      //               '${state.getSecondCardModel!.time}'),
-      //           Text(
-      //               '${state.getSecondCardModel!.notes}'),
-      //           adjustHieght(10),
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
@@ -293,36 +275,135 @@ class CardViewRowWiceIcons extends StatelessWidget {
                 if (state.getSecondCardModel != null &&
                     state.getSecondCardModel!.email != null) {
                   items.add(state.getSecondCardModel!.email!);
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 20),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: neonShade),
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: backgroundColour),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  adjustHieght(10),
+                                  Text(
+                                    'Websie details not available',
+                                    style: textHeadStyle1,
+                                  ),
+                                  adjustHieght(10)
+                                ],
+                              ),
+                            ),
+                          ));
                 }
-                showModalBottomSheet(
-                  context: context,
-                  enableDrag: true,
-                  isDismissible: true,
-                  showDragHandle: true,
-                  backgroundColor: kblack,
-                  builder: (context) => PreviewScreenRowIconsModelSheet(
-                    fromPreview: false,
-                    image: imagePhone,
-                    items: items,
-                  ),
-                );
+                if (state.getSecondCardModel != null &&
+                    state.getSecondCardModel!.email != null) {
+                  showModalBottomSheet(
+                    context: context,
+                    enableDrag: true,
+                    isDismissible: true,
+                    showDragHandle: true,
+                    backgroundColor: kblack,
+                    builder: (context) => PreviewScreenRowIconsModelSheet(
+                      fromPreview: false,
+                      image: imagePhone,
+                      items: items,
+                    ),
+                  );
+                }
               },
               image: gifMail,
             ),
             // website navigator
-            DetailSharingIconWidget(
-              onTap: () {
-                if (state.getSecondCardModel != null &&
-                    state.getSecondCardModel!.website != null) {
-                  LaunchUrl.launchUrls(url: state.getSecondCardModel!.website!);
-                }
-              },
-              image: gifGlobe,
-            ),
-            DetailSharingIconWidget(
-              onTap: () {},
-              image: gifLocation,
-            ),
+            state.getSecondCardModel != null &&
+                    state.getSecondCardModel!.website != null
+                ? DetailSharingIconWidget(
+                    onTap: () {
+                      LaunchUrl.launchUrls(
+                        url: state.getSecondCardModel!.website!,
+                      );
+                    },
+                    image: gifGlobe,
+                  )
+                : kempty,
+            state.getSecondCardModel != null &&
+                    state.getSecondCardModel!.location != null
+                ? DetailSharingIconWidget(
+                    onTap: () async {
+                      showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: neonShade),
+                                borderRadius: BorderRadius.circular(10),
+                                color: backgroundColour),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Address',
+                                  style: textHeadStyle1,
+                                ),
+                                adjustHieght(10),
+                                Text(
+                                  state.getSecondCardModel!.location ?? '',
+                                ),
+                                adjustHieght(10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    OutlinedButton.icon(
+                                      style: OutlinedButton.styleFrom(
+                                          side: const BorderSide(
+                                              color: neonShade)),
+                                      onPressed: () async {
+                                        await LaunchUrl.launchMap(
+                                                address: state
+                                                    .getSecondCardModel!
+                                                    .location!,
+                                                context: context)
+                                            .then((value) =>
+                                                Navigator.pop(context));
+                                      },
+                                      icon: const Icon(
+                                        Icons.location_on_outlined,
+                                      ),
+                                      label: const Text(
+                                        'ViewMap',
+                                        style: TextStyle(color: neonShade),
+                                      ),
+                                    ),
+                                    adjustWidth(10),
+                                    OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                          side: const BorderSide(
+                                              color: neonShade)),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text(
+                                        'cancel',
+                                        style: TextStyle(color: neonShade),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    image: gifLocation,
+                  )
+                : kempty
           ],
         );
       },

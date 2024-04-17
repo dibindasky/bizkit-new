@@ -22,6 +22,8 @@ class NotificationService implements NotificationRepo {
     required PageQuery pageQuery,
   }) async {
     try {
+      log('getNotification  ${pageQuery.toJson()}');
+
       final responce = await _apiService.get(
         ApiEndPoints.notification,
         queryParameters: pageQuery.toJson(),

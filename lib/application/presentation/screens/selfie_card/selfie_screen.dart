@@ -264,10 +264,12 @@ class ContainerPickImage extends StatelessWidget {
                                   context.read<CardSecondBloc>().add(
                                       const CardSecondEvent.scanImage(
                                           isCam: false));
-                                  fromMain
-                                      ? Navigator.of(context).push(
-                                          fadePageRoute(const SelectedCard()))
-                                      : null;
+                                  if (fromMain) {
+                                    context.read<CardSecondBloc>().add(
+                                        const CardSecondEvent.imageClear());
+                                    Navigator.of(context).push(
+                                        fadePageRoute(const SelectedCard()));
+                                  }
                                 },
                             child: Container(
                               padding: const EdgeInsets.all(10),
@@ -288,10 +290,13 @@ class ContainerPickImage extends StatelessWidget {
                           () {
                             context.read<CardSecondBloc>().add(
                                 const CardSecondEvent.scanImage(isCam: true));
-                            fromMain
-                                ? Navigator.of(context)
-                                    .push(fadePageRoute(const SelectedCard()))
-                                : null;
+                            if (fromMain) {
+                              context
+                                  .read<CardSecondBloc>()
+                                  .add(const CardSecondEvent.imageClear());
+                              Navigator.of(context)
+                                  .push(fadePageRoute(const SelectedCard()));
+                            }
                           },
                       child: Container(
                         padding: const EdgeInsets.all(10),

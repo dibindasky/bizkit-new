@@ -131,7 +131,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         otpSendIndividual: false,
         otpSendBusiness: false));
     final result =
-        await authRepo.verifyOtp(verifyOtpModel: event.verifyOtpModel);
+        await authRepo.signUpVerifyOtp(verifyOtpModel: event.verifyOtpModel);
     result.fold(
       (failure) => emit(
         state.copyWith(

@@ -443,8 +443,8 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     },
                   ),
                   adjustHieght(khieght * .03),
-                  const Text('Selfie connected cards'),
-                  adjustHieght(khieght * .03),
+                  const Text('Selfie cards'),
+                  adjustHieght(khieght * .02),
                   BlocConsumer<CardSecondBloc, CardSecondState>(
                     listener: (context, state) {
                       if (state.message != null && state.secondCardDeleted) {
@@ -453,20 +453,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                           message: state.message!,
                         );
                       }
-                      // if (state.hasError) {
-                      //   return showSnackbar(
-                      //     context,
-                      //     message: state.message ?? errorMessage,
-                      //     backgroundColor: kred,
-                      //   );
-                      // }
                     },
                     builder: (context, state) {
                       if (state.secondCardLoading) {
-                        // return SizedBox(
-                        //   height: khieght * .4,
-                        //   child: const LoadingAnimation(),
-                        // );
                         return SizedBox(
                           height: khieght * .35,
                           child: ShimmerLoader(

@@ -200,13 +200,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> getProfile(GetProfile event, emit) async {
-    if (state.getUserInfoModel != null && event.isLoad == false) return;
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    if (state.getUserInfoModel != null &&
+        state.getUserInfoModel!.results!.name != null) {
+      userNameController.text = state.getUserInfoModel!.results!.name!;
+    }
+    if (state.getUserInfoModel != null && !event.isLoad) return;
+    emit(state.copyWith(profileLoading: true, hasError: false, message: null));
     final data = await profileRepo.getProfile();
     data.fold(
         (l) => emit(
               state.copyWith(
-                isLoading: false,
+                profileLoading: false,
                 hasError: false,
                 message: errorMessage,
               ),
@@ -217,12 +221,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }
       emit(
         state.copyWith(
-          isLoading: false,
+          profileLoading: false,
           hasError: false,
           getUserInfoModel: r,
         ),
       );
-      userNameController.text = r.results!.name ?? 'No name';
     });
   }
 

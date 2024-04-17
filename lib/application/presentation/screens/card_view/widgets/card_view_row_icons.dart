@@ -18,7 +18,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-//phone number botom sheet
+            //phone number botom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -47,7 +47,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: imagePhone,
             ),
-// email bottom sheet
+            // email bottom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -76,7 +76,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: gifMail,
             ),
-// website navigator
+            // website navigator
             DetailSharingIconWidget(
               onTap: () {
                 showDialog(
@@ -170,7 +170,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: gifGlobe,
             ),
-// social media bottom sheet
+            // social media bottom sheet
             DetailSharingIconWidget(
               onTap: () => (state.anotherCard?.socialMedia ?? []).isEmpty &&
                       (state.anotherCard?.businessSocialMedia ?? []).isEmpty
@@ -214,7 +214,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     ),
               image: imageSpinner,
             ),
-// location navigator
+            // location navigator
             DetailSharingIconWidget(
               onTap: () {
                 showDialog(

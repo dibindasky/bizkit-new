@@ -20,11 +20,6 @@ mixin _$AuthEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(EmailModel emailModel) forgotPassword,
-    required TResult Function(VerifyOtpModel verifyOtpModel)
-        verifyforgotPassword,
-    required TResult Function(ChangePasswordModel changePasswordModel)
-        changePassword,
     required TResult Function() log,
     required TResult Function() logOut,
   }) =>
@@ -33,9 +28,6 @@ mixin _$AuthEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(EmailModel emailModel)? forgotPassword,
-    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
     TResult? Function()? logOut,
   }) =>
@@ -44,9 +36,6 @@ mixin _$AuthEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(EmailModel emailModel)? forgotPassword,
-    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
     TResult Function()? logOut,
     required TResult orElse(),
@@ -56,9 +45,6 @@ mixin _$AuthEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
-    required TResult Function(ForgotPassword value) forgotPassword,
-    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
-    required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
     required TResult Function(LogOut value) logOut,
   }) =>
@@ -67,9 +53,6 @@ mixin _$AuthEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
-    TResult? Function(ForgotPassword value)? forgotPassword,
-    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
     TResult? Function(LogOut value)? logOut,
   }) =>
@@ -78,9 +61,6 @@ mixin _$AuthEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
-    TResult Function(ForgotPassword value)? forgotPassword,
-    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
     TResult Function(LogOut value)? logOut,
     required TResult orElse(),
@@ -145,11 +125,6 @@ class _$OnBoardskipImpl implements OnBoardskip {
   TResult when<TResult extends Object?>({
     required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(EmailModel emailModel) forgotPassword,
-    required TResult Function(VerifyOtpModel verifyOtpModel)
-        verifyforgotPassword,
-    required TResult Function(ChangePasswordModel changePasswordModel)
-        changePassword,
     required TResult Function() log,
     required TResult Function() logOut,
   }) {
@@ -161,9 +136,6 @@ class _$OnBoardskipImpl implements OnBoardskip {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(EmailModel emailModel)? forgotPassword,
-    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
     TResult? Function()? logOut,
   }) {
@@ -175,9 +147,6 @@ class _$OnBoardskipImpl implements OnBoardskip {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(EmailModel emailModel)? forgotPassword,
-    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
     TResult Function()? logOut,
     required TResult orElse(),
@@ -193,9 +162,6 @@ class _$OnBoardskipImpl implements OnBoardskip {
   TResult map<TResult extends Object?>({
     required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
-    required TResult Function(ForgotPassword value) forgotPassword,
-    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
-    required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
     required TResult Function(LogOut value) logOut,
   }) {
@@ -207,9 +173,6 @@ class _$OnBoardskipImpl implements OnBoardskip {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
-    TResult? Function(ForgotPassword value)? forgotPassword,
-    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
     TResult? Function(LogOut value)? logOut,
   }) {
@@ -221,9 +184,6 @@ class _$OnBoardskipImpl implements OnBoardskip {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
-    TResult Function(ForgotPassword value)? forgotPassword,
-    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
     TResult Function(LogOut value)? logOut,
     required TResult orElse(),
@@ -306,11 +266,6 @@ class _$LoginImpl implements Login {
   TResult when<TResult extends Object?>({
     required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(EmailModel emailModel) forgotPassword,
-    required TResult Function(VerifyOtpModel verifyOtpModel)
-        verifyforgotPassword,
-    required TResult Function(ChangePasswordModel changePasswordModel)
-        changePassword,
     required TResult Function() log,
     required TResult Function() logOut,
   }) {
@@ -322,9 +277,6 @@ class _$LoginImpl implements Login {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(EmailModel emailModel)? forgotPassword,
-    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
     TResult? Function()? logOut,
   }) {
@@ -336,9 +288,6 @@ class _$LoginImpl implements Login {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(EmailModel emailModel)? forgotPassword,
-    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
     TResult Function()? logOut,
     required TResult orElse(),
@@ -354,9 +303,6 @@ class _$LoginImpl implements Login {
   TResult map<TResult extends Object?>({
     required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
-    required TResult Function(ForgotPassword value) forgotPassword,
-    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
-    required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
     required TResult Function(LogOut value) logOut,
   }) {
@@ -368,9 +314,6 @@ class _$LoginImpl implements Login {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
-    TResult? Function(ForgotPassword value)? forgotPassword,
-    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
     TResult? Function(LogOut value)? logOut,
   }) {
@@ -382,9 +325,6 @@ class _$LoginImpl implements Login {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
-    TResult Function(ForgotPassword value)? forgotPassword,
-    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
     TResult Function(LogOut value)? logOut,
     required TResult orElse(),
@@ -402,513 +342,6 @@ abstract class Login implements AuthEvent {
   LoginModel get loginModel;
   @JsonKey(ignore: true)
   _$$LoginImplCopyWith<_$LoginImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ForgotPasswordImplCopyWith<$Res> {
-  factory _$$ForgotPasswordImplCopyWith(_$ForgotPasswordImpl value,
-          $Res Function(_$ForgotPasswordImpl) then) =
-      __$$ForgotPasswordImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({EmailModel emailModel});
-}
-
-/// @nodoc
-class __$$ForgotPasswordImplCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$ForgotPasswordImpl>
-    implements _$$ForgotPasswordImplCopyWith<$Res> {
-  __$$ForgotPasswordImplCopyWithImpl(
-      _$ForgotPasswordImpl _value, $Res Function(_$ForgotPasswordImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? emailModel = null,
-  }) {
-    return _then(_$ForgotPasswordImpl(
-      emailModel: null == emailModel
-          ? _value.emailModel
-          : emailModel // ignore: cast_nullable_to_non_nullable
-              as EmailModel,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$ForgotPasswordImpl implements ForgotPassword {
-  const _$ForgotPasswordImpl({required this.emailModel});
-
-  @override
-  final EmailModel emailModel;
-
-  @override
-  String toString() {
-    return 'AuthEvent.forgotPassword(emailModel: $emailModel)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ForgotPasswordImpl &&
-            (identical(other.emailModel, emailModel) ||
-                other.emailModel == emailModel));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, emailModel);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ForgotPasswordImplCopyWith<_$ForgotPasswordImpl> get copyWith =>
-      __$$ForgotPasswordImplCopyWithImpl<_$ForgotPasswordImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() onBoardskip,
-    required TResult Function(LoginModel loginModel) login,
-    required TResult Function(EmailModel emailModel) forgotPassword,
-    required TResult Function(VerifyOtpModel verifyOtpModel)
-        verifyforgotPassword,
-    required TResult Function(ChangePasswordModel changePasswordModel)
-        changePassword,
-    required TResult Function() log,
-    required TResult Function() logOut,
-  }) {
-    return forgotPassword(emailModel);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? onBoardskip,
-    TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(EmailModel emailModel)? forgotPassword,
-    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
-    TResult? Function()? log,
-    TResult? Function()? logOut,
-  }) {
-    return forgotPassword?.call(emailModel);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? onBoardskip,
-    TResult Function(LoginModel loginModel)? login,
-    TResult Function(EmailModel emailModel)? forgotPassword,
-    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
-    TResult Function()? log,
-    TResult Function()? logOut,
-    required TResult orElse(),
-  }) {
-    if (forgotPassword != null) {
-      return forgotPassword(emailModel);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(OnBoardskip value) onBoardskip,
-    required TResult Function(Login value) login,
-    required TResult Function(ForgotPassword value) forgotPassword,
-    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
-    required TResult Function(ChangePassword value) changePassword,
-    required TResult Function(Log value) log,
-    required TResult Function(LogOut value) logOut,
-  }) {
-    return forgotPassword(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OnBoardskip value)? onBoardskip,
-    TResult? Function(Login value)? login,
-    TResult? Function(ForgotPassword value)? forgotPassword,
-    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult? Function(ChangePassword value)? changePassword,
-    TResult? Function(Log value)? log,
-    TResult? Function(LogOut value)? logOut,
-  }) {
-    return forgotPassword?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(OnBoardskip value)? onBoardskip,
-    TResult Function(Login value)? login,
-    TResult Function(ForgotPassword value)? forgotPassword,
-    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult Function(ChangePassword value)? changePassword,
-    TResult Function(Log value)? log,
-    TResult Function(LogOut value)? logOut,
-    required TResult orElse(),
-  }) {
-    if (forgotPassword != null) {
-      return forgotPassword(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ForgotPassword implements AuthEvent {
-  const factory ForgotPassword({required final EmailModel emailModel}) =
-      _$ForgotPasswordImpl;
-
-  EmailModel get emailModel;
-  @JsonKey(ignore: true)
-  _$$ForgotPasswordImplCopyWith<_$ForgotPasswordImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$VerifyforgotPasswordImplCopyWith<$Res> {
-  factory _$$VerifyforgotPasswordImplCopyWith(_$VerifyforgotPasswordImpl value,
-          $Res Function(_$VerifyforgotPasswordImpl) then) =
-      __$$VerifyforgotPasswordImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({VerifyOtpModel verifyOtpModel});
-}
-
-/// @nodoc
-class __$$VerifyforgotPasswordImplCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$VerifyforgotPasswordImpl>
-    implements _$$VerifyforgotPasswordImplCopyWith<$Res> {
-  __$$VerifyforgotPasswordImplCopyWithImpl(_$VerifyforgotPasswordImpl _value,
-      $Res Function(_$VerifyforgotPasswordImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? verifyOtpModel = null,
-  }) {
-    return _then(_$VerifyforgotPasswordImpl(
-      verifyOtpModel: null == verifyOtpModel
-          ? _value.verifyOtpModel
-          : verifyOtpModel // ignore: cast_nullable_to_non_nullable
-              as VerifyOtpModel,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$VerifyforgotPasswordImpl implements VerifyforgotPassword {
-  const _$VerifyforgotPasswordImpl({required this.verifyOtpModel});
-
-  @override
-  final VerifyOtpModel verifyOtpModel;
-
-  @override
-  String toString() {
-    return 'AuthEvent.verifyforgotPassword(verifyOtpModel: $verifyOtpModel)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$VerifyforgotPasswordImpl &&
-            (identical(other.verifyOtpModel, verifyOtpModel) ||
-                other.verifyOtpModel == verifyOtpModel));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, verifyOtpModel);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$VerifyforgotPasswordImplCopyWith<_$VerifyforgotPasswordImpl>
-      get copyWith =>
-          __$$VerifyforgotPasswordImplCopyWithImpl<_$VerifyforgotPasswordImpl>(
-              this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() onBoardskip,
-    required TResult Function(LoginModel loginModel) login,
-    required TResult Function(EmailModel emailModel) forgotPassword,
-    required TResult Function(VerifyOtpModel verifyOtpModel)
-        verifyforgotPassword,
-    required TResult Function(ChangePasswordModel changePasswordModel)
-        changePassword,
-    required TResult Function() log,
-    required TResult Function() logOut,
-  }) {
-    return verifyforgotPassword(verifyOtpModel);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? onBoardskip,
-    TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(EmailModel emailModel)? forgotPassword,
-    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
-    TResult? Function()? log,
-    TResult? Function()? logOut,
-  }) {
-    return verifyforgotPassword?.call(verifyOtpModel);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? onBoardskip,
-    TResult Function(LoginModel loginModel)? login,
-    TResult Function(EmailModel emailModel)? forgotPassword,
-    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
-    TResult Function()? log,
-    TResult Function()? logOut,
-    required TResult orElse(),
-  }) {
-    if (verifyforgotPassword != null) {
-      return verifyforgotPassword(verifyOtpModel);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(OnBoardskip value) onBoardskip,
-    required TResult Function(Login value) login,
-    required TResult Function(ForgotPassword value) forgotPassword,
-    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
-    required TResult Function(ChangePassword value) changePassword,
-    required TResult Function(Log value) log,
-    required TResult Function(LogOut value) logOut,
-  }) {
-    return verifyforgotPassword(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OnBoardskip value)? onBoardskip,
-    TResult? Function(Login value)? login,
-    TResult? Function(ForgotPassword value)? forgotPassword,
-    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult? Function(ChangePassword value)? changePassword,
-    TResult? Function(Log value)? log,
-    TResult? Function(LogOut value)? logOut,
-  }) {
-    return verifyforgotPassword?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(OnBoardskip value)? onBoardskip,
-    TResult Function(Login value)? login,
-    TResult Function(ForgotPassword value)? forgotPassword,
-    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult Function(ChangePassword value)? changePassword,
-    TResult Function(Log value)? log,
-    TResult Function(LogOut value)? logOut,
-    required TResult orElse(),
-  }) {
-    if (verifyforgotPassword != null) {
-      return verifyforgotPassword(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class VerifyforgotPassword implements AuthEvent {
-  const factory VerifyforgotPassword(
-          {required final VerifyOtpModel verifyOtpModel}) =
-      _$VerifyforgotPasswordImpl;
-
-  VerifyOtpModel get verifyOtpModel;
-  @JsonKey(ignore: true)
-  _$$VerifyforgotPasswordImplCopyWith<_$VerifyforgotPasswordImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ChangePasswordImplCopyWith<$Res> {
-  factory _$$ChangePasswordImplCopyWith(_$ChangePasswordImpl value,
-          $Res Function(_$ChangePasswordImpl) then) =
-      __$$ChangePasswordImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({ChangePasswordModel changePasswordModel});
-}
-
-/// @nodoc
-class __$$ChangePasswordImplCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$ChangePasswordImpl>
-    implements _$$ChangePasswordImplCopyWith<$Res> {
-  __$$ChangePasswordImplCopyWithImpl(
-      _$ChangePasswordImpl _value, $Res Function(_$ChangePasswordImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? changePasswordModel = null,
-  }) {
-    return _then(_$ChangePasswordImpl(
-      changePasswordModel: null == changePasswordModel
-          ? _value.changePasswordModel
-          : changePasswordModel // ignore: cast_nullable_to_non_nullable
-              as ChangePasswordModel,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$ChangePasswordImpl implements ChangePassword {
-  const _$ChangePasswordImpl({required this.changePasswordModel});
-
-  @override
-  final ChangePasswordModel changePasswordModel;
-
-  @override
-  String toString() {
-    return 'AuthEvent.changePassword(changePasswordModel: $changePasswordModel)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ChangePasswordImpl &&
-            (identical(other.changePasswordModel, changePasswordModel) ||
-                other.changePasswordModel == changePasswordModel));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, changePasswordModel);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ChangePasswordImplCopyWith<_$ChangePasswordImpl> get copyWith =>
-      __$$ChangePasswordImplCopyWithImpl<_$ChangePasswordImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() onBoardskip,
-    required TResult Function(LoginModel loginModel) login,
-    required TResult Function(EmailModel emailModel) forgotPassword,
-    required TResult Function(VerifyOtpModel verifyOtpModel)
-        verifyforgotPassword,
-    required TResult Function(ChangePasswordModel changePasswordModel)
-        changePassword,
-    required TResult Function() log,
-    required TResult Function() logOut,
-  }) {
-    return changePassword(changePasswordModel);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? onBoardskip,
-    TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(EmailModel emailModel)? forgotPassword,
-    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
-    TResult? Function()? log,
-    TResult? Function()? logOut,
-  }) {
-    return changePassword?.call(changePasswordModel);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? onBoardskip,
-    TResult Function(LoginModel loginModel)? login,
-    TResult Function(EmailModel emailModel)? forgotPassword,
-    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
-    TResult Function()? log,
-    TResult Function()? logOut,
-    required TResult orElse(),
-  }) {
-    if (changePassword != null) {
-      return changePassword(changePasswordModel);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(OnBoardskip value) onBoardskip,
-    required TResult Function(Login value) login,
-    required TResult Function(ForgotPassword value) forgotPassword,
-    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
-    required TResult Function(ChangePassword value) changePassword,
-    required TResult Function(Log value) log,
-    required TResult Function(LogOut value) logOut,
-  }) {
-    return changePassword(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OnBoardskip value)? onBoardskip,
-    TResult? Function(Login value)? login,
-    TResult? Function(ForgotPassword value)? forgotPassword,
-    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult? Function(ChangePassword value)? changePassword,
-    TResult? Function(Log value)? log,
-    TResult? Function(LogOut value)? logOut,
-  }) {
-    return changePassword?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(OnBoardskip value)? onBoardskip,
-    TResult Function(Login value)? login,
-    TResult Function(ForgotPassword value)? forgotPassword,
-    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult Function(ChangePassword value)? changePassword,
-    TResult Function(Log value)? log,
-    TResult Function(LogOut value)? logOut,
-    required TResult orElse(),
-  }) {
-    if (changePassword != null) {
-      return changePassword(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ChangePassword implements AuthEvent {
-  const factory ChangePassword(
-          {required final ChangePasswordModel changePasswordModel}) =
-      _$ChangePasswordImpl;
-
-  ChangePasswordModel get changePasswordModel;
-  @JsonKey(ignore: true)
-  _$$ChangePasswordImplCopyWith<_$ChangePasswordImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -950,11 +383,6 @@ class _$LogImpl implements Log {
   TResult when<TResult extends Object?>({
     required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(EmailModel emailModel) forgotPassword,
-    required TResult Function(VerifyOtpModel verifyOtpModel)
-        verifyforgotPassword,
-    required TResult Function(ChangePasswordModel changePasswordModel)
-        changePassword,
     required TResult Function() log,
     required TResult Function() logOut,
   }) {
@@ -966,9 +394,6 @@ class _$LogImpl implements Log {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(EmailModel emailModel)? forgotPassword,
-    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
     TResult? Function()? logOut,
   }) {
@@ -980,9 +405,6 @@ class _$LogImpl implements Log {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(EmailModel emailModel)? forgotPassword,
-    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
     TResult Function()? logOut,
     required TResult orElse(),
@@ -998,9 +420,6 @@ class _$LogImpl implements Log {
   TResult map<TResult extends Object?>({
     required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
-    required TResult Function(ForgotPassword value) forgotPassword,
-    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
-    required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
     required TResult Function(LogOut value) logOut,
   }) {
@@ -1012,9 +431,6 @@ class _$LogImpl implements Log {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
-    TResult? Function(ForgotPassword value)? forgotPassword,
-    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
     TResult? Function(LogOut value)? logOut,
   }) {
@@ -1026,9 +442,6 @@ class _$LogImpl implements Log {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
-    TResult Function(ForgotPassword value)? forgotPassword,
-    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
     TResult Function(LogOut value)? logOut,
     required TResult orElse(),
@@ -1084,11 +497,6 @@ class _$LogOutImpl implements LogOut {
   TResult when<TResult extends Object?>({
     required TResult Function() onBoardskip,
     required TResult Function(LoginModel loginModel) login,
-    required TResult Function(EmailModel emailModel) forgotPassword,
-    required TResult Function(VerifyOtpModel verifyOtpModel)
-        verifyforgotPassword,
-    required TResult Function(ChangePasswordModel changePasswordModel)
-        changePassword,
     required TResult Function() log,
     required TResult Function() logOut,
   }) {
@@ -1100,9 +508,6 @@ class _$LogOutImpl implements LogOut {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onBoardskip,
     TResult? Function(LoginModel loginModel)? login,
-    TResult? Function(EmailModel emailModel)? forgotPassword,
-    TResult? Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult? Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult? Function()? log,
     TResult? Function()? logOut,
   }) {
@@ -1114,9 +519,6 @@ class _$LogOutImpl implements LogOut {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onBoardskip,
     TResult Function(LoginModel loginModel)? login,
-    TResult Function(EmailModel emailModel)? forgotPassword,
-    TResult Function(VerifyOtpModel verifyOtpModel)? verifyforgotPassword,
-    TResult Function(ChangePasswordModel changePasswordModel)? changePassword,
     TResult Function()? log,
     TResult Function()? logOut,
     required TResult orElse(),
@@ -1132,9 +534,6 @@ class _$LogOutImpl implements LogOut {
   TResult map<TResult extends Object?>({
     required TResult Function(OnBoardskip value) onBoardskip,
     required TResult Function(Login value) login,
-    required TResult Function(ForgotPassword value) forgotPassword,
-    required TResult Function(VerifyforgotPassword value) verifyforgotPassword,
-    required TResult Function(ChangePassword value) changePassword,
     required TResult Function(Log value) log,
     required TResult Function(LogOut value) logOut,
   }) {
@@ -1146,9 +545,6 @@ class _$LogOutImpl implements LogOut {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OnBoardskip value)? onBoardskip,
     TResult? Function(Login value)? login,
-    TResult? Function(ForgotPassword value)? forgotPassword,
-    TResult? Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult? Function(ChangePassword value)? changePassword,
     TResult? Function(Log value)? log,
     TResult? Function(LogOut value)? logOut,
   }) {
@@ -1160,9 +556,6 @@ class _$LogOutImpl implements LogOut {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnBoardskip value)? onBoardskip,
     TResult Function(Login value)? login,
-    TResult Function(ForgotPassword value)? forgotPassword,
-    TResult Function(VerifyforgotPassword value)? verifyforgotPassword,
-    TResult Function(ChangePassword value)? changePassword,
     TResult Function(Log value)? log,
     TResult Function(LogOut value)? logOut,
     required TResult orElse(),

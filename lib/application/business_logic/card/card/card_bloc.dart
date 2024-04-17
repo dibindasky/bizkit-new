@@ -21,7 +21,6 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   final CardRepo cardService;
   final PdfPickerImpl pdfPicker;
   int cardPage = 1, archevedCards = 1, deletedCards = 1;
-
   CardBloc(this.cardService, this.pdfPicker) : super(CardState.initial()) {
     on<GetCards>(getCards);
     on<GetCardsnextPage>(getCardsnextPage);
@@ -41,9 +40,10 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   }
 
   FutureOr<void> clear(Clear event, emit) async {
-    return emit(CardState.initial());
+    emit(CardState.initial());
   }
 
+<<<<<<< HEAD
   FutureOr<void> getCardViews(GetCardViews event, emit) async {
     emit(state.copyWith(
         viewsLoading: true,
@@ -58,10 +58,17 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   }
 
   FutureOr<void> getdeleteCardsEvent(GetdeleteCardsEvent event, emit) async {
+=======
+  Future<void> getdeleteCardsEvent(GetdeleteCardsEvent event, emit) async {
+>>>>>>> ezz
     emit(state.copyWith(
-        deleteCardEventLoading: true, hasError: false, message: null));
+      deleteCardEventLoading: true,
+      hasError: false,
+      message: null,
+    ));
     final data = await cardService.getDeletedCardsList(
-        pageQuery: PageQuery(page: ++deletedCards));
+      pageQuery: PageQuery(page: ++deletedCards),
+    );
     data.fold(
         (l) => emit(state.copyWith(
               deleteCardEventLoading: false,
@@ -72,8 +79,8 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         deleteCardEventLoading: false,
         hasError: true,
         deletedCards: [
-          ...state.deletedCards!,
-          ...r.blockedCards!,
+          ...state.deletedCards ?? [],
+          ...r.blockedCards ?? [],
         ],
       ));
     });
@@ -97,7 +104,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       emit(state.copyWith(
         deleteCardLoading: false,
         hasError: false,
-        deletedCards: r.blockedCards!,
+        deletedCards: r.blockedCards ?? [],
       ));
     });
   }
@@ -131,7 +138,10 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       emit(state.copyWith(
         archiveCardLoading: false,
         hasError: false,
-        archievedCards: [...state.archievedCards!, ...r.archiveCards!],
+        archievedCards: [
+          ...state.archievedCards ?? [],
+          ...r.archiveCards ?? []
+        ],
       ));
     });
   }

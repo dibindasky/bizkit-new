@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
@@ -56,8 +58,9 @@ class AuthService implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> verifyOtp(
-      {required VerifyOtpModel verifyOtpModel}) async {
+  Future<Either<Failure, SuccessResponseModel>> signUpVerifyOtp({
+    required VerifyOtpModel verifyOtpModel,
+  }) async {
     try {
       print('otp verify data ${verifyOtpModel.toJson()}');
       final response = await _dio.post(ApiEndPoints.verifyOtp,
@@ -113,43 +116,58 @@ class AuthService implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> changePassword(
-      {required ChangePasswordModel changePasswordModel}) async {
+  Future<Either<Failure, SuccessResponseModel>> forgottPassword({
+    required ChangePasswordModel changePasswordModel,
+  }) async {
     try {
-      final response = await _dio.post(ApiEndPoints.changePassword,
-          data: changePasswordModel.toJson());
+      final response = await _dio.post(
+        ApiEndPoints.forgottPassword,
+        data: changePasswordModel.toJson(),
+      );
+      log('forgottPassword data ${response.data} ');
       return Right(SuccessResponseModel.fromJson(response.data));
     } on DioException catch (e) {
+      log('forgottPassword DioException $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
+      log('forgottPassword catch $e');
       return Left(Failure(message: errorMessage));
     }
   }
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> forgotPassword(
-      {required EmailModel emailModel}) async {
+  Future<Either<Failure, SuccessResponseModel>> forgotPasswordemailVerify({
+    required EmailModel emailModel,
+  }) async {
     try {
+      log('forgotPasswordemailVerify data before ${emailModel.toJson()}');
       final response = await _dio.post(ApiEndPoints.forgotPassword,
           data: emailModel.toJson());
+      log('forgotPasswordemailVerify data ${response.data}');
       return Right(SuccessResponseModel.fromJson(response.data));
     } on DioException catch (e) {
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      log('forgotPasswordemailVerify DioException $e');
+      return Left(Failure(message: errorMessage));
     } catch (e) {
+      log('forgotPasswordemailVerify catch $e');
       return Left(Failure(message: errorMessage));
     }
   }
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> verifyOtpForgotPassword(
-      {required VerifyOtpModel verifyOtpModel}) async {
+  Future<Either<Failure, SuccessResponseModel>> forgotPasswordVerifyOtp({
+    required VerifyOtpModel verifyOtpModel,
+  }) async {
     try {
       final response = await _dio.post(ApiEndPoints.verifyforgotPassword,
           data: verifyOtpModel.toJson());
+      log('forgotPasswordVerifyOtp data ${response.data}');
       return Right(SuccessResponseModel.fromJson(response.data));
     } on DioException catch (e) {
+      log('forgotPasswordVerifyOtp DioException $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
+      log('forgotPasswordVerifyOtp catch $e');
       return Left(Failure(message: errorMessage));
     }
   }

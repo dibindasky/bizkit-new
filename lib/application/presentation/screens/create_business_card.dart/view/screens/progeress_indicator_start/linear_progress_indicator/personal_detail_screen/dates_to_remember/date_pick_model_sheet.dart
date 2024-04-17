@@ -75,7 +75,8 @@ class DatePickingBottomSheet extends StatelessWidget {
                     child: const Text(
                       'Cancel',
                     ),
-                  ),adjustWidth(20),
+                  ),
+                  adjustWidth(20),
                   OutlinedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -83,7 +84,8 @@ class DatePickingBottomSheet extends StatelessWidget {
                     child: const Text(
                       'ok',
                     ),
-                  ),adjustWidth(20)
+                  ),
+                  adjustWidth(20)
                 ],
               )
             ],

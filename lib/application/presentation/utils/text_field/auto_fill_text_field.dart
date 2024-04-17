@@ -253,7 +253,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                       return null;
                     }
                   } else if (Validate.website == widget.validate &&
-                      !isValidWebsite(value!)) {
+                      !isURLValid(value!)) {
                     return 'Enter valid website';
                   }
                   return null;

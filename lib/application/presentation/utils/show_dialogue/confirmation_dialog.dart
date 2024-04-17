@@ -12,8 +12,10 @@ showCustomConfirmationDialoge(
     builder: (context) => Dialog(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        decoration: BoxDecoration(border: Border.all(color: neonShade),
-            borderRadius: BorderRadius.circular(10), color: backgroundColour),
+        decoration: BoxDecoration(
+            border: Border.all(color: neonShade),
+            borderRadius: BorderRadius.circular(10),
+            color: backgroundColour),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

@@ -69,12 +69,13 @@ class IndividuelSignIn extends StatelessWidget {
                     // navigate to otp screen when send
                     final SignUpIndivudalModel signUpModel =
                         SignUpIndivudalModel(
-                            isBusiness: false,
-                            isVerified: false,
-                            name: nameController.text.trim(),
-                            email: emailIdController.text.trim(),
-                            password: passwordController.text.trim(),
-                            phoneNumber: mobileController.text.trim());
+                      isBusiness: false,
+                      isVerified: false,
+                      name: nameController.text.trim(),
+                      email: emailIdController.text.trim(),
+                      password: passwordController.text.trim(),
+                      phoneNumber: mobileController.text.trim(),
+                    );
                     print('otp individual got');
                     GoRouter.of(context)
                         .pushNamed(Routes.otpPage, pathParameters: {

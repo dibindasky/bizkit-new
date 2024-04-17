@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/auth/forgott_passwrod/forgott_password_bloc.dart';
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
               create: (ctx) =>
                   InternetConnectionCheckCubit(connectivity: connectivity)),
           BlocProvider(create: (context) => getIt<ContactsBloc>()),
+          BlocProvider(create: (context) => getIt<ForgottPasswordBloc>()),
           BlocProvider(create: (context) => getIt<NotificationBloc>()),
           BlocProvider(create: (context) => getIt<AuthBloc>()),
           BlocProvider(create: (context) => getIt<UserDataBloc>()),

@@ -18,15 +18,16 @@ class SignUpModel {
   @JsonKey(name: 'is_verified')
   bool isVerified;
 
-  SignUpModel(
-      {this.email,
-      this.phoneNumber,
-      this.password,
-      this.websiteLink,
-      this.companyName,
-      this.address,
-      this.isBusiness = true,
-      this.isVerified = false});
+  SignUpModel({
+    this.email,
+    this.phoneNumber,
+    this.password,
+    this.websiteLink,
+    this.companyName,
+    this.address,
+    this.isBusiness = true,
+    this.isVerified = false,
+  });
 
   factory SignUpModel.fromJson(Map<String, dynamic> json) {
     return _$SignUpModelFromJson(json);

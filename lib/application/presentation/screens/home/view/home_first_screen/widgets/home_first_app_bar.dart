@@ -22,6 +22,14 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
   bool isOPen = false;
 
   @override
+  void initState() {
+    context
+        .read<ProfileBloc>()
+        .add(const ProfileEvent.getProfile(isLoad: false));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -31,7 +39,7 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BlocBuilder<AuthBloc, AuthState>(
+                BlocBuilder<ProfileBloc, ProfileState>(
                   builder: (context, state) {
                     return Text(
                       '${state.userName != null ? state.userName!.length > 15 ? '${state.userName!.substring(0, 15)}..' : state.userName : ''}',
@@ -42,11 +50,6 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
                     );
                   },
                 ),
-                // const Padding(
-                //   padding: EdgeInsets.only(right: 20, top: 10),
-                //   child: LinearProgressIndicator(
-                //       backgroundColor: kblack, color: neonShade, value: 0.5),
-                // )
               ],
             ),
           ),

@@ -19,6 +19,14 @@ class _EditUserDetailsState extends State<EditUserDetails> {
   bool isClose = false;
 
   @override
+  void initState() {
+    context
+        .read<ProfileBloc>()
+        .add(const ProfileEvent.getProfile(isLoad: false));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -84,18 +92,24 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                     text: 'Save',
                     onTap: () {
                       if (userameFrom.currentState!.validate()) {
+                        String profileImage = '';
+                        if (state.getUserInfoModel != null &&
+                            state.getUserInfoModel!.results != null &&
+                            state.getUserInfoModel!.results!.profilePic !=
+                                null) {
+                          profileImage =
+                              state.getUserInfoModel!.results!.profilePic!;
+                        }
                         UserInfoChangeRequestModel userInfoChangeRequestModel =
                             UserInfoChangeRequestModel();
                         userInfoChangeRequestModel =
                             userInfoChangeRequestModel.copyWith(
-                          name: context
-                              .read<ProfileBloc>()
-                              .userNameController
-                              .text,
-                          isActive: true,
-                          profilePic:
-                              state.getUserInfoModel?.results?.profilePic,
-                        );
+                                profilePic: profileImage,
+                                name: context
+                                    .read<ProfileBloc>()
+                                    .userNameController
+                                    .text,
+                                isActive: true);
 
                         context.read<ProfileBloc>().add(
                               ProfileEvent.editProfile(

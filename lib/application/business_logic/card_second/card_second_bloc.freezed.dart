@@ -43,6 +43,7 @@ mixin _$CardSecondEvent {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) =>
       throw _privateConstructorUsedError;
@@ -70,6 +71,7 @@ mixin _$CardSecondEvent {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) =>
       throw _privateConstructorUsedError;
@@ -97,6 +99,7 @@ mixin _$CardSecondEvent {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) =>
@@ -122,6 +125,7 @@ mixin _$CardSecondEvent {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) =>
       throw _privateConstructorUsedError;
@@ -143,6 +147,7 @@ mixin _$CardSecondEvent {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) =>
       throw _privateConstructorUsedError;
@@ -164,6 +169,7 @@ mixin _$CardSecondEvent {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) =>
@@ -251,6 +257,7 @@ class _$StartedImpl implements _Started {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return started();
@@ -281,6 +288,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return started?.call();
@@ -311,6 +319,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -342,6 +351,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return started(this);
@@ -366,6 +376,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return started?.call(this);
@@ -390,6 +401,7 @@ class _$StartedImpl implements _Started {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -493,6 +505,7 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return scanImage(isCam);
@@ -523,6 +536,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return scanImage?.call(isCam);
@@ -553,6 +567,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -584,6 +599,7 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return scanImage(this);
@@ -608,6 +624,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return scanImage?.call(this);
@@ -632,6 +649,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -749,6 +767,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return processImageScanning(images);
@@ -779,6 +798,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return processImageScanning?.call(images);
@@ -809,6 +829,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -840,6 +861,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return processImageScanning(this);
@@ -864,6 +886,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return processImageScanning?.call(this);
@@ -888,6 +911,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -998,6 +1022,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return removeImageScanning(index);
@@ -1028,6 +1053,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return removeImageScanning?.call(index);
@@ -1058,6 +1084,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -1089,6 +1116,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return removeImageScanning(this);
@@ -1113,6 +1141,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return removeImageScanning?.call(this);
@@ -1137,6 +1166,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -1256,6 +1286,7 @@ class _$SelfieImageImpl implements SelfieImage {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return selfieImage(cameraDeviceFront, isCam);
@@ -1286,6 +1317,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return selfieImage?.call(cameraDeviceFront, isCam);
@@ -1316,6 +1348,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -1347,6 +1380,7 @@ class _$SelfieImageImpl implements SelfieImage {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return selfieImage(this);
@@ -1371,6 +1405,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return selfieImage?.call(this);
@@ -1395,6 +1430,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -1574,6 +1610,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return autoFillTExtfieldItems(
@@ -1605,6 +1642,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return autoFillTExtfieldItems?.call(
@@ -1636,6 +1674,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -1668,6 +1707,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return autoFillTExtfieldItems(this);
@@ -1692,6 +1732,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return autoFillTExtfieldItems?.call(this);
@@ -1716,6 +1757,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -1885,6 +1927,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return meetingRelatedInfo(
@@ -1916,6 +1959,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return meetingRelatedInfo?.call(
@@ -1947,6 +1991,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -1979,6 +2024,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return meetingRelatedInfo(this);
@@ -2003,6 +2049,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return meetingRelatedInfo?.call(this);
@@ -2027,6 +2074,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -2145,6 +2193,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return getAllCardsSecond(isLoad);
@@ -2175,6 +2224,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return getAllCardsSecond?.call(isLoad);
@@ -2205,6 +2255,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -2236,6 +2287,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return getAllCardsSecond(this);
@@ -2260,6 +2312,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return getAllCardsSecond?.call(this);
@@ -2284,6 +2337,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -2403,6 +2457,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return updateCardSecond(secondCard, id);
@@ -2433,6 +2488,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return updateCardSecond?.call(secondCard, id);
@@ -2463,6 +2519,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -2494,6 +2551,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return updateCardSecond(this);
@@ -2518,6 +2576,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return updateCardSecond?.call(this);
@@ -2542,6 +2601,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -2664,6 +2724,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return deleteCardSecond(cardActionRewuestModel, id);
@@ -2694,6 +2755,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return deleteCardSecond?.call(cardActionRewuestModel, id);
@@ -2724,6 +2786,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -2755,6 +2818,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return deleteCardSecond(this);
@@ -2779,6 +2843,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return deleteCardSecond?.call(this);
@@ -2803,6 +2868,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -2915,6 +2981,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return getDeleteCardSecond(isLoad);
@@ -2945,6 +3012,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return getDeleteCardSecond?.call(isLoad);
@@ -2975,6 +3043,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -3006,6 +3075,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return getDeleteCardSecond(this);
@@ -3030,6 +3100,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return getDeleteCardSecond?.call(this);
@@ -3054,6 +3125,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -3140,6 +3212,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return getDeleteCardSecondEvent();
@@ -3170,6 +3243,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return getDeleteCardSecondEvent?.call();
@@ -3200,6 +3274,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -3231,6 +3306,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return getDeleteCardSecondEvent(this);
@@ -3255,6 +3331,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return getDeleteCardSecondEvent?.call(this);
@@ -3279,6 +3356,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -3395,6 +3473,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return restoreDeleteCardSecond(cardActionRewuestModel, id);
@@ -3425,6 +3504,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return restoreDeleteCardSecond?.call(cardActionRewuestModel, id);
@@ -3455,6 +3535,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -3486,6 +3567,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return restoreDeleteCardSecond(this);
@@ -3510,6 +3592,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return restoreDeleteCardSecond?.call(this);
@@ -3534,6 +3617,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -3619,6 +3703,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return getCardSecondEvent();
@@ -3649,6 +3734,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return getCardSecondEvent?.call();
@@ -3679,6 +3765,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -3710,6 +3797,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return getCardSecondEvent(this);
@@ -3734,6 +3822,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return getCardSecondEvent?.call(this);
@@ -3758,6 +3847,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -3862,6 +3952,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return getSecondCardDetail(id);
@@ -3892,6 +3983,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return getSecondCardDetail?.call(id);
@@ -3922,6 +4014,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -3953,6 +4046,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return getSecondCardDetail(this);
@@ -3977,6 +4071,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return getSecondCardDetail?.call(this);
@@ -4001,6 +4096,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -4084,6 +4180,7 @@ class _$DataClearingImpl implements DataClearing {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return dataClearing();
@@ -4114,6 +4211,7 @@ class _$DataClearingImpl implements DataClearing {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return dataClearing?.call();
@@ -4144,6 +4242,7 @@ class _$DataClearingImpl implements DataClearing {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -4175,6 +4274,7 @@ class _$DataClearingImpl implements DataClearing {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return dataClearing(this);
@@ -4199,6 +4299,7 @@ class _$DataClearingImpl implements DataClearing {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return dataClearing?.call(this);
@@ -4223,6 +4324,7 @@ class _$DataClearingImpl implements DataClearing {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
@@ -4235,6 +4337,228 @@ class _$DataClearingImpl implements DataClearing {
 
 abstract class DataClearing implements CardSecondEvent {
   const factory DataClearing() = _$DataClearingImpl;
+}
+
+/// @nodoc
+abstract class _$$CardFeildClearingImplCopyWith<$Res> {
+  factory _$$CardFeildClearingImplCopyWith(_$CardFeildClearingImpl value,
+          $Res Function(_$CardFeildClearingImpl) then) =
+      __$$CardFeildClearingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CardFeildClearingImplCopyWithImpl<$Res>
+    extends _$CardSecondEventCopyWithImpl<$Res, _$CardFeildClearingImpl>
+    implements _$$CardFeildClearingImplCopyWith<$Res> {
+  __$$CardFeildClearingImplCopyWithImpl(_$CardFeildClearingImpl _value,
+      $Res Function(_$CardFeildClearingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$CardFeildClearingImpl implements CardFeildClearing {
+  const _$CardFeildClearingImpl();
+
+  @override
+  String toString() {
+    return 'CardSecondEvent.cardFeildClearing()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$CardFeildClearingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(bool isCam) scanImage,
+    required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(int index) removeImageScanning,
+    required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
+    required TResult Function(String scannedImage, String email, String name,
+            String company, String number, String website, String designation)
+        autoFillTExtfieldItems,
+    required TResult Function(String selfieImage, String occation,
+            String location, String occupation, String notes)
+        meetingRelatedInfo,
+    required TResult Function(bool isLoad) getAllCardsSecond,
+    required TResult Function(SecondCard secondCard, String id)
+        updateCardSecond,
+    required TResult Function(
+            CardActionRequestModel cardActionRewuestModel, int id)
+        deleteCardSecond,
+    required TResult Function(bool isLoad) getDeleteCardSecond,
+    required TResult Function() getDeleteCardSecondEvent,
+    required TResult Function(
+            CardActionRequestModel cardActionRewuestModel, int id)
+        restoreDeleteCardSecond,
+    required TResult Function() getCardSecondEvent,
+    required TResult Function(int id) getSecondCardDetail,
+    required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
+    required TResult Function() imageClear,
+  }) {
+    return cardFeildClearing();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(int index)? removeImageScanning,
+    TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
+    TResult? Function(String scannedImage, String email, String name,
+            String company, String number, String website, String designation)?
+        autoFillTExtfieldItems,
+    TResult? Function(String selfieImage, String occation, String location,
+            String occupation, String notes)?
+        meetingRelatedInfo,
+    TResult? Function(bool isLoad)? getAllCardsSecond,
+    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        deleteCardSecond,
+    TResult? Function(bool isLoad)? getDeleteCardSecond,
+    TResult? Function()? getDeleteCardSecondEvent,
+    TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        restoreDeleteCardSecond,
+    TResult? Function()? getCardSecondEvent,
+    TResult? Function(int id)? getSecondCardDetail,
+    TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
+    TResult? Function()? imageClear,
+  }) {
+    return cardFeildClearing?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(bool isCam)? scanImage,
+    TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(int index)? removeImageScanning,
+    TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
+    TResult Function(String scannedImage, String email, String name,
+            String company, String number, String website, String designation)?
+        autoFillTExtfieldItems,
+    TResult Function(String selfieImage, String occation, String location,
+            String occupation, String notes)?
+        meetingRelatedInfo,
+    TResult Function(bool isLoad)? getAllCardsSecond,
+    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        deleteCardSecond,
+    TResult Function(bool isLoad)? getDeleteCardSecond,
+    TResult Function()? getDeleteCardSecondEvent,
+    TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        restoreDeleteCardSecond,
+    TResult Function()? getCardSecondEvent,
+    TResult Function(int id)? getSecondCardDetail,
+    TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
+    TResult Function()? imageClear,
+    required TResult orElse(),
+  }) {
+    if (cardFeildClearing != null) {
+      return cardFeildClearing();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(ScanImage value) scanImage,
+    required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(RemoveImageScanning value) removeImageScanning,
+    required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(AutoFillTExtfieldItems value)
+        autoFillTExtfieldItems,
+    required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
+    required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
+    required TResult Function(UpdateCardSecond value) updateCardSecond,
+    required TResult Function(DeleteCardSecond value) deleteCardSecond,
+    required TResult Function(GetDeleteCardSecond value) getDeleteCardSecond,
+    required TResult Function(GetDeleteCardSecondEvent value)
+        getDeleteCardSecondEvent,
+    required TResult Function(RestoreDeleteCardSecond value)
+        restoreDeleteCardSecond,
+    required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
+    required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
+    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
+    required TResult Function(ImageClear value) imageClear,
+  }) {
+    return cardFeildClearing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(ScanImage value)? scanImage,
+    TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(RemoveImageScanning value)? removeImageScanning,
+    TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
+    TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
+    TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
+    TResult? Function(UpdateCardSecond value)? updateCardSecond,
+    TResult? Function(DeleteCardSecond value)? deleteCardSecond,
+    TResult? Function(GetDeleteCardSecond value)? getDeleteCardSecond,
+    TResult? Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
+    TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
+    TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
+    TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
+    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
+    TResult? Function(ImageClear value)? imageClear,
+  }) {
+    return cardFeildClearing?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(ScanImage value)? scanImage,
+    TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(RemoveImageScanning value)? removeImageScanning,
+    TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
+    TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
+    TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
+    TResult Function(UpdateCardSecond value)? updateCardSecond,
+    TResult Function(DeleteCardSecond value)? deleteCardSecond,
+    TResult Function(GetDeleteCardSecond value)? getDeleteCardSecond,
+    TResult Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
+    TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
+    TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
+    TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
+    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
+    TResult Function(ImageClear value)? imageClear,
+    required TResult orElse(),
+  }) {
+    if (cardFeildClearing != null) {
+      return cardFeildClearing(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CardFeildClearing implements CardSecondEvent {
+  const factory CardFeildClearing() = _$CardFeildClearingImpl;
 }
 
 /// @nodoc
@@ -4300,6 +4624,7 @@ class _$ImageClearImpl implements ImageClear {
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
     required TResult Function() dataClearing,
+    required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
     return imageClear();
@@ -4330,6 +4655,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
     TResult? Function()? dataClearing,
+    TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
     return imageClear?.call();
@@ -4360,6 +4686,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
     TResult Function()? dataClearing,
+    TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
@@ -4391,6 +4718,7 @@ class _$ImageClearImpl implements ImageClear {
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
     required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
     return imageClear(this);
@@ -4415,6 +4743,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
     return imageClear?.call(this);
@@ -4439,6 +4768,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
     TResult Function(DataClearing value)? dataClearing,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {

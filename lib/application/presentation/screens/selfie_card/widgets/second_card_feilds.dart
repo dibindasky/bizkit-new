@@ -29,7 +29,7 @@ class CardSecondScannedDatas extends StatelessWidget {
         appBar: AppBar(
           leading: adjustWidth(0),
           title: const Text(
-            'Make QR Card',
+            'Make Selfie Card',
             style: TextStyle(
               fontFamily: 'Euclid',
               fontWeight: FontWeight.bold,
@@ -62,6 +62,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                       children: [
                         adjustHieght(khieght * 0.008),
                         AutocompleteTextField(
+                            textCapitalization: TextCapitalization.words,
                             autocompleteItems:
                                 state.scannedImageDatasModel?.names ?? [],
                             validate: Validate.notNull,
@@ -70,6 +71,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                                 context.read<CardSecondBloc>().nameController,
                             inputType: TextInputType.name),
                         AutocompleteTextField(
+                          textCapitalization: TextCapitalization.words,
                           autocompleteItems:
                               state.scannedImageDatasModel?.names ?? [],
                           validate: Validate.notNull,
@@ -79,34 +81,38 @@ class CardSecondScannedDatas extends StatelessWidget {
                           inputType: TextInputType.emailAddress,
                         ),
                         AutocompleteTextField(
+                          textCapitalization: TextCapitalization.words,
                           autocompleteItems:
                               state.scannedImageDatasModel?.emails ?? [],
-                          validate: Validate.ifValidEmail,
+                          validate: Validate.email,
                           label: 'Email',
                           controller:
                               context.read<CardSecondBloc>().emailController,
                           inputType: TextInputType.emailAddress,
                         ),
                         AutocompleteTextField(
+                          textCapitalization: TextCapitalization.words,
                           maxLength: 10,
                           autocompleteItems:
                               state.scannedImageDatasModel?.phone ?? [],
-                          validate: Validate.ifValidnumber,
+                          validate: Validate.phone,
                           label: 'Phone number',
                           controller:
                               context.read<CardSecondBloc>().phoneController,
                           inputType: TextInputType.number,
                         ),
                         AutocompleteTextField(
+                          textCapitalization: TextCapitalization.words,
                           autocompleteItems:
                               state.scannedImageDatasModel?.websites ?? [],
-                          validate: Validate.ifValidWebsite,
+                          validate: Validate.website,
                           label: 'Website',
                           controller:
                               context.read<CardSecondBloc>().webSiteController,
                           inputType: TextInputType.url,
                         ),
                         AutocompleteTextField(
+                          textCapitalization: TextCapitalization.words,
                           autocompleteItems:
                               state.scannedImageDatasModel?.names ?? [],
                           validate: Validate.notNull,
@@ -326,13 +332,15 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                       children: [
                         adjustHieght(khieght * 0.008),
                         TTextFormField(
+                          textCapitalization: TextCapitalization.words,
                           validate: Validate.notNull,
-                          text: 'Occation',
+                          text: 'Occasion',
                           controller:
                               context.read<CardSecondBloc>().occationController,
                           inputType: TextInputType.name,
                         ),
                         TTextFormField(
+                          textCapitalization: TextCapitalization.words,
                           validate: Validate.notNull,
                           text: 'Location',
                           controller:
@@ -340,6 +348,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                           inputType: TextInputType.name,
                         ),
                         TTextFormField(
+                          textCapitalization: TextCapitalization.words,
                           validate: Validate.notNull,
                           text: 'Occupation',
                           controller: context
@@ -348,6 +357,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                           inputType: TextInputType.name,
                         ),
                         TTextFormField(
+                          textCapitalization: TextCapitalization.words,
                           validate: Validate.notNull,
                           maxLines: 3,
                           text: 'Notes',

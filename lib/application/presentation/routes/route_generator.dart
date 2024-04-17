@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:bizkit/application/presentation/routes/routes.dart';
+import 'package:bizkit/application/presentation/screens/authentication/view/screens/forgot_password/new_password.dart';
+import 'package:bizkit/application/presentation/screens/authentication/view/screens/forgot_password/otp_screen.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/login_screen.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/otp_screen.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/signin_screen.dart';
@@ -33,13 +35,30 @@ class GoRouterConfig {
         path: Routes.onBoarding,
         builder: (context, state) => const BizkitOnBoardingScreen(),
       ),
-// splash
+      // splash
       GoRoute(
         name: Routes.initial,
         path: Routes.initial,
         builder: (context, state) => const SplashScreen(),
       ),
-
+      //New Password
+      GoRoute(
+        name: Routes.newPasswordScreen,
+        path: "${Routes.newPasswordScreen}/:email",
+        builder: (context, state) {
+          final email = state.pathParameters['email'] ?? '';
+          return NewPasswordFeild(email: email);
+        },
+      ),
+      //Otp for password change screen
+      GoRoute(
+        name: Routes.otpScreen,
+        path: "${Routes.otpScreen}/:email",
+        builder: (context, state) {
+          final email = state.pathParameters['email'] ?? '';
+          return ForgottPasswrodOTPScreen(email: email);
+        },
+      ),
       // card view
       GoRoute(
         name: Routes.cardView,
@@ -53,7 +72,7 @@ class GoRouterConfig {
           }
         },
       ),
-
+      //First card detail secreen
       GoRoute(
         name: Routes.cardDetailView,
         path: '${Routes.cardDetailView}/:cardId/:myCard',

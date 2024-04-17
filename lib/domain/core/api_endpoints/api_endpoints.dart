@@ -12,9 +12,9 @@ class ApiEndPoints {
   static String register = '/accounts/register/';
   static String sendOtpMail = '/verification/send_verification_email/';
   static String verifyOtp = '/verification/verify_email/';
-  static String forgotPassword = '/verifications/forgot_password/';
-  static String verifyforgotPassword = '/verifications/verify_forgot_password/';
-  static String changePassword = '/verifications/change_password/';
+  static String forgotPassword = '/verification/forgot_password/';
+  static String verifyforgotPassword = '/verification/verify_forgot_password/';
+  static String forgottPassword = '/verification/change_password/';
   static String forgottPasswordProfile = '/accounts/password_change/';
 
 // card

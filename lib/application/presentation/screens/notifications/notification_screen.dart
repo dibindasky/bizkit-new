@@ -32,15 +32,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
             .add(const NotificationEvent.getNotificationEvent());
       }
     });
+    context
+        .read<NotificationBloc>()
+        .add(const NotificationEvent.getNotification(isLoad: false));
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) => context
-          .read<NotificationBloc>()
-          .add(const NotificationEvent.getNotification(isLoad: true)),
-    );
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (timeStamp) => context
+    //       .read<NotificationBloc>()
+    //       .add(const NotificationEvent.getNotification(isLoad: false)),
+    // );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -62,7 +65,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             children: [
               BlocBuilder<NotificationBloc, NotificationState>(
                 builder: (context, state) {
-                  if (state.notificationLoading) {
+                  if (state.isLoading) {
                     return ShimmerLoader(
                       itemCount: 10,
                       height: 120,
@@ -72,9 +75,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   } else if (state.notification == null) {
                     RefreshIndicatorCustom(
                       message: errorMessage,
-                      onRefresh: () => context
-                          .read<NotificationBloc>()
-                          .add(const NotificationEvent.getNotificationEvent()),
+                      onRefresh: () {
+                        context.read<NotificationBloc>().add(
+                              const NotificationEvent.getNotification(
+                                isLoad: true,
+                              ),
+                            );
+                      },
                     );
                   } else if (state.notification!.isEmpty) {
                     return SizedBox(
@@ -86,7 +93,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   }
                   return ListView.separated(
                     controller: scrollController,
-                    physics: const AlwaysScrollableScrollPhysics(),
+                    // physics: const AlwaysScrollableScrollPhysics(),
                     shrinkWrap: true,
                     separatorBuilder: (context, index) {
                       return adjustHieght(10);
@@ -105,9 +112,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       int minutes = int.parse(parts[1]);
                       List<String> secondsAndMicroseconds = parts[2].split('.');
                       int seconds = int.parse(secondsAndMicroseconds[0]);
-                      int microseconds = int.parse(secondsAndMicroseconds[1]
-                          .padRight(6,
-                              '0')); // Pad with zeroes if microseconds are missing
+                      int microseconds =
+                          int.parse(secondsAndMicroseconds[1].padRight(6, '0'));
                       DateTime now = DateTime.now();
                       DateTime dateTime = DateTime(now.year, now.month, now.day,
                           hours, minutes, seconds, microseconds);

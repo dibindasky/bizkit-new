@@ -33,18 +33,9 @@ class SelectedCard extends StatelessWidget {
             child: BlocConsumer<CardSecondBloc, CardSecondState>(
               listener: (context, state) {
                 if (state.cardScanFinish) {
-                  log('cardScanFinish navigate to CardSecondScannedDatas');
                   Navigator.of(context).push(
                     fadePageRoute(CardSecondScannedDatas()),
                   );
-                  // Navigator.of(context).pushReplacement(
-                  //   fadePageRoute(const CardSecondScannedDatas()),
-                  // );
-                  // context.read<CardSecondBloc>().add(
-                  //     const CardSecondEvent.selfieImage(
-                  //         cameraDeviceFront: true));
-                  // Navigator.of(context).pushReplacement(
-                  //     fadePageRoute(const SelfiePreviewScreen()));
                 }
               },
               builder: (context, state) {

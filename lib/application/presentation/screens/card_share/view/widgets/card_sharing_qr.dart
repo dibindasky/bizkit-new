@@ -80,8 +80,7 @@ class CardSharingScreen extends StatelessWidget {
                                   : null,
                               height: 50.dm,
                               width: 50.dm,
-                              child: state.qrList[index].logo ==
-                                      null
+                              child: state.qrList[index].logo == null
                                   ? Image.network(
                                       image,
                                       fit: BoxFit.cover,
@@ -220,7 +219,7 @@ class CardSharingScreen extends StatelessWidget {
                                     model.businessEmail ?? false
                                         ? const Text(' Business Email')
                                         : const SizedBox(),
-                                    model.businessDetailsMobileNumber?? false
+                                    model.businessDetailsMobileNumber ?? false
                                         ? const Text(' Business Mobile')
                                         : const SizedBox(),
                                     model.socialMediaHandles ?? false

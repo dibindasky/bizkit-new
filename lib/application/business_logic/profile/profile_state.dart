@@ -6,8 +6,10 @@ class ProfileState with _$ProfileState {
     required bool isLoading,
     required bool questionLoading,
     required bool hasError,
+    required bool profileLoading,
     String? message,
     String? userName,
+    required bool profileNameUpdated,
     GetUserInfoModel? getUserInfoModel,
     ImageModel? imageModel,
     bool? uploaded,
@@ -18,6 +20,8 @@ class ProfileState with _$ProfileState {
   }) = _Initial;
   factory ProfileState.initial() => const ProfileState(
         isLoading: false,
+        profileNameUpdated: false,
+        profileLoading: false,
         questionLoading: false,
         hasError: false,
       );

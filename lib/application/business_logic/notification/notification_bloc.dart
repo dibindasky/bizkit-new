@@ -16,7 +16,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   int notification = 1;
   NotificationBloc(this.notificationRepo) : super(NotificationState.initial()) {
     on<GetNotification>(getNotification);
-    on<NotificationEvent>(notificationEvent);
+    on<GetNotificationEvent>(notificationEvent);
     on<Clear>(clear);
   }
 
@@ -40,26 +40,30 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       emit(state.copyWith(
         notificationLoading: false,
         hasError: false,
-        notification: [...state.notification!, ...r.notification ?? []],
+        notification: [
+          ...state.notification ?? [],
+          ...r.notification ?? [],
+        ],
       ));
     });
   }
 
   FutureOr<void> getNotification(GetNotification event, emit) async {
+    log('Call for notification');
     //if (state.notification!.isNotEmpty && !event.isLoad) return;
-    emit(state.copyWith(
-        notificationLoading: true, hasError: false, message: null));
+    emit(state.copyWith(isLoading: true, hasError: false, message: null));
     notification = 1;
-    final data = await notificationRepo.getNotification(
-        pageQuery: PageQuery(page: notification));
-    log('getNotification bloc ${data.length()}');
+    final data =
+        await notificationRepo.getNotification(pageQuery: PageQuery(page: 1));
     data.fold(
-        (l) => emit(state.copyWith(
-            notificationLoading: false, hasError: true, message: null)), (r) {
+        (l) => emit(
+            state.copyWith(isLoading: false, hasError: true, message: null)),
+        (r) {
+      log('getNotification r.notification?.length bloc ${r.notification?.length}');
       emit(state.copyWith(
-        notificationLoading: false,
+        isLoading: false,
         hasError: false,
-        notification: r.notification!,
+        notification: r.notification ?? [],
       ));
     });
   }

@@ -177,7 +177,8 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                     if (state.isLoading) {
                       return const LoadingAnimation();
                     }
-                    return LastSkipContinueButtons(continueText: 'Create Card',
+                    return LastSkipContinueButtons(
+                      continueText: 'Create Card',
                       onTap: () {
                         if (personalDataFirstFormKey.currentState!.validate()) {
                           // Navigator.of(context).push(

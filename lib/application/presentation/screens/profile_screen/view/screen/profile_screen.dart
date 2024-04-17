@@ -99,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         CircleAvatar(
                           radius: 70,
                           backgroundColor: neonShade,
-                          child: state.isLoading
+                          child: state.profileLoading
                               ? const CircularProgressIndicator(
                                   color: backgroundColour,
                                 )

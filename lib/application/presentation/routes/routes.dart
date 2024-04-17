@@ -19,4 +19,6 @@ class Routes {
   static const String viewAllConnection = '/view_all_connection';
   static const String secondcardDetail = '/second_card_detail';
   static const String cardListing = '/card_listing';
+  static const String newPasswordScreen = '/new_password_screen';
+  static const String otpScreen = '/otp_screen';
 }

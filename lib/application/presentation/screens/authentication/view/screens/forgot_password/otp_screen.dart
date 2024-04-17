@@ -1,28 +1,20 @@
+import 'package:bizkit/application/business_logic/auth/forgott_passwrod/forgott_password_bloc.dart';
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
-import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
-import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/auth/verify_otp_model/verify_otp_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
-class ScreenOtpValidation extends StatelessWidget {
-  const ScreenOtpValidation(
-      {super.key,
-      required this.email,
-      this.fromBusiness,
-      this.signUpModel,
-      this.signUpIndivudalModel});
+class ForgottPasswrodOTPScreen extends StatelessWidget {
+  const ForgottPasswrodOTPScreen({super.key, required this.email});
 
   final String email;
-  final bool? fromBusiness;
-  final SignUpModel? signUpModel;
-  final SignUpIndivudalModel? signUpIndivudalModel;
 
   @override
   Widget build(BuildContext context) {
@@ -55,21 +47,23 @@ class ScreenOtpValidation extends StatelessWidget {
               Pinput(
                 mainAxisAlignment: MainAxisAlignment.start,
                 onCompleted: (value) {
-                  if (fromBusiness != null) {
-                    context.read<SignUpBloc>().add(SignUpEvent.verifyOtp(
-                        isBusiness: fromBusiness!,
-                        signUpIndivudalModel: signUpIndivudalModel,
-                        signUpModel: signUpModel,
-                        verifyOtpModel:
-                            VerifyOtpModel(email: email, otp: value)));
-                  }
+                  context
+                      .read<ForgottPasswordBloc>()
+                      .add(ForgottPasswordEvent.verifyforgotPasswordOTPEmail(
+                        verifyOtpModel: VerifyOtpModel(
+                          email: email,
+                          otp: value,
+                        ),
+                      ));
                 },
                 length: 4,
                 defaultPinTheme: PinTheme(
                   width: kwidth * 0.11,
                   height: kwidth * 0.11,
                   textStyle: textHeadStyle1.copyWith(
-                      fontSize: kwidth * .060, color: kblack),
+                    fontSize: kwidth * .060,
+                    color: kblack,
+                  ),
                   decoration: BoxDecoration(
                     color: kwhite,
                     boxShadow: [
@@ -86,13 +80,26 @@ class ScreenOtpValidation extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              BlocConsumer<SignUpBloc, SignUpState>(
+              BlocConsumer<ForgottPasswordBloc, ForgottPasswordState>(
                 listener: (context, state) {
-                  if (state.otpBusinessError || state.otpIndividualError) {
+                  if (state.otpVerificationError) {
                     GoRouter.of(context).pop();
+                    showSnackbar(
+                      context,
+                      message: state.message ?? errorMessage,
+                    );
                   }
-                  if (state.signUpResponseModel != null) {
-                    context.goNamed(Routes.loginPage);
+                  Map<String, String> map = {};
+                  if (state.otpVerifiedForgotPassword) {
+                    map['email'] = email;
+                    context.goNamed(
+                      Routes.newPasswordScreen,
+                      pathParameters: map,
+                    );
+                    // GoRouter.of(context).pushNamed(
+                    //   Routes.newPasswordScreen,
+                    //   pathParameters: map,
+                    // );
                   }
                 },
                 builder: (context, state1) {

@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
-import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
-import 'package:bizkit/application/presentation/screens/image_croping/image_croping.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -91,58 +89,58 @@ class _LogoStoryState extends State<LogoStory> {
               ),
             ),
             adjustHieght(khieght * .02),
-            BlocBuilder<UserDataBloc, UserDataState>(
-              builder: (context, state) {
-                if (state.scannedImagesCardCreation.isEmpty) {
-                  return const SizedBox();
-                } else {
-                  return Column(
-                    children: [
-                      const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('crop logo from card image')),
-                      adjustHieght(10),
-                      SizedBox(
-                        height: 60,
-                        child: ListView.builder(
-                          itemCount: state.scannedImagesCardCreation.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () async {
-                              await state
-                                  .scannedImagesCardCreation[index].fileImage
-                                  .readAsBytes()
-                                  .then((image) async {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            Croper(imageToCrop: image)));
-                              });
-                            },
-                            child: Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              height: 60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                color: neonShade,
-                                image: DecorationImage(
-                                    image: FileImage(state
-                                        .scannedImagesCardCreation[index]
-                                        .fileImage),
-                                    fit: BoxFit.cover),
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                }
-              },
-            ),
-            adjustHieght(khieght * .02),
+            // BlocBuilder<UserDataBloc, UserDataState>(
+            //   builder: (context, state) {
+            //     if (state.scannedImagesCardCreation.isEmpty) {
+            //       return const SizedBox();
+            //     } else {
+            //       return Column(
+            //         children: [
+            //           const Align(
+            //               alignment: Alignment.centerLeft,
+            //               child: Text('crop logo from card image')),
+            //           adjustHieght(10),
+            //           SizedBox(
+            //             height: 60,
+            //             child: ListView.builder(
+            //               itemCount: state.scannedImagesCardCreation.length,
+            //               scrollDirection: Axis.horizontal,
+            //               itemBuilder: (context, index) => InkWell(
+            //                 onTap: () async {
+            //                   await state
+            //                       .scannedImagesCardCreation[index].fileImage
+            //                       .readAsBytes()
+            //                       .then((image) async {
+            //                     Navigator.push(
+            //                         context,
+            //                         MaterialPageRoute(
+            //                             builder: (context) =>
+            //                                 Croper(imageToCrop: image)));
+            //                   });
+            //                 },
+            //                 child: Container(
+            //                   margin:
+            //                       const EdgeInsets.symmetric(horizontal: 10),
+            //                   height: 60,
+            //                   width: 60,
+            //                   decoration: BoxDecoration(
+            //                     color: neonShade,
+            //                     image: DecorationImage(
+            //                         image: FileImage(state
+            //                             .scannedImagesCardCreation[index]
+            //                             .fileImage),
+            //                         fit: BoxFit.cover),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ),
+            //           )
+            //         ],
+            //       );
+            //     }
+            //   },
+            // ),
+            // adjustHieght(khieght * .02),
             const Text(
               'Logo story',
               style: TextStyle(fontSize: 20),

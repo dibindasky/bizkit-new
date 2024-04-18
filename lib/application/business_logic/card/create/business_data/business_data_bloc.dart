@@ -126,9 +126,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     businessNameController.text = event.card.isCompanyAutofilled == true
         ? ''
         : event.card.businessDetails?.businessName ?? '';
-    companyController.text = event.card.isCompanyAutofilled == true
-        ? ''
-        : event.card.businessDetails?.company ?? '';
+    companyController.text = event.card.businessDetails?.company ?? '';
     mailController.text = event.card.isCompanyAutofilled == true
         ? ''
         : event.card.businessDetails?.email ?? '';
@@ -256,15 +254,18 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> getCompnayList(GetCompnayList event, emit) async {
+    if (event.search?.search == null || event.search?.search == '') {
+      return emit(state.copyWith(
+          accreditionAdded: false,
+          branchAdded: false,
+          brochureAdded: false,
+          productAdded: false,
+          socialMediaAdded: false,
+          gotCompanyData: false,
+          companiesList: []));
+    }
     final result = await cardService.getCompanies(search: event.search);
-    print(
-        '1====================================***********************************************************=====================================');
-
     result.fold((l) => null, (getCompanysResponseModel) {
-      print(
-          '2====================================***********************************************************=====================================');
-      print(getCompanysResponseModel.companies);
-      print(getCompanysResponseModel.companies?.length);
       return emit(state.copyWith(
           accreditionAdded: false,
           branchAdded: false,

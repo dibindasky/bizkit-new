@@ -4,7 +4,7 @@ part 'block_bizkit_connection.g.dart';
 
 @JsonSerializable()
 class BlockBizkitConnection {
-  @JsonKey(name: 'is_block')
+  @JsonKey(name: 'is_blocked')
   bool? isBlock;
 
   BlockBizkitConnection({this.isBlock});

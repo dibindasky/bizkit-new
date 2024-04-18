@@ -32,135 +32,140 @@ class ScreenCardDetailEditingList extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: BlocBuilder<CardBloc, CardState>(
           builder: (context, state) {
-            return Column(
-              children: [
-                DetailCustomTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const LinearProgressIndicatorStarting(index: 0),
-                          ));
-                    },
-                    title: 'Personal Details',
-                    subTitle: ''),
-                adjustHieght(10),
-                state.businessUser
-                    ? kempty
-                    : ValueListenableBuilder(
-                        valueListenable: companySearchNotifier,
-                        builder: (context, value, _) {
-                          value;
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              AuthButton(
-                                text: 'Add Company',
-                                onTap: () {
-                                  if (state.anotherCard?.isCompanyAutofilled ==
-                                      true) {
-                                    showCustomConfirmationDialoge(
-                                        context: context,
-                                        title:
-                                            'If you add your own company, Your added company will be deleted from your card',
-                                        buttonText: 'Add Company',
-                                        onTap: () {
-                                          companySearchNotifier.value = 0;
-                                          companySearchNotifier
-                                              .notifyListeners();
-                                        });
-                                  } else {
-                                    companySearchNotifier.value = 0;
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  DetailCustomTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const LinearProgressIndicatorStarting(
+                                      index: 0),
+                            ));
+                      },
+                      title: 'Personal Details',
+                      subTitle: ''),
+                  adjustHieght(10),
+                  state.businessUser
+                      ? kempty
+                      : ValueListenableBuilder(
+                          valueListenable: companySearchNotifier,
+                          builder: (context, value, _) {
+                            value;
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                AuthButton(
+                                  text: 'Add Company',
+                                  onTap: () {
+                                    if (state
+                                            .anotherCard?.isCompanyAutofilled ==
+                                        true) {
+                                      showCustomConfirmationDialoge(
+                                          context: context,
+                                          title:
+                                              'If you add your own company, Your added company will be deleted from your card',
+                                          buttonText: 'Add Company',
+                                          onTap: () {
+                                            companySearchNotifier.value = 0;
+                                            companySearchNotifier
+                                                .notifyListeners();
+                                          });
+                                    } else {
+                                      companySearchNotifier.value = 0;
+                                      companySearchNotifier.notifyListeners();
+                                    }
+                                  },
+                                  color: value == 0
+                                      ? null
+                                      : const LinearGradient(
+                                          colors: [
+                                            smallBigGrey,
+                                            kgrey,
+                                            smallBigGrey
+                                          ],
+                                        ),
+                                ),
+                                AuthButton(
+                                  text: 'Search Company',
+                                  onTap: () {
+                                    companySearchNotifier.value = 1;
                                     companySearchNotifier.notifyListeners();
-                                  }
-                                },
-                                color: value == 0
-                                    ? null
-                                    : const LinearGradient(
-                                        colors: [
-                                          smallBigGrey,
-                                          kgrey,
-                                          smallBigGrey
-                                        ],
-                                      ),
-                              ),
-                              AuthButton(
-                                text: 'Search Company',
-                                onTap: () {
-                                  companySearchNotifier.value = 1;
-                                  companySearchNotifier.notifyListeners();
-                                },
-                                color: value == 1
-                                    ? null
-                                    : const LinearGradient(
-                                        colors: [
-                                          smallBigGrey,
-                                          kgrey,
-                                          smallBigGrey
-                                        ],
-                                      ),
-                              )
-                            ],
-                          );
-                        },
-                      ),
-                state.businessUser ? kempty : adjustHieght(10),
-                state.businessUser
-                    ? kempty
-                    : ValueListenableBuilder(
-                        valueListenable: companySearchNotifier,
-                        builder: (context, value, _) {
-                          if (value > 1) {
-                            return const Text(
-                                'You can add your own company or if you are part of a company then you can search and choose your compnay.');
-                          } else if (value == 0) {
-                            return const BusinessAndBankingDetailsAddingTiles();
-                          } else {
-                            return BlocBuilder<BusinessDataBloc,
-                                BusinessDataState>(
-                              builder: (context, state) {
-                                return AutocompleteTextField(
-                                  validate: Validate.notNull,
-                                  showDropdown: true,
-                                  autocompleteItems: state.companiesList
-                                      .map((e) => e.company!)
-                                      .toList(),
-                                  onChanged: (value) {
-                                    // call company api and fetch companys to dropdown
-                                    context.read<BusinessDataBloc>().add(
-                                        BusinessDataEvent.getCompnayList(
-                                            search:
-                                                SearchQuery(search: value)));
                                   },
-                                  onDropDownSelection: (value) {
-                                    // call for company details with the selected value
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => Dialog(
-                                        child: CompanyAddingPopUp(
-                                            id: state.companiesList
-                                                .firstWhere((element) =>
-                                                    element.company == value)
-                                                .id!),
-                                      ),
-                                    );
-                                  },
-                                  label: 'Company',
-                                  textCapitalization: TextCapitalization.words,
-                                  controller: context
-                                      .read<BusinessDataBloc>()
-                                      .companyController,
-                                );
-                              },
+                                  color: value == 1
+                                      ? null
+                                      : const LinearGradient(
+                                          colors: [
+                                            smallBigGrey,
+                                            kgrey,
+                                            smallBigGrey
+                                          ],
+                                        ),
+                                )
+                              ],
                             );
-                          }
-                        },
-                      ),
-                state.businessUser
-                    ? const BusinessAndBankingDetailsAddingTiles()
-                    : kempty,
-              ],
+                          },
+                        ),
+                  state.businessUser ? kempty : adjustHieght(10),
+                  state.businessUser
+                      ? kempty
+                      : ValueListenableBuilder(
+                          valueListenable: companySearchNotifier,
+                          builder: (context, value, _) {
+                            if (value > 1) {
+                              return const Text(
+                                  'You can add your own company or if you are part of a company then you can search and choose your compnay.');
+                            } else if (value == 0) {
+                              return const BusinessAndBankingDetailsAddingTiles();
+                            } else {
+                              return BlocBuilder<BusinessDataBloc,
+                                  BusinessDataState>(
+                                builder: (context, state) {
+                                  return AutocompleteTextField(
+                                    validate: Validate.notNull,
+                                    showDropdown: true,
+                                    autocompleteItems: state.companiesList
+                                        .map((e) => e.company!)
+                                        .toList(),
+                                    onChanged: (value) {
+                                      // call company api and fetch companys to dropdown
+                                      context.read<BusinessDataBloc>().add(
+                                          BusinessDataEvent.getCompnayList(
+                                              search:
+                                                  SearchQuery(search: value)));
+                                    },
+                                    onDropDownSelection: (value) {
+                                      // call for company details with the selected value
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => Dialog(
+                                          child: CompanyAddingPopUp(
+                                              id: state.companiesList
+                                                  .firstWhere((element) =>
+                                                      element.company == value)
+                                                  .id!),
+                                        ),
+                                      );
+                                    },
+                                    label: 'Company',
+                                    textCapitalization:
+                                        TextCapitalization.words,
+                                    controller: context
+                                        .read<BusinessDataBloc>()
+                                        .companyController,
+                                  );
+                                },
+                              );
+                            }
+                          },
+                        ),
+                  state.businessUser
+                      ? const BusinessAndBankingDetailsAddingTiles()
+                      : kempty,
+                ],
+              ),
             );
           },
         ),

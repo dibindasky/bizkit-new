@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
+import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -89,17 +92,31 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
                         child: Row(
                           children: [
                             adjustWidth(kwidth * .04),
-                            const CircleAvatar(
-                              backgroundImage: AssetImage(dummyPersonImage),
+                            CircleAvatar(
+                              backgroundColor: smallBigGrey,
+                              backgroundImage: state
+                                          .blockedConnections?[index].photos ==
+                                      null
+                                  ? null
+                                  : MemoryImage(base64.decode(state
+                                          .blockedConnections![index].photos
+                                          .startsWith('data')
+                                      ? state.blockedConnections![index].photos
+                                          .substring(22)
+                                      : state
+                                          .blockedConnections![index].photos!)),
+                              child: state.blockedConnections?[index].photos ==
+                                      null
+                                  ? const Icon(Icons.person)
+                                  : null,
                             ),
                             adjustWidth(kwidth * .04),
                             RichText(
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                      text: state.blockedConnections?[index]
-                                              .name ??
-                                          'No name',
+                                      text:
+                                          "${state.blockedConnections?[index].name ?? ''} ",
                                       style: textStyle1),
                                   TextSpan(
                                     text: state.blockedConnections?[index]
@@ -114,6 +131,17 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
                             ),
                             const Spacer(),
                             GestureDetector(
+                              onTap: () {
+                                context.read<ConnectionRequestBloc>().add(
+                                    ConnectionRequestEvent
+                                        .blockBizkitConnections(
+                                            blockBizkitConnection:
+                                                BlockBizkitConnection(
+                                                    isBlock: false),
+                                            connectionId: state
+                                                .blockedConnections![index]
+                                                .id!));
+                              },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
                                 child: const ColoredBox(

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
@@ -173,7 +171,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             }
           });
         }),
-        buildSwitch("Personal SocialMedias",
+        buildSwitch("Personal Social Medias",
             context.read<QrBloc>().createQrModel.personalSocialMedia, (value) {
           setState(() {
             if (personalDetals) {
@@ -270,7 +268,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             }
           });
         }),
-        buildSwitch("Business SocialMedias",
+        buildSwitch("Business Social Medias",
             context.read<QrBloc>().createQrModel.socialMediaHandles, (value) {
           setState(() {
             if (businessDetals) {

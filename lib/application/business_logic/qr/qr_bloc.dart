@@ -72,8 +72,20 @@ class QrBloc extends Bloc<QrEvent, QrState> {
 
   FutureOr<void> addNewLevelSharing(AddNewLevelSharing event, emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    CreateQrModel createmodel = event.createQrModel.copyWith(
+      address: event.createQrModel.address ?? false,
+      businessDetailsMobileNumber:
+          event.createQrModel.businessDetailsMobileNumber ?? false,
+      businessEmail: event.createQrModel.businessEmail ?? false,
+      company: event.createQrModel.company ?? false,
+      email: event.createQrModel.email ?? false,
+      personalSocialMedia: event.createQrModel.personalSocialMedia ?? false,
+      phoneNumber: event.createQrModel.phoneNumber ?? false,
+      socialMediaHandles: event.createQrModel.socialMediaHandles ?? false,
+      websiteLink: event.createQrModel.websiteLink ?? false,
+    );
     final result = await qrServiceImpl.updateLevelSharing(
-        createQrModel: event.createQrModel,
+        createQrModel: createmodel,
         id: state.qrList[state.selectedQrIndex].id!);
     result.fold((failure) {
       List<QRModel> list = List.from(state.qrList);
@@ -114,6 +126,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
   }
 
   FutureOr<void> changeQRSelection(ChangeQRSelection event, emit) {
+    emit(state.copyWith(isLoading: true));
     final model = state.qrList[event.index];
     createQrModel = createQrModel.copyWith(
       address: model.address,
@@ -127,6 +140,6 @@ class QrBloc extends Bloc<QrEvent, QrState> {
       businessEmail: model.businessEmail,
       // card: model.cardId,
     );
-    emit(state.copyWith(selectedQrIndex: event.index));
+    emit(state.copyWith(selectedQrIndex: event.index, isLoading: false));
   }
 }

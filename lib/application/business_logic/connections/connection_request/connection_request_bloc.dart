@@ -104,6 +104,7 @@ class ConnectionRequestBloc
           connected: true,
           connectedId: r.data as int));
       add(const ConnectionRequestEvent.getRequestLists());
+      add(const ConnectionRequestEvent.getBizkitConnections(query: ''));
     });
   }
 
@@ -138,6 +139,7 @@ class ConnectionRequestBloc
             isLoading: false, hasError: true, message: l.message)), (r) {
       emit(state.copyWith(isLoading: false, message: r.message));
       add(const ConnectionRequestEvent.getBizkitConnections(query: ''));
+      add(const ConnectionRequestEvent.getBlockeConnections(isLoad: true));
     });
   }
 

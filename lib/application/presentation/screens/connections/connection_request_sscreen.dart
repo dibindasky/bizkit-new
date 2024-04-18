@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
@@ -72,37 +74,48 @@ class ScreenConnectionRequests extends StatelessWidget {
                         CircleAvatar(
                           radius: kwidth * 0.08,
                           backgroundImage: data.image != null
-                              ? NetworkImage(data.image!)
+                              ? MemoryImage(base64.decode(
+                                  data.image!.startsWith('data')
+                                      ? data.image!.substring(22)
+                                      : data.image!))
                               : null,
+                              backgroundColor: smallBigGrey,
                           child: data.image != null
                               ? null
                               : const Icon(Icons.person, color: neonShade),
                         ),
                         adjustHieght(10),
                         Text(
-                          data.name ?? '',
+                          data.company == null || data.company == ''
+                              ? data.name ?? ''
+                              : data.company ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: textStyle1.copyWith(fontSize: kwidth * 0.045),
                         ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                data.company ?? '',
-                                overflow: TextOverflow.ellipsis,
-                                style: textStyle1,
-                              ),
-                            ),
-                            const Text(' | '),
-                            Expanded(
-                              child: Text(
-                                data.designation ?? '',
-                                overflow: TextOverflow.ellipsis,
-                                style: textStyle1,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          data.designation ?? '',
+                          overflow: TextOverflow.ellipsis,
+                          style: textStyle1.copyWith(fontSize: kwidth * 0.045),
                         ),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: Text(
+                        //         data.company ?? '',
+                        //         overflow: TextOverflow.ellipsis,
+                        //         style: textStyle1,
+                        //       ),
+                        //     ),
+                        //     const Text(' | '),
+                        //     Expanded(
+                        //       child: Text(
+                        //         data.designation ?? '',
+                        //         overflow: TextOverflow.ellipsis,
+                        //         style: textStyle1,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         adjustHieght(10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -93,8 +93,12 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     }, (r) {
       print('card creation success');
       SecureStorage.setHasCard(hasCard: true);
-      return emit(state.copyWith(
-          isLoading: false, message: r.message, cardAdded: true));
+      emit(state.copyWith(
+        isLoading: false,
+        message: r.message,
+        cardAdded: true,
+      ));
+      add(UserDataEvent.clear());
     });
   }
 

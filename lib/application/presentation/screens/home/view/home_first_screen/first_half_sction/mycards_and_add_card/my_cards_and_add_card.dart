@@ -25,7 +25,14 @@ class MyCardsAndAddCardSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('My Cards', style: textHeadStyle1),
+          BlocBuilder<CardBloc, CardState>(
+            buildWhen: (previous, current) =>
+                previous.businessUser != current.businessUser,
+            builder: (context, state) {
+              return Text(state.businessUser ? 'My Card' : 'My Cards',
+                  style: textHeadStyle1);
+            },
+          ),
           adjustHieght(khieght * .02),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

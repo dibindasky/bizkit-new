@@ -122,8 +122,7 @@ class CardSharingScreen extends StatelessWidget {
                   height: 250.dm,
                   child: Image.memory(
                     base64Decode(state.qrList[state.selectedQrIndex].qrCode!
-                        .substring(
-                            'data:image/png;base64,'.length)), // Remove prefix
+                        .substring(22)), // Remove prefix
                     fit: BoxFit.cover,
                   ),
                 );
@@ -141,7 +140,6 @@ class CardSharingScreen extends StatelessWidget {
                   return Column(
                     children: [
                       GestureDetector(
-                        // context.read<QrBloc>().createQrModel.copyWith(card: state.qrList[state.selectedQrIndex].id!);
                         onTap: () => Navigator.of(context).push(
                           fadePageRoute(const LevelSharing()),
                         ),

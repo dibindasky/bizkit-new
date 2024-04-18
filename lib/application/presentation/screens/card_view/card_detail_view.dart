@@ -1,5 +1,8 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
+import 'package:bizkit/application/presentation/screens/card_view/screen_detail_editing/card_detail_editing_screen.dart';
 import 'package:bizkit/application/presentation/screens/card_view/widgets/card_bottom_part.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -39,18 +42,55 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: kwhite,
-                size: 18,
-              ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: kwhite,
+              size: 18,
             ),
-            backgroundColor: knill,
-            title: const Text('Card')),
+          ),
+          backgroundColor: knill,
+          title: const Text('Card'),
+          actions: [
+            widget.myCard
+                ? BlocBuilder<CardBloc, CardState>(
+                    builder: (context, state) {
+                      if (state.cardLoading) {
+                        return const SizedBox();
+                      }
+                      return IconButton(
+                          onPressed: () {
+                            if (state.anotherCard!.percentage! == 10) {
+                              companySearchNotifier.value = 2;
+                            } else if (state
+                                .anotherCard!.isCompanyAutofilled!) {
+                              companySearchNotifier.value = 1;
+                            } else {
+                              companySearchNotifier.value = 0;
+                            }
+                            companySearchNotifier.notifyListeners();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ScreenCardDetailEditingList()));
+                            context.read<UserDataBloc>().add(
+                                UserDataEvent.getCurrentCard(
+                                    card: state.anotherCard!));
+                            context.read<BusinessDataBloc>().add(
+                                BusinessDataEvent.getCurrentCard(
+                                    card: state.anotherCard!));
+                          },
+                          icon: const Icon(Icons.edit_document));
+                    },
+                  )
+                : const SizedBox(),
+            adjustWidth(20),
+          ],
+        ),
         body: BlocConsumer<CardBloc, CardState>(
           listenWhen: (previous, current) =>
               previous.anotherCard != null &&

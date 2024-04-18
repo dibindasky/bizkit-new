@@ -13,7 +13,11 @@ class CardViewCompletionPersentageIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CardBloc, CardState>(
+    return BlocConsumer<CardBloc, CardState>(
+      listenWhen: (previous, current) => previous.anotherCard?.percentage!=current.anotherCard?.percentage,
+      listener: (context, state) {
+        context.read<CardBloc>().add(const CardEvent.getCards(call: true));
+      },
       builder: (context, state) {
         if (state.anotherCard!.percentage! == 100) {
           return const SizedBox();

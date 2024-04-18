@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'blocked cards.g.dart';
+part 'deleted_cards.g.dart';
 
 @JsonSerializable()
-class BlockedCards {
+class DeletedCard {
   int? id;
   String? name;
   String? designation;
@@ -28,7 +28,7 @@ class BlockedCards {
   @JsonKey(name: 'card_link')
   String? cardLink;
 
-  BlockedCards({
+  DeletedCard({
     this.id,
     this.name,
     this.designation,
@@ -46,9 +46,9 @@ class BlockedCards {
     this.cardLink,
   });
 
-  factory BlockedCards.fromJson(Map<String, dynamic> json) {
-    return _$BlockedCardsFromJson(json);
+  factory DeletedCard.fromJson(Map<String, dynamic> json) {
+    return _$DeletedCardFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$BlockedCardsToJson(this);
+  Map<String, dynamic> toJson() => _$DeletedCardToJson(this);
 }

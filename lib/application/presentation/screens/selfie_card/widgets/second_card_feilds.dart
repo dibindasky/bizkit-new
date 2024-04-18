@@ -244,7 +244,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
               Navigator.pop(context);
               context
                   .read<CardSecondBloc>()
-                  .add(const CardSecondEvent.dataClearing());
+                  .add(const CardSecondEvent.cardFeildClearing());
               // Navigator.of(context).pushAndRemoveUntil(
               //     fadePageRoute(
               //       const BizkitBottomNavigationBar(),
@@ -397,10 +397,6 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                   }
                                 },
                               ),
-                        // const CustomButtonSelfie(
-                        //   navigate:
-                        //       HomeFirstViewAllContactTileDetailView(userId: null),
-                        // ), //should give next navigation here i add SelfieScreen For demo
                         adjustHieght(khieght * .02),
                       ],
                     ),

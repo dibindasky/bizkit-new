@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 const onBoardScreenfirst = 'asset/images/onboard_secrens/bizkit on board 1.png';
 const onBoardScreenSecond =
     'asset/images/onboard_secrens/bizkit on board 2.png';
@@ -105,3 +107,52 @@ const image =
     'https://firebasestorage.googleapis.com/v0/b/travelapp-c2e16.appspot.com/o/userprofile%2Ftest%2Fqr_dummy.jpg?alt=media&token=366b2bb2-6de0-4aa2-835e-1b1fc546f924';
 const imageDummyNetwork =
     'https://lh5.googleusercontent.com/p/AF1QipPTbbL0IONA4Y6MLSe6cHV0n_MXWsJY-N1P9D4G=w426-h240-k-no';
+
+//getting base64 String value based on format
+String getBase64Image(String format, String? base64String) {
+  switch (format) {
+    case 'jpeg':
+      base64String =
+          base64String?.replaceFirst(RegExp(r'data:image/jpeg;base64,'), '');
+      log('JPEG format detected. $base64String');
+      break;
+    case 'jpg':
+      base64String =
+          base64String?.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
+
+      break;
+    case 'png':
+      base64String =
+          base64String?.replaceFirst(RegExp(r'data:image/png;base64,'), '');
+      log('PNG format detected. $base64String');
+      break;
+    case 'bmp':
+      base64String =
+          base64String?.replaceFirst(RegExp(r'data:image/bmp;base64,'), '');
+      log('PNG format detected. $base64String');
+      break;
+    case 'gif':
+      base64String =
+          base64String?.replaceFirst(RegExp(r'data:image/gif;base64,'), '');
+      log('PNG format detected.');
+      break;
+    // Add cases for other formats if needed
+    default:
+      log('Unsupported format detected.');
+      break;
+  }
+  return '';
+}
+
+// images = images.replaceFirst(
+//                                       RegExp(r'data:image/jpg;base64,'), '');
+String getImageFormat(String? base64String) {
+  if (base64String == null) return '';
+  final formats = ['jpeg', 'png', 'gif', 'bmp', 'jpg'];
+  for (final format in formats) {
+    if (base64String.startsWith('data:image/$format;base64,')) {
+      return format;
+    }
+  }
+  return '';
+}

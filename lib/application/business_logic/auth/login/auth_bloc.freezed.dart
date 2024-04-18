@@ -580,6 +580,7 @@ mixin _$AuthState {
   bool get otpVerifiedForgotPassword => throw _privateConstructorUsedError;
   bool get isLogin => throw _privateConstructorUsedError;
   bool get onBoardSkipBool => throw _privateConstructorUsedError;
+  bool get isBusiness => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
   bool get hasCard => throw _privateConstructorUsedError;
@@ -605,6 +606,7 @@ abstract class $AuthStateCopyWith<$Res> {
       bool otpVerifiedForgotPassword,
       bool isLogin,
       bool onBoardSkipBool,
+      bool isBusiness,
       String? message,
       String? userName,
       bool hasCard,
@@ -632,6 +634,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? otpVerifiedForgotPassword = null,
     Object? isLogin = null,
     Object? onBoardSkipBool = null,
+    Object? isBusiness = null,
     Object? message = freezed,
     Object? userName = freezed,
     Object? hasCard = null,
@@ -666,6 +669,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
       onBoardSkipBool: null == onBoardSkipBool
           ? _value.onBoardSkipBool
           : onBoardSkipBool // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBusiness: null == isBusiness
+          ? _value.isBusiness
+          : isBusiness // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -707,6 +714,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool otpVerifiedForgotPassword,
       bool isLogin,
       bool onBoardSkipBool,
+      bool isBusiness,
       String? message,
       String? userName,
       bool hasCard,
@@ -732,6 +740,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? otpVerifiedForgotPassword = null,
     Object? isLogin = null,
     Object? onBoardSkipBool = null,
+    Object? isBusiness = null,
     Object? message = freezed,
     Object? userName = freezed,
     Object? hasCard = null,
@@ -766,6 +775,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       onBoardSkipBool: null == onBoardSkipBool
           ? _value.onBoardSkipBool
           : onBoardSkipBool // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBusiness: null == isBusiness
+          ? _value.isBusiness
+          : isBusiness // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -802,6 +815,7 @@ class _$InitialImpl implements _Initial {
       required this.otpVerifiedForgotPassword,
       required this.isLogin,
       required this.onBoardSkipBool,
+      required this.isBusiness,
       this.message,
       this.userName,
       required this.hasCard,
@@ -823,6 +837,8 @@ class _$InitialImpl implements _Initial {
   @override
   final bool onBoardSkipBool;
   @override
+  final bool isBusiness;
+  @override
   final String? message;
   @override
   final String? userName;
@@ -835,7 +851,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, isLogin: $isLogin, onBoardSkipBool: $onBoardSkipBool, message: $message, userName: $userName, hasCard: $hasCard, isFirstLogin: $isFirstLogin, loginResponseModel: $loginResponseModel)';
+    return 'AuthState(isLoading: $isLoading, hasError: $hasError, otpSend: $otpSend, otpVerificationError: $otpVerificationError, otpVerifiedForgotPassword: $otpVerifiedForgotPassword, isLogin: $isLogin, onBoardSkipBool: $onBoardSkipBool, isBusiness: $isBusiness, message: $message, userName: $userName, hasCard: $hasCard, isFirstLogin: $isFirstLogin, loginResponseModel: $loginResponseModel)';
   }
 
   @override
@@ -856,6 +872,8 @@ class _$InitialImpl implements _Initial {
             (identical(other.isLogin, isLogin) || other.isLogin == isLogin) &&
             (identical(other.onBoardSkipBool, onBoardSkipBool) ||
                 other.onBoardSkipBool == onBoardSkipBool) &&
+            (identical(other.isBusiness, isBusiness) ||
+                other.isBusiness == isBusiness) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
@@ -876,6 +894,7 @@ class _$InitialImpl implements _Initial {
       otpVerifiedForgotPassword,
       isLogin,
       onBoardSkipBool,
+      isBusiness,
       message,
       userName,
       hasCard,
@@ -898,6 +917,7 @@ abstract class _Initial implements AuthState {
       required final bool otpVerifiedForgotPassword,
       required final bool isLogin,
       required final bool onBoardSkipBool,
+      required final bool isBusiness,
       final String? message,
       final String? userName,
       required final bool hasCard,
@@ -918,6 +938,8 @@ abstract class _Initial implements AuthState {
   bool get isLogin;
   @override
   bool get onBoardSkipBool;
+  @override
+  bool get isBusiness;
   @override
   String? get message;
   @override

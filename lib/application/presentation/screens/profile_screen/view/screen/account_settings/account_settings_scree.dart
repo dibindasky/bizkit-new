@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/change_password.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/account_settings/inner_screens/report_a_problem.dart';
@@ -5,6 +6,7 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
 import 'package:flutter/material.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AccountSettigsScreen extends StatelessWidget {
   const AccountSettigsScreen({super.key});
@@ -30,12 +32,19 @@ class AccountSettigsScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            TileItem(
-              text: 'Change Username',
-              onTap: () => Navigator.push(
-                context,
-                fadePageRoute(const EditUserDetails()),
-              ),
+            BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {
+                if (state.isBusiness) {
+                  return kempty;
+                }
+                return TileItem(
+                  text: 'Change Username',
+                  onTap: () => Navigator.push(
+                    context,
+                    fadePageRoute(const EditUserDetails()),
+                  ),
+                );
+              },
             ),
             TileItem(
               text: 'Change password',

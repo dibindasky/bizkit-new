@@ -12,8 +12,8 @@ BlockedCardsResponceMoede _$BlockedCardsResponceMoedeFromJson(
       count: json['count'] as int?,
       next: json['next'],
       previous: json['previous'],
-      blockedCards: (json['results'] as List<dynamic>?)
-          ?.map((e) => BlockedCards.fromJson(e as Map<String, dynamic>))
+      deletedCards: (json['results'] as List<dynamic>?)
+          ?.map((e) => DeletedCard.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -23,5 +23,5 @@ Map<String, dynamic> _$BlockedCardsResponceMoedeToJson(
       'count': instance.count,
       'next': instance.next,
       'previous': instance.previous,
-      'results': instance.blockedCards,
+      'results': instance.deletedCards,
     };

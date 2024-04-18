@@ -18,7 +18,7 @@ class CardState with _$CardState {
     required List<CardResponse> cards,
     String? message,
     List<ArcheivedCard>? archievedCards,
-    List<BlockedCards>? deletedCards,
+    List<DeletedCard>? deletedCards,
     List<UserView>? cardViewList,
     CardResponse? defaultCard,
     Card? anotherCard,

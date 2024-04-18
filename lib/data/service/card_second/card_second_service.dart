@@ -133,6 +133,7 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.getDeletedSecondCard,
         data: pageQuery.toJson(),
       );
+
       return Right(GetDeletedSecondCards.fromJson(responce.data));
     } on DioException catch (e) {
       log('getDeleteSecondCard dio error $e');

@@ -31,9 +31,14 @@ class EmailFieldForGottPassword extends StatelessWidget {
             'Email verification',
             style: TextStyle(fontSize: 16),
           ),
-          leading: const Icon(
-            Icons.arrow_back_ios,
-            size: 17,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 17,
+            ),
           ),
         ),
         body: Column(

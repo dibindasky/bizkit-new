@@ -95,12 +95,6 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                   .read<CardSecondBloc>()
                   .add(const CardSecondEvent.imageClear());
               Navigator.pop(context);
-              // GoRouter.of(context).pushNamed(
-              //   Routes.homePage,
-              // );
-              // Navigator.of(context).pushAndRemoveUntil(
-              //     fadePageRoute(const BizkitBottomNavigationBar()),
-              //     (route) => false);
               showSnackbar(context, message: 'Card updated Successfully');
             }
           },
@@ -377,16 +371,6 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                               .updatedesignationController,
                           inputType: TextInputType.name,
                         ),
-                        // AutocompleteTextField(
-                        //   autocompleteItems:
-                        //       state.scannedImageDatasModel?.names ?? [],
-                        //   validate: Validate.notNull,
-                        //   label: 'Company',
-                        //   controller: context
-                        //       .read<CardSecondBloc>()
-                        //       .updateCompanyController,
-                        //   inputType: TextInputType.name,
-                        // ),
                         TTextFormField(
                           validate: Validate.notNull,
                           text: 'Location',
@@ -411,7 +395,6 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                               .updateoccupationController,
                           inputType: TextInputType.name,
                         ),
-
                         TTextFormField(
                           validate: Validate.notNull,
                           text: 'Notes',
@@ -433,7 +416,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                     SecondCard secondCard = SecondCard(
                                       whereWeMet: context
                                           .read<CardSecondBloc>()
-                                          .occationController
+                                          .updateoccationController
                                           .text,
                                       designation: context
                                           .read<CardSecondBloc>()

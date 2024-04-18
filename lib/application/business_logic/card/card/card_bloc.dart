@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/archeived_card.dart';
-import 'package:bizkit/domain/model/card/cards_in_profile/blocked_cards_responce_moede/blocked%20cards.dart';
+import 'package:bizkit/domain/model/card/cards_in_profile/blocked_cards_responce_moede/deleted_cards.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:bizkit/domain/model/card_first/get_views_response_model/user_view.dart';
@@ -43,7 +44,6 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     emit(CardState.initial());
   }
 
-<<<<<<< HEAD
   FutureOr<void> getCardViews(GetCardViews event, emit) async {
     emit(state.copyWith(
         viewsLoading: true,
@@ -58,9 +58,6 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   }
 
   FutureOr<void> getdeleteCardsEvent(GetdeleteCardsEvent event, emit) async {
-=======
-  Future<void> getdeleteCardsEvent(GetdeleteCardsEvent event, emit) async {
->>>>>>> ezz
     emit(state.copyWith(
       deleteCardEventLoading: true,
       hasError: false,
@@ -75,12 +72,22 @@ class CardBloc extends Bloc<CardEvent, CardState> {
               hasError: true,
               message: null,
             )), (r) {
+      log('getdeleteCardsEvent call');
+      log(' getdeleteCardsEvent legth ${r.deletedCards?.length}');
+      List<DeletedCard> list = [];
+      list.clear();
+      if (r.deletedCards != null) {
+        for (var element in state.deletedCards ?? []) {
+          list.add(element);
+        }
+      }
+      log('getdeleteCardsEvent state legth $list');
       emit(state.copyWith(
         deleteCardEventLoading: false,
-        hasError: true,
+        hasError: false,
         deletedCards: [
-          ...state.deletedCards ?? [],
-          ...r.blockedCards ?? [],
+          ...list,
+          ...r.deletedCards ?? [],
         ],
       ));
     });
@@ -101,10 +108,11 @@ class CardBloc extends Bloc<CardEvent, CardState> {
               hasError: true,
               message: null,
             )), (r) {
+      log('getDeleteSecondCard length ${r.deletedCards?.length}');
       emit(state.copyWith(
         deleteCardLoading: false,
         hasError: false,
-        deletedCards: r.blockedCards ?? [],
+        deletedCards: r.deletedCards ?? [],
       ));
     });
   }
@@ -159,7 +167,9 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             message: 'failed to Delete card',
             hasError: true)), (success) {
       emit(state.copyWith(
-          message: 'Card delete successfully', deleteCardLoading: false));
+          hasError: false,
+          message: 'Card delete successfully',
+          deleteCardLoading: false));
       add(const CardEvent.getCards(call: true));
       add(const CardEvent.getdeleteCards(isLoad: true));
     });
@@ -177,6 +187,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             message: 'failed to archive card',
             hasError: true)), (success) {
       emit(state.copyWith(
+        hasError: false,
         message: 'Card archive successfully',
         isLoading: false,
       ));
@@ -201,7 +212,6 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         isLoading: false,
         hasError: false,
         archiveCardRestored: true,
-        deleteCardRestored: true,
       ));
       add(const CardEvent.getArchievedCards(isLoad: true));
       add(const CardEvent.getCards(call: true));
@@ -224,7 +234,6 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       emit(state.copyWith(
         deleteCardLoading: false,
         hasError: false,
-        archiveCardRestored: true,
         deleteCardRestored: true,
       ));
       add(const CardEvent.getdeleteCards(isLoad: true));

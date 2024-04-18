@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'blocked cards.dart';
+part of 'deleted_cards.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BlockedCards _$BlockedCardsFromJson(Map<String, dynamic> json) => BlockedCards(
+DeletedCard _$DeletedCardFromJson(Map<String, dynamic> json) => DeletedCard(
       id: json['id'] as int?,
       name: json['name'] as String?,
       designation: json['designation'] as String?,
@@ -24,7 +24,7 @@ BlockedCards _$BlockedCardsFromJson(Map<String, dynamic> json) => BlockedCards(
       cardLink: json['card_link'] as String?,
     );
 
-Map<String, dynamic> _$BlockedCardsToJson(BlockedCards instance) =>
+Map<String, dynamic> _$DeletedCardToJson(DeletedCard instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

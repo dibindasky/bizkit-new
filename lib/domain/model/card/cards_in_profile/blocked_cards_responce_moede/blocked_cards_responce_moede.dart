@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'blocked cards.dart';
+import 'deleted_cards.dart';
 
 part 'blocked_cards_responce_moede.g.dart';
 
@@ -10,13 +10,13 @@ class BlockedCardsResponceMoede {
   dynamic next;
   dynamic previous;
   @JsonKey(name: 'results')
-  List<BlockedCards>? blockedCards;
+  List<DeletedCard>? deletedCards;
 
   BlockedCardsResponceMoede({
     this.count,
     this.next,
     this.previous,
-    this.blockedCards,
+    this.deletedCards,
   });
 
   factory BlockedCardsResponceMoede.fromJson(Map<String, dynamic> json) {

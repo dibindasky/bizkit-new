@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
@@ -167,21 +168,21 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                 )),
                                           ),
                                         ),
-                                      Positioned(
-                                        right: 10,
-                                        top: 10,
-                                        child: PopupMenuButton<String>(
-                                          icon: const Icon(
-                                            Icons.more_vert,
-                                            size: 32,
-                                            color: kblack,
-                                          ),
-                                          onSelected: (value) {},
-                                          itemBuilder: (context) {
-                                            List<PopupMenuEntry<String>> items =
-                                                [];
-                                            if (!state
-                                                .cards[index].isDefault!) {
+                                      if (!state.cards[index].isDefault!)
+                                        Positioned(
+                                          right: 10,
+                                          top: 10,
+                                          child: PopupMenuButton<String>(
+                                            icon: const Icon(
+                                              Icons.more_vert,
+                                              size: 32,
+                                              color: kblack,
+                                            ),
+                                            onSelected: (value) {},
+                                            itemBuilder: (context) {
+                                              List<PopupMenuEntry<String>>
+                                                  items = [];
+
                                               items.add(
                                                 PopupMenuItem(
                                                   onTap: () => context
@@ -193,64 +194,63 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                       'Set as default'),
                                                 ),
                                               );
-                                            }
-
-                                            // Add other menu items
-                                            items.addAll([
-                                              PopupMenuItem(
-                                                onTap: () =>
+                                              items.addAll([
+                                                PopupMenuItem(
+                                                  onTap: () {
                                                     showConfirmationDialog(
-                                                  actionButton: 'Archive',
-                                                  heading:
-                                                      'Are you sure you want to archive your card',
-                                                  context,
-                                                  onPressed: () {
-                                                    CardActionRequestModel
-                                                        cardActionRewuestModel =
-                                                        CardActionRequestModel(
-                                                            isActive: false,
-                                                            isArchived: true);
-                                                    context
-                                                        .read<CardBloc>()
-                                                        .add(CardEvent
-                                                            .cardArchive(
-                                                          cardActionRequestModel:
-                                                              cardActionRewuestModel,
-                                                          id: card.id!,
-                                                        ));
+                                                      actionButton: 'Archive',
+                                                      heading:
+                                                          'Are you sure you want to archive your card',
+                                                      context,
+                                                      onPressed: () {
+                                                        CardActionRequestModel
+                                                            cardActionRewuestModel =
+                                                            CardActionRequestModel(
+                                                                isActive: false,
+                                                                isArchived:
+                                                                    true);
+                                                        context
+                                                            .read<CardBloc>()
+                                                            .add(CardEvent
+                                                                .cardArchive(
+                                                              cardActionRequestModel:
+                                                                  cardActionRewuestModel,
+                                                              id: card.id!,
+                                                            ));
+                                                      },
+                                                    );
                                                   },
+                                                  value: 'Archive',
+                                                  child: const Text('Archive'),
                                                 ),
-                                                value: 'Archive',
-                                                child: const Text('Archive'),
-                                              ),
-                                              PopupMenuItem(
-                                                onTap: () =>
-                                                    showConfirmationDialog(
-                                                  heading:
-                                                      'Are you sure you want to delete your card',
-                                                  context,
-                                                  onPressed: () {
-                                                    CardActionRequestModel
-                                                        cardActionRewuestModel =
-                                                        CardActionRequestModel(
-                                                            isActive: false);
-                                                    context.read<CardBloc>().add(
-                                                        CardEvent.cardDelete(
-                                                            cardActionRequestModel:
-                                                                cardActionRewuestModel,
-                                                            id: card.id!));
-                                                  },
+                                                PopupMenuItem(
+                                                  onTap: () =>
+                                                      showConfirmationDialog(
+                                                    heading:
+                                                        'Are you sure you want to delete your card',
+                                                    context,
+                                                    onPressed: () {
+                                                      CardActionRequestModel
+                                                          cardActionRewuestModel =
+                                                          CardActionRequestModel(
+                                                              isActive: false);
+                                                      context.read<CardBloc>().add(
+                                                          CardEvent.cardDelete(
+                                                              cardActionRequestModel:
+                                                                  cardActionRewuestModel,
+                                                              id: card.id!));
+                                                    },
+                                                  ),
+                                                  value: 'Delete Card',
+                                                  child:
+                                                      const Text('Delete Card'),
                                                 ),
-                                                value: 'Delete Card',
-                                                child:
-                                                    const Text('Delete Card'),
-                                              ),
-                                            ]);
+                                              ]);
 
-                                            return items;
-                                          },
+                                              return items;
+                                            },
+                                          ),
                                         ),
-                                      ),
                                     ],
                                   ),
                                   adjustHieght(khieght * .02),
@@ -492,9 +492,12 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                               return const LoadingAnimation();
                             }
                             final seconsdCard = state.secondCards[index];
-                            String base64String = seconsdCard.image!;
-                            base64String = base64String.replaceFirst(
+                            String? base64String = seconsdCard.selfie;
+                            base64String = base64String?.replaceFirst(
                                 RegExp(r'data:image/jpg;base64,'), '');
+                            // final format = getImageFormat(base64String);
+                            // final memoryimage =
+                            //     getBase64Image(format, base64String);
                             return Container(
                               decoration: BoxDecoration(
                                 color: textFieldFillColr,
@@ -537,8 +540,14 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                     fit: BoxFit.cover,
                                                   )
                                                 : Image.memory(
-                                                    base64.decode(base64String),
+                                                    base64Decode(base64String!),
+                                                    // imageBackgroundCard,
                                                     fit: BoxFit.cover,
+                                                    errorBuilder: (context,
+                                                        error, stackTrace) {
+                                                      return const Icon(
+                                                          Icons.error);
+                                                    },
                                                   ),
                                           ),
                                         ),

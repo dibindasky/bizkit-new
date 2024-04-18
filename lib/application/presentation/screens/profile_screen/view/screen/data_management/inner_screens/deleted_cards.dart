@@ -119,7 +119,20 @@ class _DeletedCardsState extends State<DeletedCards> {
                             index == state.deletedCards!.length) {
                           return const LoadingAnimation();
                         }
-                        final card = state.deletedCards![index];
+
+                        // final card = state.deletedCards![index];
+                        final deletedFirstCard = state.deletedCards![index];
+                        String base64String = deletedFirstCard.logo ?? '';
+                        base64String = base64String.replaceFirst(
+                            RegExp(r'data:image/jpg;base64,'), '');
+
+                        // String base64String = card.logo ?? '';
+                        // base64String = base64String.replaceFirst(
+                        //     RegExp(r'data:image/jpg;base64,'), '');
+                        // final format = getImageFormat(base64String);
+                        // final memoryImage =
+                        //     getBase64Image(format, base64String);
+
                         return Container(
                           decoration: BoxDecoration(
                             color: textFieldFillColr,
@@ -136,20 +149,28 @@ class _DeletedCardsState extends State<DeletedCards> {
                                     child: InkWell(
                                       onTap: () {},
                                       child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(25),
-                                            topRight: Radius.circular(20),
-                                          ),
-                                          child: state.deletedCards != null &&
-                                                  state.deletedCards![index]
-                                                          .logo !=
-                                                      null
-                                              ? Image.network(
-                                                  card.logo!,
-                                                  fit: BoxFit.cover,
-                                                )
-                                              : Image.network(imageDummyNetwork,
-                                                  fit: BoxFit.cover)),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(25),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                        child: state.deletedCards != null &&
+                                                state.deletedCards![index]
+                                                        .logo !=
+                                                    null
+                                            ? Image.memory(
+                                                //base64Decode(memoryImage),
+                                                base64Decode(base64String),
+                                                //card.logo!,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return const Icon(
+                                                      Icons.error);
+                                                },
+                                              )
+                                            : Image.asset(imageBackgroundCard,
+                                                fit: BoxFit.cover),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -269,11 +290,18 @@ class _DeletedCardsState extends State<DeletedCards> {
                             index == state.deleteSecondCards!.length) {
                           return const LoadingAnimation();
                         }
-                        final card = state.deleteSecondCards![index];
-                        String base64String = card.image!;
-
+                        final deletedSecondcard =
+                            state.deleteSecondCards![index];
+                        String base64String = deletedSecondcard.image ?? '';
                         base64String = base64String.replaceFirst(
                             RegExp(r'data:image/jpg;base64,'), '');
+                        // final card = state.deleteSecondCards![index];
+                        // String base64String = card.image!;
+                        // final format = getImageFormat(base64String);
+                        // final memoryImage =
+                        //     getBase64Image(format, base64String);
+                        // base64String = base64String.replaceFirst(
+                        //     RegExp(r'data:image/jpg;base64,'), '');
 
                         return Container(
                           decoration: BoxDecoration(
@@ -303,7 +331,8 @@ class _DeletedCardsState extends State<DeletedCards> {
                                                           .image !=
                                                       null
                                               ? Image.memory(
-                                                  base64.decode(base64String),
+                                                  base64Decode(base64String),
+                                                  //imageDummyNetwork,
                                                   fit: BoxFit.cover,
                                                   errorBuilder: (context, error,
                                                       stackTrace) {
@@ -322,7 +351,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                                 children: [
                                   adjustWidth(kwidth * .02),
                                   Text(
-                                    '${card.name ?? ''}\n${card.designation}',
+                                    '${deletedSecondcard.name ?? ''}\n${deletedSecondcard.designation}',
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w700,
@@ -343,7 +372,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                                           context.read<CardSecondBloc>().add(
                                                 CardSecondEvent
                                                     .restoreDeleteCardSecond(
-                                                  id: card.id!,
+                                                  id: deletedSecondcard.id!,
                                                   cardActionRewuestModel:
                                                       cardActionRewuestModel,
                                                 ),

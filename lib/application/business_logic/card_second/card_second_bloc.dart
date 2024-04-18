@@ -64,7 +64,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     on<RestoreDeleteCardSecond>(restoreDeleteCardSecond);
     on<GetSecondCardDetail>(getSecondCardDetail);
     on<UpdateCardSecond>(updateCardSecond);
-    on<DataClearing>(initial);
+    on<Clear>(clear);
     on<ImageClear>(imageClear);
     on<CardFeildClearing>(cardFeildClearing);
   }
@@ -90,7 +90,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     ));
   }
 
-  FutureOr<void> initial(DataClearing devent, emit) {
+  FutureOr<void> clear(Clear devent, emit) {
     emit(CardSecondState.initial());
   }
 
@@ -131,7 +131,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
         message: 'Card restored',
       ));
       add(const CardSecondEvent.getDeleteCardSecond(isLoad: true));
-      //add(const CardSecondEvent.getAllCardsSecond(isLoad: true));
+      add(const CardSecondEvent.getAllCardsSecond(isLoad: true));
     });
   }
 
@@ -176,6 +176,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
               hasError: true,
               cardScanFinish: false,
             )), (r) {
+      log('getDeleteSecondCard length ${r.secondCards?.length}');
       emit(
         state.copyWith(
           secondCardDeleted: false,

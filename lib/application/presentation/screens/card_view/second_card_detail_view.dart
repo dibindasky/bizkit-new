@@ -323,8 +323,64 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     state.getSecondCardModel!.website != null
                 ? DetailSharingIconWidget(
                     onTap: () {
-                      LaunchUrl.launchUrls(
-                        url: state.getSecondCardModel!.website!,
+                      showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: neonShade),
+                                borderRadius: BorderRadius.circular(10),
+                                color: backgroundColour),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text('Website', style: textHeadStyle1),
+                                adjustHieght(10),
+                                Text(
+                                  state.getSecondCardModel!.location ?? '',
+                                ),
+                                adjustHieght(10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    OutlinedButton.icon(
+                                      style: OutlinedButton.styleFrom(
+                                          side: const BorderSide(
+                                              color: neonShade)),
+                                      onPressed: () async {
+                                        LaunchUrl.launchUrls(
+                                          url: state
+                                              .getSecondCardModel!.website!,
+                                        ).then(
+                                            (value) => Navigator.pop(context));
+                                      },
+                                      icon: const Icon(Icons.webhook_rounded),
+                                      label: const Text(
+                                        'View site',
+                                        style: TextStyle(color: neonShade),
+                                      ),
+                                    ),
+                                    adjustWidth(10),
+                                    OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                          side: const BorderSide(
+                                              color: neonShade)),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text(
+                                        'cancel',
+                                        style: TextStyle(color: neonShade),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       );
                     },
                     image: gifGlobe,

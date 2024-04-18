@@ -49,7 +49,7 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.getSecondCardDetail({
     required int id,
   }) = GetSecondCardDetail;
-  const factory CardSecondEvent.dataClearing() = DataClearing;
+  const factory CardSecondEvent.clear() = Clear;
   const factory CardSecondEvent.cardFeildClearing() = CardFeildClearing;
   const factory CardSecondEvent.imageClear() = ImageClear;
 }

@@ -2081,6 +2081,7 @@ mixin _$ProfileState {
   bool get questionLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   bool get profileLoading => throw _privateConstructorUsedError;
+  bool get isBusiness => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
   bool get profileNameUpdated => throw _privateConstructorUsedError;
@@ -2111,6 +2112,7 @@ abstract class $ProfileStateCopyWith<$Res> {
       bool questionLoading,
       bool hasError,
       bool profileLoading,
+      bool isBusiness,
       String? message,
       String? userName,
       bool profileNameUpdated,
@@ -2140,6 +2142,7 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? questionLoading = null,
     Object? hasError = null,
     Object? profileLoading = null,
+    Object? isBusiness = null,
     Object? message = freezed,
     Object? userName = freezed,
     Object? profileNameUpdated = null,
@@ -2167,6 +2170,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
       profileLoading: null == profileLoading
           ? _value.profileLoading
           : profileLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBusiness: null == isBusiness
+          ? _value.isBusiness
+          : isBusiness // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -2225,6 +2232,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool questionLoading,
       bool hasError,
       bool profileLoading,
+      bool isBusiness,
       String? message,
       String? userName,
       bool profileNameUpdated,
@@ -2252,6 +2260,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? questionLoading = null,
     Object? hasError = null,
     Object? profileLoading = null,
+    Object? isBusiness = null,
     Object? message = freezed,
     Object? userName = freezed,
     Object? profileNameUpdated = null,
@@ -2279,6 +2288,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       profileLoading: null == profileLoading
           ? _value.profileLoading
           : profileLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBusiness: null == isBusiness
+          ? _value.isBusiness
+          : isBusiness // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -2332,6 +2345,7 @@ class _$InitialImpl implements _Initial {
       required this.questionLoading,
       required this.hasError,
       required this.profileLoading,
+      required this.isBusiness,
       this.message,
       this.userName,
       required this.profileNameUpdated,
@@ -2352,6 +2366,8 @@ class _$InitialImpl implements _Initial {
   final bool hasError;
   @override
   final bool profileLoading;
+  @override
+  final bool isBusiness;
   @override
   final String? message;
   @override
@@ -2382,7 +2398,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, questionLoading: $questionLoading, hasError: $hasError, profileLoading: $profileLoading, message: $message, userName: $userName, profileNameUpdated: $profileNameUpdated, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, successResponseModel: $successResponseModel, updateUserInfoModel: $updateUserInfoModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, questionList: $questionList)';
+    return 'ProfileState(isLoading: $isLoading, questionLoading: $questionLoading, hasError: $hasError, profileLoading: $profileLoading, isBusiness: $isBusiness, message: $message, userName: $userName, profileNameUpdated: $profileNameUpdated, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, successResponseModel: $successResponseModel, updateUserInfoModel: $updateUserInfoModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, questionList: $questionList)';
   }
 
   @override
@@ -2398,6 +2414,8 @@ class _$InitialImpl implements _Initial {
                 other.hasError == hasError) &&
             (identical(other.profileLoading, profileLoading) ||
                 other.profileLoading == profileLoading) &&
+            (identical(other.isBusiness, isBusiness) ||
+                other.isBusiness == isBusiness) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
@@ -2428,6 +2446,7 @@ class _$InitialImpl implements _Initial {
       questionLoading,
       hasError,
       profileLoading,
+      isBusiness,
       message,
       userName,
       profileNameUpdated,
@@ -2452,6 +2471,7 @@ abstract class _Initial implements ProfileState {
       required final bool questionLoading,
       required final bool hasError,
       required final bool profileLoading,
+      required final bool isBusiness,
       final String? message,
       final String? userName,
       required final bool profileNameUpdated,
@@ -2471,6 +2491,8 @@ abstract class _Initial implements ProfileState {
   bool get hasError;
   @override
   bool get profileLoading;
+  @override
+  bool get isBusiness;
   @override
   String? get message;
   @override

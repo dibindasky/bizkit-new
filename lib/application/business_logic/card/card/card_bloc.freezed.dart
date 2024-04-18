@@ -3581,7 +3581,7 @@ mixin _$CardState {
   List<CardResponse> get cards => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   List<ArcheivedCard>? get archievedCards => throw _privateConstructorUsedError;
-  List<BlockedCards>? get deletedCards => throw _privateConstructorUsedError;
+  List<DeletedCard>? get deletedCards => throw _privateConstructorUsedError;
   List<UserView>? get cardViewList => throw _privateConstructorUsedError;
   CardResponse? get defaultCard => throw _privateConstructorUsedError;
   Card? get anotherCard => throw _privateConstructorUsedError;
@@ -3612,7 +3612,7 @@ abstract class $CardStateCopyWith<$Res> {
       List<CardResponse> cards,
       String? message,
       List<ArcheivedCard>? archievedCards,
-      List<BlockedCards>? deletedCards,
+      List<DeletedCard>? deletedCards,
       List<UserView>? cardViewList,
       CardResponse? defaultCard,
       Card? anotherCard});
@@ -3715,7 +3715,7 @@ class _$CardStateCopyWithImpl<$Res, $Val extends CardState>
       deletedCards: freezed == deletedCards
           ? _value.deletedCards
           : deletedCards // ignore: cast_nullable_to_non_nullable
-              as List<BlockedCards>?,
+              as List<DeletedCard>?,
       cardViewList: freezed == cardViewList
           ? _value.cardViewList
           : cardViewList // ignore: cast_nullable_to_non_nullable
@@ -3756,7 +3756,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       List<CardResponse> cards,
       String? message,
       List<ArcheivedCard>? archievedCards,
-      List<BlockedCards>? deletedCards,
+      List<DeletedCard>? deletedCards,
       List<UserView>? cardViewList,
       CardResponse? defaultCard,
       Card? anotherCard});
@@ -3857,7 +3857,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       deletedCards: freezed == deletedCards
           ? _value._deletedCards
           : deletedCards // ignore: cast_nullable_to_non_nullable
-              as List<BlockedCards>?,
+              as List<DeletedCard>?,
       cardViewList: freezed == cardViewList
           ? _value._cardViewList
           : cardViewList // ignore: cast_nullable_to_non_nullable
@@ -3893,7 +3893,7 @@ class _$InitialImpl implements _Initial {
       required final List<CardResponse> cards,
       this.message,
       final List<ArcheivedCard>? archievedCards,
-      final List<BlockedCards>? deletedCards,
+      final List<DeletedCard>? deletedCards,
       final List<UserView>? cardViewList,
       this.defaultCard,
       this.anotherCard})
@@ -3946,9 +3946,9 @@ class _$InitialImpl implements _Initial {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<BlockedCards>? _deletedCards;
+  final List<DeletedCard>? _deletedCards;
   @override
-  List<BlockedCards>? get deletedCards {
+  List<DeletedCard>? get deletedCards {
     final value = _deletedCards;
     if (value == null) return null;
     if (_deletedCards is EqualUnmodifiableListView) return _deletedCards;
@@ -4067,7 +4067,7 @@ abstract class _Initial implements CardState {
       required final List<CardResponse> cards,
       final String? message,
       final List<ArcheivedCard>? archievedCards,
-      final List<BlockedCards>? deletedCards,
+      final List<DeletedCard>? deletedCards,
       final List<UserView>? cardViewList,
       final CardResponse? defaultCard,
       final Card? anotherCard}) = _$InitialImpl;
@@ -4103,7 +4103,7 @@ abstract class _Initial implements CardState {
   @override
   List<ArcheivedCard>? get archievedCards;
   @override
-  List<BlockedCards>? get deletedCards;
+  List<DeletedCard>? get deletedCards;
   @override
   List<UserView>? get cardViewList;
   @override

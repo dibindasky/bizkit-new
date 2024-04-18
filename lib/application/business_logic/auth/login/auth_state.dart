@@ -10,6 +10,7 @@ class AuthState with _$AuthState {
     required bool otpVerifiedForgotPassword,
     required bool isLogin,
     required bool onBoardSkipBool,
+    required bool isBusiness,
     String? message,
     String? userName,
     required bool hasCard,
@@ -19,6 +20,7 @@ class AuthState with _$AuthState {
 
   factory AuthState.initial() => const AuthState(
         isLoading: false,
+        isBusiness: false,
         hasError: false,
         otpSend: false,
         isFirstLogin: true,

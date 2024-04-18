@@ -42,7 +42,7 @@ mixin _$CardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) =>
@@ -70,7 +70,7 @@ mixin _$CardSecondEvent {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) =>
@@ -98,7 +98,7 @@ mixin _$CardSecondEvent {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -124,7 +124,7 @@ mixin _$CardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) =>
@@ -146,7 +146,7 @@ mixin _$CardSecondEvent {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) =>
@@ -168,7 +168,7 @@ mixin _$CardSecondEvent {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -256,7 +256,7 @@ class _$StartedImpl implements _Started {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -287,7 +287,7 @@ class _$StartedImpl implements _Started {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -318,7 +318,7 @@ class _$StartedImpl implements _Started {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -350,7 +350,7 @@ class _$StartedImpl implements _Started {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -375,7 +375,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -400,7 +400,7 @@ class _$StartedImpl implements _Started {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -504,7 +504,7 @@ class _$ScanImageImpl implements ScanImage {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -535,7 +535,7 @@ class _$ScanImageImpl implements ScanImage {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -566,7 +566,7 @@ class _$ScanImageImpl implements ScanImage {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -598,7 +598,7 @@ class _$ScanImageImpl implements ScanImage {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -623,7 +623,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -648,7 +648,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -766,7 +766,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -797,7 +797,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -828,7 +828,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -860,7 +860,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -885,7 +885,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -910,7 +910,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -1021,7 +1021,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -1052,7 +1052,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -1083,7 +1083,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -1115,7 +1115,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -1140,7 +1140,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -1165,7 +1165,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -1285,7 +1285,7 @@ class _$SelfieImageImpl implements SelfieImage {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -1316,7 +1316,7 @@ class _$SelfieImageImpl implements SelfieImage {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -1347,7 +1347,7 @@ class _$SelfieImageImpl implements SelfieImage {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -1379,7 +1379,7 @@ class _$SelfieImageImpl implements SelfieImage {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -1404,7 +1404,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -1429,7 +1429,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -1609,7 +1609,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -1641,7 +1641,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -1673,7 +1673,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -1706,7 +1706,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -1731,7 +1731,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -1756,7 +1756,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -1926,7 +1926,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -1958,7 +1958,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -1990,7 +1990,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -2023,7 +2023,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -2048,7 +2048,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -2073,7 +2073,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -2192,7 +2192,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -2223,7 +2223,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -2254,7 +2254,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -2286,7 +2286,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -2311,7 +2311,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -2336,7 +2336,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -2456,7 +2456,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -2487,7 +2487,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -2518,7 +2518,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -2550,7 +2550,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -2575,7 +2575,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -2600,7 +2600,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -2723,7 +2723,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -2754,7 +2754,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -2785,7 +2785,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -2817,7 +2817,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -2842,7 +2842,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -2867,7 +2867,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -2980,7 +2980,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -3011,7 +3011,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -3042,7 +3042,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -3074,7 +3074,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -3099,7 +3099,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -3124,7 +3124,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -3211,7 +3211,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -3242,7 +3242,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -3273,7 +3273,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -3305,7 +3305,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -3330,7 +3330,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -3355,7 +3355,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -3472,7 +3472,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -3503,7 +3503,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -3534,7 +3534,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -3566,7 +3566,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -3591,7 +3591,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -3616,7 +3616,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -3702,7 +3702,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -3733,7 +3733,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -3764,7 +3764,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -3796,7 +3796,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -3821,7 +3821,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -3846,7 +3846,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -3951,7 +3951,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -3982,7 +3982,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -4013,7 +4013,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -4045,7 +4045,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -4070,7 +4070,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -4095,7 +4095,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -4118,35 +4118,35 @@ abstract class GetSecondCardDetail implements CardSecondEvent {
 }
 
 /// @nodoc
-abstract class _$$DataClearingImplCopyWith<$Res> {
-  factory _$$DataClearingImplCopyWith(
-          _$DataClearingImpl value, $Res Function(_$DataClearingImpl) then) =
-      __$$DataClearingImplCopyWithImpl<$Res>;
+abstract class _$$ClearImplCopyWith<$Res> {
+  factory _$$ClearImplCopyWith(
+          _$ClearImpl value, $Res Function(_$ClearImpl) then) =
+      __$$ClearImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$DataClearingImplCopyWithImpl<$Res>
-    extends _$CardSecondEventCopyWithImpl<$Res, _$DataClearingImpl>
-    implements _$$DataClearingImplCopyWith<$Res> {
-  __$$DataClearingImplCopyWithImpl(
-      _$DataClearingImpl _value, $Res Function(_$DataClearingImpl) _then)
+class __$$ClearImplCopyWithImpl<$Res>
+    extends _$CardSecondEventCopyWithImpl<$Res, _$ClearImpl>
+    implements _$$ClearImplCopyWith<$Res> {
+  __$$ClearImplCopyWithImpl(
+      _$ClearImpl _value, $Res Function(_$ClearImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$DataClearingImpl implements DataClearing {
-  const _$DataClearingImpl();
+class _$ClearImpl implements Clear {
+  const _$ClearImpl();
 
   @override
   String toString() {
-    return 'CardSecondEvent.dataClearing()';
+    return 'CardSecondEvent.clear()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$DataClearingImpl);
+        (other.runtimeType == runtimeType && other is _$ClearImpl);
   }
 
   @override
@@ -4179,11 +4179,11 @@ class _$DataClearingImpl implements DataClearing {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
-    return dataClearing();
+    return clear();
   }
 
   @override
@@ -4210,11 +4210,11 @@ class _$DataClearingImpl implements DataClearing {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
-    return dataClearing?.call();
+    return clear?.call();
   }
 
   @override
@@ -4241,13 +4241,13 @@ class _$DataClearingImpl implements DataClearing {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
   }) {
-    if (dataClearing != null) {
-      return dataClearing();
+    if (clear != null) {
+      return clear();
     }
     return orElse();
   }
@@ -4273,11 +4273,11 @@ class _$DataClearingImpl implements DataClearing {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
-    return dataClearing(this);
+    return clear(this);
   }
 
   @override
@@ -4298,11 +4298,11 @@ class _$DataClearingImpl implements DataClearing {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
-    return dataClearing?.call(this);
+    return clear?.call(this);
   }
 
   @override
@@ -4323,20 +4323,20 @@ class _$DataClearingImpl implements DataClearing {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
   }) {
-    if (dataClearing != null) {
-      return dataClearing(this);
+    if (clear != null) {
+      return clear(this);
     }
     return orElse();
   }
 }
 
-abstract class DataClearing implements CardSecondEvent {
-  const factory DataClearing() = _$DataClearingImpl;
+abstract class Clear implements CardSecondEvent {
+  const factory Clear() = _$ClearImpl;
 }
 
 /// @nodoc
@@ -4401,7 +4401,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -4432,7 +4432,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -4463,7 +4463,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -4495,7 +4495,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -4520,7 +4520,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -4545,7 +4545,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),
@@ -4623,7 +4623,7 @@ class _$ImageClearImpl implements ImageClear {
         restoreDeleteCardSecond,
     required TResult Function() getCardSecondEvent,
     required TResult Function(int id) getSecondCardDetail,
-    required TResult Function() dataClearing,
+    required TResult Function() clear,
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
@@ -4654,7 +4654,7 @@ class _$ImageClearImpl implements ImageClear {
         restoreDeleteCardSecond,
     TResult? Function()? getCardSecondEvent,
     TResult? Function(int id)? getSecondCardDetail,
-    TResult? Function()? dataClearing,
+    TResult? Function()? clear,
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
@@ -4685,7 +4685,7 @@ class _$ImageClearImpl implements ImageClear {
         restoreDeleteCardSecond,
     TResult Function()? getCardSecondEvent,
     TResult Function(int id)? getSecondCardDetail,
-    TResult Function()? dataClearing,
+    TResult Function()? clear,
     TResult Function()? cardFeildClearing,
     TResult Function()? imageClear,
     required TResult orElse(),
@@ -4717,7 +4717,7 @@ class _$ImageClearImpl implements ImageClear {
         restoreDeleteCardSecond,
     required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
     required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
-    required TResult Function(DataClearing value) dataClearing,
+    required TResult Function(Clear value) clear,
     required TResult Function(CardFeildClearing value) cardFeildClearing,
     required TResult Function(ImageClear value) imageClear,
   }) {
@@ -4742,7 +4742,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult? Function(DataClearing value)? dataClearing,
+    TResult? Function(Clear value)? clear,
     TResult? Function(CardFeildClearing value)? cardFeildClearing,
     TResult? Function(ImageClear value)? imageClear,
   }) {
@@ -4767,7 +4767,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
     TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
     TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
-    TResult Function(DataClearing value)? dataClearing,
+    TResult Function(Clear value)? clear,
     TResult Function(CardFeildClearing value)? cardFeildClearing,
     TResult Function(ImageClear value)? imageClear,
     required TResult orElse(),

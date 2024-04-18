@@ -207,6 +207,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     if (state.getUserInfoModel != null && !event.isLoad) return;
     emit(state.copyWith(profileLoading: true, hasError: false, message: null));
     final data = await profileRepo.getProfile();
+    final role = await SecureStorage.getRole();
     data.fold(
         (l) => emit(
               state.copyWith(
@@ -219,11 +220,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         userNameController.text = r.results!.name!;
         emit(state.copyWith(userName: r.results!.name ?? ''));
       }
+      if (r.results != null && r.results!.company != null) {
+        userNameController.text = r.results!.company!;
+        emit(state.copyWith(userName: r.results!.company ?? ''));
+      }
       emit(
         state.copyWith(
           profileLoading: false,
           hasError: false,
           getUserInfoModel: r,
+          isBusiness: role,
         ),
       );
     });

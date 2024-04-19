@@ -5,6 +5,7 @@ import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -41,6 +42,12 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
               children: [
                 BlocBuilder<ProfileBloc, ProfileState>(
                   builder: (context, state) {
+                    if (state.isLoading) {
+                      return const ShimmerLoaderTile(
+                        height: 20,
+                        width: 100,
+                      );
+                    }
                     return Text(
                       '${state.userName != null ? state.userName!.length > 15 ? '${state.userName!.substring(0, 15)}..' : state.userName : ''}',
                       style: custumText(

@@ -62,19 +62,20 @@ class CardSecondScannedDatas extends StatelessWidget {
                       children: [
                         adjustHieght(khieght * 0.008),
                         AutocompleteTextField(
-                            textCapitalization: TextCapitalization.words,
-                            autocompleteItems:
-                                state.scannedImageDatasModel?.names ?? [],
-                            validate: Validate.notNull,
-                            label: 'Name',
-                            controller:
-                                context.read<CardSecondBloc>().nameController,
-                            inputType: TextInputType.name),
-                        AutocompleteTextField(
                           textCapitalization: TextCapitalization.words,
                           autocompleteItems:
                               state.scannedImageDatasModel?.names ?? [],
                           validate: Validate.notNull,
+                          label: 'Name',
+                          controller:
+                              context.read<CardSecondBloc>().nameController,
+                          inputType: TextInputType.name,
+                        ),
+                        AutocompleteTextField(
+                          textCapitalization: TextCapitalization.words,
+                          autocompleteItems:
+                              state.scannedImageDatasModel?.names ?? [],
+                          // validate: Validate.notNull,
                           label: 'Company',
                           controller:
                               context.read<CardSecondBloc>().copanyController,
@@ -84,7 +85,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                           textCapitalization: TextCapitalization.words,
                           autocompleteItems:
                               state.scannedImageDatasModel?.emails ?? [],
-                          validate: Validate.email,
+                          // validate: Validate.email,
                           label: 'Email',
                           controller:
                               context.read<CardSecondBloc>().emailController,
@@ -95,7 +96,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                           maxLength: 10,
                           autocompleteItems:
                               state.scannedImageDatasModel?.phone ?? [],
-                          validate: Validate.phone,
+                          validate: Validate.ifValidnumber,
                           label: 'Phone number',
                           controller:
                               context.read<CardSecondBloc>().phoneController,
@@ -105,7 +106,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                           textCapitalization: TextCapitalization.words,
                           autocompleteItems:
                               state.scannedImageDatasModel?.websites ?? [],
-                          validate: Validate.website,
+                          validate: Validate.ifValidWebsite,
                           label: 'Website',
                           controller:
                               context.read<CardSecondBloc>().webSiteController,
@@ -115,7 +116,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                           textCapitalization: TextCapitalization.words,
                           autocompleteItems:
                               state.scannedImageDatasModel?.names ?? [],
-                          validate: Validate.notNull,
+                          // validate: Validate.notNull,
                           label: 'Designation',
                           controller: context
                               .read<CardSecondBloc>()
@@ -333,7 +334,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                         adjustHieght(khieght * 0.008),
                         TTextFormField(
                           textCapitalization: TextCapitalization.words,
-                          validate: Validate.notNull,
+                          // validate: Validate.notNull,
                           text: 'Occasion',
                           controller:
                               context.read<CardSecondBloc>().occationController,
@@ -341,7 +342,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                         ),
                         TTextFormField(
                           textCapitalization: TextCapitalization.words,
-                          validate: Validate.notNull,
+                          // validate: Validate.notNull,
                           text: 'Location',
                           controller:
                               context.read<CardSecondBloc>().locatioNController,
@@ -349,7 +350,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                         ),
                         TTextFormField(
                           textCapitalization: TextCapitalization.words,
-                          validate: Validate.notNull,
+                          // validate: Validate.notNull,
                           text: 'Occupation',
                           controller: context
                               .read<CardSecondBloc>()
@@ -358,7 +359,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                         ),
                         TTextFormField(
                           textCapitalization: TextCapitalization.words,
-                          validate: Validate.notNull,
+                          // validate: Validate.notNull,
                           maxLines: 3,
                           text: 'Notes',
                           controller:
@@ -371,29 +372,29 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                             : LastSkipContinueButtons(
                                 onTap: () {
                                   if (meetingDataKey.currentState!.validate()) {
-                                    context
-                                        .read<CardSecondBloc>()
-                                        .add(CardSecondEvent.meetingRelatedInfo(
-                                          selfieImage:
-                                              state.selfieImageModel?.base64 ??
-                                                  '',
-                                          occation: context
-                                              .read<CardSecondBloc>()
-                                              .occationController
-                                              .text,
-                                          location: context
-                                              .read<CardSecondBloc>()
-                                              .locatioNController
-                                              .text,
-                                          occupation: context
-                                              .read<CardSecondBloc>()
-                                              .occupationController
-                                              .text,
-                                          notes: context
-                                              .read<CardSecondBloc>()
-                                              .notesController
-                                              .text,
-                                        ));
+                                    context.read<CardSecondBloc>().add(
+                                          CardSecondEvent.meetingRelatedInfo(
+                                            selfieImage: state
+                                                    .selfieImageModel?.base64 ??
+                                                '',
+                                            occation: context
+                                                .read<CardSecondBloc>()
+                                                .occationController
+                                                .text,
+                                            location: context
+                                                .read<CardSecondBloc>()
+                                                .locatioNController
+                                                .text,
+                                            occupation: context
+                                                .read<CardSecondBloc>()
+                                                .occupationController
+                                                .text,
+                                            notes: context
+                                                .read<CardSecondBloc>()
+                                                .notesController
+                                                .text,
+                                          ),
+                                        );
                                   }
                                 },
                               ),

@@ -1,37 +1,46 @@
+import 'dart:developer';
+
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/widgets/refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HelpSupport extends StatefulWidget {
-  const HelpSupport({super.key, this.scrollController});
-  final ScrollController? scrollController;
+  const HelpSupport({super.key});
+
   @override
   State<HelpSupport> createState() => _HelpSupportState();
 }
 
 class _HelpSupportState extends State<HelpSupport> {
-  _scrollCallBack() {
-    final maxScroll = widget.scrollController!.position.maxScrollExtent;
-    final currentScroll = widget.scrollController!.position.pixels;
-    var delta = 100.0;
-    if (maxScroll - currentScroll <= delta) {
-      context.read<ProfileBloc>().add(const ProfileEvent.getQuestionEvent());
-    }
-  }
+  late ScrollController scrollController = ScrollController();
+  // _scrollCallBack() {
+  //   final maxScroll = widget.scrollController!.position.maxScrollExtent;
+  //   final currentScroll = widget.scrollController!.position.pixels;
+  //   var delta = 100.0;
+  //   if (maxScroll - currentScroll <= delta) {}
+  // }
 
   @override
   void initState() {
     super.initState();
-    if (widget.scrollController != null) {
-      _scrollCallBack();
-    }
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        log('inside addListener');
+        context.read<ProfileBloc>().add(const ProfileEvent.getQuestionEvent());
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   final TextEditingController textEditingController = TextEditingController();
@@ -66,6 +75,7 @@ class _HelpSupportState extends State<HelpSupport> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
+          controller: scrollController,
           child: Column(
             children: [
               adjustHieght(khieght * .02),
@@ -104,14 +114,7 @@ class _HelpSupportState extends State<HelpSupport> {
                       width: kwidth * 0.9,
                       seprator: const SizedBox(height: 10),
                     );
-                  } else if (state.questionList == null) {
-                    return RefreshIndicatorCustom(
-                      message: errorMessage,
-                      onRefresh: () => context
-                          .read<ProfileBloc>()
-                          .add(const ProfileEvent.getQuestionEvent()),
-                    );
-                  } else if (state.questionList!.isEmpty) {
+                  } else if (state.questionList.isEmpty) {
                     return SizedBox(
                       height: khieght * .55,
                       child: const Center(
@@ -119,25 +122,28 @@ class _HelpSupportState extends State<HelpSupport> {
                       ),
                     );
                   }
+                  int length = state.questionEvenLoading
+                      ? state.questionList.length + 1
+                      : state.questionList.length;
                   return ListView.builder(
-                    scrollDirection: Axis.vertical,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: (state.questionList?.length ?? 0) +
-                        (state.questionLoading ? 1 : 0),
+                    itemCount: length,
                     itemBuilder: (context, index) {
-                      final question = state.questionList![index];
-                      if (state.questionLoading &&
-                          index == state.questionList?.length) {
+                      final question = state.questionList[index];
+                      if (state.questionEvenLoading &&
+                          index == state.questionList.length - 1) {
                         return const LoadingAnimation();
                       }
                       return ExpansionTile(
+                        childrenPadding:
+                            const EdgeInsets.symmetric(vertical: 10),
                         title: Text(
-                          question.question!,
+                          question.question ?? '',
                           style: const TextStyle(color: kwhite),
                         ),
                         children: [
-                          Text(question.answer!),
+                          Text(question.answer ?? ''),
                         ],
                       );
                     },

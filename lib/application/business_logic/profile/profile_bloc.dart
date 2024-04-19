@@ -59,23 +59,24 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> getQuestionsEvent(GetQuestionEvent event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+        questionEvenLoading: true, hasError: false, message: null));
     final data = await profileRepo.getQuestions(
       pageQuery: PageQuery(page: ++faq),
     );
     data.fold((l) {
       emit(state.copyWith(
-        isLoading: false,
+        questionEvenLoading: false,
         hasError: false,
         message: errorMessage,
       ));
     }, (r) {
       emit(
-        questionList.addAll([...state.questionList!, ...r.results!]),
+        //questionList.addAll([...state.questionList!, ...r.results!]),
         state.copyWith(
-          isLoading: false,
+          questionEvenLoading: false,
           hasError: false,
-          questionList: questionList,
+          questionList: [...state.questionList, ...r.results ?? []],
         ),
       );
     });
@@ -216,14 +217,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 message: errorMessage,
               ),
             ), (r) {
-      if (r.results != null && r.results!.name != null) {
-        userNameController.text = r.results!.name!;
-        emit(state.copyWith(userName: r.results!.name ?? ''));
+      if (!role) {
+        if (r.results != null && r.results!.name != null) {
+          userNameController.text = r.results!.name!;
+          emit(state.copyWith(userName: r.results!.name ?? ''));
+        }
+      } else {
+        if (r.results != null && r.results!.company != null) {
+          userNameController.text = r.results!.company!;
+          emit(state.copyWith(userName: r.results!.company ?? ''));
+        }
       }
-      if (r.results != null && r.results!.company != null) {
-        userNameController.text = r.results!.company!;
-        emit(state.copyWith(userName: r.results!.company ?? ''));
-      }
+
       emit(
         state.copyWith(
           profileLoading: false,

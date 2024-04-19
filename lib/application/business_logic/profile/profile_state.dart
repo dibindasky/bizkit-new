@@ -5,6 +5,7 @@ class ProfileState with _$ProfileState {
   const factory ProfileState({
     required bool isLoading,
     required bool questionLoading,
+    required bool questionEvenLoading,
     required bool hasError,
     required bool profileLoading,
     required bool isBusiness,
@@ -17,11 +18,13 @@ class ProfileState with _$ProfileState {
     SuccessResponseModel? successResponseModel,
     UpdateUserInfoModel? updateUserInfoModel,
     ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-    List<Questions>? questionList,
+    required List<Questions> questionList,
   }) = _Initial;
   factory ProfileState.initial() => const ProfileState(
         isLoading: false,
+        questionList: [],
         isBusiness: false,
+        questionEvenLoading: false,
         profileNameUpdated: false,
         profileLoading: false,
         questionLoading: false,

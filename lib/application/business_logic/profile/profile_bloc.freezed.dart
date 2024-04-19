@@ -2079,6 +2079,7 @@ abstract class SearchQuestion implements ProfileEvent {
 mixin _$ProfileState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get questionLoading => throw _privateConstructorUsedError;
+  bool get questionEvenLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   bool get profileLoading => throw _privateConstructorUsedError;
   bool get isBusiness => throw _privateConstructorUsedError;
@@ -2094,7 +2095,7 @@ mixin _$ProfileState {
       throw _privateConstructorUsedError;
   ForegottPasswordResponceMdel? get foregottPasswordResponceMdel =>
       throw _privateConstructorUsedError;
-  List<Questions>? get questionList => throw _privateConstructorUsedError;
+  List<Questions> get questionList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProfileStateCopyWith<ProfileState> get copyWith =>
@@ -2110,6 +2111,7 @@ abstract class $ProfileStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool questionLoading,
+      bool questionEvenLoading,
       bool hasError,
       bool profileLoading,
       bool isBusiness,
@@ -2122,7 +2124,7 @@ abstract class $ProfileStateCopyWith<$Res> {
       SuccessResponseModel? successResponseModel,
       UpdateUserInfoModel? updateUserInfoModel,
       ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-      List<Questions>? questionList});
+      List<Questions> questionList});
 }
 
 /// @nodoc
@@ -2140,6 +2142,7 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
   $Res call({
     Object? isLoading = null,
     Object? questionLoading = null,
+    Object? questionEvenLoading = null,
     Object? hasError = null,
     Object? profileLoading = null,
     Object? isBusiness = null,
@@ -2152,7 +2155,7 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? successResponseModel = freezed,
     Object? updateUserInfoModel = freezed,
     Object? foregottPasswordResponceMdel = freezed,
-    Object? questionList = freezed,
+    Object? questionList = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -2162,6 +2165,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
       questionLoading: null == questionLoading
           ? _value.questionLoading
           : questionLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      questionEvenLoading: null == questionEvenLoading
+          ? _value.questionEvenLoading
+          : questionEvenLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       hasError: null == hasError
           ? _value.hasError
@@ -2211,10 +2218,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.foregottPasswordResponceMdel
           : foregottPasswordResponceMdel // ignore: cast_nullable_to_non_nullable
               as ForegottPasswordResponceMdel?,
-      questionList: freezed == questionList
+      questionList: null == questionList
           ? _value.questionList
           : questionList // ignore: cast_nullable_to_non_nullable
-              as List<Questions>?,
+              as List<Questions>,
     ) as $Val);
   }
 }
@@ -2230,6 +2237,7 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       bool questionLoading,
+      bool questionEvenLoading,
       bool hasError,
       bool profileLoading,
       bool isBusiness,
@@ -2242,7 +2250,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       SuccessResponseModel? successResponseModel,
       UpdateUserInfoModel? updateUserInfoModel,
       ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-      List<Questions>? questionList});
+      List<Questions> questionList});
 }
 
 /// @nodoc
@@ -2258,6 +2266,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? questionLoading = null,
+    Object? questionEvenLoading = null,
     Object? hasError = null,
     Object? profileLoading = null,
     Object? isBusiness = null,
@@ -2270,7 +2279,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? successResponseModel = freezed,
     Object? updateUserInfoModel = freezed,
     Object? foregottPasswordResponceMdel = freezed,
-    Object? questionList = freezed,
+    Object? questionList = null,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -2280,6 +2289,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       questionLoading: null == questionLoading
           ? _value.questionLoading
           : questionLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      questionEvenLoading: null == questionEvenLoading
+          ? _value.questionEvenLoading
+          : questionEvenLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       hasError: null == hasError
           ? _value.hasError
@@ -2329,10 +2342,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.foregottPasswordResponceMdel
           : foregottPasswordResponceMdel // ignore: cast_nullable_to_non_nullable
               as ForegottPasswordResponceMdel?,
-      questionList: freezed == questionList
+      questionList: null == questionList
           ? _value._questionList
           : questionList // ignore: cast_nullable_to_non_nullable
-              as List<Questions>?,
+              as List<Questions>,
     ));
   }
 }
@@ -2343,6 +2356,7 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
       required this.questionLoading,
+      required this.questionEvenLoading,
       required this.hasError,
       required this.profileLoading,
       required this.isBusiness,
@@ -2355,13 +2369,15 @@ class _$InitialImpl implements _Initial {
       this.successResponseModel,
       this.updateUserInfoModel,
       this.foregottPasswordResponceMdel,
-      final List<Questions>? questionList})
+      required final List<Questions> questionList})
       : _questionList = questionList;
 
   @override
   final bool isLoading;
   @override
   final bool questionLoading;
+  @override
+  final bool questionEvenLoading;
   @override
   final bool hasError;
   @override
@@ -2386,19 +2402,17 @@ class _$InitialImpl implements _Initial {
   final UpdateUserInfoModel? updateUserInfoModel;
   @override
   final ForegottPasswordResponceMdel? foregottPasswordResponceMdel;
-  final List<Questions>? _questionList;
+  final List<Questions> _questionList;
   @override
-  List<Questions>? get questionList {
-    final value = _questionList;
-    if (value == null) return null;
+  List<Questions> get questionList {
     if (_questionList is EqualUnmodifiableListView) return _questionList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_questionList);
   }
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, questionLoading: $questionLoading, hasError: $hasError, profileLoading: $profileLoading, isBusiness: $isBusiness, message: $message, userName: $userName, profileNameUpdated: $profileNameUpdated, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, successResponseModel: $successResponseModel, updateUserInfoModel: $updateUserInfoModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, questionList: $questionList)';
+    return 'ProfileState(isLoading: $isLoading, questionLoading: $questionLoading, questionEvenLoading: $questionEvenLoading, hasError: $hasError, profileLoading: $profileLoading, isBusiness: $isBusiness, message: $message, userName: $userName, profileNameUpdated: $profileNameUpdated, getUserInfoModel: $getUserInfoModel, imageModel: $imageModel, uploaded: $uploaded, successResponseModel: $successResponseModel, updateUserInfoModel: $updateUserInfoModel, foregottPasswordResponceMdel: $foregottPasswordResponceMdel, questionList: $questionList)';
   }
 
   @override
@@ -2410,6 +2424,8 @@ class _$InitialImpl implements _Initial {
                 other.isLoading == isLoading) &&
             (identical(other.questionLoading, questionLoading) ||
                 other.questionLoading == questionLoading) &&
+            (identical(other.questionEvenLoading, questionEvenLoading) ||
+                other.questionEvenLoading == questionEvenLoading) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
             (identical(other.profileLoading, profileLoading) ||
@@ -2444,6 +2460,7 @@ class _$InitialImpl implements _Initial {
       runtimeType,
       isLoading,
       questionLoading,
+      questionEvenLoading,
       hasError,
       profileLoading,
       isBusiness,
@@ -2469,6 +2486,7 @@ abstract class _Initial implements ProfileState {
   const factory _Initial(
       {required final bool isLoading,
       required final bool questionLoading,
+      required final bool questionEvenLoading,
       required final bool hasError,
       required final bool profileLoading,
       required final bool isBusiness,
@@ -2481,12 +2499,14 @@ abstract class _Initial implements ProfileState {
       final SuccessResponseModel? successResponseModel,
       final UpdateUserInfoModel? updateUserInfoModel,
       final ForegottPasswordResponceMdel? foregottPasswordResponceMdel,
-      final List<Questions>? questionList}) = _$InitialImpl;
+      required final List<Questions> questionList}) = _$InitialImpl;
 
   @override
   bool get isLoading;
   @override
   bool get questionLoading;
+  @override
+  bool get questionEvenLoading;
   @override
   bool get hasError;
   @override
@@ -2512,7 +2532,7 @@ abstract class _Initial implements ProfileState {
   @override
   ForegottPasswordResponceMdel? get foregottPasswordResponceMdel;
   @override
-  List<Questions>? get questionList;
+  List<Questions> get questionList;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

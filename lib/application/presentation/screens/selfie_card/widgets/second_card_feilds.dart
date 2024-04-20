@@ -4,11 +4,13 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,15 +44,23 @@ class CardSecondScannedDatas extends StatelessWidget {
           builder: (context, state) {
             return ListView(
               children: [
-                Container(
-                  height: kwidth * 0.60,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: FileImage(
-                          state.scannedImagesSecondCardCreation.first.fileImage,
-                        ),
-                        fit: BoxFit.cover),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(fadePageRoute(ScreenImagePreview(
+                      image: state.scannedImagesSecondCardCreation.first.base64,
+                    )));
+                  },
+                  child: Container(
+                    height: kwidth * 0.60,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: FileImage(
+                            state.scannedImagesSecondCardCreation.first
+                                .fileImage,
+                          ),
+                          fit: BoxFit.cover),
+                    ),
                   ),
                 ),
                 Padding(
@@ -138,13 +148,15 @@ class CardSecondScannedDatas extends StatelessWidget {
                                         .scannedImagesSecondCardCreation
                                         .first
                                         .base64,
-                                    email: context
-                                            .read<CardSecondBloc>()
-                                            .emailController
-                                            .text
-                                            .isEmpty
-                                        ? emptyData
-                                        : context
+                                    email:
+                                        // context
+                                        //         .read<CardSecondBloc>()
+                                        //         .emailController
+                                        //         .text
+                                        //         .isEmpty
+                                        //     ? emptyData
+                                        //     :
+                                        context
                                             .read<CardSecondBloc>()
                                             .emailController
                                             .text,
@@ -152,40 +164,47 @@ class CardSecondScannedDatas extends StatelessWidget {
                                         .read<CardSecondBloc>()
                                         .copanyController
                                         .text,
-                                    number: context
-                                            .read<CardSecondBloc>()
-                                            .phoneController
-                                            .text
-                                            .isEmpty
-                                        ? emptyData
-                                        : context
+                                    number:
+                                        // context
+                                        //         .read<CardSecondBloc>()
+                                        //         .phoneController
+                                        //         .text
+                                        //         .isEmpty
+                                        //     ? emptyData
+                                        //     :
+                                        context
                                             .read<CardSecondBloc>()
                                             .phoneController
                                             .text,
-                                    website: context
-                                            .read<CardSecondBloc>()
-                                            .webSiteController
-                                            .text
-                                            .isEmpty
-                                        ? emptyData
-                                        : context
+                                    website:
+                                        // context
+                                        //         .read<CardSecondBloc>()
+                                        //         .webSiteController
+                                        //         .text
+                                        //         .isEmpty
+                                        //     ? emptyData
+                                        //     :
+                                        context
                                             .read<CardSecondBloc>()
                                             .webSiteController
                                             .text,
-                                    designation: context
-                                            .read<CardSecondBloc>()
-                                            .designationController
-                                            .text
-                                            .isEmpty
-                                        ? emptyData
-                                        : context
+                                    designation:
+                                        // context
+                                        //         .read<CardSecondBloc>()
+                                        //         .designationController
+                                        //         .text
+                                        //         .isEmpty
+                                        //     ? emptyData
+                                        //     :
+                                        context
                                             .read<CardSecondBloc>()
                                             .designationController
                                             .text,
                                   ));
+
                               log('before navigating to selfie screen');
                               Navigator.of(context).push(
-                                fadePageRoute(const SelfieTextFields()),
+                                fadePageRoute(SelfieTextFields()),
                               );
                             }
                           },
@@ -204,15 +223,11 @@ class CardSecondScannedDatas extends StatelessWidget {
   }
 }
 
-class SelfieTextFields extends StatefulWidget {
-  const SelfieTextFields({super.key});
+class SelfieTextFields extends StatelessWidget {
+  SelfieTextFields({super.key});
 
-  @override
-  State<SelfieTextFields> createState() => _SelfieTextFieldsState();
-}
-
-class _SelfieTextFieldsState extends State<SelfieTextFields> {
   final GlobalKey<FormState> meetingDataKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -237,8 +252,16 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
         ),
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
+            if (state.selfieImagePickerror) {
+              showSnackbar(
+                context,
+                message: 'Image picking failed',
+                backgroundColor: kred,
+              );
+            }
             log('secondCardcreated listener');
             if (state.secondCardcreated) {
+              log('${state.secondCardcreated}');
               log('secondCardcreated secondCardcreated');
               Navigator.pop(context);
               Navigator.pop(context);
@@ -246,84 +269,129 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
               context
                   .read<CardSecondBloc>()
                   .add(const CardSecondEvent.cardFeildClearing());
-              // Navigator.of(context).pushAndRemoveUntil(
-              //     fadePageRoute(
-              //       const BizkitBottomNavigationBar(),
-              //     ),
-              //     (route) => false);
-              // GoRouter.of(context).pushReplacementNamed(Routes.homePage);
               showSnackbar(context, message: 'Card created successfully');
             }
           },
           builder: (context, state) {
             return ListView(
               children: [
-                state.selfieImageModel == null
-                    ? ContainerPickImage(
-                        onPressedGallery: () =>
-                            context.read<CardSecondBloc>().add(
-                                  const CardSecondEvent.selfieImage(
-                                    isCam: false,
-                                    cameraDeviceFront: false,
-                                  ),
-                                ),
-                        onPressedCam: () => context.read<CardSecondBloc>().add(
-                              const CardSecondEvent.selfieImage(
-                                isCam: true,
-                                cameraDeviceFront: true,
-                              ),
-                            ),
-                        heading: 'Take Selfie',
+                state.pickImageLoading
+                    ? SizedBox(
+                        height: khieght * .3,
+                        child: const Center(
+                            child: CircularProgressIndicator(
+                          color: neonShade,
+                        )),
                       )
-                    : Stack(
-                        children: [
-                          Container(
-                            height: kwidth * 0.60,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: FileImage(
-                                    state.selfieImageModel!.fileImage),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            right: 10,
-                            bottom: 10,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: ColoredBox(
-                                color: neonShade,
-                                child: IconButton(
-                                  onPressed: () {
-                                    customDailogue(
-                                      context: context,
-                                      onPressCam: () {
-                                        context.read<CardSecondBloc>().add(
-                                            const CardSecondEvent.selfieImage(
-                                                cameraDeviceFront: true,
-                                                isCam: true));
-                                      },
-                                      onPressGallery: () {
-                                        context.read<CardSecondBloc>().add(
-                                            const CardSecondEvent.selfieImage(
-                                                cameraDeviceFront: false,
-                                                isCam: false));
-                                      },
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    size: 30,
-                                    color: kwhite,
-                                    Icons.add,
+                    : state.selfieImageModel == null
+                        ? ContainerPickImage(
+                            onPressedGallery: () =>
+                                context.read<CardSecondBloc>().add(
+                                      const CardSecondEvent.selfieImage(
+                                        isCam: false,
+                                        cameraDeviceFront: false,
+                                      ),
+                                    ),
+                            onPressedCam: () =>
+                                context.read<CardSecondBloc>().add(
+                                      const CardSecondEvent.selfieImage(
+                                        isCam: true,
+                                        cameraDeviceFront: true,
+                                      ),
+                                    ),
+                            heading: 'Take Selfie',
+                          )
+                        : Stack(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    fadePageRoute(ScreenImagePreview(
+                                      image: state.selfieImageModel!.base64,
+                                    )),
+                                  );
+                                },
+                                child: Container(
+                                  height: kwidth * 0.60,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: FileImage(
+                                          state.selfieImageModel!.fileImage),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                              Positioned(
+                                bottom: 70,
+                                right: 10,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: ColoredBox(
+                                    color: neonShade,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        showCustomConfirmationDialoge(
+                                          context: context,
+                                          buttonText: 'Delete',
+                                          title:
+                                              'You want to remove your selfie',
+                                          onTap: () {
+                                            context.read<CardSecondBloc>().add(
+                                                const CardSecondEvent
+                                                    .selfieimageClear());
+                                          },
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        size: 30,
+                                        color: kwhite,
+                                        Icons.delete,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                right: 10,
+                                bottom: 10,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: ColoredBox(
+                                    color: neonShade,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        customDailogue(
+                                          context: context,
+                                          onPressCam: () {
+                                            context.read<CardSecondBloc>().add(
+                                                const CardSecondEvent
+                                                    .selfieImage(
+                                                    cameraDeviceFront: true,
+                                                    isCam: true));
+                                          },
+                                          onPressGallery: () {
+                                            context.read<CardSecondBloc>().add(
+                                                const CardSecondEvent
+                                                    .selfieImage(
+                                                    cameraDeviceFront: false,
+                                                    isCam: false));
+                                          },
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        size: 30,
+                                        color: kwhite,
+                                        Icons.add,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 8),

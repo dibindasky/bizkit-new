@@ -133,14 +133,7 @@ class _SelfieScreenState extends State<SelfieScreen>
                   scannerButton(image: buttons[leftButton], left: true),
                   InkWell(
                     splashColor: neonShade,
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const SelfiePreviewScreen(),
-                      //   ),
-                      // );
-                    },
+                    onTap: () {},
                     customBorder: const CircleBorder(),
                     child: FadeTransition(
                       opacity: _controller,
@@ -263,7 +256,7 @@ class ContainerPickImage extends StatelessWidget {
                                 () {
                                   context.read<CardSecondBloc>().add(
                                       const CardSecondEvent.scanImage(
-                                          isCam: false));
+                                          isFront: false, isCam: false));
                                   if (fromMain) {
                                     context.read<CardSecondBloc>().add(
                                         const CardSecondEvent.imageClear());
@@ -289,7 +282,9 @@ class ContainerPickImage extends StatelessWidget {
                       onTap: onPressedCam ??
                           () {
                             context.read<CardSecondBloc>().add(
-                                const CardSecondEvent.scanImage(isCam: true));
+                                  const CardSecondEvent.scanImage(
+                                      isCam: true, isFront: false),
+                                );
                             if (fromMain) {
                               context
                                   .read<CardSecondBloc>()

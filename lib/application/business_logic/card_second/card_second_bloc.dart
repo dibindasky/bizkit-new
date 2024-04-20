@@ -50,10 +50,11 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   final CardScanningRepo cardScanningRepo;
   CardSecondBloc(this._cardSecondRepo, this.cardScanningRepo)
       : super(CardSecondState.initial()) {
-    on<ScanImage>(pickImageGallery);
+    on<ScanImage>(scanImage);
     on<ProcessImageScanning>(processImageScanning);
     on<RemoveImageScanning>(removeImageScanning);
     on<SelfieImage>(selfieImage);
+    on<SelfieimageClear>(selfieimageClear);
     on<AutoFillTExtfieldItems>(autoFillTExtfieldItems);
     on<MeetingRelatedInfo>(meetingRelatedInfo);
     on<GetAllCardsSecond>(getAllCardsSecond);
@@ -67,6 +68,13 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     on<Clear>(clear);
     on<ImageClear>(imageClear);
     on<CardFeildClearing>(cardFeildClearing);
+  }
+
+  FutureOr<void> selfieimageClear(SelfieimageClear event, emit) {
+    emit(state.copyWith(
+      selfieImageModel: null,
+      selfieImagePickerror: false,
+    ));
   }
 
   FutureOr<void> cardFeildClearing(CardFeildClearing event, emit) {
@@ -230,6 +238,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
       isLoading: true,
       hasError: false,
       message: null,
+      selfieImagePickerror: false,
       cardScanFinish: false,
       secondCardcreated: false,
     ));
@@ -238,6 +247,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     );
     data.fold(
       (l) => emit(state.copyWith(
+        selfieImagePickerror: false,
         cardScanFinish: false,
         isLoading: false,
         hasError: true,
@@ -258,8 +268,8 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     );
   }
 
-  FutureOr<void> autoFillTExtfieldItems(
-      AutoFillTExtfieldItems event, emit) async {
+  FutureOr<void> autoFillTExtfieldItems(AutoFillTExtfieldItems event, emit) {
+    emit(state.copyWith(cardScanFinish: false));
     state.cardSecondCreateRequestModel.image = event.scannedImage;
     state.cardSecondCreateRequestModel.name = event.name;
     state.cardSecondCreateRequestModel.company = event.company;
@@ -270,53 +280,57 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   }
 
   FutureOr<void> selfieImage(SelfieImage event, emit) async {
-    emit(state.copyWith(cardScanFinish: false));
+    emit(state.copyWith(
+        pickSelfieCardLoading: true, selfieImagePickerror: true));
     final selfieImage = await ImagePickerClass.getImage(
       camera: event.isCam,
-      cameraDeviceFront: true,
+      cameraDeviceFront: event.cameraDeviceFront,
     );
     if (selfieImage != null) {
       emit(
         state.copyWith(
+          selfieImagePickerror: false,
+          pickSelfieCardLoading: false,
           selfieImageModel: selfieImage,
-          isLoading: false,
+        ),
+      );
+    } else {
+      emit(state.copyWith(
+        pickSelfieCardLoading: false,
+        selfieImagePickerror: true,
+      ));
+    }
+  }
+
+  FutureOr<void> scanImage(ScanImage event, emit) async {
+    emit(state.copyWith(pickImageLoading: true, imagePickError: false));
+    final scanGalleryImage = await ImagePickerClass.getImage(
+        camera: event.isCam, cameraDeviceFront: event.isFront);
+    if (scanGalleryImage != null) {
+      emit(
+        state.copyWith(
+          imagePickError: false,
+          scannedImagesSecondCardCreation: [
+            ...state.scannedImagesSecondCardCreation,
+            scanGalleryImage,
+          ],
+          pickImageLoading: false,
           cardScanFinish: false,
         ),
       );
     } else {
       emit(state.copyWith(
-        message: 'Image Picking failed',
-        isLoading: false,
+        pickImageLoading: false,
         cardScanFinish: false,
+        imagePickError: true,
       ));
     }
-  }
-
-  FutureOr<void> pickImageGallery(ScanImage event, emit) async {
-    final scanGalleryImage =
-        await ImagePickerClass.getImage(camera: event.isCam);
-    if (scanGalleryImage != null) {
-      log('scan image count ${state.scannedImagesSecondCardCreation.length}');
-      emit(
-        state.copyWith(
-          scannedImagesSecondCardCreation: [
-            ...state.scannedImagesSecondCardCreation,
-            scanGalleryImage,
-          ],
-          cardScanFinish: false,
-        ),
-      );
-    }
-    emit(state.copyWith(
-      message: 'Image Picking failed',
-      isLoading: false,
-      cardScanFinish: false,
-    ));
   }
 
   FutureOr<void> processImageScanning(ProcessImageScanning event, emit) async {
     emit(state.copyWith(
       isLoading: true,
+      imagePickError: false,
       hasError: false,
       cardScanFinish: false,
     ));
@@ -338,6 +352,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   }
 
   FutureOr<void> removeImageScanning(RemoveImageScanning event, emit) async {
+    emit(state.copyWith(imagePickError: false));
     final List<ImageModel> list = [];
     for (ImageModel img in state.scannedImagesSecondCardCreation) {
       if (state.scannedImagesSecondCardCreation[event.index] != img) {

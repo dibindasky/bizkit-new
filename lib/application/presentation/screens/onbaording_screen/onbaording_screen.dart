@@ -34,9 +34,6 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
 
   void _onPageChanged(int index) {
     context.read<NavCubit>().onBoardChange(index: index);
-    // setState(() {
-    //   selectedIndex = index;
-    // });
   }
 
   @override
@@ -63,78 +60,78 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
     required int totalPages,
     required int pageIndex,
   }) {
-    return GestureDetector(
-      onTap: () {
-        if (pageIndex < totalPages - 1) {
-          _pageController.nextPage(
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeInOut,
-          );
-        }
-        // else {
-        //   GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
-        //   context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
-        // }
-      },
-      child: Column(
-        children: [
-          if (pageIndex != 2)
-            SizedBox(
-              width: kwidth,
-              height: khieght,
-              child: Image.asset(
-                pageIndex == 0
-                    ? onBoardScreenfirst
-                    : pageIndex == 1
-                        ? onBoardScreenSecond
-                        : '',
-                filterQuality: FilterQuality.high,
-                fit: BoxFit.cover,
+    return LayoutBuilder(builder: (context, constraints) {
+      final screenWidth = constraints.maxWidth;
+      final screenHeight = constraints.maxHeight;
+      return GestureDetector(
+        onTap: () {
+          if (pageIndex < totalPages - 1) {
+            _pageController.nextPage(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          }
+        },
+        child: Column(
+          children: [
+            if (pageIndex != 2)
+              SizedBox(
+                width: screenWidth,
+                height: screenHeight,
+                child: Image.asset(
+                  pageIndex == 0
+                      ? onBoardScreenfirst
+                      : pageIndex == 1
+                          ? onBoardScreenSecond
+                          : '',
+                  filterQuality: FilterQuality.high,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-          if (pageIndex == 2)
-            Stack(
-              children: [
-                SizedBox(
-                  width: kwidth,
-                  height: khieght * .99,
-                  child: Image.asset(
-                    onBoardScreenThird,
-                    filterQuality: FilterQuality.high,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  top: khieght * .34,
-                  bottom: khieght * .6,
-                  right: 100,
-                  left: 100,
-                  child: AuthButton(
-                    textColr: kblack,
-                    color: const LinearGradient(
-                      colors: [
-                        Color.fromRGBO(9, 29, 26, 1),
-                        Color.fromRGBO(6, 199, 173, 1),
-                        Color.fromRGBO(6, 199, 173, 1),
-                        Color.fromRGBO(2, 41, 36, 1),
-                      ],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
+            if (pageIndex == 2)
+              Stack(
+                children: [
+                  SizedBox(
+                    width: screenWidth,
+                    height: screenHeight,
+                    child: Image.asset(
+                      onBoardScreenThird,
+                      filterQuality: FilterQuality.high,
+                      fit: BoxFit.cover,
                     ),
-                    onTap: () {
-                      GoRouter.of(context)
-                          .pushReplacementNamed(Routes.loginPage);
-                      context
-                          .read<AuthBloc>()
-                          .add(const AuthEvent.onBoardskip());
-                    },
-                    text: 'Get Started',
                   ),
-                ),
-              ],
-            ),
-        ],
-      ),
-    );
+                  Positioned(
+                    top: screenWidth * .77,
+                    bottom: screenHeight * .6,
+                    right: 120,
+                    left: 120,
+                    child: AuthButton(
+                      textColr: kblack,
+                      color: const LinearGradient(
+                        colors: [
+                          klightgrey,
+                          Color.fromRGBO(6, 199, 173, 1),
+                          Color.fromRGBO(6, 199, 173, 1),
+                          klightgrey
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                      onTap: () {
+                        GoRouter.of(context)
+                            .pushReplacementNamed(Routes.loginPage);
+                        context
+                            .read<AuthBloc>()
+                            .add(const AuthEvent.onBoardskip());
+                      },
+                      text: 'Get Started',
+                    ),
+                  ),
+                ],
+              ),
+          ],
+        ),
+      );
+    });
   }
 }

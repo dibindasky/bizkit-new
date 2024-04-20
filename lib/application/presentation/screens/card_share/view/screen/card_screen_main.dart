@@ -443,7 +443,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     },
                   ),
                   adjustHieght(khieght * .03),
-                  const Text('Selfie cards'),
+                  const Text('Visited cards'),
                   adjustHieght(khieght * .02),
                   BlocConsumer<CardSecondBloc, CardSecondState>(
                     listener: (context, state) {
@@ -471,7 +471,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                           height: khieght * .35,
                           child: const Center(
                             child: Text(
-                              'Selfie cards is empty',
+                              'Visited cards is empty',
                               textAlign: TextAlign.center,
                             ),
                           ),

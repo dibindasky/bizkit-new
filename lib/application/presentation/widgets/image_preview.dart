@@ -5,8 +5,11 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 class ScreenImagePreview extends StatefulWidget {
-  const ScreenImagePreview(
-      {super.key, required this.image, this.isFileIamge = false});
+  const ScreenImagePreview({
+    super.key,
+    required this.image,
+    this.isFileIamge = false,
+  });
 
   final String image;
   final bool isFileIamge;
@@ -31,7 +34,17 @@ class _ScreenImagePreviewState extends State<ScreenImagePreview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            size: 17,
+          ),
+        ),
+      ),
       body: Center(
         child: GestureDetector(
           onScaleUpdate: (details) {

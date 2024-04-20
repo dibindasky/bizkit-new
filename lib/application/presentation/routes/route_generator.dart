@@ -188,7 +188,7 @@ class GoRouterConfig {
       GoRoute(
         name: Routes.selfieDataFeilds,
         path: Routes.selfieDataFeilds,
-        builder: (context, state) => const SelfieTextFields(),
+        builder: (context, state) => SelfieTextFields(),
       ),
       GoRoute(
         name: Routes.cardListingboth,

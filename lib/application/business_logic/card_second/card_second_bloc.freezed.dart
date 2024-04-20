@@ -19,15 +19,22 @@ mixin _$CardSecondEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -50,15 +57,22 @@ mixin _$CardSecondEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -78,15 +92,22 @@ mixin _$CardSecondEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -111,6 +132,7 @@ mixin _$CardSecondEvent {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -136,6 +158,7 @@ mixin _$CardSecondEvent {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -158,6 +181,7 @@ mixin _$CardSecondEvent {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -233,15 +257,22 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -267,15 +298,22 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -298,15 +336,22 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -337,6 +382,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -365,6 +411,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -390,6 +437,7 @@ class _$StartedImpl implements _Started {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -422,7 +470,7 @@ abstract class _$$ScanImageImplCopyWith<$Res> {
           _$ScanImageImpl value, $Res Function(_$ScanImageImpl) then) =
       __$$ScanImageImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isCam});
+  $Res call({bool isCam, bool isFront});
 }
 
 /// @nodoc
@@ -437,11 +485,16 @@ class __$$ScanImageImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isCam = null,
+    Object? isFront = null,
   }) {
     return _then(_$ScanImageImpl(
       isCam: null == isCam
           ? _value.isCam
           : isCam // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFront: null == isFront
+          ? _value.isFront
+          : isFront // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -450,14 +503,16 @@ class __$$ScanImageImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ScanImageImpl implements ScanImage {
-  const _$ScanImageImpl({required this.isCam});
+  const _$ScanImageImpl({required this.isCam, required this.isFront});
 
   @override
   final bool isCam;
+  @override
+  final bool isFront;
 
   @override
   String toString() {
-    return 'CardSecondEvent.scanImage(isCam: $isCam)';
+    return 'CardSecondEvent.scanImage(isCam: $isCam, isFront: $isFront)';
   }
 
   @override
@@ -465,11 +520,12 @@ class _$ScanImageImpl implements ScanImage {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ScanImageImpl &&
-            (identical(other.isCam, isCam) || other.isCam == isCam));
+            (identical(other.isCam, isCam) || other.isCam == isCam) &&
+            (identical(other.isFront, isFront) || other.isFront == isFront));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isCam);
+  int get hashCode => Object.hash(runtimeType, isCam, isFront);
 
   @JsonKey(ignore: true)
   @override
@@ -481,15 +537,22 @@ class _$ScanImageImpl implements ScanImage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -508,22 +571,29 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function() cardFeildClearing,
     required TResult Function() imageClear,
   }) {
-    return scanImage(isCam);
+    return scanImage(isCam, isFront);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -539,22 +609,29 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function()? cardFeildClearing,
     TResult? Function()? imageClear,
   }) {
-    return scanImage?.call(isCam);
+    return scanImage?.call(isCam, isFront);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -572,7 +649,7 @@ class _$ScanImageImpl implements ScanImage {
     required TResult orElse(),
   }) {
     if (scanImage != null) {
-      return scanImage(isCam);
+      return scanImage(isCam, isFront);
     }
     return orElse();
   }
@@ -585,6 +662,7 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -613,6 +691,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -638,6 +717,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -661,9 +741,12 @@ class _$ScanImageImpl implements ScanImage {
 }
 
 abstract class ScanImage implements CardSecondEvent {
-  const factory ScanImage({required final bool isCam}) = _$ScanImageImpl;
+  const factory ScanImage(
+      {required final bool isCam,
+      required final bool isFront}) = _$ScanImageImpl;
 
   bool get isCam;
+  bool get isFront;
   @JsonKey(ignore: true)
   _$$ScanImageImplCopyWith<_$ScanImageImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -743,15 +826,22 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -777,15 +867,22 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -808,15 +905,22 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -847,6 +951,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -875,6 +980,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -900,6 +1006,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -998,15 +1105,22 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -1032,15 +1146,22 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -1063,15 +1184,22 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -1102,6 +1230,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -1130,6 +1259,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -1155,6 +1285,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -1262,15 +1393,22 @@ class _$SelfieImageImpl implements SelfieImage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -1296,15 +1434,22 @@ class _$SelfieImageImpl implements SelfieImage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -1327,15 +1472,22 @@ class _$SelfieImageImpl implements SelfieImage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -1366,6 +1518,7 @@ class _$SelfieImageImpl implements SelfieImage {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -1394,6 +1547,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -1419,6 +1573,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -1454,6 +1609,252 @@ abstract class SelfieImage implements CardSecondEvent {
 }
 
 /// @nodoc
+abstract class _$$SelfieimageClearImplCopyWith<$Res> {
+  factory _$$SelfieimageClearImplCopyWith(_$SelfieimageClearImpl value,
+          $Res Function(_$SelfieimageClearImpl) then) =
+      __$$SelfieimageClearImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SelfieimageClearImplCopyWithImpl<$Res>
+    extends _$CardSecondEventCopyWithImpl<$Res, _$SelfieimageClearImpl>
+    implements _$$SelfieimageClearImplCopyWith<$Res> {
+  __$$SelfieimageClearImplCopyWithImpl(_$SelfieimageClearImpl _value,
+      $Res Function(_$SelfieimageClearImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SelfieimageClearImpl implements SelfieimageClear {
+  const _$SelfieimageClearImpl();
+
+  @override
+  String toString() {
+    return 'CardSecondEvent.selfieimageClear()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SelfieimageClearImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(bool isCam, bool isFront) scanImage,
+    required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(int index) removeImageScanning,
+    required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
+        autoFillTExtfieldItems,
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
+        meetingRelatedInfo,
+    required TResult Function(bool isLoad) getAllCardsSecond,
+    required TResult Function(SecondCard secondCard, String id)
+        updateCardSecond,
+    required TResult Function(
+            CardActionRequestModel cardActionRewuestModel, int id)
+        deleteCardSecond,
+    required TResult Function(bool isLoad) getDeleteCardSecond,
+    required TResult Function() getDeleteCardSecondEvent,
+    required TResult Function(
+            CardActionRequestModel cardActionRewuestModel, int id)
+        restoreDeleteCardSecond,
+    required TResult Function() getCardSecondEvent,
+    required TResult Function(int id) getSecondCardDetail,
+    required TResult Function() clear,
+    required TResult Function() cardFeildClearing,
+    required TResult Function() imageClear,
+  }) {
+    return selfieimageClear();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
+    TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(int index)? removeImageScanning,
+    TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
+        autoFillTExtfieldItems,
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
+        meetingRelatedInfo,
+    TResult? Function(bool isLoad)? getAllCardsSecond,
+    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        deleteCardSecond,
+    TResult? Function(bool isLoad)? getDeleteCardSecond,
+    TResult? Function()? getDeleteCardSecondEvent,
+    TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        restoreDeleteCardSecond,
+    TResult? Function()? getCardSecondEvent,
+    TResult? Function(int id)? getSecondCardDetail,
+    TResult? Function()? clear,
+    TResult? Function()? cardFeildClearing,
+    TResult? Function()? imageClear,
+  }) {
+    return selfieimageClear?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(bool isCam, bool isFront)? scanImage,
+    TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(int index)? removeImageScanning,
+    TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
+        autoFillTExtfieldItems,
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
+        meetingRelatedInfo,
+    TResult Function(bool isLoad)? getAllCardsSecond,
+    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        deleteCardSecond,
+    TResult Function(bool isLoad)? getDeleteCardSecond,
+    TResult Function()? getDeleteCardSecondEvent,
+    TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        restoreDeleteCardSecond,
+    TResult Function()? getCardSecondEvent,
+    TResult Function(int id)? getSecondCardDetail,
+    TResult Function()? clear,
+    TResult Function()? cardFeildClearing,
+    TResult Function()? imageClear,
+    required TResult orElse(),
+  }) {
+    if (selfieimageClear != null) {
+      return selfieimageClear();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(ScanImage value) scanImage,
+    required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(RemoveImageScanning value) removeImageScanning,
+    required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
+    required TResult Function(AutoFillTExtfieldItems value)
+        autoFillTExtfieldItems,
+    required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
+    required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
+    required TResult Function(UpdateCardSecond value) updateCardSecond,
+    required TResult Function(DeleteCardSecond value) deleteCardSecond,
+    required TResult Function(GetDeleteCardSecond value) getDeleteCardSecond,
+    required TResult Function(GetDeleteCardSecondEvent value)
+        getDeleteCardSecondEvent,
+    required TResult Function(RestoreDeleteCardSecond value)
+        restoreDeleteCardSecond,
+    required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
+    required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
+    required TResult Function(ImageClear value) imageClear,
+  }) {
+    return selfieimageClear(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(ScanImage value)? scanImage,
+    TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(RemoveImageScanning value)? removeImageScanning,
+    TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
+    TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
+    TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
+    TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
+    TResult? Function(UpdateCardSecond value)? updateCardSecond,
+    TResult? Function(DeleteCardSecond value)? deleteCardSecond,
+    TResult? Function(GetDeleteCardSecond value)? getDeleteCardSecond,
+    TResult? Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
+    TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
+    TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
+    TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
+    TResult? Function(ImageClear value)? imageClear,
+  }) {
+    return selfieimageClear?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(ScanImage value)? scanImage,
+    TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(RemoveImageScanning value)? removeImageScanning,
+    TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
+    TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
+    TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
+    TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
+    TResult Function(UpdateCardSecond value)? updateCardSecond,
+    TResult Function(DeleteCardSecond value)? deleteCardSecond,
+    TResult Function(GetDeleteCardSecond value)? getDeleteCardSecond,
+    TResult Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
+    TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
+    TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
+    TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
+    TResult Function(Clear value)? clear,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
+    TResult Function(ImageClear value)? imageClear,
+    required TResult orElse(),
+  }) {
+    if (selfieimageClear != null) {
+      return selfieimageClear(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SelfieimageClear implements CardSecondEvent {
+  const factory SelfieimageClear() = _$SelfieimageClearImpl;
+}
+
+/// @nodoc
 abstract class _$$AutoFillTExtfieldItemsImplCopyWith<$Res> {
   factory _$$AutoFillTExtfieldItemsImplCopyWith(
           _$AutoFillTExtfieldItemsImpl value,
@@ -1462,12 +1863,12 @@ abstract class _$$AutoFillTExtfieldItemsImplCopyWith<$Res> {
   @useResult
   $Res call(
       {String scannedImage,
-      String email,
+      String? email,
       String name,
-      String company,
-      String number,
-      String website,
-      String designation});
+      String? company,
+      String? number,
+      String? website,
+      String? designation});
 }
 
 /// @nodoc
@@ -1483,42 +1884,42 @@ class __$$AutoFillTExtfieldItemsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? scannedImage = null,
-    Object? email = null,
+    Object? email = freezed,
     Object? name = null,
-    Object? company = null,
-    Object? number = null,
-    Object? website = null,
-    Object? designation = null,
+    Object? company = freezed,
+    Object? number = freezed,
+    Object? website = freezed,
+    Object? designation = freezed,
   }) {
     return _then(_$AutoFillTExtfieldItemsImpl(
       scannedImage: null == scannedImage
           ? _value.scannedImage
           : scannedImage // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      company: null == company
+      company: freezed == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
-              as String,
-      number: null == number
+              as String?,
+      number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
-              as String,
-      website: null == website
+              as String?,
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
-              as String,
-      designation: null == designation
+              as String?,
+      designation: freezed == designation
           ? _value.designation
           : designation // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -1528,27 +1929,27 @@ class __$$AutoFillTExtfieldItemsImplCopyWithImpl<$Res>
 class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   const _$AutoFillTExtfieldItemsImpl(
       {required this.scannedImage,
-      required this.email,
+      this.email,
       required this.name,
-      required this.company,
-      required this.number,
-      required this.website,
-      required this.designation});
+      this.company,
+      this.number,
+      this.website,
+      this.designation});
 
   @override
   final String scannedImage;
   @override
-  final String email;
+  final String? email;
   @override
   final String name;
   @override
-  final String company;
+  final String? company;
   @override
-  final String number;
+  final String? number;
   @override
-  final String website;
+  final String? website;
   @override
-  final String designation;
+  final String? designation;
 
   @override
   String toString() {
@@ -1586,15 +1987,22 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -1621,15 +2029,22 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -1653,15 +2068,22 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -1693,6 +2115,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -1721,6 +2144,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -1746,6 +2170,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -1771,20 +2196,20 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
 abstract class AutoFillTExtfieldItems implements CardSecondEvent {
   const factory AutoFillTExtfieldItems(
       {required final String scannedImage,
-      required final String email,
+      final String? email,
       required final String name,
-      required final String company,
-      required final String number,
-      required final String website,
-      required final String designation}) = _$AutoFillTExtfieldItemsImpl;
+      final String? company,
+      final String? number,
+      final String? website,
+      final String? designation}) = _$AutoFillTExtfieldItemsImpl;
 
   String get scannedImage;
-  String get email;
+  String? get email;
   String get name;
-  String get company;
-  String get number;
-  String get website;
-  String get designation;
+  String? get company;
+  String? get number;
+  String? get website;
+  String? get designation;
   @JsonKey(ignore: true)
   _$$AutoFillTExtfieldItemsImplCopyWith<_$AutoFillTExtfieldItemsImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -1797,11 +2222,11 @@ abstract class _$$MeetingRelatedInfoImplCopyWith<$Res> {
       __$$MeetingRelatedInfoImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String selfieImage,
-      String occation,
-      String location,
-      String occupation,
-      String notes});
+      {String? selfieImage,
+      String? occation,
+      String? location,
+      String? occupation,
+      String? notes});
 }
 
 /// @nodoc
@@ -1815,33 +2240,33 @@ class __$$MeetingRelatedInfoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selfieImage = null,
-    Object? occation = null,
-    Object? location = null,
-    Object? occupation = null,
-    Object? notes = null,
+    Object? selfieImage = freezed,
+    Object? occation = freezed,
+    Object? location = freezed,
+    Object? occupation = freezed,
+    Object? notes = freezed,
   }) {
     return _then(_$MeetingRelatedInfoImpl(
-      selfieImage: null == selfieImage
+      selfieImage: freezed == selfieImage
           ? _value.selfieImage
           : selfieImage // ignore: cast_nullable_to_non_nullable
-              as String,
-      occation: null == occation
+              as String?,
+      occation: freezed == occation
           ? _value.occation
           : occation // ignore: cast_nullable_to_non_nullable
-              as String,
-      location: null == location
+              as String?,
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      occupation: null == occupation
+              as String?,
+      occupation: freezed == occupation
           ? _value.occupation
           : occupation // ignore: cast_nullable_to_non_nullable
-              as String,
-      notes: null == notes
+              as String?,
+      notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -1850,22 +2275,22 @@ class __$$MeetingRelatedInfoImplCopyWithImpl<$Res>
 
 class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
   const _$MeetingRelatedInfoImpl(
-      {required this.selfieImage,
-      required this.occation,
-      required this.location,
-      required this.occupation,
-      required this.notes});
+      {this.selfieImage,
+      this.occation,
+      this.location,
+      this.occupation,
+      this.notes});
 
   @override
-  final String selfieImage;
+  final String? selfieImage;
   @override
-  final String occation;
+  final String? occation;
   @override
-  final String location;
+  final String? location;
   @override
-  final String occupation;
+  final String? occupation;
   @override
-  final String notes;
+  final String? notes;
 
   @override
   String toString() {
@@ -1903,15 +2328,22 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -1938,15 +2370,22 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -1970,15 +2409,22 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -2010,6 +2456,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -2038,6 +2485,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -2063,6 +2511,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -2087,17 +2536,17 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
 
 abstract class MeetingRelatedInfo implements CardSecondEvent {
   const factory MeetingRelatedInfo(
-      {required final String selfieImage,
-      required final String occation,
-      required final String location,
-      required final String occupation,
-      required final String notes}) = _$MeetingRelatedInfoImpl;
+      {final String? selfieImage,
+      final String? occation,
+      final String? location,
+      final String? occupation,
+      final String? notes}) = _$MeetingRelatedInfoImpl;
 
-  String get selfieImage;
-  String get occation;
-  String get location;
-  String get occupation;
-  String get notes;
+  String? get selfieImage;
+  String? get occation;
+  String? get location;
+  String? get occupation;
+  String? get notes;
   @JsonKey(ignore: true)
   _$$MeetingRelatedInfoImplCopyWith<_$MeetingRelatedInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2169,15 +2618,22 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -2203,15 +2659,22 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -2234,15 +2697,22 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -2273,6 +2743,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -2301,6 +2772,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -2326,6 +2798,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -2433,15 +2906,22 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -2467,15 +2947,22 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -2498,15 +2985,22 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -2537,6 +3031,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -2565,6 +3060,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -2590,6 +3086,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -2700,15 +3197,22 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -2734,15 +3238,22 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -2765,15 +3276,22 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -2804,6 +3322,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -2832,6 +3351,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -2857,6 +3377,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -2957,15 +3478,22 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -2991,15 +3519,22 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -3022,15 +3557,22 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -3061,6 +3603,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -3089,6 +3632,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -3114,6 +3658,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -3188,15 +3733,22 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -3222,15 +3774,22 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -3253,15 +3812,22 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -3292,6 +3858,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -3320,6 +3887,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -3345,6 +3913,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -3449,15 +4018,22 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -3483,15 +4059,22 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -3514,15 +4097,22 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -3553,6 +4143,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -3581,6 +4172,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -3606,6 +4198,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -3679,15 +4272,22 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -3713,15 +4313,22 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -3744,15 +4351,22 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -3783,6 +4397,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -3811,6 +4426,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -3836,6 +4452,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -3928,15 +4545,22 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -3962,15 +4586,22 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -3993,15 +4624,22 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -4032,6 +4670,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -4060,6 +4699,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -4085,6 +4725,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -4156,15 +4797,22 @@ class _$ClearImpl implements Clear {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -4190,15 +4838,22 @@ class _$ClearImpl implements Clear {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -4221,15 +4876,22 @@ class _$ClearImpl implements Clear {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -4260,6 +4922,7 @@ class _$ClearImpl implements Clear {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -4288,6 +4951,7 @@ class _$ClearImpl implements Clear {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -4313,6 +4977,7 @@ class _$ClearImpl implements Clear {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -4378,15 +5043,22 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -4412,15 +5084,22 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -4443,15 +5122,22 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -4482,6 +5168,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -4510,6 +5197,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -4535,6 +5223,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -4600,15 +5289,22 @@ class _$ImageClearImpl implements ImageClear {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(bool isCam) scanImage,
+    required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
-    required TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)
+    required TResult Function() selfieimageClear,
+    required TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
         autoFillTExtfieldItems,
-    required TResult Function(String selfieImage, String occation,
-            String location, String occupation, String notes)
+    required TResult Function(String? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
     required TResult Function(SecondCard secondCard, String id)
@@ -4634,15 +5330,22 @@ class _$ImageClearImpl implements ImageClear {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(bool isCam)? scanImage,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult? Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult? Function()? selfieimageClear,
+    TResult? Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult? Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult? Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
     TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -4665,15 +5368,22 @@ class _$ImageClearImpl implements ImageClear {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(bool isCam)? scanImage,
+    TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
-    TResult Function(String scannedImage, String email, String name,
-            String company, String number, String website, String designation)?
+    TResult Function()? selfieimageClear,
+    TResult Function(
+            String scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
         autoFillTExtfieldItems,
-    TResult Function(String selfieImage, String occation, String location,
-            String occupation, String notes)?
+    TResult Function(String? selfieImage, String? occation, String? location,
+            String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
     TResult Function(SecondCard secondCard, String id)? updateCardSecond,
@@ -4704,6 +5414,7 @@ class _$ImageClearImpl implements ImageClear {
     required TResult Function(ProcessImageScanning value) processImageScanning,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
     required TResult Function(AutoFillTExtfieldItems value)
         autoFillTExtfieldItems,
     required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
@@ -4732,6 +5443,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult? Function(ProcessImageScanning value)? processImageScanning,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
     TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -4757,6 +5469,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult Function(ProcessImageScanning value)? processImageScanning,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
     TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
     TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
     TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
@@ -4788,6 +5501,8 @@ mixin _$CardSecondState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isPageLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  bool get pickImageLoading => throw _privateConstructorUsedError;
+  bool get pickSelfieCardLoading => throw _privateConstructorUsedError;
   bool get cardScanFinish => throw _privateConstructorUsedError;
   bool get secondCardcreated => throw _privateConstructorUsedError;
   bool get secondCardLoading => throw _privateConstructorUsedError;
@@ -4795,7 +5510,9 @@ mixin _$CardSecondState {
   bool get deleteSecondCardLoading => throw _privateConstructorUsedError;
   bool get deleteSecondCardEventLoading => throw _privateConstructorUsedError;
   bool get updated => throw _privateConstructorUsedError;
+  bool get imagePickError => throw _privateConstructorUsedError;
   bool get pickImageFirst => throw _privateConstructorUsedError;
+  bool get selfieImagePickerror => throw _privateConstructorUsedError;
   bool get seondCardRestored => throw _privateConstructorUsedError;
   bool get secondCardDeleted => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
@@ -4830,6 +5547,8 @@ abstract class $CardSecondStateCopyWith<$Res> {
       {bool isLoading,
       bool isPageLoading,
       bool hasError,
+      bool pickImageLoading,
+      bool pickSelfieCardLoading,
       bool cardScanFinish,
       bool secondCardcreated,
       bool secondCardLoading,
@@ -4837,7 +5556,9 @@ abstract class $CardSecondStateCopyWith<$Res> {
       bool deleteSecondCardLoading,
       bool deleteSecondCardEventLoading,
       bool updated,
+      bool imagePickError,
       bool pickImageFirst,
+      bool selfieImagePickerror,
       bool seondCardRestored,
       bool secondCardDeleted,
       String? message,
@@ -4868,6 +5589,8 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
     Object? isLoading = null,
     Object? isPageLoading = null,
     Object? hasError = null,
+    Object? pickImageLoading = null,
+    Object? pickSelfieCardLoading = null,
     Object? cardScanFinish = null,
     Object? secondCardcreated = null,
     Object? secondCardLoading = null,
@@ -4875,7 +5598,9 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
     Object? deleteSecondCardLoading = null,
     Object? deleteSecondCardEventLoading = null,
     Object? updated = null,
+    Object? imagePickError = null,
     Object? pickImageFirst = null,
+    Object? selfieImagePickerror = null,
     Object? seondCardRestored = null,
     Object? secondCardDeleted = null,
     Object? message = freezed,
@@ -4901,6 +5626,14 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pickImageLoading: null == pickImageLoading
+          ? _value.pickImageLoading
+          : pickImageLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pickSelfieCardLoading: null == pickSelfieCardLoading
+          ? _value.pickSelfieCardLoading
+          : pickSelfieCardLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       cardScanFinish: null == cardScanFinish
           ? _value.cardScanFinish
@@ -4930,9 +5663,17 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
           ? _value.updated
           : updated // ignore: cast_nullable_to_non_nullable
               as bool,
+      imagePickError: null == imagePickError
+          ? _value.imagePickError
+          : imagePickError // ignore: cast_nullable_to_non_nullable
+              as bool,
       pickImageFirst: null == pickImageFirst
           ? _value.pickImageFirst
           : pickImageFirst // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selfieImagePickerror: null == selfieImagePickerror
+          ? _value.selfieImagePickerror
+          : selfieImagePickerror // ignore: cast_nullable_to_non_nullable
               as bool,
       seondCardRestored: null == seondCardRestored
           ? _value.seondCardRestored
@@ -4998,6 +5739,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       {bool isLoading,
       bool isPageLoading,
       bool hasError,
+      bool pickImageLoading,
+      bool pickSelfieCardLoading,
       bool cardScanFinish,
       bool secondCardcreated,
       bool secondCardLoading,
@@ -5005,7 +5748,9 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool deleteSecondCardLoading,
       bool deleteSecondCardEventLoading,
       bool updated,
+      bool imagePickError,
       bool pickImageFirst,
+      bool selfieImagePickerror,
       bool seondCardRestored,
       bool secondCardDeleted,
       String? message,
@@ -5034,6 +5779,8 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isPageLoading = null,
     Object? hasError = null,
+    Object? pickImageLoading = null,
+    Object? pickSelfieCardLoading = null,
     Object? cardScanFinish = null,
     Object? secondCardcreated = null,
     Object? secondCardLoading = null,
@@ -5041,7 +5788,9 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? deleteSecondCardLoading = null,
     Object? deleteSecondCardEventLoading = null,
     Object? updated = null,
+    Object? imagePickError = null,
     Object? pickImageFirst = null,
+    Object? selfieImagePickerror = null,
     Object? seondCardRestored = null,
     Object? secondCardDeleted = null,
     Object? message = freezed,
@@ -5067,6 +5816,14 @@ class __$$InitialImplCopyWithImpl<$Res>
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pickImageLoading: null == pickImageLoading
+          ? _value.pickImageLoading
+          : pickImageLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pickSelfieCardLoading: null == pickSelfieCardLoading
+          ? _value.pickSelfieCardLoading
+          : pickSelfieCardLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       cardScanFinish: null == cardScanFinish
           ? _value.cardScanFinish
@@ -5096,9 +5853,17 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.updated
           : updated // ignore: cast_nullable_to_non_nullable
               as bool,
+      imagePickError: null == imagePickError
+          ? _value.imagePickError
+          : imagePickError // ignore: cast_nullable_to_non_nullable
+              as bool,
       pickImageFirst: null == pickImageFirst
           ? _value.pickImageFirst
           : pickImageFirst // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selfieImagePickerror: null == selfieImagePickerror
+          ? _value.selfieImagePickerror
+          : selfieImagePickerror // ignore: cast_nullable_to_non_nullable
               as bool,
       seondCardRestored: null == seondCardRestored
           ? _value.seondCardRestored
@@ -5159,6 +5924,8 @@ class _$InitialImpl implements _Initial {
       {required this.isLoading,
       required this.isPageLoading,
       required this.hasError,
+      required this.pickImageLoading,
+      required this.pickSelfieCardLoading,
       required this.cardScanFinish,
       required this.secondCardcreated,
       required this.secondCardLoading,
@@ -5166,7 +5933,9 @@ class _$InitialImpl implements _Initial {
       required this.deleteSecondCardLoading,
       required this.deleteSecondCardEventLoading,
       required this.updated,
+      required this.imagePickError,
       required this.pickImageFirst,
+      required this.selfieImagePickerror,
       required this.seondCardRestored,
       required this.secondCardDeleted,
       this.message,
@@ -5190,6 +5959,10 @@ class _$InitialImpl implements _Initial {
   @override
   final bool hasError;
   @override
+  final bool pickImageLoading;
+  @override
+  final bool pickSelfieCardLoading;
+  @override
   final bool cardScanFinish;
   @override
   final bool secondCardcreated;
@@ -5204,7 +5977,11 @@ class _$InitialImpl implements _Initial {
   @override
   final bool updated;
   @override
+  final bool imagePickError;
+  @override
   final bool pickImageFirst;
+  @override
+  final bool selfieImagePickerror;
   @override
   final bool seondCardRestored;
   @override
@@ -5254,7 +6031,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'CardSecondState(isLoading: $isLoading, isPageLoading: $isPageLoading, hasError: $hasError, cardScanFinish: $cardScanFinish, secondCardcreated: $secondCardcreated, secondCardLoading: $secondCardLoading, secondCardEventLoading: $secondCardEventLoading, deleteSecondCardLoading: $deleteSecondCardLoading, deleteSecondCardEventLoading: $deleteSecondCardEventLoading, updated: $updated, pickImageFirst: $pickImageFirst, seondCardRestored: $seondCardRestored, secondCardDeleted: $secondCardDeleted, message: $message, scannedImagesSecondCardCreation: $scannedImagesSecondCardCreation, scannedImageDatasModel: $scannedImageDatasModel, selfieImageModel: $selfieImageModel, cardSecondCreateRequestModel: $cardSecondCreateRequestModel, cardSecondResponseModel: $cardSecondResponseModel, secondCards: $secondCards, deleteSecondCards: $deleteSecondCards, getSecondCardModel: $getSecondCardModel, successResponseModel: $successResponseModel)';
+    return 'CardSecondState(isLoading: $isLoading, isPageLoading: $isPageLoading, hasError: $hasError, pickImageLoading: $pickImageLoading, pickSelfieCardLoading: $pickSelfieCardLoading, cardScanFinish: $cardScanFinish, secondCardcreated: $secondCardcreated, secondCardLoading: $secondCardLoading, secondCardEventLoading: $secondCardEventLoading, deleteSecondCardLoading: $deleteSecondCardLoading, deleteSecondCardEventLoading: $deleteSecondCardEventLoading, updated: $updated, imagePickError: $imagePickError, pickImageFirst: $pickImageFirst, selfieImagePickerror: $selfieImagePickerror, seondCardRestored: $seondCardRestored, secondCardDeleted: $secondCardDeleted, message: $message, scannedImagesSecondCardCreation: $scannedImagesSecondCardCreation, scannedImageDatasModel: $scannedImageDatasModel, selfieImageModel: $selfieImageModel, cardSecondCreateRequestModel: $cardSecondCreateRequestModel, cardSecondResponseModel: $cardSecondResponseModel, secondCards: $secondCards, deleteSecondCards: $deleteSecondCards, getSecondCardModel: $getSecondCardModel, successResponseModel: $successResponseModel)';
   }
 
   @override
@@ -5268,6 +6045,10 @@ class _$InitialImpl implements _Initial {
                 other.isPageLoading == isPageLoading) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
+            (identical(other.pickImageLoading, pickImageLoading) ||
+                other.pickImageLoading == pickImageLoading) &&
+            (identical(other.pickSelfieCardLoading, pickSelfieCardLoading) ||
+                other.pickSelfieCardLoading == pickSelfieCardLoading) &&
             (identical(other.cardScanFinish, cardScanFinish) ||
                 other.cardScanFinish == cardScanFinish) &&
             (identical(other.secondCardcreated, secondCardcreated) ||
@@ -5278,13 +6059,16 @@ class _$InitialImpl implements _Initial {
                 other.secondCardEventLoading == secondCardEventLoading) &&
             (identical(other.deleteSecondCardLoading, deleteSecondCardLoading) ||
                 other.deleteSecondCardLoading == deleteSecondCardLoading) &&
-            (identical(other.deleteSecondCardEventLoading,
-                    deleteSecondCardEventLoading) ||
+            (identical(other.deleteSecondCardEventLoading, deleteSecondCardEventLoading) ||
                 other.deleteSecondCardEventLoading ==
                     deleteSecondCardEventLoading) &&
             (identical(other.updated, updated) || other.updated == updated) &&
+            (identical(other.imagePickError, imagePickError) ||
+                other.imagePickError == imagePickError) &&
             (identical(other.pickImageFirst, pickImageFirst) ||
                 other.pickImageFirst == pickImageFirst) &&
+            (identical(other.selfieImagePickerror, selfieImagePickerror) ||
+                other.selfieImagePickerror == selfieImagePickerror) &&
             (identical(other.seondCardRestored, seondCardRestored) ||
                 other.seondCardRestored == seondCardRestored) &&
             (identical(other.secondCardDeleted, secondCardDeleted) ||
@@ -5319,6 +6103,8 @@ class _$InitialImpl implements _Initial {
         isLoading,
         isPageLoading,
         hasError,
+        pickImageLoading,
+        pickSelfieCardLoading,
         cardScanFinish,
         secondCardcreated,
         secondCardLoading,
@@ -5326,7 +6112,9 @@ class _$InitialImpl implements _Initial {
         deleteSecondCardLoading,
         deleteSecondCardEventLoading,
         updated,
+        imagePickError,
         pickImageFirst,
+        selfieImagePickerror,
         seondCardRestored,
         secondCardDeleted,
         message,
@@ -5353,6 +6141,8 @@ abstract class _Initial implements CardSecondState {
       {required final bool isLoading,
       required final bool isPageLoading,
       required final bool hasError,
+      required final bool pickImageLoading,
+      required final bool pickSelfieCardLoading,
       required final bool cardScanFinish,
       required final bool secondCardcreated,
       required final bool secondCardLoading,
@@ -5360,7 +6150,9 @@ abstract class _Initial implements CardSecondState {
       required final bool deleteSecondCardLoading,
       required final bool deleteSecondCardEventLoading,
       required final bool updated,
+      required final bool imagePickError,
       required final bool pickImageFirst,
+      required final bool selfieImagePickerror,
       required final bool seondCardRestored,
       required final bool secondCardDeleted,
       final String? message,
@@ -5381,6 +6173,10 @@ abstract class _Initial implements CardSecondState {
   @override
   bool get hasError;
   @override
+  bool get pickImageLoading;
+  @override
+  bool get pickSelfieCardLoading;
+  @override
   bool get cardScanFinish;
   @override
   bool get secondCardcreated;
@@ -5395,7 +6191,11 @@ abstract class _Initial implements CardSecondState {
   @override
   bool get updated;
   @override
+  bool get imagePickError;
+  @override
   bool get pickImageFirst;
+  @override
+  bool get selfieImagePickerror;
   @override
   bool get seondCardRestored;
   @override

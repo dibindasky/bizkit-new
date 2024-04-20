@@ -112,6 +112,7 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                                 return SizedBox(
                                   height: 200,
                                   child: PreviewPageviewImageBuilder(
+                                    isStory: true,
                                     imagesList: imagess,
                                   ),
                                 );

@@ -19,9 +19,8 @@ class ImagePickerClass {
               cameraDeviceFront ? CameraDevice.front : CameraDevice.rear,
         );
       } else {
-        pickedImage = await ImagePicker().pickImage(
-          source: ImageSource.gallery,
-        );
+        pickedImage =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
       }
       //  = await ImagePicker().pickImage(
       //   source: camera ? ImageSource.camera : ImageSource.gallery,

@@ -109,8 +109,22 @@ class BusinessSignIn extends StatelessWidget {
               ),
               adjustHieght(khieght * .01),
               InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: const Text('Alredy have an account?  Login')),
+                onTap: () => Navigator.pop(context),
+                child: const Text.rich(
+                  TextSpan(
+                    text: 'Already have an account?   ',
+                    children: [
+                      TextSpan(
+                        text: 'Login',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          decorationColor: kwhite,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               adjustHieght(khieght * .04),
               BlocConsumer<SignUpBloc, SignUpState>(
                 listener: (context, state) {

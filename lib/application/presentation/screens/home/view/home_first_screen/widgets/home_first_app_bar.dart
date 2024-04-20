@@ -26,7 +26,7 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
   void initState() {
     context
         .read<ProfileBloc>()
-        .add(const ProfileEvent.getProfile(isLoad: false));
+        .add(const ProfileEvent.getProfile(isLoad: true));
     super.initState();
   }
 

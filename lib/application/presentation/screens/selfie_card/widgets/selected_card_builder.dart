@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
@@ -7,6 +5,8 @@ import 'package:bizkit/application/presentation/screens/selfie_card/selfie_scree
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +22,7 @@ class SelectedCard extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: knill,
         title: Text(
-          'Selecetd Cards',
+          'Selec ted Cards',
           style: textHeadStyle1,
         ),
       ),
@@ -35,6 +35,13 @@ class SelectedCard extends StatelessWidget {
                 if (state.cardScanFinish) {
                   Navigator.of(context).push(
                     fadePageRoute(CardSecondScannedDatas()),
+                  );
+                }
+                if (state.imagePickError) {
+                  showSnackbar(
+                    context,
+                    message: 'Image picking failed',
+                    backgroundColor: kred,
                   );
                 }
               },
@@ -51,13 +58,29 @@ class SelectedCard extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: state.scannedImagesSecondCardCreation.length,
                       itemBuilder: (context, index) {
+                        if (state.pickImageLoading) {
+                          return const LoadingAnimation();
+                        }
                         return Stack(
                           children: [
-                            SizedBox(
-                              width: 200.dm,
-                              height: 120.dm,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  fadePageRoute(ScreenImagePreview(
+                                    image: state
+                                        .scannedImagesSecondCardCreation[index]
+                                        .base64,
+                                  )),
+                                );
+                              },
+                              child: Container(
+                                width: 310.dm,
+                                height: 150.dm,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: klightgrey),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 child: Image.file(
                                   state.scannedImagesSecondCardCreation[index]
                                       .fileImage,
@@ -68,10 +91,12 @@ class SelectedCard extends StatelessWidget {
                             Align(
                               alignment: Alignment.topRight,
                               child: IconButton(
+                                color: neonShade,
                                 onPressed: () {
                                   context.read<CardSecondBloc>().add(
-                                      CardSecondEvent.removeImageScanning(
-                                          index: index));
+                                        CardSecondEvent.removeImageScanning(
+                                            index: index),
+                                      );
                                 },
                                 icon: const Icon(Icons.delete),
                               ),
@@ -93,12 +118,21 @@ class SelectedCard extends StatelessWidget {
                         : AuthButton(
                             text: 'Continue',
                             onTap: () {
-                              context.read<CardSecondBloc>().add(
-                                    CardSecondEvent.processImageScanning(
-                                      images:
-                                          state.scannedImagesSecondCardCreation,
-                                    ),
-                                  );
+                              if (state
+                                  .scannedImagesSecondCardCreation.isEmpty) {
+                                showSnackbar(
+                                  context,
+                                  message: 'Select atleast one Image',
+                                  backgroundColor: kred,
+                                );
+                              } else {
+                                context.read<CardSecondBloc>().add(
+                                      CardSecondEvent.processImageScanning(
+                                        images: state
+                                            .scannedImagesSecondCardCreation,
+                                      ),
+                                    );
+                              }
                             },
                           ),
                     adjustHieght(khieght * .02),

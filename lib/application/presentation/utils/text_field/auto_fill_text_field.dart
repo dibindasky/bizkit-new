@@ -54,11 +54,28 @@ class AutocompleteTextField extends StatefulWidget {
 class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
   List<String> filteredAutocompleteItems = [];
   bool isDropdownVisible = false;
+
+  List<String> convertListToLowercaseExceptFirst(List<String> inputList) {
+    List<String> result = [];
+    for (String str in inputList) {
+      if (str.isNotEmpty) {
+        result.add(
+            str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase());
+      } else {
+        result.add(str.toLowerCase());
+      }
+    }
+    return result;
+  }
+
   @override
   void initState() {
-    filteredAutocompleteItems = widget.autocompleteItems ?? [];
+    if (widget.autocompleteItems != null &&
+        widget.autocompleteItems!.isNotEmpty) {
+      filteredAutocompleteItems =
+          convertListToLowercaseExceptFirst(widget.autocompleteItems!);
+    }
     super.initState();
-
     if (widget.autocompleteItems != null &&
         widget.autocompleteItems!.length == 1) {
       widget.controller!.text = widget.autocompleteItems![0];

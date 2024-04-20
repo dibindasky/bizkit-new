@@ -114,8 +114,19 @@ class IndividuelSignIn extends StatelessWidget {
               adjustHieght(khieght * .01),
               InkWell(
                 onTap: () => Navigator.pop(context),
-                child: const Text(
-                  'Already have an account?  Login',
+                child: const Text.rich(
+                  TextSpan(
+                    text: 'Already have an account?   ',
+                    children: [
+                      TextSpan(
+                        text: 'Login',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          decorationColor: kwhite,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               adjustHieght(khieght * .04),

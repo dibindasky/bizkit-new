@@ -242,43 +242,43 @@ class _LoGInScreenState extends State<LoGInScreen>
                     inputType: TextInputType.visiblePassword,
                     obscureText: true,
                   ),
+                  adjustHieght(10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'Don\'t have an account?',
                         style: TextStyle(
-                          fontSize: kwidth * 0.026,
+                          fontSize: kwidth * 0.03,
                         ),
                       ),
-                      //  adjustWidth(2),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(context,
-                              fadePageRoute(const EmailFieldForGottPassword()));
-                        },
+                      adjustWidth(10),
+                      InkWell(
+                        onTap: () =>
+                            GoRouter.of(context).pushNamed(Routes.signUpPage),
                         child: Text(
-                          'Forgot password',
+                          'Sign Up',
                           style: TextStyle(
-                              fontSize: kwidth * 0.026, color: kwhite),
+                            fontSize: kwidth * 0.037,
+                            decoration: TextDecoration.underline,
+                            decorationColor: kwhite,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   adjustHieght(khieght * .01),
-                  InkWell(
-                    onTap: () =>
-                        GoRouter.of(context).pushNamed(Routes.signUpPage),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          fadePageRoute(const EmailFieldForGottPassword()));
+                    },
                     child: Text(
-                      'SignUp',
-                      style: TextStyle(
-                        fontSize: kwidth * 0.037,
-                        decoration: TextDecoration.underline,
-                        decorationColor: kwhite,
-                      ),
+                      'Forgot password',
+                      style: TextStyle(fontSize: kwidth * 0.03, color: kwhite),
                     ),
                   ),
-                  adjustHieght(khieght * .04),
+                  adjustHieght(khieght * .03),
                   BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
                       if (state.hasError || state.message != null) {

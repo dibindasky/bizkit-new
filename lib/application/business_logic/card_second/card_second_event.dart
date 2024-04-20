@@ -3,28 +3,30 @@ part of 'card_second_bloc.dart';
 @freezed
 class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.started() = _Started;
-  const factory CardSecondEvent.scanImage({required bool isCam}) = ScanImage;
+  const factory CardSecondEvent.scanImage(
+      {required bool isCam, required bool isFront}) = ScanImage;
   const factory CardSecondEvent.processImageScanning(
       {required List<ImageModel> images}) = ProcessImageScanning;
   const factory CardSecondEvent.removeImageScanning({required int index}) =
       RemoveImageScanning;
   const factory CardSecondEvent.selfieImage(
       {required bool cameraDeviceFront, required bool isCam}) = SelfieImage;
+  const factory CardSecondEvent.selfieimageClear() = SelfieimageClear;
   const factory CardSecondEvent.autoFillTExtfieldItems({
     required String scannedImage,
-    required String email,
+    String? email,
     required String name,
-    required String company,
-    required String number,
-    required String website,
-    required String designation,
+    String? company,
+    String? number,
+    String? website,
+    String? designation,
   }) = AutoFillTExtfieldItems;
   const factory CardSecondEvent.meetingRelatedInfo({
-    required String selfieImage,
-    required String occation,
-    required String location,
-    required String occupation,
-    required String notes,
+    String? selfieImage,
+    String? occation,
+    String? location,
+    String? occupation,
+    String? notes,
   }) = MeetingRelatedInfo;
   const factory CardSecondEvent.getAllCardsSecond({required bool isLoad}) =
       GetAllCardsSecond;

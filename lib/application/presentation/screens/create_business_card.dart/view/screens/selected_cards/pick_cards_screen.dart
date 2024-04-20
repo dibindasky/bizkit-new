@@ -1,9 +1,11 @@
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/card_uploading_showdailogue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,15 +46,27 @@ class PickCardsScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Stack(
                           children: [
-                            SizedBox(
-                              width: 200.dm,
-                              height: 120.dm,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.file(
-                                  state.scannedImagesCardCreation[index]
-                                      .fileImage,
-                                  fit: BoxFit.cover,
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  fadePageRoute(ScreenImagePreview(
+                                    image: state
+                                        .scannedImagesCardCreation[index]
+                                        .base64,
+                                    isFileIamge: false,
+                                  )),
+                                );
+                              },
+                              child: SizedBox(
+                                width: 300.dm,
+                                height: 150.dm,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.file(
+                                    state.scannedImagesCardCreation[index]
+                                        .fileImage,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -133,7 +147,7 @@ class PickCardsScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ProfileCreationScreen()));
+                                          const ProfileCreationScreen()));
                             },
                           ),
                     adjustHieght(khieght * .02),

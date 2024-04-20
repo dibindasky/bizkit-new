@@ -1,17 +1,24 @@
 import 'dart:convert';
-
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class PreviewPageviewImageBuilder extends StatefulWidget {
-  const PreviewPageviewImageBuilder(
-      {super.key, required this.imagesList, this.story, this.storyIndex});
+  const PreviewPageviewImageBuilder({
+    super.key,
+    required this.imagesList,
+    this.story,
+    this.storyIndex,
+    this.isStory,
+  });
 
   final List<String> imagesList;
   final String? story;
   final int? storyIndex;
+  final bool? isStory;
 
   @override
   State<PreviewPageviewImageBuilder> createState() =>
@@ -49,6 +56,7 @@ class _PreviewPageviewImageBuilderState
       },
       child: (index, _) {
         return ImagePreviewScrollView(
+            isStory: widget.isStory,
             image: widget.imagesList[index],
             story: index == widget.storyIndex ? widget.story : null);
       },
@@ -57,10 +65,12 @@ class _PreviewPageviewImageBuilderState
 }
 
 class ImagePreviewScrollView extends StatefulWidget {
-  const ImagePreviewScrollView({super.key, required this.image, this.story});
+  const ImagePreviewScrollView(
+      {super.key, required this.image, this.story, this.isStory});
 
   final String image;
   final String? story;
+  final bool? isStory;
 
   @override
   State<ImagePreviewScrollView> createState() => _ImagePreviewScrollViewState();
@@ -82,6 +92,11 @@ class _ImagePreviewScrollViewState extends State<ImagePreviewScrollView> {
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
           onTap: () {
+            if (widget.isStory != null) {
+              Navigator.of(context).push(fadePageRoute(ScreenImagePreview(
+                image: widget.image,
+              )));
+            }
             if (widget.story != null) {
               showModalBottomSheet(
                 context: context,

@@ -46,4 +46,10 @@ abstract class CardPatchRepo {
   Future<Either<Failure, Brochure>> addBrochure({required Brochure brochure});
   Future<Either<Failure, SuccessResponseModel>> deleteBrochure(
       {required int id});
+  Future<Either<Failure, SuccessResponseModel>> updateProduct({
+    required int id,
+    required Product product,
+  });
+  Future<Either<Failure, SuccessResponseModel>> deleteProductImage(
+      {required int id});
 }

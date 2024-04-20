@@ -42,10 +42,10 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
               children: [
                 BlocBuilder<ProfileBloc, ProfileState>(
                   builder: (context, state) {
-                    if (state.isLoading) {
+                    if (state.profileLoading) {
                       return const ShimmerLoaderTile(
-                        height: 20,
-                        width: 100,
+                        height: 30,
+                        width: 120,
                       );
                     }
                     return Text(

@@ -47,7 +47,7 @@ class BrochersAndProductsTab extends StatelessWidget {
         body: TabBarView(
           children: [
             BrochersBuilder(pdf: pdf),
-            ProductsBuilder(networkImages: networkImages),
+            ProductsBuilder(products: networkImages),
           ],
         ),
       ),

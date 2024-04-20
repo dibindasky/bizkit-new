@@ -3,13 +3,10 @@ class ApiEndPoints {
   //static String baseUrl = 'http://192.168.29.216:8000';
   //static String baseUrl = 'http://44.203.134.42';
   //static String baseUrl = 'https://bizkit.zikrabyte.in';
-
   static String baseUrl = 'http://192.168.29.217:8000';
-
-// refesh token
+  // refesh token
   static String refreshUrl = '/accounts/api/token/refresh/';
-
-// auth
+  // auth
   static String login = '/accounts/login/';
   static String register = '/accounts/register/';
   static String sendOtpMail = '/verification/send_verification_email/';
@@ -19,7 +16,7 @@ class ApiEndPoints {
   static String forgottPassword = '/verification/change_password/';
   static String forgottPasswordProfile = '/accounts/password_change/';
 
-// card
+  // card
   static String createCard = '/card/create-card/';
   static String card = '/card/card-list/';
   static String deleteCard = '/card/get-card/{card_id}/';
@@ -60,14 +57,17 @@ class ApiEndPoints {
       '/card/business-social-media-update-delete/{social_media_id}/';
   static String getCardViewsList = '/card/views/{card_id}/';
 
-// qr
+  // Produ updation
+  static String productUpdation = '/card/product-update-delete/{id}/';
+
+  // qr
   static String getQr = '/level/list-qr/';
   static String levelsharingEdit =
       '/level/level-sharing-update/{level_sharing_id}/';
   static String getCardByUserId = '/card/card_of_another_user/{user_id}/';
   static String getCardByCardId = '/card/get-card/{card_id}/';
 
-// connection
+  // connection
   static String createBizkitConnection = '/connections/create-connections/';
   static String bizkitConnectionListing = '/connections/list-connections/';
   static String addTagToBizkitconnection =
@@ -79,7 +79,7 @@ class ApiEndPoints {
   static String deleteConnectionRequest =
       '/connections/delete-connection-request/{id}/';
 
-// reminder
+  // reminder
   static String createReminder = '/reminder/create-reminder/';
   static String editReminder = '/reminder/edit-reminder/{reminder_id}/';
   static String getReminderDetails = '/reminder/get-reminder/{reminder_id}/';
@@ -89,29 +89,28 @@ class ApiEndPoints {
   static String getUpcomingReminder = '/reminder/upcoming-reminder-list/';
   static String getHistoryReminder = '/reminder/reminder-history-list/';
 
-// profile section
+  // profile section
   static String reportAProblem = '/accounts/report-problem-in-app/';
   static String getProfileInfo = '/accounts/profile/';
   static String editProfileInfo = '/accounts/update-profile/';
   static String deleteProfile = '/accounts/update-profile/';
-  static String archeivedCardsList = '/card/archived-cards/';
-  static String getDeletedCards = '/card/deleted-cards/';
   static String defaultQr = '/level/common-level-sharing-update/';
   static String getBlockedConnections =
       '/connections/list-blocked-connections/';
-  static String restreArcheivedCard = '/card/get-card/{card_id}/';
   static String faq = '/faq/';
   static String notification = '/notification/notifications-list/';
-  static String createSecondCard = '/card-connections/business-card/';
+
+  // second card
   static String getSingleCardSecons =
       '/card-connections/business-card-retrieve-update/{id}/';
-
-// second card
+  static String restreArcheivedCard = '/card/get-card/{card_id}/';
+  static String getDeletedCards = '/card/deleted-cards/';
+  static String archeivedCardsList = '/card/archived-cards/';
+  static String createSecondCard = '/card-connections/business-card/';
   static String getSecondCard =
       '/card-connections/business-card-retrieve-update/{id}';
   static String getAllCardSecond = '/card-connections/business-card/';
   static String updateCardSecond =
       '/card-connections/business-card-retrieve-update/{id}/';
-
   static String getDeletedSecondCard = '/card-connections/deleted-cards/';
 }

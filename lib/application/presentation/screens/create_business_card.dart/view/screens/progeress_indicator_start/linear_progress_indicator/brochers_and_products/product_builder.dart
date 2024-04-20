@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/products_builder.dart';
@@ -9,9 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductBuilder extends StatelessWidget {
-  const ProductBuilder({
-    super.key,
-  });
+  const ProductBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +25,20 @@ class ProductBuilder extends StatelessWidget {
               final data = state.products[index];
               return Stack(
                 children: [
-                  InkWell(
-                    onTap: () => Navigator.push(context,
-                        fadePageRoute(ProductViewDetail(product: data))),
+                  GestureDetector(
+                    onTap: () {
+                      // context.read<BusinessDataBloc>().add(
+                      //     BusinessDataEvent.productUpdateImages(
+                      //         image: state.products[index].image!));
+                      Navigator.push(
+                          context,
+                          fadePageRoute(
+                            ProductViewDetail(
+                              product: data,
+                              fromUpdate: true,
+                            ),
+                          ));
+                    },
                     child: Container(
                       height: kwidth * 0.2,
                       margin: const EdgeInsets.only(right: 10, left: 10),
@@ -48,19 +56,19 @@ class ProductBuilder extends StatelessWidget {
                   Positioned(
                     top: 0,
                     right: 0,
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () {
                         showCustomConfirmationDialoge(
-                            context: context,
-                            title: 'are you sure want to delete ?',
-                            buttonText: 'Delete',
-                            onTap: () {
-                              context.read<BusinessDataBloc>().add(
-                                  BusinessDataEvent.removeProduct(
-                                      id: state.products[index].id!));
-                            });
+                          context: context,
+                          title: 'Are you sure want to delete?',
+                          buttonText: 'Delete',
+                          onTap: () {
+                            context.read<BusinessDataBloc>().add(
+                                BusinessDataEvent.removeProduct(
+                                    id: state.products[index].id!));
+                          },
+                        );
                       },
-                      borderRadius: BorderRadius.circular(10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: const ColoredBox(

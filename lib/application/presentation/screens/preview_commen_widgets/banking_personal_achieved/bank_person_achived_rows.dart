@@ -1,4 +1,4 @@
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/achivements_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements_accolodes_accreditation/achivements_screen.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/banking_and_presonal_screens.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';

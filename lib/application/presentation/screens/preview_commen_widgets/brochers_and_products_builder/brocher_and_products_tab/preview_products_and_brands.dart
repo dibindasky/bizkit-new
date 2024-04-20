@@ -75,6 +75,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => ProductViewDetail(
                                         product: networkImages![index],
+                                        fromUpdate: false,
                                       ))),
                           child: AspectRatio(
                             aspectRatio: 0.9,
@@ -105,11 +106,12 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ScreenPdfPreview(
-                                      base64: pdf![index],
-                                    ))),
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ScreenPdfPreview(
+                                    base64: pdf![index],
+                                  )),
+                        ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: ColoredBox(

@@ -183,16 +183,18 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                               date: dateController.text,
                                               accoladesDescription: description,
                                               accoladesImage: image!.base64)))
-                                  : context.read<BusinessDataBloc>().add(
-                                          BusinessDataEvent.addAccredition(
-                                              accredition: Accredition(
-                                                  cardId: widget.cardId,
-                                                  description: description,
-                                                  label: title,
-                                                  date: dateController.text,
-                                                  images: [
-                                            ImageCard(image: image!.base64)
-                                          ])));
+                                  : context
+                                      .read<BusinessDataBloc>()
+                                      .add(BusinessDataEvent.addAccredition(
+                                        accredition: Accredition(
+                                            cardId: widget.cardId,
+                                            description: description,
+                                            label: title,
+                                            date: dateController.text,
+                                            images: [
+                                              ImageCard(image: image!.base64)
+                                            ]),
+                                      ));
                               // Navigator.of(context).pop();
                             }
                           },

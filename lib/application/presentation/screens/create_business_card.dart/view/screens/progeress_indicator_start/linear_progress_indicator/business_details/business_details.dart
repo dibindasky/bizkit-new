@@ -5,7 +5,7 @@ import 'package:bizkit/application/business_logic/card/create/user_data/user_dat
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/preview_main_screen.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/accolades/accolades_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements_accolodes_accreditation/accolades_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
@@ -164,14 +164,15 @@ class BusinessDetailsScreen extends StatelessWidget {
                             .toList(),
                         removeItem: (index) {
                           showCustomConfirmationDialoge(
-                              context: context,
-                              title: 'are you sure want to delete ?',
-                              buttonText: 'Delete',
-                              onTap: () {
-                                context.read<BusinessDataBloc>().add(
-                                    BusinessDataEvent.removeSocialMedia(
-                                        id: state.socialMedias[index].id!));
-                              });
+                            context: context,
+                            title: 'are you sure want to delete ?',
+                            buttonText: 'Delete',
+                            onTap: () {
+                              context.read<BusinessDataBloc>().add(
+                                  BusinessDataEvent.removeBusinessSocialMedia(
+                                      id: state.socialMedias[index].id!));
+                            },
+                          );
                         },
                         ontap: () => Navigator.of(context).push(fadePageRoute(
                             SocialMediahandlesScreen(
@@ -328,17 +329,18 @@ class BusinessDetailsScreen extends StatelessWidget {
                                 image: value, isFileIamge: false))),
                         removeItem: (index) {
                           showCustomConfirmationDialoge(
-                              context: context,
-                              title: 'are you sure want to delete ?',
-                              buttonText: 'Delete',
-                              onTap: () {
-                                context.read<BusinessDataBloc>().add(
-                                    BusinessDataEvent.removeAccredition(
-                                        id: state.accreditions[index].id!));
-                              });
+                            context: context,
+                            title: 'are you sure want to delete ?',
+                            buttonText: 'Delete',
+                            onTap: () {
+                              context.read<BusinessDataBloc>().add(
+                                  BusinessDataEvent.removeAccredition(
+                                      id: state.accreditions[index].id!));
+                            },
+                          );
                         },
                         list: state.accreditions
-                            .map((e) => e.image as String)
+                            .map((e) => e.images?[0].image as String)
                             .toList(),
                         child: Container(
                           decoration: const BoxDecoration(

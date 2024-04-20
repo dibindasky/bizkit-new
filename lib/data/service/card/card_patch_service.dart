@@ -9,6 +9,7 @@ import 'package:bizkit/domain/model/card/card/bank_details/bank_details.dart';
 import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
@@ -346,16 +347,13 @@ class CardPatchService implements CardPatchRepo {
       log('addProduct ${product.toJson()}');
       final response = await _apiService.post(ApiEndPoints.addProduct,
           data: product.toJson());
-      log('addProduct done');
+      log('addProduct done data ${response.data}');
       return Right(Product.fromJson(response.data));
     } on DioException catch (e) {
-      log('addProduct dio error');
-      log(e.toString());
-      log(e.response.toString());
+      log('addProduct DioException error $e');
       return Left(Failure());
     } catch (e) {
-      log('addProduct exception error');
-      log(e.toString());
+      log('addProduct catch error');
       return Left(Failure());
     }
   }
@@ -438,5 +436,30 @@ class CardPatchService implements CardPatchRepo {
       log(e.toString());
       return Left(Failure());
     }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> updateProduct(
+      {required int id, required Product product}) async {
+    try {
+      await _apiService.patch(
+        ApiEndPoints.deleteProduct.replaceFirst('{product_id}', id.toString()),
+        data: product.toJson(),
+      );
+      log('editProduct done');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('editProduct DioException error $e');
+      return Left(Failure());
+    } catch (e) {
+      log('editProduct catch error $e');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> deleteProductImage(
+      {required int id}) {
+    throw UnimplementedError();
   }
 }

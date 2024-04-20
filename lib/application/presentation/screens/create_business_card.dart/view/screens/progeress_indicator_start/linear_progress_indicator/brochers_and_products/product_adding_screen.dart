@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
@@ -51,20 +57,131 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
               child: Column(
                 children: [
                   adjustHieght(khieght * .05),
-                  ColoredBox(
-                    color: neonShade.withOpacity(0.1),
-                    child: InkWell(
-                      onTap: () async {
-                        image = await ImagePickerClass.getImage(camera: false);
-                        setState(() {});
-                      },
-                      child: SizedBox(
-                          width: 270.dm,
-                          height: 170.dm,
-                          child: image != null
-                              ? Image.file(image!.fileImage, fit: BoxFit.cover)
-                              : const Icon(Icons.add_a_photo_rounded)),
-                    ),
+                  BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                    builder: (context, state) {
+                      return SizedBox(
+                        height: 200.dm,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            if (index == state.productImages.length) {
+                              return state.pickImageLoading
+                                  ? const Center(
+                                      child: CircularProgressIndicator(
+                                        color: neonShade,
+                                      ),
+                                    )
+                                  : ColoredBox(
+                                      color: neonShade.withOpacity(0.1),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          customDailogue(
+                                            context: context,
+                                            onPressCam: () {
+                                              context
+                                                  .read<BusinessDataBloc>()
+                                                  .add(const BusinessDataEvent
+                                                      .pickImage(
+                                                      isFront: false,
+                                                      isCam: true));
+                                            },
+                                            onPressGallery: () {
+                                              context
+                                                  .read<BusinessDataBloc>()
+                                                  .add(const BusinessDataEvent
+                                                      .pickImage(
+                                                      isFront: false,
+                                                      isCam: false));
+                                            },
+                                          );
+                                        },
+                                        child: SizedBox(
+                                          width: 300.dm,
+                                          height: 200.dm,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: const ColoredBox(
+                                              color: textFieldFillColr,
+                                              child: Icon(
+                                                Icons.add_a_photo_rounded,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                            } else {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(fadePageRoute(ScreenImagePreview(
+                                    image: state.productImages[index].image,
+                                  )));
+                                },
+                                child: Stack(
+                                  children: [
+                                    SizedBox(
+                                      width: 300.dm,
+                                      height: 200.dm,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.memory(
+                                          base64.decode(state
+                                              .productImages[index].image
+                                              .substring(22)),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    //     MemoryImage(base64
+                                    // .decode(data.image![0].image.substring(22)))
+                                    Positioned(
+                                      bottom: 10,
+                                      right: 10,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: ColoredBox(
+                                          color: neonShade,
+                                          child: IconButton(
+                                            onPressed: () {
+                                              showCustomConfirmationDialoge(
+                                                context: context,
+                                                buttonText: 'Delete',
+                                                title:
+                                                    'You want to remove your selfie',
+                                                onTap: () {
+                                                  context
+                                                      .read<BusinessDataBloc>()
+                                                      .add(BusinessDataEvent
+                                                          .removeProductImages(
+                                                        index: index,
+                                                      ));
+                                                },
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              size: 30,
+                                              color: kwhite,
+                                              Icons.delete,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
+                          separatorBuilder: (context, index) {
+                            return adjustWidth(10);
+                          },
+                          itemCount: state.productImages.length + 1,
+                        ),
+                      );
+                    },
                   ),
                   adjustHieght(khieght * .02),
                   TTextFormField(
@@ -103,6 +220,13 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                   adjustHieght(khieght * .03),
                   BlocConsumer<BusinessDataBloc, BusinessDataState>(
                     listener: (context, state) {
+                      if (state.pickImageError) {
+                        showSnackbar(
+                          context,
+                          message: 'Image picking failed',
+                          backgroundColor: kred,
+                        );
+                      }
                       if (state.productAdded) {
                         context.read<CardBloc>().add(CardEvent.getCardyCardId(
                             id: state.currentCard!.id!));
@@ -118,24 +242,27 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                         onTap: () {
                           if (productDescriptionController.text.isEmpty ||
                               productTitleController.text.isEmpty ||
-                              image == null) {
+                              state.productImages.isEmpty) {
                             showSnackbar(context,
-                                message: image == null
-                                    ? 'Add Image'
+                                message: state.productImages.isEmpty
+                                    ? 'Add atleast one product Image'
                                     : productTitleController.text.isEmpty
-                                        ? 'Add title'
-                                        : 'Add Description',
+                                        ? 'Add product title'
+                                        : 'Add product Description',
                                 textColor: kwhite,
                                 backgroundColor: kred);
                             return;
                           }
+
                           final product = Product(
-                              description:
-                                  productDescriptionController.text.trim(),
-                              label: productTitleController.text.trim(),
-                              image: [ImageCard(image: image!.base64)],
-                              enquiry: switchValue,
-                              cardId: state.currentCard!.id);
+                            description:
+                                productDescriptionController.text.trim(),
+                            label: productTitleController.text.trim(),
+                            image: state.productImages,
+                            //[ImageCard(image: image!.base64)],
+                            enquiry: switchValue,
+                            cardId: state.currentCard!.id,
+                          );
                           context.read<BusinessDataBloc>().add(
                               BusinessDataEvent.addProduct(product: product));
                           // Navigator.pop(context);

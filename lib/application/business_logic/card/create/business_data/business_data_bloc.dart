@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
@@ -10,6 +11,7 @@ import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/business_detail/business_details.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
@@ -24,7 +26,6 @@ import 'package:flutter/material.dart' as mat;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 part 'business_data_event.dart';
 part 'business_data_state.dart';
 part 'business_data_bloc.freezed.dart';
@@ -60,20 +61,30 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   final CardRepo cardService;
   final UserLocalRepo userLocalService;
   final CardPatchRepo cardPatchRepo;
+  List<ImageCard> imageList = [];
 
   BusinessDataBloc(this.pdfPicker, this.cardService, this.userLocalService,
       this.cardPatchRepo)
       : super(BusinessDataState.initial()) {
     on<AddAccredition>(addAccredition);
     on<RemoveAccredition>(removeAccredition);
+    on<AccreditationPickImage>(accreditationPickImage);
+    on<AccreditationUpdatePickImage>(accreditationUpdatePickImage);
+    on<UpdationAccreditation>(updationAccreditation);
     on<AddSocialMedia>(addSocialMedia);
     on<RemoveSocialMedia>(removeSocialMedia);
+    on<RemoveBusinessSocialMedia>(removeBusinessSocialMedia);
     on<AddLogo>(addLogo);
     on<AddCropedLogo>(addCropedLogo);
     on<AddBrochures>(addBrochure);
     on<RemoveBrochure>(removeBrochure);
     on<AddProduct>(addProduct);
+    on<PickImage>(pickImage);
+    on<ProductUpdatePickImage>(productUpdatePickImage);
+    on<ProductUpdateImages>(productUpdateImages);
+    on<RemoveProductImages>(removeProductImages);
     on<RemoveProduct>(removeProduct);
+    on<UpdateProduct>(updateProduct);
     on<AddBranch>(addBranch);
     on<RemoveBranch>(removeBranch);
     on<CreateBusinessData>(createBusinessData);
@@ -84,6 +95,122 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<GetCurrentCard>(getCurrentCard);
     on<UploadLogo>(uploadLogo);
     on<Clear>(clear);
+  }
+
+  FutureOr<void> updationAccreditation(UpdationAccreditation event, emit) {}
+
+  FutureOr<void> accreditationUpdatePickImage(
+      AccreditationUpdatePickImage event, emit) {}
+
+  FutureOr<void> accreditationPickImage(
+      AccreditationPickImage event, emit) async {
+    emit(state.copyWith(
+      pickImageLoading: true,
+      pickImageError: false,
+      productUpdated: false,
+    ));
+    final pickImage = await ImagePickerClass.getImage(
+        camera: event.isCam, cameraDeviceFront: event.isFront);
+    ImageCard imageCard = ImageCard();
+
+    if (pickImage != null) {
+      imageCard.image = pickImage.base64;
+      emit(
+        state.copyWith(
+          pickImageError: false,
+          accreditationPickImages: [
+            ...state.accreditationPickImages,
+            imageCard,
+          ],
+          pickImageLoading: false,
+        ),
+      );
+    } else {
+      emit(state.copyWith(
+        pickImageLoading: false,
+        pickImageError: true,
+      ));
+    }
+  }
+
+  FutureOr<void> productUpdateImages(ProductUpdateImages event, emit) {
+    List<ImageCard> updateImage = [];
+    for (var product in state.products) {
+      if (product.image == event.image) {
+        updateImage = event.image;
+      }
+    }
+    log('updateUmage length  ${updateImage.length}');
+    emit(state.copyWith(productUpdateImages: updateImage));
+  }
+
+  FutureOr<void> pickImage(PickImage event, emit) async {
+    emit(state.copyWith(
+      pickImageLoading: true,
+      pickImageError: false,
+      productUpdated: false,
+    ));
+    final pickImage = await ImagePickerClass.getImage(
+        camera: event.isCam, cameraDeviceFront: event.isFront);
+    ImageCard imageCard = ImageCard();
+
+    if (pickImage != null) {
+      imageCard.image = pickImage.base64;
+      emit(
+        state.copyWith(
+          pickImageError: false,
+          productImages: [
+            ...state.productImages,
+            imageCard,
+          ],
+          pickImageLoading: false,
+        ),
+      );
+    } else {
+      emit(state.copyWith(
+        pickImageLoading: false,
+        pickImageError: true,
+      ));
+    }
+  }
+
+  FutureOr<void> productUpdatePickImage(
+      ProductUpdatePickImage event, emit) async {
+    emit(state.copyWith(pickImageLoading: true, pickImageError: false));
+    final pickImage = await ImagePickerClass.getImage(
+        camera: event.isCam, cameraDeviceFront: event.isFront);
+    ImageCard imageCard = ImageCard();
+    if (pickImage != null) {
+      imageCard.image = pickImage.base64;
+      emit(
+        state.copyWith(
+          pickImageError: false,
+          productUpdateImages: [
+            ...state.productUpdateImages,
+            imageCard,
+          ],
+          pickImageLoading: false,
+        ),
+      );
+    } else {
+      emit(state.copyWith(
+        pickImageLoading: false,
+        pickImageError: true,
+      ));
+    }
+  }
+
+  FutureOr<void> removeProductImages(RemoveProductImages event, emit) async {
+    emit(state.copyWith(pickImageError: false));
+    for (ImageCard img in state.productImages) {
+      if (imageList[event.index] != img) {
+        imageList.add(img);
+      }
+    }
+    emit(state.copyWith(
+      productImages: imageList,
+      message: null,
+    ));
   }
 
   FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {
@@ -522,6 +649,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
 
   FutureOr<void> addProduct(AddProduct event, emit) async {
     emit(state.copyWith(
+      pickImageError: false,
       productLoading: true,
       accreditionAdded: false,
       branchAdded: false,
@@ -530,12 +658,17 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       socialMediaAdded: false,
     ));
     final response = await cardPatchRepo.addProduct(product: event.product);
-    response.fold(
-        (l) => emit(state.copyWith(productLoading: false)),
-        (r) => emit(state.copyWith(
-            productAdded: true,
-            productLoading: false,
-            products: [...state.products, r])));
+    response.fold((l) => emit(state.copyWith(productLoading: false)), (r) {
+      if (r.image != null) {
+        imageList = r.image!;
+      }
+      return emit(state.copyWith(
+        productAdded: true,
+        productLoading: false,
+        productImages: [],
+        products: [...state.products, r],
+      ));
+    });
   }
 
   FutureOr<void> removeProduct(RemoveProduct event, emit) async {
@@ -556,6 +689,32 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         }
       }
       emit(state.copyWith(products: list, productDeleteLoading: false));
+    });
+  }
+
+  FutureOr<void> updateProduct(UpdateProduct event, emit) async {
+    emit(state.copyWith(
+      productUpdateLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+      productUpdated: false,
+    ));
+    final result = await cardPatchRepo.updateProduct(
+      id: event.id,
+      product: event.product,
+    );
+    result.fold(
+        (l) => emit(state.copyWith(
+              productUpdateLoading: false,
+              productUpdated: false,
+            )), (r) {
+      emit(state.copyWith(
+        productUpdateLoading: false,
+        productUpdated: true,
+      ));
     });
   }
 
@@ -634,6 +793,27 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     result.fold((l) => emit(state.copyWith(socialMediaDeleteLoading: false)),
         (r) {
       List<SocialMediaHandle> list = List.from(state.socialMedias);
+      list.removeWhere((element) => element.id == event.id);
+      return emit(
+          state.copyWith(socialMediaDeleteLoading: false, socialMedias: list));
+    });
+  }
+
+  FutureOr<void> removeBusinessSocialMedia(
+      RemoveBusinessSocialMedia event, emit) async {
+    emit(state.copyWith(
+      message: null,
+      socialMediaDeleteLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
+    final result = await cardPatchRepo.deleteBusinessSocialMedia(id: event.id);
+    result.fold((l) => emit(state.copyWith(socialMediaDeleteLoading: false)),
+        (r) {
+      List<SocialMediaHandle> list = List.from(state.businessSocialMedias);
       list.removeWhere((element) => element.id == event.id);
       return emit(
           state.copyWith(socialMediaDeleteLoading: false, socialMedias: list));

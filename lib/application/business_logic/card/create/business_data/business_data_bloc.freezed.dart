@@ -21,11 +21,16 @@ mixin _$BusinessDataEvent {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -33,23 +38,33 @@ mixin _$BusinessDataEvent {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -57,23 +72,33 @@ mixin _$BusinessDataEvent {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -81,12 +106,18 @@ mixin _$BusinessDataEvent {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -94,11 +125,20 @@ mixin _$BusinessDataEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -106,23 +146,36 @@ mixin _$BusinessDataEvent {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -130,23 +183,35 @@ mixin _$BusinessDataEvent {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -154,12 +219,18 @@ mixin _$BusinessDataEvent {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -252,11 +323,16 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -264,12 +340,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return addSocialMedia(socialMediaHandle);
   }
@@ -279,11 +361,15 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -291,12 +377,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return addSocialMedia?.call(socialMediaHandle);
   }
@@ -306,11 +398,15 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -318,12 +414,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (addSocialMedia != null) {
@@ -337,11 +439,20 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -349,12 +460,19 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return addSocialMedia(this);
   }
@@ -364,11 +482,17 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -376,12 +500,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return addSocialMedia?.call(this);
   }
@@ -391,11 +521,17 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -403,12 +539,18 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (addSocialMedia != null) {
@@ -497,11 +639,16 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -509,12 +656,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return removeSocialMedia(id);
   }
@@ -524,11 +677,15 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -536,12 +693,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return removeSocialMedia?.call(id);
   }
@@ -551,11 +714,15 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -563,12 +730,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (removeSocialMedia != null) {
@@ -582,11 +755,20 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -594,12 +776,19 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return removeSocialMedia(this);
   }
@@ -609,11 +798,17 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -621,12 +816,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return removeSocialMedia?.call(this);
   }
@@ -636,11 +837,17 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -648,12 +855,18 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (removeSocialMedia != null) {
@@ -671,6 +884,324 @@ abstract class RemoveSocialMedia implements BusinessDataEvent {
   @JsonKey(ignore: true)
   _$$RemoveSocialMediaImplCopyWith<_$RemoveSocialMediaImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveBusinessSocialMediaImplCopyWith<$Res> {
+  factory _$$RemoveBusinessSocialMediaImplCopyWith(
+          _$RemoveBusinessSocialMediaImpl value,
+          $Res Function(_$RemoveBusinessSocialMediaImpl) then) =
+      __$$RemoveBusinessSocialMediaImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$RemoveBusinessSocialMediaImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res,
+        _$RemoveBusinessSocialMediaImpl>
+    implements _$$RemoveBusinessSocialMediaImplCopyWith<$Res> {
+  __$$RemoveBusinessSocialMediaImplCopyWithImpl(
+      _$RemoveBusinessSocialMediaImpl _value,
+      $Res Function(_$RemoveBusinessSocialMediaImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$RemoveBusinessSocialMediaImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
+  const _$RemoveBusinessSocialMediaImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.removeBusinessSocialMedia(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveBusinessSocialMediaImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveBusinessSocialMediaImplCopyWith<_$RemoveBusinessSocialMediaImpl>
+      get copyWith => __$$RemoveBusinessSocialMediaImplCopyWithImpl<
+          _$RemoveBusinessSocialMediaImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return removeBusinessSocialMedia(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return removeBusinessSocialMedia?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (removeBusinessSocialMedia != null) {
+      return removeBusinessSocialMedia(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return removeBusinessSocialMedia(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return removeBusinessSocialMedia?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (removeBusinessSocialMedia != null) {
+      return removeBusinessSocialMedia(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveBusinessSocialMedia implements BusinessDataEvent {
+  const factory RemoveBusinessSocialMedia({required final int id}) =
+      _$RemoveBusinessSocialMediaImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$RemoveBusinessSocialMediaImplCopyWith<_$RemoveBusinessSocialMediaImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -742,11 +1273,16 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -754,12 +1290,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return addAccredition(accredition);
   }
@@ -769,11 +1311,15 @@ class _$AddAccreditionImpl implements AddAccredition {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -781,12 +1327,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return addAccredition?.call(accredition);
   }
@@ -796,11 +1348,15 @@ class _$AddAccreditionImpl implements AddAccredition {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -808,12 +1364,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (addAccredition != null) {
@@ -827,11 +1389,20 @@ class _$AddAccreditionImpl implements AddAccredition {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -839,12 +1410,19 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return addAccredition(this);
   }
@@ -854,11 +1432,17 @@ class _$AddAccreditionImpl implements AddAccredition {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -866,12 +1450,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return addAccredition?.call(this);
   }
@@ -881,11 +1471,17 @@ class _$AddAccreditionImpl implements AddAccredition {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -893,12 +1489,18 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (addAccredition != null) {
@@ -916,6 +1518,983 @@ abstract class AddAccredition implements BusinessDataEvent {
   @JsonKey(ignore: true)
   _$$AddAccreditionImplCopyWith<_$AddAccreditionImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AccreditationPickImageImplCopyWith<$Res> {
+  factory _$$AccreditationPickImageImplCopyWith(
+          _$AccreditationPickImageImpl value,
+          $Res Function(_$AccreditationPickImageImpl) then) =
+      __$$AccreditationPickImageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isCam, bool isFront});
+}
+
+/// @nodoc
+class __$$AccreditationPickImageImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$AccreditationPickImageImpl>
+    implements _$$AccreditationPickImageImplCopyWith<$Res> {
+  __$$AccreditationPickImageImplCopyWithImpl(
+      _$AccreditationPickImageImpl _value,
+      $Res Function(_$AccreditationPickImageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isCam = null,
+    Object? isFront = null,
+  }) {
+    return _then(_$AccreditationPickImageImpl(
+      isCam: null == isCam
+          ? _value.isCam
+          : isCam // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFront: null == isFront
+          ? _value.isFront
+          : isFront // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AccreditationPickImageImpl implements AccreditationPickImage {
+  const _$AccreditationPickImageImpl(
+      {required this.isCam, required this.isFront});
+
+  @override
+  final bool isCam;
+  @override
+  final bool isFront;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.accreditationPickImage(isCam: $isCam, isFront: $isFront)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AccreditationPickImageImpl &&
+            (identical(other.isCam, isCam) || other.isCam == isCam) &&
+            (identical(other.isFront, isFront) || other.isFront == isFront));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isCam, isFront);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AccreditationPickImageImplCopyWith<_$AccreditationPickImageImpl>
+      get copyWith => __$$AccreditationPickImageImplCopyWithImpl<
+          _$AccreditationPickImageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return accreditationPickImage(isCam, isFront);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return accreditationPickImage?.call(isCam, isFront);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (accreditationPickImage != null) {
+      return accreditationPickImage(isCam, isFront);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return accreditationPickImage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return accreditationPickImage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (accreditationPickImage != null) {
+      return accreditationPickImage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AccreditationPickImage implements BusinessDataEvent {
+  const factory AccreditationPickImage(
+      {required final bool isCam,
+      required final bool isFront}) = _$AccreditationPickImageImpl;
+
+  bool get isCam;
+  bool get isFront;
+  @JsonKey(ignore: true)
+  _$$AccreditationPickImageImplCopyWith<_$AccreditationPickImageImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AccreditationUpdatePickImageImplCopyWith<$Res> {
+  factory _$$AccreditationUpdatePickImageImplCopyWith(
+          _$AccreditationUpdatePickImageImpl value,
+          $Res Function(_$AccreditationUpdatePickImageImpl) then) =
+      __$$AccreditationUpdatePickImageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isCam, bool isFront});
+}
+
+/// @nodoc
+class __$$AccreditationUpdatePickImageImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res,
+        _$AccreditationUpdatePickImageImpl>
+    implements _$$AccreditationUpdatePickImageImplCopyWith<$Res> {
+  __$$AccreditationUpdatePickImageImplCopyWithImpl(
+      _$AccreditationUpdatePickImageImpl _value,
+      $Res Function(_$AccreditationUpdatePickImageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isCam = null,
+    Object? isFront = null,
+  }) {
+    return _then(_$AccreditationUpdatePickImageImpl(
+      isCam: null == isCam
+          ? _value.isCam
+          : isCam // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFront: null == isFront
+          ? _value.isFront
+          : isFront // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AccreditationUpdatePickImageImpl
+    implements AccreditationUpdatePickImage {
+  const _$AccreditationUpdatePickImageImpl(
+      {required this.isCam, required this.isFront});
+
+  @override
+  final bool isCam;
+  @override
+  final bool isFront;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.accreditationUpdatePickImage(isCam: $isCam, isFront: $isFront)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AccreditationUpdatePickImageImpl &&
+            (identical(other.isCam, isCam) || other.isCam == isCam) &&
+            (identical(other.isFront, isFront) || other.isFront == isFront));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isCam, isFront);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AccreditationUpdatePickImageImplCopyWith<
+          _$AccreditationUpdatePickImageImpl>
+      get copyWith => __$$AccreditationUpdatePickImageImplCopyWithImpl<
+          _$AccreditationUpdatePickImageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return accreditationUpdatePickImage(isCam, isFront);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return accreditationUpdatePickImage?.call(isCam, isFront);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (accreditationUpdatePickImage != null) {
+      return accreditationUpdatePickImage(isCam, isFront);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return accreditationUpdatePickImage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return accreditationUpdatePickImage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (accreditationUpdatePickImage != null) {
+      return accreditationUpdatePickImage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AccreditationUpdatePickImage implements BusinessDataEvent {
+  const factory AccreditationUpdatePickImage(
+      {required final bool isCam,
+      required final bool isFront}) = _$AccreditationUpdatePickImageImpl;
+
+  bool get isCam;
+  bool get isFront;
+  @JsonKey(ignore: true)
+  _$$AccreditationUpdatePickImageImplCopyWith<
+          _$AccreditationUpdatePickImageImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdationAccreditationImplCopyWith<$Res> {
+  factory _$$UpdationAccreditationImplCopyWith(
+          _$UpdationAccreditationImpl value,
+          $Res Function(_$UpdationAccreditationImpl) then) =
+      __$$UpdationAccreditationImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Accredition accredition});
+}
+
+/// @nodoc
+class __$$UpdationAccreditationImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$UpdationAccreditationImpl>
+    implements _$$UpdationAccreditationImplCopyWith<$Res> {
+  __$$UpdationAccreditationImplCopyWithImpl(_$UpdationAccreditationImpl _value,
+      $Res Function(_$UpdationAccreditationImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? accredition = null,
+  }) {
+    return _then(_$UpdationAccreditationImpl(
+      accredition: null == accredition
+          ? _value.accredition
+          : accredition // ignore: cast_nullable_to_non_nullable
+              as Accredition,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdationAccreditationImpl implements UpdationAccreditation {
+  const _$UpdationAccreditationImpl({required this.accredition});
+
+  @override
+  final Accredition accredition;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.updationAccreditation(accredition: $accredition)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdationAccreditationImpl &&
+            (identical(other.accredition, accredition) ||
+                other.accredition == accredition));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, accredition);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdationAccreditationImplCopyWith<_$UpdationAccreditationImpl>
+      get copyWith => __$$UpdationAccreditationImplCopyWithImpl<
+          _$UpdationAccreditationImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return updationAccreditation(accredition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return updationAccreditation?.call(accredition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (updationAccreditation != null) {
+      return updationAccreditation(accredition);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return updationAccreditation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return updationAccreditation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (updationAccreditation != null) {
+      return updationAccreditation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdationAccreditation implements BusinessDataEvent {
+  const factory UpdationAccreditation(
+      {required final Accredition accredition}) = _$UpdationAccreditationImpl;
+
+  Accredition get accredition;
+  @JsonKey(ignore: true)
+  _$$UpdationAccreditationImplCopyWith<_$UpdationAccreditationImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -986,11 +2565,16 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -998,12 +2582,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return removeAccredition(id);
   }
@@ -1013,11 +2603,15 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -1025,12 +2619,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return removeAccredition?.call(id);
   }
@@ -1040,11 +2640,15 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -1052,12 +2656,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (removeAccredition != null) {
@@ -1071,11 +2681,20 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -1083,12 +2702,19 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return removeAccredition(this);
   }
@@ -1098,11 +2724,17 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -1110,12 +2742,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return removeAccredition?.call(this);
   }
@@ -1125,11 +2763,17 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -1137,12 +2781,18 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (removeAccredition != null) {
@@ -1160,6 +2810,323 @@ abstract class RemoveAccredition implements BusinessDataEvent {
   @JsonKey(ignore: true)
   _$$RemoveAccreditionImplCopyWith<_$RemoveAccreditionImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveAccreditionImageImplCopyWith<$Res> {
+  factory _$$RemoveAccreditionImageImplCopyWith(
+          _$RemoveAccreditionImageImpl value,
+          $Res Function(_$RemoveAccreditionImageImpl) then) =
+      __$$RemoveAccreditionImageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$RemoveAccreditionImageImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$RemoveAccreditionImageImpl>
+    implements _$$RemoveAccreditionImageImplCopyWith<$Res> {
+  __$$RemoveAccreditionImageImplCopyWithImpl(
+      _$RemoveAccreditionImageImpl _value,
+      $Res Function(_$RemoveAccreditionImageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$RemoveAccreditionImageImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
+  const _$RemoveAccreditionImageImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.removeAccreditionImage(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveAccreditionImageImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveAccreditionImageImplCopyWith<_$RemoveAccreditionImageImpl>
+      get copyWith => __$$RemoveAccreditionImageImplCopyWithImpl<
+          _$RemoveAccreditionImageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return removeAccreditionImage(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return removeAccreditionImage?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (removeAccreditionImage != null) {
+      return removeAccreditionImage(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return removeAccreditionImage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return removeAccreditionImage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (removeAccreditionImage != null) {
+      return removeAccreditionImage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveAccreditionImage implements BusinessDataEvent {
+  const factory RemoveAccreditionImage({required final int id}) =
+      _$RemoveAccreditionImageImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$RemoveAccreditionImageImplCopyWith<_$RemoveAccreditionImageImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1229,11 +3196,16 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -1241,12 +3213,18 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return addBranch(branch);
   }
@@ -1256,11 +3234,15 @@ class _$AddBranchImpl implements AddBranch {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -1268,12 +3250,18 @@ class _$AddBranchImpl implements AddBranch {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return addBranch?.call(branch);
   }
@@ -1283,11 +3271,15 @@ class _$AddBranchImpl implements AddBranch {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -1295,12 +3287,18 @@ class _$AddBranchImpl implements AddBranch {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (addBranch != null) {
@@ -1314,11 +3312,20 @@ class _$AddBranchImpl implements AddBranch {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -1326,12 +3333,19 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return addBranch(this);
   }
@@ -1341,11 +3355,17 @@ class _$AddBranchImpl implements AddBranch {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -1353,12 +3373,18 @@ class _$AddBranchImpl implements AddBranch {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return addBranch?.call(this);
   }
@@ -1368,11 +3394,17 @@ class _$AddBranchImpl implements AddBranch {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -1380,12 +3412,18 @@ class _$AddBranchImpl implements AddBranch {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (addBranch != null) {
@@ -1471,11 +3509,16 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -1483,12 +3526,18 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return removeBranch(id);
   }
@@ -1498,11 +3547,15 @@ class _$RemoveBranchImpl implements RemoveBranch {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -1510,12 +3563,18 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return removeBranch?.call(id);
   }
@@ -1525,11 +3584,15 @@ class _$RemoveBranchImpl implements RemoveBranch {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -1537,12 +3600,18 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (removeBranch != null) {
@@ -1556,11 +3625,20 @@ class _$RemoveBranchImpl implements RemoveBranch {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -1568,12 +3646,19 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return removeBranch(this);
   }
@@ -1583,11 +3668,17 @@ class _$RemoveBranchImpl implements RemoveBranch {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -1595,12 +3686,18 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return removeBranch?.call(this);
   }
@@ -1610,11 +3707,17 @@ class _$RemoveBranchImpl implements RemoveBranch {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -1622,12 +3725,18 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (removeBranch != null) {
@@ -1644,217 +3753,6 @@ abstract class RemoveBranch implements BusinessDataEvent {
   @JsonKey(ignore: true)
   _$$RemoveBranchImplCopyWith<_$RemoveBranchImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ClearImplCopyWith<$Res> {
-  factory _$$ClearImplCopyWith(
-          _$ClearImpl value, $Res Function(_$ClearImpl) then) =
-      __$$ClearImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$ClearImplCopyWithImpl<$Res>
-    extends _$BusinessDataEventCopyWithImpl<$Res, _$ClearImpl>
-    implements _$$ClearImplCopyWith<$Res> {
-  __$$ClearImplCopyWithImpl(
-      _$ClearImpl _value, $Res Function(_$ClearImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$ClearImpl implements Clear {
-  _$ClearImpl();
-
-  @override
-  String toString() {
-    return 'BusinessDataEvent.clear()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ClearImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(SocialMediaHandle socialMediaHandle)
-        addSocialMedia,
-    required TResult Function(int id) removeSocialMedia,
-    required TResult Function(Accredition accredition) addAccredition,
-    required TResult Function(int id) removeAccredition,
-    required TResult Function(String branch) addBranch,
-    required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
-    required TResult Function() createBusinessData,
-    required TResult Function() createBankingData,
-    required TResult Function() addLogo,
-    required TResult Function() uploadLogo,
-    required TResult Function(String base64) addCropedLogo,
-    required TResult Function() getUserData,
-    required TResult Function(Product product) addProduct,
-    required TResult Function(int id) removeProduct,
-    required TResult Function() addBrochures,
-    required TResult Function(int id) removeBrochure,
-    required TResult Function(SearchQuery? search) getCompnayList,
-    required TResult Function(int id) getCompnayDetails,
-    required TResult Function(Card card) getCurrentCard,
-  }) {
-    return clear();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
-    TResult? Function(int id)? removeSocialMedia,
-    TResult? Function(Accredition accredition)? addAccredition,
-    TResult? Function(int id)? removeAccredition,
-    TResult? Function(String branch)? addBranch,
-    TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
-    TResult? Function()? createBusinessData,
-    TResult? Function()? createBankingData,
-    TResult? Function()? addLogo,
-    TResult? Function()? uploadLogo,
-    TResult? Function(String base64)? addCropedLogo,
-    TResult? Function()? getUserData,
-    TResult? Function(Product product)? addProduct,
-    TResult? Function(int id)? removeProduct,
-    TResult? Function()? addBrochures,
-    TResult? Function(int id)? removeBrochure,
-    TResult? Function(SearchQuery? search)? getCompnayList,
-    TResult? Function(int id)? getCompnayDetails,
-    TResult? Function(Card card)? getCurrentCard,
-  }) {
-    return clear?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
-    TResult Function(int id)? removeSocialMedia,
-    TResult Function(Accredition accredition)? addAccredition,
-    TResult Function(int id)? removeAccredition,
-    TResult Function(String branch)? addBranch,
-    TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
-    TResult Function()? createBusinessData,
-    TResult Function()? createBankingData,
-    TResult Function()? addLogo,
-    TResult Function()? uploadLogo,
-    TResult Function(String base64)? addCropedLogo,
-    TResult Function()? getUserData,
-    TResult Function(Product product)? addProduct,
-    TResult Function(int id)? removeProduct,
-    TResult Function()? addBrochures,
-    TResult Function(int id)? removeBrochure,
-    TResult Function(SearchQuery? search)? getCompnayList,
-    TResult Function(int id)? getCompnayDetails,
-    TResult Function(Card card)? getCurrentCard,
-    required TResult orElse(),
-  }) {
-    if (clear != null) {
-      return clear();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AddSocialMedia value) addSocialMedia,
-    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
-    required TResult Function(AddAccredition value) addAccredition,
-    required TResult Function(RemoveAccredition value) removeAccredition,
-    required TResult Function(AddBranch value) addBranch,
-    required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
-    required TResult Function(CreateBusinessData value) createBusinessData,
-    required TResult Function(CreateBankingData value) createBankingData,
-    required TResult Function(AddLogo value) addLogo,
-    required TResult Function(UploadLogo value) uploadLogo,
-    required TResult Function(AddCropedLogo value) addCropedLogo,
-    required TResult Function(GetUserData value) getUserData,
-    required TResult Function(AddProduct value) addProduct,
-    required TResult Function(RemoveProduct value) removeProduct,
-    required TResult Function(AddBrochures value) addBrochures,
-    required TResult Function(RemoveBrochure value) removeBrochure,
-    required TResult Function(GetCompnayList value) getCompnayList,
-    required TResult Function(GetCompnayDetails value) getCompnayDetails,
-    required TResult Function(GetCurrentCard value) getCurrentCard,
-  }) {
-    return clear(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddSocialMedia value)? addSocialMedia,
-    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
-    TResult? Function(AddAccredition value)? addAccredition,
-    TResult? Function(RemoveAccredition value)? removeAccredition,
-    TResult? Function(AddBranch value)? addBranch,
-    TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
-    TResult? Function(CreateBusinessData value)? createBusinessData,
-    TResult? Function(CreateBankingData value)? createBankingData,
-    TResult? Function(AddLogo value)? addLogo,
-    TResult? Function(UploadLogo value)? uploadLogo,
-    TResult? Function(AddCropedLogo value)? addCropedLogo,
-    TResult? Function(GetUserData value)? getUserData,
-    TResult? Function(AddProduct value)? addProduct,
-    TResult? Function(RemoveProduct value)? removeProduct,
-    TResult? Function(AddBrochures value)? addBrochures,
-    TResult? Function(RemoveBrochure value)? removeBrochure,
-    TResult? Function(GetCompnayList value)? getCompnayList,
-    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
-    TResult? Function(GetCurrentCard value)? getCurrentCard,
-  }) {
-    return clear?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddSocialMedia value)? addSocialMedia,
-    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
-    TResult Function(AddAccredition value)? addAccredition,
-    TResult Function(RemoveAccredition value)? removeAccredition,
-    TResult Function(AddBranch value)? addBranch,
-    TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
-    TResult Function(CreateBusinessData value)? createBusinessData,
-    TResult Function(CreateBankingData value)? createBankingData,
-    TResult Function(AddLogo value)? addLogo,
-    TResult Function(UploadLogo value)? uploadLogo,
-    TResult Function(AddCropedLogo value)? addCropedLogo,
-    TResult Function(GetUserData value)? getUserData,
-    TResult Function(AddProduct value)? addProduct,
-    TResult Function(RemoveProduct value)? removeProduct,
-    TResult Function(AddBrochures value)? addBrochures,
-    TResult Function(RemoveBrochure value)? removeBrochure,
-    TResult Function(GetCompnayList value)? getCompnayList,
-    TResult Function(GetCompnayDetails value)? getCompnayDetails,
-    TResult Function(GetCurrentCard value)? getCurrentCard,
-    required TResult orElse(),
-  }) {
-    if (clear != null) {
-      return clear(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Clear implements BusinessDataEvent {
-  factory Clear() = _$ClearImpl;
 }
 
 /// @nodoc
@@ -1898,11 +3796,16 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -1910,12 +3813,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return createBusinessData();
   }
@@ -1925,11 +3834,15 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -1937,12 +3850,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return createBusinessData?.call();
   }
@@ -1952,11 +3871,15 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -1964,12 +3887,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (createBusinessData != null) {
@@ -1983,11 +3912,20 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -1995,12 +3933,19 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return createBusinessData(this);
   }
@@ -2010,11 +3955,17 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -2022,12 +3973,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return createBusinessData?.call(this);
   }
@@ -2037,11 +3994,17 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -2049,12 +4012,18 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (createBusinessData != null) {
@@ -2109,11 +4078,16 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -2121,12 +4095,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return createBankingData();
   }
@@ -2136,11 +4116,15 @@ class _$CreateBankingDataImpl implements CreateBankingData {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -2148,12 +4132,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return createBankingData?.call();
   }
@@ -2163,11 +4153,15 @@ class _$CreateBankingDataImpl implements CreateBankingData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -2175,12 +4169,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (createBankingData != null) {
@@ -2194,11 +4194,20 @@ class _$CreateBankingDataImpl implements CreateBankingData {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -2206,12 +4215,19 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return createBankingData(this);
   }
@@ -2221,11 +4237,17 @@ class _$CreateBankingDataImpl implements CreateBankingData {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -2233,12 +4255,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return createBankingData?.call(this);
   }
@@ -2248,11 +4276,17 @@ class _$CreateBankingDataImpl implements CreateBankingData {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -2260,12 +4294,18 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (createBankingData != null) {
@@ -2320,11 +4360,16 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -2332,12 +4377,18 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return addLogo();
   }
@@ -2347,11 +4398,15 @@ class _$AddLogoImpl implements AddLogo {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -2359,12 +4414,18 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return addLogo?.call();
   }
@@ -2374,11 +4435,15 @@ class _$AddLogoImpl implements AddLogo {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -2386,12 +4451,18 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (addLogo != null) {
@@ -2405,11 +4476,20 @@ class _$AddLogoImpl implements AddLogo {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -2417,12 +4497,19 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return addLogo(this);
   }
@@ -2432,11 +4519,17 @@ class _$AddLogoImpl implements AddLogo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -2444,12 +4537,18 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return addLogo?.call(this);
   }
@@ -2459,11 +4558,17 @@ class _$AddLogoImpl implements AddLogo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -2471,12 +4576,18 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (addLogo != null) {
@@ -2531,11 +4642,16 @@ class _$UploadLogoImpl implements UploadLogo {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -2543,12 +4659,18 @@ class _$UploadLogoImpl implements UploadLogo {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return uploadLogo();
   }
@@ -2558,11 +4680,15 @@ class _$UploadLogoImpl implements UploadLogo {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -2570,12 +4696,18 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return uploadLogo?.call();
   }
@@ -2585,11 +4717,15 @@ class _$UploadLogoImpl implements UploadLogo {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -2597,12 +4733,18 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (uploadLogo != null) {
@@ -2616,11 +4758,20 @@ class _$UploadLogoImpl implements UploadLogo {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -2628,12 +4779,19 @@ class _$UploadLogoImpl implements UploadLogo {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return uploadLogo(this);
   }
@@ -2643,11 +4801,17 @@ class _$UploadLogoImpl implements UploadLogo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -2655,12 +4819,18 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return uploadLogo?.call(this);
   }
@@ -2670,11 +4840,17 @@ class _$UploadLogoImpl implements UploadLogo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -2682,12 +4858,18 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (uploadLogo != null) {
@@ -2768,11 +4950,16 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -2780,12 +4967,18 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return addCropedLogo(base64);
   }
@@ -2795,11 +4988,15 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -2807,12 +5004,18 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return addCropedLogo?.call(base64);
   }
@@ -2822,11 +5025,15 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -2834,12 +5041,18 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (addCropedLogo != null) {
@@ -2853,11 +5066,20 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -2865,12 +5087,19 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return addCropedLogo(this);
   }
@@ -2880,11 +5109,17 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -2892,12 +5127,18 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return addCropedLogo?.call(this);
   }
@@ -2907,11 +5148,17 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -2919,12 +5166,18 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (addCropedLogo != null) {
@@ -2985,11 +5238,16 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -2997,12 +5255,18 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return getUserData();
   }
@@ -3012,11 +5276,15 @@ class _$GetUserDataImpl implements GetUserData {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -3024,12 +5292,18 @@ class _$GetUserDataImpl implements GetUserData {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return getUserData?.call();
   }
@@ -3039,11 +5313,15 @@ class _$GetUserDataImpl implements GetUserData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -3051,12 +5329,18 @@ class _$GetUserDataImpl implements GetUserData {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getUserData != null) {
@@ -3070,11 +5354,20 @@ class _$GetUserDataImpl implements GetUserData {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -3082,12 +5375,19 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getUserData(this);
   }
@@ -3097,11 +5397,17 @@ class _$GetUserDataImpl implements GetUserData {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -3109,12 +5415,18 @@ class _$GetUserDataImpl implements GetUserData {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getUserData?.call(this);
   }
@@ -3124,11 +5436,17 @@ class _$GetUserDataImpl implements GetUserData {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -3136,12 +5454,18 @@ class _$GetUserDataImpl implements GetUserData {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getUserData != null) {
@@ -3222,11 +5546,16 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -3234,12 +5563,18 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return addProduct(product);
   }
@@ -3249,11 +5584,15 @@ class _$AddProductImpl implements AddProduct {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -3261,12 +5600,18 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return addProduct?.call(product);
   }
@@ -3276,11 +5621,15 @@ class _$AddProductImpl implements AddProduct {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -3288,12 +5637,18 @@ class _$AddProductImpl implements AddProduct {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (addProduct != null) {
@@ -3307,11 +5662,20 @@ class _$AddProductImpl implements AddProduct {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -3319,12 +5683,19 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return addProduct(this);
   }
@@ -3334,11 +5705,17 @@ class _$AddProductImpl implements AddProduct {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -3346,12 +5723,18 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return addProduct?.call(this);
   }
@@ -3361,11 +5744,17 @@ class _$AddProductImpl implements AddProduct {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -3373,12 +5762,18 @@ class _$AddProductImpl implements AddProduct {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (addProduct != null) {
@@ -3395,6 +5790,1295 @@ abstract class AddProduct implements BusinessDataEvent {
   @JsonKey(ignore: true)
   _$$AddProductImplCopyWith<_$AddProductImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveProductImagesImplCopyWith<$Res> {
+  factory _$$RemoveProductImagesImplCopyWith(_$RemoveProductImagesImpl value,
+          $Res Function(_$RemoveProductImagesImpl) then) =
+      __$$RemoveProductImagesImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$RemoveProductImagesImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$RemoveProductImagesImpl>
+    implements _$$RemoveProductImagesImplCopyWith<$Res> {
+  __$$RemoveProductImagesImplCopyWithImpl(_$RemoveProductImagesImpl _value,
+      $Res Function(_$RemoveProductImagesImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$RemoveProductImagesImpl(
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveProductImagesImpl implements RemoveProductImages {
+  const _$RemoveProductImagesImpl({required this.index});
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.removeProductImages(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveProductImagesImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveProductImagesImplCopyWith<_$RemoveProductImagesImpl> get copyWith =>
+      __$$RemoveProductImagesImplCopyWithImpl<_$RemoveProductImagesImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return removeProductImages(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return removeProductImages?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (removeProductImages != null) {
+      return removeProductImages(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return removeProductImages(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return removeProductImages?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (removeProductImages != null) {
+      return removeProductImages(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveProductImages implements BusinessDataEvent {
+  const factory RemoveProductImages({required final int index}) =
+      _$RemoveProductImagesImpl;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$RemoveProductImagesImplCopyWith<_$RemoveProductImagesImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ProductUpdateImagesImplCopyWith<$Res> {
+  factory _$$ProductUpdateImagesImplCopyWith(_$ProductUpdateImagesImpl value,
+          $Res Function(_$ProductUpdateImagesImpl) then) =
+      __$$ProductUpdateImagesImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<ImageCard> image});
+}
+
+/// @nodoc
+class __$$ProductUpdateImagesImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$ProductUpdateImagesImpl>
+    implements _$$ProductUpdateImagesImplCopyWith<$Res> {
+  __$$ProductUpdateImagesImplCopyWithImpl(_$ProductUpdateImagesImpl _value,
+      $Res Function(_$ProductUpdateImagesImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? image = null,
+  }) {
+    return _then(_$ProductUpdateImagesImpl(
+      image: null == image
+          ? _value._image
+          : image // ignore: cast_nullable_to_non_nullable
+              as List<ImageCard>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProductUpdateImagesImpl implements ProductUpdateImages {
+  const _$ProductUpdateImagesImpl({required final List<ImageCard> image})
+      : _image = image;
+
+  final List<ImageCard> _image;
+  @override
+  List<ImageCard> get image {
+    if (_image is EqualUnmodifiableListView) return _image;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_image);
+  }
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.productUpdateImages(image: $image)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProductUpdateImagesImpl &&
+            const DeepCollectionEquality().equals(other._image, _image));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_image));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProductUpdateImagesImplCopyWith<_$ProductUpdateImagesImpl> get copyWith =>
+      __$$ProductUpdateImagesImplCopyWithImpl<_$ProductUpdateImagesImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return productUpdateImages(image);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return productUpdateImages?.call(image);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (productUpdateImages != null) {
+      return productUpdateImages(image);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return productUpdateImages(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return productUpdateImages?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (productUpdateImages != null) {
+      return productUpdateImages(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ProductUpdateImages implements BusinessDataEvent {
+  const factory ProductUpdateImages({required final List<ImageCard> image}) =
+      _$ProductUpdateImagesImpl;
+
+  List<ImageCard> get image;
+  @JsonKey(ignore: true)
+  _$$ProductUpdateImagesImplCopyWith<_$ProductUpdateImagesImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PickImageImplCopyWith<$Res> {
+  factory _$$PickImageImplCopyWith(
+          _$PickImageImpl value, $Res Function(_$PickImageImpl) then) =
+      __$$PickImageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isCam, bool isFront});
+}
+
+/// @nodoc
+class __$$PickImageImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$PickImageImpl>
+    implements _$$PickImageImplCopyWith<$Res> {
+  __$$PickImageImplCopyWithImpl(
+      _$PickImageImpl _value, $Res Function(_$PickImageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isCam = null,
+    Object? isFront = null,
+  }) {
+    return _then(_$PickImageImpl(
+      isCam: null == isCam
+          ? _value.isCam
+          : isCam // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFront: null == isFront
+          ? _value.isFront
+          : isFront // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PickImageImpl implements PickImage {
+  const _$PickImageImpl({required this.isCam, required this.isFront});
+
+  @override
+  final bool isCam;
+  @override
+  final bool isFront;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.pickImage(isCam: $isCam, isFront: $isFront)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PickImageImpl &&
+            (identical(other.isCam, isCam) || other.isCam == isCam) &&
+            (identical(other.isFront, isFront) || other.isFront == isFront));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isCam, isFront);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PickImageImplCopyWith<_$PickImageImpl> get copyWith =>
+      __$$PickImageImplCopyWithImpl<_$PickImageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return pickImage(isCam, isFront);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return pickImage?.call(isCam, isFront);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (pickImage != null) {
+      return pickImage(isCam, isFront);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return pickImage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return pickImage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (pickImage != null) {
+      return pickImage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PickImage implements BusinessDataEvent {
+  const factory PickImage(
+      {required final bool isCam,
+      required final bool isFront}) = _$PickImageImpl;
+
+  bool get isCam;
+  bool get isFront;
+  @JsonKey(ignore: true)
+  _$$PickImageImplCopyWith<_$PickImageImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ProductUpdatePickImageImplCopyWith<$Res> {
+  factory _$$ProductUpdatePickImageImplCopyWith(
+          _$ProductUpdatePickImageImpl value,
+          $Res Function(_$ProductUpdatePickImageImpl) then) =
+      __$$ProductUpdatePickImageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isCam, bool isFront});
+}
+
+/// @nodoc
+class __$$ProductUpdatePickImageImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$ProductUpdatePickImageImpl>
+    implements _$$ProductUpdatePickImageImplCopyWith<$Res> {
+  __$$ProductUpdatePickImageImplCopyWithImpl(
+      _$ProductUpdatePickImageImpl _value,
+      $Res Function(_$ProductUpdatePickImageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isCam = null,
+    Object? isFront = null,
+  }) {
+    return _then(_$ProductUpdatePickImageImpl(
+      isCam: null == isCam
+          ? _value.isCam
+          : isCam // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFront: null == isFront
+          ? _value.isFront
+          : isFront // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
+  const _$ProductUpdatePickImageImpl(
+      {required this.isCam, required this.isFront});
+
+  @override
+  final bool isCam;
+  @override
+  final bool isFront;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.productUpdatePickImage(isCam: $isCam, isFront: $isFront)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProductUpdatePickImageImpl &&
+            (identical(other.isCam, isCam) || other.isCam == isCam) &&
+            (identical(other.isFront, isFront) || other.isFront == isFront));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isCam, isFront);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProductUpdatePickImageImplCopyWith<_$ProductUpdatePickImageImpl>
+      get copyWith => __$$ProductUpdatePickImageImplCopyWithImpl<
+          _$ProductUpdatePickImageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return productUpdatePickImage(isCam, isFront);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return productUpdatePickImage?.call(isCam, isFront);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (productUpdatePickImage != null) {
+      return productUpdatePickImage(isCam, isFront);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return productUpdatePickImage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return productUpdatePickImage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (productUpdatePickImage != null) {
+      return productUpdatePickImage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ProductUpdatePickImage implements BusinessDataEvent {
+  const factory ProductUpdatePickImage(
+      {required final bool isCam,
+      required final bool isFront}) = _$ProductUpdatePickImageImpl;
+
+  bool get isCam;
+  bool get isFront;
+  @JsonKey(ignore: true)
+  _$$ProductUpdatePickImageImplCopyWith<_$ProductUpdatePickImageImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -3464,11 +7148,16 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -3476,12 +7165,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return removeProduct(id);
   }
@@ -3491,11 +7186,15 @@ class _$RemoveProductImpl implements RemoveProduct {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -3503,12 +7202,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return removeProduct?.call(id);
   }
@@ -3518,11 +7223,15 @@ class _$RemoveProductImpl implements RemoveProduct {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -3530,12 +7239,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (removeProduct != null) {
@@ -3549,11 +7264,20 @@ class _$RemoveProductImpl implements RemoveProduct {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -3561,12 +7285,19 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return removeProduct(this);
   }
@@ -3576,11 +7307,17 @@ class _$RemoveProductImpl implements RemoveProduct {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -3588,12 +7325,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return removeProduct?.call(this);
   }
@@ -3603,11 +7346,17 @@ class _$RemoveProductImpl implements RemoveProduct {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -3615,12 +7364,18 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (removeProduct != null) {
@@ -3636,6 +7391,330 @@ abstract class RemoveProduct implements BusinessDataEvent {
   int get id;
   @JsonKey(ignore: true)
   _$$RemoveProductImplCopyWith<_$RemoveProductImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateProductImplCopyWith<$Res> {
+  factory _$$UpdateProductImplCopyWith(
+          _$UpdateProductImpl value, $Res Function(_$UpdateProductImpl) then) =
+      __$$UpdateProductImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id, Product product});
+}
+
+/// @nodoc
+class __$$UpdateProductImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$UpdateProductImpl>
+    implements _$$UpdateProductImplCopyWith<$Res> {
+  __$$UpdateProductImplCopyWithImpl(
+      _$UpdateProductImpl _value, $Res Function(_$UpdateProductImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? product = null,
+  }) {
+    return _then(_$UpdateProductImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      product: null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as Product,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateProductImpl implements UpdateProduct {
+  const _$UpdateProductImpl({required this.id, required this.product});
+
+  @override
+  final int id;
+  @override
+  final Product product;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.updateProduct(id: $id, product: $product)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateProductImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.product, product) || other.product == product));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, product);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateProductImplCopyWith<_$UpdateProductImpl> get copyWith =>
+      __$$UpdateProductImplCopyWithImpl<_$UpdateProductImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return updateProduct(id, product);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return updateProduct?.call(id, product);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (updateProduct != null) {
+      return updateProduct(id, product);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return updateProduct(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return updateProduct?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (updateProduct != null) {
+      return updateProduct(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdateProduct implements BusinessDataEvent {
+  const factory UpdateProduct(
+      {required final int id,
+      required final Product product}) = _$UpdateProductImpl;
+
+  int get id;
+  Product get product;
+  @JsonKey(ignore: true)
+  _$$UpdateProductImplCopyWith<_$UpdateProductImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -3680,11 +7759,16 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -3692,12 +7776,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return addBrochures();
   }
@@ -3707,11 +7797,15 @@ class _$AddBrochuresImpl implements AddBrochures {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -3719,12 +7813,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return addBrochures?.call();
   }
@@ -3734,11 +7834,15 @@ class _$AddBrochuresImpl implements AddBrochures {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -3746,12 +7850,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (addBrochures != null) {
@@ -3765,11 +7875,20 @@ class _$AddBrochuresImpl implements AddBrochures {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -3777,12 +7896,19 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return addBrochures(this);
   }
@@ -3792,11 +7918,17 @@ class _$AddBrochuresImpl implements AddBrochures {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -3804,12 +7936,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return addBrochures?.call(this);
   }
@@ -3819,11 +7957,17 @@ class _$AddBrochuresImpl implements AddBrochures {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -3831,12 +7975,18 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (addBrochures != null) {
@@ -3918,11 +8068,16 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -3930,12 +8085,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return removeBrochure(id);
   }
@@ -3945,11 +8106,15 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -3957,12 +8122,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return removeBrochure?.call(id);
   }
@@ -3972,11 +8143,15 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -3984,12 +8159,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (removeBrochure != null) {
@@ -4003,11 +8184,20 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -4015,12 +8205,19 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return removeBrochure(this);
   }
@@ -4030,11 +8227,17 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -4042,12 +8245,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return removeBrochure?.call(this);
   }
@@ -4057,11 +8266,17 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -4069,12 +8284,18 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (removeBrochure != null) {
@@ -4161,11 +8382,16 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -4173,12 +8399,18 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return getCompnayList(search);
   }
@@ -4188,11 +8420,15 @@ class _$GetCompnayListImpl implements GetCompnayList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -4200,12 +8436,18 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return getCompnayList?.call(search);
   }
@@ -4215,11 +8457,15 @@ class _$GetCompnayListImpl implements GetCompnayList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -4227,12 +8473,18 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getCompnayList != null) {
@@ -4246,11 +8498,20 @@ class _$GetCompnayListImpl implements GetCompnayList {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -4258,12 +8519,19 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getCompnayList(this);
   }
@@ -4273,11 +8541,17 @@ class _$GetCompnayListImpl implements GetCompnayList {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -4285,12 +8559,18 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getCompnayList?.call(this);
   }
@@ -4300,11 +8580,17 @@ class _$GetCompnayListImpl implements GetCompnayList {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -4312,12 +8598,18 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getCompnayList != null) {
@@ -4405,11 +8697,16 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -4417,12 +8714,18 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return getCompnayDetails(id);
   }
@@ -4432,11 +8735,15 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -4444,12 +8751,18 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return getCompnayDetails?.call(id);
   }
@@ -4459,11 +8772,15 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -4471,12 +8788,18 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getCompnayDetails != null) {
@@ -4490,11 +8813,20 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -4502,12 +8834,19 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getCompnayDetails(this);
   }
@@ -4517,11 +8856,17 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -4529,12 +8874,18 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getCompnayDetails?.call(this);
   }
@@ -4544,11 +8895,17 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -4556,12 +8913,18 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getCompnayDetails != null) {
@@ -4649,11 +9012,16 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function(SocialMediaHandle socialMediaHandle)
         addSocialMedia,
     required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
     required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
     required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
     required TResult Function(String branch) addBranch,
     required TResult Function(int id) removeBranch,
-    required TResult Function() clear,
     required TResult Function() createBusinessData,
     required TResult Function() createBankingData,
     required TResult Function() addLogo,
@@ -4661,12 +9029,18 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function(String base64) addCropedLogo,
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
     required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
     required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
   }) {
     return getCurrentCard(card);
   }
@@ -4676,11 +9050,15 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
     TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
     TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
     TResult? Function(String branch)? addBranch,
     TResult? Function(int id)? removeBranch,
-    TResult? Function()? clear,
     TResult? Function()? createBusinessData,
     TResult? Function()? createBankingData,
     TResult? Function()? addLogo,
@@ -4688,12 +9066,18 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function(String base64)? addCropedLogo,
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
     TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
   }) {
     return getCurrentCard?.call(card);
   }
@@ -4703,11 +9087,15 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
     TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
     TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
     TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
     TResult Function(String branch)? addBranch,
     TResult Function(int id)? removeBranch,
-    TResult Function()? clear,
     TResult Function()? createBusinessData,
     TResult Function()? createBankingData,
     TResult Function()? addLogo,
@@ -4715,12 +9103,18 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function(String base64)? addCropedLogo,
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
     TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
     TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (getCurrentCard != null) {
@@ -4734,11 +9128,20 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
   TResult map<TResult extends Object?>({
     required TResult Function(AddSocialMedia value) addSocialMedia,
     required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
     required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
     required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
     required TResult Function(AddBranch value) addBranch,
     required TResult Function(RemoveBranch value) removeBranch,
-    required TResult Function(Clear value) clear,
     required TResult Function(CreateBusinessData value) createBusinessData,
     required TResult Function(CreateBankingData value) createBankingData,
     required TResult Function(AddLogo value) addLogo,
@@ -4746,12 +9149,19 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function(AddCropedLogo value) addCropedLogo,
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
     required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
     required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
   }) {
     return getCurrentCard(this);
   }
@@ -4761,11 +9171,17 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddSocialMedia value)? addSocialMedia,
     TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
     TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult? Function(AddBranch value)? addBranch,
     TResult? Function(RemoveBranch value)? removeBranch,
-    TResult? Function(Clear value)? clear,
     TResult? Function(CreateBusinessData value)? createBusinessData,
     TResult? Function(CreateBankingData value)? createBankingData,
     TResult? Function(AddLogo value)? addLogo,
@@ -4773,12 +9189,18 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function(AddCropedLogo value)? addCropedLogo,
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
   }) {
     return getCurrentCard?.call(this);
   }
@@ -4788,11 +9210,17 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddSocialMedia value)? addSocialMedia,
     TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
     TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
     TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
     TResult Function(AddBranch value)? addBranch,
     TResult Function(RemoveBranch value)? removeBranch,
-    TResult Function(Clear value)? clear,
     TResult Function(CreateBusinessData value)? createBusinessData,
     TResult Function(CreateBankingData value)? createBankingData,
     TResult Function(AddLogo value)? addLogo,
@@ -4800,12 +9228,18 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function(AddCropedLogo value)? addCropedLogo,
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
     TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
     TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
     if (getCurrentCard != null) {
@@ -4825,8 +9259,296 @@ abstract class GetCurrentCard implements BusinessDataEvent {
 }
 
 /// @nodoc
+abstract class _$$ClearImplCopyWith<$Res> {
+  factory _$$ClearImplCopyWith(
+          _$ClearImpl value, $Res Function(_$ClearImpl) then) =
+      __$$ClearImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ClearImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$ClearImpl>
+    implements _$$ClearImplCopyWith<$Res> {
+  __$$ClearImplCopyWithImpl(
+      _$ClearImpl _value, $Res Function(_$ClearImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ClearImpl implements Clear {
+  _$ClearImpl();
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.clear()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ClearImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront)
+        accreditationUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function() addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int index) removeProductImages,
+    required TResult Function(List<ImageCard> image) productUpdateImages,
+    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam, bool isFront) productUpdatePickImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return clear();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function()? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int index)? removeProductImages,
+    TResult? Function(List<ImageCard> image)? productUpdateImages,
+    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return clear?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront)? accreditationUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function()? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int index)? removeProductImages,
+    TResult Function(List<ImageCard> image)? productUpdateImages,
+    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam, bool isFront)? productUpdatePickImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (clear != null) {
+      return clear();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(AccreditationUpdatePickImage value)
+        accreditationUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickImage value) pickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return clear(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return clear?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(AccreditationUpdatePickImage value)?
+        accreditationUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickImage value)? pickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (clear != null) {
+      return clear(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Clear implements BusinessDataEvent {
+  factory Clear() = _$ClearImpl;
+}
+
+/// @nodoc
 mixin _$BusinessDataState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get pickImageLoading => throw _privateConstructorUsedError;
+  bool get pickImageError => throw _privateConstructorUsedError;
+  bool get productUpdated => throw _privateConstructorUsedError;
+  bool get productUpdateLoading => throw _privateConstructorUsedError;
+  bool get accreditationUpdateLoading => throw _privateConstructorUsedError;
+  bool get accreditationUpdated => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   bool get loadCompanyData => throw _privateConstructorUsedError;
   bool get isBusiness => throw _privateConstructorUsedError;
@@ -4855,11 +9577,19 @@ mixin _$BusinessDataState {
   int? get bankDetailsCreateId => throw _privateConstructorUsedError;
   List<SocialMediaHandle> get socialMedias =>
       throw _privateConstructorUsedError;
+  List<SocialMediaHandle> get businessSocialMedias =>
+      throw _privateConstructorUsedError;
   List<Accredition> get accreditions => throw _privateConstructorUsedError;
   List<BranchOffice> get branchOffices => throw _privateConstructorUsedError;
   BusinessDetails get businessDetails => throw _privateConstructorUsedError;
   BankDetails get bankDetails => throw _privateConstructorUsedError;
+  List<ImageCard> get accreditationPickImages =>
+      throw _privateConstructorUsedError;
+  List<ImageCard> get accreditationUpdatePickImages =>
+      throw _privateConstructorUsedError;
   List<Product> get products => throw _privateConstructorUsedError;
+  List<ImageCard> get productImages => throw _privateConstructorUsedError;
+  List<ImageCard> get productUpdateImages => throw _privateConstructorUsedError;
   List<Brochure> get brochures => throw _privateConstructorUsedError;
   ImageModel? get logo => throw _privateConstructorUsedError;
   LogoCard? get logoCard => throw _privateConstructorUsedError;
@@ -4881,6 +9611,12 @@ abstract class $BusinessDataStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
+      bool pickImageLoading,
+      bool pickImageError,
+      bool productUpdated,
+      bool productUpdateLoading,
+      bool accreditationUpdateLoading,
+      bool accreditationUpdated,
       bool hasError,
       bool loadCompanyData,
       bool isBusiness,
@@ -4908,11 +9644,16 @@ abstract class $BusinessDataStateCopyWith<$Res> {
       BusinessDetails? businessData,
       int? bankDetailsCreateId,
       List<SocialMediaHandle> socialMedias,
+      List<SocialMediaHandle> businessSocialMedias,
       List<Accredition> accreditions,
       List<BranchOffice> branchOffices,
       BusinessDetails businessDetails,
       BankDetails bankDetails,
+      List<ImageCard> accreditationPickImages,
+      List<ImageCard> accreditationUpdatePickImages,
       List<Product> products,
+      List<ImageCard> productImages,
+      List<ImageCard> productUpdateImages,
       List<Brochure> brochures,
       ImageModel? logo,
       LogoCard? logoCard,
@@ -4936,6 +9677,12 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? pickImageLoading = null,
+    Object? pickImageError = null,
+    Object? productUpdated = null,
+    Object? productUpdateLoading = null,
+    Object? accreditationUpdateLoading = null,
+    Object? accreditationUpdated = null,
     Object? hasError = null,
     Object? loadCompanyData = null,
     Object? isBusiness = null,
@@ -4963,11 +9710,16 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
     Object? businessData = freezed,
     Object? bankDetailsCreateId = freezed,
     Object? socialMedias = null,
+    Object? businessSocialMedias = null,
     Object? accreditions = null,
     Object? branchOffices = null,
     Object? businessDetails = null,
     Object? bankDetails = null,
+    Object? accreditationPickImages = null,
+    Object? accreditationUpdatePickImages = null,
     Object? products = null,
+    Object? productImages = null,
+    Object? productUpdateImages = null,
     Object? brochures = null,
     Object? logo = freezed,
     Object? logoCard = freezed,
@@ -4980,6 +9732,30 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pickImageLoading: null == pickImageLoading
+          ? _value.pickImageLoading
+          : pickImageLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pickImageError: null == pickImageError
+          ? _value.pickImageError
+          : pickImageError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      productUpdated: null == productUpdated
+          ? _value.productUpdated
+          : productUpdated // ignore: cast_nullable_to_non_nullable
+              as bool,
+      productUpdateLoading: null == productUpdateLoading
+          ? _value.productUpdateLoading
+          : productUpdateLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      accreditationUpdateLoading: null == accreditationUpdateLoading
+          ? _value.accreditationUpdateLoading
+          : accreditationUpdateLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      accreditationUpdated: null == accreditationUpdated
+          ? _value.accreditationUpdated
+          : accreditationUpdated // ignore: cast_nullable_to_non_nullable
               as bool,
       hasError: null == hasError
           ? _value.hasError
@@ -5089,6 +9865,10 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.socialMedias
           : socialMedias // ignore: cast_nullable_to_non_nullable
               as List<SocialMediaHandle>,
+      businessSocialMedias: null == businessSocialMedias
+          ? _value.businessSocialMedias
+          : businessSocialMedias // ignore: cast_nullable_to_non_nullable
+              as List<SocialMediaHandle>,
       accreditions: null == accreditions
           ? _value.accreditions
           : accreditions // ignore: cast_nullable_to_non_nullable
@@ -5105,10 +9885,26 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.bankDetails
           : bankDetails // ignore: cast_nullable_to_non_nullable
               as BankDetails,
+      accreditationPickImages: null == accreditationPickImages
+          ? _value.accreditationPickImages
+          : accreditationPickImages // ignore: cast_nullable_to_non_nullable
+              as List<ImageCard>,
+      accreditationUpdatePickImages: null == accreditationUpdatePickImages
+          ? _value.accreditationUpdatePickImages
+          : accreditationUpdatePickImages // ignore: cast_nullable_to_non_nullable
+              as List<ImageCard>,
       products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      productImages: null == productImages
+          ? _value.productImages
+          : productImages // ignore: cast_nullable_to_non_nullable
+              as List<ImageCard>,
+      productUpdateImages: null == productUpdateImages
+          ? _value.productUpdateImages
+          : productUpdateImages // ignore: cast_nullable_to_non_nullable
+              as List<ImageCard>,
       brochures: null == brochures
           ? _value.brochures
           : brochures // ignore: cast_nullable_to_non_nullable
@@ -5151,6 +9947,12 @@ abstract class _$$InitialImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
+      bool pickImageLoading,
+      bool pickImageError,
+      bool productUpdated,
+      bool productUpdateLoading,
+      bool accreditationUpdateLoading,
+      bool accreditationUpdated,
       bool hasError,
       bool loadCompanyData,
       bool isBusiness,
@@ -5178,11 +9980,16 @@ abstract class _$$InitialImplCopyWith<$Res>
       BusinessDetails? businessData,
       int? bankDetailsCreateId,
       List<SocialMediaHandle> socialMedias,
+      List<SocialMediaHandle> businessSocialMedias,
       List<Accredition> accreditions,
       List<BranchOffice> branchOffices,
       BusinessDetails businessDetails,
       BankDetails bankDetails,
+      List<ImageCard> accreditationPickImages,
+      List<ImageCard> accreditationUpdatePickImages,
       List<Product> products,
+      List<ImageCard> productImages,
+      List<ImageCard> productUpdateImages,
       List<Brochure> brochures,
       ImageModel? logo,
       LogoCard? logoCard,
@@ -5204,6 +10011,12 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? pickImageLoading = null,
+    Object? pickImageError = null,
+    Object? productUpdated = null,
+    Object? productUpdateLoading = null,
+    Object? accreditationUpdateLoading = null,
+    Object? accreditationUpdated = null,
     Object? hasError = null,
     Object? loadCompanyData = null,
     Object? isBusiness = null,
@@ -5231,11 +10044,16 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? businessData = freezed,
     Object? bankDetailsCreateId = freezed,
     Object? socialMedias = null,
+    Object? businessSocialMedias = null,
     Object? accreditions = null,
     Object? branchOffices = null,
     Object? businessDetails = null,
     Object? bankDetails = null,
+    Object? accreditationPickImages = null,
+    Object? accreditationUpdatePickImages = null,
     Object? products = null,
+    Object? productImages = null,
+    Object? productUpdateImages = null,
     Object? brochures = null,
     Object? logo = freezed,
     Object? logoCard = freezed,
@@ -5248,6 +10066,30 @@ class __$$InitialImplCopyWithImpl<$Res>
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pickImageLoading: null == pickImageLoading
+          ? _value.pickImageLoading
+          : pickImageLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pickImageError: null == pickImageError
+          ? _value.pickImageError
+          : pickImageError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      productUpdated: null == productUpdated
+          ? _value.productUpdated
+          : productUpdated // ignore: cast_nullable_to_non_nullable
+              as bool,
+      productUpdateLoading: null == productUpdateLoading
+          ? _value.productUpdateLoading
+          : productUpdateLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      accreditationUpdateLoading: null == accreditationUpdateLoading
+          ? _value.accreditationUpdateLoading
+          : accreditationUpdateLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      accreditationUpdated: null == accreditationUpdated
+          ? _value.accreditationUpdated
+          : accreditationUpdated // ignore: cast_nullable_to_non_nullable
               as bool,
       hasError: null == hasError
           ? _value.hasError
@@ -5357,6 +10199,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value._socialMedias
           : socialMedias // ignore: cast_nullable_to_non_nullable
               as List<SocialMediaHandle>,
+      businessSocialMedias: null == businessSocialMedias
+          ? _value._businessSocialMedias
+          : businessSocialMedias // ignore: cast_nullable_to_non_nullable
+              as List<SocialMediaHandle>,
       accreditions: null == accreditions
           ? _value._accreditions
           : accreditions // ignore: cast_nullable_to_non_nullable
@@ -5373,10 +10219,26 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.bankDetails
           : bankDetails // ignore: cast_nullable_to_non_nullable
               as BankDetails,
+      accreditationPickImages: null == accreditationPickImages
+          ? _value._accreditationPickImages
+          : accreditationPickImages // ignore: cast_nullable_to_non_nullable
+              as List<ImageCard>,
+      accreditationUpdatePickImages: null == accreditationUpdatePickImages
+          ? _value._accreditationUpdatePickImages
+          : accreditationUpdatePickImages // ignore: cast_nullable_to_non_nullable
+              as List<ImageCard>,
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      productImages: null == productImages
+          ? _value._productImages
+          : productImages // ignore: cast_nullable_to_non_nullable
+              as List<ImageCard>,
+      productUpdateImages: null == productUpdateImages
+          ? _value._productUpdateImages
+          : productUpdateImages // ignore: cast_nullable_to_non_nullable
+              as List<ImageCard>,
       brochures: null == brochures
           ? _value._brochures
           : brochures // ignore: cast_nullable_to_non_nullable
@@ -5414,6 +10276,12 @@ class __$$InitialImplCopyWithImpl<$Res>
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isLoading,
+      required this.pickImageLoading,
+      required this.pickImageError,
+      required this.productUpdated,
+      required this.productUpdateLoading,
+      required this.accreditationUpdateLoading,
+      required this.accreditationUpdated,
       required this.hasError,
       required this.loadCompanyData,
       required this.isBusiness,
@@ -5441,11 +10309,16 @@ class _$InitialImpl implements _Initial {
       this.businessData,
       this.bankDetailsCreateId,
       required final List<SocialMediaHandle> socialMedias,
+      required final List<SocialMediaHandle> businessSocialMedias,
       required final List<Accredition> accreditions,
       required final List<BranchOffice> branchOffices,
       required this.businessDetails,
       required this.bankDetails,
+      required final List<ImageCard> accreditationPickImages,
+      required final List<ImageCard> accreditationUpdatePickImages,
       required final List<Product> products,
+      required final List<ImageCard> productImages,
+      required final List<ImageCard> productUpdateImages,
       required final List<Brochure> brochures,
       this.logo,
       this.logoCard,
@@ -5454,14 +10327,31 @@ class _$InitialImpl implements _Initial {
       required final List<Company> companiesList,
       this.message})
       : _socialMedias = socialMedias,
+        _businessSocialMedias = businessSocialMedias,
         _accreditions = accreditions,
         _branchOffices = branchOffices,
+        _accreditationPickImages = accreditationPickImages,
+        _accreditationUpdatePickImages = accreditationUpdatePickImages,
         _products = products,
+        _productImages = productImages,
+        _productUpdateImages = productUpdateImages,
         _brochures = brochures,
         _companiesList = companiesList;
 
   @override
   final bool isLoading;
+  @override
+  final bool pickImageLoading;
+  @override
+  final bool pickImageError;
+  @override
+  final bool productUpdated;
+  @override
+  final bool productUpdateLoading;
+  @override
+  final bool accreditationUpdateLoading;
+  @override
+  final bool accreditationUpdated;
   @override
   final bool hasError;
   @override
@@ -5522,6 +10412,15 @@ class _$InitialImpl implements _Initial {
     return EqualUnmodifiableListView(_socialMedias);
   }
 
+  final List<SocialMediaHandle> _businessSocialMedias;
+  @override
+  List<SocialMediaHandle> get businessSocialMedias {
+    if (_businessSocialMedias is EqualUnmodifiableListView)
+      return _businessSocialMedias;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_businessSocialMedias);
+  }
+
   final List<Accredition> _accreditions;
   @override
   List<Accredition> get accreditions {
@@ -5542,12 +10441,47 @@ class _$InitialImpl implements _Initial {
   final BusinessDetails businessDetails;
   @override
   final BankDetails bankDetails;
+  final List<ImageCard> _accreditationPickImages;
+  @override
+  List<ImageCard> get accreditationPickImages {
+    if (_accreditationPickImages is EqualUnmodifiableListView)
+      return _accreditationPickImages;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_accreditationPickImages);
+  }
+
+  final List<ImageCard> _accreditationUpdatePickImages;
+  @override
+  List<ImageCard> get accreditationUpdatePickImages {
+    if (_accreditationUpdatePickImages is EqualUnmodifiableListView)
+      return _accreditationUpdatePickImages;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_accreditationUpdatePickImages);
+  }
+
   final List<Product> _products;
   @override
   List<Product> get products {
     if (_products is EqualUnmodifiableListView) return _products;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_products);
+  }
+
+  final List<ImageCard> _productImages;
+  @override
+  List<ImageCard> get productImages {
+    if (_productImages is EqualUnmodifiableListView) return _productImages;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_productImages);
+  }
+
+  final List<ImageCard> _productUpdateImages;
+  @override
+  List<ImageCard> get productUpdateImages {
+    if (_productUpdateImages is EqualUnmodifiableListView)
+      return _productUpdateImages;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_productUpdateImages);
   }
 
   final List<Brochure> _brochures;
@@ -5579,7 +10513,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'BusinessDataState(isLoading: $isLoading, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessLoading: $businessLoading, businessAdded: $businessAdded, logoLoading: $logoLoading, logoAdded: $logoAdded, bankingLoading: $bankingLoading, bankingAdded: $bankingAdded, socialMediaLoading: $socialMediaLoading, socialMediaAdded: $socialMediaAdded, socialMediaDeleteLoading: $socialMediaDeleteLoading, brochureLoading: $brochureLoading, brochureAdded: $brochureAdded, brochureDeleteLoading: $brochureDeleteLoading, productLoading: $productLoading, productAdded: $productAdded, productDeleteLoading: $productDeleteLoading, accreditionLoading: $accreditionLoading, accreditionAdded: $accreditionAdded, accreditionDeleteLoading: $accreditionDeleteLoading, branchLoading: $branchLoading, branchAdded: $branchAdded, branchDeleteLoading: $branchDeleteLoading, businessData: $businessData, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, products: $products, brochures: $brochures, logo: $logo, logoCard: $logoCard, currentCard: $currentCard, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
+    return 'BusinessDataState(isLoading: $isLoading, pickImageLoading: $pickImageLoading, pickImageError: $pickImageError, productUpdated: $productUpdated, productUpdateLoading: $productUpdateLoading, accreditationUpdateLoading: $accreditationUpdateLoading, accreditationUpdated: $accreditationUpdated, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessLoading: $businessLoading, businessAdded: $businessAdded, logoLoading: $logoLoading, logoAdded: $logoAdded, bankingLoading: $bankingLoading, bankingAdded: $bankingAdded, socialMediaLoading: $socialMediaLoading, socialMediaAdded: $socialMediaAdded, socialMediaDeleteLoading: $socialMediaDeleteLoading, brochureLoading: $brochureLoading, brochureAdded: $brochureAdded, brochureDeleteLoading: $brochureDeleteLoading, productLoading: $productLoading, productAdded: $productAdded, productDeleteLoading: $productDeleteLoading, accreditionLoading: $accreditionLoading, accreditionAdded: $accreditionAdded, accreditionDeleteLoading: $accreditionDeleteLoading, branchLoading: $branchLoading, branchAdded: $branchAdded, branchDeleteLoading: $branchDeleteLoading, businessData: $businessData, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, businessSocialMedias: $businessSocialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, accreditationPickImages: $accreditationPickImages, accreditationUpdatePickImages: $accreditationUpdatePickImages, products: $products, productImages: $productImages, productUpdateImages: $productUpdateImages, brochures: $brochures, logo: $logo, logoCard: $logoCard, currentCard: $currentCard, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
   }
 
   @override
@@ -5589,6 +10523,19 @@ class _$InitialImpl implements _Initial {
             other is _$InitialImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.pickImageLoading, pickImageLoading) ||
+                other.pickImageLoading == pickImageLoading) &&
+            (identical(other.pickImageError, pickImageError) ||
+                other.pickImageError == pickImageError) &&
+            (identical(other.productUpdated, productUpdated) ||
+                other.productUpdated == productUpdated) &&
+            (identical(other.productUpdateLoading, productUpdateLoading) ||
+                other.productUpdateLoading == productUpdateLoading) &&
+            (identical(other.accreditationUpdateLoading, accreditationUpdateLoading) ||
+                other.accreditationUpdateLoading ==
+                    accreditationUpdateLoading) &&
+            (identical(other.accreditationUpdated, accreditationUpdated) ||
+                other.accreditationUpdated == accreditationUpdated) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
             (identical(other.loadCompanyData, loadCompanyData) ||
@@ -5639,26 +10586,22 @@ class _$InitialImpl implements _Initial {
                 other.branchDeleteLoading == branchDeleteLoading) &&
             (identical(other.businessData, businessData) ||
                 other.businessData == businessData) &&
-            (identical(other.bankDetailsCreateId, bankDetailsCreateId) ||
-                other.bankDetailsCreateId == bankDetailsCreateId) &&
-            const DeepCollectionEquality()
-                .equals(other._socialMedias, _socialMedias) &&
-            const DeepCollectionEquality()
-                .equals(other._accreditions, _accreditions) &&
-            const DeepCollectionEquality()
-                .equals(other._branchOffices, _branchOffices) &&
-            (identical(other.businessDetails, businessDetails) ||
-                other.businessDetails == businessDetails) &&
-            (identical(other.bankDetails, bankDetails) ||
-                other.bankDetails == bankDetails) &&
+            (identical(other.bankDetailsCreateId, bankDetailsCreateId) || other.bankDetailsCreateId == bankDetailsCreateId) &&
+            const DeepCollectionEquality().equals(other._socialMedias, _socialMedias) &&
+            const DeepCollectionEquality().equals(other._businessSocialMedias, _businessSocialMedias) &&
+            const DeepCollectionEquality().equals(other._accreditions, _accreditions) &&
+            const DeepCollectionEquality().equals(other._branchOffices, _branchOffices) &&
+            (identical(other.businessDetails, businessDetails) || other.businessDetails == businessDetails) &&
+            (identical(other.bankDetails, bankDetails) || other.bankDetails == bankDetails) &&
+            const DeepCollectionEquality().equals(other._accreditationPickImages, _accreditationPickImages) &&
+            const DeepCollectionEquality().equals(other._accreditationUpdatePickImages, _accreditationUpdatePickImages) &&
             const DeepCollectionEquality().equals(other._products, _products) &&
-            const DeepCollectionEquality()
-                .equals(other._brochures, _brochures) &&
+            const DeepCollectionEquality().equals(other._productImages, _productImages) &&
+            const DeepCollectionEquality().equals(other._productUpdateImages, _productUpdateImages) &&
+            const DeepCollectionEquality().equals(other._brochures, _brochures) &&
             (identical(other.logo, logo) || other.logo == logo) &&
-            (identical(other.logoCard, logoCard) ||
-                other.logoCard == logoCard) &&
-            (identical(other.currentCard, currentCard) ||
-                other.currentCard == currentCard) &&
+            (identical(other.logoCard, logoCard) || other.logoCard == logoCard) &&
+            (identical(other.currentCard, currentCard) || other.currentCard == currentCard) &&
             (identical(other.gotCompanyData, gotCompanyData) || other.gotCompanyData == gotCompanyData) &&
             const DeepCollectionEquality().equals(other._companiesList, _companiesList) &&
             (identical(other.message, message) || other.message == message));
@@ -5668,6 +10611,12 @@ class _$InitialImpl implements _Initial {
   int get hashCode => Object.hashAll([
         runtimeType,
         isLoading,
+        pickImageLoading,
+        pickImageError,
+        productUpdated,
+        productUpdateLoading,
+        accreditationUpdateLoading,
+        accreditationUpdated,
         hasError,
         loadCompanyData,
         isBusiness,
@@ -5695,11 +10644,16 @@ class _$InitialImpl implements _Initial {
         businessData,
         bankDetailsCreateId,
         const DeepCollectionEquality().hash(_socialMedias),
+        const DeepCollectionEquality().hash(_businessSocialMedias),
         const DeepCollectionEquality().hash(_accreditions),
         const DeepCollectionEquality().hash(_branchOffices),
         businessDetails,
         bankDetails,
+        const DeepCollectionEquality().hash(_accreditationPickImages),
+        const DeepCollectionEquality().hash(_accreditationUpdatePickImages),
         const DeepCollectionEquality().hash(_products),
+        const DeepCollectionEquality().hash(_productImages),
+        const DeepCollectionEquality().hash(_productUpdateImages),
         const DeepCollectionEquality().hash(_brochures),
         logo,
         logoCard,
@@ -5719,6 +10673,12 @@ class _$InitialImpl implements _Initial {
 abstract class _Initial implements BusinessDataState {
   const factory _Initial(
       {required final bool isLoading,
+      required final bool pickImageLoading,
+      required final bool pickImageError,
+      required final bool productUpdated,
+      required final bool productUpdateLoading,
+      required final bool accreditationUpdateLoading,
+      required final bool accreditationUpdated,
       required final bool hasError,
       required final bool loadCompanyData,
       required final bool isBusiness,
@@ -5746,11 +10706,16 @@ abstract class _Initial implements BusinessDataState {
       final BusinessDetails? businessData,
       final int? bankDetailsCreateId,
       required final List<SocialMediaHandle> socialMedias,
+      required final List<SocialMediaHandle> businessSocialMedias,
       required final List<Accredition> accreditions,
       required final List<BranchOffice> branchOffices,
       required final BusinessDetails businessDetails,
       required final BankDetails bankDetails,
+      required final List<ImageCard> accreditationPickImages,
+      required final List<ImageCard> accreditationUpdatePickImages,
       required final List<Product> products,
+      required final List<ImageCard> productImages,
+      required final List<ImageCard> productUpdateImages,
       required final List<Brochure> brochures,
       final ImageModel? logo,
       final LogoCard? logoCard,
@@ -5761,6 +10726,18 @@ abstract class _Initial implements BusinessDataState {
 
   @override
   bool get isLoading;
+  @override
+  bool get pickImageLoading;
+  @override
+  bool get pickImageError;
+  @override
+  bool get productUpdated;
+  @override
+  bool get productUpdateLoading;
+  @override
+  bool get accreditationUpdateLoading;
+  @override
+  bool get accreditationUpdated;
   @override
   bool get hasError;
   @override
@@ -5816,6 +10793,8 @@ abstract class _Initial implements BusinessDataState {
   @override
   List<SocialMediaHandle> get socialMedias;
   @override
+  List<SocialMediaHandle> get businessSocialMedias;
+  @override
   List<Accredition> get accreditions;
   @override
   List<BranchOffice> get branchOffices;
@@ -5824,7 +10803,15 @@ abstract class _Initial implements BusinessDataState {
   @override
   BankDetails get bankDetails;
   @override
+  List<ImageCard> get accreditationPickImages;
+  @override
+  List<ImageCard> get accreditationUpdatePickImages;
+  @override
   List<Product> get products;
+  @override
+  List<ImageCard> get productImages;
+  @override
+  List<ImageCard> get productUpdateImages;
   @override
   List<Brochure> get brochures;
   @override

@@ -8,7 +8,9 @@ part of 'accredition.dart';
 
 Accredition _$AccreditionFromJson(Map<String, dynamic> json) => Accredition(
       id: json['id'] as int?,
-      image: json['image'],
+      images: (json['image'] as List<dynamic>?)
+          ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
+          .toList(),
       label: json['label'] as String?,
       description: json['description'] as String?,
       cardId: json['card_id'] as int?,
@@ -18,7 +20,7 @@ Accredition _$AccreditionFromJson(Map<String, dynamic> json) => Accredition(
 Map<String, dynamic> _$AccreditionToJson(Accredition instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'image': instance.image,
+      'image': instance.images,
       'label': instance.label,
       'date': instance.date,
       'description': instance.description,

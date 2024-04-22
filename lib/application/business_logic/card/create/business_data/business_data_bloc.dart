@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
@@ -14,6 +13,7 @@ import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
+import 'package:bizkit/domain/model/card/card/product_image_add/product_image_add.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
 import 'package:bizkit/domain/model/card/company/get_company_response_model/company.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
@@ -125,6 +125,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
           pickImageLoading: false,
         ),
       );
+      //add(BusinessDataEvent.productUpdateImages(image: []));
     } else {
       emit(state.copyWith(
         pickImageLoading: false,
@@ -134,14 +135,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> productUpdateImages(ProductUpdateImages event, emit) {
-    List<ImageCard> updateImage = [];
-    for (var product in state.products) {
-      if (product.image == event.image) {
-        updateImage = event.image;
-      }
-    }
-    log('updateUmage length  ${updateImage.length}');
-    emit(state.copyWith(productUpdateImages: updateImage));
+    emit(state.copyWith());
   }
 
   FutureOr<void> pickImage(PickImage event, emit) async {
@@ -201,16 +195,23 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> removeProductImages(RemoveProductImages event, emit) async {
-    emit(state.copyWith(pickImageError: false));
-    for (ImageCard img in state.productImages) {
-      if (imageList[event.index] != img) {
-        imageList.add(img);
-      }
-    }
     emit(state.copyWith(
-      productImages: imageList,
-      message: null,
+      pickImageError: false,
+      productDeleteLoading: true,
+      hasError: false,
     ));
+    final data = await cardPatchRepo.removeProductImage(id: event.id);
+    data.fold(
+        (l) => emit(state.copyWith(
+              productDeleteLoading: false,
+              hasError: true,
+            )), (r) {
+      emit(state.copyWith(
+        productDeleteLoading: false,
+        hasError: false,
+        //productImages:
+      ));
+    });
   }
 
   FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {

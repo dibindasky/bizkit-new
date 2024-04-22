@@ -1,7 +1,7 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-showCustomConfirmationDialoge(
+showCustomConfirmationDialogue(
     {required BuildContext context,
     required String title,
     Color buttonColor = kneonShade,

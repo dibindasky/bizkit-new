@@ -130,7 +130,7 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                             }
                                           },
                                           child: removeIconButton(),
-                                        )
+                                        ),
                                 ],
                               ),
                             );

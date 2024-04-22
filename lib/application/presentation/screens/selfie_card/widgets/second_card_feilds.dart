@@ -333,7 +333,7 @@ class SelfieTextFields extends StatelessWidget {
                                     color: neonShade,
                                     child: IconButton(
                                       onPressed: () {
-                                        showCustomConfirmationDialoge(
+                                        showCustomConfirmationDialogue(
                                           context: context,
                                           buttonText: 'Delete',
                                           title:

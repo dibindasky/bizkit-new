@@ -79,7 +79,7 @@ class ScreenConnectionRequests extends StatelessWidget {
                                       ? data.image!.substring(22)
                                       : data.image!))
                               : null,
-                              backgroundColor: smallBigGrey,
+                          backgroundColor: smallBigGrey,
                           child: data.image != null
                               ? null
                               : const Icon(Icons.person, color: neonShade),

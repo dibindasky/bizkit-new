@@ -5,6 +5,7 @@ import 'package:bizkit/domain/model/card/card/bank_details/bank_details.dart';
 import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
@@ -35,6 +36,8 @@ abstract class CardPatchRepo {
   Future<Either<Failure, Product>> addProduct({required Product product});
   Future<Either<Failure, SuccessResponseModel>> deleteProduct(
       {required int id});
+  Future<Either<Failure, SuccessResponseModel>> addProductImage(
+      {required ImageCard imageCard});
   Future<Either<Failure, BranchOffice>> addBranchOffice(
       {required BranchOffice branchOffice});
   Future<Either<Failure, SuccessResponseModel>> deleteBranchOffice(
@@ -50,6 +53,6 @@ abstract class CardPatchRepo {
     required int id,
     required Product product,
   });
-  Future<Either<Failure, SuccessResponseModel>> deleteProductImage(
+  Future<Either<Failure, SuccessResponseModel>> removeProductImage(
       {required int id});
 }

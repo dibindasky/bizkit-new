@@ -132,7 +132,6 @@ class ProductViewDetail extends StatefulWidget {
 
 class _ProductViewDetailState extends State<ProductViewDetail> {
   TextEditingController tittleController = TextEditingController();
-
   TextEditingController descriptionController = TextEditingController();
   late bool switchValue;
   late List<ImageCard> updateImageCard;
@@ -281,7 +280,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                                                 color: neonShade,
                                                 child: IconButton(
                                                   onPressed: () {
-                                                    showCustomConfirmationDialoge(
+                                                    showCustomConfirmationDialogue(
                                                       context: context,
                                                       buttonText: 'Delete',
                                                       title:
@@ -292,8 +291,9 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                                                                 BusinessDataBloc>()
                                                             .add(BusinessDataEvent
                                                                 .removeProductImages(
-                                                                    index:
-                                                                        index));
+                                                                    id: updateImageCard[
+                                                                            index]
+                                                                        .id!));
                                                         // context.read<BusinessDataBloc>().add(
                                                         //         BusinessDataEvent
                                                         //             .removeProductImages(

@@ -458,8 +458,40 @@ class CardPatchService implements CardPatchRepo {
   }
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> deleteProductImage(
-      {required int id}) {
-    throw UnimplementedError();
+  Future<Either<Failure, SuccessResponseModel>> removeProductImage(
+      {required int id}) async {
+    try {
+      await _apiService.delete(
+        ApiEndPoints.productImageDelete.replaceFirst('{id}', id.toString()),
+      );
+      log('deleteProductImage done');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('deleteProductImage DioException error $e');
+      return Left(Failure());
+    } catch (e) {
+      log('deleteProductImage catch error $e');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> addProductImage({
+    required ImageCard imageCard,
+  }) async {
+    try {
+      await _apiService.post(
+        ApiEndPoints.productImageAdd,
+        data: imageCard.toJson(),
+      );
+      log('addProductImage done');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('addProductImage DioException error $e');
+      return Left(Failure());
+    } catch (e) {
+      log('addProductImage catch error $e');
+      return Left(Failure());
+    }
   }
 }

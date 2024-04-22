@@ -114,7 +114,7 @@ class PersonlDetails extends StatelessWidget {
                           fadePageRoute(ScreenImagePreview(
                               image: value, isFileIamge: false))),
                       removeItem: (index) {
-                        showCustomConfirmationDialoge(
+                        showCustomConfirmationDialogue(
                             context: context,
                             title: 'are you sure want to delete ?',
                             buttonText: 'Delete',
@@ -170,7 +170,7 @@ class PersonlDetails extends StatelessWidget {
                         .map((e) => e.socialMedia ?? 'Social Media')
                         .toList(),
                     removeItem: (index) {
-                      showCustomConfirmationDialoge(
+                      showCustomConfirmationDialogue(
                           context: context,
                           title: 'are you sure want to delete ?',
                           buttonText: 'Delete',
@@ -227,7 +227,7 @@ class PersonlDetails extends StatelessWidget {
                     listString:
                         state.datesToRemember.map((e) => e.date!).toList(),
                     removeItem: (index) {
-                      showCustomConfirmationDialoge(
+                      showCustomConfirmationDialogue(
                           context: context,
                           title: 'are you sure want to delete ?',
                           buttonText: 'Delete',

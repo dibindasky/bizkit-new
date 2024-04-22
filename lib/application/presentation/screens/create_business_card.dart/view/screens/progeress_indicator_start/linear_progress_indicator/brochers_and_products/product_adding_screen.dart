@@ -146,18 +146,18 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                           color: neonShade,
                                           child: IconButton(
                                             onPressed: () {
-                                              showCustomConfirmationDialoge(
+                                              showCustomConfirmationDialogue(
                                                 context: context,
                                                 buttonText: 'Delete',
                                                 title:
                                                     'You want to remove your selfie',
                                                 onTap: () {
-                                                  context
-                                                      .read<BusinessDataBloc>()
-                                                      .add(BusinessDataEvent
-                                                          .removeProductImages(
-                                                        index: index,
-                                                      ));
+                                                  // context
+                                                  //     .read<BusinessDataBloc>()
+                                                  //     .add(BusinessDataEvent
+                                                  //         .removeProductImages(
+                                                  //       id: index,
+                                                  //     ));
                                                 },
                                               );
                                             },

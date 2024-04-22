@@ -63,7 +63,7 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                                     if (state
                                             .anotherCard?.isCompanyAutofilled ==
                                         true) {
-                                      showCustomConfirmationDialoge(
+                                      showCustomConfirmationDialogue(
                                           context: context,
                                           title:
                                               'If you add your own company, Your added company will be deleted from your card',

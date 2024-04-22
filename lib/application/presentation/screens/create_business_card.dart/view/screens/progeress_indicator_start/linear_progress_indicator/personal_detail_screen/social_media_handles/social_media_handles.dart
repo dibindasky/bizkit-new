@@ -212,7 +212,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                 top: 0,
                                 child: InkWell(
                                   onTap: () {
-                                    showCustomConfirmationDialoge(
+                                    showCustomConfirmationDialogue(
                                         context: context,
                                         title: 'are you sure want to delete ?',
                                         buttonText: 'Delete',

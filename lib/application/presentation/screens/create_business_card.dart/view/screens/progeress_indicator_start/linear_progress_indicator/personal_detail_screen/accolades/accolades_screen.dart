@@ -296,7 +296,7 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                                         child: CircleAvatar(
                                           child: IconButton(
                                             onPressed: () {
-                                              showCustomConfirmationDialoge(
+                                              showCustomConfirmationDialogue(
                                                   context: context,
                                                   title:
                                                       'Are you sure want to delete ?',

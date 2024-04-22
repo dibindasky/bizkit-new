@@ -282,7 +282,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                       color: neonShade,
                                       child: IconButton(
                                         onPressed: () {
-                                          showCustomConfirmationDialoge(
+                                          showCustomConfirmationDialogue(
                                             context: context,
                                             buttonText: 'Delete',
                                             title:

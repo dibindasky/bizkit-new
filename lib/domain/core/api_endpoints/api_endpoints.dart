@@ -3,7 +3,7 @@ class ApiEndPoints {
   //static String baseUrl = 'http://192.168.29.216:8000';
   //static String baseUrl = 'http://44.203.134.42';
   //static String baseUrl = 'https://bizkit.zikrabyte.in';
-  static String baseUrl = 'http://192.168.29.217:8000';
+  static String baseUrl = 'http://192.168.29.216:8000';
   // refesh token
   static String refreshUrl = '/accounts/api/token/refresh/';
   // auth
@@ -57,8 +57,10 @@ class ApiEndPoints {
       '/card/business-social-media-update-delete/{social_media_id}/';
   static String getCardViewsList = '/card/views/{card_id}/';
 
-  // Produ updation
+  // Product updation
   static String productUpdation = '/card/product-update-delete/{id}/';
+  static String productImageAdd = '/card/product-image-create/';
+  static String productImageDelete = '/card/product-image-update-delete/{id}/';
 
   // qr
   static String getQr = '/level/list-qr/';

@@ -7,6 +7,9 @@ class BusinessDataState with _$BusinessDataState {
     required bool pickImageLoading,
     required bool pickImageError,
     required bool productUpdated,
+    required bool productimageRemoveLoading,
+    required bool productimageRemoved,
+    required bool productimageLoading,
     required bool productUpdateLoading,
     required bool accreditationUpdateLoading,
     required bool accreditationUpdated,
@@ -58,6 +61,9 @@ class BusinessDataState with _$BusinessDataState {
 
   factory BusinessDataState.initial() => BusinessDataState(
         productUpdateLoading: false,
+        productimageLoading: false,
+        productimageRemoved: false,
+        productimageRemoveLoading: false,
         accreditationUpdatePickImages: [],
         accreditationUpdated: false,
         accreditationPickImages: [],

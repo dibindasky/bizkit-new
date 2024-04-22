@@ -176,7 +176,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                               top: 0,
                               child: InkWell(
                                 onTap: () {
-                                  showCustomConfirmationDialoge(
+                                  showCustomConfirmationDialogue(
                                       context: context,
                                       title: 'are you sure want to delete ?',
                                       buttonText: 'Delete',

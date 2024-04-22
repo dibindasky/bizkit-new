@@ -29,7 +29,8 @@ abstract class CardRepo {
   Future<Either<Failure, GetCardResponseModel>> getCardByUserId(
       {required int id});
   Future<Either<Failure, Card>> getCardByCardId({required int id});
-  Future<Either<Failure, GetViewsResponseModel>> getCardViews({required int id});
+  Future<Either<Failure, GetViewsResponseModel>> getCardViews(
+      {required int id});
   Future<Either<Failure, GetCompanysResponseModel>> getCompanies(
       {required SearchQuery? search});
   Future<Either<Failure, GetBusinessCategoryResponseModel>>

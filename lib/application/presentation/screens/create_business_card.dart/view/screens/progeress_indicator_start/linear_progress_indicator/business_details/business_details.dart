@@ -163,7 +163,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                             .map((e) => e.socialMedia ?? 'Social Media')
                             .toList(),
                         removeItem: (index) {
-                          showCustomConfirmationDialoge(
+                          showCustomConfirmationDialogue(
                             context: context,
                             title: 'are you sure want to delete ?',
                             buttonText: 'Delete',
@@ -268,12 +268,14 @@ class BusinessDetailsScreen extends StatelessWidget {
                                                               .read<
                                                                   BusinessDataBloc>()
                                                               .add(
-                                                                BusinessDataEvent.addBranch(
-                                                                    branch: context
-                                                                        .read<
-                                                                            BusinessDataBloc>()
-                                                                        .branchOfficeController
-                                                                        .text),
+                                                                BusinessDataEvent
+                                                                    .addBranch(
+                                                                  branch: context
+                                                                      .read<
+                                                                          BusinessDataBloc>()
+                                                                      .branchOfficeController
+                                                                      .text,
+                                                                ),
                                                               );
                                                         }
                                                         context
@@ -293,7 +295,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                           );
                         },
                         removeItem: (index) {
-                          showCustomConfirmationDialoge(
+                          showCustomConfirmationDialogue(
                               context: context,
                               title: 'are you sure want to delete ?',
                               buttonText: 'Delete',
@@ -328,7 +330,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                             fadePageRoute(ScreenImagePreview(
                                 image: value, isFileIamge: false))),
                         removeItem: (index) {
-                          showCustomConfirmationDialoge(
+                          showCustomConfirmationDialogue(
                             context: context,
                             title: 'are you sure want to delete ?',
                             buttonText: 'Delete',

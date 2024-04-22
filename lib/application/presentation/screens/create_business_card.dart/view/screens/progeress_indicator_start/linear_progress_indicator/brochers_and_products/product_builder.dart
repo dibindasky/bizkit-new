@@ -31,13 +31,12 @@ class ProductBuilder extends StatelessWidget {
                       //     BusinessDataEvent.productUpdateImages(
                       //         image: state.products[index].image!));
                       Navigator.push(
-                          context,
-                          fadePageRoute(
-                            ProductViewDetail(
-                              product: data,
-                              fromUpdate: true,
-                            ),
-                          ));
+                        context,
+                        fadePageRoute(ProductViewDetail(
+                          product: data,
+                          fromUpdate: true,
+                        )),
+                      );
                     },
                     child: Container(
                       height: kwidth * 0.2,
@@ -58,7 +57,7 @@ class ProductBuilder extends StatelessWidget {
                     right: 0,
                     child: GestureDetector(
                       onTap: () {
-                        showCustomConfirmationDialoge(
+                        showCustomConfirmationDialogue(
                           context: context,
                           title: 'Are you sure want to delete?',
                           buttonText: 'Delete',

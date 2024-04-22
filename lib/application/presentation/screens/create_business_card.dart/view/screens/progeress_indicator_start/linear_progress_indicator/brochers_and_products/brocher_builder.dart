@@ -87,7 +87,7 @@ class _BrochureTileState extends State<BrochureTile> {
           top: 0,
           right: 5,
           child: InkWell(
-            onTap: () => showCustomConfirmationDialoge(
+            onTap: () => showCustomConfirmationDialogue(
                 context: context,
                 title: 'are you sure want to delete ?',
                 buttonText: 'Delete',

@@ -14,7 +14,8 @@ class CardViewCompletionPersentageIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CardBloc, CardState>(
-      listenWhen: (previous, current) => previous.anotherCard?.percentage!=current.anotherCard?.percentage,
+      listenWhen: (previous, current) =>
+          previous.anotherCard?.percentage != current.anotherCard?.percentage,
       listener: (context, state) {
         context.read<CardBloc>().add(const CardEvent.getCards(call: true));
       },

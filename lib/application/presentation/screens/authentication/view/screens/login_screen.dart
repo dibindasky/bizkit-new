@@ -243,17 +243,11 @@ class _LoGInScreenState extends State<LoGInScreen>
                     obscureText: true,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'Don\'t have an account?',
-                        style: TextStyle(
-                          fontSize: kwidth * 0.026,
-                        ),
-                      ),
                       //  adjustWidth(2),
-                      TextButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           Navigator.push(context,
                               fadePageRoute(const EmailFieldForGottPassword()));
                         },
@@ -264,19 +258,6 @@ class _LoGInScreenState extends State<LoGInScreen>
                         ),
                       ),
                     ],
-                  ),
-                  adjustHieght(khieght * .01),
-                  InkWell(
-                    onTap: () =>
-                        GoRouter.of(context).pushNamed(Routes.signUpPage),
-                    child: Text(
-                      'SignUp',
-                      style: TextStyle(
-                        fontSize: kwidth * 0.037,
-                        decoration: TextDecoration.underline,
-                        decorationColor: kwhite,
-                      ),
-                    ),
                   ),
                   adjustHieght(khieght * .04),
                   BlocConsumer<AuthBloc, AuthState>(
@@ -316,6 +297,32 @@ class _LoGInScreenState extends State<LoGInScreen>
                         },
                       );
                     },
+                  ),
+                  adjustHieght(khieght * .01),
+                  const Text('OR'),
+                  adjustHieght(khieght * .01),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Don\'t have an account?  ',
+                        style: TextStyle(
+                          fontSize: kwidth * 0.026,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () =>
+                            GoRouter.of(context).pushNamed(Routes.signUpPage),
+                        child: Text(
+                          'SignUp',
+                          style: TextStyle(
+                            fontSize: kwidth * 0.037,
+                            decoration: TextDecoration.underline,
+                            decorationColor: kwhite,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

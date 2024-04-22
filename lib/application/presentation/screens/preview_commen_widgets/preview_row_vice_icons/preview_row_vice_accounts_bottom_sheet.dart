@@ -1,6 +1,7 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/copy_clipboard/copy_clipboard.dart';
+import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 
 class AccountsListsBottomSheet extends StatelessWidget {
@@ -120,7 +121,7 @@ class AccountsListviewBuilder extends StatelessWidget {
                 itemCount: socialMedia.length + 1,
                 itemBuilder: (context, index) {
                   if (index == socialMedia.length) {
-                    return const SizedBox(height: 90);
+                    return SizedBox(height: khieght * 0.25);
                   }
                   return Container(
                     height: 70,
@@ -131,33 +132,38 @@ class AccountsListviewBuilder extends StatelessWidget {
                       ),
                     ),
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      children: [
-                        adjustWidth(kwidth * .03),
-                        CircleAvatar(
-                          backgroundColor: kwhite,
-                          radius: 14,
-                          backgroundImage:
-                              AssetImage(map[socialMedia[index].label!]!),
-                        ),
-                        adjustWidth(kwidth * .04),
-                        Text(socialMedia[index].label!),
-                        const Spacer(),
-                        TextButton(
-                          onPressed: () {
-                            onCopyToClipboard(socialMedia[index].socialMedia!);
-                          },
-                          child: Text(
-                            'copy link',
-                            style: textHeadStyle1.copyWith(
-                              color: neonShade,
-                              decoration: TextDecoration.underline,
-                              decorationColor: neonShade,
+                    child: InkWell(
+                      onTap: () => LaunchUrl.launchUrls(
+                          url: socialMedia[index].socialMedia!),
+                      child: Row(
+                        children: [
+                          adjustWidth(kwidth * .03),
+                          CircleAvatar(
+                            backgroundColor: kwhite,
+                            radius: 14,
+                            backgroundImage:
+                                AssetImage(map[socialMedia[index].label!]!),
+                          ),
+                          adjustWidth(kwidth * .04),
+                          Text(socialMedia[index].label!),
+                          const Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              onCopyToClipboard(
+                                  socialMedia[index].socialMedia!);
+                            },
+                            child: Text(
+                              'copy link',
+                              style: textHeadStyle1.copyWith(
+                                color: neonShade,
+                                decoration: TextDecoration.underline,
+                                decorationColor: neonShade,
+                              ),
                             ),
                           ),
-                        ),
-                        adjustWidth(kwidth * .04),
-                      ],
+                          adjustWidth(kwidth * .04),
+                        ],
+                      ),
                     ),
                   );
                 },

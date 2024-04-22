@@ -27,6 +27,11 @@ class BusinessSignIn extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController rePasswordController = TextEditingController();
   final GlobalKey<FormState> businessSignup = GlobalKey();
+  void formatWebsiteUrl(String url) {
+    String formattedUrl = url.replaceAll(' ', '');
+    formattedUrl = formattedUrl.toLowerCase();
+    companyWebsiteController.text = formattedUrl;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +60,7 @@ class BusinessSignIn extends StatelessWidget {
               ),
               TTextFormField(
                 onChanaged: (value) {
+                  formatWebsiteUrl(value);
                   if (value.length < 3) {
                     companyMailController.text = '';
                   } else {
@@ -69,19 +75,18 @@ class BusinessSignIn extends StatelessWidget {
                 inputType: TextInputType.url,
               ),
               TTextFormField(
-                text: 'Company Mobile Number',
-                maxlegth: 10,
+                text: 'Company Contact Number',
+                // maxlegth: 10,
                 controller: companyPhoneController,
-                validate: Validate.phone,
+                validate: Validate.none,
                 inputType: TextInputType.phone,
               ),
               BlocBuilder<SignUpBloc, SignUpState>(
                 builder: (context, state) {
                   String web = companyWebsiteController.text
-                      .replaceFirst('https://', '');
-                  web = web.replaceFirst('http://', '');
-                  web = web.replaceFirst('www.', '');
-                  // web = web.replaceFirst('www.', '');
+                      .replaceFirst('https://', '')
+                      .replaceFirst('http://', '')
+                      .replaceFirst('www.', '');
                   return AutocompleteTextField(
                     enabled: false,
                     label: 'Company Mail',
@@ -110,7 +115,18 @@ class BusinessSignIn extends StatelessWidget {
               adjustHieght(khieght * .01),
               InkWell(
                   onTap: () => Navigator.pop(context),
-                  child: const Text('Alredy have an account?  Login')),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Alredy have an account? '),
+                      Text(
+                        'Login',
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            decorationColor: kwhite),
+                      ),
+                    ],
+                  )),
               adjustHieght(khieght * .04),
               BlocConsumer<SignUpBloc, SignUpState>(
                 listener: (context, state) {

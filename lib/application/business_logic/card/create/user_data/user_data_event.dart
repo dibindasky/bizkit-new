@@ -10,9 +10,9 @@ class UserDataEvent with _$UserDataEvent {
       {required List<ImageModel> images}) = ProcessImageScanning;
   factory UserDataEvent.getUserDetail() = GetUserDetail;
   factory UserDataEvent.getBusinessCategories() = GetBusinessCategories;
-  factory UserDataEvent.pickUserPhotos() = PickUserPhotos;
   factory UserDataEvent.clear() = Clear;
   factory UserDataEvent.createPersonalData() = CreatePersonalData;
+  factory UserDataEvent.pickUserPhotos({required bool cam}) = PickUserPhotos;
   factory UserDataEvent.removeUserPhoto() = RemoveUserPhoto;
   factory UserDataEvent.addAccolade({required Accolade accolade}) = AddAccolade;
   factory UserDataEvent.removeAccolade({required int id}) = RemoveAccolade;

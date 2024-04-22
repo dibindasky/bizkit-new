@@ -2,6 +2,8 @@ import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -72,9 +74,12 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                           bottom: 17,
                           right: 3,
                           child: InkWell(
-                            onTap: () => context
+                            onTap: () =>customDailogueCamera(context: context,text: 'Add profile',onPressCam: ()=>context
                                 .read<UserDataBloc>()
-                                .add(UserDataEvent.pickUserPhotos()),
+                                .add(UserDataEvent.pickUserPhotos(cam: true)),onPressGallery: ()=>context
+                                .read<UserDataBloc>()
+                                .add(UserDataEvent.pickUserPhotos(cam: false)),),
+                            
                             child: const CircleAvatar(
                               radius: 13,
                               child: Icon(Icons.add),
@@ -190,39 +195,44 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                           //   fadePageRoute(const LinearProgressIndicatorStarting()),
                           // );
                           context.read<UserDataBloc>().add(
-                              UserDataEvent.createCard(
-                                  cardFirstCreationModel: CardFirstCreationModel(
-                                      name: context
-                                          .read<UserDataBloc>()
-                                          .nameController
-                                          .text
-                                          .trim(),
-                                      designation: context
-                                          .read<UserDataBloc>()
-                                          .designationController
-                                          .text
-                                          .trim(),
-                                      phoneNumber: context
-                                          .read<UserDataBloc>()
-                                          .phoneController
-                                          .text
-                                          .trim(),
-                                      email: context
-                                          .read<UserDataBloc>()
-                                          .emailController
-                                          .text
-                                          .trim(),
-                                      photos: state.userPhotos?.base64,
-                                      businessCategoryId: state
-                                          .businessCategories
-                                          .firstWhere((element) =>
-                                              element.category ==
-                                              context
-                                                  .read<UserDataBloc>()
-                                                  .businessCategoryController
-                                                  .text
-                                                  .trim())
-                                          .id)));
+                                UserDataEvent.createCard(
+                                  cardFirstCreationModel:
+                                      CardFirstCreationModel(
+                                          name: context
+                                              .read<UserDataBloc>()
+                                              .nameController
+                                              .text
+                                              .trim(),
+                                          designation: context
+                                              .read<UserDataBloc>()
+                                              .designationController
+                                              .text
+                                              .trim(),
+                                          phoneNumber: context
+                                              .read<UserDataBloc>()
+                                              .phoneController
+                                              .text
+                                              .trim(),
+                                          email: context
+                                              .read<UserDataBloc>()
+                                              .emailController
+                                              .text
+                                              .trim(),
+                                          photos: state.userPhotos?.base64,
+                                          businessCategoryId: state
+                                              .businessCategories
+                                              .firstWhere(
+                                                (element) =>
+                                                    element.category ==
+                                                    context
+                                                        .read<UserDataBloc>()
+                                                        .businessCategoryController
+                                                        .text
+                                                        .trim(),
+                                              )
+                                              .id),
+                                ),
+                              );
                         }
                       },
                     );

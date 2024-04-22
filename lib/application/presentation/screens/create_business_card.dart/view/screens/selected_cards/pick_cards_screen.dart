@@ -20,7 +20,7 @@ class PickCardsScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: knill,
         title: Text(
-          'Selecetd Images',
+          'Selected Images',
           style: textHeadStyle1,
         ),
       ),

@@ -130,7 +130,8 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                   color: neonShade,
                                   child: IconButton(
                                     onPressed: () {
-                                      customDailogue(
+                                      customDailogueCamera(
+                                        text: 'Select Selfie Image',
                                         context: context,
                                         onPressCam: () {
                                           context.read<CardSecondBloc>().add(
@@ -177,7 +178,8 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                   color: neonShade,
                                   child: IconButton(
                                     onPressed: () {
-                                      customDailogue(
+                                      customDailogueCamera(
+                                        text: 'Select Selfie Image',
                                         context: context,
                                         onPressCam: () {
                                           context.read<CardSecondBloc>().add(
@@ -267,7 +269,8 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                       color: neonShade,
                                       child: IconButton(
                                         onPressed: () {
-                                          customDailogue(
+                                          customDailogueCamera(
+                                            text: 'Select Selfie Image',
                                             context: context,
                                             onPressCam: () {
                                               context

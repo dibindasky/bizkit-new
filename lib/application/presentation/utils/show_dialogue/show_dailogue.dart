@@ -1,9 +1,10 @@
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-Future<dynamic> customDailogue(
+Future<dynamic> customDailogueCamera(
     {required BuildContext context,
     required Function onPressCam,
+    required String text,
     required Function onPressGallery}) {
   return showDialog(
     context: context,
@@ -25,11 +26,11 @@ Future<dynamic> customDailogue(
             onPressCam();
           },
           style: ElevatedButton.styleFrom(
-              backgroundColor: kred, foregroundColor: kwhite),
+              backgroundColor: neonShade, foregroundColor: kwhite),
           child: const Text('Camera'),
         )
       ],
-      title: const Text('Select Selfie Image'),
+      title: Text(text),
     ),
   );
 }

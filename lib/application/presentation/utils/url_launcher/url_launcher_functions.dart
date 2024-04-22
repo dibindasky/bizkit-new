@@ -21,6 +21,9 @@ class LaunchUrl {
 
   static launchUrls({required String url}) {
     try {
+      if (!url.startsWith('http')) {
+        url = 'https://www.google.com/search?q=$url';
+      }
       launchUrl(Uri.parse(url));
     } catch (e) {
       log('cannot launch url');

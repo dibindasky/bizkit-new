@@ -100,7 +100,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return AutocompleteTextField(
                         validate: Validate.email,
-                        label: 'Mail ID',
+                        label: 'Business Mail ID',
                         inputType: TextInputType.emailAddress,
                         controller:
                             context.read<BusinessDataBloc>().mailController,
@@ -113,7 +113,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
-                        label: 'Mobile number',
+                        label: 'Business Mobile number',
                         validate: Validate.phone,
                         maxLength: 10,
                         controller:
@@ -132,7 +132,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                         maxLines: 4,
                         // maxlegth: 250,
                         maxLength: 250,
-                        label: 'Address',
+                        label: 'Business Address',
                         textCapitalization: TextCapitalization.words,
                         controller:
                             context.read<BusinessDataBloc>().addressController,
@@ -195,7 +195,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Social Media Handles',
+                                'Business Social Media Handles',
                                 style:
                                     custumText(colr: klightgrey, fontSize: 17),
                               ),
@@ -358,7 +358,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Accredition Details',
+                                'Accreditation Details',
                                 style:
                                     custumText(colr: klightgrey, fontSize: 17),
                               ),

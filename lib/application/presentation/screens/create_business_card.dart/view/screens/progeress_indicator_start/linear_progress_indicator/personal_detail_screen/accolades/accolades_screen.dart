@@ -40,7 +40,7 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
               ? 'Achivement'
               : widget.accolade!
                   ? 'Accolades'
-                  : 'Accredition',
+                  : 'Accreditation',
         ),
       ),
       body: Padding(
@@ -52,7 +52,7 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
               widget.accolade == null
                   ? const SizedBox()
                   : Text(
-                      "Add your achievements here for people to know about you",
+                      "Add your ${widget.accolade == null ? '' : widget.accolade! ? 'personal' : 'business'} achievements here for people to know about you",
                       style: TextStyle(fontSize: kwidth * .043),
                     ),
               widget.accolade == null

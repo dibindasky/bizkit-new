@@ -296,7 +296,8 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                 color: neonShade,
                                 child: IconButton(
                                   onPressed: () {
-                                    customDailogue(
+                                    customDailogueCamera(
+                                      text: 'Select Selfie Image',
                                       context: context,
                                       onPressCam: () {
                                         context.read<CardSecondBloc>().add(

@@ -151,7 +151,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                       color: neonShade,
                                       child: IconButton(
                                         onPressed: () {
-                                          customDailogue(
+                                          cameraAndGalleryPickImage(
                                             context: context,
                                             onPressCam: () {
                                               context
@@ -210,7 +210,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                       color: neonShade,
                                       child: IconButton(
                                         onPressed: () {
-                                          customDailogue(
+                                          cameraAndGalleryPickImage(
                                             context: context,
                                             onPressCam: () {
                                               context
@@ -360,7 +360,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                           color: neonShade,
                                           child: IconButton(
                                             onPressed: () {
-                                              customDailogue(
+                                              cameraAndGalleryPickImage(
                                                 context: context,
                                                 onPressCam: () {
                                                   context
@@ -426,7 +426,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.name,
                         ),
                         TTextFormField(
-                          validate: Validate.notNull,
+                          //validate: Validate.notNull,
                           text: 'Company',
                           controller: context
                               .read<CardSecondBloc>()
@@ -434,7 +434,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.name,
                         ),
                         TTextFormField(
-                          validate: Validate.notNull,
+                          validate: Validate.ifValidEmail,
                           text: 'Email',
                           controller: context
                               .read<CardSecondBloc>()
@@ -442,7 +442,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.emailAddress,
                         ),
                         TTextFormField(
-                          validate: Validate.notNull,
+                          validate: Validate.ifValidnumber,
                           text: 'Phone number',
                           controller: context
                               .read<CardSecondBloc>()
@@ -450,7 +450,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.number,
                         ),
                         TTextFormField(
-                          validate: Validate.notNull,
+                          validate: Validate.ifValidWebsite,
                           text: 'website',
                           controller: context
                               .read<CardSecondBloc>()
@@ -458,7 +458,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.emailAddress,
                         ),
                         TTextFormField(
-                          validate: Validate.notNull,
+                          // validate: Validate.notNull,
                           text: 'Designation',
                           controller: context
                               .read<CardSecondBloc>()
@@ -466,7 +466,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.name,
                         ),
                         TTextFormField(
-                          validate: Validate.notNull,
+                          // validate: Validate.notNull,
                           text: 'Location',
                           controller: context
                               .read<CardSecondBloc>()
@@ -474,7 +474,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.name,
                         ),
                         TTextFormField(
-                          validate: Validate.notNull,
+                          // validate: Validate.notNull,
                           text: 'Occation',
                           controller: context
                               .read<CardSecondBloc>()
@@ -482,7 +482,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.name,
                         ),
                         TTextFormField(
-                          validate: Validate.notNull,
+                          //validate: Validate.notNull,
                           text: 'Occupation',
                           controller: context
                               .read<CardSecondBloc>()
@@ -490,7 +490,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           inputType: TextInputType.name,
                         ),
                         TTextFormField(
-                          validate: Validate.notNull,
+                          //validate: Validate.notNull,
                           text: 'Notes',
                           controller: context
                               .read<CardSecondBloc>()

@@ -72,8 +72,6 @@ class CardBloc extends Bloc<CardEvent, CardState> {
               hasError: true,
               message: null,
             )), (r) {
-      log('getdeleteCardsEvent call');
-      log(' getdeleteCardsEvent legth ${r.deletedCards?.length}');
       List<DeletedCard> list = [];
       list.clear();
       if (r.deletedCards != null) {
@@ -256,13 +254,14 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         cardLoading: true, hasError: false, message: null, anotherCard: null));
     final result = await cardService.getCardByUserId(id: event.id);
     result.fold(
-        (left) => emit(state.copyWith(
-            cardLoading: false, hasError: true, message: left.message)),
-        (right) => emit(state.copyWith(
-            cardLoading: false,
-            anotherCard: right.results != null && right.results!.isNotEmpty
-                ? right.results!.first
-                : null)));
+      (left) => emit(state.copyWith(
+          cardLoading: false, hasError: true, message: left.message)),
+      (right) => emit(state.copyWith(
+          cardLoading: false,
+          anotherCard: right.results != null && right.results!.isNotEmpty
+              ? right.results!.first
+              : null)),
+    );
   }
 
   FutureOr<void> getCardyCardId(GetCardyCardId event, emit) async {

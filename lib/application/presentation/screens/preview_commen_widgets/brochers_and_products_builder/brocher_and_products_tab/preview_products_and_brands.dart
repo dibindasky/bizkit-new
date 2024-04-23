@@ -62,39 +62,47 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 children: [
                   ListView.separated(
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) => adjustWidth(
-                            kwidth * .01,
-                          ),
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProductViewDetail(
-                                        product: networkImages![index],
-                                        fromUpdate: false,
-                                      ))),
-                          child: AspectRatio(
-                            aspectRatio: 0.9,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: ColoredBox(
-                                  color: smallBigGrey,
-                                  child: Image.memory(
-                                    base64.decode(networkImages![index]
-                                        .image![0]
-                                        .image!
-                                        .substring(22)),
-                                    fit: BoxFit.cover,
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) => adjustWidth(
+                      kwidth * .01,
+                    ),
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProductViewDetail(
+                                    product: networkImages![index],
+                                    fromUpdate: false,
                                   )),
+                        ),
+                        child: AspectRatio(
+                          aspectRatio: 0.9,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: ColoredBox(
+                              color: smallBigGrey,
+                              child: Image.memory(
+                                base64.decode(networkImages![index]
+                                        .image![0]
+                                        .image
+                                        .startsWith('data')
+                                    ? networkImages![index]
+                                        .image![0]
+                                        .image
+                                        .substring(22)
+                                    : networkImages![index].image![0].image),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        );
-                      },
-                      itemCount: networkImages!.length),
+                        ),
+                      );
+                    },
+                    itemCount: networkImages!.length,
+                  ),
                   adjustWidth(kwidth * .01),
                   ListView.separated(
                     shrinkWrap: true,

@@ -22,7 +22,7 @@ class SelectedCard extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: knill,
         title: Text(
-          'Selec ted Cards',
+          'Selected Cards',
           style: textHeadStyle1,
         ),
       ),
@@ -78,7 +78,8 @@ class SelectedCard extends StatelessWidget {
                                 width: 310.dm,
                                 height: 150.dm,
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: klightgrey),
+                                  border:
+                                      Border.all(color: neonShade, width: 2),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Image.file(

@@ -363,7 +363,7 @@ class SelfieTextFields extends StatelessWidget {
                                     color: neonShade,
                                     child: IconButton(
                                       onPressed: () {
-                                        customDailogue(
+                                        cameraAndGalleryPickImage(
                                           context: context,
                                           onPressCam: () {
                                             context.read<CardSecondBloc>().add(

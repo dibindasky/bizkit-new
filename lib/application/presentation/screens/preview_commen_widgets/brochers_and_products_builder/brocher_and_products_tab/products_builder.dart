@@ -159,19 +159,23 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
             : [
                 IconButton(
                   onPressed: () {
-                    customDailogue(
+                    cameraAndGalleryPickImage(
+                      tittle: 'Choose image',
                       context: context,
                       onPressCam: () {
                         context.read<BusinessDataBloc>().add(
-                            const BusinessDataEvent.productUpdatePickImage(
-                                isCam: true, isFront: true));
+                            BusinessDataEvent.productUpdatePickImage(
+                                productId: widget.product.id!,
+                                isCam: true,
+                                isFront: true));
                       },
                       onPressGallery: () {
                         context
                             .read<BusinessDataBloc>()
-                            .add(const BusinessDataEvent.productUpdatePickImage(
+                            .add(BusinessDataEvent.productUpdatePickImage(
                               isCam: false,
                               isFront: false,
+                              productId: widget.product.id!,
                             ));
                       },
                     );
@@ -196,20 +200,26 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
             child: Column(
               children: [
                 // if (widget.product.image != null)
-                BlocBuilder<BusinessDataBloc, BusinessDataState>(
-                  builder: (context, state) {
-                    if (state.productUpdateImages.isNotEmpty) {
-                      updateImageCard.addAll(state.productUpdateImages);
+                BlocConsumer<BusinessDataBloc, BusinessDataState>(
+                  listener: (context, state) {
+                    if (state.productImageupdated) {
+                      // context.read<CardBloc>().add(
+                      //     CardEvent.getCardyCardId(id: state.currentCard!.id!));
                     }
+                  },
+                  builder: (context, state) {
+                    // if (state.productUpdateImages.isNotEmpty) {
+                    //   updateImageCard.addAll(state.productUpdateImages);
+                    // }
                     return ListView.separated(
                       separatorBuilder: (context, index) {
                         return adjustHieght(10);
                       },
-                      itemCount: updateImageCard.length,
+                      itemCount: widget.product.image!.length,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return state.pickImageLoading
+                        return state.pickImageLoading && !widget.fromUpdate
                             ? SizedBox(
                                 height: khieght * .3,
                                 child: const Center(
@@ -218,16 +228,16 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                                   ),
                                 ),
                               )
-                            : Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: neonShade,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Stack(
-                                  children: [
-                                    GestureDetector(
+                            : Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: neonShade,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: GestureDetector(
                                       onTap: () {
                                         Navigator.of(context).push(
                                             fadePageRoute(ScreenImagePreview(
@@ -236,8 +246,6 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                                         )));
                                       },
                                       child: SizedBox(
-                                        width: 300.dm,
-                                        height: 200.dm,
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -268,51 +276,49 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                                         ),
                                       ),
                                     ),
-                                    !widget.fromUpdate
-                                        ? kempty
-                                        : Positioned(
-                                            bottom: 10,
-                                            right: 10,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              child: ColoredBox(
-                                                color: neonShade,
-                                                child: IconButton(
-                                                  onPressed: () {
-                                                    showCustomConfirmationDialogue(
-                                                      context: context,
-                                                      buttonText: 'Delete',
-                                                      title:
-                                                          'You want to remove your product image',
-                                                      onTap: () {
-                                                        context
-                                                            .read<
-                                                                BusinessDataBloc>()
-                                                            .add(BusinessDataEvent
-                                                                .removeProductImages(
-                                                                    id: updateImageCard[
-                                                                            index]
-                                                                        .id!));
-                                                        // context.read<BusinessDataBloc>().add(
-                                                        //         BusinessDataEvent
-                                                        //             .removeProductImages(
-                                                        //       index: index,
-                                                        //     ));
-                                                      },
-                                                    );
-                                                  },
-                                                  icon: const Icon(
-                                                    size: 30,
-                                                    color: kwhite,
-                                                    Icons.delete,
-                                                  ),
+                                  ),
+                                  !widget.fromUpdate &&
+                                          widget.product.image!.length < 2
+                                      ? kempty
+                                      : Positioned(
+                                          bottom: 10,
+                                          right: 10,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            child: ColoredBox(
+                                              color: neonShade,
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  showCustomConfirmationDialogue(
+                                                    context: context,
+                                                    buttonText: 'Delete',
+                                                    title:
+                                                        'You want to remove your product image',
+                                                    onTap: () {
+                                                      context
+                                                          .read<
+                                                              BusinessDataBloc>()
+                                                          .add(BusinessDataEvent
+                                                              .removeProductImages(
+                                                                  id: widget
+                                                                      .product
+                                                                      .image![
+                                                                          index]
+                                                                      .id!));
+                                                    },
+                                                  );
+                                                },
+                                                icon: const Icon(
+                                                  size: 30,
+                                                  color: kwhite,
+                                                  Icons.delete,
                                                 ),
                                               ),
                                             ),
                                           ),
-                                  ],
-                                ),
+                                        ),
+                                ],
                               );
                       },
                     );
@@ -383,6 +389,11 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                                 CardEvent.getCardyCardId(
                                     id: state.currentCard!.id!));
                             Navigator.pop(context);
+                          }
+                          if (state.productImageupdated) {
+                            context.read<CardBloc>().add(
+                                CardEvent.getCardyCardId(
+                                    id: state.currentCard!.id!));
                           }
                         },
                         builder: (context, state) {

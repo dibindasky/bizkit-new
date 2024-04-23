@@ -281,7 +281,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
 
   FutureOr<void> selfieImage(SelfieImage event, emit) async {
     emit(state.copyWith(
-        pickSelfieCardLoading: true, selfieImagePickerror: true));
+        pickSelfieCardLoading: true, selfieImagePickerror: false));
     final selfieImage = await ImagePickerClass.getImage(
       camera: event.isCam,
       cameraDeviceFront: event.cameraDeviceFront,
@@ -296,6 +296,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
       );
     } else {
       emit(state.copyWith(
+        selfieImageModel: null,
         pickSelfieCardLoading: false,
         selfieImagePickerror: true,
       ));

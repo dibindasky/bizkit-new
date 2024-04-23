@@ -8,6 +8,7 @@ import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remembe
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
+import 'package:bizkit/domain/model/card/card/product_image_add/product_image_add.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:dartz/dartz.dart';
@@ -37,7 +38,7 @@ abstract class CardPatchRepo {
   Future<Either<Failure, SuccessResponseModel>> deleteProduct(
       {required int id});
   Future<Either<Failure, SuccessResponseModel>> addProductImage(
-      {required ImageCard imageCard});
+      {required ProductImageAdd productImageAdd});
   Future<Either<Failure, BranchOffice>> addBranchOffice(
       {required BranchOffice branchOffice});
   Future<Either<Failure, SuccessResponseModel>> deleteBranchOffice(

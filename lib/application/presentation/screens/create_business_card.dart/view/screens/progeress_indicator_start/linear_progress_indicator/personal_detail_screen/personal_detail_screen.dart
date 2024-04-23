@@ -24,6 +24,7 @@ class PersonlDetails extends StatelessWidget {
   final bool fromBusiness;
   final PageController pageController;
   final GlobalKey<FormState> personalDeatilFormKey = GlobalKey();
+  final GlobalKey<FormState> personalDataFirstFormKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,76 @@ class PersonlDetails extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               adjustHieght(khieght * .02),
+              //User info
+              BlocBuilder<UserDataBloc, UserDataState>(
+                builder: (context, state) {
+                  return Form(
+                    key: personalDataFirstFormKey,
+                    child: Column(
+                      children: [
+                        // personal name field
+                        AutocompleteTextField(
+                          validate: Validate.notNull,
+                          label: 'Name *',
+                          controller:
+                              context.read<UserDataBloc>().nameController,
+                          inputType: TextInputType.text,
+                          textCapitalization: TextCapitalization.words,
+                          autocompleteItems:
+                              state.scannedImageDatasModel?.names ?? [],
+                        ),
+                        // personal phone number
+                        AutocompleteTextField(
+                          validate: Validate.phone,
+                          maxLength: 10,
+                          label: 'Phone number *',
+                          controller:
+                              context.read<UserDataBloc>().phoneController,
+                          inputType: TextInputType.phone,
+                          autocompleteItems:
+                              state.scannedImageDatasModel?.phone ?? [],
+                        ),
+                        // personal email
+                        AutocompleteTextField(
+                          validate: Validate.email,
+                          label: 'Email *',
+                          controller:
+                              context.read<UserDataBloc>().emailController,
+                          inputType: TextInputType.emailAddress,
+                          autocompleteItems:
+                              state.scannedImageDatasModel?.emails ?? [],
+                        ),
+                        // business category
+                        AutocompleteTextField(
+                            onTap: () =>
+                                FocusManager.instance.primaryFocus?.unfocus(),
+                            enabled: false,
+                            validate: Validate.notNull,
+                            label: 'Business Category *',
+                            controller: context
+                                .read<UserDataBloc>()
+                                .businessCategoryController,
+                            // inputType: TextInputType.name,
+                            autocompleteItems: state.businessCategories
+                                .map((e) => e.category!)
+                                .toList()),
+                        AutocompleteTextField(
+                          showDropdownOnTap: true,
+                          validate: Validate.notNull,
+                          label: 'Designation *',
+                          textCapitalization: TextCapitalization.words,
+                          controller: context
+                              .read<UserDataBloc>()
+                              .designationController,
+                          autocompleteItems:
+                              state.scannedImageDatasModel?.names ?? <String>[],
+                        ),
+                        adjustHieght(khieght * .05),
+                      ],
+                    ),
+                  );
+                },
+              ),
               // home address text field
               BlocBuilder<UserDataBloc, UserDataState>(
                 builder: (context, state) {

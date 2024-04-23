@@ -49,9 +49,7 @@ class CardDetailScreenSecondHalf extends StatelessWidget {
                   .toList();
             }
             return PreviewProductsBrandsLists(
-              networkImages: images,
-              pdf: pdfBase64,
-            );
+                networkImages: images, pdf: pdfBase64);
           },
         ),
         adjustHieght(khieght * .02),

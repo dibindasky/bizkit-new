@@ -102,63 +102,87 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                   style: textHeadStyle1,
                                 ),
                                 adjustHieght(10),
-                                Text(
-                                  state.anotherCard?.businessDetails
-                                          ?.websiteLink ??
-                                      '',
+                                TextButton(
+                                  onPressed: () async {
+                                    if (state.anotherCard != null &&
+                                        state.anotherCard!.businessDetails !=
+                                            null &&
+                                        state.anotherCard!.businessDetails!
+                                                .websiteLink !=
+                                            null) {
+                                      await LaunchUrl.launchUrls(
+                                        url: state.anotherCard!.businessDetails!
+                                            .websiteLink!,
+                                      ).then(
+                                        (value) => Navigator.pop(context),
+                                      );
+                                    }
+                                  },
+                                  child: Text(
+                                    '${state.anotherCard?.businessDetails?.websiteLink}',
+                                    style: const TextStyle(
+                                      color: kblue,
+                                      decorationColor: kblue,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
                                 ),
+                                // Text(
+                                //   state.anotherCard?.businessDetails
+                                //           ?.websiteLink ??
+                                //       '',
+                                // ),
                                 adjustHieght(10),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     OutlinedButton.icon(
-                                        style: OutlinedButton.styleFrom(
-                                            side: const BorderSide(
-                                                color: neonShade)),
-                                        onPressed: () async {
-                                          if (state.anotherCard != null &&
-                                              state.anotherCard!
-                                                      .businessDetails !=
-                                                  null &&
-                                              state
-                                                      .anotherCard!
-                                                      .businessDetails!
-                                                      .websiteLink !=
-                                                  null) {
-                                            await LaunchUrl.launchUrls(
-                                                    url: state
-                                                        .anotherCard!
-                                                        .businessDetails!
-                                                        .websiteLink!)
-                                                .then((value) =>
-                                                    Navigator.pop(context));
-                                          }
-                                        },
-                                        icon: const Icon(
-                                            Icons.open_in_browser_outlined),
-                                        label: const Text(
-                                          'View Website',
-                                          style: TextStyle(color: neonShade),
-                                        )),
+                                      style: OutlinedButton.styleFrom(
+                                          side: const BorderSide(
+                                              color: neonShade)),
+                                      onPressed: () async {
+                                        if (state.anotherCard != null &&
+                                            state.anotherCard!
+                                                    .businessDetails !=
+                                                null &&
+                                            state.anotherCard!.businessDetails!
+                                                    .websiteLink !=
+                                                null) {
+                                          await LaunchUrl.launchUrls(
+                                            url: state.anotherCard!
+                                                .businessDetails!.websiteLink!,
+                                          ).then(
+                                            (value) => Navigator.pop(context),
+                                          );
+                                        }
+                                      },
+                                      icon: const Icon(
+                                          Icons.open_in_browser_outlined),
+                                      label: const Text(
+                                        'View Website',
+                                        style: TextStyle(color: neonShade),
+                                      ),
+                                    ),
                                     adjustWidth(10),
                                     OutlinedButton(
-                                        style: OutlinedButton.styleFrom(
-                                            side: const BorderSide(
-                                                color: neonShade)),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text(
-                                          'cancel',
-                                          style: TextStyle(color: neonShade),
-                                        )),
+                                      style: OutlinedButton.styleFrom(
+                                          side: const BorderSide(
+                                              color: neonShade)),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text(
+                                        'cancel',
+                                        style: TextStyle(color: neonShade),
+                                      ),
+                                    ),
                                   ],
                                 )
                               ]
                             : [
                                 adjustHieght(10),
                                 Text(
-                                  'Websie details not available',
+                                  'Website details not available',
                                   style: textHeadStyle1,
                                 ),
                                 adjustHieght(10)
@@ -177,25 +201,27 @@ class CardViewRowWiceIcons extends StatelessWidget {
                   ? showDialog(
                       context: context,
                       builder: (context) => Dialog(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 20),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: neonShade),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: backgroundColour),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    adjustHieght(10),
-                                    Text(
-                                      'No social medias available',
-                                      style: textHeadStyle1,
-                                    ),
-                                    adjustHieght(10)
-                                  ]),
-                            ),
-                          ))
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 20),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: neonShade),
+                              borderRadius: BorderRadius.circular(10),
+                              color: backgroundColour),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              adjustHieght(10),
+                              Text(
+                                'No social medias available',
+                                style: textHeadStyle1,
+                              ),
+                              adjustHieght(10)
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
                   : showModalBottomSheet(
                       context: context,
                       enableDrag: true,
@@ -245,10 +271,33 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                   style: textHeadStyle1,
                                 ),
                                 adjustHieght(10),
-                                Text(
-                                  state.anotherCard?.businessDetails?.address ??
-                                      '',
+                                TextButton(
+                                  onPressed: () async {
+                                    await LaunchUrl.launchMap(
+                                      address: state.anotherCard
+                                              ?.businessDetails?.address ??
+                                          '',
+                                      context: context,
+                                    ).then((value) => Navigator.pop(context));
+                                  },
+                                  child: Text(
+                                    '${state.anotherCard?.businessDetails?.address}',
+                                    style: const TextStyle(
+                                      color: kblue,
+                                      decorationColor: kblue,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
                                 ),
+                                // Text(
+                                //   state.anotherCard?.businessDetails?.address ??
+                                //       '',
+                                //   style: const TextStyle(
+                                //     color: kblue,
+                                //     decorationColor: kblue,
+                                //     decoration: TextDecoration.underline,
+                                //   ),
+                                // ),
                                 adjustHieght(10),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,

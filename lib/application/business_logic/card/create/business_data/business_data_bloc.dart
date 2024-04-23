@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
@@ -13,6 +14,7 @@ import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
+import 'package:bizkit/domain/model/card/card/product_image_add/image.dart';
 import 'package:bizkit/domain/model/card/card/product_image_add/product_image_add.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
 import 'package:bizkit/domain/model/card/company/get_company_response_model/company.dart';
@@ -69,7 +71,6 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<AddAccredition>(addAccredition);
     on<RemoveAccredition>(removeAccredition);
     on<AccreditationPickImage>(accreditationPickImage);
-    on<AccreditationUpdatePickImage>(accreditationUpdatePickImage);
     on<UpdationAccreditation>(updationAccreditation);
     on<AddSocialMedia>(addSocialMedia);
     on<RemoveSocialMedia>(removeSocialMedia);
@@ -98,9 +99,6 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> updationAccreditation(UpdationAccreditation event, emit) {}
-
-  FutureOr<void> accreditationUpdatePickImage(
-      AccreditationUpdatePickImage event, emit) {}
 
   FutureOr<void> accreditationPickImage(
       AccreditationPickImage event, emit) async {
@@ -132,10 +130,6 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         pickImageError: true,
       ));
     }
-  }
-
-  FutureOr<void> productUpdateImages(ProductUpdateImages event, emit) {
-    emit(state.copyWith());
   }
 
   FutureOr<void> pickImage(PickImage event, emit) async {
@@ -170,6 +164,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
 
   FutureOr<void> productUpdatePickImage(
       ProductUpdatePickImage event, emit) async {
+    log('inside productUpdatePickImage');
     emit(state.copyWith(pickImageLoading: true, pickImageError: false));
     final pickImage = await ImagePickerClass.getImage(
         camera: event.isCam, cameraDeviceFront: event.isFront);
@@ -186,12 +181,41 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
           pickImageLoading: false,
         ),
       );
+      add(BusinessDataEvent.productUpdateImages(
+        productImageAdd: ProductImageAdd(
+          productId: event.productId,
+          image: [Image(image: pickImage.base64)],
+        ),
+      ));
     } else {
       emit(state.copyWith(
         pickImageLoading: false,
         pickImageError: true,
       ));
     }
+  }
+
+  FutureOr<void> productUpdateImages(ProductUpdateImages event, emit) async {
+    log('inside productUpdateImages');
+    emit(state.copyWith(
+      productImageupdateError: false,
+      productimageLoading: true,
+      productImageupdated: false,
+    ));
+    final data = await cardPatchRepo.addProductImage(
+        productImageAdd: event.productImageAdd);
+    data.fold(
+      (l) => emit(state.copyWith(
+          productImageupdateError: true,
+          productimageLoading: false,
+          productImageupdated: false)),
+      (r) => emit(state.copyWith(
+        productImageupdateError: false,
+        productimageLoading: false,
+        productImageupdated: true,
+        productImages: state.productImages,
+      )),
+    );
   }
 
   FutureOr<void> removeProductImages(RemoveProductImages event, emit) async {
@@ -209,6 +233,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       emit(state.copyWith(
         productDeleteLoading: false,
         hasError: false,
+        products: [...state.products],
         //productImages:
       ));
     });
@@ -486,11 +511,14 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> addLogo(AddLogo event, emit) async {
-    final image = await ImagePickerClass.getImage(camera: false);
+    emit(state.copyWith(logoImageLoading: true, logoPickImageError: false));
+    final image = await ImagePickerClass.getImage(camera: event.isCam);
     if (image != null) {
       LogoCard logoCard = state.logoCard!.copyWith(logo: image.base64);
       emit(state.copyWith(
         logo: image,
+        logoImageLoading: false,
+        logoPickImageError: false,
         gotCompanyData: false,
         logoCard: logoCard,
         accreditionAdded: false,
@@ -499,22 +527,27 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         productAdded: false,
         socialMediaAdded: false,
       ));
+    } else {
+      emit(state.copyWith(logoImageLoading: false, logoPickImageError: true));
     }
   }
 
   FutureOr<void> uploadLogo(UploadLogo event, emit) async {
     emit(state.copyWith(
-        logoAdded: false,
-        logoLoading: true,
-        accreditionAdded: false,
-        branchAdded: false,
-        brochureAdded: false,
-        productAdded: false,
-        socialMediaAdded: false,
-        message: null));
+      logoPickImageError: false,
+      logoAdded: false,
+      logoLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+      message: null,
+    ));
     LogoCard logoCard = state.logoCard!.copyWith(
-        logoStory: logoStoryController.text.trim(),
-        cardId: state.currentCard!.id!);
+      logoStory: logoStoryController.text.trim(),
+      cardId: state.currentCard!.id!,
+    );
     if (state.logoCard!.id == null) {
       final result = await cardPatchRepo.addLogo(logoCard: logoCard);
       result.fold(

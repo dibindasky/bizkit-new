@@ -95,19 +95,22 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
 
                                 if (state.getSecondCardModel != null &&
                                     state.getSecondCardModel!.image != null) {
-                                  String images = '';
-                                  images = (state.getSecondCardModel!.image!);
-                                  images = images.replaceFirst(
-                                      RegExp(r'data:image/jpg;base64,'), '');
-                                  imagess.add(images);
+                                  String scanImage = '';
+                                  scanImage =
+                                      (state.getSecondCardModel!.image!);
+                                  scanImage = scanImage.startsWith('data')
+                                      ? scanImage.substring(22)
+                                      : scanImage;
+                                  imagess.add(scanImage);
                                 }
                                 if (state.getSecondCardModel != null &&
                                     state.getSecondCardModel!.selfie != null) {
-                                  String images = '';
-                                  images = (state.getSecondCardModel!.selfie!);
-                                  images = images.replaceFirst(
-                                      RegExp(r'data:image/jpg;base64,'), '');
-                                  imagess.add(images);
+                                  String selfie = '';
+                                  selfie = (state.getSecondCardModel!.selfie!);
+                                  selfie = selfie.startsWith('data')
+                                      ? selfie.substring(22)
+                                      : selfie;
+                                  imagess.add(selfie);
                                 }
                                 return SizedBox(
                                   height: 200,

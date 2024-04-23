@@ -256,34 +256,35 @@ class BusinessDetailsScreen extends StatelessWidget {
                                                           .branchOfficeController),
                                                   adjustHieght(10),
                                                   AuthButton(
-                                                      text: 'Add',
-                                                      onTap: () {
-                                                        if (context
-                                                                .read<
-                                                                    BusinessDataBloc>()
-                                                                .branchOfficeController
-                                                                .text !=
-                                                            '') {
-                                                          context
+                                                    text: 'Add',
+                                                    onTap: () {
+                                                      if (context
                                                               .read<
                                                                   BusinessDataBloc>()
-                                                              .add(
-                                                                BusinessDataEvent
-                                                                    .addBranch(
-                                                                  branch: context
-                                                                      .read<
-                                                                          BusinessDataBloc>()
-                                                                      .branchOfficeController
-                                                                      .text,
-                                                                ),
-                                                              );
-                                                        }
+                                                              .branchOfficeController
+                                                              .text !=
+                                                          '') {
                                                         context
                                                             .read<
                                                                 BusinessDataBloc>()
-                                                            .branchOfficeController
-                                                            .text = '';
-                                                      })
+                                                            .add(
+                                                              BusinessDataEvent
+                                                                  .addBranch(
+                                                                branch: context
+                                                                    .read<
+                                                                        BusinessDataBloc>()
+                                                                    .branchOfficeController
+                                                                    .text,
+                                                              ),
+                                                            );
+                                                      }
+                                                      context
+                                                          .read<
+                                                              BusinessDataBloc>()
+                                                          .branchOfficeController
+                                                          .text = '';
+                                                    },
+                                                  )
                                                 ],
                                         );
                                       },

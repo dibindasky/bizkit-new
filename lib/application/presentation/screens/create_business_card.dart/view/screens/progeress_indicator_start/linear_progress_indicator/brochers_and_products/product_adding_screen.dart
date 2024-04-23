@@ -21,9 +21,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddPrductsScreen extends StatefulWidget {
-  const AddPrductsScreen({
-    Key? key,
-  }) : super(key: key);
+  const AddPrductsScreen({Key? key}) : super(key: key);
 
   @override
   State<AddPrductsScreen> createState() => _AddPrductsScreenState();
@@ -76,7 +74,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                       color: neonShade.withOpacity(0.1),
                                       child: InkWell(
                                         onTap: () async {
-                                          customDailogue(
+                                          cameraAndGalleryPickImage(
                                             context: context,
                                             onPressCam: () {
                                               context

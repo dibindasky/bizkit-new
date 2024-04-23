@@ -12,9 +12,11 @@ class BusinessDataEvent with _$BusinessDataEvent {
       {required Accredition accredition}) = AddAccredition;
   const factory BusinessDataEvent.accreditationPickImage(
       {required bool isCam, required bool isFront}) = AccreditationPickImage;
-  const factory BusinessDataEvent.accreditationUpdatePickImage(
-      {required bool isCam,
-      required bool isFront}) = AccreditationUpdatePickImage;
+  const factory BusinessDataEvent.productUpdatePickImage({
+    required bool isCam,
+    required bool isFront,
+    required int productId,
+  }) = ProductUpdatePickImage;
   const factory BusinessDataEvent.updationAccreditation(
       {required Accredition accredition}) = UpdationAccreditation;
   const factory BusinessDataEvent.removeAccredition({required int id}) =
@@ -27,7 +29,7 @@ class BusinessDataEvent with _$BusinessDataEvent {
       RemoveBranch;
   const factory BusinessDataEvent.createBusinessData() = CreateBusinessData;
   const factory BusinessDataEvent.createBankingData() = CreateBankingData;
-  const factory BusinessDataEvent.addLogo() = AddLogo;
+  const factory BusinessDataEvent.addLogo({required bool isCam}) = AddLogo;
   const factory BusinessDataEvent.uploadLogo() = UploadLogo;
   const factory BusinessDataEvent.addCropedLogo({required String base64}) =
       AddCropedLogo;
@@ -40,8 +42,6 @@ class BusinessDataEvent with _$BusinessDataEvent {
       {required ProductImageAdd productImageAdd}) = ProductUpdateImages;
   const factory BusinessDataEvent.pickImage(
       {required bool isCam, required bool isFront}) = PickImage;
-  const factory BusinessDataEvent.productUpdatePickImage(
-      {required bool isCam, required bool isFront}) = ProductUpdatePickImage;
   const factory BusinessDataEvent.removeProduct({required int id}) =
       RemoveProduct;
   const factory BusinessDataEvent.updateProduct({

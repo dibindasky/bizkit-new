@@ -12,6 +12,7 @@ import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remembe
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
+import 'package:bizkit/domain/model/card/card/product_image_add/product_image_add.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/service/card_patch_repo.dart';
@@ -175,7 +176,6 @@ class CardPatchService implements CardPatchRepo {
   Future<Either<Failure, LogoCard>> addLogo(
       {required LogoCard logoCard}) async {
     try {
-      log('addLogo ${logoCard.toJson()}');
       final response =
           await _apiService.post(ApiEndPoints.addLogo, data: logoCard.toJson());
       log('addLogo done');
@@ -196,7 +196,6 @@ class CardPatchService implements CardPatchRepo {
   Future<Either<Failure, LogoCard>> patchLogo(
       {required LogoCard logoCard}) async {
     try {
-      log('addLogo ${logoCard.toJson()}');
       final response = await _apiService.patch(
           ApiEndPoints.editLogo
               .replaceFirst('{logo_id}', logoCard.id!.toString()),
@@ -477,12 +476,12 @@ class CardPatchService implements CardPatchRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>> addProductImage({
-    required ImageCard imageCard,
+    required ProductImageAdd productImageAdd,
   }) async {
     try {
       await _apiService.post(
         ApiEndPoints.productImageAdd,
-        data: imageCard.toJson(),
+        data: productImageAdd.toJson(),
       );
       log('addProductImage done');
       return Right(SuccessResponseModel());

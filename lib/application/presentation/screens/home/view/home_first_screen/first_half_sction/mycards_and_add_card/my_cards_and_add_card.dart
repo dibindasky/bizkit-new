@@ -43,15 +43,18 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                   builder: (context, state) {
                     if (state.isLoading) {
                       return ShimmerLoader(
-                          itemCount: 1,
-                          height: kwidth * 0.35,
-                          width: kwidth * 0.55);
+                        itemCount: 1,
+                        height: kwidth * 0.35,
+                        width: kwidth * 0.55,
+                      );
                     } else if (state.cards.isEmpty) {
                       return SizedBox(
-                          height: kwidth * 0.35,
-                          width: kwidth * 0.55,
-                          child: const Center(
-                              child: Text('Create Your BizKit Card')));
+                        height: kwidth * 0.35,
+                        width: kwidth * 0.55,
+                        child: const Center(
+                          child: Text('Create Your BizKit Card'),
+                        ),
+                      );
                     } else {
                       CardResponse data = state.cards[0];
                       return SizedBox(
@@ -196,13 +199,14 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                               adjustHieght(kwidth * 0.03),
                                               Text(
                                                 '${data.percentage ?? 100} %',
-                                                style: textStyle1.copyWith(
-                                                    shadows: [
-                                                      const Shadow(
-                                                          color: kblack,
-                                                          offset: Offset(1, 2),
-                                                          blurRadius: 5)
-                                                    ]),
+                                                style: textStyle1
+                                                    .copyWith(shadows: [
+                                                  const Shadow(
+                                                    color: kblack,
+                                                    offset: Offset(1, 2),
+                                                    blurRadius: 5,
+                                                  )
+                                                ]),
                                               )
                                             ],
                                           )

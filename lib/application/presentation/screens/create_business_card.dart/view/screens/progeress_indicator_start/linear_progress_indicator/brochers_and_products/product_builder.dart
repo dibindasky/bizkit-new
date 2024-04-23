@@ -46,9 +46,17 @@ class ProductBuilder extends StatelessWidget {
                         border: Border.all(color: neonShade),
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            image: MemoryImage(base64
-                                .decode(data.image![0].image.substring(22))),
-                            fit: BoxFit.cover),
+                          image: MemoryImage(
+                            base64Decode(
+                              data.image![0].image.startsWith('data')
+                                  ? data.image![0].image.substring(22)
+                                  : data.image![0].image,
+                            ),
+                          ),
+                          onError: (exception, stackTrace) {},
+                          filterQuality: FilterQuality.high,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),

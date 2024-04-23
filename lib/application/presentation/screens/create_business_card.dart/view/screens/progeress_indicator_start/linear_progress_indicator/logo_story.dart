@@ -6,6 +6,8 @@ import 'package:bizkit/application/business_logic/card/create/business_data/busi
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -47,43 +49,77 @@ class _LogoStoryState extends State<LogoStory> {
             ),
             adjustHieght(khieght * .02),
             Center(
-              child: InkResponse(
-                onTap: () => context
-                    .read<BusinessDataBloc>()
-                    .add(const BusinessDataEvent.addLogo()),
-                child: BlocBuilder<BusinessDataBloc, BusinessDataState>(
+              child: InkWell(
+                onTap: () {
+                  cameraAndGalleryPickImage(
+                    context: context,
+                    onPressCam: () {
+                      context
+                          .read<BusinessDataBloc>()
+                          .add(const BusinessDataEvent.addLogo(isCam: true));
+                    },
+                    onPressGallery: () {
+                      context
+                          .read<BusinessDataBloc>()
+                          .add(const BusinessDataEvent.addLogo(isCam: false));
+                    },
+                    tittle: 'Chosse image',
+                  );
+                  // context
+                  //     .read<BusinessDataBloc>()
+                  //     .add(const BusinessDataEvent.addLogo());
+                },
+                child: BlocConsumer<BusinessDataBloc, BusinessDataState>(
+                  listener: (context, state) {
+                    if (state.logoPickImageError) {
+                      showSnackbar(context,
+                          message: "Image picking failed",
+                          backgroundColor: kred);
+                    }
+                  },
                   buildWhen: (previous, current) =>
                       previous.logoCard != current.logoCard,
                   builder: (context, state) {
-                    return DottedBorder(
-                      dashPattern: const [8, 8],
-                      color: neonShade,
-                      strokeWidth: 2.5,
-                      child: SizedBox(
-                        width: kwidth * 0.8,
-                        height: kwidth * 0.25,
-                        child: state.logoCard != null &&
-                                state.logoCard!.logo != null
-                            ? Image.memory(base64.decode(state.logoCard!.logo!),
-                                fit: BoxFit.contain)
-                            : Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 32.dm,
-                                    height: 32.dm,
-                                    child: const CircleAvatar(
-                                      child: Icon(Icons.add),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Add logo from file',
-                                    style: TextStyle(fontSize: 10.sp),
-                                  ),
-                                ],
+                    return state.logoImageLoading
+                        ? SizedBox(
+                            height: kwidth * 0.25,
+                            child: const Center(
+                              child: CircularProgressIndicator(
+                                color: neonShade,
                               ),
-                      ),
-                    );
+                            ),
+                          )
+                        : DottedBorder(
+                            dashPattern: const [8, 8],
+                            color: neonShade,
+                            strokeWidth: 2.5,
+                            child: SizedBox(
+                              width: kwidth * 0.8,
+                              height: kwidth * 0.25,
+                              child: state.logoCard != null &&
+                                      state.logoCard!.logo != null
+                                  ? Image.memory(
+                                      base64.decode(state.logoCard!.logo!),
+                                      fit: BoxFit.contain)
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: 32.dm,
+                                          height: 32.dm,
+                                          child: const CircleAvatar(
+                                            child: Icon(Icons.add),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Add logo from file',
+                                          style: TextStyle(fontSize: 10.sp),
+                                        ),
+                                      ],
+                                    ),
+                            ),
+                          );
                   },
                 ),
               ),

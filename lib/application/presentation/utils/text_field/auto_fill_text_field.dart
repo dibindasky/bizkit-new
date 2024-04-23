@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/validators/validators.dart';
@@ -136,6 +138,14 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   }
                 },
                 onChanged: (value) {
+                  if (value.contains(' ') &&
+                      filteredAutocompleteItems.isNotEmpty) {
+                    log('message');
+                    setState(() {
+                      isDropdownVisible = true;
+                      log("$isDropdownVisible");
+                    });
+                  }
                   if (widget.enabled) {
                     setState(() {
                       isDropdownVisible = true;
@@ -149,7 +159,6 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                               [];
                     });
                   }
-
                   if (widget.onChanged != null) {
                     widget.onChanged!(value);
                   }
@@ -160,8 +169,6 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   fontSize: kwidth * 0.033,
                 ),
                 maxLength: widget.maxLength,
-
-                // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
                 enabled: widget.enabled,
                 obscureText: widget.obscureText,
                 controller: widget.controller,

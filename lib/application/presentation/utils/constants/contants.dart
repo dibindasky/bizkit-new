@@ -1,5 +1,13 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+
+void formatWebsiteUrl(String url, TextEditingController controller) {
+  String formattedUrl = url.replaceAll(' ', '');
+  formattedUrl = formattedUrl.toLowerCase();
+  controller.text = formattedUrl;
+}
+
 const onBoardScreenfirst = 'asset/images/onboard_secrens/bizkit on board 1.png';
 const onBoardScreenSecond =
     'asset/images/onboard_secrens/bizkit on board 2.png';

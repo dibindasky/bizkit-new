@@ -100,7 +100,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return AutocompleteTextField(
                         validate: Validate.email,
-                        label: 'Mail ID',
+                        label: 'Company Mail ID',
                         inputType: TextInputType.emailAddress,
                         controller:
                             context.read<BusinessDataBloc>().mailController,
@@ -113,7 +113,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
-                        label: 'Mobile number',
+                        label: 'Company Mobile number',
                         validate: Validate.phone,
                         maxLength: 10,
                         controller:
@@ -132,7 +132,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                         maxLines: 4,
                         // maxlegth: 250,
                         maxLength: 250,
-                        label: 'Address',
+                        label: 'Company Address',
                         textCapitalization: TextCapitalization.words,
                         controller:
                             context.read<BusinessDataBloc>().addressController,
@@ -146,7 +146,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return AutocompleteTextField(
                         inputType: TextInputType.url,
-                        label: 'Website link',
+                        label: 'Company Website link',
                         controller: context
                             .read<BusinessDataBloc>()
                             .websiteLinkController,
@@ -196,7 +196,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Social Media Handles',
+                                'Company Social Media Handles',
                                 style:
                                     custumText(colr: klightgrey, fontSize: 17),
                               ),

@@ -39,9 +39,10 @@ mixin _$BusinessDataEvent {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -74,8 +75,9 @@ mixin _$BusinessDataEvent {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -108,8 +110,9 @@ mixin _$BusinessDataEvent {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -147,8 +150,10 @@ mixin _$BusinessDataEvent {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -181,8 +186,10 @@ mixin _$BusinessDataEvent {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -215,8 +222,10 @@ mixin _$BusinessDataEvent {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -335,9 +344,10 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -373,8 +383,9 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -410,8 +421,9 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -455,8 +467,10 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -492,8 +506,10 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -529,8 +545,10 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -645,9 +663,10 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -683,8 +702,9 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -720,8 +740,9 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -765,8 +786,10 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -802,8 +825,10 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -839,8 +864,10 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -957,9 +984,10 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -995,8 +1023,9 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -1032,8 +1061,9 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -1077,8 +1107,10 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -1114,8 +1146,10 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -1151,8 +1185,10 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -1267,9 +1303,10 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -1305,8 +1342,9 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -1342,8 +1380,9 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -1387,8 +1426,10 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -1424,8 +1465,10 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -1461,8 +1504,10 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -1587,9 +1632,10 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -1625,8 +1671,9 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -1662,8 +1709,9 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -1707,8 +1755,10 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -1744,8 +1794,10 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -1781,8 +1833,10 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -1918,9 +1972,10 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -1956,8 +2011,9 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -1993,8 +2049,9 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -2038,8 +2095,10 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -2075,8 +2134,10 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -2112,8 +2173,10 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -2233,9 +2296,10 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -2271,8 +2335,9 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -2308,8 +2373,9 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -2353,8 +2419,10 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -2390,8 +2458,10 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -2427,8 +2497,10 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -2542,9 +2614,10 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -2580,8 +2653,9 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -2617,8 +2691,9 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -2662,8 +2737,10 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -2699,8 +2776,10 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -2736,8 +2815,10 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -2853,9 +2934,10 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -2891,8 +2973,9 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -2928,8 +3011,9 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -2973,8 +3057,10 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -3010,8 +3096,10 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -3047,8 +3135,10 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -3161,9 +3251,10 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -3199,8 +3290,9 @@ class _$AddBranchImpl implements AddBranch {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -3236,8 +3328,9 @@ class _$AddBranchImpl implements AddBranch {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -3281,8 +3374,10 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -3318,8 +3413,10 @@ class _$AddBranchImpl implements AddBranch {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -3355,8 +3452,10 @@ class _$AddBranchImpl implements AddBranch {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -3468,9 +3567,10 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -3506,8 +3606,9 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -3543,8 +3644,9 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -3588,8 +3690,10 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -3625,8 +3729,10 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -3662,8 +3768,10 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -3749,9 +3857,10 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -3787,8 +3896,9 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -3824,8 +3934,9 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -3869,8 +3980,10 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -3906,8 +4019,10 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -3943,8 +4058,10 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -4025,9 +4142,10 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -4063,8 +4181,9 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -4100,8 +4219,9 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -4145,8 +4265,10 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -4182,8 +4304,10 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -4219,8 +4343,10 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -4327,9 +4453,10 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -4365,8 +4492,9 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -4402,8 +4530,9 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -4447,8 +4576,10 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -4484,8 +4615,10 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -4521,8 +4654,10 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -4608,9 +4743,10 @@ class _$UploadLogoImpl implements UploadLogo {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -4646,8 +4782,9 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -4683,8 +4820,9 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -4728,8 +4866,10 @@ class _$UploadLogoImpl implements UploadLogo {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -4765,8 +4905,10 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -4802,8 +4944,10 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -4910,9 +5054,10 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -4948,8 +5093,9 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -4985,8 +5131,9 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -5030,8 +5177,10 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -5067,8 +5216,10 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -5104,8 +5255,10 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -5192,9 +5345,10 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -5230,8 +5384,9 @@ class _$GetUserDataImpl implements GetUserData {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -5267,8 +5422,9 @@ class _$GetUserDataImpl implements GetUserData {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -5312,8 +5468,10 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -5349,8 +5507,10 @@ class _$GetUserDataImpl implements GetUserData {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -5386,8 +5546,10 @@ class _$GetUserDataImpl implements GetUserData {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -5494,9 +5656,10 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -5532,8 +5695,9 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -5569,8 +5733,9 @@ class _$AddProductImpl implements AddProduct {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -5614,8 +5779,10 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -5651,8 +5818,10 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -5688,8 +5857,10 @@ class _$AddProductImpl implements AddProduct {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -5802,9 +5973,10 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -5840,8 +6012,9 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -5877,8 +6050,9 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -5922,8 +6096,10 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -5959,8 +6135,10 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -5996,8 +6174,10 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -6023,6 +6203,327 @@ abstract class RemoveProductImages implements BusinessDataEvent {
   @JsonKey(ignore: true)
   _$$RemoveProductImagesImplCopyWith<_$RemoveProductImagesImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveProductImagesFromListImplCopyWith<$Res> {
+  factory _$$RemoveProductImagesFromListImplCopyWith(
+          _$RemoveProductImagesFromListImpl value,
+          $Res Function(_$RemoveProductImagesFromListImpl) then) =
+      __$$RemoveProductImagesFromListImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$RemoveProductImagesFromListImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res,
+        _$RemoveProductImagesFromListImpl>
+    implements _$$RemoveProductImagesFromListImplCopyWith<$Res> {
+  __$$RemoveProductImagesFromListImplCopyWithImpl(
+      _$RemoveProductImagesFromListImpl _value,
+      $Res Function(_$RemoveProductImagesFromListImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$RemoveProductImagesFromListImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveProductImagesFromListImpl implements RemoveProductImagesFromList {
+  const _$RemoveProductImagesFromListImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.removeProductImagesFromList(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveProductImagesFromListImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveProductImagesFromListImplCopyWith<_$RemoveProductImagesFromListImpl>
+      get copyWith => __$$RemoveProductImagesFromListImplCopyWithImpl<
+          _$RemoveProductImagesFromListImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront, int productId)
+        productUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function(bool isCam) addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
+    required TResult Function(ProductImageAdd productImageAdd)
+        productUpdateImages,
+    required TResult Function(bool isCam) pickProductImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return removeProductImagesFromList(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront, int productId)?
+        productUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function(bool isCam)? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
+    TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
+    TResult? Function(bool isCam)? pickProductImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return removeProductImagesFromList?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront, int productId)?
+        productUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function(bool isCam)? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
+    TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
+    TResult Function(bool isCam)? pickProductImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (removeProductImagesFromList != null) {
+      return removeProductImagesFromList(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickProductImage value) pickProductImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return removeProductImagesFromList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickProductImage value)? pickProductImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return removeProductImagesFromList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickProductImage value)? pickProductImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (removeProductImagesFromList != null) {
+      return removeProductImagesFromList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveProductImagesFromList implements BusinessDataEvent {
+  const factory RemoveProductImagesFromList({required final int id}) =
+      _$RemoveProductImagesFromListImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$RemoveProductImagesFromListImplCopyWith<_$RemoveProductImagesFromListImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -6112,9 +6613,10 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -6150,8 +6652,9 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -6187,8 +6690,9 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -6232,8 +6736,10 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -6269,8 +6775,10 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -6306,8 +6814,10 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -6337,36 +6847,31 @@ abstract class ProductUpdateImages implements BusinessDataEvent {
 }
 
 /// @nodoc
-abstract class _$$PickImageImplCopyWith<$Res> {
-  factory _$$PickImageImplCopyWith(
-          _$PickImageImpl value, $Res Function(_$PickImageImpl) then) =
-      __$$PickImageImplCopyWithImpl<$Res>;
+abstract class _$$PickProductImageImplCopyWith<$Res> {
+  factory _$$PickProductImageImplCopyWith(_$PickProductImageImpl value,
+          $Res Function(_$PickProductImageImpl) then) =
+      __$$PickProductImageImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isCam, bool isFront});
+  $Res call({bool isCam});
 }
 
 /// @nodoc
-class __$$PickImageImplCopyWithImpl<$Res>
-    extends _$BusinessDataEventCopyWithImpl<$Res, _$PickImageImpl>
-    implements _$$PickImageImplCopyWith<$Res> {
-  __$$PickImageImplCopyWithImpl(
-      _$PickImageImpl _value, $Res Function(_$PickImageImpl) _then)
+class __$$PickProductImageImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$PickProductImageImpl>
+    implements _$$PickProductImageImplCopyWith<$Res> {
+  __$$PickProductImageImplCopyWithImpl(_$PickProductImageImpl _value,
+      $Res Function(_$PickProductImageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? isCam = null,
-    Object? isFront = null,
   }) {
-    return _then(_$PickImageImpl(
+    return _then(_$PickProductImageImpl(
       isCam: null == isCam
           ? _value.isCam
           : isCam // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isFront: null == isFront
-          ? _value.isFront
-          : isFront // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -6374,36 +6879,34 @@ class __$$PickImageImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$PickImageImpl implements PickImage {
-  const _$PickImageImpl({required this.isCam, required this.isFront});
+class _$PickProductImageImpl implements PickProductImage {
+  const _$PickProductImageImpl({required this.isCam});
 
   @override
   final bool isCam;
-  @override
-  final bool isFront;
 
   @override
   String toString() {
-    return 'BusinessDataEvent.pickImage(isCam: $isCam, isFront: $isFront)';
+    return 'BusinessDataEvent.pickProductImage(isCam: $isCam)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PickImageImpl &&
-            (identical(other.isCam, isCam) || other.isCam == isCam) &&
-            (identical(other.isFront, isFront) || other.isFront == isFront));
+            other is _$PickProductImageImpl &&
+            (identical(other.isCam, isCam) || other.isCam == isCam));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isCam, isFront);
+  int get hashCode => Object.hash(runtimeType, isCam);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PickImageImplCopyWith<_$PickImageImpl> get copyWith =>
-      __$$PickImageImplCopyWithImpl<_$PickImageImpl>(this, _$identity);
+  _$$PickProductImageImplCopyWith<_$PickProductImageImpl> get copyWith =>
+      __$$PickProductImageImplCopyWithImpl<_$PickProductImageImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6429,9 +6932,10 @@ class _$PickImageImpl implements PickImage {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -6441,7 +6945,7 @@ class _$PickImageImpl implements PickImage {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
-    return pickImage(isCam, isFront);
+    return pickProductImage(isCam);
   }
 
   @override
@@ -6467,8 +6971,9 @@ class _$PickImageImpl implements PickImage {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -6478,7 +6983,7 @@ class _$PickImageImpl implements PickImage {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
-    return pickImage?.call(isCam, isFront);
+    return pickProductImage?.call(isCam);
   }
 
   @override
@@ -6504,8 +7009,9 @@ class _$PickImageImpl implements PickImage {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -6516,8 +7022,8 @@ class _$PickImageImpl implements PickImage {
     TResult Function()? clear,
     required TResult orElse(),
   }) {
-    if (pickImage != null) {
-      return pickImage(isCam, isFront);
+    if (pickProductImage != null) {
+      return pickProductImage(isCam);
     }
     return orElse();
   }
@@ -6549,8 +7055,10 @@ class _$PickImageImpl implements PickImage {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -6560,7 +7068,7 @@ class _$PickImageImpl implements PickImage {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
-    return pickImage(this);
+    return pickProductImage(this);
   }
 
   @override
@@ -6586,8 +7094,10 @@ class _$PickImageImpl implements PickImage {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -6597,7 +7107,7 @@ class _$PickImageImpl implements PickImage {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
-    return pickImage?.call(this);
+    return pickProductImage?.call(this);
   }
 
   @override
@@ -6623,8 +7133,10 @@ class _$PickImageImpl implements PickImage {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -6635,22 +7147,20 @@ class _$PickImageImpl implements PickImage {
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
-    if (pickImage != null) {
-      return pickImage(this);
+    if (pickProductImage != null) {
+      return pickProductImage(this);
     }
     return orElse();
   }
 }
 
-abstract class PickImage implements BusinessDataEvent {
-  const factory PickImage(
-      {required final bool isCam,
-      required final bool isFront}) = _$PickImageImpl;
+abstract class PickProductImage implements BusinessDataEvent {
+  const factory PickProductImage({required final bool isCam}) =
+      _$PickProductImageImpl;
 
   bool get isCam;
-  bool get isFront;
   @JsonKey(ignore: true)
-  _$$PickImageImplCopyWith<_$PickImageImpl> get copyWith =>
+  _$$PickProductImageImplCopyWith<_$PickProductImageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -6739,9 +7249,10 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -6777,8 +7288,9 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -6814,8 +7326,9 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -6859,8 +7372,10 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -6896,8 +7411,10 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -6933,8 +7450,10 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -7054,9 +7573,10 @@ class _$UpdateProductImpl implements UpdateProduct {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -7092,8 +7612,9 @@ class _$UpdateProductImpl implements UpdateProduct {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -7129,8 +7650,9 @@ class _$UpdateProductImpl implements UpdateProduct {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -7174,8 +7696,10 @@ class _$UpdateProductImpl implements UpdateProduct {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -7211,8 +7735,10 @@ class _$UpdateProductImpl implements UpdateProduct {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -7248,8 +7774,10 @@ class _$UpdateProductImpl implements UpdateProduct {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -7338,9 +7866,10 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -7376,8 +7905,9 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -7413,8 +7943,9 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -7458,8 +7989,10 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -7495,8 +8028,10 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -7532,8 +8067,10 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -7641,9 +8178,10 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -7679,8 +8217,9 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -7716,8 +8255,9 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -7761,8 +8301,10 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -7798,8 +8340,10 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -7835,8 +8379,10 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -7949,9 +8495,10 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -7987,8 +8534,9 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -8024,8 +8572,9 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -8069,8 +8618,10 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -8106,8 +8657,10 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -8143,8 +8696,10 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -8258,9 +8813,10 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -8296,8 +8852,9 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -8333,8 +8890,9 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -8378,8 +8936,10 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -8415,8 +8975,10 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -8452,8 +9014,10 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -8567,9 +9131,10 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -8605,8 +9170,9 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -8642,8 +9208,9 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -8687,8 +9254,10 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -8724,8 +9293,10 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -8761,8 +9332,10 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -8848,9 +9421,10 @@ class _$ClearImpl implements Clear {
     required TResult Function() getUserData,
     required TResult Function(Product product) addProduct,
     required TResult Function(int id) removeProductImages,
+    required TResult Function(int id) removeProductImagesFromList,
     required TResult Function(ProductImageAdd productImageAdd)
         productUpdateImages,
-    required TResult Function(bool isCam, bool isFront) pickImage,
+    required TResult Function(bool isCam) pickProductImage,
     required TResult Function(int id) removeProduct,
     required TResult Function(int id, Product product) updateProduct,
     required TResult Function() addBrochures,
@@ -8886,8 +9460,9 @@ class _$ClearImpl implements Clear {
     TResult? Function()? getUserData,
     TResult? Function(Product product)? addProduct,
     TResult? Function(int id)? removeProductImages,
+    TResult? Function(int id)? removeProductImagesFromList,
     TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult? Function(bool isCam, bool isFront)? pickImage,
+    TResult? Function(bool isCam)? pickProductImage,
     TResult? Function(int id)? removeProduct,
     TResult? Function(int id, Product product)? updateProduct,
     TResult? Function()? addBrochures,
@@ -8923,8 +9498,9 @@ class _$ClearImpl implements Clear {
     TResult Function()? getUserData,
     TResult Function(Product product)? addProduct,
     TResult Function(int id)? removeProductImages,
+    TResult Function(int id)? removeProductImagesFromList,
     TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
-    TResult Function(bool isCam, bool isFront)? pickImage,
+    TResult Function(bool isCam)? pickProductImage,
     TResult Function(int id)? removeProduct,
     TResult Function(int id, Product product)? updateProduct,
     TResult Function()? addBrochures,
@@ -8968,8 +9544,10 @@ class _$ClearImpl implements Clear {
     required TResult Function(GetUserData value) getUserData,
     required TResult Function(AddProduct value) addProduct,
     required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductImagesFromList value)
+        removeProductImagesFromList,
     required TResult Function(ProductUpdateImages value) productUpdateImages,
-    required TResult Function(PickImage value) pickImage,
+    required TResult Function(PickProductImage value) pickProductImage,
     required TResult Function(RemoveProduct value) removeProduct,
     required TResult Function(UpdateProduct value) updateProduct,
     required TResult Function(AddBrochures value) addBrochures,
@@ -9005,8 +9583,10 @@ class _$ClearImpl implements Clear {
     TResult? Function(GetUserData value)? getUserData,
     TResult? Function(AddProduct value)? addProduct,
     TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult? Function(ProductUpdateImages value)? productUpdateImages,
-    TResult? Function(PickImage value)? pickImage,
+    TResult? Function(PickProductImage value)? pickProductImage,
     TResult? Function(RemoveProduct value)? removeProduct,
     TResult? Function(UpdateProduct value)? updateProduct,
     TResult? Function(AddBrochures value)? addBrochures,
@@ -9042,8 +9622,10 @@ class _$ClearImpl implements Clear {
     TResult Function(GetUserData value)? getUserData,
     TResult Function(AddProduct value)? addProduct,
     TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductImagesFromList value)?
+        removeProductImagesFromList,
     TResult Function(ProductUpdateImages value)? productUpdateImages,
-    TResult Function(PickImage value)? pickImage,
+    TResult Function(PickProductImage value)? pickProductImage,
     TResult Function(RemoveProduct value)? removeProduct,
     TResult Function(UpdateProduct value)? updateProduct,
     TResult Function(AddBrochures value)? addBrochures,
@@ -9117,11 +9699,8 @@ mixin _$BusinessDataState {
   BankDetails get bankDetails => throw _privateConstructorUsedError;
   List<ImageCard> get accreditationPickImages =>
       throw _privateConstructorUsedError;
-  List<ImageCard> get accreditationUpdatePickImages =>
-      throw _privateConstructorUsedError;
   List<Product> get products => throw _privateConstructorUsedError;
   List<ImageCard> get productImages => throw _privateConstructorUsedError;
-  List<ImageCard> get productUpdateImages => throw _privateConstructorUsedError;
   List<Brochure> get brochures => throw _privateConstructorUsedError;
   ImageModel? get logo => throw _privateConstructorUsedError;
   LogoCard? get logoCard => throw _privateConstructorUsedError;
@@ -9189,10 +9768,8 @@ abstract class $BusinessDataStateCopyWith<$Res> {
       BusinessDetails businessDetails,
       BankDetails bankDetails,
       List<ImageCard> accreditationPickImages,
-      List<ImageCard> accreditationUpdatePickImages,
       List<Product> products,
       List<ImageCard> productImages,
-      List<ImageCard> productUpdateImages,
       List<Brochure> brochures,
       ImageModel? logo,
       LogoCard? logoCard,
@@ -9262,10 +9839,8 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
     Object? businessDetails = null,
     Object? bankDetails = null,
     Object? accreditationPickImages = null,
-    Object? accreditationUpdatePickImages = null,
     Object? products = null,
     Object? productImages = null,
-    Object? productUpdateImages = null,
     Object? brochures = null,
     Object? logo = freezed,
     Object? logoCard = freezed,
@@ -9463,10 +10038,6 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
           ? _value.accreditationPickImages
           : accreditationPickImages // ignore: cast_nullable_to_non_nullable
               as List<ImageCard>,
-      accreditationUpdatePickImages: null == accreditationUpdatePickImages
-          ? _value.accreditationUpdatePickImages
-          : accreditationUpdatePickImages // ignore: cast_nullable_to_non_nullable
-              as List<ImageCard>,
       products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
@@ -9474,10 +10045,6 @@ class _$BusinessDataStateCopyWithImpl<$Res, $Val extends BusinessDataState>
       productImages: null == productImages
           ? _value.productImages
           : productImages // ignore: cast_nullable_to_non_nullable
-              as List<ImageCard>,
-      productUpdateImages: null == productUpdateImages
-          ? _value.productUpdateImages
-          : productUpdateImages // ignore: cast_nullable_to_non_nullable
               as List<ImageCard>,
       brochures: null == brochures
           ? _value.brochures
@@ -9567,10 +10134,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       BusinessDetails businessDetails,
       BankDetails bankDetails,
       List<ImageCard> accreditationPickImages,
-      List<ImageCard> accreditationUpdatePickImages,
       List<Product> products,
       List<ImageCard> productImages,
-      List<ImageCard> productUpdateImages,
       List<Brochure> brochures,
       ImageModel? logo,
       LogoCard? logoCard,
@@ -9638,10 +10203,8 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? businessDetails = null,
     Object? bankDetails = null,
     Object? accreditationPickImages = null,
-    Object? accreditationUpdatePickImages = null,
     Object? products = null,
     Object? productImages = null,
-    Object? productUpdateImages = null,
     Object? brochures = null,
     Object? logo = freezed,
     Object? logoCard = freezed,
@@ -9839,10 +10402,6 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value._accreditationPickImages
           : accreditationPickImages // ignore: cast_nullable_to_non_nullable
               as List<ImageCard>,
-      accreditationUpdatePickImages: null == accreditationUpdatePickImages
-          ? _value._accreditationUpdatePickImages
-          : accreditationUpdatePickImages // ignore: cast_nullable_to_non_nullable
-              as List<ImageCard>,
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -9850,10 +10409,6 @@ class __$$InitialImplCopyWithImpl<$Res>
       productImages: null == productImages
           ? _value._productImages
           : productImages // ignore: cast_nullable_to_non_nullable
-              as List<ImageCard>,
-      productUpdateImages: null == productUpdateImages
-          ? _value._productUpdateImages
-          : productUpdateImages // ignore: cast_nullable_to_non_nullable
               as List<ImageCard>,
       brochures: null == brochures
           ? _value._brochures
@@ -9938,10 +10493,8 @@ class _$InitialImpl implements _Initial {
       required this.businessDetails,
       required this.bankDetails,
       required final List<ImageCard> accreditationPickImages,
-      required final List<ImageCard> accreditationUpdatePickImages,
       required final List<Product> products,
       required final List<ImageCard> productImages,
-      required final List<ImageCard> productUpdateImages,
       required final List<Brochure> brochures,
       this.logo,
       this.logoCard,
@@ -9954,10 +10507,8 @@ class _$InitialImpl implements _Initial {
         _accreditions = accreditions,
         _branchOffices = branchOffices,
         _accreditationPickImages = accreditationPickImages,
-        _accreditationUpdatePickImages = accreditationUpdatePickImages,
         _products = products,
         _productImages = productImages,
-        _productUpdateImages = productUpdateImages,
         _brochures = brochures,
         _companiesList = companiesList;
 
@@ -10087,15 +10638,6 @@ class _$InitialImpl implements _Initial {
     return EqualUnmodifiableListView(_accreditationPickImages);
   }
 
-  final List<ImageCard> _accreditationUpdatePickImages;
-  @override
-  List<ImageCard> get accreditationUpdatePickImages {
-    if (_accreditationUpdatePickImages is EqualUnmodifiableListView)
-      return _accreditationUpdatePickImages;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_accreditationUpdatePickImages);
-  }
-
   final List<Product> _products;
   @override
   List<Product> get products {
@@ -10110,15 +10652,6 @@ class _$InitialImpl implements _Initial {
     if (_productImages is EqualUnmodifiableListView) return _productImages;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_productImages);
-  }
-
-  final List<ImageCard> _productUpdateImages;
-  @override
-  List<ImageCard> get productUpdateImages {
-    if (_productUpdateImages is EqualUnmodifiableListView)
-      return _productUpdateImages;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_productUpdateImages);
   }
 
   final List<Brochure> _brochures;
@@ -10150,7 +10683,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'BusinessDataState(isLoading: $isLoading, pickImageLoading: $pickImageLoading, pickImageError: $pickImageError, productUpdated: $productUpdated, productImageupdateError: $productImageupdateError, productImageupdated: $productImageupdated, productimageRemoveLoading: $productimageRemoveLoading, productimageRemoved: $productimageRemoved, productimageLoading: $productimageLoading, productUpdateLoading: $productUpdateLoading, accreditationUpdateLoading: $accreditationUpdateLoading, accreditationUpdated: $accreditationUpdated, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessLoading: $businessLoading, businessAdded: $businessAdded, logoLoading: $logoLoading, logoAdded: $logoAdded, logoPickImageError: $logoPickImageError, logoImageLoading: $logoImageLoading, bankingLoading: $bankingLoading, bankingAdded: $bankingAdded, socialMediaLoading: $socialMediaLoading, socialMediaAdded: $socialMediaAdded, socialMediaDeleteLoading: $socialMediaDeleteLoading, brochureLoading: $brochureLoading, brochureAdded: $brochureAdded, brochureDeleteLoading: $brochureDeleteLoading, productLoading: $productLoading, productAdded: $productAdded, productDeleteLoading: $productDeleteLoading, accreditionLoading: $accreditionLoading, accreditionAdded: $accreditionAdded, accreditionDeleteLoading: $accreditionDeleteLoading, branchLoading: $branchLoading, branchAdded: $branchAdded, branchDeleteLoading: $branchDeleteLoading, businessData: $businessData, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, businessSocialMedias: $businessSocialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, accreditationPickImages: $accreditationPickImages, accreditationUpdatePickImages: $accreditationUpdatePickImages, products: $products, productImages: $productImages, productUpdateImages: $productUpdateImages, brochures: $brochures, logo: $logo, logoCard: $logoCard, currentCard: $currentCard, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
+    return 'BusinessDataState(isLoading: $isLoading, pickImageLoading: $pickImageLoading, pickImageError: $pickImageError, productUpdated: $productUpdated, productImageupdateError: $productImageupdateError, productImageupdated: $productImageupdated, productimageRemoveLoading: $productimageRemoveLoading, productimageRemoved: $productimageRemoved, productimageLoading: $productimageLoading, productUpdateLoading: $productUpdateLoading, accreditationUpdateLoading: $accreditationUpdateLoading, accreditationUpdated: $accreditationUpdated, hasError: $hasError, loadCompanyData: $loadCompanyData, isBusiness: $isBusiness, businessLoading: $businessLoading, businessAdded: $businessAdded, logoLoading: $logoLoading, logoAdded: $logoAdded, logoPickImageError: $logoPickImageError, logoImageLoading: $logoImageLoading, bankingLoading: $bankingLoading, bankingAdded: $bankingAdded, socialMediaLoading: $socialMediaLoading, socialMediaAdded: $socialMediaAdded, socialMediaDeleteLoading: $socialMediaDeleteLoading, brochureLoading: $brochureLoading, brochureAdded: $brochureAdded, brochureDeleteLoading: $brochureDeleteLoading, productLoading: $productLoading, productAdded: $productAdded, productDeleteLoading: $productDeleteLoading, accreditionLoading: $accreditionLoading, accreditionAdded: $accreditionAdded, accreditionDeleteLoading: $accreditionDeleteLoading, branchLoading: $branchLoading, branchAdded: $branchAdded, branchDeleteLoading: $branchDeleteLoading, businessData: $businessData, bankDetailsCreateId: $bankDetailsCreateId, socialMedias: $socialMedias, businessSocialMedias: $businessSocialMedias, accreditions: $accreditions, branchOffices: $branchOffices, businessDetails: $businessDetails, bankDetails: $bankDetails, accreditationPickImages: $accreditationPickImages, products: $products, productImages: $productImages, brochures: $brochures, logo: $logo, logoCard: $logoCard, currentCard: $currentCard, gotCompanyData: $gotCompanyData, companiesList: $companiesList, message: $message)';
   }
 
   @override
@@ -10231,10 +10764,8 @@ class _$InitialImpl implements _Initial {
             (identical(other.businessDetails, businessDetails) || other.businessDetails == businessDetails) &&
             (identical(other.bankDetails, bankDetails) || other.bankDetails == bankDetails) &&
             const DeepCollectionEquality().equals(other._accreditationPickImages, _accreditationPickImages) &&
-            const DeepCollectionEquality().equals(other._accreditationUpdatePickImages, _accreditationUpdatePickImages) &&
             const DeepCollectionEquality().equals(other._products, _products) &&
             const DeepCollectionEquality().equals(other._productImages, _productImages) &&
-            const DeepCollectionEquality().equals(other._productUpdateImages, _productUpdateImages) &&
             const DeepCollectionEquality().equals(other._brochures, _brochures) &&
             (identical(other.logo, logo) || other.logo == logo) &&
             (identical(other.logoCard, logoCard) || other.logoCard == logoCard) &&
@@ -10294,10 +10825,8 @@ class _$InitialImpl implements _Initial {
         businessDetails,
         bankDetails,
         const DeepCollectionEquality().hash(_accreditationPickImages),
-        const DeepCollectionEquality().hash(_accreditationUpdatePickImages),
         const DeepCollectionEquality().hash(_products),
         const DeepCollectionEquality().hash(_productImages),
-        const DeepCollectionEquality().hash(_productUpdateImages),
         const DeepCollectionEquality().hash(_brochures),
         logo,
         logoCard,
@@ -10363,10 +10892,8 @@ abstract class _Initial implements BusinessDataState {
       required final BusinessDetails businessDetails,
       required final BankDetails bankDetails,
       required final List<ImageCard> accreditationPickImages,
-      required final List<ImageCard> accreditationUpdatePickImages,
       required final List<Product> products,
       required final List<ImageCard> productImages,
-      required final List<ImageCard> productUpdateImages,
       required final List<Brochure> brochures,
       final ImageModel? logo,
       final LogoCard? logoCard,
@@ -10470,13 +10997,9 @@ abstract class _Initial implements BusinessDataState {
   @override
   List<ImageCard> get accreditationPickImages;
   @override
-  List<ImageCard> get accreditationUpdatePickImages;
-  @override
   List<Product> get products;
   @override
   List<ImageCard> get productImages;
-  @override
-  List<ImageCard> get productUpdateImages;
   @override
   List<Brochure> get brochures;
   @override

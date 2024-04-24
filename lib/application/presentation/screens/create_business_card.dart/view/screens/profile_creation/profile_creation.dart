@@ -2,6 +2,7 @@ import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -72,12 +73,28 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                           bottom: 17,
                           right: 3,
                           child: InkWell(
-                            onTap: () => context
-                                .read<UserDataBloc>()
-                                .add(UserDataEvent.pickUserPhotos()),
-                            child: const CircleAvatar(
+                            onTap: () {
+                              if (state.userPhotos != null) {
+                                showCustomConfirmationDialogue(
+                                    context: context,
+                                    title: 'Remove profile image ?',
+                                    buttonText: 'Remove',
+                                    onTap: () {
+                                      context
+                                          .read<UserDataBloc>()
+                                          .add(UserDataEvent.removeUserPhoto());
+                                    });
+                              } else {
+                                context
+                                    .read<UserDataBloc>()
+                                    .add(UserDataEvent.pickUserPhotos());
+                              }
+                            },
+                            child: CircleAvatar(
                               radius: 13,
-                              child: Icon(Icons.add),
+                              child: Icon(state.userPhotos != null
+                                  ? Icons.close
+                                  : Icons.add),
                             ),
                           ),
                         ),

@@ -4,6 +4,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -92,6 +93,8 @@ class IndividuelSignIn extends StatelessWidget {
                   text: 'Mail',
                   controller: emailIdController,
                   inputType: TextInputType.emailAddress,
+                  onChanaged: (value) =>
+                      formatWebsiteUrl(value, emailIdController),
                 ),
               ),
               // TTextFormField(
@@ -151,7 +154,7 @@ class IndividuelSignIn extends StatelessWidget {
                   );
                 },
               ),
-              adjustHieght(khieght * .04),
+              adjustHieght(70),
             ],
           ),
         ),

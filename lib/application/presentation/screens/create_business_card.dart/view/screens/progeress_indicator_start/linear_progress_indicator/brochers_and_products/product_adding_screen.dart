@@ -4,7 +4,6 @@ import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
-import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
@@ -13,7 +12,6 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
-import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
@@ -65,9 +63,13 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                           itemBuilder: (context, index) {
                             if (index == state.productImages.length) {
                               return state.pickImageLoading
-                                  ? const Center(
-                                      child: CircularProgressIndicator(
-                                        color: neonShade,
+                                  ? SizedBox(
+                                      width: 300.dm,
+                                      height: 200.dm,
+                                      child: const Center(
+                                        child: CircularProgressIndicator(
+                                          color: neonShade,
+                                        ),
                                       ),
                                     )
                                   : ColoredBox(
@@ -75,21 +77,20 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                       child: InkWell(
                                         onTap: () async {
                                           cameraAndGalleryPickImage(
+                                            tittle: 'Choose image from ?',
                                             context: context,
                                             onPressCam: () {
                                               context
                                                   .read<BusinessDataBloc>()
                                                   .add(const BusinessDataEvent
-                                                      .pickImage(
-                                                      isFront: false,
+                                                      .pickProductImage(
                                                       isCam: true));
                                             },
                                             onPressGallery: () {
                                               context
                                                   .read<BusinessDataBloc>()
                                                   .add(const BusinessDataEvent
-                                                      .pickImage(
-                                                      isFront: false,
+                                                      .pickProductImage(
                                                       isCam: false));
                                             },
                                           );
@@ -127,14 +128,16 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image.memory(
                                           base64.decode(state
-                                              .productImages[index].image
-                                              .substring(22)),
+                                                  .productImages[index].image
+                                                  .startsWith('data')
+                                              ? state.productImages[index].image
+                                                  .substring(22)
+                                              : state
+                                                  .productImages[index].image),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
-                                    //     MemoryImage(base64
-                                    // .decode(data.image![0].image.substring(22)))
                                     Positioned(
                                       bottom: 10,
                                       right: 10,
@@ -148,7 +151,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                                 context: context,
                                                 buttonText: 'Delete',
                                                 title:
-                                                    'You want to remove your selfie',
+                                                    'You want to delete product image',
                                                 onTap: () {
                                                   // context
                                                   //     .read<BusinessDataBloc>()

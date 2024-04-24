@@ -57,7 +57,7 @@ class PersonlDetails extends StatelessWidget {
                         // personal name field
                         AutocompleteTextField(
                           validate: Validate.notNull,
-                          label: 'Name *',
+                          label: 'Name',
                           controller:
                               context.read<UserDataBloc>().nameController,
                           inputType: TextInputType.text,
@@ -69,7 +69,7 @@ class PersonlDetails extends StatelessWidget {
                         AutocompleteTextField(
                           validate: Validate.phone,
                           maxLength: 10,
-                          label: 'Phone number *',
+                          label: 'Personal Phone Number',
                           controller:
                               context.read<UserDataBloc>().phoneController,
                           inputType: TextInputType.phone,
@@ -79,7 +79,7 @@ class PersonlDetails extends StatelessWidget {
                         // personal email
                         AutocompleteTextField(
                           validate: Validate.email,
-                          label: 'Email *',
+                          label: 'Personal Email',
                           controller:
                               context.read<UserDataBloc>().emailController,
                           inputType: TextInputType.emailAddress,
@@ -92,7 +92,7 @@ class PersonlDetails extends StatelessWidget {
                                 FocusManager.instance.primaryFocus?.unfocus(),
                             enabled: false,
                             validate: Validate.notNull,
-                            label: 'Business Category *',
+                            label: 'Business Category',
                             controller: context
                                 .read<UserDataBloc>()
                                 .businessCategoryController,
@@ -103,7 +103,7 @@ class PersonlDetails extends StatelessWidget {
                         AutocompleteTextField(
                           showDropdownOnTap: true,
                           validate: Validate.notNull,
-                          label: 'Designation *',
+                          label: 'Designation',
                           textCapitalization: TextCapitalization.words,
                           controller: context
                               .read<UserDataBloc>()
@@ -111,7 +111,6 @@ class PersonlDetails extends StatelessWidget {
                           autocompleteItems:
                               state.scannedImageDatasModel?.names ?? <String>[],
                         ),
-                        adjustHieght(khieght * .05),
                       ],
                     ),
                   );
@@ -273,7 +272,7 @@ class PersonlDetails extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Social Media Handles',
+                            'Personal Social Media Handles',
                             style: custumText(
                               fontSize: 16,
                               colr: klightgrey,

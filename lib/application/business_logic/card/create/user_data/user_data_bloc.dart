@@ -332,6 +332,15 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> pickImageScanning(PickImageScanning event, emit) async {
+    if (state.scannedImagesCardCreation.length >= 2) {
+      emit(state.copyWith(
+          accoladeAdded: false,
+          datesToRememberAdded: false,
+          socialMediaAdded: false,
+          scannedImagesCardCreation: [],
+          cardAdded: false,
+          message: null));
+    }
     final image = await ImagePickerClass.getImage(camera: event.camera);
     if (image != null) {
       emit(state.copyWith(

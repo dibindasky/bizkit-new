@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
@@ -55,6 +56,7 @@ class BusinessSignIn extends StatelessWidget {
               ),
               TTextFormField(
                 onChanaged: (value) {
+                  formatWebsiteUrl(value, companyWebsiteController);
                   if (value.length < 3) {
                     companyMailController.text = '';
                   } else {
@@ -69,8 +71,8 @@ class BusinessSignIn extends StatelessWidget {
                 inputType: TextInputType.url,
               ),
               TTextFormField(
-                text: 'Company Mobile Number',
-                maxlegth: 10,
+                text: 'Company Contact Number',
+                // maxlegth: 10,
                 controller: companyPhoneController,
                 validate: Validate.phone,
                 inputType: TextInputType.phone,
@@ -178,7 +180,7 @@ class BusinessSignIn extends StatelessWidget {
                                 }
                               },
                             ),
-                      adjustHieght(30),
+                      adjustHieght(70),
                     ],
                   );
                 },

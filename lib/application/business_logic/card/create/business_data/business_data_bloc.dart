@@ -80,10 +80,11 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<AddBrochures>(addBrochure);
     on<RemoveBrochure>(removeBrochure);
     on<AddProduct>(addProduct);
-    on<PickImage>(pickImage);
+    on<PickProductImage>(pickProductImage);
     on<ProductUpdatePickImage>(productUpdatePickImage);
     on<ProductUpdateImages>(productUpdateImages);
     on<RemoveProductImages>(removeProductImages);
+    on<RemoveProductImagesFromList>(removeProductImagesFromList);
     on<RemoveProduct>(removeProduct);
     on<UpdateProduct>(updateProduct);
     on<AddBranch>(addBranch);
@@ -132,14 +133,14 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     }
   }
 
-  FutureOr<void> pickImage(PickImage event, emit) async {
+  FutureOr<void> pickProductImage(PickProductImage event, emit) async {
     emit(state.copyWith(
       pickImageLoading: true,
       pickImageError: false,
       productUpdated: false,
     ));
     final pickImage = await ImagePickerClass.getImage(
-        camera: event.isCam, cameraDeviceFront: event.isFront);
+        camera: event.isCam, cameraDeviceFront: false);
     ImageCard imageCard = ImageCard();
 
     if (pickImage != null) {
@@ -174,10 +175,10 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       emit(
         state.copyWith(
           pickImageError: false,
-          productUpdateImages: [
-            ...state.productUpdateImages,
-            imageCard,
-          ],
+          // productUpdateImages: [
+          //   ...state.productUpdateImages,
+          //   imageCard,
+          // ],
           pickImageLoading: false,
         ),
       );
@@ -237,6 +238,16 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         //productImages:
       ));
     });
+  }
+
+  FutureOr<void> removeProductImagesFromList(RemoveProductImagesFromList event, emit) async {
+    List<ImageCard> images = List.from(state.productImages);
+
+    emit(state.copyWith(
+      pickImageError: false,
+      productDeleteLoading: true,
+      hasError: false,
+    ));
   }
 
   FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {

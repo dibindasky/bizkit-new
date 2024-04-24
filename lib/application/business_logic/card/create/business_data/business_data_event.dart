@@ -38,10 +38,12 @@ class BusinessDataEvent with _$BusinessDataEvent {
       AddProduct;
   const factory BusinessDataEvent.removeProductImages({required int id}) =
       RemoveProductImages;
+  const factory BusinessDataEvent.removeProductImagesFromList({required int id}) =
+      RemoveProductImagesFromList;
   const factory BusinessDataEvent.productUpdateImages(
       {required ProductImageAdd productImageAdd}) = ProductUpdateImages;
-  const factory BusinessDataEvent.pickImage(
-      {required bool isCam, required bool isFront}) = PickImage;
+  const factory BusinessDataEvent.pickProductImage(
+      {required bool isCam}) = PickProductImage;
   const factory BusinessDataEvent.removeProduct({required int id}) =
       RemoveProduct;
   const factory BusinessDataEvent.updateProduct({

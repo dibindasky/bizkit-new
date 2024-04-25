@@ -306,7 +306,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Accredition Details',
+                                'Accreditation Details',
                                 style:
                                     custumText(colr: klightgrey, fontSize: 17),
                               ),

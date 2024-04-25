@@ -42,7 +42,7 @@ class BusinessAndBankingDetailsAddingTiles extends StatelessWidget {
                         const LinearProgressIndicatorStarting(index: 3),
                   ));
             },
-            title: 'Products & Brochers',
+            title: 'Products & Brochure',
             subTitle: ''),
         DetailCustomTile(
             onTap: () {

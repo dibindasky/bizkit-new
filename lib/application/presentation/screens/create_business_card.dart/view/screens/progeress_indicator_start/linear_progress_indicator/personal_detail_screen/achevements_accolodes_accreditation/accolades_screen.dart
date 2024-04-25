@@ -38,7 +38,7 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
               ? 'Achivement'
               : widget.accolade!
                   ? 'Accolades'
-                  : 'Accredition',
+                  : 'Accreditation',
         ),
       ),
       body: Padding(

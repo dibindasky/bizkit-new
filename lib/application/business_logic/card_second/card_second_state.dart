@@ -28,8 +28,8 @@ class CardSecondState with _$CardSecondState {
     required List<ImageModel> selfieImageModel,
     required CardSecondCreateRequestModel cardSecondCreateRequestModel,
     CardSecondResponseModel? cardSecondResponseModel,
-    required List<SecondCard> secondCards,
-    List<SecondCard>? deleteSecondCards,
+    required List<SecondCardNew> secondCards,
+    List<SecondCardNew>? deleteSecondCards,
     GetSecondCardModel? getSecondCardModel,
     SuccessResponseModel? successResponseModel,
   }) = _Initial;

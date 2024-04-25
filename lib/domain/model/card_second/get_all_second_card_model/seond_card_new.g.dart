@@ -1,20 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'card_second_response_model.dart';
+part of 'seond_card_new.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CardSecondResponseModel _$CardSecondResponseModelFromJson(
-        Map<String, dynamic> json) =>
-    CardSecondResponseModel(
+SecondCardNew _$SecondCardNewFromJson(Map<String, dynamic> json) =>
+    SecondCardNew(
       id: json['id'] as int?,
-      image: json['image'] as String?,
       selfie: (json['selfie'] as List<dynamic>?)
           ?.map((e) => Selfie.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['name'] as String?,
+      image: json['image'] as String?,
       whereWeMet: json['where_we_met'] as String?,
       location: json['location'] as String?,
       occupation: json['occupation'] as String?,
@@ -31,13 +30,12 @@ CardSecondResponseModel _$CardSecondResponseModelFromJson(
       userId: json['user_id'] as int?,
     );
 
-Map<String, dynamic> _$CardSecondResponseModelToJson(
-        CardSecondResponseModel instance) =>
+Map<String, dynamic> _$SecondCardNewToJson(SecondCardNew instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'image': instance.image,
       'selfie': instance.selfie,
       'name': instance.name,
+      'image': instance.image,
       'where_we_met': instance.whereWeMet,
       'location': instance.location,
       'occupation': instance.occupation,

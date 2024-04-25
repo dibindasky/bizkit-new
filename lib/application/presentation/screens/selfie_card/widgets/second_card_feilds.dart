@@ -13,6 +13,7 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardSecondScannedDatas extends StatelessWidget {
   CardSecondScannedDatas({super.key});
@@ -219,12 +220,15 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
 
   @override
   void initState() {
-    context.read<CardSecondBloc>().add(CardSecondEvent.locationGeting());
+    context.read<CardSecondBloc>().add(const CardSecondEvent.locationGeting());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {},
+    );
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScope = FocusScope.of(context);
@@ -301,76 +305,102 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                           : SizedBox(
                               height: 250,
                               child: ListView.separated(
-                                // shrinkWrap: true,
                                 separatorBuilder: (context, index) {
                                   return adjustWidth(10);
                                 },
                                 scrollDirection: Axis.horizontal,
                                 itemCount: state.selfieImageModel.length,
                                 itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        fadePageRoute(ScreenImagePreview(
-                                            image: state.selfieImageModel[index]
-                                                .base64)),
-                                      );
-                                    },
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          height: 250,
-                                          width: kwidth,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: FileImage(state
-                                                  .selfieImageModel[index]
-                                                  .fileImage),
-                                              fit: BoxFit.cover,
+                                  if (index == 0) {
+                                    return state.pickImageLoading
+                                        ? SizedBox(
+                                            width: 300.dm,
+                                            height: 200.dm,
+                                            child: const Center(
+                                              child: CircularProgressIndicator(
+                                                color: neonShade,
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 70,
-                                          right: 10,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            child: ColoredBox(
-                                              color: neonShade,
-                                              child: IconButton(
-                                                onPressed: () {
-                                                  showCustomConfirmationDialogue(
+                                          )
+                                        : ColoredBox(
+                                            color: neonShade.withOpacity(0.1),
+                                            child: InkWell(
+                                              onTap: () async {
+                                                cameraAndGalleryPickImage(
+                                                    tittle:
+                                                        'Choose image from ?',
                                                     context: context,
-                                                    buttonText: 'Delete',
-                                                    title:
-                                                        'You want to remove your selfie',
-                                                    onTap: () {
+                                                    onPressCam: () {
                                                       context
                                                           .read<
                                                               CardSecondBloc>()
-                                                          .add(CardSecondEvent
-                                                              .selfieimageClear(
-                                                                  index:
-                                                                      index));
+                                                          .add(
+                                                            const CardSecondEvent
+                                                                .selfieImage(
+                                                              isCam: false,
+                                                              cameraDeviceFront:
+                                                                  false,
+                                                            ),
+                                                          );
                                                     },
-                                                  );
-                                                },
-                                                icon: const Icon(
-                                                  size: 30,
-                                                  color: kwhite,
-                                                  Icons.delete,
+                                                    onPressGallery: () {
+                                                      context
+                                                          .read<
+                                                              CardSecondBloc>()
+                                                          .add(
+                                                            const CardSecondEvent
+                                                                .selfieImage(
+                                                              isCam: true,
+                                                              cameraDeviceFront:
+                                                                  true,
+                                                            ),
+                                                          );
+                                                    });
+                                              },
+                                              child: SizedBox(
+                                                width: 300.dm,
+                                                height: 200.dm,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: const ColoredBox(
+                                                    color: textFieldFillColr,
+                                                    child: Icon(
+                                                      Icons.add_a_photo_rounded,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
+                                          );
+                                  } else {
+                                    final selfiImages = state
+                                        .selfieImageModel.reversed
+                                        .toList()[index - 1];
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          fadePageRoute(ScreenImagePreview(
+                                              image: selfiImages.base64)),
+                                        );
+                                      },
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            height: 250,
+                                            width: kwidth,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: FileImage(
+                                                    selfiImages.fileImage),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        if (state.selfieImageModel.length ==
-                                            state.selfieImageModel.length)
                                           Positioned(
-                                            right: 10,
                                             bottom: 10,
+                                            right: 10,
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(15),
@@ -378,42 +408,35 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                                 color: neonShade,
                                                 child: IconButton(
                                                   onPressed: () {
-                                                    cameraAndGalleryPickImage(
+                                                    showCustomConfirmationDialogue(
                                                       context: context,
-                                                      onPressCam: () {
+                                                      buttonText: 'Delete',
+                                                      title:
+                                                          'You want to remove your selfie',
+                                                      onTap: () {
                                                         context
                                                             .read<
                                                                 CardSecondBloc>()
-                                                            .add(const CardSecondEvent
-                                                                .selfieImage(
-                                                                cameraDeviceFront:
-                                                                    true,
-                                                                isCam: true));
-                                                      },
-                                                      onPressGallery: () {
-                                                        context
-                                                            .read<
-                                                                CardSecondBloc>()
-                                                            .add(const CardSecondEvent
-                                                                .selfieImage(
-                                                                cameraDeviceFront:
-                                                                    false,
-                                                                isCam: false));
+                                                            .add(CardSecondEvent
+                                                                .selfieimageClear(
+                                                                    index:
+                                                                        index));
                                                       },
                                                     );
                                                   },
                                                   icon: const Icon(
                                                     size: 30,
                                                     color: kwhite,
-                                                    Icons.add,
+                                                    Icons.delete,
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                      ],
-                                    ),
-                                  );
+                                        ],
+                                      ),
+                                    );
+                                  }
                                 },
                               ),
                             ),
@@ -434,14 +457,18 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                 .occationController,
                             inputType: TextInputType.name,
                           ),
-                          TTextFormField(
-                            textCapitalization: TextCapitalization.words,
-                            // validate: Validate.notNull,
-                            text: 'Location',
-                            controller: context
-                                .read<CardSecondBloc>()
-                                .locatioNController,
-                            inputType: TextInputType.name,
+                          BlocBuilder<CardSecondBloc, CardSecondState>(
+                            builder: (context, state) {
+                              return TTextFormField(
+                                textCapitalization: TextCapitalization.words,
+                                // validate: Validate.notNull,
+                                text: 'Location',
+                                controller: context
+                                    .read<CardSecondBloc>()
+                                    .locatioNController,
+                                inputType: TextInputType.name,
+                              );
+                            },
                           ),
                           TTextFormField(
                             textCapitalization: TextCapitalization.words,

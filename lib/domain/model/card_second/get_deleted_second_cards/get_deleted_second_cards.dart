@@ -1,4 +1,4 @@
-import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
+import 'package:bizkit/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_deleted_second_cards.g.dart';
@@ -9,7 +9,7 @@ class GetDeletedSecondCards {
   dynamic next;
   dynamic previous;
   @JsonKey(name: 'results')
-  List<SecondCard>? secondCards;
+  List<SecondCardNew>? secondCards;
 
   GetDeletedSecondCards({
     this.count,

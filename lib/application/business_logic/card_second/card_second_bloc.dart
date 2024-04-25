@@ -5,6 +5,7 @@ import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_mo
 import 'package:bizkit/domain/model/card_second/card_second_create_request_model/card_second_create_request_model.dart';
 import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
+import 'package:bizkit/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
 import 'package:bizkit/domain/model/card_second/selfie/selfie_adding_request_model/selfie.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
@@ -82,7 +83,12 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     location.fold(
       (l) =>
           emit(state.copyWith(locationAdress: null, locationfetchError: true)),
-      (r) => emit(state.copyWith(locationAdress: r, locationfetchError: false)),
+      (r) {
+        locatioNController.text = r;
+        emit(
+          state.copyWith(locationAdress: r, locationfetchError: false),
+        );
+      },
     );
   }
 
@@ -351,6 +357,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
 
   FutureOr<void> processImageScanning(ProcessImageScanning event, emit) async {
     emit(state.copyWith(
+      scannedImageDatasModel: null,
       isLoading: true,
       imagePickError: false,
       hasError: false,

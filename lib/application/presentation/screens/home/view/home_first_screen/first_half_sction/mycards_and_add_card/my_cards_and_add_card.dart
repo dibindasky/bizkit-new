@@ -112,18 +112,21 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
                                               Text(
-                                                  data.name != null
-                                                      ? data.name!.length > 20
-                                                          ? '${data.name!.substring(0, 18)}..'
-                                                          : data.name!
-                                                      : '',
-                                                  style: textHeadStyle1
-                                                      .copyWith(shadows: [
+                                                data.name != null
+                                                    ? data.name!.length > 20
+                                                        ? '${data.name!.substring(0, 18)}..'
+                                                        : data.name!
+                                                    : '',
+                                                style: textHeadStyle1.copyWith(
+                                                  shadows: [
                                                     const Shadow(
-                                                        color: kblack,
-                                                        offset: Offset(1, 2),
-                                                        blurRadius: 5)
-                                                  ])),
+                                                      color: kblack,
+                                                      offset: Offset(1, 2),
+                                                      blurRadius: 5,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                               Text(
                                                 data.designation != null
                                                     ? data.designation!.length >
@@ -132,13 +135,14 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                                                         : data.designation!
                                                     : '',
                                                 style: TextStyle(
-                                                    fontSize: kwidth * .037,
-                                                    shadows: const [
-                                                      Shadow(
-                                                          color: kblack,
-                                                          offset: Offset(0, 2),
-                                                          blurRadius: 5)
-                                                    ]),
+                                                  fontSize: kwidth * .037,
+                                                  shadows: const [
+                                                    Shadow(
+                                                        color: kblack,
+                                                        offset: Offset(0, 2),
+                                                        blurRadius: 5)
+                                                  ],
+                                                ),
                                               ),
                                               adjustHieght(10),
                                               Row(

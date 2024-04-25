@@ -11,7 +11,9 @@ class CardSecondEvent with _$CardSecondEvent {
       RemoveImageScanning;
   const factory CardSecondEvent.selfieImage(
       {required bool cameraDeviceFront, required bool isCam}) = SelfieImage;
-  const factory CardSecondEvent.selfieimageClear() = SelfieimageClear;
+  const factory CardSecondEvent.selfieimageClear({required int index}) =
+      SelfieimageClear;
+
   const factory CardSecondEvent.autoFillTExtfieldItems({
     required String scannedImage,
     String? email,
@@ -22,7 +24,7 @@ class CardSecondEvent with _$CardSecondEvent {
     String? designation,
   }) = AutoFillTExtfieldItems;
   const factory CardSecondEvent.meetingRelatedInfo({
-    String? selfieImage,
+    List<ImageModel>? selfieImage,
     String? occation,
     String? location,
     String? occupation,
@@ -54,4 +56,5 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.clear() = Clear;
   const factory CardSecondEvent.cardFeildClearing() = CardFeildClearing;
   const factory CardSecondEvent.imageClear() = ImageClear;
+  const factory CardSecondEvent.locationGeting() = LocationGeting;
 }

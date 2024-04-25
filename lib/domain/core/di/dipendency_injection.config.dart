@@ -23,18 +23,18 @@ import 'package:bizkit/application/business_logic/card/create/user_data/user_dat
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart'
     as _i42;
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart'
-    as _i43;
-import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart'
     as _i44;
-import 'package:bizkit/application/business_logic/notification/notification_bloc.dart'
+import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart'
     as _i45;
-import 'package:bizkit/application/business_logic/profile/profile_bloc.dart'
+import 'package:bizkit/application/business_logic/notification/notification_bloc.dart'
     as _i46;
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart'
+    as _i47;
 import 'package:bizkit/application/business_logic/promt/promt_bloc.dart'
     as _i13;
-import 'package:bizkit/application/business_logic/qr/qr_bloc.dart' as _i47;
+import 'package:bizkit/application/business_logic/qr/qr_bloc.dart' as _i48;
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart'
-    as _i48;
+    as _i49;
 import 'package:bizkit/data/features/cards_scanning/card_scanning_data_fetching.dart'
     as _i6;
 import 'package:bizkit/data/features/contacts/contacts_fetch.dart' as _i8;
@@ -57,11 +57,12 @@ import 'package:bizkit/data/sqflite/contacts/contact_local_service.dart'
     as _i28;
 import 'package:bizkit/data/sqflite/sqflite_local_service.dart' as _i11;
 import 'package:bizkit/data/sqflite/users/user_local_service.dart' as _i16;
-import 'package:bizkit/domain/core/dio_module/dio_module.dart' as _i49;
+import 'package:bizkit/domain/core/dio_module/dio_module.dart' as _i50;
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart'
     as _i5;
 import 'package:bizkit/domain/repository/feature/contact_feature_repo.dart'
     as _i7;
+import 'package:bizkit/domain/repository/feature/location.dart' as _i43;
 import 'package:bizkit/domain/repository/service/auth_repo.dart' as _i3;
 import 'package:bizkit/domain/repository/service/card_patch_repo.dart' as _i19;
 import 'package:bizkit/domain/repository/service/card_repo.dart' as _i21;
@@ -149,23 +150,24 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i42.CardSecondBloc>(() => _i42.CardSecondBloc(
           gh<_i23.CardSecondRepo>(),
           gh<_i5.CardScanningRepo>(),
+          gh<_i43.LocationRepo>(),
         ));
-    gh.factory<_i43.ConnectionRequestBloc>(
-        () => _i43.ConnectionRequestBloc(gh<_i25.ConnectionRequestRepo>()));
-    gh.factory<_i44.ContactsBloc>(() => _i44.ContactsBloc(
+    gh.factory<_i44.ConnectionRequestBloc>(
+        () => _i44.ConnectionRequestBloc(gh<_i25.ConnectionRequestRepo>()));
+    gh.factory<_i45.ContactsBloc>(() => _i45.ContactsBloc(
           gh<_i7.ContactFetchServiceRepo>(),
           gh<_i29.ContactsRepo>(),
           gh<_i27.ContactLocalRepo>(),
         ));
-    gh.factory<_i45.NotificationBloc>(
-        () => _i45.NotificationBloc(gh<_i31.NotificationRepo>()));
-    gh.factory<_i46.ProfileBloc>(
-        () => _i46.ProfileBloc(gh<_i33.ProfileRepo>()));
-    gh.factory<_i47.QrBloc>(() => _i47.QrBloc(gh<_i35.QrServiceRepo>()));
-    gh.factory<_i48.ReminderBloc>(
-        () => _i48.ReminderBloc(gh<_i37.ReminderRepo>()));
+    gh.factory<_i46.NotificationBloc>(
+        () => _i46.NotificationBloc(gh<_i31.NotificationRepo>()));
+    gh.factory<_i47.ProfileBloc>(
+        () => _i47.ProfileBloc(gh<_i33.ProfileRepo>()));
+    gh.factory<_i48.QrBloc>(() => _i48.QrBloc(gh<_i35.QrServiceRepo>()));
+    gh.factory<_i49.ReminderBloc>(
+        () => _i49.ReminderBloc(gh<_i37.ReminderRepo>()));
     return this;
   }
 }
 
-class _$DioModule extends _i49.DioModule {}
+class _$DioModule extends _i50.DioModule {}

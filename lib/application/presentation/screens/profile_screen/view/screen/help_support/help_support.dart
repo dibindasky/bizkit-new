@@ -136,14 +136,31 @@ class _HelpSupportState extends State<HelpSupport> {
                         return const LoadingAnimation();
                       }
                       return ExpansionTile(
-                        childrenPadding:
-                            const EdgeInsets.symmetric(vertical: 10),
+                        tilePadding: const EdgeInsets.all(16),
                         title: Text(
                           question.question ?? '',
-                          style: const TextStyle(color: kwhite),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
+                        backgroundColor: Colors.blueGrey,
+                        collapsedBackgroundColor: Colors.blueGrey.shade100,
+                        leading:
+                            const Icon(Icons.question_answer, color: kwhite),
+                        trailing:
+                            const Icon(Icons.arrow_drop_down, color: kwhite),
+                        childrenPadding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 16),
                         children: [
-                          Text(question.answer ?? ''),
+                          Text(
+                            question.answer ?? '',
+                            style: const TextStyle(
+                              color: kwhite,
+                              fontSize: 14,
+                            ),
+                          ),
                         ],
                       );
                     },

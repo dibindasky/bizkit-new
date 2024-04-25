@@ -10,7 +10,9 @@ GetSecondCardModel _$GetSecondCardModelFromJson(Map<String, dynamic> json) =>
     GetSecondCardModel(
       id: json['id'] as int?,
       image: json['image'] as String?,
-      selfie: json['selfie'] as String?,
+      selfie: (json['selfie'] as List<dynamic>?)
+          ?.map((e) => Selfie.fromJson(e as Map<String, dynamic>))
+          .toList(),
       name: json['name'] as String?,
       whereWeMet: json['where_we_met'] as String?,
       location: json['location'] as String?,

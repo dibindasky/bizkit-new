@@ -9,6 +9,7 @@ import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/gate_
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
 import 'package:bizkit/domain/model/card_second/get_deleted_second_cards/get_deleted_second_cards.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
+import 'package:bizkit/domain/model/card_second/selfie/selfie_adding_request_model/selfie_adding_request_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/repository/service/card_second.dart';
@@ -27,11 +28,13 @@ class CardSecondService implements CardSecondRepo {
       {required CardSecondCreateRequestModel
           cardSecondCreateRequestModel}) async {
     try {
-      //log('cardSecondCreation  ${cardSecondCreateRequestModel.toJson()}');
+      log('cardSecondCreation  ${cardSecondCreateRequestModel.name}');
+      log('cardSecondCreation  ${cardSecondCreateRequestModel.selfie}');
       final responce = await _apiService.post(
         ApiEndPoints.createSecondCard,
         data: cardSecondCreateRequestModel.toJson(),
       );
+      log('addeded ${responce.data}');
       return Right(CardSecondResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('cardSecondCreation dio error $e');
@@ -49,7 +52,7 @@ class CardSecondService implements CardSecondRepo {
     try {
       final responce = await _apiService
           .get(ApiEndPoints.getSecondCard.replaceAll('{id}', id.toString()));
-      //log('getCardSecond data ${responce.data}');
+      log('getCardSecond data ${responce.data}');
       return Right(GetSecondCardModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getCardSecond dio error $e');
@@ -92,6 +95,7 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.getAllCardSecond,
         queryParameters: pageQuery.toJson(),
       );
+      log('getAllCardsSecond exception error');
       return Right(GateAllCardSecondModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getAllCardsSecond dio error $e');
@@ -180,6 +184,45 @@ class CardSecondService implements CardSecondRepo {
     } catch (e) {
       log('restoreDeleteSecondCardEvent exception error');
       return Left(Failure(message: ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> addSelfieImage({
+    required SelfieAddingRequestModel selfieAddingRequestModel,
+  }) async {
+    try {
+      await _apiService.post(
+        ApiEndPoints.selfieImageAdding,
+        data: selfieAddingRequestModel.toJson(),
+      );
+      log('addSelfieImage done');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('addSelfieImage DioException error $e');
+      return Left(Failure());
+    } catch (e) {
+      log('addSelfieImage catch error $e');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> removeSelfieImage({
+    required int id,
+  }) async {
+    try {
+      await _apiService.delete(
+        ApiEndPoints.selfieImageDeletion.replaceFirst('{id}', id.toString()),
+      );
+      log('removeSelfieImage done');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('removeSelfieImage DioException error $e');
+      return Left(Failure());
+    } catch (e) {
+      log('removeSelfieImage catch error $e');
+      return Left(Failure());
     }
   }
 }

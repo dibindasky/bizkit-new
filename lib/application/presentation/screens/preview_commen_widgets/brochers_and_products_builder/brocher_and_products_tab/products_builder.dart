@@ -324,12 +324,6 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                     );
                   },
                 ),
-                // product.image != null
-                //     ? Image.memory(base64.decode(
-                //         product.image![0].image!.startsWith('data')
-                //             ? product.image![0].image!.substring(22)
-                //             : product.image![0].image!))
-                //     : Image.asset(emptyNodata3),
                 adjustHieght(30),
                 !widget.fromUpdate
                     ? Padding(

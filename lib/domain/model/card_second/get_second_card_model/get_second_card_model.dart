@@ -1,3 +1,4 @@
+import 'package:bizkit/domain/model/card_second/get_second_card_model/selfie.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_second_card_model.g.dart';
@@ -6,7 +7,7 @@ part 'get_second_card_model.g.dart';
 class GetSecondCardModel {
   int? id;
   String? image;
-  String? selfie;
+  List<Selfie>? selfie;
   String? name;
   @JsonKey(name: 'where_we_met')
   String? whereWeMet;

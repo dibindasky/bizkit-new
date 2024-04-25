@@ -27,9 +27,6 @@ class ProductBuilder extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // context.read<BusinessDataBloc>().add(
-                      //     BusinessDataEvent.productUpdateImages(
-                      //         image: state.products[index].image!));
                       Navigator.push(
                         context,
                         fadePageRoute(ProductViewDetail(

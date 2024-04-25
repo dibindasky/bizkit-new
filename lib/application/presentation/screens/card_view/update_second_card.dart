@@ -12,6 +12,7 @@ import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
+import 'package:bizkit/domain/model/card_second/selfie/selfie_image_update_responce_model/selfie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,14 +25,16 @@ class SecondCardUpdation extends StatefulWidget {
 }
 
 class _SecondCardUpdationState extends State<SecondCardUpdation> {
-  String? base64imageSelfie;
+  List<String>? base64imageSelfie = [];
   String? base64imagecard;
+
   @override
   void initState() {
     if (widget.secondCard.selfie != null) {
-      base64imageSelfie = widget.secondCard.selfie ?? "";
-      base64imageSelfie = base64imageSelfie!
-          .replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
+      base64imageSelfie =
+          widget.secondCard.selfie?.map((e) => e.selfie!).toList();
+      base64imageSelfie = base64imageSelfie!;
+      // .replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
     }
     if (widget.secondCard.image != null) {
       base64imagecard = widget.secondCard.image ?? "";
@@ -256,101 +259,129 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             ),
                           ),
                         )
-                      : state.selfieImageModel != null
-                          ? Stack(
-                              children: [
-                                InkWell(
-                                  onTap: () => Navigator.of(context)
-                                      .push(fadePageRoute(ScreenImagePreview(
-                                    image: state.selfieImageModel!.base64,
-                                  ))),
-                                  child: SizedBox(
-                                    height: kwidth * 0.60,
-                                    width: double.infinity,
-                                    child: Image.file(
-                                      state.selfieImageModel!.fileImage,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 70,
-                                  right: 10,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: ColoredBox(
-                                      color: neonShade,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          showCustomConfirmationDialogue(
-                                            context: context,
-                                            buttonText: 'Delete',
-                                            title:
-                                                'You want to remove your selfie',
-                                            onTap: () {
-                                              context
-                                                  .read<CardSecondBloc>()
-                                                  .add(const CardSecondEvent
-                                                      .selfieimageClear());
-                                            },
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          size: 30,
-                                          color: kwhite,
-                                          Icons.delete,
+                      : state.selfieImageModel.isEmpty
+                          ? ListView.separated(
+                              separatorBuilder: (context, index) {
+                                return adjustWidth(10);
+                              },
+                              scrollDirection: Axis.horizontal,
+                              itemCount:
+                                  state.scannedImagesSecondCardCreation.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        fadePageRoute(ScreenImagePreview(
+                                          image: state
+                                              .scannedImagesSecondCardCreation[
+                                                  index]
+                                              .base64,
+                                        )),
+                                      );
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        InkWell(
+                                          onTap: () => Navigator.of(context)
+                                              .push(fadePageRoute(
+                                                  ScreenImagePreview(
+                                            image: state
+                                                .selfieImageModel[index].base64,
+                                          ))),
+                                          child: SizedBox(
+                                            height: kwidth * 0.60,
+                                            width: double.infinity,
+                                            child: Image.file(
+                                              state.selfieImageModel[index]
+                                                  .fileImage,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 10,
-                                  bottom: 10,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: ColoredBox(
-                                      color: neonShade,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          context.read<CardSecondBloc>().add(
-                                                  const CardSecondEvent
-                                                      .selfieImage(
-                                                isCam: true,
-                                                cameraDeviceFront: true,
-                                              ));
-                                        },
-                                        icon: const Icon(
-                                          size: 30,
-                                          color: kwhite,
-                                          Icons.camera,
+                                        Positioned(
+                                          bottom: 70,
+                                          right: 10,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            child: ColoredBox(
+                                              color: neonShade,
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  showCustomConfirmationDialogue(
+                                                    context: context,
+                                                    buttonText: 'Delete',
+                                                    title:
+                                                        'You want to remove your selfie',
+                                                    onTap: () {
+                                                      // context
+                                                      //     .read<
+                                                      //         CardSecondBloc>()
+                                                      //     .add(const CardSecondEvent
+                                                      //         .selfieimageClear(index: index));
+                                                    },
+                                                  );
+                                                },
+                                                icon: const Icon(
+                                                  size: 30,
+                                                  color: kwhite,
+                                                  Icons.delete,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                        Positioned(
+                                          right: 10,
+                                          bottom: 10,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            child: ColoredBox(
+                                              color: neonShade,
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  context
+                                                      .read<CardSecondBloc>()
+                                                      .add(const CardSecondEvent
+                                                          .selfieImage(
+                                                        isCam: true,
+                                                        cameraDeviceFront: true,
+                                                      ));
+                                                },
+                                                icon: const Icon(
+                                                  size: 30,
+                                                  color: kwhite,
+                                                  Icons.camera,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ));
+                              },
                             )
                           : widget.secondCard.selfie != null
                               ? Stack(
                                   children: [
                                     InkWell(
-                                      onTap: () => Navigator.of(context).push(
-                                          fadePageRoute(ScreenImagePreview(
-                                        image: widget.secondCard.selfie ?? '',
-                                      ))),
-                                      child: SizedBox(
-                                        height: kwidth * 0.60,
-                                        width: double.infinity,
-                                        child: Image.memory(
-                                          base64.decode(base64imageSelfie!
-                                                  .startsWith('data')
-                                              ? base64imageSelfie!.substring(22)
-                                              : base64imageSelfie!),
-                                          fit: BoxFit.cover,
+                                        // onTap: () => Navigator.of(context).push(
+                                        //     fadePageRoute(ScreenImagePreview(
+                                        //   image: widget.secondCard.selfie,
+                                        // ))),
+                                        // child: SizedBox(
+                                        //   height: kwidth * 0.60,
+                                        //   width: double.infinity,
+                                        //   child: Image.memory(
+                                        //     base64.decode(base64imageSelfie!
+                                        //             .startsWith('data')
+                                        //         ? base64imageSelfie!.substring(22)
+                                        //         : base64imageSelfie!),
+                                        //     fit: BoxFit.cover,
+                                        //   ),
+                                        // ),
                                         ),
-                                      ),
-                                    ),
                                     Positioned(
                                       right: 10,
                                       bottom: 10,
@@ -555,9 +586,9 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                           .read<CardSecondBloc>()
                                           .updateNameController
                                           .text,
-                                      selfie: state.selfieImageModel != null
-                                          ? state.selfieImageModel!.base64
-                                          : widget.secondCard.selfie,
+                                      // selfie: state.selfieImageModel != null
+                                      //     ? state.selfieImageModel.map((e) => e.base64).toList()
+                                      //     : widget.secondCard.selfie,
                                     );
                                     context.read<CardSecondBloc>().add(
                                           CardSecondEvent.updateCardSecond(

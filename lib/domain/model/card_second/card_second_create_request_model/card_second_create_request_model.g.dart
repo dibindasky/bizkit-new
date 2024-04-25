@@ -20,7 +20,9 @@ CardSecondCreateRequestModel _$CardSecondCreateRequestModelFromJson(
       phoneNumber: json['phone_number'] as String?,
       company: json['company'] as String?,
       website: json['website'] as String?,
-      selfie: json['selfie'] as String?,
+      selfie: (json['selfie'] as List<dynamic>?)
+          ?.map((e) => Selfie.fromJson(e as Map<String, dynamic>))
+          .toList(),
       image: json['image'] as String?,
     );
 

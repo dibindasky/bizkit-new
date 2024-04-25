@@ -52,25 +52,26 @@ class _CroperState extends State<Croper> {
               image: widget.imageToCrop!,
               controller: _controller,
               onCropped: (image) {
-                print('croppoing complete');
+                // print('croppoing complete');
                 // do something with image data
                 // writeUint8ListToFile(image, croppedImage.path);
                 // cropped = !cropped;
                 croppedImage = base64Encode(image);
                 context.read<BusinessDataBloc>().add(
-                    BusinessDataEvent.addCropedLogo(base64: croppedImage!));
+                      BusinessDataEvent.addCropedLogo(base64: croppedImage!),
+                    );
                 Navigator.pop(context);
-
                 // setState(() {});
               },
               aspectRatio: 3 / 4,
               // initialSize: 0.5,
               // initialArea: Rect.fromLTWH(240, 212, 800, 600),
               initialRectBuilder: (rect, imageRect) => Rect.fromLTRB(
-                  rect.left + 24,
-                  rect.top + 32,
-                  rect.right - 24,
-                  rect.bottom - 32),
+                rect.left + 24,
+                rect.top + 32,
+                rect.right - 24,
+                rect.bottom - 32,
+              ),
               // withCircleUi: true,
               baseColor: textFieldFillColr,
               maskColor: Colors.white.withAlpha(100),

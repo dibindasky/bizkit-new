@@ -234,7 +234,6 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         productDeleteLoading: false,
         hasError: false,
         products: [...state.products],
-        //productImages:
       ));
     });
   }

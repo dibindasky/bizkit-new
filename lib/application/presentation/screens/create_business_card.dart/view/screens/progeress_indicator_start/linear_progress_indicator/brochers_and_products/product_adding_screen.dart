@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
-import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
@@ -13,7 +11,6 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
-import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +27,8 @@ class AddPrductsScreen extends StatefulWidget {
 class _AddPrductsScreenState extends State<AddPrductsScreen> {
   TextEditingController productTitleController = TextEditingController();
   TextEditingController productDescriptionController = TextEditingController();
-  ImageModel? image;
 
+  ImageModel? image;
   bool switchValue = false;
 
   @override

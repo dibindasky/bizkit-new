@@ -6,11 +6,13 @@ import 'package:bizkit/domain/model/card_second/card_second_create_request_model
 import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
+import 'package:bizkit/domain/model/card_second/selfie/selfie_adding_request_model/selfie.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart';
+import 'package:bizkit/domain/repository/feature/location.dart';
 import 'package:bizkit/domain/repository/service/card_second.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,8 +50,12 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   TextEditingController updatenotesController = TextEditingController();
   final CardSecondRepo _cardSecondRepo;
   final CardScanningRepo cardScanningRepo;
-  CardSecondBloc(this._cardSecondRepo, this.cardScanningRepo)
-      : super(CardSecondState.initial()) {
+  final LocationRepo locationRepo;
+  CardSecondBloc(
+    this._cardSecondRepo,
+    this.cardScanningRepo,
+    this.locationRepo,
+  ) : super(CardSecondState.initial()) {
     on<ScanImage>(scanImage);
     on<ProcessImageScanning>(processImageScanning);
     on<RemoveImageScanning>(removeImageScanning);
@@ -68,13 +74,23 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     on<Clear>(clear);
     on<ImageClear>(imageClear);
     on<CardFeildClearing>(cardFeildClearing);
+    on<LocationGeting>(locationGeting);
+  }
+
+  FutureOr<void> locationGeting(LocationGeting event, emit) async {
+    final location = await locationRepo.getLoation();
+    location.fold(
+      (l) =>
+          emit(state.copyWith(locationAdress: null, locationfetchError: true)),
+      (r) => emit(state.copyWith(locationAdress: r, locationfetchError: false)),
+    );
   }
 
   FutureOr<void> selfieimageClear(SelfieimageClear event, emit) {
-    emit(state.copyWith(
-      selfieImageModel: null,
-      selfieImagePickerror: false,
-    ));
+    List<ImageModel>? list = List.from(state.selfieImageModel);
+    list.removeAt(event.index);
+    return emit(
+        state.copyWith(selfieImageModel: list, selfieImagePickerror: false));
   }
 
   FutureOr<void> cardFeildClearing(CardFeildClearing event, emit) {
@@ -93,7 +109,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   FutureOr<void> imageClear(ImageClear event, emit) {
     emit(state.copyWith(
       scannedImageDatasModel: null,
-      selfieImageModel: null,
+      selfieImageModel: [],
       scannedImagesSecondCardCreation: [],
     ));
   }
@@ -229,12 +245,14 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   }
 
   FutureOr<void> meetingRelatedInfo(MeetingRelatedInfo event, emit) async {
-    state.cardSecondCreateRequestModel.selfie = event.selfieImage;
+    state.cardSecondCreateRequestModel.selfie =
+        event.selfieImage?.map((e) => Selfie(selfie: e.base64)).toList();
     state.cardSecondCreateRequestModel.occupation = event.occupation;
     state.cardSecondCreateRequestModel.location = event.location;
     state.cardSecondCreateRequestModel.notes = event.notes;
     state.cardSecondCreateRequestModel.whereWeMet = event.occation;
     emit(state.copyWith(
+      locationfetchError: false,
       isLoading: true,
       hasError: false,
       message: null,
@@ -281,7 +299,9 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
 
   FutureOr<void> selfieImage(SelfieImage event, emit) async {
     emit(state.copyWith(
-        pickSelfieCardLoading: true, selfieImagePickerror: false));
+        pickSelfieCardLoading: true,
+        selfieImagePickerror: false,
+        locationfetchError: false));
     final selfieImage = await ImagePickerClass.getImage(
       camera: event.isCam,
       cameraDeviceFront: event.cameraDeviceFront,
@@ -291,12 +311,12 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
         state.copyWith(
           selfieImagePickerror: false,
           pickSelfieCardLoading: false,
-          selfieImageModel: selfieImage,
+          selfieImageModel: [...state.selfieImageModel, selfieImage],
         ),
       );
     } else {
       emit(state.copyWith(
-        selfieImageModel: null,
+        selfieImageModel: [],
         pickSelfieCardLoading: false,
         selfieImagePickerror: true,
       ));
@@ -304,7 +324,8 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
   }
 
   FutureOr<void> scanImage(ScanImage event, emit) async {
-    emit(state.copyWith(pickImageLoading: true, imagePickError: false));
+    emit(state.copyWith(
+        pickImageLoading: true, imagePickError: false, cardScanFinish: false));
     final scanGalleryImage = await ImagePickerClass.getImage(
         camera: event.isCam, cameraDeviceFront: event.isFront);
     if (scanGalleryImage != null) {

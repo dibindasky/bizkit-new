@@ -88,6 +88,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<RemoveProduct>(removeProduct);
     on<UpdateProduct>(updateProduct);
     on<AddBranch>(addBranch);
+    on<UpdateBranch>(updateBranch);
     on<RemoveBranch>(removeBranch);
     on<CreateBusinessData>(createBusinessData);
     on<CreateBankingData>(createBankingData);
@@ -685,6 +686,26 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             branchAdded: true,
             branchLoading: false,
             branchOffices: [...state.branchOffices, r])));
+  }
+
+  FutureOr<void> updateBranch(UpdateBranch event, emit) async {
+    emit(state.copyWith(
+      branchLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+    ));
+    final response = await cardPatchRepo.updateBranchOffice(
+        id: event.id, branchOffice: BranchOffice(branch: event.branch));
+    response.fold((l) => emit(state.copyWith(branchLoading: false)), (r) {
+      List<BranchOffice> branches = List.from(state.branchOffices);
+      int index = branches.indexWhere((element) => element.id == event.id);
+      branches[index] = r;
+      return emit(state.copyWith(
+          branchAdded: true, branchLoading: false, branchOffices: branches));
+    });
   }
 
   FutureOr<void> removeBranch(RemoveBranch event, emit) async {

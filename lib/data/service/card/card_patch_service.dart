@@ -492,4 +492,25 @@ class CardPatchService implements CardPatchRepo {
       return Left(Failure());
     }
   }
+
+  @override
+  Future<Either<Failure, BranchOffice>> updateBranchOffice(
+      {required BranchOffice branchOffice, required int id}) async {
+    try {
+      log('updateBranchOffice creation ${branchOffice.toJson()}');
+      final response = await _apiService.patch(ApiEndPoints.deleteBranchOffice.replaceFirst("{branch_office_id}", id.toString()),
+          data: branchOffice.toJson());
+      log('updateBranchOffice creation done');
+      return Right(BranchOffice.fromJson(response.data));
+    } on DioException catch (e) {
+      log('updateBranchOffice creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('updateBranchOffice creation exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
 }

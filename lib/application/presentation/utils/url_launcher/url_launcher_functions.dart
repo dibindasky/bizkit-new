@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class LaunchUrl {
   static const urlMapTest = 'https://www.google.com/maps?q=';
+  static const urlGoogleSearch = 'https://www.google.com/search?q=';
   static Future<void> launchMap(
       {required String address, required BuildContext context}) async {
     try {
@@ -21,6 +22,18 @@ class LaunchUrl {
 
   static launchUrls({required String url}) {
     try {
+      launchUrl(Uri.parse(url));
+    } catch (e) {
+      log('cannot launch url');
+      log(e.toString());
+    }
+  }
+
+  static googleSearch({required String url}) {
+    try {
+      if (!url.startsWith('http')) {
+        url = urlGoogleSearch + url;
+      }
       launchUrl(Uri.parse(url));
     } catch (e) {
       log('cannot launch url');

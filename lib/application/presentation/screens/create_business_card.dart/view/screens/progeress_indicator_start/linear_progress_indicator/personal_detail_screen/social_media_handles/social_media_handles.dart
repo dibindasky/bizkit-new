@@ -90,12 +90,13 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                 child: Row(
                                   children: [
                                     CircleAvatar(
+                                      radius: 10,
                                       backgroundColor: kwhite,
                                       backgroundImage: AssetImage(
                                           socialMediaImage[
                                               socialMedias[index]]!),
                                     ),
-                                    // adjustWidth(20),
+                                    adjustWidth(10),
                                     Text(socialMedias[index]),
                                   ],
                                 ),

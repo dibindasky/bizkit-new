@@ -100,6 +100,7 @@ class PersonlDetails extends StatelessWidget {
                             autocompleteItems: state.businessCategories
                                 .map((e) => e.category!)
                                 .toList()),
+                        // designation
                         AutocompleteTextField(
                           showDropdownOnTap: true,
                           validate: Validate.notNull,
@@ -142,10 +143,15 @@ class PersonlDetails extends StatelessWidget {
                 label: 'Blood Group',
                 controller: context.read<UserDataBloc>().bloodGroup,
                 inputType: TextInputType.name,
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                },
               ),
               // date of birth
               InkWell(
-                onTap: () => showModalBottomSheet(
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                  showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   builder: (BuildContext context) {
@@ -159,7 +165,8 @@ class PersonlDetails extends StatelessWidget {
                           context.read<UserDataBloc>().birthDaycontroller,
                     );
                   },
-                ),
+                );
+                },
                 child: TTextFormField(
                   validate: Validate.notNull,
                   text: 'Birthday',
@@ -348,6 +355,7 @@ class PersonlDetails extends StatelessWidget {
                 },
               ),
               adjustHieght(khieght * .05),
+              // continue button
               BlocConsumer<UserDataBloc, UserDataState>(
                 listenWhen: (previous, current) =>
                     previous.personalData != current.personalData,

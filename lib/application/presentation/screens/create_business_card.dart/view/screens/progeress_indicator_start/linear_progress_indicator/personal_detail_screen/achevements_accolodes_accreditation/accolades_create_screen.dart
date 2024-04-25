@@ -161,16 +161,13 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                           onTap: () {
                             if (image == null ||
                                 title == '' ||
-                                description == '' ||
-                                dateController.text == '') {
+                                description == '') {
                               showSnackbar(context,
                                   message: image == null
                                       ? 'Add image'
-                                      : dateController.text == ''
-                                          ? 'Add date'
-                                          : title == ''
-                                              ? 'Add title'
-                                              : 'Add description',
+                                      : title == ''
+                                          ? 'Add title'
+                                          : 'Add description',
                                   backgroundColor: kred);
                               return;
                             } else {
@@ -195,7 +192,6 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                               ImageCard(image: image!.base64)
                                             ]),
                                       ));
-                              // Navigator.of(context).pop();
                             }
                           },
                         );

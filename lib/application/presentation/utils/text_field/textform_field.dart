@@ -166,6 +166,8 @@ class _TTextFormFieldState extends State<TTextFormField> {
                 widget.validate == Validate.notNull) {
               if (value == 'Content' && value!.length < 20) {
                 return 'Content must be at least 20 characters';
+              }else if(widget.text == ''){
+                return 'enter ${widget.text}';
               }
               return 'Please enter ${widget.text}';
             } else if (widget.validate == Validate.email &&

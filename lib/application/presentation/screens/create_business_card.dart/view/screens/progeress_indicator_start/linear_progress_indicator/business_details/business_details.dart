@@ -379,6 +379,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                     },
                   ),
                   adjustHieght(khieght * .03),
+                  // continue button
                   BlocConsumer<BusinessDataBloc, BusinessDataState>(
                     listener: (context, state) {
                       if (state.businessAdded) {

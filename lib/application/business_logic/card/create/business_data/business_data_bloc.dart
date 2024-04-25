@@ -83,8 +83,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<PickProductImage>(pickProductImage);
     on<ProductUpdatePickImage>(productUpdatePickImage);
     on<ProductUpdateImages>(productUpdateImages);
+    on<RemoveProductIndexImages>(removeProductIndexImages);
     on<RemoveProductImages>(removeProductImages);
-    on<RemoveProductImagesFromList>(removeProductImagesFromList);
     on<RemoveProduct>(removeProduct);
     on<UpdateProduct>(updateProduct);
     on<AddBranch>(addBranch);
@@ -141,16 +141,14 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     ));
     final pickImage = await ImagePickerClass.getImage(
         camera: event.isCam, cameraDeviceFront: false);
-    ImageCard imageCard = ImageCard();
 
     if (pickImage != null) {
-      imageCard.image = pickImage.base64;
       emit(
         state.copyWith(
           pickImageError: false,
           productImages: [
             ...state.productImages,
-            imageCard,
+            ImageCard(image: pickImage.base64),
           ],
           pickImageLoading: false,
         ),
@@ -224,6 +222,14 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       pickImageError: false,
       productDeleteLoading: true,
       hasError: false,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+      businessAdded: false,
+      bankingAdded: false,
+      logoAdded: false,
     ));
     final data = await cardPatchRepo.removeProductImage(id: event.id);
     data.fold(
@@ -231,22 +237,32 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
               productDeleteLoading: false,
               hasError: true,
             )), (r) {
-      emit(state.copyWith(
-        productDeleteLoading: false,
-        hasError: false,
-        products: [...state.products],
-        //productImages:
-      ));
+      List<ImageCard> images = List.from(state.productImages);
+      images.removeWhere((element) => element.id == event.id);
+      return emit(state.copyWith(
+          productDeleteLoading: false,
+          hasError: false,
+          products: [...state.products],
+          productImages: images));
     });
   }
 
-  FutureOr<void> removeProductImagesFromList(RemoveProductImagesFromList event, emit) async {
-    List<ImageCard> images = List.from(state.productImages);
-
-    emit(state.copyWith(
+  FutureOr<void> removeProductIndexImages(
+      RemoveProductIndexImages event, emit) {
+    print('remove at ${event.index}');
+    return emit(state.copyWith(
+      productImages: List.from(state.productImages).removeAt(event.index),
       pickImageError: false,
       productDeleteLoading: true,
       hasError: false,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      socialMediaAdded: false,
+      businessAdded: false,
+      bankingAdded: false,
+      logoAdded: false,
     ));
   }
 

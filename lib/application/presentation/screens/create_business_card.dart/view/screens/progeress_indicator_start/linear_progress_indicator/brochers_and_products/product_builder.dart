@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/products_builder.dart';
+import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/product_detail_view.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class ProductBuilder extends StatelessWidget {
                         context,
                         fadePageRoute(ProductViewDetail(
                           product: data,
-                          fromUpdate: true,
+                          myCard: true,
                         )),
                       );
                     },
@@ -48,9 +48,9 @@ class ProductBuilder extends StatelessWidget {
                         image: DecorationImage(
                           image: MemoryImage(
                             base64Decode(
-                              data.image![0].image.startsWith('data')
-                                  ? data.image![0].image.substring(22)
-                                  : data.image![0].image,
+                              data.image![0].image!.startsWith('data')
+                                  ? data.image![0].image!.substring(22)
+                                  : data.image![0].image!,
                             ),
                           ),
                           onError: (exception, stackTrace) {},

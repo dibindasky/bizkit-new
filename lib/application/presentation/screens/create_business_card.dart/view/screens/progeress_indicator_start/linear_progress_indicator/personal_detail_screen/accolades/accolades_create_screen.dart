@@ -56,16 +56,17 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                     setState(() {});
                   },
                   child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: kgrey),
-                          borderRadius: BorderRadius.circular(10)),
-                      width: 270.dm,
-                      height: 170.dm,
-                      child: image != null
-                          ? Image.file(image!.fileImage, fit: BoxFit.cover)
-                          : const Center(
-                              child: Icon(Icons.photo_library_rounded),
-                            )),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: kgrey),
+                        borderRadius: BorderRadius.circular(10)),
+                    width: 270.dm,
+                    height: 170.dm,
+                    child: image != null
+                        ? Image.file(image!.fileImage, fit: BoxFit.cover)
+                        : const Center(
+                            child: Icon(Icons.photo_library_rounded),
+                          ),
+                  ),
                 ),
                 adjustHieght(khieght * .02),
                 InkWell(

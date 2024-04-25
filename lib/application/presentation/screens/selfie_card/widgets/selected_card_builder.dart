@@ -46,6 +46,7 @@ class SelectedCard extends StatelessWidget {
                 }
               },
               builder: (context, state) {
+                int length = state.scannedImagesSecondCardCreation.length;
                 return Column(
                   children: [
                     adjustHieght(khieght * .05),
@@ -56,10 +57,20 @@ class SelectedCard extends StatelessWidget {
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: state.scannedImagesSecondCardCreation.length,
+                      itemCount: length,
                       itemBuilder: (context, index) {
                         if (state.pickImageLoading) {
-                          return const LoadingAnimation();
+                          length += 1;
+                          if (index + 1 == length) {
+                            return SizedBox(
+                              height: 150.dm,
+                              child: const Center(
+                                child: CircularProgressIndicator(
+                                  color: neonShade,
+                                ),
+                              ),
+                            );
+                          }
                         }
                         return Stack(
                           children: [

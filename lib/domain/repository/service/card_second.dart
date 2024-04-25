@@ -6,6 +6,7 @@ import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/gate_
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
 import 'package:bizkit/domain/model/card_second/get_deleted_second_cards/get_deleted_second_cards.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
+import 'package:bizkit/domain/model/card_second/selfie/selfie_adding_request_model/selfie_adding_request_model.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:dartz/dartz.dart';
@@ -36,4 +37,8 @@ abstract class CardSecondRepo {
     required CardActionRequestModel cardActionRewuestModel,
     required int id,
   });
+  Future<Either<Failure, SuccessResponseModel>> removeSelfieImage(
+      {required int id});
+  Future<Either<Failure, SuccessResponseModel>> addSelfieImage(
+      {required SelfieAddingRequestModel selfieAddingRequestModel});
 }

@@ -115,4 +115,8 @@ class ApiEndPoints {
   static String updateCardSecond =
       '/card-connections/business-card-retrieve-update/{id}/';
   static String getDeletedSecondCard = '/card-connections/deleted-cards/';
+  static String selfieImageDeletion =
+      '/card-connections/selfie-card-image-delete/{id}/';
+  static String selfieImageAdding =
+      '/card-connections/selfie-card-image-create/';
 }

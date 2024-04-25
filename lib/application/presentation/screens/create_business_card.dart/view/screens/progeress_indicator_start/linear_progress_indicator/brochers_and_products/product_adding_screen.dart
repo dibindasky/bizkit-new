@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -28,8 +27,8 @@ class AddPrductsScreen extends StatefulWidget {
 class _AddPrductsScreenState extends State<AddPrductsScreen> {
   TextEditingController productTitleController = TextEditingController();
   TextEditingController productDescriptionController = TextEditingController();
-  ImageModel? image;
 
+  ImageModel? image;
   bool switchValue = false;
 
   @override

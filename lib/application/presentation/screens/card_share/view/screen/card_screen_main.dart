@@ -492,10 +492,10 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                               return const LoadingAnimation();
                             }
                             final seconsdCard = state.secondCards[index];
-                            String base64String = seconsdCard.selfie ?? '';
-                            base64String = base64String.startsWith('data')
-                                ? base64String.substring(22)
-                                : base64String;
+                            // String base64String = seconsdCard.selfie?[index] ?? '';
+                            // base64String = base64String.startsWith('data')
+                            //     ? base64String.substring(22)
+                            //     : base64String;
                             // final format = getImageFormat(base64String);
                             // final memoryimage =
                             //     getBase64Image(format, base64String);
@@ -541,7 +541,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                     fit: BoxFit.cover,
                                                   )
                                                 : Image.memory(
-                                                    base64Decode(base64String),
+                                                    base64Decode(''),
                                                     fit: BoxFit.cover,
                                                     errorBuilder: (context,
                                                         error, stackTrace) {

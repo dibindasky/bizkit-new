@@ -21,9 +21,11 @@ class CardSecondState with _$CardSecondState {
     required bool seondCardRestored,
     required bool secondCardDeleted,
     String? message,
+    String? locationAdress,
+    required bool locationfetchError,
     required List<ImageModel> scannedImagesSecondCardCreation,
     ScannedImageDatasModel? scannedImageDatasModel,
-    ImageModel? selfieImageModel,
+    required List<ImageModel> selfieImageModel,
     required CardSecondCreateRequestModel cardSecondCreateRequestModel,
     CardSecondResponseModel? cardSecondResponseModel,
     required List<SecondCard> secondCards,
@@ -33,10 +35,12 @@ class CardSecondState with _$CardSecondState {
   }) = _Initial;
 
   factory CardSecondState.initial() => CardSecondState(
+        locationfetchError: false,
         isLoading: false,
         imagePickError: false,
         pickSelfieCardLoading: false,
         selfieImagePickerror: false,
+        selfieImageModel: [],
         pickImageLoading: false,
         pickImageFirst: false,
         secondCardEventLoading: false,

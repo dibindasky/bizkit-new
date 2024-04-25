@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
+import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -100,7 +101,10 @@ class _ImagePreviewScrollViewState extends State<ImagePreviewScrollView> {
             if (widget.story != null) {
               showModalBottomSheet(
                 context: context,
-                isScrollControlled: true,
+                enableDrag: true,
+                isDismissible: true,
+                showDragHandle: true,
+                backgroundColor: kblack,
                 builder: (context) => PreviewPageViewBottomSheet(
                   memoryImage: widget.image,
                   logoStory: widget.story,

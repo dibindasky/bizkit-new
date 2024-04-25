@@ -11,14 +11,16 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
-import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddPrductsScreen extends StatefulWidget {
-  const AddPrductsScreen({Key? key}) : super(key: key);
+  const AddPrductsScreen({Key? key, this.product}) : super(key: key);
+
+  final Product? product;
 
   @override
   State<AddPrductsScreen> createState() => _AddPrductsScreenState();
@@ -27,9 +29,19 @@ class AddPrductsScreen extends StatefulWidget {
 class _AddPrductsScreenState extends State<AddPrductsScreen> {
   TextEditingController productTitleController = TextEditingController();
   TextEditingController productDescriptionController = TextEditingController();
-
-  ImageModel? image;
+  List<ImageCard>? imageList;
   bool switchValue = false;
+
+  @override
+  void initState() {
+    if (widget.product != null) {
+      productTitleController.text = widget.product!.label ?? '';
+      productDescriptionController.text = widget.product!.description ?? '';
+      imageList = widget.product!.image ?? <ImageCard>[];
+      switchValue = widget.product!.enquiry ?? false;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +55,9 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size(kwidth, 70),
-          child: const AppbarCommen(tittle: 'Add product contents'),
+          child: AppbarCommen(
+              tittle:
+                  widget.product == null ? 'Add product' : 'Update product'),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -60,7 +74,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            if (index == state.productImages.length) {
+                            if (index == 0) {
                               return state.pickImageLoading
                                   ? SizedBox(
                                       width: 300.dm,
@@ -111,11 +125,13 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                       ),
                                     );
                             } else {
+                              final imageProduct = state.productImages.reversed
+                                  .toList()[index - 1];
                               return InkWell(
                                 onTap: () {
                                   Navigator.of(context)
                                       .push(fadePageRoute(ScreenImagePreview(
-                                    image: state.productImages[index].image,
+                                    image: imageProduct.image!,
                                   )));
                                 },
                                 child: Stack(
@@ -126,13 +142,11 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image.memory(
-                                          base64.decode(state
-                                                  .productImages[index].image
+                                          base64.decode(imageProduct.image!
                                                   .startsWith('data')
-                                              ? state.productImages[index].image
+                                              ? imageProduct.image!
                                                   .substring(22)
-                                              : state
-                                                  .productImages[index].image),
+                                              : imageProduct.image!),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -141,7 +155,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                       bottom: 10,
                                       right: 10,
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(15),
+                                        borderRadius: BorderRadius.circular(10),
                                         child: ColoredBox(
                                           color: neonShade,
                                           child: IconButton(
@@ -152,12 +166,14 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                                 title:
                                                     'You want to delete product image',
                                                 onTap: () {
-                                                  // context
-                                                  //     .read<BusinessDataBloc>()
-                                                  //     .add(BusinessDataEvent
-                                                  //         .removeProductImages(
-                                                  //       id: index,
-                                                  //     ));
+                                                  context
+                                                      .read<BusinessDataBloc>()
+                                                      .add(BusinessDataEvent
+                                                          .removeProductIndexImages(
+                                                              index: state
+                                                                      .productImages
+                                                                      .length -
+                                                                  index));
                                                 },
                                               );
                                             },

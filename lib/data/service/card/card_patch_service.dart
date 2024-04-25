@@ -9,7 +9,6 @@ import 'package:bizkit/domain/model/card/card/bank_details/bank_details.dart';
 import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
-import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/card/card/product_image_add/product_image_add.dart';

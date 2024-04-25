@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/brocher_and_products_tab.dart';
-import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/products_builder.dart';
+import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/product_detail_view.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +75,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => ProductViewDetail(
                                     product: networkImages![index],
-                                    fromUpdate: false,
+                                    myCard: false,
                                   )),
                         ),
                         child: AspectRatio(
@@ -87,13 +87,13 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                               child: Image.memory(
                                 base64.decode(networkImages![index]
                                         .image![0]
-                                        .image
+                                        .image!
                                         .startsWith('data')
                                     ? networkImages![index]
                                         .image![0]
-                                        .image
+                                        .image!
                                         .substring(22)
-                                    : networkImages![index].image![0].image),
+                                    : networkImages![index].image![0].image!),
                                 fit: BoxFit.cover,
                               ),
                             ),

@@ -27,6 +27,7 @@ class LogoStory extends StatefulWidget {
 
 class _LogoStoryState extends State<LogoStory> {
   TextEditingController textEditingController = TextEditingController();
+  GlobalKey<FormState> logokey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -182,13 +183,18 @@ class _LogoStoryState extends State<LogoStory> {
               style: TextStyle(fontSize: 20),
             ),
             adjustHieght(khieght * .02),
-            TTextFormField(
-              controller: context.read<BusinessDataBloc>().logoStoryController,
-              maxLines: 10,
-              text: 'logoStory',
-              textCapitalization: TextCapitalization.sentences,
-              hintText:
-                  "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
+            Form(
+              key: logokey,
+              child: TTextFormField(
+                validate: Validate.notNull,
+                controller:
+                    context.read<BusinessDataBloc>().logoStoryController,
+                maxLines: 10,
+                text: 'logoStory',
+                textCapitalization: TextCapitalization.sentences,
+                hintText:
+                    "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
+              ),
             ),
             adjustHieght(khieght * .04),
             BlocConsumer<BusinessDataBloc, BusinessDataState>(
@@ -214,9 +220,11 @@ class _LogoStoryState extends State<LogoStory> {
                   return const LoadingAnimation();
                 }
                 return LastSkipContinueButtons(onTap: () {
-                  context
-                      .read<BusinessDataBloc>()
-                      .add(const BusinessDataEvent.uploadLogo());
+                  if (logokey.currentState!.validate()) {
+                    context
+                        .read<BusinessDataBloc>()
+                        .add(const BusinessDataEvent.uploadLogo());
+                  }
                 });
               },
             ),

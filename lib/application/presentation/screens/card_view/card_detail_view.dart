@@ -41,171 +41,167 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: kwhite,
-              size: 18,
-            ),
-          ),
-          backgroundColor: knill,
-          title: const Text('Card'),
-          actions: [
-            widget.myCard
-                ? BlocBuilder<CardBloc, CardState>(
-                    builder: (context, state) {
-                      if (state.cardLoading) {
-                        return const SizedBox();
-                      }
-                      return IconButton(
-                          onPressed: () {
-                            if (state.anotherCard!.percentage! == 10) {
-                              companySearchNotifier.value = 2;
-                            } else if (state
-                                .anotherCard!.isCompanyAutofilled!) {
-                              companySearchNotifier.value = 1;
-                            } else {
-                              companySearchNotifier.value = 0;
-                            }
-                            companySearchNotifier.notifyListeners();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ScreenCardDetailEditingList()));
-                            context.read<UserDataBloc>().add(
-                                UserDataEvent.getCurrentCard(
-                                    card: state.anotherCard!));
-                            context.read<BusinessDataBloc>().add(
-                                BusinessDataEvent.getCurrentCard(
-                                    card: state.anotherCard!));
-                          },
-                          icon: const Icon(Icons.edit_document));
-                    },
-                  )
-                : const SizedBox(),
-            adjustWidth(20),
-          ],
-        ),
-        body: BlocConsumer<CardBloc, CardState>(
-          listenWhen: (previous, current) =>
-              previous.anotherCard != null &&
-              current.anotherCard != null &&
-              previous.anotherCard?.percentage !=
-                  current.anotherCard?.percentage,
-          listener: (context, state) {
-            print('in listner card get ui ');
-            context.read<CardBloc>().add(const CardEvent.getCards(call: true));
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
           },
-          builder: (context, state) => state.cardLoading
-              ? const Center(
-                  child: CircularProgressIndicator(color: neonShade),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kwhite,
+            size: 18,
+          ),
+        ),
+        backgroundColor: knill,
+        title: const Text('Card'),
+        actions: [
+          widget.myCard
+              ? BlocBuilder<CardBloc, CardState>(
+                  builder: (context, state) {
+                    if (state.cardLoading) {
+                      return const SizedBox();
+                    }
+                    return IconButton(
+                        onPressed: () {
+                          if (state.anotherCard!.percentage! == 10) {
+                            companySearchNotifier.value = 2;
+                          } else if (state.anotherCard!.isCompanyAutofilled!) {
+                            companySearchNotifier.value = 1;
+                          } else {
+                            companySearchNotifier.value = 0;
+                          }
+                          companySearchNotifier.notifyListeners();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ScreenCardDetailEditingList()));
+                          context.read<UserDataBloc>().add(
+                              UserDataEvent.getCurrentCard(
+                                  card: state.anotherCard!));
+                          context.read<BusinessDataBloc>().add(
+                              BusinessDataEvent.getCurrentCard(
+                                  card: state.anotherCard!));
+                        },
+                        icon: const Icon(Icons.edit_document));
+                  },
                 )
-              : state.anotherCard == null
-                  ? const Center(child: Text('Bizkit card not found'))
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            adjustHieght(20),
-                            // image carosal view
-                            BlocBuilder<CardBloc, CardState>(
-                              builder: (context, state) {
-                                List<String> images = [];
-                                bool story = false;
-                                if (state.anotherCard != null &&
-                                    state.anotherCard!.logoCard != null &&
-                                    state.anotherCard!.logoCard!.logo != null) {
-                                  images.add(state.anotherCard!.logoCard!.logo!
-                                          .startsWith('data:')
-                                      ? state.anotherCard!.logoCard!.logo!
-                                          .substring(22)
-                                      : state.anotherCard!.logoCard!.logo!);
-                                  story = true;
-                                }
-                                if (state.anotherCard != null &&
-                                    state.anotherCard!.personalDetails !=
-                                        null &&
-                                    state.anotherCard!.personalDetails!
-                                            .photos !=
-                                        null) {
-                                  images.add(state
-                                          .anotherCard!.personalDetails!.photos!
-                                          .startsWith('data:')
-                                      ? state
-                                          .anotherCard!.personalDetails!.photos!
-                                          .substring(22)
-                                      : state.anotherCard!.personalDetails!
-                                          .photos!);
-                                }
-                                return SizedBox(
-                                  height: 200,
-                                  child: PreviewPageviewImageBuilder(
-                                    imagesList: images,
-                                    story: story
-                                        ? state.anotherCard?.logoCard?.logoStory
-                                        : null,
-                                    storyIndex: story ? 0 : null,
+              : const SizedBox(),
+          adjustWidth(20),
+        ],
+      ),
+      body: BlocConsumer<CardBloc, CardState>(
+        listenWhen: (previous, current) =>
+            previous.anotherCard != null &&
+            current.anotherCard != null &&
+            previous.anotherCard?.percentage != current.anotherCard?.percentage,
+        listener: (context, state) {
+          print('in listner card get ui ');
+          context.read<CardBloc>().add(const CardEvent.getCards(call: true));
+        },
+        builder: (context, state) => state.cardLoading
+            ? const Center(
+                child: CircularProgressIndicator(color: neonShade),
+              )
+            : state.anotherCard == null
+                ? const Center(child: Text('Bizkit card not found'))
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          adjustHieght(20),
+                          // image carosal view
+                          BlocBuilder<CardBloc, CardState>(
+                            builder: (context, state) {
+                              List<String> images = [];
+                              bool story = false;
+                              if (state.anotherCard != null &&
+                                  state.anotherCard!.logoCard != null &&
+                                  state.anotherCard!.logoCard!.logo != null) {
+                                images.add(state.anotherCard!.logoCard!.logo!
+                                        .startsWith('data:')
+                                    ? state.anotherCard!.logoCard!.logo!
+                                        .substring(22)
+                                    : state.anotherCard!.logoCard!.logo!);
+                                story = true;
+                              }
+                              if (state.anotherCard != null &&
+                                  state.anotherCard!.personalDetails != null &&
+                                  state.anotherCard!.personalDetails!.photos !=
+                                      null) {
+                                images.add(state
+                                        .anotherCard!.personalDetails!.photos!
+                                        .startsWith('data:')
+                                    ? state
+                                        .anotherCard!.personalDetails!.photos!
+                                        .substring(22)
+                                    : state
+                                        .anotherCard!.personalDetails!.photos!);
+                              }
+                              return SizedBox(
+                                height: 200,
+                                child: PreviewPageviewImageBuilder(
+                                  imagesList: images,
+                                  story: story
+                                      ? state.anotherCard?.logoCard?.logoStory
+                                      : null,
+                                  storyIndex: story ? 0 : null,
+                                ),
+                              );
+                            },
+                          ),
+                          // name and designation
+                          BlocBuilder<CardBloc, CardState>(
+                            builder: (context, state) {
+                              return Column(
+                                children: [
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    state.anotherCard?.isVerified == false
+                                        ? state.anotherCard?.personalDetails
+                                                ?.name ??
+                                            'Name'
+                                        : state.anotherCard?.businessDetails
+                                                ?.company ??
+                                            'Company',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: custumText(fontSize: kwidth * 0.06),
                                   ),
-                                );
-                              },
-                            ),
-                            // name and designation
-                            BlocBuilder<CardBloc, CardState>(
-                              builder: (context, state) {
-                                return Column(
-                                  children: [
-                                    const SizedBox(height: 20),
-                                    Text(
-                                      state.anotherCard?.isVerified == false
-                                          ? state.anotherCard?.personalDetails
-                                                  ?.name ??
-                                              'Name'
-                                          : state.anotherCard?.businessDetails
-                                                  ?.company ??
-                                              'Company',
-                                      overflow: TextOverflow.ellipsis,
-                                      style:
-                                          custumText(fontSize: kwidth * 0.06),
-                                    ),
-                                    Text(
-                                      state.anotherCard?.isVerified == false
-                                          ? state.anotherCard?.personalDetails
-                                                  ?.designation ??
-                                              'Designation'
-                                          : state.anotherCard?.personalDetails
-                                                  ?.name ??
-                                              'Name',
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      state.anotherCard?.isVerified == false
-                                          ? state.anotherCard?.businessDetails
-                                                  ?.company ??
-                                              'Company'
-                                          : state.anotherCard?.personalDetails
-                                                  ?.name ??
-                                              'Name',
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    adjustHieght(khieght * .02),
-                                  ],
-                                );
-                              },
-                            ),
-                            // card details
-                            CardDetailScreenSecondHalf(
-                                myCard: widget.myCard,
-                                cardId: state.anotherCard!.id!)
-                          ],
-                        ),
+                                  Text(
+                                    state.anotherCard?.isVerified == false
+                                        ? state.anotherCard?.personalDetails
+                                                ?.designation ??
+                                            'Designation'
+                                        : state.anotherCard?.personalDetails
+                                                ?.name ??
+                                            'Name',
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Text(
+                                    state.anotherCard?.isVerified == false
+                                        ? state.anotherCard?.businessDetails
+                                                ?.company ??
+                                            'Company'
+                                        : state.anotherCard?.personalDetails
+                                                ?.name ??
+                                            'Name',
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  adjustHieght(khieght * .02),
+                                ],
+                              );
+                            },
+                          ),
+                          // card details
+                          CardDetailScreenSecondHalf(
+                              myCard: widget.myCard,
+                              cardId: state.anotherCard!.id!)
+                        ],
                       ),
                     ),
-        ));
+                  ),
+      ),
+    );
   }
 }

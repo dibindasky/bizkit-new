@@ -18,7 +18,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            //phone number botom sheet
+//phone number botom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -47,7 +47,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: imagePhone,
             ),
-            // email bottom sheet
+// email bottom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -76,7 +76,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: gifMail,
             ),
-            // website navigator
+// website navigator
             DetailSharingIconWidget(
               onTap: () {
                 showDialog(
@@ -110,7 +110,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                         state.anotherCard!.businessDetails!
                                                 .websiteLink !=
                                             null) {
-                                      await LaunchUrl.launchUrls(
+                                      await LaunchUrl.googleSearch(
                                         url: state.anotherCard!.businessDetails!
                                             .websiteLink!,
                                       ).then(
@@ -148,7 +148,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                             state.anotherCard!.businessDetails!
                                                     .websiteLink !=
                                                 null) {
-                                          await LaunchUrl.launchUrls(
+                                          await LaunchUrl.googleSearch(
                                             url: state.anotherCard!
                                                 .businessDetails!.websiteLink!,
                                           ).then(
@@ -194,7 +194,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: gifGlobe,
             ),
-            // social media bottom sheet
+// social media bottom sheet
             DetailSharingIconWidget(
               onTap: () => (state.anotherCard?.socialMedia ?? []).isEmpty &&
                       (state.anotherCard?.businessSocialMedia ?? []).isEmpty
@@ -240,7 +240,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     ),
               image: imageSpinner,
             ),
-            // location navigator
+// location navigator
             DetailSharingIconWidget(
               onTap: () {
                 showDialog(
@@ -271,33 +271,27 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                   style: textHeadStyle1,
                                 ),
                                 adjustHieght(10),
-                                TextButton(
-                                  onPressed: () async {
-                                    await LaunchUrl.launchMap(
-                                      address: state.anotherCard
-                                              ?.businessDetails?.address ??
-                                          '',
-                                      context: context,
-                                    ).then((value) => Navigator.pop(context));
-                                  },
-                                  child: Text(
-                                    '${state.anotherCard?.businessDetails?.address}',
-                                    style: const TextStyle(
-                                      color: kblue,
-                                      decorationColor: kblue,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  ),
-                                ),
-                                // Text(
-                                //   state.anotherCard?.businessDetails?.address ??
-                                //       '',
-                                //   style: const TextStyle(
-                                //     color: kblue,
-                                //     decorationColor: kblue,
-                                //     decoration: TextDecoration.underline,
+                                // TextButton(
+                                //   onPressed: () async {
+                                //     await LaunchUrl.launchMap(
+                                //       address: state.anotherCard
+                                //               ?.businessDetails?.address ??
+                                //           '',
+                                //       context: context,
+                                //     ).then((value) => Navigator.pop(context));
+                                //   },
+                                //   child: Text(
+                                //     '${state.anotherCard?.businessDetails?.address}',
+                                //     style: const TextStyle(
+                                //       color: kblue,
+                                //       decorationColor: kblue,
+                                //       decoration: TextDecoration.underline,
+                                //     ),
                                 //   ),
                                 // ),
+                                Text(state.anotherCard?.businessDetails
+                                        ?.address ??
+                                    ''),
                                 adjustHieght(10),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,

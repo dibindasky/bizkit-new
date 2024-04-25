@@ -152,20 +152,20 @@ class PersonlDetails extends StatelessWidget {
                 onTap: () {
                   FocusScope.of(context).unfocus();
                   showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (BuildContext context) {
-                    return DatePickingBottomSheet(
-                      year: 100,
-                      onPressed: (date) {
-                        context.read<UserDataBloc>().birthDaycontroller.text =
-                            date;
-                      },
-                      datePicker:
-                          context.read<UserDataBloc>().birthDaycontroller,
-                    );
-                  },
-                );
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return DatePickingBottomSheet(
+                        year: 100,
+                        onPressed: (date) {
+                          context.read<UserDataBloc>().birthDaycontroller.text =
+                              date;
+                        },
+                        datePicker:
+                            context.read<UserDataBloc>().birthDaycontroller,
+                      );
+                    },
+                  );
                 },
                 child: TTextFormField(
                   validate: Validate.notNull,

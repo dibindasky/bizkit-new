@@ -22,7 +22,7 @@ import 'package:bizkit/application/presentation/screens/selfie_card/widgets/sele
 import 'package:bizkit/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
 import 'package:bizkit/domain/model/auth/sign_up_model/sign_up_model.dart';
-import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
+import 'package:bizkit/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -119,7 +119,7 @@ class GoRouterConfig {
         path: Routes.cardUpdating,
         builder: (context, state) {
           return SecondCardUpdation(
-            secondCard: state.extra as SecondCard,
+            secondCard: state.extra as SecondCardNew,
           );
         },
       ),

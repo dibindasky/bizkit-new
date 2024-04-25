@@ -1,14 +1,15 @@
-import 'package:bizkit/domain/model/card_second/selfie/selfie_image_update_responce_model/selfie.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'card_second_response_model.g.dart';
+import 'selfie.dart';
+
+part 'seond_card_new.g.dart';
 
 @JsonSerializable()
-class CardSecondResponseModel {
+class SecondCardNew {
   int? id;
-  String? image;
   List<Selfie>? selfie;
   String? name;
+  String? image;
   @JsonKey(name: 'where_we_met')
   String? whereWeMet;
   String? location;
@@ -28,11 +29,11 @@ class CardSecondResponseModel {
   @JsonKey(name: 'user_id')
   int? userId;
 
-  CardSecondResponseModel({
+  SecondCardNew({
     this.id,
-    this.image,
     this.selfie,
     this.name,
+    this.image,
     this.whereWeMet,
     this.location,
     this.occupation,
@@ -49,9 +50,9 @@ class CardSecondResponseModel {
     this.userId,
   });
 
-  factory CardSecondResponseModel.fromJson(Map<String, dynamic> json) {
-    return _$CardSecondResponseModelFromJson(json);
+  factory SecondCardNew.fromJson(Map<String, dynamic> json) {
+    return _$SecondCardNewFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$CardSecondResponseModelToJson(this);
+  Map<String, dynamic> toJson() => _$SecondCardNewToJson(this);
 }

@@ -5946,8 +5946,9 @@ mixin _$CardSecondState {
       throw _privateConstructorUsedError;
   CardSecondResponseModel? get cardSecondResponseModel =>
       throw _privateConstructorUsedError;
-  List<SecondCard> get secondCards => throw _privateConstructorUsedError;
-  List<SecondCard>? get deleteSecondCards => throw _privateConstructorUsedError;
+  List<SecondCardNew> get secondCards => throw _privateConstructorUsedError;
+  List<SecondCardNew>? get deleteSecondCards =>
+      throw _privateConstructorUsedError;
   GetSecondCardModel? get getSecondCardModel =>
       throw _privateConstructorUsedError;
   SuccessResponseModel? get successResponseModel =>
@@ -5990,8 +5991,8 @@ abstract class $CardSecondStateCopyWith<$Res> {
       List<ImageModel> selfieImageModel,
       CardSecondCreateRequestModel cardSecondCreateRequestModel,
       CardSecondResponseModel? cardSecondResponseModel,
-      List<SecondCard> secondCards,
-      List<SecondCard>? deleteSecondCards,
+      List<SecondCardNew> secondCards,
+      List<SecondCardNew>? deleteSecondCards,
       GetSecondCardModel? getSecondCardModel,
       SuccessResponseModel? successResponseModel});
 }
@@ -6143,11 +6144,11 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
       secondCards: null == secondCards
           ? _value.secondCards
           : secondCards // ignore: cast_nullable_to_non_nullable
-              as List<SecondCard>,
+              as List<SecondCardNew>,
       deleteSecondCards: freezed == deleteSecondCards
           ? _value.deleteSecondCards
           : deleteSecondCards // ignore: cast_nullable_to_non_nullable
-              as List<SecondCard>?,
+              as List<SecondCardNew>?,
       getSecondCardModel: freezed == getSecondCardModel
           ? _value.getSecondCardModel
           : getSecondCardModel // ignore: cast_nullable_to_non_nullable
@@ -6194,8 +6195,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       List<ImageModel> selfieImageModel,
       CardSecondCreateRequestModel cardSecondCreateRequestModel,
       CardSecondResponseModel? cardSecondResponseModel,
-      List<SecondCard> secondCards,
-      List<SecondCard>? deleteSecondCards,
+      List<SecondCardNew> secondCards,
+      List<SecondCardNew>? deleteSecondCards,
       GetSecondCardModel? getSecondCardModel,
       SuccessResponseModel? successResponseModel});
 }
@@ -6345,11 +6346,11 @@ class __$$InitialImplCopyWithImpl<$Res>
       secondCards: null == secondCards
           ? _value._secondCards
           : secondCards // ignore: cast_nullable_to_non_nullable
-              as List<SecondCard>,
+              as List<SecondCardNew>,
       deleteSecondCards: freezed == deleteSecondCards
           ? _value._deleteSecondCards
           : deleteSecondCards // ignore: cast_nullable_to_non_nullable
-              as List<SecondCard>?,
+              as List<SecondCardNew>?,
       getSecondCardModel: freezed == getSecondCardModel
           ? _value.getSecondCardModel
           : getSecondCardModel // ignore: cast_nullable_to_non_nullable
@@ -6391,8 +6392,8 @@ class _$InitialImpl implements _Initial {
       required final List<ImageModel> selfieImageModel,
       required this.cardSecondCreateRequestModel,
       this.cardSecondResponseModel,
-      required final List<SecondCard> secondCards,
-      final List<SecondCard>? deleteSecondCards,
+      required final List<SecondCardNew> secondCards,
+      final List<SecondCardNew>? deleteSecondCards,
       this.getSecondCardModel,
       this.successResponseModel})
       : _scannedImagesSecondCardCreation = scannedImagesSecondCardCreation,
@@ -6464,17 +6465,17 @@ class _$InitialImpl implements _Initial {
   final CardSecondCreateRequestModel cardSecondCreateRequestModel;
   @override
   final CardSecondResponseModel? cardSecondResponseModel;
-  final List<SecondCard> _secondCards;
+  final List<SecondCardNew> _secondCards;
   @override
-  List<SecondCard> get secondCards {
+  List<SecondCardNew> get secondCards {
     if (_secondCards is EqualUnmodifiableListView) return _secondCards;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_secondCards);
   }
 
-  final List<SecondCard>? _deleteSecondCards;
+  final List<SecondCardNew>? _deleteSecondCards;
   @override
-  List<SecondCard>? get deleteSecondCards {
+  List<SecondCardNew>? get deleteSecondCards {
     final value = _deleteSecondCards;
     if (value == null) return null;
     if (_deleteSecondCards is EqualUnmodifiableListView)
@@ -6627,8 +6628,8 @@ abstract class _Initial implements CardSecondState {
       required final List<ImageModel> selfieImageModel,
       required final CardSecondCreateRequestModel cardSecondCreateRequestModel,
       final CardSecondResponseModel? cardSecondResponseModel,
-      required final List<SecondCard> secondCards,
-      final List<SecondCard>? deleteSecondCards,
+      required final List<SecondCardNew> secondCards,
+      final List<SecondCardNew>? deleteSecondCards,
       final GetSecondCardModel? getSecondCardModel,
       final SuccessResponseModel? successResponseModel}) = _$InitialImpl;
 
@@ -6683,9 +6684,9 @@ abstract class _Initial implements CardSecondState {
   @override
   CardSecondResponseModel? get cardSecondResponseModel;
   @override
-  List<SecondCard> get secondCards;
+  List<SecondCardNew> get secondCards;
   @override
-  List<SecondCard>? get deleteSecondCards;
+  List<SecondCardNew>? get deleteSecondCards;
   @override
   GetSecondCardModel? get getSecondCardModel;
   @override

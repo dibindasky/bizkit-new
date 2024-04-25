@@ -7,6 +7,7 @@ import 'package:bizkit/domain/model/card_second/card_second_create_request_model
 import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/gate_all_card_second_model.dart';
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
+import 'package:bizkit/domain/model/card_second/get_all_second_card_model/get_all_second_card_model.dart';
 import 'package:bizkit/domain/model/card_second/get_deleted_second_cards/get_deleted_second_cards.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
 import 'package:bizkit/domain/model/card_second/selfie/selfie_adding_request_model/selfie_adding_request_model.dart';
@@ -69,7 +70,7 @@ class CardSecondService implements CardSecondRepo {
     required String id,
   }) async {
     try {
-      // log('updateCardSecond before ${secondCard.toJson()}');
+      log('updateCardSecond before ${secondCard.toJson()}');
       final responce = await _apiService.patch(
         ApiEndPoints.updateCardSecond.replaceAll('{id}', id),
         data: secondCard.toJson(),
@@ -87,7 +88,7 @@ class CardSecondService implements CardSecondRepo {
   }
 
   @override
-  Future<Either<Failure, GateAllCardSecondModel>> getAllCardsSecond({
+  Future<Either<Failure, GetAllSecondCardModel>> getAllCardsSecond({
     required PageQuery pageQuery,
   }) async {
     try {
@@ -96,7 +97,7 @@ class CardSecondService implements CardSecondRepo {
         queryParameters: pageQuery.toJson(),
       );
       log('getAllCardsSecond exception error');
-      return Right(GateAllCardSecondModel.fromJson(responce.data));
+      return Right(GetAllSecondCardModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getAllCardsSecond dio error $e');
       return Left(Failure(message: ''));

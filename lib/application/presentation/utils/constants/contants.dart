@@ -8,10 +8,12 @@ void formatWebsiteUrl(String url, TextEditingController controller) {
   controller.text = formattedUrl;
 }
 
-const onBoardScreenfirst = 'asset/images/onboard_secrens/bizkit on board 1.png';
+const onBoardScreenfirstpersonImages =
+    'asset/images/onboarding/onboard image fisrt image.png';
 const onBoardScreenSecond =
-    'asset/images/onboard_secrens/bizkit on board 2.png';
-const onBoardScreenThird = 'asset/images/onboard_secrens/bizkit_3.png';
+    'asset/images/onboarding/onboarding second card image.png';
+const onBoardScreenThird =
+    'asset/images/onboarding/onbaord third  connection image.png';
 
 const errorMessage = 'Something went wrong please try again';
 const empty = 'empty';

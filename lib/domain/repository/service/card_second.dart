@@ -4,6 +4,7 @@ import 'package:bizkit/domain/model/card_second/card_second_create_request_model
 import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/gate_all_card_second_model.dart';
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
+import 'package:bizkit/domain/model/card_second/get_all_second_card_model/get_all_second_card_model.dart';
 import 'package:bizkit/domain/model/card_second/get_deleted_second_cards/get_deleted_second_cards.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
 import 'package:bizkit/domain/model/card_second/selfie/selfie_adding_request_model/selfie_adding_request_model.dart';
@@ -20,7 +21,7 @@ abstract class CardSecondRepo {
     required SecondCard secondCard,
     required String id,
   });
-  Future<Either<Failure, GateAllCardSecondModel>> getAllCardsSecond({
+  Future<Either<Failure, GetAllSecondCardModel>> getAllCardsSecond({
     required PageQuery pageQuery,
   });
   Future<Either<Failure, SuccessResponseModel>> deleteSecondCard({

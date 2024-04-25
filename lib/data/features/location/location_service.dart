@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:bizkit/domain/core/failure/failure.dart';
 import 'package:bizkit/domain/repository/feature/location.dart';
 import 'package:dartz/dartz.dart';
@@ -28,8 +29,7 @@ class LocationService implements LocationRepo {
       double latitude = position.latitude;
       double longitude = position.longitude;
       String address = await getAddressFromLatLng(latitude, longitude);
-      print('Latitude: $latitude, Longitude: $longitude');
-      print('address $address');
+      //log('Latitude: $latitude, Longitude: $longitude');
       return Right(address);
     } on DioException catch (e) {
       return Left(Failure(message: e.toString()));
@@ -46,6 +46,7 @@ Future<String> getAddressFromLatLng(double latitude, double longitude) async {
     Placemark place = placemarks[0];
     String address =
         "${place.street}, ${place.locality}, ${place.country} ${place.subAdministrativeArea} ${place.subLocality}";
+    log('Address $address');
     return address;
   } catch (e) {
     return "Unable to fetch address";

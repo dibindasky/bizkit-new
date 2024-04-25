@@ -2,14 +2,16 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton(
-      {super.key,
-      required this.text,
-      required this.onTap,
-      this.wdth,
-      this.hieght,
-      this.textColr,
-      this.color});
+  const AuthButton({
+    super.key,
+    required this.text,
+    required this.onTap,
+    this.wdth,
+    this.hieght,
+    this.textColr,
+    this.color,
+    this.borderRadius,
+  });
 
   final String text;
   final VoidCallback onTap;
@@ -17,6 +19,7 @@ class AuthButton extends StatelessWidget {
   final double? hieght;
   final Color? textColr;
   final Gradient? color;
+  final double? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +29,8 @@ class AuthButton extends StatelessWidget {
         width: wdth ?? 150,
         height: hieght ?? 45,
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(9),
+          borderRadius: BorderRadius.all(
+            Radius.circular(borderRadius ?? 9),
           ),
           gradient: color ?? neonShadeGradient,
         ),

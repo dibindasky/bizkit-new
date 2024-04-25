@@ -4,7 +4,10 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: LocationRepo)
+@injectable
 class LocationService implements LocationRepo {
   @override
   Future<Either<Failure, String>> getLoation() async {

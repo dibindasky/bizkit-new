@@ -40,7 +40,9 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemCount: list!.length,
                           itemBuilder: (context, index) {
-                            final image = list![index].substring(22);
+                            final image = list![index].startsWith('data')
+                                ? list![index].substring(22)
+                                : list![index];
                             return SizedBox(
                               height: 80,
                               child: Stack(

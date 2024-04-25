@@ -60,9 +60,17 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: BlocBuilder<BusinessDataBloc, BusinessDataState>(
+          child: BlocConsumer<BusinessDataBloc, BusinessDataState>(
+            listenWhen: (previous, current) =>
+                current.socialMediaAdded && !previous.socialMediaAdded,
+            listener: (context, state) =>
+                showSnackbar(context, message: 'Social Media added'),
             builder: (context, business) {
-              return BlocBuilder<UserDataBloc, UserDataState>(
+              return BlocConsumer<UserDataBloc, UserDataState>(
+                listenWhen: (previous, current) =>
+                    current.socialMediaAdded && !previous.socialMediaAdded,
+                listener: (context, state) =>
+                    showSnackbar(context, message: 'Social Media added'),
                 builder: (context, user) {
                   return Column(
                     children: [

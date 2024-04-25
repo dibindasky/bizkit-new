@@ -224,11 +224,11 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                                       base64.decode((widget.accolade == null
                                               ? achivement[index] is Accolade
                                                   ? achivement[index]
-                                                      .accoladesImage
+                                                      .accoladesImage[0].image
                                                   : achivement[index].image
                                               : widget.accolade!
                                                   ? user.accolades[index]
-                                                      .accoladesImage
+                                                      .accoladesImage![0].image
                                                   : business.accreditions[index]
                                                       .images![0].image)
                                           .substring(22)),

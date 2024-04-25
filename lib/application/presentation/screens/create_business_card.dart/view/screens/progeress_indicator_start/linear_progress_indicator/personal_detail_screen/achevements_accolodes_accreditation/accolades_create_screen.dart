@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
@@ -7,12 +10,13 @@ import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
 import 'package:bizkit/domain/model/card/card/accredition/accredition.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
-import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +34,7 @@ class AccoladesAddCreateScreen extends StatefulWidget {
 }
 
 class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
-  ImageModel? image;
+  List<ImageCard> image = [];
   String title = '';
   String description = '';
   final dateController = TextEditingController();
@@ -52,20 +56,49 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                 adjustHieght(khieght * .05),
                 InkWell(
                   onTap: () async {
-                    image = await ImagePickerClass.getImage(camera: false);
-                    setState(() {});
+                    cameraAndGalleryPickImage(
+                        context: context,
+                        onPressCam: () async {
+                          final img =
+                              await ImagePickerClass.getImage(camera: true);
+                          if (img != null) {
+                            image.add(ImageCard(image: img.base64));
+                            setState(() {});
+                          }
+                        },
+                        onPressGallery: () async {
+                          final img =
+                              await ImagePickerClass.getImage(camera: false);
+                          if (img != null) {
+                            image.add(ImageCard(image: img.base64));
+                            setState(() {});
+                          }
+                        });
                   },
-                  child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: kgrey),
-                          borderRadius: BorderRadius.circular(10)),
-                      width: 270.dm,
-                      height: 170.dm,
-                      child: image != null
-                          ? Image.file(image!.fileImage, fit: BoxFit.cover)
-                          : const Center(
-                              child: Icon(Icons.photo_library_rounded),
-                            )),
+                  child: SizedBox(
+                    height: 170.dm,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => adjustWidth(10),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: image.length + 1,
+                      itemBuilder: (context, index) {
+                        return MemoryImageMaker(
+                            deleteTap: () {
+                              showCustomConfirmationDialogue(
+                                  context: context,
+                                  title: 'Are you sure want to remove ?',
+                                  buttonText: 'Delete',
+                                  onTap: () {
+                                    image.removeAt(image.length - index);
+                                    setState(() {});
+                                  });
+                            },
+                            image: image.isEmpty || index == 0
+                                ? null
+                                : image[image.length - index]);
+                      },
+                    ),
+                  ),
                 ),
                 adjustHieght(khieght * .02),
                 InkWell(
@@ -159,11 +192,11 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                           hieght: 48,
                           text: 'Save',
                           onTap: () {
-                            if (image == null ||
+                            if (image.isEmpty ||
                                 title == '' ||
                                 description == '') {
                               showSnackbar(context,
-                                  message: image == null
+                                  message: image.isEmpty
                                       ? 'Add image'
                                       : title == ''
                                           ? 'Add title'
@@ -177,9 +210,11 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                           accolade: Accolade(
                                               cardId: widget.cardId,
                                               accolades: title,
-                                              date: dateController.text,
+                                              date: dateController.text == ''
+                                                  ? null
+                                                  : dateController.text,
                                               accoladesDescription: description,
-                                              accoladesImage: image!.base64)))
+                                              accoladesImage: image)))
                                   : context
                                       .read<BusinessDataBloc>()
                                       .add(BusinessDataEvent.addAccredition(
@@ -187,10 +222,10 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                             cardId: widget.cardId,
                                             description: description,
                                             label: title,
-                                            date: dateController.text,
-                                            images: [
-                                              ImageCard(image: image!.base64)
-                                            ]),
+                                            date: dateController.text == ''
+                                                ? null
+                                                : dateController.text,
+                                            images: image),
                                       ));
                             }
                           },
@@ -206,5 +241,68 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
         ),
       ),
     );
+  }
+}
+
+class MemoryImageMaker extends StatefulWidget {
+  const MemoryImageMaker({super.key, required this.image, this.deleteTap});
+
+  final ImageCard? image;
+  final VoidCallback? deleteTap;
+
+  @override
+  State<MemoryImageMaker> createState() => _MemoryImageMakerState();
+}
+
+class _MemoryImageMakerState extends State<MemoryImageMaker> {
+  Uint8List image = Uint8List(0);
+  @override
+  void initState() {
+    // if (widget.image != null) {
+    //   image = base64.decode(widget.image!.image!.startsWith('data')
+    //       ? widget.image!.image!.substring(22)
+    //       : widget.image!.image!);
+    // }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: kgrey),
+            borderRadius: BorderRadius.circular(10)),
+        width: 270.dm,
+        height: 170.dm,
+        child: widget.image != null
+            ? Stack(
+                children: [
+                  SizedBox(
+                    width: 270.dm,
+                    height: 170.dm,
+                    child: Image.memory(
+                        base64.decode(widget.image!.image!.startsWith('data')
+                            ? widget.image!.image!.substring(22)
+                            : widget.image!.image!),
+                        fit: BoxFit.cover),
+                  ),
+                  Positioned(
+                    bottom: 5,
+                    right: 5,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: ColoredBox(
+                        color: neonShade,
+                        child: IconButton.filled(
+                            onPressed: widget.deleteTap,
+                            icon: const Icon(Icons.delete, color: kwhite)),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            : const Center(
+                child: Icon(Icons.photo_library_rounded),
+              ));
   }
 }

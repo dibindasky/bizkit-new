@@ -174,10 +174,13 @@ class BusinessDetailsScreen extends StatelessWidget {
                             },
                           );
                         },
-                        ontap: () => Navigator.of(context).push(fadePageRoute(
-                            SocialMediahandlesScreen(
-                                cardId: state.currentCard!.id!,
-                                fromBusiness: true))),
+                        ontap: () {
+                          FocusScope.of(context).unfocus();
+                          Navigator.of(context).push(fadePageRoute(
+                              SocialMediahandlesScreen(
+                                  cardId: state.currentCard!.id!,
+                                  fromBusiness: true)));
+                        },
                         child: Container(
                           decoration: const BoxDecoration(
                             color: textFieldFillColr,
@@ -217,83 +220,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return ImagePreviewUnderTextField(
                         ontap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => Dialog(
-                              child: ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
-                                child: ColoredBox(
-                                  color: kblack,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20),
-                                    child: BlocConsumer<BusinessDataBloc,
-                                        BusinessDataState>(
-                                      listener: (context, state) {
-                                        if (state.branchAdded) {
-                                          Navigator.pop(context);
-                                        }
-                                      },
-                                      builder: (context, state) {
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: state.branchLoading
-                                              ? [const LoadingAnimation()]
-                                              : [
-                                                  const Text(
-                                                      'Enter Branch Office'),
-                                                  adjustHieght(10),
-                                                  TTextFormField(
-                                                      text: 'Branch',
-                                                      maxLines: 4,
-                                                      maxlegth: 250,
-                                                      textCapitalization:
-                                                          TextCapitalization
-                                                              .words,
-                                                      controller: context
-                                                          .read<
-                                                              BusinessDataBloc>()
-                                                          .branchOfficeController),
-                                                  adjustHieght(10),
-                                                  AuthButton(
-                                                    text: 'Add',
-                                                    onTap: () {
-                                                      if (context
-                                                              .read<
-                                                                  BusinessDataBloc>()
-                                                              .branchOfficeController
-                                                              .text !=
-                                                          '') {
-                                                        context
-                                                            .read<
-                                                                BusinessDataBloc>()
-                                                            .add(
-                                                              BusinessDataEvent
-                                                                  .addBranch(
-                                                                branch: context
-                                                                    .read<
-                                                                        BusinessDataBloc>()
-                                                                    .branchOfficeController
-                                                                    .text,
-                                                              ),
-                                                            );
-                                                      }
-                                                      context
-                                                          .read<
-                                                              BusinessDataBloc>()
-                                                          .branchOfficeController
-                                                          .text = '';
-                                                    },
-                                                  )
-                                                ],
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
+                          showBranchDialoge(context, null);
                         },
                         removeItem: (index) {
                           showCustomConfirmationDialogue(
@@ -305,6 +232,18 @@ class BusinessDetailsScreen extends StatelessWidget {
                                     BusinessDataEvent.removeBranch(
                                         id: state.branchOffices[index].id!));
                               });
+                        },
+                        onItemTap: (value) {
+                          context
+                              .read<BusinessDataBloc>()
+                              .branchOfficeController
+                              .text = value;
+                          showBranchDialoge(
+                              context,
+                              state.branchOffices
+                                  .firstWhere(
+                                      (element) => element.branch == value)
+                                  .id);
                         },
                         listString:
                             state.branchOffices.map((e) => e.branch!).toList(),
@@ -322,10 +261,14 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<BusinessDataBloc, BusinessDataState>(
                     builder: (context, state) {
                       return ImagePreviewUnderTextField(
-                        ontap: () => Navigator.of(context).push(
-                          fadePageRoute(AccolodesScreen(
-                              accolade: false, cardId: state.currentCard!.id!)),
-                        ),
+                        ontap: () {
+                          FocusScope.of(context).unfocus();
+                          Navigator.of(context).push(
+                            fadePageRoute(AccolodesScreen(
+                                accolade: false,
+                                cardId: state.currentCard!.id!)),
+                          );
+                        },
                         onItemTap: (value) => Navigator.push(
                             context,
                             fadePageRoute(ScreenImagePreview(
@@ -424,4 +367,84 @@ class BusinessDetailsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+// branch office Dialoge box
+showBranchDialoge(context, int? id) {
+  showDialog(
+    context: context,
+    builder: (context) => Dialog(
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        child: ColoredBox(
+          color: kblack,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: BlocConsumer<BusinessDataBloc, BusinessDataState>(
+              listener: (context, state) {
+                if (state.branchAdded) {
+                  FocusScope.of(context).unfocus();
+                  Navigator.pop(context);
+                }
+              },
+              builder: (context, state) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: state.branchLoading
+                      ? [const LoadingAnimation()]
+                      : [
+                          const Text('Enter Branch Office'),
+                          adjustHieght(10),
+                          TTextFormField(
+                              text: 'Branch',
+                              maxLines: 4,
+                              maxlegth: 250,
+                              textCapitalization: TextCapitalization.words,
+                              controller: context
+                                  .read<BusinessDataBloc>()
+                                  .branchOfficeController),
+                          adjustHieght(10),
+                          AuthButton(
+                            text: 'Add',
+                            onTap: () {
+                              if (context
+                                      .read<BusinessDataBloc>()
+                                      .branchOfficeController
+                                      .text !=
+                                  '') {
+                                if (id == null) {
+                                  context.read<BusinessDataBloc>().add(
+                                        BusinessDataEvent.addBranch(
+                                          branch: context
+                                              .read<BusinessDataBloc>()
+                                              .branchOfficeController
+                                              .text,
+                                        ),
+                                      );
+                                } else {
+                                  context.read<BusinessDataBloc>().add(
+                                        BusinessDataEvent.updateBranch(
+                                            branch: context
+                                                .read<BusinessDataBloc>()
+                                                .branchOfficeController
+                                                .text,
+                                            id: id),
+                                      );
+                                }
+                              }
+                              context
+                                  .read<BusinessDataBloc>()
+                                  .branchOfficeController
+                                  .text = '';
+                            },
+                          )
+                        ],
+                );
+              },
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }

@@ -1,3 +1,4 @@
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'accolade.g.dart';
@@ -6,7 +7,7 @@ part 'accolade.g.dart';
 class Accolade {
   int? id;
   @JsonKey(name: 'image')
-  dynamic accoladesImage;
+  List<ImageCard>? accoladesImage;
   @JsonKey(name: 'title')
   String? accolades;
   String? date;

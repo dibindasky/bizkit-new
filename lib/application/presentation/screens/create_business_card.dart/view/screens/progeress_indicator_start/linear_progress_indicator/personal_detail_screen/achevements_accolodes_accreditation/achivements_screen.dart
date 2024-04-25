@@ -54,7 +54,7 @@ class AchivementsScreen extends StatelessWidget {
                                 context,
                                 fadePageRoute(ScreenImagePreview(
                                     image: (achivement[index] is Accolade
-                                            ? achivement[index].accoladesImage
+                                            ? achivement[index].accoladesImage[0]
                                             : achivement[index].images[0])
                                         .substring(22)))),
                             child: SizedBox(
@@ -68,7 +68,7 @@ class AchivementsScreen extends StatelessWidget {
                                     child: Image.memory(
                                       base64.decode((achivement[index]
                                                   is Accolade
-                                              ? achivement[index].accoladesImage
+                                              ? achivement[index].accoladesImage[0]
                                               : achivement[index].images[0])
                                           .substring(22)),
                                       fit: BoxFit.cover,

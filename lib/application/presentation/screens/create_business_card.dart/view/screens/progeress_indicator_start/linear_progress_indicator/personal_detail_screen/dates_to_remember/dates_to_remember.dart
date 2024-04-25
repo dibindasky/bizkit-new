@@ -65,7 +65,12 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: BlocBuilder<UserDataBloc, UserDataState>(
+            child: BlocConsumer<UserDataBloc, UserDataState>(
+              listenWhen: (previous, current) =>
+                  !previous.datesToRememberAdded &&
+                  current.datesToRememberAdded,
+              listener: (context, state) =>
+                  showSnackbar(context, message: 'Date added successfully'),
               builder: (context, state) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

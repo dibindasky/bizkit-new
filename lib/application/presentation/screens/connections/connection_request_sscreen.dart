@@ -86,9 +86,9 @@ class ScreenConnectionRequests extends StatelessWidget {
                         ),
                         adjustHieght(10),
                         Text(
-                          data.company == null || data.company == ''
-                              ? data.name ?? ''
-                              : data.company ?? '',
+                          data.name == null || data.name == ''
+                              ? data.company ?? ''
+                              : data.name ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: textStyle1.copyWith(fontSize: kwidth * 0.045),
                         ),

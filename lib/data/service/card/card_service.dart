@@ -150,7 +150,12 @@ class CardService implements CardRepo {
     } on DioException catch (e) {
       log('dio exception getCardByCardId');
       log(e.toString());
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      try {
+        return Left(
+            Failure(message: e.response?.data['error'] ?? errorMessage));
+      } catch (e) {
+        return Left(Failure(message: errorMessage));
+      }
     } catch (e) {
       log('exception getCardByCardId');
       log(e.toString());

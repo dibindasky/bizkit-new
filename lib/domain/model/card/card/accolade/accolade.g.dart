@@ -8,7 +8,9 @@ part of 'accolade.dart';
 
 Accolade _$AccoladeFromJson(Map<String, dynamic> json) => Accolade(
       id: json['id'] as int?,
-      accoladesImage: json['image'],
+      accoladesImage: (json['image'] as List<dynamic>?)
+          ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
+          .toList(),
       accolades: json['title'] as String?,
       date: json['date'] as String?,
       accoladesDescription: json['description'] as String?,

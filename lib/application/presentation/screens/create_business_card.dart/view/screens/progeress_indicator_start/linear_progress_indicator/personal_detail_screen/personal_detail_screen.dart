@@ -152,20 +152,20 @@ class PersonlDetails extends StatelessWidget {
                 onTap: () {
                   FocusScope.of(context).unfocus();
                   showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (BuildContext context) {
-                    return DatePickingBottomSheet(
-                      year: 100,
-                      onPressed: (date) {
-                        context.read<UserDataBloc>().birthDaycontroller.text =
-                            date;
-                      },
-                      datePicker:
-                          context.read<UserDataBloc>().birthDaycontroller,
-                    );
-                  },
-                );
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return DatePickingBottomSheet(
+                        year: 100,
+                        onPressed: (date) {
+                          context.read<UserDataBloc>().birthDaycontroller.text =
+                              date;
+                        },
+                        datePicker:
+                            context.read<UserDataBloc>().birthDaycontroller,
+                      );
+                    },
+                  );
                 },
                 child: TTextFormField(
                   validate: Validate.notNull,
@@ -182,10 +182,13 @@ class PersonlDetails extends StatelessWidget {
                     previous.accolades.length != current.accolades.length,
                 builder: (context, state) {
                   return ImagePreviewUnderTextField(
-                      ontap: () => Navigator.of(context).push(
-                            fadePageRoute(AccolodesScreen(
-                                cardId: state.currentCard!.id!)),
-                          ),
+                      ontap: () {
+                        FocusScope.of(context).unfocus();
+                        Navigator.of(context).push(
+                          fadePageRoute(
+                              AccolodesScreen(cardId: state.currentCard!.id!)),
+                        );
+                      },
                       onItemTap: (value) => Navigator.push(
                           context,
                           fadePageRoute(ScreenImagePreview(
@@ -202,7 +205,7 @@ class PersonlDetails extends StatelessWidget {
                             });
                       },
                       list: state.accolades
-                          .map((e) => e.accoladesImage as String)
+                          .map((e) => e.accoladesImage?[0].image as String)
                           .toList(),
                       child: Container(
                         decoration: const BoxDecoration(
@@ -257,10 +260,13 @@ class PersonlDetails extends StatelessWidget {
                                     id: state.socialMedias[index].id!));
                           });
                     },
-                    ontap: () => Navigator.of(context).push(fadePageRoute(
-                        SocialMediahandlesScreen(
-                            fromBusiness: false,
-                            cardId: state.currentCard!.id!))),
+                    ontap: () {
+                      FocusScope.of(context).unfocus();
+                      Navigator.of(context).push(fadePageRoute(
+                          SocialMediahandlesScreen(
+                              fromBusiness: false,
+                              cardId: state.currentCard!.id!)));
+                    },
                     child: Container(
                       decoration: const BoxDecoration(
                         color: textFieldFillColr,
@@ -315,6 +321,7 @@ class PersonlDetails extends StatelessWidget {
                           });
                     },
                     ontap: () {
+                      FocusScope.of(context).unfocus();
                       Navigator.of(context).push(fadePageRoute(
                           DatesToRememberScreen(
                               cardId: state.currentCard!.id!)));

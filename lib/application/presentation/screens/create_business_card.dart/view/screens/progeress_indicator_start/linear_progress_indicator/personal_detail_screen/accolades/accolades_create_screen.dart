@@ -177,13 +177,17 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                             } else {
                               widget.accolade
                                   ? context.read<UserDataBloc>().add(
-                                      UserDataEvent.addAccolade(
-                                          accolade: Accolade(
-                                              cardId: widget.cardId,
-                                              accolades: title,
-                                              date: dateController.text,
-                                              accoladesDescription: description,
-                                              accoladesImage: image!.base64)))
+                                          UserDataEvent.addAccolade(
+                                              accolade:
+                                                  Accolade(
+                                                      cardId: widget.cardId,
+                                                      accolades: title,
+                                                      date: dateController.text,
+                                                      accoladesDescription:
+                                                          description,
+                                                      accoladesImage: [
+                                            ImageCard(image: image!.base64)
+                                          ])))
                                   : context.read<BusinessDataBloc>().add(
                                           BusinessDataEvent.addAccredition(
                                               accredition: Accredition(

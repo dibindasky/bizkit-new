@@ -301,7 +301,6 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                           : SizedBox(
                               height: 250,
                               child: ListView.separated(
-                                // shrinkWrap: true,
                                 separatorBuilder: (context, index) {
                                   return adjustWidth(10);
                                 },
@@ -366,8 +365,12 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                             ),
                                           ),
                                         ),
-                                        if (state.selfieImageModel.length ==
-                                            state.selfieImageModel.length)
+                                        if (state.selfieImageModel.isNotEmpty &&
+                                            state.selfieImageModel.length ==
+                                                state.selfieImageModel.indexOf(
+                                                        state.selfieImageModel
+                                                            .last) +
+                                                    1)
                                           Positioned(
                                             right: 10,
                                             bottom: 10,

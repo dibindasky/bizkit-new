@@ -28,8 +28,8 @@ class CardSecondService implements CardSecondRepo {
       {required CardSecondCreateRequestModel
           cardSecondCreateRequestModel}) async {
     try {
-      log('cardSecondCreation  ${cardSecondCreateRequestModel.name}');
-      log('cardSecondCreation  ${cardSecondCreateRequestModel.selfie}');
+      // log('cardSecondCreation  ${cardSecondCreateRequestModel.name}');
+      // log('cardSecondCreation  ${cardSecondCreateRequestModel.selfie}');
       final responce = await _apiService.post(
         ApiEndPoints.createSecondCard,
         data: cardSecondCreateRequestModel.toJson(),

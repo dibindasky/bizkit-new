@@ -118,7 +118,7 @@ class _ImagePreviewScrollViewState extends State<ImagePreviewScrollView> {
             child: Image.memory(
               image,
               errorBuilder: (context, error, stackTrace) =>
-                  const Icon(Icons.image),
+                  const Icon(Icons.image_not_supported_outlined),
               fit: BoxFit.cover,
             ),
           ),

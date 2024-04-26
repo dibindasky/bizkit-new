@@ -106,9 +106,9 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                                 if (state.getSecondCardModel != null &&
                                     state.getSecondCardModel!.selfie != null) {
                                   List<String> selfieBase64List = [];
-
-                                  if (state.getSecondCardModel!.selfie !=
-                                      null) {
+                                  if (state.getSecondCardModel != null &&
+                                      state.getSecondCardModel!.selfie !=
+                                          null) {
                                     for (var image
                                         in state.getSecondCardModel!.selfie!) {
                                       String im = image.selfie!;
@@ -462,7 +462,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                       ),
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           ),

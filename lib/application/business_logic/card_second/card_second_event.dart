@@ -15,7 +15,7 @@ class CardSecondEvent with _$CardSecondEvent {
       SelfieimageClear;
 
   const factory CardSecondEvent.autoFillTExtfieldItems({
-    required String scannedImage,
+    String? scannedImage,
     String? email,
     required String name,
     String? company,

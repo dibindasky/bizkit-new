@@ -85,9 +85,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
           emit(state.copyWith(locationAdress: null, locationfetchError: true)),
       (r) {
         locatioNController.text = r;
-        emit(
-          state.copyWith(locationAdress: r, locationfetchError: false),
-        );
+        emit(state.copyWith(locationAdress: r, locationfetchError: false));
       },
     );
   }

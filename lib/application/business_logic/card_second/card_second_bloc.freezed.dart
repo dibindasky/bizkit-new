@@ -25,7 +25,7 @@ mixin _$CardSecondEvent {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -64,7 +64,7 @@ mixin _$CardSecondEvent {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -100,7 +100,7 @@ mixin _$CardSecondEvent {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -269,7 +269,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -311,7 +311,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -350,7 +350,7 @@ class _$StartedImpl implements _Started {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -555,7 +555,7 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -597,7 +597,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -636,7 +636,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -850,7 +850,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -892,7 +892,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -931,7 +931,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -1135,7 +1135,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -1177,7 +1177,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -1216,7 +1216,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -1429,7 +1429,7 @@ class _$SelfieImageImpl implements SelfieImage {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -1471,7 +1471,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -1510,7 +1510,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -1716,7 +1716,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -1758,7 +1758,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -1797,7 +1797,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -1937,7 +1937,7 @@ abstract class _$$AutoFillTExtfieldItemsImplCopyWith<$Res> {
       __$$AutoFillTExtfieldItemsImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String scannedImage,
+      {String? scannedImage,
       String? email,
       String name,
       String? company,
@@ -1958,7 +1958,7 @@ class __$$AutoFillTExtfieldItemsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? scannedImage = null,
+    Object? scannedImage = freezed,
     Object? email = freezed,
     Object? name = null,
     Object? company = freezed,
@@ -1967,10 +1967,10 @@ class __$$AutoFillTExtfieldItemsImplCopyWithImpl<$Res>
     Object? designation = freezed,
   }) {
     return _then(_$AutoFillTExtfieldItemsImpl(
-      scannedImage: null == scannedImage
+      scannedImage: freezed == scannedImage
           ? _value.scannedImage
           : scannedImage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -2003,7 +2003,7 @@ class __$$AutoFillTExtfieldItemsImplCopyWithImpl<$Res>
 
 class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
   const _$AutoFillTExtfieldItemsImpl(
-      {required this.scannedImage,
+      {this.scannedImage,
       this.email,
       required this.name,
       this.company,
@@ -2012,7 +2012,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
       this.designation});
 
   @override
-  final String scannedImage;
+  final String? scannedImage;
   @override
   final String? email;
   @override
@@ -2068,7 +2068,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -2111,7 +2111,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -2151,7 +2151,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -2276,7 +2276,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
 
 abstract class AutoFillTExtfieldItems implements CardSecondEvent {
   const factory AutoFillTExtfieldItems(
-      {required final String scannedImage,
+      {final String? scannedImage,
       final String? email,
       required final String name,
       final String? company,
@@ -2284,7 +2284,7 @@ abstract class AutoFillTExtfieldItems implements CardSecondEvent {
       final String? website,
       final String? designation}) = _$AutoFillTExtfieldItemsImpl;
 
-  String get scannedImage;
+  String? get scannedImage;
   String? get email;
   String get name;
   String? get company;
@@ -2429,7 +2429,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -2472,7 +2472,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -2512,7 +2512,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -2725,7 +2725,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -2767,7 +2767,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -2806,7 +2806,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3019,7 +3019,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3061,7 +3061,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3100,7 +3100,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3316,7 +3316,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3358,7 +3358,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3397,7 +3397,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3603,7 +3603,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3645,7 +3645,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3684,7 +3684,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3864,7 +3864,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3906,7 +3906,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -3945,7 +3945,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4155,7 +4155,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4197,7 +4197,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4236,7 +4236,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4415,7 +4415,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4457,7 +4457,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4496,7 +4496,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4694,7 +4694,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4736,7 +4736,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4775,7 +4775,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4952,7 +4952,7 @@ class _$ClearImpl implements Clear {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -4994,7 +4994,7 @@ class _$ClearImpl implements Clear {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -5033,7 +5033,7 @@ class _$ClearImpl implements Clear {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -5204,7 +5204,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -5246,7 +5246,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -5285,7 +5285,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -5456,7 +5456,7 @@ class _$ImageClearImpl implements ImageClear {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -5498,7 +5498,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -5537,7 +5537,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -5708,7 +5708,7 @@ class _$LocationGetingImpl implements LocationGeting {
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
     required TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -5750,7 +5750,7 @@ class _$LocationGetingImpl implements LocationGeting {
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
     TResult? Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,
@@ -5789,7 +5789,7 @@ class _$LocationGetingImpl implements LocationGeting {
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
     TResult Function(
-            String scannedImage,
+            String? scannedImage,
             String? email,
             String name,
             String? company,

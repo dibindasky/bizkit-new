@@ -41,6 +41,7 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView.builder(
+        //  physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         scrollDirection: Axis.horizontal,
         onPageChanged: _onPageChanged,
@@ -62,14 +63,14 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
     required int pageIndex,
   }) {
     return GestureDetector(
-      onTap: () {
-        if (pageIndex < totalPages - 1) {
-          _pageController.nextPage(
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeInOut,
-          );
-        }
-      },
+      // onTap: () {
+      //   if (pageIndex < totalPages - 1) {
+      //     _pageController.nextPage(
+      //       duration: const Duration(milliseconds: 500),
+      //       curve: Curves.easeInOut,
+      //     );
+      //   }
+      // },
       child: pageIndex == 0
           ? BizkitOnBoardingScreenFirst(
               pageController: _pageController,
@@ -147,9 +148,23 @@ class BizkitOnBoardingScreenSecond extends StatelessWidget {
           height: screenHeight,
           child: Column(
             children: [
-              adjustHieght(khieght * .18),
+              adjustHieght(khieght * 0.025),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
+                    context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
+                  },
+                  child: const Text(
+                    'skip',
+                    style: TextStyle(color: kwhite),
+                  ),
+                ),
+              ),
+              adjustHieght(khieght * .1),
               Text(
-                'Unlock Success With Bizzkit',
+                'Unlock Success With Bizkit',
                 style: textHeadStyle1.copyWith(fontSize: 24),
               ),
               adjustHieght(khieght * .2),
@@ -214,17 +229,28 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
           height: screenHeight,
           child: Column(
             children: [
-              const Align(
+              adjustHieght(khieght * 0.025),
+              Align(
                 alignment: Alignment.centerRight,
-                child: Text('skip'),
+                child: TextButton(
+                  onPressed: () {
+                    GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
+                    context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
+                  },
+                  child: const Text(
+                    'skip',
+                    style: TextStyle(color: kwhite),
+                  ),
+                ),
               ),
-              adjustHieght(khieght * .18),
+              adjustHieght(khieght * .1),
               Text(
                 'Empowering Growth Together.',
                 style: textHeadStyle1.copyWith(fontSize: 24),
               ),
-              adjustHieght(khieght * .02),
+              adjustHieght(khieght * .12),
               SizedBox(
+                height: 350,
                 child: Image.asset(
                   onBoardScreenThird,
                   filterQuality: FilterQuality.high,

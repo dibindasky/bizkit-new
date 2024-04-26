@@ -4,6 +4,7 @@ import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
 import 'package:bizkit/domain/model/card/company/get_business_category_response_model/category.dart';
@@ -14,6 +15,7 @@ import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_data
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart';
 import 'package:bizkit/domain/repository/service/card_patch_repo.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
+import 'package:bizkit/domain/repository/service/text_extraction_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +32,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final UserLocalRepo userLocalService;
   final CardRepo cardService;
   final CardPatchRepo cardPatchRepo;
+  final TextExtractionRepo textExtractionRepo;
 
   final mat.TextEditingController nameController = mat.TextEditingController();
   final mat.TextEditingController phoneController = mat.TextEditingController();
@@ -44,7 +47,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       mat.TextEditingController();
 
   UserDataBloc(this.cardScanningImpl, this.userLocalService, this.cardService,
-      this.cardPatchRepo)
+      this.textExtractionRepo, this.cardPatchRepo)
       : super(UserDataState.initial()) {
     on<PickImageScanning>(pickImageScanning);
     on<ProcessImageScanning>(processImageScanning);
@@ -318,17 +321,37 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> processImageScanning(ProcessImageScanning event, emit) async {
-    final result = await cardScanningImpl
-        .processAndSortFromImage(state.scannedImagesCardCreation);
-    result.fold(
-        (failure) => null,
-        (scannedImageText) => emit(state.copyWith(
-            scannedImageDatasModel: scannedImageText,
-            cardAdded: false,
-            accoladeAdded: false,
-            datesToRememberAdded: false,
-            socialMediaAdded: false,
-            message: null)));
+    // final result = await cardScanningImpl
+    //     .processAndSortFromImage(state.scannedImagesCardCreation);
+    final result = await textExtractionRepo.extractText(
+        image: ImageCard(
+            image: event.images[0].base64.startsWith('data')
+                ? event.images[0].base64.substring(22)
+                : event.images[0].base64));
+    result.fold((l) => null, (r) {
+      final texts = ScannedImageDatasModel(
+          emails: r.emails,
+          names: r.names,
+          phone: r.phoneNumbers,
+          websites: r.websites,
+          unknown: []);
+      emailController.text =
+          r.emails != null && r.emails!.isNotEmpty ? r.emails!.first : '';
+      nameController.text =
+          r.names != null && r.names!.isNotEmpty ? r.names!.first : '';
+      phoneController.text =
+          r.phoneNumbers != null && r.phoneNumbers!.isNotEmpty
+              ? r.phoneNumbers!.first
+              : '';
+      print(r.toJson());
+      return emit(state.copyWith(
+          scannedImageDatasModel: texts,
+          cardAdded: false,
+          accoladeAdded: false,
+          datesToRememberAdded: false,
+          socialMediaAdded: false,
+          message: null));
+    });
   }
 
   FutureOr<void> pickImageScanning(PickImageScanning event, emit) async {
@@ -360,7 +383,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     final result = await userLocalService.getUserData();
     final business = await SecureStorage.getRole();
     result.fold((failure) => null, (userList) {
-      if (userList.isNotEmpty) {
+      if (userList.isNotEmpty && !business) {
         nameController.text = userList.first.name ?? nameController.text;
         phoneController.text =
             userList.first.phoneNumber ?? phoneController.text;

@@ -58,7 +58,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
           widget.myCard
               ? BlocBuilder<CardBloc, CardState>(
                   builder: (context, state) {
-                    if (state.cardLoading) {
+                    if (state.cardLoading || state.anotherCard == null) {
                       return const SizedBox();
                     }
                     return IconButton(
@@ -83,7 +83,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                               BusinessDataEvent.getCurrentCard(
                                   card: state.anotherCard!));
                         },
-                        icon: const Icon(Icons.edit_document));
+                        icon: const Icon(Icons.edit ));
                   },
                 )
               : const SizedBox(),
@@ -96,7 +96,6 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
             current.anotherCard != null &&
             previous.anotherCard?.percentage != current.anotherCard?.percentage,
         listener: (context, state) {
-          print('in listner card get ui ');
           context.read<CardBloc>().add(const CardEvent.getCards(call: true));
         },
         builder: (context, state) => state.cardLoading
@@ -104,7 +103,30 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                 child: CircularProgressIndicator(color: neonShade),
               )
             : state.anotherCard == null
-                ? const Center(child: Text('Bizkit card not found'))
+                ? GestureDetector(
+                    onTap: () {
+                      if (widget.cardId != null) {
+                        context
+                            .read<CardBloc>()
+                            .add(CardEvent.getCardyCardId(id: widget.cardId!));
+                        context.read<ReminderBloc>().add(
+                            ReminderEvent.getCardReminder(
+                                cardIdModel:
+                                    CardIdModel(cardId: widget.cardId!)));
+                      } else if (widget.userId != null) {
+                        context
+                            .read<CardBloc>()
+                            .add(CardEvent.getCardyUserId(id: widget.userId!));
+                      }
+                    },
+                    child: const Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.refresh),
+                        Text('Tap to retry'),
+                      ],
+                    )))
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: SingleChildScrollView(

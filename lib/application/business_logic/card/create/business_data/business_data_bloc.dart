@@ -697,12 +697,15 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       productAdded: false,
       socialMediaAdded: false,
     ));
-    final response = await cardPatchRepo.updateBranchOffice(
+    final result = await cardPatchRepo.updateBranchOffice(
         id: event.id, branchOffice: BranchOffice(branch: event.branch));
-    response.fold((l) => emit(state.copyWith(branchLoading: false)), (r) {
+    result.fold((l) => emit(state.copyWith(branchLoading: false)), (r) {
       List<BranchOffice> branches = List.from(state.branchOffices);
+      print('list ${branches}');
       int index = branches.indexWhere((element) => element.id == event.id);
+      print(index);
       branches[index] = r;
+      print(r.toJson());
       return emit(state.copyWith(
           branchAdded: true, branchLoading: false, branchOffices: branches));
     });

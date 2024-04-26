@@ -104,7 +104,7 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       if (onItemTap != null) {
-                                        onItemTap!(list![index]);
+                                        onItemTap!(listString![index]);
                                       }
                                     },
                                     child: Container(

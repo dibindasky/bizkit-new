@@ -405,7 +405,7 @@ showBranchDialoge(context, int? id) {
                                   .branchOfficeController),
                           adjustHieght(10),
                           AuthButton(
-                            text: 'Add',
+                            text: id != null ? 'Update' : 'Add',
                             onTap: () {
                               if (context
                                       .read<BusinessDataBloc>()

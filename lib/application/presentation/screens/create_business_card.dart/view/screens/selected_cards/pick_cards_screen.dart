@@ -137,9 +137,9 @@ class PickCardsScreen extends StatelessWidget {
                                       images: state.scannedImagesCardCreation,
                                     ),
                                   );
-                              context
-                                  .read<UserDataBloc>()
-                                  .add(UserDataEvent.getUserDetail());
+                              // context
+                              //     .read<UserDataBloc>()
+                              //     .add(UserDataEvent.getUserDetail());
                               context
                                   .read<UserDataBloc>()
                                   .add(UserDataEvent.getBusinessCategories());

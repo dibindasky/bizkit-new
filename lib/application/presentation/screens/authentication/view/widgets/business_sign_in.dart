@@ -74,7 +74,7 @@ class BusinessSignIn extends StatelessWidget {
                 text: 'Company Contact Number',
                 // maxlegth: 10,
                 controller: companyPhoneController,
-                validate: Validate.phone,
+                // validate: Validate.phone,
                 inputType: TextInputType.phone,
               ),
               BlocBuilder<SignUpBloc, SignUpState>(

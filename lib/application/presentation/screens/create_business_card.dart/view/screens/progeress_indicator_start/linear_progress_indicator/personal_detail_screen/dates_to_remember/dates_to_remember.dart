@@ -137,7 +137,8 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                         : Center(
                             child: AuthButton(
                               text: 'Add',
-                              onTap: () {
+                              onTap: () {    
+                                FocusScope.of(context).unfocus();                                                                                        
                                 if (dateController.text.isEmpty ||
                                     labelController.text.isEmpty) {
                                   showSnackbar(context,

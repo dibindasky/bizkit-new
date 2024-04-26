@@ -25,8 +25,8 @@ class BusinessDataEvent with _$BusinessDataEvent {
       RemoveAccreditionImage;
   const factory BusinessDataEvent.addBranch({required String branch}) =
       AddBranch;
-  const factory BusinessDataEvent.updateBranch({required String branch,required int id}) =
-      UpdateBranch;
+  const factory BusinessDataEvent.updateBranch(
+      {required String branch, required int id}) = UpdateBranch;
   const factory BusinessDataEvent.removeBranch({required int id}) =
       RemoveBranch;
   const factory BusinessDataEvent.createBusinessData() = CreateBusinessData;

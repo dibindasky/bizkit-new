@@ -14,6 +14,7 @@ import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation
 import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
 import 'package:bizkit/domain/model/card/card/accredition/accredition.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
@@ -57,6 +58,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                 InkWell(
                   onTap: () async {
                     cameraAndGalleryPickImage(
+                        tittle: "Choose image from",
                         context: context,
                         onPressCam: () async {
                           final img =
@@ -277,14 +279,21 @@ class _MemoryImageMakerState extends State<MemoryImageMaker> {
         child: widget.image != null
             ? Stack(
                 children: [
-                  SizedBox(
-                    width: 270.dm,
-                    height: 170.dm,
-                    child: Image.memory(
-                        base64.decode(widget.image!.image!.startsWith('data')
-                            ? widget.image!.image!.substring(22)
-                            : widget.image!.image!),
-                        fit: BoxFit.cover),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              ScreenImagePreview(image: widget.image!.image!)));
+                    },
+                    child: SizedBox(
+                      width: 270.dm,
+                      height: 170.dm,
+                      child: Image.memory(
+                          base64.decode(widget.image!.image!.startsWith('data')
+                              ? widget.image!.image!.substring(22)
+                              : widget.image!.image!),
+                          fit: BoxFit.cover),
+                    ),
                   ),
                   Positioned(
                     bottom: 5,

@@ -72,196 +72,199 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                 listener: (context, state) =>
                     showSnackbar(context, message: 'Social Media added'),
                 builder: (context, user) {
-                  return Column(
-                    children: [
-                      adjustHieght(40),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: selectedCategory == 'Select your account'
-                              ? null
-                              : Border.all(color: kwhite),
-                        ),
-                        padding: const EdgeInsets.only(left: 10),
-                        width: double.infinity,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedCategory = newValue!;
-                              });
-                            },
-                            items: List.generate(
-                              socialMedias.length,
-                              (index) => DropdownMenuItem(
-                                value: socialMedias[index],
-                                child: Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 10,
-                                      backgroundColor: kwhite,
-                                      backgroundImage: AssetImage(
-                                          socialMediaImage[
-                                              socialMedias[index]]!),
-                                    ),
-                                    adjustWidth(10),
-                                    Text(socialMedias[index]),
-                                  ],
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        adjustHieght(40),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: selectedCategory == 'Select your account'
+                                ? null
+                                : Border.all(color: kwhite),
+                          ),
+                          padding: const EdgeInsets.only(left: 10),
+                          width: double.infinity,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  selectedCategory = newValue!;
+                                });
+                              },
+                              items: List.generate(
+                                socialMedias.length,
+                                (index) => DropdownMenuItem(
+                                  value: socialMedias[index],
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 10,
+                                        backgroundColor: kwhite,
+                                        backgroundImage: AssetImage(
+                                            socialMediaImage[
+                                                socialMedias[index]]!),
+                                      ),
+                                      adjustWidth(10),
+                                      Text(socialMedias[index]),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            hint: Text(
-                              selectedCategory,
-                              style: selectedCategory == 'Social Media'
-                                  ? null
-                                  : textStyle1.copyWith(color: kwhite),
+                              hint: Text(
+                                selectedCategory,
+                                style: selectedCategory == 'Social Media'
+                                    ? null
+                                    : textStyle1.copyWith(color: kwhite),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      adjustHieght(10),
-                      TTextFormField(
-                        maxlegth: selectedCategory == 'Whatsapp' ||
-                                selectedCategory == 'Telegram'
-                            ? 10
-                            : null,
-                        controller: linkController,
-                        text: selectedCategory == 'Whatsapp'
-                            ? 'Enter Whatsap Number'
-                            : selectedCategory == 'Telegram'
-                                ? 'Enter Telegram Number'
-                                : 'Account link paste here',
-                        inputType: selectedCategory == 'Whatsapp' ||
-                                selectedCategory == 'Telegram'
-                            ? TextInputType.number
-                            : TextInputType.url,
-                      ),
-                      adjustHieght(30),
-                      business.socialMediaLoading || user.socialMediaLoading
-                          ? const LoadingAnimation()
-                          : AuthButton(
-                              text: 'Add',
-                              onTap: () {
-                                if (selectedCategory == 'Social Media') {
-                                  showSnackbar(context,
-                                      message: 'Select social media first',
-                                      textColor: kwhite,
-                                      backgroundColor: kred);
-                                  return;
-                                }
-                                if (linkController.text == '') {
-                                  showSnackbar(context,
-                                      message: 'add your social media link',
-                                      textColor: kwhite,
-                                      backgroundColor: kred);
-                                  return;
-                                }
-                                final link = selectedCategory == 'Whatsapp'
-                                    ? 'https://wa.me/${linkController.text}'
-                                    : selectedCategory == 'Telegram'
-                                        ? 'https://t.me/+${linkController.text}'
-                                        : linkController.text;
-                                final model = SocialMediaHandle(
-                                    label: selectedCategory,
-                                    socialMedia: link,
-                                    cardId: widget.cardId);
-                                !widget.fromBusiness
-                                    ? context.read<UserDataBloc>().add(
-                                        UserDataEvent.addSocialMedia(
-                                            socialMediaHandle: model))
-                                    : context.read<BusinessDataBloc>().add(
-                                        BusinessDataEvent.addSocialMedia(
-                                            socialMediaHandle: model));
-                                linkController.text = '';
-                                selectedCategory = 'Social Media';
-                                setState(() {});
-                              },
-                            ),
-                      adjustHieght(30),
-                      Wrap(
-                        children: List.generate(
-                          widget.fromBusiness
-                              ? business.socialMedias.length
-                              : user.socialMedias.length,
-                          (index) => Stack(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(8),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 8),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: neonShade),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10))),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 10,
-                                      backgroundImage: AssetImage(
-                                          socialMediaImage[widget.fromBusiness
-                                              ? business.socialMedias[index]
-                                                      .label ??
-                                                  'accound $index'
-                                              : user.socialMedias[index]
-                                                      .label ??
-                                                  'account $index']!),
-                                    ),
-                                    adjustWidth(10),
-                                    Text(widget.fromBusiness
-                                        ? business.socialMedias[index].label ??
-                                            'accound $index'
-                                        : user.socialMedias[index].label ??
-                                            'account $index'),
-                                  ],
-                                ),
+                        adjustHieght(10),
+                        TTextFormField(
+                          maxlegth: selectedCategory == 'Whatsapp' ||
+                                  selectedCategory == 'Telegram'
+                              ? 10
+                              : null,
+                          controller: linkController,
+                          text: selectedCategory == 'Whatsapp'
+                              ? 'Enter Whatsap Number'
+                              : selectedCategory == 'Telegram'
+                                  ? 'Enter Telegram Number'
+                                  : 'Account link paste here',
+                          inputType: selectedCategory == 'Whatsapp' ||
+                                  selectedCategory == 'Telegram'
+                              ? TextInputType.number
+                              : TextInputType.url,
+                        ),
+                        adjustHieght(30),
+                        business.socialMediaLoading || user.socialMediaLoading
+                            ? const LoadingAnimation()
+                            : AuthButton(
+                                text: 'Add',
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  if (selectedCategory == 'Social Media') {
+                                    showSnackbar(context,
+                                        message: 'Select social media first',
+                                        textColor: kwhite,
+                                        backgroundColor: kred);
+                                    return;
+                                  }
+                                  if (linkController.text == '') {
+                                    showSnackbar(context,
+                                        message: 'add your social media link',
+                                        textColor: kwhite,
+                                        backgroundColor: kred);
+                                    return;
+                                  }
+                                  final link = selectedCategory == 'Whatsapp'
+                                      ? 'https://wa.me/${linkController.text}'
+                                      : selectedCategory == 'Telegram'
+                                          ? 'https://t.me/+${linkController.text}'
+                                          : linkController.text;
+                                  final model = SocialMediaHandle(
+                                      label: selectedCategory,
+                                      socialMedia: link,
+                                      cardId: widget.cardId);
+                                  !widget.fromBusiness
+                                      ? context.read<UserDataBloc>().add(
+                                          UserDataEvent.addSocialMedia(
+                                              socialMediaHandle: model))
+                                      : context.read<BusinessDataBloc>().add(
+                                          BusinessDataEvent.addSocialMedia(
+                                              socialMediaHandle: model));
+                                  linkController.text = '';
+                                  selectedCategory = 'Social Media';
+                                  setState(() {});
+                                },
                               ),
-                              Positioned(
-                                right: 0,
-                                top: 0,
-                                child: InkWell(
-                                  onTap: () {
-                                    showCustomConfirmationDialogue(
-                                        context: context,
-                                        title: 'are you sure want to delete ?',
-                                        buttonText: 'Delete',
-                                        onTap: () {
-                                          widget.fromBusiness
-                                              ? context
-                                                  .read<BusinessDataBloc>()
-                                                  .add(BusinessDataEvent
-                                                      .removeSocialMedia(
-                                                          id: business
-                                                              .socialMedias[
-                                                                  index]
-                                                              .id!))
-                                              : context
-                                                  .read<UserDataBloc>()
-                                                  .add(UserDataEvent
-                                                      .removeSocialMedia(
-                                                          id: user
-                                                              .socialMedias[
-                                                                  index]
-                                                              .id!));
-                                        });
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: const ColoredBox(
-                                      color: neonShade,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: Icon(Icons.close, size: 12),
+                        adjustHieght(30),
+                        Wrap(
+                          children: List.generate(
+                            widget.fromBusiness
+                                ? business.socialMedias.length
+                                : user.socialMedias.length,
+                            (index) => Stack(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.all(8),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 8),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: neonShade),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10))),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 10,
+                                        backgroundImage: AssetImage(
+                                            socialMediaImage[widget.fromBusiness
+                                                ? business.socialMedias[index]
+                                                        .label ??
+                                                    'accound $index'
+                                                : user.socialMedias[index]
+                                                        .label ??
+                                                    'account $index']!),
+                                      ),
+                                      adjustWidth(10),
+                                      Text(widget.fromBusiness
+                                          ? business.socialMedias[index].label ??
+                                              'accound $index'
+                                          : user.socialMedias[index].label ??
+                                              'account $index'),
+                                    ],
+                                  ),
+                                ),
+                                Positioned(
+                                  right: 0,
+                                  top: 0,
+                                  child: InkWell(
+                                    onTap: () {
+                                      showCustomConfirmationDialogue(
+                                          context: context,
+                                          title: 'are you sure want to delete ?',
+                                          buttonText: 'Delete',
+                                          onTap: () {
+                                            widget.fromBusiness
+                                                ? context
+                                                    .read<BusinessDataBloc>()
+                                                    .add(BusinessDataEvent
+                                                        .removeSocialMedia(
+                                                            id: business
+                                                                .socialMedias[
+                                                                    index]
+                                                                .id!))
+                                                : context
+                                                    .read<UserDataBloc>()
+                                                    .add(UserDataEvent
+                                                        .removeSocialMedia(
+                                                            id: user
+                                                                .socialMedias[
+                                                                    index]
+                                                                .id!));
+                                          });
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: const ColoredBox(
+                                        color: neonShade,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(5),
+                                          child: Icon(Icons.close, size: 12),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   );
                 },
               );

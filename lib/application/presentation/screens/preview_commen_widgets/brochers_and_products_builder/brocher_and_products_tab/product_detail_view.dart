@@ -109,6 +109,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                         return adjustHieght(10);
                       },
                       itemCount: widget.product.image!.length,
+                      // scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {

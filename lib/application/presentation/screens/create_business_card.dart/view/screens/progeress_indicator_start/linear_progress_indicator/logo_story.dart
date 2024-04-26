@@ -220,6 +220,7 @@ class _LogoStoryState extends State<LogoStory> {
                   return const LoadingAnimation();
                 }
                 return LastSkipContinueButtons(onTap: () {
+                  FocusScope.of(context).unfocus();
                   if (logokey.currentState!.validate()) {
                     context
                         .read<BusinessDataBloc>()

@@ -498,7 +498,9 @@ class CardPatchService implements CardPatchRepo {
       {required BranchOffice branchOffice, required int id}) async {
     try {
       log('updateBranchOffice creation ${branchOffice.toJson()}');
-      final response = await _apiService.patch(ApiEndPoints.deleteBranchOffice.replaceFirst("{branch_office_id}", id.toString()),
+      final response = await _apiService.patch(
+          ApiEndPoints.deleteBranchOffice
+              .replaceFirst("{branch_office_id}", id.toString()),
           data: branchOffice.toJson());
       log('updateBranchOffice creation done');
       return Right(BranchOffice.fromJson(response.data));

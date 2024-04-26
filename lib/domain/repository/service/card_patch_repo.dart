@@ -41,7 +41,7 @@ abstract class CardPatchRepo {
   Future<Either<Failure, BranchOffice>> addBranchOffice(
       {required BranchOffice branchOffice});
   Future<Either<Failure, BranchOffice>> updateBranchOffice(
-      {required BranchOffice branchOffice,required int id});
+      {required BranchOffice branchOffice, required int id});
   Future<Either<Failure, SuccessResponseModel>> deleteBranchOffice(
       {required int id});
   Future<Either<Failure, Accredition>> addAcredition(

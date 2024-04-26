@@ -9,6 +9,7 @@ import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
+import 'package:bizkit/domain/model/card/card/accredition/accredition.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,10 +17,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccolodesScreen extends StatefulWidget {
   const AccolodesScreen(
-      {super.key, this.accolade = true, required this.cardId});
+      {super.key,
+      this.accolade = true,
+      required this.cardId,
+      this.accoladeModel,
+      this.accredition});
 
   final bool? accolade;
   final int cardId;
+  final Accolade? accoladeModel;
+  final Accredition? accredition;
 
   @override
   State<AccolodesScreen> createState() => _AccolodesScreenState();
@@ -224,7 +231,8 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                                       base64.decode((widget.accolade == null
                                               ? achivement[index] is Accolade
                                                   ? achivement[index]
-                                                      .accoladesImage[0].image
+                                                      .accoladesImage[0]
+                                                      .image
                                                   : achivement[index].image
                                               : widget.accolade!
                                                   ? user.accolades[index]

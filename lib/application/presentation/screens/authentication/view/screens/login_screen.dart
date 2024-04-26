@@ -144,180 +144,182 @@ class _LoGInScreenState extends State<LoGInScreen>
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Form(
               key: loginKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 160,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        eyeCircleAnimated(),
-                        Container(
-                          width: kwidth * 0.05,
-                          height: kwidth * 0.02,
-                          decoration: BoxDecoration(
-                            gradient: neonShadeGradient,
-                          ),
-                        ),
-                        eyeCircleAnimated()
-                      ],
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                   SizedBox(
+                      width: double.infinity,
+                      height: khieght * 0.25,
+                      // child: Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     eyeCircleAnimated(),
+                      //     Container(
+                      //       width: kwidth * 0.05,
+                      //       height: kwidth * 0.02,
+                      //       decoration: BoxDecoration(
+                      //         gradient: neonShadeGradient,
+                      //       ),
+                      //     ),
+                      //     eyeCircleAnimated()
+                      //   ],
+                      // ),
                     ),
-                  ),
-                  Text(
-                    'Your key to your business',
-                    style: custumText(
-                      fontSize: kwidth * 0.043,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      'Your key to your business',
+                      style: custumText(
+                        fontSize: kwidth * 0.043,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  adjustHieght(khieght * .02),
-                  TTextFormField(
-                    onTap: () {
-                      setState(() {
-                        if (emailController.text.isEmpty) {
-                          animate(-28, 20);
-                          indexOfEye = 1;
-                        } else {
-                          double newXPosition =
-                              -28 + (emailController.text.length * 1.5);
-                          double newYPosition =
-                              20 + (emailController.text.length * 0.5);
-                          if (newXPosition > 12 && newYPosition > 33) {
-                            setState(() {
-                              newXPosition = 12.0;
-                              newYPosition = 33.0;
-                              animate(newXPosition, newYPosition);
+                    adjustHieght(khieght * .02),
+                    TTextFormField(
+                      onTap: () {
+                        setState(() {
+                          if (emailController.text.isEmpty) {
+                            animate(-28, 20);
+                            indexOfEye = 1;
+                          } else {
+                            double newXPosition =
+                                -28 + (emailController.text.length * 1.5);
+                            double newYPosition =
+                                20 + (emailController.text.length * 0.5);
+                            if (newXPosition > 12 && newYPosition > 33) {
+                              setState(() {
+                                newXPosition = 12.0;
+                                newYPosition = 33.0;
+                                animate(newXPosition, newYPosition);
+                                indexOfEye = 4;
+                              });
+                              return;
+                            }
+                            animate(newXPosition, newYPosition);
+                            if (emailController.text.length > 22) {
                               indexOfEye = 4;
-                            });
-                            return;
+                            } else if (emailController.text.length >= 17) {
+                              indexOfEye = 2;
+                            } else {
+                              indexOfEye = 1;
+                            }
                           }
-                          animate(newXPosition, newYPosition);
-                          if (emailController.text.length > 22) {
+                        });
+                      },
+                      onChanaged: (name) {
+                        double newXPosition = -28 + (name.length * 1.5);
+                        double newYPosition = 20 + (name.length * 0.5);
+                        if (newXPosition > 12 && newYPosition > 33) {
+                          setState(() {
+                            newXPosition = 12.0;
+                            newYPosition = 33.0;
                             indexOfEye = 4;
-                          } else if (emailController.text.length >= 17) {
+                          });
+                          return;
+                        }
+                        setState(() {
+                          animate(newXPosition, newYPosition);
+                          if (name.length >= 17) {
                             indexOfEye = 2;
                           } else {
                             indexOfEye = 1;
                           }
-                        }
-                      });
-                    },
-                    onChanaged: (name) {
-                      double newXPosition = -28 + (name.length * 1.5);
-                      double newYPosition = 20 + (name.length * 0.5);
-                      if (newXPosition > 12 && newYPosition > 33) {
-                        setState(() {
-                          newXPosition = 12.0;
-                          newYPosition = 33.0;
-                          indexOfEye = 4;
                         });
-                        return;
-                      }
-                      setState(() {
-                        animate(newXPosition, newYPosition);
-                        if (name.length >= 17) {
-                          indexOfEye = 2;
-                        } else {
-                          indexOfEye = 1;
-                        }
-                      });
-                    },
-                    validate: Validate.email,
-                    text: 'Email',
-                    controller: emailController,
-                    inputType: TextInputType.emailAddress,
-                  ),
-                  TTextFormField(
-                    onTap: () {
-                      setState(() {
-                        indexOfEye = 3;
-                        animate(30, -20);
-                      });
-                    },
-                    validate: Validate.notNull,
-                    text: 'Password',
-                    controller: passwordController,
-                    inputType: TextInputType.visiblePassword,
-                    obscureText: true,
-                  ),
-                  adjustHieght(10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Don\'t have an account?',
-                        style: TextStyle(
-                          fontSize: kwidth * 0.03,
-                        ),
-                      ),
-                      adjustWidth(10),
-                      InkWell(
-                        onTap: () =>
-                            GoRouter.of(context).pushNamed(Routes.signUpPage),
-                        child: Text(
-                          'Sign Up',
+                      },
+                      validate: Validate.email,
+                      text: 'Email',
+                      controller: emailController,
+                      inputType: TextInputType.emailAddress,
+                    ),
+                    TTextFormField(
+                      onTap: () {
+                        setState(() {
+                          indexOfEye = 3;
+                          animate(30, -20);
+                        });
+                      },
+                      validate: Validate.notNull,
+                      text: 'Password',
+                      controller: passwordController,
+                      inputType: TextInputType.visiblePassword,
+                      obscureText: true,
+                    ),
+                    adjustHieght(10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Don\'t have an account?',
                           style: TextStyle(
-                            fontSize: kwidth * 0.037,
-                            decoration: TextDecoration.underline,
-                            decorationColor: kwhite,
+                            fontSize: kwidth * 0.03,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  adjustHieght(khieght * .01),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          fadePageRoute(const EmailFieldForGottPassword()));
-                    },
-                    child: Text(
-                      'Forgot password',
-                      style: TextStyle(fontSize: kwidth * 0.03, color: kwhite),
+                        adjustWidth(10),
+                        InkWell(
+                          onTap: () =>
+                              GoRouter.of(context).pushNamed(Routes.signUpPage),
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                              fontSize: kwidth * 0.037,
+                              decoration: TextDecoration.underline,
+                              decorationColor: kwhite,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  adjustHieght(khieght * .03),
-                  BlocConsumer<AuthBloc, AuthState>(
-                    listener: (context, state) {
-                      if (state.hasError || state.message != null) {
-                        showSnackbar(
-                          context,
-                          message: state.message!,
-                          backgroundColor: state.hasError ? kred : neonShade,
-                          textColor: kwhite,
-                        );
-                      }
-                      if (state.loginResponseModel != null) {
-                        if (state.isFirstLogin || !state.hasCard) {
-                          GoRouter.of(context)
-                              .pushReplacementNamed(Routes.cardCreation);
-                        } else {
-                          GoRouter.of(context)
-                              .pushReplacementNamed(Routes.homePage);
+                    adjustHieght(khieght * .01),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            fadePageRoute(const EmailFieldForGottPassword()));
+                      },
+                      child: Text(
+                        'Forgot password',
+                        style: TextStyle(fontSize: kwidth * 0.03, color: kwhite),
+                      ),
+                    ),
+                    adjustHieght(khieght * .03),
+                    BlocConsumer<AuthBloc, AuthState>(
+                      listener: (context, state) {
+                        if (state.hasError || state.message != null) {
+                          showSnackbar(
+                            context,
+                            message: state.message!,
+                            backgroundColor: state.hasError ? kred : neonShade,
+                            textColor: kwhite,
+                          );
                         }
-                      }
-                    },
-                    builder: (context, state) {
-                      if (state.isLoading) {
-                        return const LoadingAnimation();
-                      }
-                      return AuthButton(
-                        text: 'Login',
-                        onTap: () {
-                          if (loginKey.currentState!.validate()) {
-                            FocusScope.of(context).unfocus();
-                            context.read<AuthBloc>().add(AuthEvent.login(
-                                loginModel: LoginModel(
-                                    email: emailController.text.trim(),
-                                    password: passwordController.text.trim())));
+                        if (state.loginResponseModel != null) {
+                          if (state.isFirstLogin || !state.hasCard) {
+                            GoRouter.of(context)
+                                .pushReplacementNamed(Routes.cardCreation);
+                          } else {
+                            GoRouter.of(context)
+                                .pushReplacementNamed(Routes.homePage);
                           }
-                        },
-                      );
-                    },
-                  ),
-                ],
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state.isLoading) {
+                          return const LoadingAnimation();
+                        }
+                        return AuthButton(
+                          text: 'Login',
+                          onTap: () {
+                            if (loginKey.currentState!.validate()) {
+                              FocusScope.of(context).unfocus();
+                              context.read<AuthBloc>().add(AuthEvent.login(
+                                  loginModel: LoginModel(
+                                      email: emailController.text.trim(),
+                                      password: passwordController.text.trim())));
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

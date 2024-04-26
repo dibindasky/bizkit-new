@@ -1,6 +1,7 @@
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/qr_scanner_view.dart';
+import 'package:bizkit/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
@@ -124,7 +125,21 @@ class _SelfieScreenState extends State<SelfieScreen>
                       ],
                     )
                   : indexofButton == 1
-                      ? const ContainerPickImage()
+                      ? Column(
+                          children: [
+                            const ContainerPickImage(),
+                            adjustHieght(20),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  fadePageRoute(CardSecondScannedDatas()),
+                                );
+                              },
+                              child: const Text(
+                                  'Create card without visiting card'),
+                            ),
+                          ],
+                        )
                       : const SizedBox(),
               const Spacer(),
               Row(
@@ -221,12 +236,14 @@ class ContainerPickImage extends StatelessWidget {
     this.onPressedGallery,
     this.isBoth = true,
     this.fromMain = true,
+    this.needNavigate = true,
   });
   final String? heading;
   final VoidCallback? onPressedCam;
   final VoidCallback? onPressedGallery;
   final bool isBoth;
   final bool fromMain;
+  final bool needNavigate;
 
   @override
   Widget build(BuildContext context) {
@@ -254,14 +271,16 @@ class ContainerPickImage extends StatelessWidget {
                           child: InkWell(
                             onTap: onPressedGallery ??
                                 () {
+                                  if (needNavigate) {
+                                    Navigator.of(context).push(
+                                        fadePageRoute(const SelectedCard()));
+                                  }
                                   context.read<CardSecondBloc>().add(
                                       const CardSecondEvent.scanImage(
                                           isFront: false, isCam: false));
                                   if (fromMain) {
                                     context.read<CardSecondBloc>().add(
                                         const CardSecondEvent.imageClear());
-                                    Navigator.of(context).push(
-                                        fadePageRoute(const SelectedCard()));
                                   }
                                 },
                             child: Container(
@@ -281,6 +300,10 @@ class ContainerPickImage extends StatelessWidget {
                     child: InkWell(
                       onTap: onPressedCam ??
                           () {
+                            if (needNavigate) {
+                              Navigator.of(context)
+                                  .push(fadePageRoute(const SelectedCard()));
+                            }
                             context.read<CardSecondBloc>().add(
                                   const CardSecondEvent.scanImage(
                                       isCam: true, isFront: false),
@@ -289,8 +312,6 @@ class ContainerPickImage extends StatelessWidget {
                               context
                                   .read<CardSecondBloc>()
                                   .add(const CardSecondEvent.imageClear());
-                              Navigator.of(context)
-                                  .push(fadePageRoute(const SelectedCard()));
                             }
                           },
                       child: Container(

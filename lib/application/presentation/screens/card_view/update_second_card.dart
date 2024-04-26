@@ -6,7 +6,6 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -26,25 +25,21 @@ class SecondCardUpdation extends StatefulWidget {
 }
 
 class _SecondCardUpdationState extends State<SecondCardUpdation> {
-  List<String>? base64imageSelfie = [];
   List<String> selfieBase64List = [];
   String? base64imagecard;
 
   @override
   void initState() {
-    if (widget.secondCard.selfie != null) {
-      for (var image
-          in context.read<CardSecondBloc>().state.getSecondCardModel!.selfie!) {
+    if (widget.secondCard.selfie != null ||
+        widget.secondCard.selfie!.isNotEmpty) {
+      for (var image in widget.secondCard.selfie!) {
         String im = image.selfie!;
         im = im.startsWith('data') ? im.substring(22) : im;
         selfieBase64List.add(im);
       }
-      base64imageSelfie =
-          widget.secondCard.selfie?.map((e) => e.selfie ?? '').toList();
-      base64imageSelfie = base64imageSelfie!;
-      // .replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
     }
-    if (widget.secondCard.image != null) {
+    if (widget.secondCard.image != null ||
+        widget.secondCard.selfie!.isNotEmpty) {
       base64imagecard = widget.secondCard.image ?? "";
       base64imagecard =
           base64imagecard!.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
@@ -73,6 +68,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
         widget.secondCard.company ?? '';
     log('id ${widget.secondCard.id}');
     super.initState();
+    log('${selfieBase64List.length}', name: 'selfieBase64List');
   }
 
   @override
@@ -104,6 +100,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
         ),
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
+            
             if (state.updated) {
               context
                   .read<CardSecondBloc>()
@@ -115,522 +112,359 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView(
-                children: [
-                  adjustHieght(20),
-                  const Text('Scanned card image'),
-                  adjustHieght(20),
-                  state.pickSelfieCardLoading
-                      ? SizedBox(
-                          height: khieght * .3,
-                          child: const Center(
-                            child: CircularProgressIndicator(
-                              color: neonShade,
-                            ),
-                          ),
-                        )
-                      : state.scannedImagesSecondCardCreation.isNotEmpty
-                          ? Stack(
-                              children: [
-                                InkWell(
-                                  onTap: () => Navigator.of(context).push(
-                                    fadePageRoute(ScreenImagePreview(
-                                      image: state
-                                          .scannedImagesSecondCardCreation
-                                          .last
-                                          .base64,
-                                    )),
-                                  ),
-                                  child: Container(
-                                    height: kwidth * 0.60,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: FileImage(
-                                            state
-                                                .scannedImagesSecondCardCreation
-                                                .last
-                                                .fileImage,
-                                          ),
-                                          fit: BoxFit.fitWidth),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    adjustHieght(20),
+                    state.scannedImagesSecondCardCreation.isEmpty
+                        ? const Text('Add visitig card image')
+                        : const Text('Scanned card image'),
+                    adjustHieght(20),
+                    state.scannedImagesSecondCardCreation.isNotEmpty
+                        ? Stack(
+                            children: [
+                              Container(
+                                height: kwidth * 0.60,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: FileImage(
+                                      state.scannedImagesSecondCardCreation.last
+                                          .fileImage,
                                     ),
+                                    fit: BoxFit.fitWidth,
+                                    onError: (exception, stackTrace) {
+                                      const Icon(Icons.image);
+                                    },
                                   ),
                                 ),
-                                Positioned(
-                                  right: 10,
-                                  bottom: 10,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: ColoredBox(
-                                      color: neonShade,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          cameraAndGalleryPickImage(
-                                            context: context,
-                                            onPressCam: () {
-                                              context
-                                                  .read<CardSecondBloc>()
-                                                  .add(const CardSecondEvent
-                                                      .scanImage(
-                                                      isFront: false,
-                                                      isCam: true));
-                                            },
-                                            onPressGallery: () {
-                                              context
-                                                  .read<CardSecondBloc>()
-                                                  .add(const CardSecondEvent
-                                                      .scanImage(
-                                                      isFront: false,
-                                                      isCam: false));
-                                            },
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          size: 30,
-                                          color: kwhite,
-                                          Icons.add,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          : Stack(
-                              children: [
-                                InkWell(
-                                  onTap: () => Navigator.of(context)
-                                      .push(fadePageRoute(ScreenImagePreview(
-                                    image: widget.secondCard.image ?? '',
-                                  ))),
-                                  child: SizedBox(
-                                    height: kwidth * 0.60,
-                                    width: double.infinity,
-                                    child: Image.memory(
-                                      base64.decode(
-                                          base64imagecard!.startsWith('data')
-                                              ? base64imagecard!.substring(22)
-                                              : base64imagecard!),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 10,
-                                  bottom: 10,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: ColoredBox(
-                                      color: neonShade,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          cameraAndGalleryPickImage(
-                                            context: context,
-                                            onPressCam: () {
-                                              context
-                                                  .read<CardSecondBloc>()
-                                                  .add(const CardSecondEvent
-                                                      .scanImage(
-                                                      isFront: false,
-                                                      isCam: true));
-                                            },
-                                            onPressGallery: () {
-                                              context
-                                                  .read<CardSecondBloc>()
-                                                  .add(const CardSecondEvent
-                                                      .scanImage(
+                              ),
+                              Positioned(
+                                right: 10,
+                                bottom: 10,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: ColoredBox(
+                                    color: neonShade,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        cameraAndGalleryPickImage(
+                                          context: context,
+                                          onPressCam: () {
+                                            context.read<CardSecondBloc>().add(
+                                                    const CardSecondEvent
+                                                        .scanImage(
+                                                  isFront: false,
+                                                  isCam: true,
+                                                ));
+                                          },
+                                          onPressGallery: () {
+                                            context.read<CardSecondBloc>().add(
+                                                const CardSecondEvent.scanImage(
                                                     isFront: false,
-                                                    isCam: false,
-                                                  ));
-                                            },
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          size: 30,
-                                          color: kwhite,
-                                          Icons.add,
-                                        ),
+                                                    isCam: false));
+                                          },
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        size: 30,
+                                        color: kwhite,
+                                        Icons.add,
                                       ),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                  adjustHieght(20),
-                  widget.secondCard.selfie != null
-                      ? const Text('Selfie Image')
-                      : const SizedBox(),
-                  adjustHieght(20),
-                  state.pickImageLoading
-                      ? SizedBox(
-                          height: khieght * .3,
-                          child: const Center(
-                            child: CircularProgressIndicator(
+                              ),
+                            ],
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: ColoredBox(
                               color: neonShade,
-                            ),
-                          ),
-                        )
-                      : state.selfieImageModel.isEmpty
-                          //     ? SizedBox(
-                          //         height: kwidth * 0.60,
-                          //         child:
-                          // ListView.separated(
-                          //           separatorBuilder: (context, index) {
-                          //             return adjustWidth(10);
-                          //           },
-                          //           scrollDirection: Axis.horizontal,
-                          //           itemCount: widget.secondCard.selfie!.length,
-                          //           itemBuilder: (context, index) {
-                          //             return Stack(
-                          //               children: [
-                          //                 InkWell(
-                          //                   onTap: () => Navigator.of(context).push(
-                          //                     fadePageRoute(ScreenImagePreview(
-                          //                         image: widget.secondCard
-                          //                             .selfie![index].selfie
-                          //                             .toString())),
-                          //                   ),
-                          //                   child: SizedBox(
-                          //                     height: kwidth * 0.60,
-                          //                     width: double.infinity,
-                          //                     child: Image.file(
-                          //                       state.selfieImageModel[index]
-                          //                           .fileImage,
-                          //                       fit: BoxFit.cover,
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //                 Positioned(
-                          //                   bottom: 70,
-                          //                   right: 10,
-                          //                   child: ClipRRect(
-                          //                     borderRadius:
-                          //                         BorderRadius.circular(15),
-                          //                     child: ColoredBox(
-                          //                       color: neonShade,
-                          //                       child: IconButton(
-                          //                         onPressed: () {
-                          //                           showCustomConfirmationDialogue(
-                          //                             context: context,
-                          //                             buttonText: 'Delete',
-                          //                             title:
-                          //                                 'You want to remove your selfie',
-                          //                             onTap: () {
-                          //                               // context
-                          //                               //     .read<
-                          //                               //         CardSecondBloc>()
-                          //                               //     .add(const CardSecondEvent
-                          //                               //         .selfieimageClear(index: index));
-                          //                             },
-                          //                           );
-                          //                         },
-                          //                         icon: const Icon(
-                          //                           size: 30,
-                          //                           color: kwhite,
-                          //                           Icons.delete,
-                          //                         ),
-                          //                       ),
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //                 Positioned(
-                          //                   right: 10,
-                          //                   bottom: 10,
-                          //                   child: ClipRRect(
-                          //                     borderRadius:
-                          //                         BorderRadius.circular(15),
-                          //                     child: ColoredBox(
-                          //                       color: neonShade,
-                          //                       child: IconButton(
-                          //                         onPressed: () {
-                          //                           context
-                          //                               .read<CardSecondBloc>()
-                          //                               .add(const CardSecondEvent
-                          //                                   .selfieImage(
-                          //                                 isCam: true,
-                          //                                 cameraDeviceFront: true,
-                          //                               ));
-                          //                         },
-                          //                         icon: const Icon(
-                          //                           size: 30,
-                          //                           color: kwhite,
-                          //                           Icons.camera,
-                          //                         ),
-                          //                       ),
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //               ],
-                          //             );
-                          //           },
-                          //         ),
-                          //)
-                          //     : widget.secondCard.selfie != null
-                          ? SizedBox(
-                              height: kwidth * 0.60,
-                              child: ListView.separated(
-                                separatorBuilder: (context, index) {
-                                  return adjustWidth(10);
-                                },
-                                scrollDirection: Axis.horizontal,
-                                itemCount: selfieBase64List.length,
-                                itemBuilder: (context, index) {
-                                  return Stack(
-                                    children: [
-                                      InkWell(
-                                        onTap: () => Navigator.of(context).push(
-                                            fadePageRoute(ScreenImagePreview(
-                                          image: widget.secondCard.selfie!
-                                              .map((e) => e.selfie)
-                                              .toString(),
-                                        ))),
-                                        child: SizedBox(
-                                          height: kwidth * 0.60,
-                                          width: double.infinity,
-                                          child: Image.memory(
-                                            base64.decode(
-                                                selfieBase64List[index]
-                                                // base64imageSelfie!.startsWith('data')
-                                                //     ? base64imageSelfie!.substring(22)
-                                                //     : base64imageSelfie!
-                                                ),
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return Icon(Icons.error);
-                                            },
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        right: 10,
-                                        bottom: 10,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          child: ColoredBox(
-                                            color: neonShade,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                cameraAndGalleryPickImage(
-                                                  context: context,
-                                                  onPressCam: () {
-                                                    context
-                                                        .read<CardSecondBloc>()
-                                                        .add(
-                                                            const CardSecondEvent
-                                                                .selfieImage(
-                                                          isCam: true,
-                                                          cameraDeviceFront:
-                                                              true,
-                                                        ));
-                                                  },
-                                                  onPressGallery: () {
-                                                    context
-                                                        .read<CardSecondBloc>()
-                                                        .add(
-                                                            const CardSecondEvent
-                                                                .selfieImage(
-                                                          isCam: false,
-                                                          cameraDeviceFront:
-                                                              false,
-                                                        ));
-                                                  },
-                                                );
-                                              },
-                                              icon: const Icon(
-                                                size: 30,
-                                                color: kwhite,
-                                                Icons.add,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                              child: IconButton(
+                                onPressed: () {
+                                  cameraAndGalleryPickImage(
+                                    context: context,
+                                    onPressCam: () {
+                                      context.read<CardSecondBloc>().add(
+                                          const CardSecondEvent.scanImage(
+                                              isFront: false, isCam: true));
+                                    },
+                                    onPressGallery: () {
+                                      context
+                                          .read<CardSecondBloc>()
+                                          .add(const CardSecondEvent.scanImage(
+                                            isFront: false,
+                                            isCam: false,
+                                          ));
+                                    },
                                   );
                                 },
+                                icon: const Icon(
+                                  size: 30,
+                                  color: kwhite,
+                                  Icons.add,
+                                ),
                               ),
-                            )
-                          : ContainerPickImage(
-                              onPressedGallery: () =>
-                                  context.read<CardSecondBloc>().add(
-                                        const CardSecondEvent.selfieImage(
-                                          isCam: false,
-                                          cameraDeviceFront: false,
-                                        ),
-                                      ),
-                              onPressedCam: () =>
-                                  context.read<CardSecondBloc>().add(
-                                        const CardSecondEvent.selfieImage(
-                                          isCam: true,
-                                          cameraDeviceFront: true,
-                                        ),
-                                      ),
-                              heading: 'Take Selfie',
                             ),
-                  // Show container to pick image
-                  Form(
-                    key: context.read<CardSecondBloc>().cardUpdateKey,
-                    child: Column(
-                      children: [
-                        adjustHieght(khieght * 0.008),
-                        TTextFormField(
-                          validate: Validate.notNull,
-                          text: 'Name',
-                          controller: context
-                              .read<CardSecondBloc>()
-                              .updateNameController,
-                          inputType: TextInputType.name,
-                        ),
-                        TTextFormField(
-                          //validate: Validate.notNull,
-                          text: 'Company',
-                          controller: context
-                              .read<CardSecondBloc>()
-                              .updateCompanyController,
-                          inputType: TextInputType.name,
-                        ),
-                        TTextFormField(
-                          validate: Validate.ifValidEmail,
-                          text: 'Email',
-                          controller: context
-                              .read<CardSecondBloc>()
-                              .updateEmailController,
-                          inputType: TextInputType.emailAddress,
-                        ),
-                        TTextFormField(
-                          validate: Validate.ifValidnumber,
-                          text: 'Phone number',
-                          controller: context
-                              .read<CardSecondBloc>()
-                              .updatephoneController,
-                          inputType: TextInputType.number,
-                        ),
-                        TTextFormField(
-                          validate: Validate.ifValidWebsite,
-                          text: 'website',
-                          controller: context
-                              .read<CardSecondBloc>()
-                              .updatewebSiteController,
-                          inputType: TextInputType.emailAddress,
-                        ),
-                        TTextFormField(
-                          // validate: Validate.notNull,
-                          text: 'Designation',
-                          controller: context
-                              .read<CardSecondBloc>()
-                              .updatedesignationController,
-                          inputType: TextInputType.name,
-                        ),
-                        TTextFormField(
-                          // validate: Validate.notNull,
-                          text: 'Location',
-                          controller: context
-                              .read<CardSecondBloc>()
-                              .updatelocatioNController,
-                          inputType: TextInputType.name,
-                        ),
-                        TTextFormField(
-                          // validate: Validate.notNull,
-                          text: 'Occation',
-                          controller: context
-                              .read<CardSecondBloc>()
-                              .updateoccationController,
-                          inputType: TextInputType.name,
-                        ),
-                        TTextFormField(
-                          //validate: Validate.notNull,
-                          text: 'Occupation',
-                          controller: context
-                              .read<CardSecondBloc>()
-                              .updateoccupationController,
-                          inputType: TextInputType.name,
-                        ),
-                        TTextFormField(
-                          //validate: Validate.notNull,
-                          text: 'Notes',
-                          controller: context
-                              .read<CardSecondBloc>()
-                              .updatenotesController,
-                          inputType: TextInputType.name,
-                        ),
-                        adjustHieght(20),
-                        !state.isLoading
-                            ? LastSkipContinueButtons(
-                                continueText: '   Save   ',
-                                onTap: () {
-                                  if (context
-                                      .read<CardSecondBloc>()
-                                      .cardUpdateKey
-                                      .currentState!
-                                      .validate()) {
-                                    List<Selfie>? image = [];
-
-                                    SecondCard secondCard = SecondCard(
-                                        whereWeMet: context
-                                            .read<CardSecondBloc>()
-                                            .updateoccationController
-                                            .text,
-                                        designation: context
-                                            .read<CardSecondBloc>()
-                                            .updatedesignationController
-                                            .text,
-                                        email: context
-                                            .read<CardSecondBloc>()
-                                            .updateEmailController
-                                            .text,
-                                        location: context
-                                            .read<CardSecondBloc>()
-                                            .updatelocatioNController
-                                            .text,
-                                        notes: context
-                                            .read<CardSecondBloc>()
-                                            .updatenotesController
-                                            .text,
-                                        occupation: context
-                                            .read<CardSecondBloc>()
-                                            .updateoccupationController
-                                            .text,
-                                        phoneNumber: context
-                                            .read<CardSecondBloc>()
-                                            .updatephoneController
-                                            .text,
-                                        website: context
-                                            .read<CardSecondBloc>()
-                                            .updatewebSiteController
-                                            .text,
-                                        image: state.scannedImagesSecondCardCreation
-                                                .isNotEmpty
-                                            ? state
-                                                .scannedImagesSecondCardCreation
-                                                .last
-                                                .base64
-                                            : widget.secondCard.image!,
-                                        company: context
-                                            .read<CardSecondBloc>()
-                                            .updateCompanyController
-                                            .text,
-                                        name: context
-                                            .read<CardSecondBloc>()
-                                            .updateNameController
-                                            .text,
-                                        selfie: []);
-                                    context.read<CardSecondBloc>().add(
-                                          CardSecondEvent.updateCardSecond(
-                                            secondCard: secondCard,
-                                            id: widget.secondCard.id.toString(),
-                                          ),
+                          ),
+                    adjustHieght(20),
+                    selfieBase64List.isNotEmpty
+                        ? const Text('Selfie Image')
+                        : const SizedBox(),
+                    adjustHieght(20),
+                    widget.secondCard.selfie == null ||
+                            widget.secondCard.selfie!.isEmpty
+                        ? ContainerPickImage(
+                            onPressedGallery: () =>
+                                context.read<CardSecondBloc>().add(
+                                      const CardSecondEvent.selfieImage(
+                                        isCam: false,
+                                        cameraDeviceFront: false,
+                                      ),
+                                    ),
+                            onPressedCam: () =>
+                                context.read<CardSecondBloc>().add(
+                                      const CardSecondEvent.selfieImage(
+                                        isCam: true,
+                                        cameraDeviceFront: true,
+                                      ),
+                                    ),
+                            heading: 'Take Selfie',
+                          )
+                        : Stack(
+                            children: [
+                              SizedBox(
+                                height: 200,
+                                child: ListView.separated(
+                                  separatorBuilder: (context, index) {
+                                    return adjustWidth(10);
+                                  },
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: widget.secondCard.selfie!.length,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () => Navigator.of(context).push(
+                                        fadePageRoute(ScreenImagePreview(
+                                            image: selfieBase64List.first)),
+                                      ),
+                                      child: Image.memory(
+                                        base64.decode(selfieBase64List.first
+                                            // base64imageSelfie!.startsWith('data')
+                                            //     ? base64imageSelfie!.substring(22)
+                                            //     : base64imageSelfie!
+                                            ),
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return const Icon(Icons.error);
+                                        },
+                                        fit: BoxFit.cover,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Positioned(
+                                right: 10,
+                                bottom: 10,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: ColoredBox(
+                                    color: neonShade,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        cameraAndGalleryPickImage(
+                                          context: context,
+                                          onPressCam: () {
+                                            context.read<CardSecondBloc>().add(
+                                                const CardSecondEvent.scanImage(
+                                                    isFront: false,
+                                                    isCam: true));
+                                          },
+                                          onPressGallery: () {
+                                            context.read<CardSecondBloc>().add(
+                                                    const CardSecondEvent
+                                                        .scanImage(
+                                                  isFront: false,
+                                                  isCam: false,
+                                                ));
+                                          },
                                         );
-                                  }
-                                },
-                              )
-                            : const LoadingAnimation(),
-                        adjustHieght(40)
-                      ],
-                    ),
-                  )
-                ],
+                                      },
+                                      icon: const Icon(
+                                        size: 30,
+                                        color: kwhite,
+                                        Icons.add,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                    Form(
+                      key: context.read<CardSecondBloc>().cardUpdateKey,
+                      child: Column(
+                        children: [
+                          adjustHieght(khieght * 0.008),
+                          TTextFormField(
+                            validate: Validate.notNull,
+                            text: 'Name',
+                            controller: context
+                                .read<CardSecondBloc>()
+                                .updateNameController,
+                            inputType: TextInputType.name,
+                          ),
+                          TTextFormField(
+                            //validate: Validate.notNull,
+                            text: 'Company',
+                            controller: context
+                                .read<CardSecondBloc>()
+                                .updateCompanyController,
+                            inputType: TextInputType.name,
+                          ),
+                          TTextFormField(
+                            validate: Validate.ifValidEmail,
+                            text: 'Email',
+                            controller: context
+                                .read<CardSecondBloc>()
+                                .updateEmailController,
+                            inputType: TextInputType.emailAddress,
+                          ),
+                          TTextFormField(
+                            validate: Validate.ifValidnumber,
+                            text: 'Phone number',
+                            controller: context
+                                .read<CardSecondBloc>()
+                                .updatephoneController,
+                            inputType: TextInputType.number,
+                          ),
+                          TTextFormField(
+                            validate: Validate.ifValidWebsite,
+                            text: 'website',
+                            controller: context
+                                .read<CardSecondBloc>()
+                                .updatewebSiteController,
+                            inputType: TextInputType.emailAddress,
+                          ),
+                          TTextFormField(
+                            // validate: Validate.notNull,
+                            text: 'Designation',
+                            controller: context
+                                .read<CardSecondBloc>()
+                                .updatedesignationController,
+                            inputType: TextInputType.name,
+                          ),
+                          TTextFormField(
+                            // validate: Validate.notNull,
+                            text: 'Location',
+                            controller: context
+                                .read<CardSecondBloc>()
+                                .updatelocatioNController,
+                            inputType: TextInputType.name,
+                          ),
+                          TTextFormField(
+                            // validate: Validate.notNull,
+                            text: 'Occation',
+                            controller: context
+                                .read<CardSecondBloc>()
+                                .updateoccationController,
+                            inputType: TextInputType.name,
+                          ),
+                          TTextFormField(
+                            //validate: Validate.notNull,
+                            text: 'Occupation',
+                            controller: context
+                                .read<CardSecondBloc>()
+                                .updateoccupationController,
+                            inputType: TextInputType.name,
+                          ),
+                          TTextFormField(
+                            //validate: Validate.notNull,
+                            text: 'Notes',
+                            controller: context
+                                .read<CardSecondBloc>()
+                                .updatenotesController,
+                            inputType: TextInputType.name,
+                          ),
+                          adjustHieght(20),
+                          !state.isLoading
+                              ? LastSkipContinueButtons(
+                                  continueText: '   Save   ',
+                                  onTap: () {
+                                    if (context
+                                        .read<CardSecondBloc>()
+                                        .cardUpdateKey
+                                        .currentState!
+                                        .validate()) {
+                                      List<Selfie>? image = [];
+
+                                      SecondCard secondCard = SecondCard(
+                                          whereWeMet: context
+                                              .read<CardSecondBloc>()
+                                              .updateoccationController
+                                              .text,
+                                          designation: context
+                                              .read<CardSecondBloc>()
+                                              .updatedesignationController
+                                              .text,
+                                          email: context
+                                              .read<CardSecondBloc>()
+                                              .updateEmailController
+                                              .text,
+                                          location: context
+                                              .read<CardSecondBloc>()
+                                              .updatelocatioNController
+                                              .text,
+                                          notes: context
+                                              .read<CardSecondBloc>()
+                                              .updatenotesController
+                                              .text,
+                                          occupation: context
+                                              .read<CardSecondBloc>()
+                                              .updateoccupationController
+                                              .text,
+                                          phoneNumber: context
+                                              .read<CardSecondBloc>()
+                                              .updatephoneController
+                                              .text,
+                                          website: context
+                                              .read<CardSecondBloc>()
+                                              .updatewebSiteController
+                                              .text,
+                                          image: state.scannedImagesSecondCardCreation
+                                                  .isNotEmpty
+                                              ? state
+                                                  .scannedImagesSecondCardCreation
+                                                  .last
+                                                  .base64
+                                              : widget.secondCard.image!,
+                                          company: context
+                                              .read<CardSecondBloc>()
+                                              .updateCompanyController
+                                              .text,
+                                          name: context
+                                              .read<CardSecondBloc>()
+                                              .updateNameController
+                                              .text,
+                                          selfie: []);
+                                      context.read<CardSecondBloc>().add(
+                                            CardSecondEvent.updateCardSecond(
+                                              secondCard: secondCard,
+                                              id: widget.secondCard.id
+                                                  .toString(),
+                                            ),
+                                          );
+                                    }
+                                  },
+                                )
+                              : const LoadingAnimation(),
+                          adjustHieght(40)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             );
           },

@@ -30,7 +30,15 @@ class CardSecondScannedDatas extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          leading: adjustWidth(0),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 17,
+            ),
+          ),
           title: const Text(
             'Make Visting Card',
             style: TextStyle(
@@ -46,38 +54,42 @@ class CardSecondScannedDatas extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 250,
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) {
-                        return adjustWidth(10);
-                      },
-                      scrollDirection: Axis.horizontal,
-                      itemCount: state.scannedImagesSecondCardCreation.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              fadePageRoute(ScreenImagePreview(
-                                image: state
-                                    .scannedImagesSecondCardCreation[index]
-                                    .base64,
-                              )),
-                            );
-                          },
-                          child: SizedBox(
-                            height: 250,
-                            width: kwidth,
-                            child: Image.file(
-                              state.scannedImagesSecondCardCreation[index]
-                                  .fileImage,
-                              fit: BoxFit.cover,
-                            ),
+                  state.scannedImagesSecondCardCreation.isEmpty
+                      ? kempty
+                      : SizedBox(
+                          height: 250,
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) {
+                              return adjustWidth(10);
+                            },
+                            scrollDirection: Axis.horizontal,
+                            itemCount:
+                                state.scannedImagesSecondCardCreation.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    fadePageRoute(ScreenImagePreview(
+                                      image: state
+                                          .scannedImagesSecondCardCreation[
+                                              index]
+                                          .base64,
+                                    )),
+                                  );
+                                },
+                                child: SizedBox(
+                                  height: 250,
+                                  width: kwidth,
+                                  child: Image.file(
+                                    state.scannedImagesSecondCardCreation[index]
+                                        .fileImage,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                        ),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -161,9 +173,13 @@ class CardSecondScannedDatas extends StatelessWidget {
                                           .nameController
                                           .text,
                                       scannedImage: state
-                                          .scannedImagesSecondCardCreation
-                                          .first
-                                          .base64,
+                                              .scannedImagesSecondCardCreation
+                                              .isNotEmpty
+                                          ? state
+                                              .scannedImagesSecondCardCreation
+                                              .first
+                                              .base64
+                                          : '',
                                       email: context
                                           .read<CardSecondBloc>()
                                           .emailController
@@ -238,7 +254,15 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
       },
       child: Scaffold(
         appBar: AppBar(
-          leading: adjustWidth(0),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 17,
+            ),
+          ),
           title: const Text(
             'Make Visting Card',
             style: TextStyle(
@@ -264,7 +288,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
               log('secondCardcreated secondCardcreated');
               Navigator.pop(context);
               Navigator.pop(context);
-              Navigator.pop(context);
+              //Navigator.pop(context);
               context
                   .read<CardSecondBloc>()
                   .add(const CardSecondEvent.cardFeildClearing());
@@ -309,7 +333,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                   return adjustWidth(10);
                                 },
                                 scrollDirection: Axis.horizontal,
-                                itemCount: state.selfieImageModel.length,
+                                itemCount: state.selfieImageModel.length + 1,
                                 itemBuilder: (context, index) {
                                   if (index == 0) {
                                     return state.pickImageLoading
@@ -374,9 +398,8 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                             ),
                                           );
                                   } else {
-                                    final selfiImages = state
-                                        .selfieImageModel.reversed
-                                        .toList()[index - 1];
+                                    final selfiImages =
+                                        state.selfieImageModel[index - 1];
                                     return InkWell(
                                       onTap: () {
                                         Navigator.push(

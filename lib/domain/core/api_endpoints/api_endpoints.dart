@@ -1,9 +1,11 @@
 class ApiEndPoints {
   //static String baseUrl = 'http://192.168.152.241:8000';
   //static String baseUrl = 'http://192.168.29.216:8000';
-  //static String baseUrl = 'http://44.203.134.42';
-  static String baseUrl = 'https://bizkit.zikrabyte.in';
-  // static String baseUrl = 'http://192.168.29.216:8000';
+  static String baseUrl = 'https://app.bizkit.club';
+  //static String baseUrl = 'https://bizkit.zikrabyte.in';
+//  static String baseUrl = 'http://192.168.25.241:8000/';
+  // static String baseUrl = 'http://192.168.108.241:8000/';
+
   // refesh token
   static String refreshUrl = '/accounts/api/token/refresh/';
   // auth
@@ -30,7 +32,6 @@ class ApiEndPoints {
   static String createCardBusiness = '/card/edit-business-details/{card_id}/';
   static String patchPersonalDetails =
       '/card/personal-detail-update-delete/{personal_details_id}/';
-
   static String addLogo = '/card/logo-create/';
   static String deleteLogo = '/card/logo-update-delete/{logo_id}/';
   static String editLogo = '/card/logo-update-delete/{logo_id}/';

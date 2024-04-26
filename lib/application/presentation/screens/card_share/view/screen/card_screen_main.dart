@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
@@ -471,7 +470,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                           height: khieght * .35,
                           child: const Center(
                             child: Text(
-                              'Visited cards is empty',
+                              'Visiting cards is empty',
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -532,10 +531,18 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                               topLeft: Radius.circular(25),
                                               topRight: Radius.circular(20),
                                             ),
-                                            child: seconsdCard.selfie == null
+                                            child: seconsdCard.selfie == null ||
+                                                    seconsdCard.selfie!.isEmpty
                                                 ? Image.network(
                                                     imageDummyNetwork,
                                                     fit: BoxFit.cover,
+                                                    errorBuilder: (context,
+                                                        error, stackTrace) {
+                                                      return const Icon(
+                                                        Icons
+                                                            .image_not_supported_outlined,
+                                                      );
+                                                    },
                                                   )
                                                 : Image.memory(
                                                     base64Decode(base64String),
@@ -543,7 +550,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                     errorBuilder: (context,
                                                         error, stackTrace) {
                                                       return const Icon(
-                                                          Icons.error);
+                                                        Icons
+                                                            .image_not_supported_outlined,
+                                                      );
                                                     },
                                                   ),
                                           ),

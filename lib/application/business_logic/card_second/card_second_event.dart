@@ -15,7 +15,6 @@ class CardSecondEvent with _$CardSecondEvent {
       {required bool cameraDeviceFront, required bool isCam}) = SelfieImage;
   const factory CardSecondEvent.selfieimageClear({required int index}) =
       SelfieimageClear;
-
   const factory CardSecondEvent.autoFillTExtfieldItems({
     String? scannedImage,
     String? email,

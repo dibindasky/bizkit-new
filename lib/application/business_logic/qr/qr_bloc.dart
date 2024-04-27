@@ -127,6 +127,9 @@ class QrBloc extends Bloc<QrEvent, QrState> {
 
   FutureOr<void> changeQRSelection(ChangeQRSelection event, emit) {
     emit(state.copyWith(isLoading: true));
+    if (state.qrList.isEmpty) {
+      return emit(state.copyWith(isLoading: false));
+    }
     final model = state.qrList[event.index];
     createQrModel = createQrModel.copyWith(
       address: model.address,

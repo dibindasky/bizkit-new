@@ -62,7 +62,8 @@ class ApiEndPoints {
 
   // personal details image card
   static String addPersonalImage = '/card/personal-detail-image-create/';
-  static String removePersonalImage = '/card/personal-detail-image-delete/{id}/';
+  static String removePersonalImage =
+      '/card/personal-detail-image-delete/{id}/';
 
   // Product updation
   static String productUpdation = '/card/product-update-delete/{id}/';
@@ -101,6 +102,9 @@ class ApiEndPoints {
   //Admin side
   static String companySelectedUsersList =
       '/admin_actions/list_company_selected_user/';
+  static String companySelectedUserAction =
+      '/admin_actions/admin-update-business-details/{id}/';
+
   // profile section
   static String reportAProblem = '/accounts/report-problem-in-app/';
   static String getProfileInfo = '/accounts/profile/';

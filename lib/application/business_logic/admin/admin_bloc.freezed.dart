@@ -18,39 +18,42 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AdminEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCompanyUsers,
-    required TResult Function() userBlock,
+    required TResult Function(bool isLoad) getCompanyUsers,
+    required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCompanyUsers,
-    TResult? Function()? userBlock,
+    TResult? Function(bool isLoad)? getCompanyUsers,
+    TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCompanyUsers,
-    TResult Function()? userBlock,
+    TResult Function(bool isLoad)? getCompanyUsers,
+    TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetCompanyUsers value) getCompanyUsers,
-    required TResult Function(UserBlock value) userBlock,
+    required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
+        removeIndiVidualusersPartOfBusiness,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetCompanyUsers value)? getCompanyUsers,
-    TResult? Function(UserBlock value)? userBlock,
+    TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetCompanyUsers value)? getCompanyUsers,
-    TResult Function(UserBlock value)? userBlock,
+    TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -79,6 +82,8 @@ abstract class _$$GetCompanyUsersImplCopyWith<$Res> {
   factory _$$GetCompanyUsersImplCopyWith(_$GetCompanyUsersImpl value,
           $Res Function(_$GetCompanyUsersImpl) then) =
       __$$GetCompanyUsersImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isLoad});
 }
 
 /// @nodoc
@@ -88,54 +93,79 @@ class __$$GetCompanyUsersImplCopyWithImpl<$Res>
   __$$GetCompanyUsersImplCopyWithImpl(
       _$GetCompanyUsersImpl _value, $Res Function(_$GetCompanyUsersImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoad = null,
+  }) {
+    return _then(_$GetCompanyUsersImpl(
+      isLoad: null == isLoad
+          ? _value.isLoad
+          : isLoad // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetCompanyUsersImpl implements GetCompanyUsers {
-  const _$GetCompanyUsersImpl();
+  const _$GetCompanyUsersImpl({required this.isLoad});
+
+  @override
+  final bool isLoad;
 
   @override
   String toString() {
-    return 'AdminEvent.getCompanyUsers()';
+    return 'AdminEvent.getCompanyUsers(isLoad: $isLoad)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetCompanyUsersImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetCompanyUsersImpl &&
+            (identical(other.isLoad, isLoad) || other.isLoad == isLoad));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isLoad);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCompanyUsersImplCopyWith<_$GetCompanyUsersImpl> get copyWith =>
+      __$$GetCompanyUsersImplCopyWithImpl<_$GetCompanyUsersImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCompanyUsers,
-    required TResult Function() userBlock,
+    required TResult Function(bool isLoad) getCompanyUsers,
+    required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
   }) {
-    return getCompanyUsers();
+    return getCompanyUsers(isLoad);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCompanyUsers,
-    TResult? Function()? userBlock,
+    TResult? Function(bool isLoad)? getCompanyUsers,
+    TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
   }) {
-    return getCompanyUsers?.call();
+    return getCompanyUsers?.call(isLoad);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCompanyUsers,
-    TResult Function()? userBlock,
+    TResult Function(bool isLoad)? getCompanyUsers,
+    TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
     required TResult orElse(),
   }) {
     if (getCompanyUsers != null) {
-      return getCompanyUsers();
+      return getCompanyUsers(isLoad);
     }
     return orElse();
   }
@@ -144,7 +174,8 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetCompanyUsers value) getCompanyUsers,
-    required TResult Function(UserBlock value) userBlock,
+    required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
+        removeIndiVidualusersPartOfBusiness,
   }) {
     return getCompanyUsers(this);
   }
@@ -153,7 +184,8 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetCompanyUsers value)? getCompanyUsers,
-    TResult? Function(UserBlock value)? userBlock,
+    TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
   }) {
     return getCompanyUsers?.call(this);
   }
@@ -162,7 +194,8 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetCompanyUsers value)? getCompanyUsers,
-    TResult Function(UserBlock value)? userBlock,
+    TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
     required TResult orElse(),
   }) {
     if (getCompanyUsers != null) {
@@ -173,71 +206,109 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
 }
 
 abstract class GetCompanyUsers implements AdminEvent {
-  const factory GetCompanyUsers() = _$GetCompanyUsersImpl;
+  const factory GetCompanyUsers({required final bool isLoad}) =
+      _$GetCompanyUsersImpl;
+
+  bool get isLoad;
+  @JsonKey(ignore: true)
+  _$$GetCompanyUsersImplCopyWith<_$GetCompanyUsersImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UserBlockImplCopyWith<$Res> {
-  factory _$$UserBlockImplCopyWith(
-          _$UserBlockImpl value, $Res Function(_$UserBlockImpl) then) =
-      __$$UserBlockImplCopyWithImpl<$Res>;
+abstract class _$$RemoveIndiVidualusersPartOfBusinessImplCopyWith<$Res> {
+  factory _$$RemoveIndiVidualusersPartOfBusinessImplCopyWith(
+          _$RemoveIndiVidualusersPartOfBusinessImpl value,
+          $Res Function(_$RemoveIndiVidualusersPartOfBusinessImpl) then) =
+      __$$RemoveIndiVidualusersPartOfBusinessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
 }
 
 /// @nodoc
-class __$$UserBlockImplCopyWithImpl<$Res>
-    extends _$AdminEventCopyWithImpl<$Res, _$UserBlockImpl>
-    implements _$$UserBlockImplCopyWith<$Res> {
-  __$$UserBlockImplCopyWithImpl(
-      _$UserBlockImpl _value, $Res Function(_$UserBlockImpl) _then)
+class __$$RemoveIndiVidualusersPartOfBusinessImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res,
+        _$RemoveIndiVidualusersPartOfBusinessImpl>
+    implements _$$RemoveIndiVidualusersPartOfBusinessImplCopyWith<$Res> {
+  __$$RemoveIndiVidualusersPartOfBusinessImplCopyWithImpl(
+      _$RemoveIndiVidualusersPartOfBusinessImpl _value,
+      $Res Function(_$RemoveIndiVidualusersPartOfBusinessImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$RemoveIndiVidualusersPartOfBusinessImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$UserBlockImpl implements UserBlock {
-  const _$UserBlockImpl();
+class _$RemoveIndiVidualusersPartOfBusinessImpl
+    implements RemoveIndiVidualusersPartOfBusiness {
+  const _$RemoveIndiVidualusersPartOfBusinessImpl({required this.id});
+
+  @override
+  final String id;
 
   @override
   String toString() {
-    return 'AdminEvent.userBlock()';
+    return 'AdminEvent.removeIndiVidualusersPartOfBusiness(id: $id)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UserBlockImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveIndiVidualusersPartOfBusinessImpl &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveIndiVidualusersPartOfBusinessImplCopyWith<
+          _$RemoveIndiVidualusersPartOfBusinessImpl>
+      get copyWith => __$$RemoveIndiVidualusersPartOfBusinessImplCopyWithImpl<
+          _$RemoveIndiVidualusersPartOfBusinessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCompanyUsers,
-    required TResult Function() userBlock,
+    required TResult Function(bool isLoad) getCompanyUsers,
+    required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
   }) {
-    return userBlock();
+    return removeIndiVidualusersPartOfBusiness(id);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCompanyUsers,
-    TResult? Function()? userBlock,
+    TResult? Function(bool isLoad)? getCompanyUsers,
+    TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
   }) {
-    return userBlock?.call();
+    return removeIndiVidualusersPartOfBusiness?.call(id);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCompanyUsers,
-    TResult Function()? userBlock,
+    TResult Function(bool isLoad)? getCompanyUsers,
+    TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
     required TResult orElse(),
   }) {
-    if (userBlock != null) {
-      return userBlock();
+    if (removeIndiVidualusersPartOfBusiness != null) {
+      return removeIndiVidualusersPartOfBusiness(id);
     }
     return orElse();
   }
@@ -246,36 +317,46 @@ class _$UserBlockImpl implements UserBlock {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetCompanyUsers value) getCompanyUsers,
-    required TResult Function(UserBlock value) userBlock,
+    required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
+        removeIndiVidualusersPartOfBusiness,
   }) {
-    return userBlock(this);
+    return removeIndiVidualusersPartOfBusiness(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetCompanyUsers value)? getCompanyUsers,
-    TResult? Function(UserBlock value)? userBlock,
+    TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
   }) {
-    return userBlock?.call(this);
+    return removeIndiVidualusersPartOfBusiness?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetCompanyUsers value)? getCompanyUsers,
-    TResult Function(UserBlock value)? userBlock,
+    TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
     required TResult orElse(),
   }) {
-    if (userBlock != null) {
-      return userBlock(this);
+    if (removeIndiVidualusersPartOfBusiness != null) {
+      return removeIndiVidualusersPartOfBusiness(this);
     }
     return orElse();
   }
 }
 
-abstract class UserBlock implements AdminEvent {
-  const factory UserBlock() = _$UserBlockImpl;
+abstract class RemoveIndiVidualusersPartOfBusiness implements AdminEvent {
+  const factory RemoveIndiVidualusersPartOfBusiness(
+      {required final String id}) = _$RemoveIndiVidualusersPartOfBusinessImpl;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$RemoveIndiVidualusersPartOfBusinessImplCopyWith<
+          _$RemoveIndiVidualusersPartOfBusinessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

@@ -1,6 +1,7 @@
 import 'package:bizkit/application/business_logic/admin/admin_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,12 +16,18 @@ class BussinessUsers extends StatefulWidget {
 class _BussinessUsersState extends State<BussinessUsers> {
   @override
   void initState() {
-    context.read<AdminBloc>().add(const AdminEvent.getCompanyUsers());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        context
+            .read<AdminBloc>()
+            .add(const AdminEvent.getCompanyUsers(isLoad: false));
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -33,7 +40,7 @@ class _BussinessUsersState extends State<BussinessUsers> {
         ),
         backgroundColor: knill,
         title: Text(
-          'Bussiness users',
+          'Bussiness card users',
           style: textHeadStyle1,
         ),
       ),
@@ -45,13 +52,13 @@ class _BussinessUsersState extends State<BussinessUsers> {
               return const LoadingAnimation();
             } else if (state.companySelectedUsersListModel == null) {
               return SizedBox(
-                height: khieght * .5,
-                child: const Text('No Users'),
+                height: khieght * .7,
+                child: const Center(child: Text('No Users')),
               );
             } else if (state.companySelectedUsersListModel!.isEmpty) {
               return SizedBox(
-                height: khieght * .5,
-                child: const Text('No Users'),
+                height: khieght * .7,
+                child: const Center(child: Text('No Users')),
               );
             }
             return ListView.builder(
@@ -98,8 +105,25 @@ class _BussinessUsersState extends State<BussinessUsers> {
                                   horizontal: 20,
                                   vertical: 4,
                                 ),
-                                child: TextButton(
-                                  onPressed: () {},
+                                child: InkWell(
+                                  onTap: () {
+                                    showConfirmationDialog(
+                                      heading:
+                                          'Are you sure to remove this person',
+                                      context,
+                                      actionButton: 'Remove',
+                                      onPressed: () {
+                                        context.read<AdminBloc>().add(AdminEvent
+                                                .removeIndiVidualusersPartOfBusiness(
+                                              id: state
+                                                  .companySelectedUsersListModel![
+                                                      index]
+                                                  .id!
+                                                  .toString(),
+                                            ));
+                                      },
+                                    );
+                                  },
                                   child: const Text('Block'),
                                 ),
                               ),

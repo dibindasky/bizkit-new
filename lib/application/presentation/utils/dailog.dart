@@ -8,7 +8,6 @@ showConfirmationDialog(
   Widget? content,
   String? actionButton,
   void Function()? onPressed,
-  String? operationButtonName,
 }) async {
   return showDialog(
     context: context,

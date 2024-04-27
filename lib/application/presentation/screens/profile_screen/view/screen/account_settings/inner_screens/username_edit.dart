@@ -104,6 +104,7 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                             UserInfoChangeRequestModel();
                         userInfoChangeRequestModel =
                             userInfoChangeRequestModel.copyWith(
+                                id: state.getUserInfoModel?.results?.id,
                                 profilePic: profileImage,
                                 name: context
                                     .read<ProfileBloc>()

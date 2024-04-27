@@ -480,7 +480,6 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                         height: 290,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          // itemCount: state.secondCards.length,
                           itemCount: (state.secondCards.length) +
                               (state.secondCardEventLoading ? 1 : 0),
                           separatorBuilder: (context, index) =>

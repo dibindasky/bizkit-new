@@ -423,7 +423,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           ),
                           TTextFormField(
                             validate: Validate.ifValidWebsite,
-                            text: 'website',
+                            text: 'Website',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updatewebSiteController,
@@ -447,7 +447,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           ),
                           TTextFormField(
                             // validate: Validate.notNull,
-                            text: 'Occation',
+                            text: 'Occasion',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updateoccationController,

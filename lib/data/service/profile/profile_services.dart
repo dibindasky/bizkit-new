@@ -60,7 +60,7 @@ class ProfileService implements ProfileRepo {
         ApiEndPoints.editProfileInfo,
         data: userInfoChangeRequestModel.toJson(),
       );
-
+      log('editProfile done');
       return Right(UpdateUserInfoModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('editProfile DioException ${e.response?.statusCode} $e');

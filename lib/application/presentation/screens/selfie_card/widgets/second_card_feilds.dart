@@ -52,17 +52,10 @@ class CardSecondScannedDatas extends StatelessWidget {
         ),
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
-            if (state.contactAddError) {
-              showSnackbar(
-                context,
-                message: "Contact syncing failed",
-                backgroundColor: kred,
-              );
-            }
             if (state.contactAdded) {
               showSnackbar(
                 context,
-                message: "Contact syncing Done",
+                message: 'This person Added in your contact',
               );
             }
           },
@@ -184,6 +177,9 @@ class CardSecondScannedDatas extends StatelessWidget {
                                   onTap: () {
                                     if (autoFillDataKey.currentState!
                                         .validate()) {
+                                      Navigator.of(context).push(
+                                        fadePageRoute(const SelfieTextFields()),
+                                      );
                                       // Contact save
                                       AddNewContact addNewContact =
                                           AddNewContact(
@@ -246,9 +242,6 @@ class CardSecondScannedDatas extends StatelessWidget {
                                           ));
 
                                       log('before navigating to selfie screen');
-                                      Navigator.of(context).push(
-                                        fadePageRoute(const SelfieTextFields()),
-                                      );
                                     }
                                   },
                                 ),
@@ -318,13 +311,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
         ),
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
-            if (state.selfieImagePickerror) {
-              showSnackbar(
-                context,
-                message: 'Image picking failed,',
-                backgroundColor: kred,
-              );
-            }
+            if (state.selfieImagePickerror) {}
             log('secondCardcreated listener');
             if (state.secondCardcreated) {
               log('${state.secondCardcreated}');
@@ -404,9 +391,9 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                                           .add(
                                                             const CardSecondEvent
                                                                 .selfieImage(
-                                                              isCam: false,
+                                                              isCam: true,
                                                               cameraDeviceFront:
-                                                                  false,
+                                                                  true,
                                                             ),
                                                           );
                                                     },
@@ -417,9 +404,9 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                                           .add(
                                                             const CardSecondEvent
                                                                 .selfieImage(
-                                                              isCam: true,
+                                                              isCam: false,
                                                               cameraDeviceFront:
-                                                                  true,
+                                                                  false,
                                                             ),
                                                           );
                                                     });

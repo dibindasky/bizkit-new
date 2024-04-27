@@ -37,13 +37,6 @@ class SelectedCard extends StatelessWidget {
                     fadePageRoute(CardSecondScannedDatas()),
                   );
                 }
-                if (state.imagePickError) {
-                  showSnackbar(
-                    context,
-                    message: 'Image picking failed',
-                    backgroundColor: kred,
-                  );
-                }
               },
               builder: (context, state) {
                 int length = state.scannedImagesSecondCardCreation.length;

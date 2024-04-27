@@ -62,7 +62,6 @@ class ConnectionNetworkScreen extends StatelessWidget {
                 );
               },
             ),
-
             // TileItem(
             //   text: 'Reported Connections',
             //   onTap: () {

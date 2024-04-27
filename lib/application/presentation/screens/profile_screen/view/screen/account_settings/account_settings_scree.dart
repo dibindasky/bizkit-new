@@ -53,15 +53,6 @@ class AccountSettigsScreen extends StatelessWidget {
                 fadePageRoute(const ChangePassword()),
               ),
             ),
-            // TileItem(
-            //   text: 'Notification Settings',
-            //   onTap: () => Navigator.push(
-            //     context,
-            //     fadePageRoute(
-            //       const NotificationSettings(),
-            //     ),
-            //   ),
-            // ),
             TileItem(
               text: 'Report a problem',
               onTap: () => Navigator.push(

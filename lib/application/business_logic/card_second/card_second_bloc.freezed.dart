@@ -21,6 +21,7 @@ mixin _$CardSecondEvent {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -60,6 +61,7 @@ mixin _$CardSecondEvent {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -96,6 +98,7 @@ mixin _$CardSecondEvent {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -133,6 +136,8 @@ mixin _$CardSecondEvent {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -160,6 +165,7 @@ mixin _$CardSecondEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -184,6 +190,7 @@ mixin _$CardSecondEvent {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -265,6 +272,7 @@ class _$StartedImpl implements _Started {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -307,6 +315,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -346,6 +355,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -389,6 +399,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -419,6 +431,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -446,6 +459,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -551,6 +565,7 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -593,6 +608,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -632,6 +648,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -675,6 +692,8 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -705,6 +724,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -732,6 +752,7 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -846,6 +867,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -888,6 +910,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -927,6 +950,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -970,6 +994,8 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -1000,6 +1026,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -1027,6 +1054,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -1060,6 +1088,307 @@ abstract class ProcessImageScanning implements CardSecondEvent {
   List<ImageModel> get images;
   @JsonKey(ignore: true)
   _$$ProcessImageScanningImplCopyWith<_$ProcessImageScanningImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ProcessImageScanningInfoImplCopyWith<$Res> {
+  factory _$$ProcessImageScanningInfoImplCopyWith(
+          _$ProcessImageScanningInfoImpl value,
+          $Res Function(_$ProcessImageScanningInfoImpl) then) =
+      __$$ProcessImageScanningInfoImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<ImageModel> images});
+}
+
+/// @nodoc
+class __$$ProcessImageScanningInfoImplCopyWithImpl<$Res>
+    extends _$CardSecondEventCopyWithImpl<$Res, _$ProcessImageScanningInfoImpl>
+    implements _$$ProcessImageScanningInfoImplCopyWith<$Res> {
+  __$$ProcessImageScanningInfoImplCopyWithImpl(
+      _$ProcessImageScanningInfoImpl _value,
+      $Res Function(_$ProcessImageScanningInfoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? images = null,
+  }) {
+    return _then(_$ProcessImageScanningInfoImpl(
+      images: null == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ImageModel>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProcessImageScanningInfoImpl implements ProcessImageScanningInfo {
+  _$ProcessImageScanningInfoImpl({required final List<ImageModel> images})
+      : _images = images;
+
+  final List<ImageModel> _images;
+  @override
+  List<ImageModel> get images {
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_images);
+  }
+
+  @override
+  String toString() {
+    return 'CardSecondEvent.processImageScanningInfo(images: $images)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProcessImageScanningInfoImpl &&
+            const DeepCollectionEquality().equals(other._images, _images));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_images));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProcessImageScanningInfoImplCopyWith<_$ProcessImageScanningInfoImpl>
+      get copyWith => __$$ProcessImageScanningInfoImplCopyWithImpl<
+          _$ProcessImageScanningInfoImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(bool isCam, bool isFront) scanImage,
+    required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
+    required TResult Function(int index) removeImageScanning,
+    required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
+    required TResult Function(int index) selfieimageClear,
+    required TResult Function(
+            String? scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
+        autoFillTExtfieldItems,
+    required TResult Function(List<ImageModel>? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
+        meetingRelatedInfo,
+    required TResult Function(bool isLoad) getAllCardsSecond,
+    required TResult Function(SecondCard secondCard, String id)
+        updateCardSecond,
+    required TResult Function(
+            CardActionRequestModel cardActionRewuestModel, int id)
+        deleteCardSecond,
+    required TResult Function(bool isLoad) getDeleteCardSecond,
+    required TResult Function() getDeleteCardSecondEvent,
+    required TResult Function(
+            CardActionRequestModel cardActionRewuestModel, int id)
+        restoreDeleteCardSecond,
+    required TResult Function() getCardSecondEvent,
+    required TResult Function(int id) getSecondCardDetail,
+    required TResult Function() clear,
+    required TResult Function() cardFeildClearing,
+    required TResult Function() imageClear,
+    required TResult Function() locationGeting,
+  }) {
+    return processImageScanningInfo(images);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
+    TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
+    TResult? Function(int index)? removeImageScanning,
+    TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
+    TResult? Function(int index)? selfieimageClear,
+    TResult? Function(
+            String? scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
+        autoFillTExtfieldItems,
+    TResult? Function(List<ImageModel>? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)?
+        meetingRelatedInfo,
+    TResult? Function(bool isLoad)? getAllCardsSecond,
+    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        deleteCardSecond,
+    TResult? Function(bool isLoad)? getDeleteCardSecond,
+    TResult? Function()? getDeleteCardSecondEvent,
+    TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        restoreDeleteCardSecond,
+    TResult? Function()? getCardSecondEvent,
+    TResult? Function(int id)? getSecondCardDetail,
+    TResult? Function()? clear,
+    TResult? Function()? cardFeildClearing,
+    TResult? Function()? imageClear,
+    TResult? Function()? locationGeting,
+  }) {
+    return processImageScanningInfo?.call(images);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(bool isCam, bool isFront)? scanImage,
+    TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
+    TResult Function(int index)? removeImageScanning,
+    TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
+    TResult Function(int index)? selfieimageClear,
+    TResult Function(
+            String? scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
+        autoFillTExtfieldItems,
+    TResult Function(List<ImageModel>? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)?
+        meetingRelatedInfo,
+    TResult Function(bool isLoad)? getAllCardsSecond,
+    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        deleteCardSecond,
+    TResult Function(bool isLoad)? getDeleteCardSecond,
+    TResult Function()? getDeleteCardSecondEvent,
+    TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        restoreDeleteCardSecond,
+    TResult Function()? getCardSecondEvent,
+    TResult Function(int id)? getSecondCardDetail,
+    TResult Function()? clear,
+    TResult Function()? cardFeildClearing,
+    TResult Function()? imageClear,
+    TResult Function()? locationGeting,
+    required TResult orElse(),
+  }) {
+    if (processImageScanningInfo != null) {
+      return processImageScanningInfo(images);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(ScanImage value) scanImage,
+    required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
+    required TResult Function(RemoveImageScanning value) removeImageScanning,
+    required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
+    required TResult Function(AutoFillTExtfieldItems value)
+        autoFillTExtfieldItems,
+    required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
+    required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
+    required TResult Function(UpdateCardSecond value) updateCardSecond,
+    required TResult Function(DeleteCardSecond value) deleteCardSecond,
+    required TResult Function(GetDeleteCardSecond value) getDeleteCardSecond,
+    required TResult Function(GetDeleteCardSecondEvent value)
+        getDeleteCardSecondEvent,
+    required TResult Function(RestoreDeleteCardSecond value)
+        restoreDeleteCardSecond,
+    required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
+    required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
+    required TResult Function(ImageClear value) imageClear,
+    required TResult Function(LocationGeting value) locationGeting,
+  }) {
+    return processImageScanningInfo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(ScanImage value)? scanImage,
+    TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
+    TResult? Function(RemoveImageScanning value)? removeImageScanning,
+    TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
+    TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
+    TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
+    TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
+    TResult? Function(UpdateCardSecond value)? updateCardSecond,
+    TResult? Function(DeleteCardSecond value)? deleteCardSecond,
+    TResult? Function(GetDeleteCardSecond value)? getDeleteCardSecond,
+    TResult? Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
+    TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
+    TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
+    TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
+    TResult? Function(ImageClear value)? imageClear,
+    TResult? Function(LocationGeting value)? locationGeting,
+  }) {
+    return processImageScanningInfo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(ScanImage value)? scanImage,
+    TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
+    TResult Function(RemoveImageScanning value)? removeImageScanning,
+    TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
+    TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
+    TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
+    TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
+    TResult Function(UpdateCardSecond value)? updateCardSecond,
+    TResult Function(DeleteCardSecond value)? deleteCardSecond,
+    TResult Function(GetDeleteCardSecond value)? getDeleteCardSecond,
+    TResult Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
+    TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
+    TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
+    TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
+    TResult Function(Clear value)? clear,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
+    TResult Function(ImageClear value)? imageClear,
+    TResult Function(LocationGeting value)? locationGeting,
+    required TResult orElse(),
+  }) {
+    if (processImageScanningInfo != null) {
+      return processImageScanningInfo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ProcessImageScanningInfo implements CardSecondEvent {
+  factory ProcessImageScanningInfo({required final List<ImageModel> images}) =
+      _$ProcessImageScanningInfoImpl;
+
+  List<ImageModel> get images;
+  @JsonKey(ignore: true)
+  _$$ProcessImageScanningInfoImplCopyWith<_$ProcessImageScanningInfoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1131,6 +1460,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -1173,6 +1503,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -1212,6 +1543,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -1255,6 +1587,8 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -1285,6 +1619,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -1312,6 +1647,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -1425,6 +1761,7 @@ class _$SelfieImageImpl implements SelfieImage {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -1467,6 +1804,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -1506,6 +1844,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -1549,6 +1888,8 @@ class _$SelfieImageImpl implements SelfieImage {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -1579,6 +1920,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -1606,6 +1948,7 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -1712,6 +2055,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -1754,6 +2098,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -1793,6 +2138,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -1836,6 +2182,8 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -1866,6 +2214,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -1893,6 +2242,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -2064,6 +2414,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -2107,6 +2458,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -2147,6 +2499,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -2191,6 +2544,8 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -2221,6 +2576,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -2248,6 +2604,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -2425,6 +2782,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -2468,6 +2826,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -2508,6 +2867,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -2552,6 +2912,8 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -2582,6 +2944,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -2609,6 +2972,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -2721,6 +3085,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -2763,6 +3128,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -2802,6 +3168,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -2845,6 +3212,8 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -2875,6 +3244,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -2902,6 +3272,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -3015,6 +3386,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -3057,6 +3429,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -3096,6 +3469,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -3139,6 +3513,8 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -3169,6 +3545,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -3196,6 +3573,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -3312,6 +3690,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -3354,6 +3733,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -3393,6 +3773,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -3436,6 +3817,8 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -3466,6 +3849,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -3493,6 +3877,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -3599,6 +3984,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -3641,6 +4027,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -3680,6 +4067,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -3723,6 +4111,8 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -3753,6 +4143,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -3780,6 +4171,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -3860,6 +4252,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -3902,6 +4295,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -3941,6 +4335,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -3984,6 +4379,8 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -4014,6 +4411,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -4041,6 +4439,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -4151,6 +4550,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -4193,6 +4593,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -4232,6 +4633,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -4275,6 +4677,8 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -4305,6 +4709,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -4332,6 +4737,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -4411,6 +4817,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -4453,6 +4860,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -4492,6 +4900,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -4535,6 +4944,8 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -4565,6 +4976,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -4592,6 +5004,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -4690,6 +5103,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -4732,6 +5146,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -4771,6 +5186,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -4814,6 +5230,8 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -4844,6 +5262,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -4871,6 +5290,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -4948,6 +5368,7 @@ class _$ClearImpl implements Clear {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -4990,6 +5411,7 @@ class _$ClearImpl implements Clear {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -5029,6 +5451,7 @@ class _$ClearImpl implements Clear {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -5072,6 +5495,8 @@ class _$ClearImpl implements Clear {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -5102,6 +5527,7 @@ class _$ClearImpl implements Clear {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -5129,6 +5555,7 @@ class _$ClearImpl implements Clear {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -5200,6 +5627,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -5242,6 +5670,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -5281,6 +5710,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -5324,6 +5754,8 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -5354,6 +5786,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -5381,6 +5814,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -5452,6 +5886,7 @@ class _$ImageClearImpl implements ImageClear {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -5494,6 +5929,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -5533,6 +5969,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -5576,6 +6013,8 @@ class _$ImageClearImpl implements ImageClear {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -5606,6 +6045,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -5633,6 +6073,7 @@ class _$ImageClearImpl implements ImageClear {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -5704,6 +6145,7 @@ class _$LocationGetingImpl implements LocationGeting {
     required TResult Function() started,
     required TResult Function(bool isCam, bool isFront) scanImage,
     required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
     required TResult Function(int index) removeImageScanning,
     required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
     required TResult Function(int index) selfieimageClear,
@@ -5746,6 +6188,7 @@ class _$LocationGetingImpl implements LocationGeting {
     TResult? Function()? started,
     TResult? Function(bool isCam, bool isFront)? scanImage,
     TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
     TResult? Function(int index)? removeImageScanning,
     TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult? Function(int index)? selfieimageClear,
@@ -5785,6 +6228,7 @@ class _$LocationGetingImpl implements LocationGeting {
     TResult Function()? started,
     TResult Function(bool isCam, bool isFront)? scanImage,
     TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
     TResult Function(int index)? removeImageScanning,
     TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
     TResult Function(int index)? selfieimageClear,
@@ -5828,6 +6272,8 @@ class _$LocationGetingImpl implements LocationGeting {
     required TResult Function(_Started value) started,
     required TResult Function(ScanImage value) scanImage,
     required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
     required TResult Function(RemoveImageScanning value) removeImageScanning,
     required TResult Function(SelfieImage value) selfieImage,
     required TResult Function(SelfieimageClear value) selfieimageClear,
@@ -5858,6 +6304,7 @@ class _$LocationGetingImpl implements LocationGeting {
     TResult? Function(_Started value)? started,
     TResult? Function(ScanImage value)? scanImage,
     TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult? Function(RemoveImageScanning value)? removeImageScanning,
     TResult? Function(SelfieImage value)? selfieImage,
     TResult? Function(SelfieimageClear value)? selfieimageClear,
@@ -5885,6 +6332,7 @@ class _$LocationGetingImpl implements LocationGeting {
     TResult Function(_Started value)? started,
     TResult Function(ScanImage value)? scanImage,
     TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
     TResult Function(RemoveImageScanning value)? removeImageScanning,
     TResult Function(SelfieImage value)? selfieImage,
     TResult Function(SelfieimageClear value)? selfieimageClear,
@@ -5917,6 +6365,8 @@ abstract class LocationGeting implements CardSecondEvent {
 
 /// @nodoc
 mixin _$CardSecondState {
+  bool get locationFetchLoading => throw _privateConstructorUsedError;
+  bool get locationfetchError => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isPageLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
@@ -5936,7 +6386,6 @@ mixin _$CardSecondState {
   bool get secondCardDeleted => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get locationAdress => throw _privateConstructorUsedError;
-  bool get locationfetchError => throw _privateConstructorUsedError;
   List<ImageModel> get scannedImagesSecondCardCreation =>
       throw _privateConstructorUsedError;
   ScannedImageDatasModel? get scannedImageDatasModel =>
@@ -5966,7 +6415,9 @@ abstract class $CardSecondStateCopyWith<$Res> {
       _$CardSecondStateCopyWithImpl<$Res, CardSecondState>;
   @useResult
   $Res call(
-      {bool isLoading,
+      {bool locationFetchLoading,
+      bool locationfetchError,
+      bool isLoading,
       bool isPageLoading,
       bool hasError,
       bool pickImageLoading,
@@ -5985,7 +6436,6 @@ abstract class $CardSecondStateCopyWith<$Res> {
       bool secondCardDeleted,
       String? message,
       String? locationAdress,
-      bool locationfetchError,
       List<ImageModel> scannedImagesSecondCardCreation,
       ScannedImageDatasModel? scannedImageDatasModel,
       List<ImageModel> selfieImageModel,
@@ -6010,6 +6460,8 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? locationFetchLoading = null,
+    Object? locationfetchError = null,
     Object? isLoading = null,
     Object? isPageLoading = null,
     Object? hasError = null,
@@ -6029,7 +6481,6 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
     Object? secondCardDeleted = null,
     Object? message = freezed,
     Object? locationAdress = freezed,
-    Object? locationfetchError = null,
     Object? scannedImagesSecondCardCreation = null,
     Object? scannedImageDatasModel = freezed,
     Object? selfieImageModel = null,
@@ -6041,6 +6492,14 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
     Object? successResponseModel = freezed,
   }) {
     return _then(_value.copyWith(
+      locationFetchLoading: null == locationFetchLoading
+          ? _value.locationFetchLoading
+          : locationFetchLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      locationfetchError: null == locationfetchError
+          ? _value.locationfetchError
+          : locationfetchError // ignore: cast_nullable_to_non_nullable
+              as bool,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -6117,10 +6576,6 @@ class _$CardSecondStateCopyWithImpl<$Res, $Val extends CardSecondState>
           ? _value.locationAdress
           : locationAdress // ignore: cast_nullable_to_non_nullable
               as String?,
-      locationfetchError: null == locationfetchError
-          ? _value.locationfetchError
-          : locationfetchError // ignore: cast_nullable_to_non_nullable
-              as bool,
       scannedImagesSecondCardCreation: null == scannedImagesSecondCardCreation
           ? _value.scannedImagesSecondCardCreation
           : scannedImagesSecondCardCreation // ignore: cast_nullable_to_non_nullable
@@ -6170,7 +6625,9 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isLoading,
+      {bool locationFetchLoading,
+      bool locationfetchError,
+      bool isLoading,
       bool isPageLoading,
       bool hasError,
       bool pickImageLoading,
@@ -6189,7 +6646,6 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool secondCardDeleted,
       String? message,
       String? locationAdress,
-      bool locationfetchError,
       List<ImageModel> scannedImagesSecondCardCreation,
       ScannedImageDatasModel? scannedImageDatasModel,
       List<ImageModel> selfieImageModel,
@@ -6212,6 +6668,8 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? locationFetchLoading = null,
+    Object? locationfetchError = null,
     Object? isLoading = null,
     Object? isPageLoading = null,
     Object? hasError = null,
@@ -6231,7 +6689,6 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? secondCardDeleted = null,
     Object? message = freezed,
     Object? locationAdress = freezed,
-    Object? locationfetchError = null,
     Object? scannedImagesSecondCardCreation = null,
     Object? scannedImageDatasModel = freezed,
     Object? selfieImageModel = null,
@@ -6243,6 +6700,14 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? successResponseModel = freezed,
   }) {
     return _then(_$InitialImpl(
+      locationFetchLoading: null == locationFetchLoading
+          ? _value.locationFetchLoading
+          : locationFetchLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      locationfetchError: null == locationfetchError
+          ? _value.locationfetchError
+          : locationfetchError // ignore: cast_nullable_to_non_nullable
+              as bool,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -6319,10 +6784,6 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.locationAdress
           : locationAdress // ignore: cast_nullable_to_non_nullable
               as String?,
-      locationfetchError: null == locationfetchError
-          ? _value.locationfetchError
-          : locationfetchError // ignore: cast_nullable_to_non_nullable
-              as bool,
       scannedImagesSecondCardCreation: null == scannedImagesSecondCardCreation
           ? _value._scannedImagesSecondCardCreation
           : scannedImagesSecondCardCreation // ignore: cast_nullable_to_non_nullable
@@ -6367,7 +6828,9 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {required this.isLoading,
+      {required this.locationFetchLoading,
+      required this.locationfetchError,
+      required this.isLoading,
       required this.isPageLoading,
       required this.hasError,
       required this.pickImageLoading,
@@ -6386,7 +6849,6 @@ class _$InitialImpl implements _Initial {
       required this.secondCardDeleted,
       this.message,
       this.locationAdress,
-      required this.locationfetchError,
       required final List<ImageModel> scannedImagesSecondCardCreation,
       this.scannedImageDatasModel,
       required final List<ImageModel> selfieImageModel,
@@ -6401,6 +6863,10 @@ class _$InitialImpl implements _Initial {
         _secondCards = secondCards,
         _deleteSecondCards = deleteSecondCards;
 
+  @override
+  final bool locationFetchLoading;
+  @override
+  final bool locationfetchError;
   @override
   final bool isLoading;
   @override
@@ -6439,8 +6905,6 @@ class _$InitialImpl implements _Initial {
   final String? message;
   @override
   final String? locationAdress;
-  @override
-  final bool locationfetchError;
   final List<ImageModel> _scannedImagesSecondCardCreation;
   @override
   List<ImageModel> get scannedImagesSecondCardCreation {
@@ -6491,7 +6955,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'CardSecondState(isLoading: $isLoading, isPageLoading: $isPageLoading, hasError: $hasError, pickImageLoading: $pickImageLoading, pickSelfieCardLoading: $pickSelfieCardLoading, cardScanFinish: $cardScanFinish, secondCardcreated: $secondCardcreated, secondCardLoading: $secondCardLoading, secondCardEventLoading: $secondCardEventLoading, deleteSecondCardLoading: $deleteSecondCardLoading, deleteSecondCardEventLoading: $deleteSecondCardEventLoading, updated: $updated, imagePickError: $imagePickError, pickImageFirst: $pickImageFirst, selfieImagePickerror: $selfieImagePickerror, seondCardRestored: $seondCardRestored, secondCardDeleted: $secondCardDeleted, message: $message, locationAdress: $locationAdress, locationfetchError: $locationfetchError, scannedImagesSecondCardCreation: $scannedImagesSecondCardCreation, scannedImageDatasModel: $scannedImageDatasModel, selfieImageModel: $selfieImageModel, cardSecondCreateRequestModel: $cardSecondCreateRequestModel, cardSecondResponseModel: $cardSecondResponseModel, secondCards: $secondCards, deleteSecondCards: $deleteSecondCards, getSecondCardModel: $getSecondCardModel, successResponseModel: $successResponseModel)';
+    return 'CardSecondState(locationFetchLoading: $locationFetchLoading, locationfetchError: $locationfetchError, isLoading: $isLoading, isPageLoading: $isPageLoading, hasError: $hasError, pickImageLoading: $pickImageLoading, pickSelfieCardLoading: $pickSelfieCardLoading, cardScanFinish: $cardScanFinish, secondCardcreated: $secondCardcreated, secondCardLoading: $secondCardLoading, secondCardEventLoading: $secondCardEventLoading, deleteSecondCardLoading: $deleteSecondCardLoading, deleteSecondCardEventLoading: $deleteSecondCardEventLoading, updated: $updated, imagePickError: $imagePickError, pickImageFirst: $pickImageFirst, selfieImagePickerror: $selfieImagePickerror, seondCardRestored: $seondCardRestored, secondCardDeleted: $secondCardDeleted, message: $message, locationAdress: $locationAdress, scannedImagesSecondCardCreation: $scannedImagesSecondCardCreation, scannedImageDatasModel: $scannedImageDatasModel, selfieImageModel: $selfieImageModel, cardSecondCreateRequestModel: $cardSecondCreateRequestModel, cardSecondResponseModel: $cardSecondResponseModel, secondCards: $secondCards, deleteSecondCards: $deleteSecondCards, getSecondCardModel: $getSecondCardModel, successResponseModel: $successResponseModel)';
   }
 
   @override
@@ -6499,6 +6963,10 @@ class _$InitialImpl implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
+            (identical(other.locationFetchLoading, locationFetchLoading) ||
+                other.locationFetchLoading == locationFetchLoading) &&
+            (identical(other.locationfetchError, locationfetchError) ||
+                other.locationfetchError == locationfetchError) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isPageLoading, isPageLoading) ||
@@ -6536,8 +7004,6 @@ class _$InitialImpl implements _Initial {
             (identical(other.message, message) || other.message == message) &&
             (identical(other.locationAdress, locationAdress) ||
                 other.locationAdress == locationAdress) &&
-            (identical(other.locationfetchError, locationfetchError) ||
-                other.locationfetchError == locationfetchError) &&
             const DeepCollectionEquality().equals(
                 other._scannedImagesSecondCardCreation,
                 _scannedImagesSecondCardCreation) &&
@@ -6563,6 +7029,8 @@ class _$InitialImpl implements _Initial {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        locationFetchLoading,
+        locationfetchError,
         isLoading,
         isPageLoading,
         hasError,
@@ -6582,7 +7050,6 @@ class _$InitialImpl implements _Initial {
         secondCardDeleted,
         message,
         locationAdress,
-        locationfetchError,
         const DeepCollectionEquality().hash(_scannedImagesSecondCardCreation),
         scannedImageDatasModel,
         const DeepCollectionEquality().hash(_selfieImageModel),
@@ -6603,7 +7070,9 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements CardSecondState {
   const factory _Initial(
-      {required final bool isLoading,
+      {required final bool locationFetchLoading,
+      required final bool locationfetchError,
+      required final bool isLoading,
       required final bool isPageLoading,
       required final bool hasError,
       required final bool pickImageLoading,
@@ -6622,7 +7091,6 @@ abstract class _Initial implements CardSecondState {
       required final bool secondCardDeleted,
       final String? message,
       final String? locationAdress,
-      required final bool locationfetchError,
       required final List<ImageModel> scannedImagesSecondCardCreation,
       final ScannedImageDatasModel? scannedImageDatasModel,
       required final List<ImageModel> selfieImageModel,
@@ -6633,6 +7101,10 @@ abstract class _Initial implements CardSecondState {
       final GetSecondCardModel? getSecondCardModel,
       final SuccessResponseModel? successResponseModel}) = _$InitialImpl;
 
+  @override
+  bool get locationFetchLoading;
+  @override
+  bool get locationfetchError;
   @override
   bool get isLoading;
   @override
@@ -6671,8 +7143,6 @@ abstract class _Initial implements CardSecondState {
   String? get message;
   @override
   String? get locationAdress;
-  @override
-  bool get locationfetchError;
   @override
   List<ImageModel> get scannedImagesSecondCardCreation;
   @override

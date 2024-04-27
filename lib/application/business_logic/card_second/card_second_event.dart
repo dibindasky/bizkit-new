@@ -7,6 +7,8 @@ class CardSecondEvent with _$CardSecondEvent {
       {required bool isCam, required bool isFront}) = ScanImage;
   const factory CardSecondEvent.processImageScanning(
       {required List<ImageModel> images}) = ProcessImageScanning;
+  factory CardSecondEvent.processImageScanningInfo(
+      {required List<ImageModel> images}) = ProcessImageScanningInfo;
   const factory CardSecondEvent.removeImageScanning({required int index}) =
       RemoveImageScanning;
   const factory CardSecondEvent.selfieImage(

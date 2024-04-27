@@ -491,10 +491,25 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                               return const LoadingAnimation();
                             }
                             final seconsdCard = state.secondCards[index];
-                            String base64String = seconsdCard.image!;
-                            base64String = base64String.startsWith('data')
-                                ? base64String.substring(22)
-                                : base64String;
+                            String selfirBase64 = '';
+                            String scanImageBase64 = '';
+                            if (seconsdCard.image != null &&
+                                seconsdCard.image!.isNotEmpty) {
+                              scanImageBase64 = seconsdCard.image!;
+                              scanImageBase64 =
+                                  scanImageBase64.startsWith('data')
+                                      ? scanImageBase64.substring(22)
+                                      : scanImageBase64;
+                            }
+                            if (seconsdCard.selfie != null &&
+                                seconsdCard.image!.isNotEmpty) {
+                              selfirBase64 = seconsdCard.selfie!
+                                  .map((e) => e.selfie)
+                                  .toString();
+                              selfirBase64 = selfirBase64.startsWith('data')
+                                  ? selfirBase64.substring(22)
+                                  : selfirBase64;
+                            }
                             return Container(
                               decoration: BoxDecoration(
                                 color: textFieldFillColr,
@@ -510,7 +525,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                         height: 200,
                                         child: InkWell(
                                           onTap: () {
-                                            final map =
+                                            Map<String, String> map =
                                                 state.secondCards[index].id !=
                                                         null
                                                     ? {
@@ -532,7 +547,10 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                               topRight: Radius.circular(20),
                                             ),
                                             child: seconsdCard.selfie == null ||
-                                                    seconsdCard.selfie!.isEmpty
+                                                    seconsdCard
+                                                        .selfie!.isEmpty ||
+                                                    seconsdCard.image == null ||
+                                                    seconsdCard.image!.isEmpty
                                                 ? Image.network(
                                                     imageDummyNetwork,
                                                     fit: BoxFit.cover,
@@ -544,17 +562,31 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                       );
                                                     },
                                                   )
-                                                : Image.memory(
-                                                    base64Decode(base64String),
-                                                    fit: BoxFit.cover,
-                                                    errorBuilder: (context,
-                                                        error, stackTrace) {
-                                                      return const Icon(
-                                                        Icons
-                                                            .image_not_supported_outlined,
-                                                      );
-                                                    },
-                                                  ),
+                                                : scanImageBase64 != '' ||
+                                                        selfirBase64 != ''
+                                                    ? Image.memory(
+                                                        base64Decode(
+                                                            scanImageBase64),
+                                                        fit: BoxFit.cover,
+                                                        errorBuilder: (context,
+                                                            error, stackTrace) {
+                                                          return const Icon(
+                                                            Icons
+                                                                .image_not_supported_outlined,
+                                                          );
+                                                        },
+                                                      )
+                                                    : Image.network(
+                                                        imageDummyNetwork,
+                                                        fit: BoxFit.cover,
+                                                        errorBuilder: (context,
+                                                            error, stackTrace) {
+                                                          return const Icon(
+                                                            Icons
+                                                                .image_not_supported_outlined,
+                                                          );
+                                                        },
+                                                      ),
                                           ),
                                         ),
                                       ),

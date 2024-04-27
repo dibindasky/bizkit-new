@@ -92,7 +92,6 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                             BlocBuilder<CardSecondBloc, CardSecondState>(
                               builder: (context, state) {
                                 List<String> imagess = [];
-
                                 if (state.getSecondCardModel != null &&
                                     state.getSecondCardModel!.image != null) {
                                   String scanImage = '';
@@ -262,7 +261,8 @@ class CardViewRowWiceIcons extends StatelessWidget {
               onTap: () {
                 List<String> items = [];
                 if (state.getSecondCardModel != null &&
-                    state.getSecondCardModel!.phoneNumber != null) {
+                    state.getSecondCardModel!.phoneNumber != null &&
+                    state.getSecondCardModel!.phoneNumber!.isNotEmpty) {
                   items.add(state.getSecondCardModel!.phoneNumber!);
                 }
                 showModalBottomSheet(
@@ -285,35 +285,38 @@ class CardViewRowWiceIcons extends StatelessWidget {
               onTap: () {
                 List<String> items = [];
                 if (state.getSecondCardModel != null &&
-                    state.getSecondCardModel!.email != null) {
+                    state.getSecondCardModel!.email != null &&
+                    state.getSecondCardModel!.email!.isNotEmpty) {
                   items.add(state.getSecondCardModel!.email!);
                 } else {
                   showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 20),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: neonShade),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: backgroundColour),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  adjustHieght(10),
-                                  Text(
-                                    'Websie details not available',
-                                    style: textHeadStyle1,
-                                  ),
-                                  adjustHieght(10)
-                                ],
-                              ),
+                    context: context,
+                    builder: (context) => Dialog(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 20),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: neonShade),
+                            borderRadius: BorderRadius.circular(10),
+                            color: backgroundColour),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            adjustHieght(10),
+                            Text(
+                              'Websie details not available',
+                              style: textHeadStyle1,
                             ),
-                          ));
+                            adjustHieght(10)
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
                 }
                 if (state.getSecondCardModel != null &&
-                    state.getSecondCardModel!.email != null) {
+                    state.getSecondCardModel!.email != null &&
+                    state.getSecondCardModel!.email!.isNotEmpty) {
                   showModalBottomSheet(
                     context: context,
                     enableDrag: true,
@@ -332,7 +335,8 @@ class CardViewRowWiceIcons extends StatelessWidget {
             ),
             // website navigator
             state.getSecondCardModel != null &&
-                    state.getSecondCardModel!.website != null
+                    state.getSecondCardModel!.website != null &&
+                    state.getSecondCardModel!.website!.isNotEmpty
                 ? DetailSharingIconWidget(
                     onTap: () {
                       showDialog(
@@ -351,7 +355,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                 Text('Website', style: textHeadStyle1),
                                 adjustHieght(10),
                                 Text(
-                                  state.getSecondCardModel!.location ?? '',
+                                  state.getSecondCardModel!.website ?? '',
                                 ),
                                 adjustHieght(10),
                                 Row(
@@ -399,7 +403,8 @@ class CardViewRowWiceIcons extends StatelessWidget {
                   )
                 : kempty,
             state.getSecondCardModel != null &&
-                    state.getSecondCardModel!.location != null
+                    state.getSecondCardModel!.location != null &&
+                    state.getSecondCardModel!.location!.isNotEmpty
                 ? DetailSharingIconWidget(
                     onTap: () async {
                       showDialog(

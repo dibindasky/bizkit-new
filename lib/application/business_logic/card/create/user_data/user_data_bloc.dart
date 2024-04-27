@@ -316,10 +316,11 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     // final result = await cardScanningImpl
     //     .processAndSortFromImage(state.scannedImagesCardCreation);
     final result = await textExtractionRepo.extractText(
-        image: ImageCard(
-            image: event.images[0].base64.startsWith('data')
-                ? event.images[0].base64.substring(22)
-                : event.images[0].base64));
+      image: ImageCard(
+          image: event.images[0].base64.startsWith('data')
+              ? event.images[0].base64.substring(22)
+              : event.images[0].base64),
+    );
     result.fold((l) => null, (r) {
       final texts = ScannedImageDatasModel(
           emails: r.emails,

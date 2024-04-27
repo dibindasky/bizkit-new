@@ -41,7 +41,7 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView.builder(
-        //  physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         scrollDirection: Axis.horizontal,
         onPageChanged: _onPageChanged,
@@ -100,12 +100,12 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
           height: screenHeight,
           child: Column(
             children: [
-              adjustHieght(khieght * .18),
+              adjustHieght(screenHeight * .18),
               Text(
                 'Boost your business risk-free',
                 style: textHeadStyle1.copyWith(fontSize: 24),
               ),
-              adjustHieght(khieght * .1),
+              adjustHieght(screenHeight * .1),
               SizedBox(
                 child: Image.asset(
                   onBoardScreenfirstpersonImages,
@@ -125,7 +125,7 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
                   );
                 },
               ),
-              adjustHieght(khieght * .1),
+              adjustHieght(screenHeight * .1),
             ],
           ),
         );
@@ -148,26 +148,43 @@ class BizkitOnBoardingScreenSecond extends StatelessWidget {
           height: screenHeight,
           child: Column(
             children: [
-              adjustHieght(khieght * 0.025),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
-                    context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
-                  },
-                  child: const Text(
-                    'skip',
-                    style: TextStyle(color: kwhite),
+              adjustHieght(screenHeight * 0.025),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      pageController.previousPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                    child: const Text(
+                      'Go back',
+                      style: TextStyle(color: kwhite),
+                    ),
                   ),
-                ),
+                  TextButton(
+                    onPressed: () {
+                      GoRouter.of(context)
+                          .pushReplacementNamed(Routes.loginPage);
+                      context
+                          .read<AuthBloc>()
+                          .add(const AuthEvent.onBoardskip());
+                    },
+                    child: const Text(
+                      'skip',
+                      style: TextStyle(color: kwhite),
+                    ),
+                  ),
+                ],
               ),
-              adjustHieght(khieght * .1),
+              adjustHieght(screenHeight * .1),
               Text(
                 'Unlock Success With Bizkit',
                 style: textHeadStyle1.copyWith(fontSize: 24),
               ),
-              adjustHieght(khieght * .2),
+              adjustHieght(screenHeight * .2),
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -204,7 +221,7 @@ class BizkitOnBoardingScreenSecond extends StatelessWidget {
                   );
                 },
               ),
-              adjustHieght(khieght * .1),
+              adjustHieght(screenHeight * .1),
             ],
           ),
         );
@@ -229,26 +246,43 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
           height: screenHeight,
           child: Column(
             children: [
-              adjustHieght(khieght * 0.025),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
-                    context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
-                  },
-                  child: const Text(
-                    'skip',
-                    style: TextStyle(color: kwhite),
+              adjustHieght(screenHeight * 0.025),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      pageController.previousPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                    child: const Text(
+                      'Go back',
+                      style: TextStyle(color: kwhite),
+                    ),
                   ),
-                ),
+                  TextButton(
+                    onPressed: () {
+                      GoRouter.of(context)
+                          .pushReplacementNamed(Routes.loginPage);
+                      context
+                          .read<AuthBloc>()
+                          .add(const AuthEvent.onBoardskip());
+                    },
+                    child: const Text(
+                      'skip',
+                      style: TextStyle(color: kwhite),
+                    ),
+                  ),
+                ],
               ),
-              adjustHieght(khieght * .1),
+              adjustHieght(screenHeight * .1),
               Text(
                 'Empowering Growth Together.',
                 style: textHeadStyle1.copyWith(fontSize: 24),
               ),
-              adjustHieght(khieght * .12),
+              adjustHieght(screenHeight * .12),
               SizedBox(
                 height: 350,
                 child: Image.asset(
@@ -267,7 +301,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                   context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
                 },
               ),
-              adjustHieght(khieght * .1),
+              adjustHieght(screenHeight * .1),
             ],
           ),
         );

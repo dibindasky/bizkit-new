@@ -1,6 +1,7 @@
 import 'dart:developer';
-
 import 'package:bizkit/domain/core/failure/failure.dart';
+import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
+import 'package:bizkit/domain/model/contact/add_new_contact/add_new_contact.dart';
 import 'package:bizkit/domain/repository/feature/contact_feature_repo.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:dartz/dartz.dart';
@@ -50,6 +51,67 @@ class ContactFetchService implements ContactFetchServiceRepo {
       return permissionStatus;
     } else {
       return permission;
+    }
+  }
+
+  Future<void> saveContact(
+      String name, String? phoneNumber, String? email) async {
+    // Check for permissions (Android only)
+    // check permission
+    PermissionStatus permissionStatus = await Permission.contacts.status;
+    log('permission ===> (  ${permissionStatus.name} )');
+    // if permission is not granted ask for permission
+    if (permissionStatus != PermissionStatus.granted) {
+      permissionStatus = await _getContactPermission();
+    }
+    if (permissionStatus == PermissionStatus.granted) {
+      Contact newContact = Contact(
+        givenName: name,
+        phones: phoneNumber != null
+            ? [Item(label: "mobile", value: phoneNumber)]
+            : null,
+        emails: email != null ? [Item(label: "work", value: email)] : null,
+      );
+      await ContactsService.addContact(newContact);
+    } else {
+      // Handle permission denial (optional)
+      print("Permission to access contacts denied.");
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> addNewContact({
+    required AddNewContact addNewContact,
+  }) async {
+    try {
+      PermissionStatus permissionStatus = await Permission.contacts.status;
+      log('permission ===> (  ${permissionStatus.name} )');
+      // if permission is not granted ask for permission
+      if (permissionStatus != PermissionStatus.granted) {
+        permissionStatus = await _getContactPermission();
+      }
+      if (permissionStatus == PermissionStatus.granted) {
+        Contact newContact = Contact(
+          givenName: addNewContact.name,
+          company: addNewContact.companyName,
+          phones: addNewContact.phoneNumber != null
+              ? [Item(label: "mobile", value: addNewContact.phoneNumber)]
+              : null,
+          emails: addNewContact.email != null
+              ? [Item(label: "email", value: addNewContact.email)]
+              : null,
+        );
+        await ContactsService.addContact(newContact);
+        log("Contact added");
+        return Right(
+            SuccessResponseModel(message: 'Contact added in your phone'));
+      } else {
+        log("Permission to access contacts denied.");
+        return Left(Failure(message: 'No permission to save contact'));
+      }
+    } catch (e) {
+      log("addNewContact catch error.");
+      return Left(Failure(message: 'something went wrong'));
     }
   }
 }

@@ -3,6 +3,9 @@ part of 'card_second_bloc.dart';
 @freezed
 class CardSecondState with _$CardSecondState {
   const factory CardSecondState({
+    required bool contactAddLoading,
+    required bool contactAddError,
+    required bool contactAdded,
     required bool locationFetchLoading,
     required bool locationfetchError,
     required bool isLoading,
@@ -36,6 +39,9 @@ class CardSecondState with _$CardSecondState {
   }) = _Initial;
 
   factory CardSecondState.initial() => CardSecondState(
+        contactAdded: false,
+        contactAddError: false,
+        contactAddLoading: false,
         locationFetchLoading: false,
         locationfetchError: false,
         isLoading: false,

@@ -11,6 +11,7 @@ import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/domain/model/contact/add_new_contact/add_new_contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,7 +50,22 @@ class CardSecondScannedDatas extends StatelessWidget {
           ),
           backgroundColor: knill,
         ),
-        body: BlocBuilder<CardSecondBloc, CardSecondState>(
+        body: BlocConsumer<CardSecondBloc, CardSecondState>(
+          listener: (context, state) {
+            if (state.contactAddError) {
+              showSnackbar(
+                context,
+                message: "Contact syncing failed",
+                backgroundColor: kred,
+              );
+            }
+            if (state.contactAdded) {
+              showSnackbar(
+                context,
+                message: "Contact syncing Done",
+              );
+            }
+          },
           builder: (context, state) {
             return SingleChildScrollView(
               child: Column(
@@ -119,7 +135,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                             inputType: TextInputType.emailAddress,
                           ),
                           AutocompleteTextField(
-                            textCapitalization: TextCapitalization.words,
+                            //textCapitalization: TextCapitalization.words,
                             autocompleteItems:
                                 state.scannedImageDatasModel?.emails ?? [],
                             // validate: Validate.email,
@@ -162,53 +178,80 @@ class CardSecondScannedDatas extends StatelessWidget {
                             inputType: TextInputType.name,
                           ),
                           adjustHieght(khieght * .02),
-                          LastSkipContinueButtons(
-                            onTap: () {
-                              if (autoFillDataKey.currentState!.validate()) {
-                                context
-                                    .read<CardSecondBloc>()
-                                    .add(CardSecondEvent.autoFillTExtfieldItems(
-                                      name: context
-                                          .read<CardSecondBloc>()
-                                          .nameController
-                                          .text,
-                                      scannedImage: state
-                                              .scannedImagesSecondCardCreation
-                                              .isNotEmpty
-                                          ? state
-                                              .scannedImagesSecondCardCreation
-                                              .first
-                                              .base64
-                                          : '',
-                                      email: context
-                                          .read<CardSecondBloc>()
-                                          .emailController
-                                          .text,
-                                      company: context
-                                          .read<CardSecondBloc>()
-                                          .copanyController
-                                          .text,
-                                      number: context
-                                          .read<CardSecondBloc>()
-                                          .phoneController
-                                          .text,
-                                      website: context
-                                          .read<CardSecondBloc>()
-                                          .webSiteController
-                                          .text,
-                                      designation: context
-                                          .read<CardSecondBloc>()
-                                          .designationController
-                                          .text,
-                                    ));
+                          state.contactAddLoading
+                              ? const LoadingAnimation()
+                              : LastSkipContinueButtons(
+                                  onTap: () {
+                                    if (autoFillDataKey.currentState!
+                                        .validate()) {
+                                      // Contact save
+                                      AddNewContact addNewContact =
+                                          AddNewContact(
+                                        name: context
+                                            .read<CardSecondBloc>()
+                                            .nameController
+                                            .text,
+                                        email: context
+                                            .read<CardSecondBloc>()
+                                            .emailController
+                                            .text,
+                                        phoneNumber: context
+                                            .read<CardSecondBloc>()
+                                            .phoneController
+                                            .text,
+                                        companyName: context
+                                            .read<CardSecondBloc>()
+                                            .copanyController
+                                            .text,
+                                      );
+                                      context.read<CardSecondBloc>().add(
+                                          CardSecondEvent.contactSaveToPhone(
+                                              addNewContact: addNewContact));
 
-                                log('before navigating to selfie screen');
-                                Navigator.of(context).push(
-                                  fadePageRoute(SelfieTextFields()),
-                                );
-                              }
-                            },
-                          ),
+                                      context.read<CardSecondBloc>().add(
+                                              CardSecondEvent
+                                                  .autoFillTExtfieldItems(
+                                            name: context
+                                                .read<CardSecondBloc>()
+                                                .nameController
+                                                .text,
+                                            scannedImage: state
+                                                    .scannedImagesSecondCardCreation
+                                                    .isNotEmpty
+                                                ? state
+                                                    .scannedImagesSecondCardCreation
+                                                    .first
+                                                    .base64
+                                                : '',
+                                            email: context
+                                                .read<CardSecondBloc>()
+                                                .emailController
+                                                .text,
+                                            company: context
+                                                .read<CardSecondBloc>()
+                                                .copanyController
+                                                .text,
+                                            number: context
+                                                .read<CardSecondBloc>()
+                                                .phoneController
+                                                .text,
+                                            website: context
+                                                .read<CardSecondBloc>()
+                                                .webSiteController
+                                                .text,
+                                            designation: context
+                                                .read<CardSecondBloc>()
+                                                .designationController
+                                                .text,
+                                          ));
+
+                                      log('before navigating to selfie screen');
+                                      Navigator.of(context).push(
+                                        fadePageRoute(const SelfieTextFields()),
+                                      );
+                                    }
+                                  },
+                                ),
                           adjustHieght(20)
                         ],
                       ),
@@ -278,7 +321,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
             if (state.selfieImagePickerror) {
               showSnackbar(
                 context,
-                message: 'Image picking failed',
+                message: 'Image picking failed,',
                 backgroundColor: kred,
               );
             }
@@ -483,6 +526,15 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                           BlocBuilder<CardSecondBloc, CardSecondState>(
                             builder: (context, state) {
                               return TTextFormField(
+                                suffix: state.locationFetchLoading
+                                    ? const SizedBox(
+                                        width: 10,
+                                        height: 10,
+                                        child: CircularProgressIndicator(
+                                          color: neonShade,
+                                        ),
+                                      )
+                                    : null,
                                 textCapitalization: TextCapitalization.words,
                                 // validate: Validate.notNull,
                                 text: 'Location',

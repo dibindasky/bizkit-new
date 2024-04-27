@@ -111,7 +111,8 @@ class HomeFirstViewAllContactTileDetailView extends StatelessWidget {
                       if (state.anotherCard != null &&
                           state.anotherCard!.personalDetails != null &&
                           state.anotherCard!.personalDetails!.photos != null) {
-                        images.add(state.anotherCard!.personalDetails!.photos![0].photo!);
+                        images.add(state
+                            .anotherCard!.personalDetails!.photos![0].photo!);
                       }
                       if (state.anotherCard != null &&
                           state.anotherCard!.logoCard != null) {

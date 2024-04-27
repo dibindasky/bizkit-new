@@ -78,7 +78,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         hasError: false,
         message: null,
         cardAdded: false));
-    print('card creation requested 1 \n ${event.cardFirstCreationModel.toJson()}');
+    print(
+        'card creation requested 1 \n ${event.cardFirstCreationModel.toJson()}');
     final result = await cardService.createCard(
         cardFirstCreationModel: event.cardFirstCreationModel);
     result.fold((l) {

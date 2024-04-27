@@ -59,4 +59,7 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.cardFeildClearing() = CardFeildClearing;
   const factory CardSecondEvent.imageClear() = ImageClear;
   const factory CardSecondEvent.locationGeting() = LocationGeting;
+  const factory CardSecondEvent.contactSaveToPhone({
+    required AddNewContact addNewContact,
+  }) = ContactSaveToPhone;
 }

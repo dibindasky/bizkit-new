@@ -50,66 +50,68 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                   adjustHieght(10),
                   state.businessUser
                       ? kempty
-                      : state.anotherCard?.isCompanyAutofilled??false?
-                      SizedBox():
-                       ValueListenableBuilder(
-                          valueListenable: companySearchNotifier,
-                          builder: (context, value, _) {
-                            value;
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                AuthButton(
-                                  text: 'Add Company',
-                                  onTap: () {
-                                    if (state
-                                            .anotherCard?.isCompanyAutofilled ==
-                                        true) {
-                                      showCustomConfirmationDialogue(
-                                          context: context,
-                                          title:
-                                              'If you add your own company, Your added company will be deleted from your card',
-                                          buttonText: 'Add Company',
-                                          onTap: () {
-                                            companySearchNotifier.value = 0;
-                                            companySearchNotifier
-                                                .notifyListeners();
-                                          });
-                                    } else {
-                                      companySearchNotifier.value = 0;
-                                      companySearchNotifier.notifyListeners();
-                                    }
-                                  },
-                                  color: value == 0
-                                      ? null
-                                      : const LinearGradient(
-                                          colors: [
-                                            smallBigGrey,
-                                            kgrey,
-                                            smallBigGrey
-                                          ],
-                                        ),
-                                ),
-                                AuthButton(
-                                  text: 'Search Company',
-                                  onTap: () {
-                                    companySearchNotifier.value = 1;
-                                    companySearchNotifier.notifyListeners();
-                                  },
-                                  color: value == 1
-                                      ? null
-                                      : const LinearGradient(
-                                          colors: [
-                                            smallBigGrey,
-                                            kgrey,
-                                            smallBigGrey
-                                          ],
-                                        ),
-                                )
-                              ],
-                            );
-                          },
-                        ),
+                      : state.anotherCard?.isCompanyAutofilled ?? false
+                          ? SizedBox()
+                          : ValueListenableBuilder(
+                              valueListenable: companySearchNotifier,
+                              builder: (context, value, _) {
+                                value;
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    AuthButton(
+                                      text: 'Add Company',
+                                      onTap: () {
+                                        if (state.anotherCard
+                                                ?.isCompanyAutofilled ==
+                                            true) {
+                                          showCustomConfirmationDialogue(
+                                              context: context,
+                                              title:
+                                                  'If you add your own company, Your added company will be deleted from your card',
+                                              buttonText: 'Add Company',
+                                              onTap: () {
+                                                companySearchNotifier.value = 0;
+                                                companySearchNotifier
+                                                    .notifyListeners();
+                                              });
+                                        } else {
+                                          companySearchNotifier.value = 0;
+                                          companySearchNotifier
+                                              .notifyListeners();
+                                        }
+                                      },
+                                      color: value == 0
+                                          ? null
+                                          : const LinearGradient(
+                                              colors: [
+                                                smallBigGrey,
+                                                kgrey,
+                                                smallBigGrey
+                                              ],
+                                            ),
+                                    ),
+                                    AuthButton(
+                                      text: 'Search Company',
+                                      onTap: () {
+                                        companySearchNotifier.value = 1;
+                                        companySearchNotifier.notifyListeners();
+                                      },
+                                      color: value == 1
+                                          ? null
+                                          : const LinearGradient(
+                                              colors: [
+                                                smallBigGrey,
+                                                kgrey,
+                                                smallBigGrey
+                                              ],
+                                            ),
+                                    )
+                                  ],
+                                );
+                              },
+                            ),
                   state.businessUser ? kempty : adjustHieght(10),
                   state.businessUser
                       ? kempty

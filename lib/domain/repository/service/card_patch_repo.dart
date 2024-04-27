@@ -6,6 +6,7 @@ import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
+import 'package:bizkit/domain/model/card/card/personal_data/personal_details_images/personal_details_images.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/card/card/product_image_add/product_image_add.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
@@ -57,4 +58,8 @@ abstract class CardPatchRepo {
   });
   Future<Either<Failure, SuccessResponseModel>> removeProductImage(
       {required int id});
+  Future<Either<Failure, SuccessResponseModel>> addPersonalImage(
+      {required PersonalDetailsImages personalDetailsImage});
+  Future<Either<Failure, SuccessResponseModel>> removePersonalImage(
+      {required int id}); 
 }

@@ -270,8 +270,10 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {
+    final business = await SecureStorage.getRole();
     emit(
       state.copyWith(
+          isBusiness: business,
           accreditionAdded: false,
           branchAdded: false,
           brochureAdded: false,
@@ -340,6 +342,18 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     upiDetailController.text = event.card.isCompanyAutofilled == true
         ? ''
         : event.card.bankDetails?.upiDetails ?? '';
+    if (business) {
+      final result = await userLocalService.getUserData();
+
+      result.fold((l) => null, (r) {
+        websiteLinkController.text =
+            websiteLinkController.text != '' ? r.first.email ?? '' : '';
+        mailController.text =
+            mailController.text != '' ? r.first.email ?? '' : '';
+        companyController.text =
+            companyController.text != '' ? r.first.companyName ?? '' : '';
+      });
+    }
   }
 
   FutureOr<void> createBankingData(CreateBankingData event, emit) async {

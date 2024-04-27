@@ -8,6 +8,8 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:bizkit/application/business_logic/admin/admin_bloc.dart'
+    as _i55;
 import 'package:bizkit/application/business_logic/auth/forgott_passwrod/forgott_password_bloc.dart'
     as _i10;
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart'
@@ -15,31 +17,32 @@ import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart'
 import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart'
     as _i16;
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart'
-    as _i45;
+    as _i47;
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart'
-    as _i44;
+    as _i46;
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart'
     as _i43;
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart'
-    as _i46;
-import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart'
-    as _i47;
-import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart'
     as _i48;
-import 'package:bizkit/application/business_logic/notification/notification_bloc.dart'
+import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart'
     as _i49;
-import 'package:bizkit/application/business_logic/profile/profile_bloc.dart'
+import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart'
     as _i50;
+import 'package:bizkit/application/business_logic/notification/notification_bloc.dart'
+    as _i51;
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart'
+    as _i52;
 import 'package:bizkit/application/business_logic/promt/promt_bloc.dart'
     as _i15;
-import 'package:bizkit/application/business_logic/qr/qr_bloc.dart' as _i51;
+import 'package:bizkit/application/business_logic/qr/qr_bloc.dart' as _i53;
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart'
-    as _i52;
+    as _i54;
 import 'package:bizkit/data/features/cards_scanning/card_scanning_data_fetching.dart'
     as _i6;
 import 'package:bizkit/data/features/contacts/contacts_fetch.dart' as _i8;
 import 'package:bizkit/data/features/location/location_service.dart' as _i13;
 import 'package:bizkit/data/features/pdf/pdf_picker.dart' as _i14;
+import 'package:bizkit/data/service/admin/admin_service.dart' as _i45;
 import 'package:bizkit/data/service/api_service.dart' as _i19;
 import 'package:bizkit/data/service/auth/auth_service.dart' as _i4;
 import 'package:bizkit/data/service/card/card_patch_service.dart' as _i22;
@@ -60,12 +63,13 @@ import 'package:bizkit/data/sqflite/contacts/contact_local_service.dart'
     as _i30;
 import 'package:bizkit/data/sqflite/sqflite_local_service.dart' as _i11;
 import 'package:bizkit/data/sqflite/users/user_local_service.dart' as _i18;
-import 'package:bizkit/domain/core/dio_module/dio_module.dart' as _i53;
+import 'package:bizkit/domain/core/dio_module/dio_module.dart' as _i56;
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart'
     as _i5;
 import 'package:bizkit/domain/repository/feature/contact_feature_repo.dart'
     as _i7;
 import 'package:bizkit/domain/repository/feature/location.dart' as _i12;
+import 'package:bizkit/domain/repository/service/admin_repo.dart' as _i44;
 import 'package:bizkit/domain/repository/service/auth_repo.dart' as _i3;
 import 'package:bizkit/domain/repository/service/card_patch_repo.dart' as _i21;
 import 'package:bizkit/domain/repository/service/card_repo.dart' as _i23;
@@ -146,39 +150,42 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i41.TextExtractionRepo>(),
           gh<_i21.CardPatchRepo>(),
         ));
-    gh.factory<_i44.BusinessDataBloc>(() => _i44.BusinessDataBloc(
+    gh.lazySingleton<_i44.AdminRepo>(
+        () => _i45.AdminServices(gh<_i19.ApiService>()));
+    gh.factory<_i46.BusinessDataBloc>(() => _i46.BusinessDataBloc(
           gh<_i14.PdfPickerImpl>(),
           gh<_i23.CardRepo>(),
           gh<_i17.UserLocalRepo>(),
           gh<_i21.CardPatchRepo>(),
         ));
-    gh.factory<_i45.CardBloc>(() => _i45.CardBloc(
+    gh.factory<_i47.CardBloc>(() => _i47.CardBloc(
           gh<_i23.CardRepo>(),
           gh<_i14.PdfPickerImpl>(),
         ));
-    gh.factory<_i46.CardSecondBloc>(() => _i46.CardSecondBloc(
+    gh.factory<_i48.CardSecondBloc>(() => _i48.CardSecondBloc(
           gh<_i25.CardSecondRepo>(),
           gh<_i5.CardScanningRepo>(),
           gh<_i12.LocationRepo>(),
           gh<_i41.TextExtractionRepo>(),
           gh<_i7.ContactFetchServiceRepo>(),
         ));
-    gh.factory<_i47.ConnectionRequestBloc>(
-        () => _i47.ConnectionRequestBloc(gh<_i27.ConnectionRequestRepo>()));
-    gh.factory<_i48.ContactsBloc>(() => _i48.ContactsBloc(
+    gh.factory<_i49.ConnectionRequestBloc>(
+        () => _i49.ConnectionRequestBloc(gh<_i27.ConnectionRequestRepo>()));
+    gh.factory<_i50.ContactsBloc>(() => _i50.ContactsBloc(
           gh<_i7.ContactFetchServiceRepo>(),
           gh<_i31.ContactsRepo>(),
           gh<_i29.ContactLocalRepo>(),
         ));
-    gh.factory<_i49.NotificationBloc>(
-        () => _i49.NotificationBloc(gh<_i33.NotificationRepo>()));
-    gh.factory<_i50.ProfileBloc>(
-        () => _i50.ProfileBloc(gh<_i35.ProfileRepo>()));
-    gh.factory<_i51.QrBloc>(() => _i51.QrBloc(gh<_i37.QrServiceRepo>()));
-    gh.factory<_i52.ReminderBloc>(
-        () => _i52.ReminderBloc(gh<_i39.ReminderRepo>()));
+    gh.factory<_i51.NotificationBloc>(
+        () => _i51.NotificationBloc(gh<_i33.NotificationRepo>()));
+    gh.factory<_i52.ProfileBloc>(
+        () => _i52.ProfileBloc(gh<_i35.ProfileRepo>()));
+    gh.factory<_i53.QrBloc>(() => _i53.QrBloc(gh<_i37.QrServiceRepo>()));
+    gh.factory<_i54.ReminderBloc>(
+        () => _i54.ReminderBloc(gh<_i39.ReminderRepo>()));
+    gh.factory<_i55.AdminBloc>(() => _i55.AdminBloc(gh<_i44.AdminRepo>()));
     return this;
   }
 }
 
-class _$DioModule extends _i53.DioModule {}
+class _$DioModule extends _i56.DioModule {}

@@ -94,6 +94,9 @@ class ApiEndPoints {
   static String getUpcomingReminder = '/reminder/upcoming-reminder-list/';
   static String getHistoryReminder = '/reminder/reminder-history-list/';
 
+  //Admin side
+  static String companySelectedUsersList =
+      '/admin_actions/list_company_selected_user/';
   // profile section
   static String reportAProblem = '/accounts/report-problem-in-app/';
   static String getProfileInfo = '/accounts/profile/';

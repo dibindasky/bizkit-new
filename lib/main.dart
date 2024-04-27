@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/admin/admin_bloc.dart';
 import 'package:bizkit/application/business_logic/auth/forgott_passwrod/forgott_password_bloc.dart';
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
@@ -17,6 +18,7 @@ import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/routes/route_generator.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/domain/core/di/dipendency_injection.dart';
+import 'package:bizkit/domain/repository/service/admin_repo.dart';
 import 'package:bizkit/firebase_options.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -68,6 +70,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<ReminderBloc>()),
           BlocProvider(create: (context) => getIt<ProfileBloc>()),
           BlocProvider(create: (context) => getIt<PromtBloc>()),
+          BlocProvider(create: (context) => getIt<AdminBloc>()),
         ],
         child: MaterialApp.router(
           debugShowMaterialGrid: false,

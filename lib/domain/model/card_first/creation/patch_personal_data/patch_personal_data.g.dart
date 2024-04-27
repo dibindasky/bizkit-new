@@ -15,9 +15,6 @@ PatchPersonalData _$PatchPersonalDataFromJson(Map<String, dynamic> json) =>
       dateOfBirth: json['date_of_birth'] as String?,
       bloodGroup: json['blood_group'] as String?,
       homeAddress: json['home_address'] as String?,
-      photos: (json['photos'] as List<dynamic>?)
-          ?.map((e) => PersonalPhoto.fromJson(e as Map<String, dynamic>))
-          .toList(),
       businessCategoryId: json['business_category_id'] as int?,
     );
 
@@ -30,6 +27,5 @@ Map<String, dynamic> _$PatchPersonalDataToJson(PatchPersonalData instance) =>
       'date_of_birth': instance.dateOfBirth,
       'blood_group': instance.bloodGroup,
       'home_address': instance.homeAddress,
-      'photos': instance.photos,
       'business_category_id': instance.businessCategoryId,
     };

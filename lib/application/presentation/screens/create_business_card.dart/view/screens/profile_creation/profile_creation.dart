@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
@@ -64,14 +65,16 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                         state.userPhotos == null
                             ? const CircleAvatar(
                                 radius: 70,
+                                backgroundColor: kblack,
                                 backgroundImage: AssetImage(
                                   'asset/images/profileCircle.png',
                                 ),
                               )
                             : CircleAvatar(
                                 radius: 70,
-                                backgroundImage: MemoryImage(
-                                    base64.decode(state.userPhotos![0].photo!)),
+                                backgroundColor: kblack,
+                                backgroundImage: MemoryImage(base64.decode(
+                                    getBase64(state.userPhotos![0].photo))),
                               ),
                         Positioned(
                           bottom: 17,
@@ -209,15 +212,17 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                         if (personalDataFirstFormKey.currentState!.validate()) {
                           context.read<UserDataBloc>().add(UserDataEvent.createCard(
                               cardFirstCreationModel: CardFirstCreationModel(
-                                  cardJson: ExtractedTextModel(
-                                      emails:
-                                          state.scannedImageDatasModel?.emails,
-                                      names:
-                                          state.scannedImageDatasModel?.names,
-                                      phoneNumbers:
-                                          state.scannedImageDatasModel?.phone,
-                                      websites: state
-                                          .scannedImageDatasModel?.websites),
+                                  cardJson: state.scannedImageDatasModel == null
+                                      ? null
+                                      : ExtractedTextModel(
+                                          emails: state
+                                              .scannedImageDatasModel?.emails,
+                                          names: state
+                                              .scannedImageDatasModel?.names,
+                                          phoneNumbers: state
+                                              .scannedImageDatasModel?.phone,
+                                          websites: state.scannedImageDatasModel
+                                              ?.websites),
                                   cardImage: state.scannedImagesCardCreation
                                       .map((e) => ImageCard(image: e.base64))
                                       .toList(),
@@ -226,19 +231,11 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                                       .nameController
                                       .text
                                       .trim(),
-                                  designation: context
-                                      .read<UserDataBloc>()
-                                      .designationController
-                                      .text
-                                      .trim(),
-                                  phoneNumber: context
-                                      .read<UserDataBloc>()
-                                      .phoneController
-                                      .text
-                                      .trim(),
-                                  email:
-                                      context.read<UserDataBloc>().emailController.text.trim(),
-                                  photos: state.userPhotos,
+                                  designation:
+                                      context.read<UserDataBloc>().designationController.text.trim(),
+                                  phoneNumber: context.read<UserDataBloc>().phoneController.text.trim(),
+                                  email: context.read<UserDataBloc>().emailController.text.trim(),
+                                  photos: state.userPhotos ?? [],
                                   businessCategoryId: state.businessCategories.firstWhere((element) => element.category == context.read<UserDataBloc>().businessCategoryController.text.trim()).id)));
                         }
                       },

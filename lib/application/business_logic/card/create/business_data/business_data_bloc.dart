@@ -140,6 +140,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       pickImageLoading: true,
       pickImageError: false,
       productUpdated: false,
+      productAdded: false,
     ));
     final pickImage = await ImagePickerClass.getImage(
         camera: event.isCam, cameraDeviceFront: false);
@@ -524,6 +525,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       print(
           '====================================***********************************************************=====================================');
       print('got company detaisa');
+      // final card = state.
       emit(state.copyWith(
           // businessDetailsCreateId: event.id,
           businessData: BusinessDetails(),

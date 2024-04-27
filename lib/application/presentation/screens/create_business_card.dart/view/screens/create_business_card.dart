@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/selected_cards/pick_cards_screen.dart';
@@ -30,6 +31,10 @@ class _StartingBusinessCardCreationState
 
   @override
   Widget build(BuildContext context) {
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   context.read<UserDataBloc>().add(UserDataEvent.clear());
+    //   context.read<BusinessDataBloc>().add(BusinessDataEvent.clear());
+    // });
     final size = MediaQuery.of(context).size;
     final khieght = size.height;
     final kwidth = size.width;

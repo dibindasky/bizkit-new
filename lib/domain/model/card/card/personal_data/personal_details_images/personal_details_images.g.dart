@@ -9,9 +9,9 @@ part of 'personal_details_images.dart';
 PersonalDetailsImages _$PersonalDetailsImagesFromJson(
         Map<String, dynamic> json) =>
     PersonalDetailsImages(
-      personalDetailsId: json['personal_details_id'] as String?,
+      personalDetailsId: json['personal_details_id'] as int?,
       photos: (json['photos'] as List<dynamic>?)
-          ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Photo.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

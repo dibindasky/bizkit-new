@@ -62,9 +62,15 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
+                                          color: smallBigGrey,
                                           image: DecorationImage(
+                                              onError: (a, b) {
+                                                const Icon(Icons
+                                                    .image_not_supported_outlined);
+                                              },
                                               image: MemoryImage(
-                                                  base64.decode(image)),
+                                                base64.decode(image),
+                                              ),
                                               fit: BoxFit.cover)),
                                     ),
                                   ),

@@ -190,7 +190,11 @@ class _GridTileAddRequestConnectionState
           style: textStyle1.copyWith(fontSize: kwidth * 0.045),
         ),
         Text(
-          name == '' && company != '' ? designation : company,
+          name == '' && company != ''
+              ? designation == ''
+                  ? company
+                  : designation
+              : company,
           overflow: TextOverflow.ellipsis,
           style: textStyle1,
         ),

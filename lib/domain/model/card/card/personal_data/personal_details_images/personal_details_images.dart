@@ -1,4 +1,4 @@
-import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
+import 'package:bizkit/domain/model/card/card/photo/photo.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'personal_details_images.g.dart';
@@ -6,8 +6,8 @@ part 'personal_details_images.g.dart';
 @JsonSerializable()
 class PersonalDetailsImages {
   @JsonKey(name: 'personal_details_id')
-  String? personalDetailsId;
-  List<ImageCard>? photos;
+  int? personalDetailsId;
+  List<Photo>? photos;
 
   PersonalDetailsImages({this.personalDetailsId, this.photos});
 

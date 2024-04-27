@@ -139,11 +139,15 @@ class SelectedCard extends StatelessWidget {
                                 );
                               } else {
                                 context.read<CardSecondBloc>().add(
-                                      CardSecondEvent.processImageScanning(
+                                    CardSecondEvent.processImageScanningInfo(
                                         images: state
-                                            .scannedImagesSecondCardCreation,
-                                      ),
-                                    );
+                                            .scannedImagesSecondCardCreation));
+                                // context.read<CardSecondBloc>().add(
+                                //       CardSecondEvent.processImageScanning(
+                                //         images: state
+                                //             .scannedImagesSecondCardCreation,
+                                //       ),
+                                //     );
                               }
                             },
                           ),

@@ -7,6 +7,8 @@ class CardSecondEvent with _$CardSecondEvent {
       {required bool isCam, required bool isFront}) = ScanImage;
   const factory CardSecondEvent.processImageScanning(
       {required List<ImageModel> images}) = ProcessImageScanning;
+  factory CardSecondEvent.processImageScanningInfo(
+      {required List<ImageModel> images}) = ProcessImageScanningInfo;
   const factory CardSecondEvent.removeImageScanning({required int index}) =
       RemoveImageScanning;
   const factory CardSecondEvent.selfieImage(
@@ -57,4 +59,7 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.cardFeildClearing() = CardFeildClearing;
   const factory CardSecondEvent.imageClear() = ImageClear;
   const factory CardSecondEvent.locationGeting() = LocationGeting;
+  const factory CardSecondEvent.contactSaveToPhone({
+    required AddNewContact addNewContact,
+  }) = ContactSaveToPhone;
 }

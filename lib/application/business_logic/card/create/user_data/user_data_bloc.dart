@@ -78,7 +78,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         hasError: false,
         message: null,
         cardAdded: false));
-    print('card creation requested 1 \n ${event.cardFirstCreationModel.toJson()}');
+    print(
+        'card creation requested 1 \n ${event.cardFirstCreationModel.toJson()}');
     final result = await cardService.createCard(
         cardFirstCreationModel: event.cardFirstCreationModel);
     result.fold((l) {
@@ -317,10 +318,11 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     // final result = await cardScanningImpl
     //     .processAndSortFromImage(state.scannedImagesCardCreation);
     final result = await textExtractionRepo.extractText(
-        image: ImageCard(
-            image: event.images[0].base64.startsWith('data')
-                ? event.images[0].base64.substring(22)
-                : event.images[0].base64));
+      image: ImageCard(
+          image: event.images[0].base64.startsWith('data')
+              ? event.images[0].base64.substring(22)
+              : event.images[0].base64),
+    );
     result.fold((l) => null, (r) {
       final texts = ScannedImageDatasModel(
           emails: r.emails,

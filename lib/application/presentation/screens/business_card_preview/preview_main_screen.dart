@@ -45,7 +45,7 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                           //     :
                           <String>[];
                       List<String> images = user.personalData?.photos != null
-                          ? [user.personalData!.photos!]
+                          ? [user.personalData!.photos![0].photo!]
                           : <String>[];
                       return PreviewPageviewImageBuilder(
                           imagesList: images + logo);

@@ -3911,7 +3911,7 @@ mixin _$UserDataState {
   PersonalDetails get personalDetails => throw _privateConstructorUsedError;
   List<ImageModel> get scannedImagesCardCreation =>
       throw _privateConstructorUsedError;
-  ImageModel? get userPhotos => throw _privateConstructorUsedError;
+  List<PersonalPhoto>? get userPhotos => throw _privateConstructorUsedError;
   List<Accolade> get accolades => throw _privateConstructorUsedError;
   List<Category> get businessCategories => throw _privateConstructorUsedError;
   List<DatesToRemember> get datesToRemember =>
@@ -3951,7 +3951,7 @@ abstract class $UserDataStateCopyWith<$Res> {
       PersonalDetails? personalData,
       PersonalDetails personalDetails,
       List<ImageModel> scannedImagesCardCreation,
-      ImageModel? userPhotos,
+      List<PersonalPhoto>? userPhotos,
       List<Accolade> accolades,
       List<Category> businessCategories,
       List<DatesToRemember> datesToRemember,
@@ -4070,7 +4070,7 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
       userPhotos: freezed == userPhotos
           ? _value.userPhotos
           : userPhotos // ignore: cast_nullable_to_non_nullable
-              as ImageModel?,
+              as List<PersonalPhoto>?,
       accolades: null == accolades
           ? _value.accolades
           : accolades // ignore: cast_nullable_to_non_nullable
@@ -4125,7 +4125,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       PersonalDetails? personalData,
       PersonalDetails personalDetails,
       List<ImageModel> scannedImagesCardCreation,
-      ImageModel? userPhotos,
+      List<PersonalPhoto>? userPhotos,
       List<Accolade> accolades,
       List<Category> businessCategories,
       List<DatesToRemember> datesToRemember,
@@ -4240,9 +4240,9 @@ class __$$InitialImplCopyWithImpl<$Res>
           : scannedImagesCardCreation // ignore: cast_nullable_to_non_nullable
               as List<ImageModel>,
       userPhotos: freezed == userPhotos
-          ? _value.userPhotos
+          ? _value._userPhotos
           : userPhotos // ignore: cast_nullable_to_non_nullable
-              as ImageModel?,
+              as List<PersonalPhoto>?,
       accolades: null == accolades
           ? _value._accolades
           : accolades // ignore: cast_nullable_to_non_nullable
@@ -4292,7 +4292,7 @@ class _$InitialImpl implements _Initial {
       this.personalData,
       required this.personalDetails,
       required final List<ImageModel> scannedImagesCardCreation,
-      this.userPhotos,
+      final List<PersonalPhoto>? userPhotos,
       required final List<Accolade> accolades,
       required final List<Category> businessCategories,
       required final List<DatesToRemember> datesToRemember,
@@ -4300,6 +4300,7 @@ class _$InitialImpl implements _Initial {
       this.currentCard,
       this.scannedImageDatasModel})
       : _scannedImagesCardCreation = scannedImagesCardCreation,
+        _userPhotos = userPhotos,
         _accolades = accolades,
         _businessCategories = businessCategories,
         _datesToRemember = datesToRemember,
@@ -4346,8 +4347,16 @@ class _$InitialImpl implements _Initial {
     return EqualUnmodifiableListView(_scannedImagesCardCreation);
   }
 
+  final List<PersonalPhoto>? _userPhotos;
   @override
-  final ImageModel? userPhotos;
+  List<PersonalPhoto>? get userPhotos {
+    final value = _userPhotos;
+    if (value == null) return null;
+    if (_userPhotos is EqualUnmodifiableListView) return _userPhotos;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<Accolade> _accolades;
   @override
   List<Accolade> get accolades {
@@ -4432,8 +4441,8 @@ class _$InitialImpl implements _Initial {
                 other.personalDetails == personalDetails) &&
             const DeepCollectionEquality().equals(
                 other._scannedImagesCardCreation, _scannedImagesCardCreation) &&
-            (identical(other.userPhotos, userPhotos) ||
-                other.userPhotos == userPhotos) &&
+            const DeepCollectionEquality()
+                .equals(other._userPhotos, _userPhotos) &&
             const DeepCollectionEquality()
                 .equals(other._accolades, _accolades) &&
             const DeepCollectionEquality()
@@ -4468,7 +4477,7 @@ class _$InitialImpl implements _Initial {
         personalData,
         personalDetails,
         const DeepCollectionEquality().hash(_scannedImagesCardCreation),
-        userPhotos,
+        const DeepCollectionEquality().hash(_userPhotos),
         const DeepCollectionEquality().hash(_accolades),
         const DeepCollectionEquality().hash(_businessCategories),
         const DeepCollectionEquality().hash(_datesToRemember),
@@ -4503,7 +4512,7 @@ abstract class _Initial implements UserDataState {
       final PersonalDetails? personalData,
       required final PersonalDetails personalDetails,
       required final List<ImageModel> scannedImagesCardCreation,
-      final ImageModel? userPhotos,
+      final List<PersonalPhoto>? userPhotos,
       required final List<Accolade> accolades,
       required final List<Category> businessCategories,
       required final List<DatesToRemember> datesToRemember,
@@ -4546,7 +4555,7 @@ abstract class _Initial implements UserDataState {
   @override
   List<ImageModel> get scannedImagesCardCreation;
   @override
-  ImageModel? get userPhotos;
+  List<PersonalPhoto>? get userPhotos;
   @override
   List<Accolade> get accolades;
   @override

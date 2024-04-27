@@ -9,7 +9,9 @@ part of 'personal_details.dart';
 PersonalDetails _$PersonalDetailsFromJson(Map<String, dynamic> json) =>
     PersonalDetails(
       id: json['id'] as int?,
-      photos: json['photos'] as String?,
+      photos: (json['photos'] as List<dynamic>?)
+          ?.map((e) => PersonalPhoto.fromJson(e as Map<String, dynamic>))
+          .toList(),
       name: json['name'] as String?,
       phoneNumber: json['phone_number'] as String?,
       email: json['email'] as String?,

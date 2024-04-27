@@ -211,7 +211,8 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                       ),
                                       adjustWidth(10),
                                       Text(widget.fromBusiness
-                                          ? business.socialMedias[index].label ??
+                                          ? business
+                                                  .socialMedias[index].label ??
                                               'accound $index'
                                           : user.socialMedias[index].label ??
                                               'account $index'),
@@ -225,7 +226,8 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                     onTap: () {
                                       showCustomConfirmationDialogue(
                                           context: context,
-                                          title: 'are you sure want to delete ?',
+                                          title:
+                                              'are you sure want to delete ?',
                                           buttonText: 'Delete',
                                           onTap: () {
                                             widget.fromBusiness

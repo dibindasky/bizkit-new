@@ -204,12 +204,14 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                     text: 'Name',
                     controller: productTitleController,
                     inputType: TextInputType.name,
+                    textCapitalization: TextCapitalization.words,
                   ),
                   TTextFormField(
                     text: 'Description',
                     maxLines: 10,
                     controller: productDescriptionController,
                     inputType: TextInputType.name,
+                    textCapitalization: TextCapitalization.sentences,
                   ),
                   adjustHieght(khieght * .02),
                   Container(

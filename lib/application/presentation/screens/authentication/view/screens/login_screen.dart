@@ -148,7 +148,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                   SizedBox(
+                    SizedBox(
                       width: double.infinity,
                       height: khieght * 0.25,
                       // child: Row(
@@ -276,7 +276,8 @@ class _LoGInScreenState extends State<LoGInScreen>
                       },
                       child: Text(
                         'Forgot password',
-                        style: TextStyle(fontSize: kwidth * 0.03, color: kwhite),
+                        style:
+                            TextStyle(fontSize: kwidth * 0.03, color: kwhite),
                       ),
                     ),
                     adjustHieght(khieght * .03),
@@ -312,7 +313,8 @@ class _LoGInScreenState extends State<LoGInScreen>
                               context.read<AuthBloc>().add(AuthEvent.login(
                                   loginModel: LoginModel(
                                       email: emailController.text.trim(),
-                                      password: passwordController.text.trim())));
+                                      password:
+                                          passwordController.text.trim())));
                             }
                           },
                         );

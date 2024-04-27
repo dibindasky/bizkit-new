@@ -4,9 +4,11 @@ import 'package:bizkit/domain/model/card/card/bank_details/bank_details.dart';
 import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
+import 'package:bizkit/domain/model/extracted_text_model/extracted_text_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../business_detail/business_details.dart';
@@ -62,6 +64,10 @@ class Card {
   List<BranchOffice>? branchOffices;
   @JsonKey(name: 'dates_to_remember')
   List<DatesToRemember>? datesToRemember;
+  @JsonKey(name: 'card_extracted_data')
+  ExtractedTextModel? extractedTextModel;
+  @JsonKey(name: 'card_image')
+  List<ImageCard>? scannedImage;
 
   Card(
       {this.id,
@@ -90,7 +96,9 @@ class Card {
       this.personalDetailsId,
       this.product,
       this.socialMedia,
-      this.logoCard});
+      this.logoCard,
+      this.extractedTextModel,
+      this.scannedImage});
 
   factory Card.fromJson(Map<String, dynamic> json) {
     return Card(
@@ -146,6 +154,13 @@ class Card {
       logoCard: json['logo'] == null
           ? null
           : LogoCard.fromJson(json['logo'] as Map<String, dynamic>),
+      extractedTextModel: json['card_extracted_data'] == null
+          ? null
+          : ExtractedTextModel.fromJson(
+              json['card_extracted_data'] as Map<String, dynamic>),
+      scannedImage: (json['card_image'] as List<dynamic>?)
+          ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
   }
 

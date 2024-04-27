@@ -100,7 +100,6 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
         ),
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
-            
             if (state.updated) {
               context
                   .read<CardSecondBloc>()

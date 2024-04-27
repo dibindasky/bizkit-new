@@ -50,7 +50,9 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                   adjustHieght(10),
                   state.businessUser
                       ? kempty
-                      : ValueListenableBuilder(
+                      : state.anotherCard?.isCompanyAutofilled??false?
+                      SizedBox():
+                       ValueListenableBuilder(
                           valueListenable: companySearchNotifier,
                           builder: (context, value, _) {
                             value;
@@ -138,16 +140,25 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                                     },
                                     onDropDownSelection: (value) {
                                       // call for company details with the selected value
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => Dialog(
-                                          child: CompanyAddingPopUp(
-                                              id: state.companiesList
-                                                  .firstWhere((element) =>
-                                                      element.company == value)
-                                                  .id!),
-                                        ),
-                                      );
+                                      if (value ==
+                                          context
+                                              .read<BusinessDataBloc>()
+                                              .companyController
+                                              .text) {
+                                        return;
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => Dialog(
+                                            child: CompanyAddingPopUp(
+                                                id: state.companiesList
+                                                    .firstWhere((element) =>
+                                                        element.company ==
+                                                        value)
+                                                    .id!),
+                                          ),
+                                        );
+                                      }
                                     },
                                     label: 'Company',
                                     textCapitalization:

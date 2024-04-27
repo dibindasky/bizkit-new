@@ -20,7 +20,7 @@ class UserDataState with _$UserDataState {
       PersonalDetails? personalData,
       required PersonalDetails personalDetails,
       required List<ImageModel> scannedImagesCardCreation,
-      ImageModel? userPhotos,
+      List<PersonalPhoto>? userPhotos,
       required List<Accolade> accolades,
       required List<Category> businessCategories,
       required List<DatesToRemember> datesToRemember,

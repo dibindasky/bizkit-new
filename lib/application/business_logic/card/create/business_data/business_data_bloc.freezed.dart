@@ -50,6 +50,7 @@ mixin _$BusinessDataEvent {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) =>
@@ -86,6 +87,7 @@ mixin _$BusinessDataEvent {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) =>
@@ -122,6 +124,7 @@ mixin _$BusinessDataEvent {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -164,6 +167,7 @@ mixin _$BusinessDataEvent {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) =>
@@ -200,6 +204,7 @@ mixin _$BusinessDataEvent {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) =>
@@ -236,6 +241,7 @@ mixin _$BusinessDataEvent {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -359,6 +365,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -398,6 +405,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -437,6 +445,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -485,6 +494,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -524,6 +534,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -563,6 +574,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -682,6 +694,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -721,6 +734,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -760,6 +774,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -808,6 +823,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -847,6 +863,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -886,6 +903,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -1007,6 +1025,7 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -1046,6 +1065,7 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -1085,6 +1105,7 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -1133,6 +1154,7 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -1172,6 +1194,7 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -1211,6 +1234,7 @@ class _$RemoveBusinessSocialMediaImpl implements RemoveBusinessSocialMedia {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -1330,6 +1354,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -1369,6 +1394,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -1408,6 +1434,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -1456,6 +1483,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -1495,6 +1523,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -1534,6 +1563,7 @@ class _$AddAccreditionImpl implements AddAccredition {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -1663,6 +1693,7 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -1702,6 +1733,7 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -1741,6 +1773,7 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -1789,6 +1822,7 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -1828,6 +1862,7 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -1867,6 +1902,7 @@ class _$AccreditationPickImageImpl implements AccreditationPickImage {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -2007,6 +2043,7 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -2046,6 +2083,7 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -2085,6 +2123,7 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -2133,6 +2172,7 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -2172,6 +2212,7 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -2211,6 +2252,7 @@ class _$ProductUpdatePickImageImpl implements ProductUpdatePickImage {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -2335,6 +2377,7 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -2374,6 +2417,7 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -2413,6 +2457,7 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -2461,6 +2506,7 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -2500,6 +2546,7 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -2539,6 +2586,7 @@ class _$UpdationAccreditationImpl implements UpdationAccreditation {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -2657,6 +2705,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -2696,6 +2745,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -2735,6 +2785,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -2783,6 +2834,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -2822,6 +2874,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -2861,6 +2914,7 @@ class _$RemoveAccreditionImpl implements RemoveAccredition {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -2981,6 +3035,7 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -3020,6 +3075,7 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -3059,6 +3115,7 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -3107,6 +3164,7 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -3146,6 +3204,7 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -3185,6 +3244,7 @@ class _$RemoveAccreditionImageImpl implements RemoveAccreditionImage {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -3302,6 +3362,7 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -3341,6 +3402,7 @@ class _$AddBranchImpl implements AddBranch {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -3380,6 +3442,7 @@ class _$AddBranchImpl implements AddBranch {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -3428,6 +3491,7 @@ class _$AddBranchImpl implements AddBranch {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -3467,6 +3531,7 @@ class _$AddBranchImpl implements AddBranch {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -3506,6 +3571,7 @@ class _$AddBranchImpl implements AddBranch {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -3630,6 +3696,7 @@ class _$UpdateBranchImpl implements UpdateBranch {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -3669,6 +3736,7 @@ class _$UpdateBranchImpl implements UpdateBranch {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -3708,6 +3776,7 @@ class _$UpdateBranchImpl implements UpdateBranch {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -3756,6 +3825,7 @@ class _$UpdateBranchImpl implements UpdateBranch {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -3795,6 +3865,7 @@ class _$UpdateBranchImpl implements UpdateBranch {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -3834,6 +3905,7 @@ class _$UpdateBranchImpl implements UpdateBranch {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -3953,6 +4025,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -3992,6 +4065,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -4031,6 +4105,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -4079,6 +4154,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -4118,6 +4194,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -4157,6 +4234,7 @@ class _$RemoveBranchImpl implements RemoveBranch {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -4247,6 +4325,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -4286,6 +4365,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -4325,6 +4405,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -4373,6 +4454,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -4412,6 +4494,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -4451,6 +4534,7 @@ class _$CreateBusinessDataImpl implements CreateBusinessData {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -4536,6 +4620,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -4575,6 +4660,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -4614,6 +4700,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -4662,6 +4749,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -4701,6 +4789,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -4740,6 +4829,7 @@ class _$CreateBankingDataImpl implements CreateBankingData {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -4851,6 +4941,7 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -4890,6 +4981,7 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -4929,6 +5021,7 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -4977,6 +5070,7 @@ class _$AddLogoImpl implements AddLogo {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -5016,6 +5110,7 @@ class _$AddLogoImpl implements AddLogo {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -5055,6 +5150,7 @@ class _$AddLogoImpl implements AddLogo {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -5145,6 +5241,7 @@ class _$UploadLogoImpl implements UploadLogo {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -5184,6 +5281,7 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -5223,6 +5321,7 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -5271,6 +5370,7 @@ class _$UploadLogoImpl implements UploadLogo {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -5310,6 +5410,7 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -5349,6 +5450,7 @@ class _$UploadLogoImpl implements UploadLogo {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -5460,6 +5562,7 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -5499,6 +5602,7 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -5538,6 +5642,7 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -5586,6 +5691,7 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -5625,6 +5731,7 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -5664,6 +5771,7 @@ class _$AddCropedLogoImpl implements AddCropedLogo {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -5755,6 +5863,7 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -5794,6 +5903,7 @@ class _$GetUserDataImpl implements GetUserData {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -5833,6 +5943,7 @@ class _$GetUserDataImpl implements GetUserData {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -5881,6 +5992,7 @@ class _$GetUserDataImpl implements GetUserData {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -5920,6 +6032,7 @@ class _$GetUserDataImpl implements GetUserData {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -5959,6 +6072,7 @@ class _$GetUserDataImpl implements GetUserData {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -6070,6 +6184,7 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -6109,6 +6224,7 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -6148,6 +6264,7 @@ class _$AddProductImpl implements AddProduct {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -6196,6 +6313,7 @@ class _$AddProductImpl implements AddProduct {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -6235,6 +6353,7 @@ class _$AddProductImpl implements AddProduct {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -6274,6 +6393,7 @@ class _$AddProductImpl implements AddProduct {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -6391,6 +6511,7 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -6430,6 +6551,7 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -6469,6 +6591,7 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -6517,6 +6640,7 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -6556,6 +6680,7 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -6595,6 +6720,7 @@ class _$RemoveProductImagesImpl implements RemoveProductImages {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -6716,6 +6842,7 @@ class _$RemoveProductIndexImagesImpl implements RemoveProductIndexImages {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -6755,6 +6882,7 @@ class _$RemoveProductIndexImagesImpl implements RemoveProductIndexImages {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -6794,6 +6922,7 @@ class _$RemoveProductIndexImagesImpl implements RemoveProductIndexImages {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -6842,6 +6971,7 @@ class _$RemoveProductIndexImagesImpl implements RemoveProductIndexImages {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -6881,6 +7011,7 @@ class _$RemoveProductIndexImagesImpl implements RemoveProductIndexImages {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -6920,6 +7051,7 @@ class _$RemoveProductIndexImagesImpl implements RemoveProductIndexImages {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -7039,6 +7171,7 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -7078,6 +7211,7 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -7117,6 +7251,7 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -7165,6 +7300,7 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -7204,6 +7340,7 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -7243,6 +7380,7 @@ class _$ProductUpdateImagesImpl implements ProductUpdateImages {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -7362,6 +7500,7 @@ class _$PickProductImageImpl implements PickProductImage {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -7401,6 +7540,7 @@ class _$PickProductImageImpl implements PickProductImage {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -7440,6 +7580,7 @@ class _$PickProductImageImpl implements PickProductImage {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -7488,6 +7629,7 @@ class _$PickProductImageImpl implements PickProductImage {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -7527,6 +7669,7 @@ class _$PickProductImageImpl implements PickProductImage {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -7566,6 +7709,7 @@ class _$PickProductImageImpl implements PickProductImage {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -7683,6 +7827,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -7722,6 +7867,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -7761,6 +7907,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -7809,6 +7956,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -7848,6 +7996,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -7887,6 +8036,7 @@ class _$RemoveProductImpl implements RemoveProduct {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -8011,6 +8161,7 @@ class _$UpdateProductImpl implements UpdateProduct {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -8050,6 +8201,7 @@ class _$UpdateProductImpl implements UpdateProduct {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -8089,6 +8241,7 @@ class _$UpdateProductImpl implements UpdateProduct {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -8137,6 +8290,7 @@ class _$UpdateProductImpl implements UpdateProduct {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -8176,6 +8330,7 @@ class _$UpdateProductImpl implements UpdateProduct {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -8215,6 +8370,7 @@ class _$UpdateProductImpl implements UpdateProduct {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -8308,6 +8464,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -8347,6 +8504,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -8386,6 +8544,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -8434,6 +8593,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -8473,6 +8633,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -8512,6 +8673,7 @@ class _$AddBrochuresImpl implements AddBrochures {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -8624,6 +8786,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -8663,6 +8826,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -8702,6 +8866,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -8750,6 +8915,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -8789,6 +8955,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -8828,6 +8995,7 @@ class _$RemoveBrochureImpl implements RemoveBrochure {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -8945,6 +9113,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -8984,6 +9153,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -9023,6 +9193,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -9071,6 +9242,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -9110,6 +9282,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -9149,6 +9322,7 @@ class _$GetCompnayListImpl implements GetCompnayList {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -9267,6 +9441,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -9306,6 +9481,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -9345,6 +9521,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -9393,6 +9570,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -9432,6 +9610,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -9471,6 +9650,7 @@ class _$GetCompnayDetailsImpl implements GetCompnayDetails {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -9490,6 +9670,301 @@ abstract class GetCompnayDetails implements BusinessDataEvent {
   @JsonKey(ignore: true)
   _$$GetCompnayDetailsImplCopyWith<_$GetCompnayDetailsImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveBusinessDataImplCopyWith<$Res> {
+  factory _$$RemoveBusinessDataImplCopyWith(_$RemoveBusinessDataImpl value,
+          $Res Function(_$RemoveBusinessDataImpl) then) =
+      __$$RemoveBusinessDataImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RemoveBusinessDataImplCopyWithImpl<$Res>
+    extends _$BusinessDataEventCopyWithImpl<$Res, _$RemoveBusinessDataImpl>
+    implements _$$RemoveBusinessDataImplCopyWith<$Res> {
+  __$$RemoveBusinessDataImplCopyWithImpl(_$RemoveBusinessDataImpl _value,
+      $Res Function(_$RemoveBusinessDataImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$RemoveBusinessDataImpl implements RemoveBusinessData {
+  const _$RemoveBusinessDataImpl();
+
+  @override
+  String toString() {
+    return 'BusinessDataEvent.removeBusinessData()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RemoveBusinessDataImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(int id) removeBusinessSocialMedia,
+    required TResult Function(Accredition accredition) addAccredition,
+    required TResult Function(bool isCam, bool isFront) accreditationPickImage,
+    required TResult Function(bool isCam, bool isFront, int productId)
+        productUpdatePickImage,
+    required TResult Function(Accredition accredition) updationAccreditation,
+    required TResult Function(int id) removeAccredition,
+    required TResult Function(int id) removeAccreditionImage,
+    required TResult Function(String branch) addBranch,
+    required TResult Function(String branch, int id) updateBranch,
+    required TResult Function(int id) removeBranch,
+    required TResult Function() createBusinessData,
+    required TResult Function() createBankingData,
+    required TResult Function(bool isCam) addLogo,
+    required TResult Function() uploadLogo,
+    required TResult Function(String base64) addCropedLogo,
+    required TResult Function() getUserData,
+    required TResult Function(Product product) addProduct,
+    required TResult Function(int id) removeProductImages,
+    required TResult Function(int index) removeProductIndexImages,
+    required TResult Function(ProductImageAdd productImageAdd)
+        productUpdateImages,
+    required TResult Function(bool isCam) pickProductImage,
+    required TResult Function(int id) removeProduct,
+    required TResult Function(int id, Product product) updateProduct,
+    required TResult Function() addBrochures,
+    required TResult Function(int id) removeBrochure,
+    required TResult Function(SearchQuery? search) getCompnayList,
+    required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function() clear,
+  }) {
+    return removeBusinessData();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(int id)? removeBusinessSocialMedia,
+    TResult? Function(Accredition accredition)? addAccredition,
+    TResult? Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult? Function(bool isCam, bool isFront, int productId)?
+        productUpdatePickImage,
+    TResult? Function(Accredition accredition)? updationAccreditation,
+    TResult? Function(int id)? removeAccredition,
+    TResult? Function(int id)? removeAccreditionImage,
+    TResult? Function(String branch)? addBranch,
+    TResult? Function(String branch, int id)? updateBranch,
+    TResult? Function(int id)? removeBranch,
+    TResult? Function()? createBusinessData,
+    TResult? Function()? createBankingData,
+    TResult? Function(bool isCam)? addLogo,
+    TResult? Function()? uploadLogo,
+    TResult? Function(String base64)? addCropedLogo,
+    TResult? Function()? getUserData,
+    TResult? Function(Product product)? addProduct,
+    TResult? Function(int id)? removeProductImages,
+    TResult? Function(int index)? removeProductIndexImages,
+    TResult? Function(ProductImageAdd productImageAdd)? productUpdateImages,
+    TResult? Function(bool isCam)? pickProductImage,
+    TResult? Function(int id)? removeProduct,
+    TResult? Function(int id, Product product)? updateProduct,
+    TResult? Function()? addBrochures,
+    TResult? Function(int id)? removeBrochure,
+    TResult? Function(SearchQuery? search)? getCompnayList,
+    TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function()? clear,
+  }) {
+    return removeBusinessData?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(int id)? removeBusinessSocialMedia,
+    TResult Function(Accredition accredition)? addAccredition,
+    TResult Function(bool isCam, bool isFront)? accreditationPickImage,
+    TResult Function(bool isCam, bool isFront, int productId)?
+        productUpdatePickImage,
+    TResult Function(Accredition accredition)? updationAccreditation,
+    TResult Function(int id)? removeAccredition,
+    TResult Function(int id)? removeAccreditionImage,
+    TResult Function(String branch)? addBranch,
+    TResult Function(String branch, int id)? updateBranch,
+    TResult Function(int id)? removeBranch,
+    TResult Function()? createBusinessData,
+    TResult Function()? createBankingData,
+    TResult Function(bool isCam)? addLogo,
+    TResult Function()? uploadLogo,
+    TResult Function(String base64)? addCropedLogo,
+    TResult Function()? getUserData,
+    TResult Function(Product product)? addProduct,
+    TResult Function(int id)? removeProductImages,
+    TResult Function(int index)? removeProductIndexImages,
+    TResult Function(ProductImageAdd productImageAdd)? productUpdateImages,
+    TResult Function(bool isCam)? pickProductImage,
+    TResult Function(int id)? removeProduct,
+    TResult Function(int id, Product product)? updateProduct,
+    TResult Function()? addBrochures,
+    TResult Function(int id)? removeBrochure,
+    TResult Function(SearchQuery? search)? getCompnayList,
+    TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (removeBusinessData != null) {
+      return removeBusinessData();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(RemoveBusinessSocialMedia value)
+        removeBusinessSocialMedia,
+    required TResult Function(AddAccredition value) addAccredition,
+    required TResult Function(AccreditationPickImage value)
+        accreditationPickImage,
+    required TResult Function(ProductUpdatePickImage value)
+        productUpdatePickImage,
+    required TResult Function(UpdationAccreditation value)
+        updationAccreditation,
+    required TResult Function(RemoveAccredition value) removeAccredition,
+    required TResult Function(RemoveAccreditionImage value)
+        removeAccreditionImage,
+    required TResult Function(AddBranch value) addBranch,
+    required TResult Function(UpdateBranch value) updateBranch,
+    required TResult Function(RemoveBranch value) removeBranch,
+    required TResult Function(CreateBusinessData value) createBusinessData,
+    required TResult Function(CreateBankingData value) createBankingData,
+    required TResult Function(AddLogo value) addLogo,
+    required TResult Function(UploadLogo value) uploadLogo,
+    required TResult Function(AddCropedLogo value) addCropedLogo,
+    required TResult Function(GetUserData value) getUserData,
+    required TResult Function(AddProduct value) addProduct,
+    required TResult Function(RemoveProductImages value) removeProductImages,
+    required TResult Function(RemoveProductIndexImages value)
+        removeProductIndexImages,
+    required TResult Function(ProductUpdateImages value) productUpdateImages,
+    required TResult Function(PickProductImage value) pickProductImage,
+    required TResult Function(RemoveProduct value) removeProduct,
+    required TResult Function(UpdateProduct value) updateProduct,
+    required TResult Function(AddBrochures value) addBrochures,
+    required TResult Function(RemoveBrochure value) removeBrochure,
+    required TResult Function(GetCompnayList value) getCompnayList,
+    required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(Clear value) clear,
+  }) {
+    return removeBusinessData(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult? Function(AddAccredition value)? addAccredition,
+    TResult? Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult? Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult? Function(UpdationAccreditation value)? updationAccreditation,
+    TResult? Function(RemoveAccredition value)? removeAccredition,
+    TResult? Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult? Function(AddBranch value)? addBranch,
+    TResult? Function(UpdateBranch value)? updateBranch,
+    TResult? Function(RemoveBranch value)? removeBranch,
+    TResult? Function(CreateBusinessData value)? createBusinessData,
+    TResult? Function(CreateBankingData value)? createBankingData,
+    TResult? Function(AddLogo value)? addLogo,
+    TResult? Function(UploadLogo value)? uploadLogo,
+    TResult? Function(AddCropedLogo value)? addCropedLogo,
+    TResult? Function(GetUserData value)? getUserData,
+    TResult? Function(AddProduct value)? addProduct,
+    TResult? Function(RemoveProductImages value)? removeProductImages,
+    TResult? Function(RemoveProductIndexImages value)? removeProductIndexImages,
+    TResult? Function(ProductUpdateImages value)? productUpdateImages,
+    TResult? Function(PickProductImage value)? pickProductImage,
+    TResult? Function(RemoveProduct value)? removeProduct,
+    TResult? Function(UpdateProduct value)? updateProduct,
+    TResult? Function(AddBrochures value)? addBrochures,
+    TResult? Function(RemoveBrochure value)? removeBrochure,
+    TResult? Function(GetCompnayList value)? getCompnayList,
+    TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return removeBusinessData?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(RemoveBusinessSocialMedia value)?
+        removeBusinessSocialMedia,
+    TResult Function(AddAccredition value)? addAccredition,
+    TResult Function(AccreditationPickImage value)? accreditationPickImage,
+    TResult Function(ProductUpdatePickImage value)? productUpdatePickImage,
+    TResult Function(UpdationAccreditation value)? updationAccreditation,
+    TResult Function(RemoveAccredition value)? removeAccredition,
+    TResult Function(RemoveAccreditionImage value)? removeAccreditionImage,
+    TResult Function(AddBranch value)? addBranch,
+    TResult Function(UpdateBranch value)? updateBranch,
+    TResult Function(RemoveBranch value)? removeBranch,
+    TResult Function(CreateBusinessData value)? createBusinessData,
+    TResult Function(CreateBankingData value)? createBankingData,
+    TResult Function(AddLogo value)? addLogo,
+    TResult Function(UploadLogo value)? uploadLogo,
+    TResult Function(AddCropedLogo value)? addCropedLogo,
+    TResult Function(GetUserData value)? getUserData,
+    TResult Function(AddProduct value)? addProduct,
+    TResult Function(RemoveProductImages value)? removeProductImages,
+    TResult Function(RemoveProductIndexImages value)? removeProductIndexImages,
+    TResult Function(ProductUpdateImages value)? productUpdateImages,
+    TResult Function(PickProductImage value)? pickProductImage,
+    TResult Function(RemoveProduct value)? removeProduct,
+    TResult Function(UpdateProduct value)? updateProduct,
+    TResult Function(AddBrochures value)? addBrochures,
+    TResult Function(RemoveBrochure value)? removeBrochure,
+    TResult Function(GetCompnayList value)? getCompnayList,
+    TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (removeBusinessData != null) {
+      return removeBusinessData(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveBusinessData implements BusinessDataEvent {
+  const factory RemoveBusinessData() = _$RemoveBusinessDataImpl;
 }
 
 /// @nodoc
@@ -9589,6 +10064,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -9628,6 +10104,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -9667,6 +10144,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -9715,6 +10193,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -9754,6 +10233,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -9793,6 +10273,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
@@ -9883,6 +10364,7 @@ class _$ClearImpl implements Clear {
     required TResult Function(int id) removeBrochure,
     required TResult Function(SearchQuery? search) getCompnayList,
     required TResult Function(int id) getCompnayDetails,
+    required TResult Function() removeBusinessData,
     required TResult Function(Card card) getCurrentCard,
     required TResult Function() clear,
   }) {
@@ -9922,6 +10404,7 @@ class _$ClearImpl implements Clear {
     TResult? Function(int id)? removeBrochure,
     TResult? Function(SearchQuery? search)? getCompnayList,
     TResult? Function(int id)? getCompnayDetails,
+    TResult? Function()? removeBusinessData,
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function()? clear,
   }) {
@@ -9961,6 +10444,7 @@ class _$ClearImpl implements Clear {
     TResult Function(int id)? removeBrochure,
     TResult Function(SearchQuery? search)? getCompnayList,
     TResult Function(int id)? getCompnayDetails,
+    TResult Function()? removeBusinessData,
     TResult Function(Card card)? getCurrentCard,
     TResult Function()? clear,
     required TResult orElse(),
@@ -10009,6 +10493,7 @@ class _$ClearImpl implements Clear {
     required TResult Function(RemoveBrochure value) removeBrochure,
     required TResult Function(GetCompnayList value) getCompnayList,
     required TResult Function(GetCompnayDetails value) getCompnayDetails,
+    required TResult Function(RemoveBusinessData value) removeBusinessData,
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(Clear value) clear,
   }) {
@@ -10048,6 +10533,7 @@ class _$ClearImpl implements Clear {
     TResult? Function(RemoveBrochure value)? removeBrochure,
     TResult? Function(GetCompnayList value)? getCompnayList,
     TResult? Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult? Function(RemoveBusinessData value)? removeBusinessData,
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(Clear value)? clear,
   }) {
@@ -10087,6 +10573,7 @@ class _$ClearImpl implements Clear {
     TResult Function(RemoveBrochure value)? removeBrochure,
     TResult Function(GetCompnayList value)? getCompnayList,
     TResult Function(GetCompnayDetails value)? getCompnayDetails,
+    TResult Function(RemoveBusinessData value)? removeBusinessData,
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(Clear value)? clear,
     required TResult orElse(),

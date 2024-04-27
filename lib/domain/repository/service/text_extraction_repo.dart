@@ -4,5 +4,6 @@ import 'package:bizkit/domain/model/extracted_text_model/extracted_text_model.da
 import 'package:dartz/dartz.dart';
 
 abstract class TextExtractionRepo {
-  Future<Either<Failure,ExtractedTextModel>> extractText({required ImageCard image});
+  Future<Either<Failure, ExtractedTextModel>> extractText(
+      {required ImageCard image});
 }

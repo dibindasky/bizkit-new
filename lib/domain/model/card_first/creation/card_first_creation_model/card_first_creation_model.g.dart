@@ -14,7 +14,16 @@ CardFirstCreationModel _$CardFirstCreationModelFromJson(
       email: json['email'] as String?,
       designation: json['designation'] as String?,
       businessCategoryId: json['business_category_id'] as int?,
-      photos: json['photos'] as String?,
+      photos: (json['photos'] as List<dynamic>?)
+          ?.map((e) => PersonalPhoto.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      cardImage: (json['card_image'] as List<dynamic>?)
+          ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      cardJson: json['card_extracted_data'] == null
+          ? null
+          : ExtractedTextModel.fromJson(
+              json['card_extracted_data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CardFirstCreationModelToJson(
@@ -26,4 +35,6 @@ Map<String, dynamic> _$CardFirstCreationModelToJson(
       'designation': instance.designation,
       'business_category_id': instance.businessCategoryId,
       'photos': instance.photos,
+      'card_image': instance.cardImage,
+      'card_extracted_data': instance.cardJson,
     };

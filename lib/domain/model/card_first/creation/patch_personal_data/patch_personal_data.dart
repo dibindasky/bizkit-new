@@ -1,3 +1,4 @@
+import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/personal_photo.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'patch_personal_data.g.dart';
@@ -15,7 +16,7 @@ class PatchPersonalData {
   String? bloodGroup;
   @JsonKey(name: 'home_address')
   String? homeAddress;
-  String? photos;
+  List<PersonalPhoto>? photos;
   @JsonKey(name: 'business_category_id')
   int? businessCategoryId;
 
@@ -45,7 +46,7 @@ class PatchPersonalData {
     String? dateOfBirth,
     String? bloodGroup,
     String? homeAddress,
-    String? photos,
+    List<PersonalPhoto>? photos,
     int? businessCategoryId,
   }) {
     return PatchPersonalData(

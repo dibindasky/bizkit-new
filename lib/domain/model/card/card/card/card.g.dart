@@ -60,6 +60,13 @@ Card _$CardFromJson(Map<String, dynamic> json) => Card(
       logoCard: json['logo'] == null
           ? null
           : LogoCard.fromJson(json['logo'] as Map<String, dynamic>),
+      extractedTextModel: json['card_extracted_data'] == null
+          ? null
+          : ExtractedTextModel.fromJson(
+              json['card_extracted_data'] as Map<String, dynamic>),
+      scannedImage: (json['card_image'] as List<dynamic>?)
+          ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
@@ -90,4 +97,6 @@ Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'product': instance.product,
       'branch_office': instance.branchOffices,
       'dates_to_remember': instance.datesToRemember,
+      'card_extracted_data': instance.extractedTextModel,
+      'card_image': instance.scannedImage,
     };

@@ -9,6 +9,7 @@ import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dar
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
 import 'package:bizkit/domain/model/card/company/get_business_category_response_model/category.dart';
 import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
+import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/personal_photo.dart';
 import 'package:bizkit/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
@@ -77,16 +78,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         hasError: false,
         message: null,
         cardAdded: false));
-    print('card creation requested 1');
-
-    // print('card creation requested');
-
-    // print(event.createCardByIdModel.toJson());
-    // print('card creation requested 2');
-    // event.createCardByIdModel.isVerified =
-    //     event.createCardByIdModel.isVerified ??
-    //         await SecureStorage.isVerified();
-
+    print('card creation requested 1 \n ${event.cardFirstCreationModel.toJson()}');
     final result = await cardService.createCard(
         cardFirstCreationModel: event.cardFirstCreationModel);
     result.fold((l) {
@@ -287,7 +279,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     final img = await ImagePickerClass.getImage(camera: false);
     if (img != null) {
       emit(state.copyWith(
-          userPhotos: img,
+          userPhotos: [PersonalPhoto(photo: img.base64)],
           cardAdded: false,
           accoladeAdded: false,
           datesToRememberAdded: false,

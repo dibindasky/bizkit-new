@@ -83,7 +83,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                               BusinessDataEvent.getCurrentCard(
                                   card: state.anotherCard!));
                         },
-                        icon: const Icon(Icons.edit ));
+                        icon: const Icon(Icons.edit));
                   },
                 )
               : const SizedBox(),
@@ -153,13 +153,13 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                                   state.anotherCard!.personalDetails!.photos !=
                                       null) {
                                 images.add(state
-                                        .anotherCard!.personalDetails!.photos!
+                                        .anotherCard!.personalDetails!.photos![0].photo!
                                         .startsWith('data:')
                                     ? state
-                                        .anotherCard!.personalDetails!.photos!
+                                        .anotherCard!.personalDetails!.photos![0].photo!
                                         .substring(22)
                                     : state
-                                        .anotherCard!.personalDetails!.photos!);
+                                        .anotherCard!.personalDetails!.photos![0].photo!);
                               }
                               return SizedBox(
                                 height: 200,

@@ -15,7 +15,9 @@ PatchPersonalData _$PatchPersonalDataFromJson(Map<String, dynamic> json) =>
       dateOfBirth: json['date_of_birth'] as String?,
       bloodGroup: json['blood_group'] as String?,
       homeAddress: json['home_address'] as String?,
-      photos: json['photos'] as String?,
+      photos: (json['photos'] as List<dynamic>?)
+          ?.map((e) => PersonalPhoto.fromJson(e as Map<String, dynamic>))
+          .toList(),
       businessCategoryId: json['business_category_id'] as int?,
     );
 

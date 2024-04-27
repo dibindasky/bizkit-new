@@ -94,6 +94,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<CreateBankingData>(createBankingData);
     on<GetCompnayList>(getCompnayList);
     on<GetCompnayDetails>(getCompnayDetails);
+    on<RemoveBusinessData>(removeBusinessData);
     on<GetUserData>(getUserData);
     on<GetCurrentCard>(getCurrentCard);
     on<UploadLogo>(uploadLogo);
@@ -484,15 +485,51 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             hasError: true,
             gotCompanyData: false,
             message: 'failed to add company data to profile')), (business) {
-      print(
-          '====================================***********************************************************=====================================');
-      print('got company detaisa');
       emit(state.copyWith(
           // businessDetailsCreateId: event.id,
           businessData: business,
           gotCompanyData: true,
           loadCompanyData: false,
           message: 'selected company data added to your profile'));
+      businessNameController.text = business.businessName ?? '';
+      mailController.text = business.email ?? '';
+      mobileController.text = business.mobileNumber ?? '';
+      addressController.text = business.address ?? '';
+      websiteLinkController.text = business.websiteLink ?? '';
+      logoStoryController.text = business.logoStory ?? '';
+    });
+  }
+
+  FutureOr<void> removeBusinessData(RemoveBusinessData event, emit) async {
+    emit(state.copyWith(
+        loadCompanyData: true,
+        message: null,
+        hasError: false,
+        accreditionAdded: false,
+        branchAdded: false,
+        brochureAdded: false,
+        productAdded: false,
+        socialMediaAdded: false,
+        gotCompanyData: false));
+    final result = await cardService.createBusinessDataCard(
+        businessDetails: BusinessDetails(
+            company: null, isCompanySelected: false, isVerified: false),
+        id: state.currentCard!.businessDetails!.id!);
+    result.fold(
+        (failure) => emit(state.copyWith(
+            loadCompanyData: false,
+            hasError: true,
+            gotCompanyData: false,
+            message: 'failed to add company data to profile')), (business) {
+      print(
+          '====================================***********************************************************=====================================');
+      print('got company detaisa');
+      emit(state.copyWith(
+          // businessDetailsCreateId: event.id,
+          businessData: BusinessDetails(),
+          gotCompanyData: false,
+          loadCompanyData: false,
+          message: 'company data removed from your profile'));
       businessNameController.text = business.businessName ?? '';
       mailController.text = business.email ?? '';
       mobileController.text = business.mobileNumber ?? '';

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
@@ -8,7 +10,9 @@ import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
+import 'package:bizkit/domain/model/extracted_text_model/extracted_text_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -66,8 +70,8 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                               )
                             : CircleAvatar(
                                 radius: 70,
-                                backgroundImage:
-                                    FileImage(state.userPhotos!.fileImage),
+                                backgroundImage: MemoryImage(
+                                    base64.decode(state.userPhotos![0].photo!)),
                               ),
                         Positioned(
                           bottom: 17,
@@ -203,43 +207,39 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                       continueText: 'Create Card',
                       onTap: () {
                         if (personalDataFirstFormKey.currentState!.validate()) {
-                          // Navigator.of(context).push(
-                          //   fadePageRoute(const LinearProgressIndicatorStarting()),
-                          // );
-                          context.read<UserDataBloc>().add(
-                              UserDataEvent.createCard(
-                                  cardFirstCreationModel: CardFirstCreationModel(
-                                      name: context
-                                          .read<UserDataBloc>()
-                                          .nameController
-                                          .text
-                                          .trim(),
-                                      designation: context
-                                          .read<UserDataBloc>()
-                                          .designationController
-                                          .text
-                                          .trim(),
-                                      phoneNumber: context
-                                          .read<UserDataBloc>()
-                                          .phoneController
-                                          .text
-                                          .trim(),
-                                      email: context
-                                          .read<UserDataBloc>()
-                                          .emailController
-                                          .text
-                                          .trim(),
-                                      photos: state.userPhotos?.base64,
-                                      businessCategoryId: state
-                                          .businessCategories
-                                          .firstWhere((element) =>
-                                              element.category ==
-                                              context
-                                                  .read<UserDataBloc>()
-                                                  .businessCategoryController
-                                                  .text
-                                                  .trim())
-                                          .id)));
+                          context.read<UserDataBloc>().add(UserDataEvent.createCard(
+                              cardFirstCreationModel: CardFirstCreationModel(
+                                  cardJson: ExtractedTextModel(
+                                      emails:
+                                          state.scannedImageDatasModel?.emails,
+                                      names:
+                                          state.scannedImageDatasModel?.names,
+                                      phoneNumbers:
+                                          state.scannedImageDatasModel?.phone,
+                                      websites: state
+                                          .scannedImageDatasModel?.websites),
+                                  cardImage: state.scannedImagesCardCreation
+                                      .map((e) => ImageCard(image: e.base64))
+                                      .toList(),
+                                  name: context
+                                      .read<UserDataBloc>()
+                                      .nameController
+                                      .text
+                                      .trim(),
+                                  designation: context
+                                      .read<UserDataBloc>()
+                                      .designationController
+                                      .text
+                                      .trim(),
+                                  phoneNumber: context
+                                      .read<UserDataBloc>()
+                                      .phoneController
+                                      .text
+                                      .trim(),
+                                  email:
+                                      context.read<UserDataBloc>().emailController.text.trim(),
+                                  photos: state.userPhotos,
+                                  businessCategoryId: state.businessCategories.firstWhere((element) => element.category == context.read<UserDataBloc>().businessCategoryController.text.trim()).id)));
                         }
                       },
                     );

@@ -82,7 +82,7 @@ class DatePickingBottomSheet extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                     child: const Text(
-                      'ok',
+                      'Ok',
                     ),
                   ),
                   adjustWidth(20)

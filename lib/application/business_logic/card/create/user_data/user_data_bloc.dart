@@ -123,7 +123,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         email: state.currentCard?.personalDetails?.email,
         name: state.currentCard?.personalDetails?.name,
         phoneNumber: state.currentCard?.personalDetails?.phoneNumber,
-        photos: state.currentCard?.personalDetails?.photos);
+        // photos: state.currentCard?.personalDetails?.photos
+        );
     final result = await cardService.patchPersonalDetails(
         patchPersonalData: personalData,
         personalDataId: state.currentCard!.personalDetailsId!);

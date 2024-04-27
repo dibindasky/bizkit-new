@@ -123,8 +123,9 @@ class Card {
       accreditation: (json['accreditation'] as List<dynamic>?)
           ?.map((e) => Accredition.fromJson(e as Map<String, dynamic>))
           .toList(),
-      bankDetails:
-          BankDetails.fromJson(json['bank_details'] as Map<String, dynamic>),
+      bankDetails: json['bank_details'] == null
+          ? null
+          : BankDetails.fromJson(json['bank_details'] as Map<String, dynamic>),
       branchOffices: (json['branch_office'] as List<dynamic>?)
           ?.map((e) => BranchOffice.fromJson(e as Map<String, dynamic>))
           .toList(),

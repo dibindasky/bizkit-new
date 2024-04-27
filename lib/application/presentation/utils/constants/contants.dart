@@ -8,6 +8,11 @@ void formatWebsiteUrl(String url, TextEditingController controller) {
   controller.text = formattedUrl;
 }
 
+String getBase64(String? base64) {
+  if (base64 == null) return '';
+  return base64.startsWith('data') ? base64.substring(22) : base64;
+}
+
 const onBoardScreenfirstpersonImages =
     'asset/images/onboarding/onboard image fisrt image.png';
 const onBoardScreenSecond =

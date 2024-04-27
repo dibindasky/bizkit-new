@@ -151,7 +151,9 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                               if (state.anotherCard != null &&
                                   state.anotherCard!.personalDetails != null &&
                                   state.anotherCard!.personalDetails!.photos !=
-                                      null) {
+                                      null &&
+                                  state.anotherCard!.personalDetails!.photos!
+                                      .isNotEmpty) {
                                 images.add(state.anotherCard!.personalDetails!
                                         .photos![0].photo!
                                         .startsWith('data:')

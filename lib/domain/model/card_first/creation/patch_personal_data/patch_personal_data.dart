@@ -16,7 +16,7 @@ class PatchPersonalData {
   String? bloodGroup;
   @JsonKey(name: 'home_address')
   String? homeAddress;
-  List<PersonalPhoto>? photos;
+  // List<PersonalPhoto>? photos;
   @JsonKey(name: 'business_category_id')
   int? businessCategoryId;
 
@@ -28,7 +28,7 @@ class PatchPersonalData {
     this.dateOfBirth,
     this.bloodGroup,
     this.homeAddress,
-    this.photos,
+    // this.photos,
     this.businessCategoryId,
   });
 
@@ -57,7 +57,6 @@ class PatchPersonalData {
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       bloodGroup: bloodGroup ?? this.bloodGroup,
       homeAddress: homeAddress ?? this.homeAddress,
-      photos: photos ?? this.photos,
       businessCategoryId: businessCategoryId ?? this.businessCategoryId,
     );
   }

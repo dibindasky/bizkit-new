@@ -160,6 +160,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i25.CardSecondRepo>(),
           gh<_i5.CardScanningRepo>(),
           gh<_i12.LocationRepo>(),
+          gh<_i41.TextExtractionRepo>(),
         ));
     gh.factory<_i47.ConnectionRequestBloc>(
         () => _i47.ConnectionRequestBloc(gh<_i27.ConnectionRequestRepo>()));

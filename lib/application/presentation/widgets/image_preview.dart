@@ -9,8 +9,9 @@ class ScreenImagePreview extends StatefulWidget {
     super.key,
     required this.image,
     this.isFileIamge = false,
+    this.slideImages,
   });
-
+  final List<String>? slideImages;
   final String image;
   final bool isFileIamge;
 
@@ -21,8 +22,16 @@ class ScreenImagePreview extends StatefulWidget {
 class _ScreenImagePreviewState extends State<ScreenImagePreview> {
   double scale = 1;
   Uint8List? image;
+  List<Uint8List>? imagess;
   @override
   void initState() {
+    // if (widget.slideImages != null && widget.slideImages!.isNotEmpty) {
+    //   for (var image in widget.slideImages!) {
+    //     imagee = base64
+    //         .decode(image.startsWith('data') ? image.substring(22) : image);
+    //   }
+    //   imagess?.add(imagee!);
+    // }
     if (!widget.isFileIamge) {
       image = base64.decode(widget.image.startsWith('data')
           ? widget.image.substring(22)

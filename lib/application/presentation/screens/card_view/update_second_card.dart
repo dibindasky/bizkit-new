@@ -89,7 +89,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
             icon: const Icon(Icons.keyboard_arrow_left_outlined),
           ),
           title: const Text(
-            'Update selfie connection',
+            'Update visiting card',
             style: TextStyle(
               fontFamily: 'Euclid',
               fontWeight: FontWeight.bold,
@@ -100,7 +100,6 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
         ),
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
-            
             if (state.updated) {
               context
                   .read<CardSecondBloc>()
@@ -116,26 +115,36 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                 child: Column(
                   children: [
                     adjustHieght(20),
-                    state.scannedImagesSecondCardCreation.isEmpty
-                        ? const Text('Add visitig card image')
-                        : const Text('Scanned card image'),
+                    widget.secondCard.image != null &&
+                            widget.secondCard.image!.isNotEmpty
+                        ? const Text('Scanned card image')
+                        : const Text('Add visitig card image'),
                     adjustHieght(20),
                     state.scannedImagesSecondCardCreation.isNotEmpty
                         ? Stack(
                             children: [
-                              Container(
-                                height: kwidth * 0.60,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: FileImage(
-                                      state.scannedImagesSecondCardCreation.last
-                                          .fileImage,
+                              InkWell(
+                                onTap: () => Navigator.of(context).push(
+                                  fadePageRoute(ScreenImagePreview(
+                                      image: state
+                                          .scannedImagesSecondCardCreation
+                                          .first
+                                          .base64)),
+                                ),
+                                child: Container(
+                                  height: kwidth * 0.60,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: FileImage(state
+                                          .scannedImagesSecondCardCreation
+                                          .first
+                                          .fileImage),
+                                      fit: BoxFit.fitHeight,
+                                      onError: (exception, stackTrace) {
+                                        const Icon(Icons.image);
+                                      },
                                     ),
-                                    fit: BoxFit.fitWidth,
-                                    onError: (exception, stackTrace) {
-                                      const Icon(Icons.image);
-                                    },
                                   ),
                                 ),
                               ),
@@ -152,17 +161,20 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                           context: context,
                                           onPressCam: () {
                                             context.read<CardSecondBloc>().add(
-                                                    const CardSecondEvent
-                                                        .scanImage(
-                                                  isFront: false,
-                                                  isCam: true,
-                                                ));
+                                                  const CardSecondEvent
+                                                      .scanImage(
+                                                    isFront: false,
+                                                    isCam: true,
+                                                  ),
+                                                );
                                           },
                                           onPressGallery: () {
                                             context.read<CardSecondBloc>().add(
-                                                const CardSecondEvent.scanImage(
-                                                    isFront: false,
-                                                    isCam: false));
+                                                  const CardSecondEvent
+                                                      .scanImage(
+                                                      isFront: false,
+                                                      isCam: false),
+                                                );
                                           },
                                         );
                                       },
@@ -177,37 +189,106 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                               ),
                             ],
                           )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: ColoredBox(
-                              color: neonShade,
-                              child: IconButton(
-                                onPressed: () {
-                                  cameraAndGalleryPickImage(
-                                    context: context,
-                                    onPressCam: () {
-                                      context.read<CardSecondBloc>().add(
-                                          const CardSecondEvent.scanImage(
-                                              isFront: false, isCam: true));
+                        : widget.secondCard.image != null &&
+                                widget.secondCard.image!.isNotEmpty
+                            ? Stack(
+                                children: [
+                                  InkWell(
+                                    onTap: () => Navigator.of(context).push(
+                                      fadePageRoute(ScreenImagePreview(
+                                          image: base64imagecard!)),
+                                    ),
+                                    child: Container(
+                                      height: kwidth * 0.60,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: MemoryImage(
+                                              base64.decode(base64imagecard!)),
+                                          fit: BoxFit.fitHeight,
+                                          onError: (exception, stackTrace) {
+                                            const Icon(Icons.image);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 10,
+                                    bottom: 10,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: ColoredBox(
+                                        color: neonShade,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            cameraAndGalleryPickImage(
+                                              context: context,
+                                              onPressCam: () {
+                                                context
+                                                    .read<CardSecondBloc>()
+                                                    .add(
+                                                      const CardSecondEvent
+                                                          .scanImage(
+                                                        isFront: false,
+                                                        isCam: true,
+                                                      ),
+                                                    );
+                                              },
+                                              onPressGallery: () {
+                                                context
+                                                    .read<CardSecondBloc>()
+                                                    .add(
+                                                      const CardSecondEvent
+                                                          .scanImage(
+                                                          isFront: false,
+                                                          isCam: false),
+                                                    );
+                                              },
+                                            );
+                                          },
+                                          icon: const Icon(
+                                            size: 30,
+                                            color: kwhite,
+                                            Icons.add,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: ColoredBox(
+                                  color: neonShade,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      cameraAndGalleryPickImage(
+                                        context: context,
+                                        onPressCam: () {
+                                          context.read<CardSecondBloc>().add(
+                                              const CardSecondEvent.scanImage(
+                                                  isFront: false, isCam: true));
+                                        },
+                                        onPressGallery: () {
+                                          context.read<CardSecondBloc>().add(
+                                                  const CardSecondEvent
+                                                      .scanImage(
+                                                isFront: false,
+                                                isCam: false,
+                                              ));
+                                        },
+                                      );
                                     },
-                                    onPressGallery: () {
-                                      context
-                                          .read<CardSecondBloc>()
-                                          .add(const CardSecondEvent.scanImage(
-                                            isFront: false,
-                                            isCam: false,
-                                          ));
-                                    },
-                                  );
-                                },
-                                icon: const Icon(
-                                  size: 30,
-                                  color: kwhite,
-                                  Icons.add,
+                                    icon: const Icon(
+                                      size: 30,
+                                      color: kwhite,
+                                      Icons.add,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
                     adjustHieght(20),
                     selfieBase64List.isNotEmpty
                         ? const Text('Selfie Image')
@@ -246,19 +327,19 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                     return InkWell(
                                       onTap: () => Navigator.of(context).push(
                                         fadePageRoute(ScreenImagePreview(
-                                            image: selfieBase64List.first)),
+                                            image: selfieBase64List[index])),
                                       ),
-                                      child: Image.memory(
-                                        base64.decode(selfieBase64List.first
-                                            // base64imageSelfie!.startsWith('data')
-                                            //     ? base64imageSelfie!.substring(22)
-                                            //     : base64imageSelfie!
-                                            ),
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return const Icon(Icons.error);
-                                        },
-                                        fit: BoxFit.cover,
+                                      child: SizedBox(
+                                        width: kwidth,
+                                        child: Image.memory(
+                                          base64
+                                              .decode(selfieBase64List[index]),
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return const Icon(Icons.error);
+                                          },
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     );
                                   },
@@ -332,6 +413,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             inputType: TextInputType.emailAddress,
                           ),
                           TTextFormField(
+                            maxlegth: 10,
                             validate: Validate.ifValidnumber,
                             text: 'Phone number',
                             controller: context

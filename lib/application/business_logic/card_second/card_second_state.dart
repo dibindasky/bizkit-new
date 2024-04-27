@@ -3,6 +3,8 @@ part of 'card_second_bloc.dart';
 @freezed
 class CardSecondState with _$CardSecondState {
   const factory CardSecondState({
+    required bool locationFetchLoading,
+    required bool locationfetchError,
     required bool isLoading,
     required bool isPageLoading,
     required bool hasError,
@@ -22,7 +24,6 @@ class CardSecondState with _$CardSecondState {
     required bool secondCardDeleted,
     String? message,
     String? locationAdress,
-    required bool locationfetchError,
     required List<ImageModel> scannedImagesSecondCardCreation,
     ScannedImageDatasModel? scannedImageDatasModel,
     required List<ImageModel> selfieImageModel,
@@ -35,6 +36,7 @@ class CardSecondState with _$CardSecondState {
   }) = _Initial;
 
   factory CardSecondState.initial() => CardSecondState(
+        locationFetchLoading: false,
         locationfetchError: false,
         isLoading: false,
         imagePickError: false,

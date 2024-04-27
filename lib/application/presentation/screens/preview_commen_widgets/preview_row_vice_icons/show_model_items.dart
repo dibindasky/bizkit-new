@@ -40,6 +40,7 @@ class _PreviewScreenRowIconsModelSheetState
                     child: Text('Nothing to show'),
                   )
                 : ListView.builder(
+                    padding: const EdgeInsets.all(0),
                     itemCount: widget.items!.length,
                     itemBuilder: (context, index) {
                       final data = widget.items![index];
@@ -52,31 +53,39 @@ class _PreviewScreenRowIconsModelSheetState
                           ),
                         ),
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Row(
-                          children: [
-                            adjustWidth(kwidth * .03),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextButton(
-                                    onPressed: () {
-                                      if (isValidEmail(data)) {
-                                        LaunchUrl.launchEmail(data);
-                                      } else if (isValidPhoneNumber(data)) {
-                                        LaunchUrl.launchCall(phone: data);
-                                      }
-                                    },
-                                    child: Text(data)),
-                              ],
-                            ),
-                            const Spacer(),
-                            IconButton(
+                        child: InkWell(
+                          onTap: () {
+                            if (isValidEmail(data)) {
+                              LaunchUrl.launchEmail(data);
+                            } else if (isValidPhoneNumber(data)) {
+                              LaunchUrl.launchCall(phone: data);
+                            }
+                          },
+                          child: Row(
+                            children: [
+                              adjustWidth(kwidth * .03),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    data,
+                                    style: const TextStyle(color: neonShade),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              IconButton(
                                 onPressed: () => copyToClipboard(
                                     text: data, context: context),
-                                icon: const Icon(Icons.copy, color: neonShade)),
-                            adjustWidth(kwidth * .04),
-                          ],
+                                icon: const Icon(
+                                  Icons.copy,
+                                  color: neonShade,
+                                ),
+                              ),
+                              adjustWidth(kwidth * .04),
+                            ],
+                          ),
                         ),
                       );
                     },

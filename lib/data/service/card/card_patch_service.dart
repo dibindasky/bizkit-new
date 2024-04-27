@@ -10,6 +10,7 @@ import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
+import 'package:bizkit/domain/model/card/card/personal_data/personal_details_images/personal_details_images.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:bizkit/domain/model/card/card/product_image_add/product_image_add.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
@@ -501,7 +502,7 @@ class CardPatchService implements CardPatchRepo {
       final response = await _apiService.patch(
           ApiEndPoints.deleteBranchOffice
               .replaceFirst("{branch_office_id}", id.toString()),
-          data: branchOffice.toJson());
+          data: {"branch": branchOffice.branch});
       log('updateBranchOffice creation done');
       return Right(BranchOffice.fromJson(response.data));
     } on DioException catch (e) {
@@ -511,6 +512,46 @@ class CardPatchService implements CardPatchRepo {
       return Left(Failure());
     } catch (e) {
       log('updateBranchOffice creation exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> addPersonalImage(
+      {required PersonalDetailsImages personalDetailsImage}) async {
+    try {
+      await _apiService.post(
+        ApiEndPoints.addPersonalImage,
+        data: personalDetailsImage.toJson(),
+      );
+      log('addPersonalImage done');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('addPersonalImage DioException error $e');
+      return Left(Failure());
+    } catch (e) {
+      log('addPersonalImage catch error $e');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> removePersonalImage(
+      {required int id}) async {
+    try {
+      log('removePersonalImage call');
+      final response = await _apiService.patch(
+          ApiEndPoints.removePersonalImage.replaceFirst("{id}", id.toString()));
+      log('removePersonalImage done');
+      return Right(SuccessResponseModel.fromJson(response.data));
+    } on DioException catch (e) {
+      log('removePersonalImage creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('removePersonalImage creation exception error');
       log(e.toString());
       return Left(Failure());
     }

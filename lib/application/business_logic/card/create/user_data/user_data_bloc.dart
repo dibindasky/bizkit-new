@@ -109,22 +109,22 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         socialMediaAdded: false,
         accoladeAdded: false));
     final PatchPersonalData personalData = PatchPersonalData(
-        businessCategoryId: 1,
-        bloodGroup: bloodGroup.text.isNotEmpty
-            ? bloodGroup.text
-            : state.currentCard?.personalDetails?.bloodGroup,
-        dateOfBirth: birthDaycontroller.text.isNotEmpty
-            ? birthDaycontroller.text
-            : state.currentCard?.personalDetails?.dateOfBirth,
-        homeAddress: homeAddress.text.isNotEmpty
-            ? homeAddress.text
-            : state.currentCard?.personalDetails?.homeAddress,
-        designation: state.currentCard?.personalDetails?.designation,
-        email: state.currentCard?.personalDetails?.email,
-        name: state.currentCard?.personalDetails?.name,
-        phoneNumber: state.currentCard?.personalDetails?.phoneNumber,
-        // photos: state.currentCard?.personalDetails?.photos
-        );
+      businessCategoryId: 1,
+      bloodGroup: bloodGroup.text.isNotEmpty
+          ? bloodGroup.text
+          : state.currentCard?.personalDetails?.bloodGroup,
+      dateOfBirth: birthDaycontroller.text.isNotEmpty
+          ? birthDaycontroller.text
+          : state.currentCard?.personalDetails?.dateOfBirth,
+      homeAddress: homeAddress.text.isNotEmpty
+          ? homeAddress.text
+          : state.currentCard?.personalDetails?.homeAddress,
+      designation: state.currentCard?.personalDetails?.designation,
+      email: state.currentCard?.personalDetails?.email,
+      name: state.currentCard?.personalDetails?.name,
+      phoneNumber: state.currentCard?.personalDetails?.phoneNumber,
+      // photos: state.currentCard?.personalDetails?.photos
+    );
     final result = await cardService.patchPersonalDetails(
         patchPersonalData: personalData,
         personalDataId: state.currentCard!.personalDetailsId!);
@@ -149,6 +149,12 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {
     emit(state.copyWith(
+        scannedImageDatasModel: ScannedImageDatasModel(
+          emails: event.card.extractedTextModel?.emails,
+          names: event.card.extractedTextModel?.names,
+          phone: event.card.extractedTextModel?.phoneNumbers,
+          websites: event.card.extractedTextModel?.websites,
+        ),
         cardAdded: false,
         message: null,
         accoladeAdded: false,

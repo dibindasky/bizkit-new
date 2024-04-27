@@ -97,7 +97,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Add brochures',
+                            'Add Brochures',
                             style: TextStyle(fontSize: 10.sp),
                           ),
                         ],

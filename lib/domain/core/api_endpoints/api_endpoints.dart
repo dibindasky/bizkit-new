@@ -60,6 +60,10 @@ class ApiEndPoints {
   // text extraction
   static String textExtraction = '/card/extract-text/';
 
+  // personal details image card
+  static String addPersonalImage = '/card/personal-detail-image-create/';
+  static String removePersonalImage = '/card/personal-detail-image-delete/{id}/';
+
   // Product updation
   static String productUpdation = '/card/product-update-delete/{id}/';
   static String productImageAdd = '/card/product-image-create/';

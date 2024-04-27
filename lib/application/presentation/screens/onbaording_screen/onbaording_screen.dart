@@ -62,33 +62,27 @@ class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
     required int totalPages,
     required int pageIndex,
   }) {
-    return GestureDetector(
-      // onTap: () {
-      //   if (pageIndex < totalPages - 1) {
-      //     _pageController.nextPage(
-      //       duration: const Duration(milliseconds: 500),
-      //       curve: Curves.easeInOut,
-      //     );
-      //   }
-      // },
-      child: pageIndex == 0
-          ? BizkitOnBoardingScreenFirst(
-              pageController: _pageController,
-            )
-          : pageIndex == 1
-              ? BizkitOnBoardingScreenSecond(
-                  pageController: _pageController,
-                )
-              : BizkitOnBoardingScreenThird(
-                  pageController: _pageController,
-                ),
-    );
+    return pageIndex == 0
+        ? BizkitOnBoardingScreenFirst(
+            pageController: _pageController,
+          )
+        : pageIndex == 1
+            ? BizkitOnBoardingScreenSecond(
+                pageController: _pageController,
+              )
+            : BizkitOnBoardingScreenThird(
+                pageController: _pageController,
+              );
   }
 }
 
 class BizkitOnBoardingScreenFirst extends StatelessWidget {
-  const BizkitOnBoardingScreenFirst({super.key, required this.pageController});
+  const BizkitOnBoardingScreenFirst({
+    super.key,
+    required this.pageController,
+  });
   final PageController pageController;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

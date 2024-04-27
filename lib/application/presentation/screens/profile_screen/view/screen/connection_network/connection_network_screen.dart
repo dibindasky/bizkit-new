@@ -1,7 +1,8 @@
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
+import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/blocked_connections.dart';
-import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/business_card_members.dart';
+import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/business_users.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,10 @@ class ConnectionNetworkScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) => context.read<ConnectionRequestBloc>().add(
-          const ConnectionRequestEvent.getBlockeConnections(isLoad: false)),
+      (timeStamp) {
+        context.read<ConnectionRequestBloc>().add(
+            const ConnectionRequestEvent.getBlockeConnections(isLoad: false));
+      },
     );
     return Scaffold(
       appBar: AppBar(
@@ -45,13 +48,21 @@ class ConnectionNetworkScreen extends StatelessWidget {
                     .push(fadePageRoute(const BlockedConnections()));
               },
             ),
-            TileItem(
-              text: 'Bussiness users',
-              onTap: () {
-                Navigator.of(context)
-                    .push(fadePageRoute(const BussinessUsers()));
+            BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {
+                if (!state.isBusiness) {
+                  return kempty;
+                }
+                return TileItem(
+                  text: 'Bussiness users',
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(fadePageRoute(const BussinessUsers()));
+                  },
+                );
               },
             ),
+
             // TileItem(
             //   text: 'Reported Connections',
             //   onTap: () {

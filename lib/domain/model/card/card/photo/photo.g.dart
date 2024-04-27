@@ -8,10 +8,10 @@ part of 'photo.dart';
 
 Photo _$PhotoFromJson(Map<String, dynamic> json) => Photo(
       id: json['id'] as int?,
-      photos: json['photos'] as String?,
+      photos: json['photo'] as String?,
     );
 
 Map<String, dynamic> _$PhotoToJson(Photo instance) => <String, dynamic>{
       'id': instance.id,
-      'photos': instance.photos,
+      'photo': instance.photos,
     };

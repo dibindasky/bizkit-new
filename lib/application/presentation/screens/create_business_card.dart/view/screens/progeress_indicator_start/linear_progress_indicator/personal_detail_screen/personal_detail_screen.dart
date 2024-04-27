@@ -10,6 +10,7 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
@@ -54,6 +55,37 @@ class PersonlDetails extends StatelessWidget {
                     key: personalDataFirstFormKey,
                     child: Column(
                       children: [
+                        // user personal images
+                        BlocBuilder<UserDataBloc, UserDataState>(
+                          builder: (context, state) {
+                            return ImagePreviewUnderTextField(
+                                removeItem: (index) => showCustomConfirmationDialogue(context: context, title: 'Remove image?', buttonText: 'Remove', onTap: (){
+                                  context
+                                    .read<UserDataBloc>()
+                                    .add(UserDataEvent.removePersonalImage(
+                                        id: state.personalImges[index].id!));
+                                }),
+                                list: state.personalImges
+                                    .map((e) => e.image??'')
+                                    .toList(),
+                                ontap: () {
+                                  cameraAndGalleryPickImage(
+                                      context: context,
+                                      onPressCam: () {
+                                        context.read<UserDataBloc>().add(
+                                            UserDataEvent.addPersonalImage(
+                                                cam: true));
+                                      },
+                                      onPressGallery: () {
+                                        context.read<UserDataBloc>().add(
+                                            UserDataEvent.addPersonalImage(
+                                                cam: false));
+                                      });
+                                },
+                                child: const TTextFormField(
+                                    enabled: false, text: 'Personal Imges'));
+                          },
+                        ),
                         // personal name field
                         AutocompleteTextField(
                           validate: Validate.notNull,

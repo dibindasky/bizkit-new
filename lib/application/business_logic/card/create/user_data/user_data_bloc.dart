@@ -6,6 +6,8 @@ import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details.dart';
+import 'package:bizkit/domain/model/card/card/personal_data/personal_details_images/personal_details_images.dart';
+import 'package:bizkit/domain/model/card/card/photo/photo.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
 import 'package:bizkit/domain/model/card/company/get_business_category_response_model/category.dart';
 import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
@@ -63,6 +65,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<RemoveSocialMedia>(removeSocialMedia);
     on<AddDateToRemember>(addDateToRemember);
     on<RemoveDateToRemember>(removeDateToRemember);
+    on<RemovePersonalImage>(removePersonalImage);
+    on<AddPersonalImage>(addPersonalImage);
     on<CreatePersonalData>(createPersonalData);
     on<CreateCard>(createCard);
     on<GetCurrentCard>(getCurrentCard);
@@ -73,6 +77,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         datesToRememberAdded: false,
         socialMediaAdded: false,
+        personalImageAdded: false,
         accoladeAdded: false,
         isLoading: true,
         hasError: false,
@@ -163,7 +168,14 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         currentCard: event.card,
         socialMedias: event.card.socialMedia ?? [],
         accolades: event.card.accolades ?? [],
-        datesToRemember: event.card.datesToRemember ?? []));
+        datesToRemember: event.card.datesToRemember ?? [],
+        personalImges: event.card.personalDetails?.photos
+                ?.map((e) => ImageCard(image: e.photo, id: e.id))
+                .toList() ??
+            []));
+    for (var img in event.card.personalDetails?.photos ?? []) {
+      print(img.photo);
+    }
     nameController.text = event.card.personalDetails?.name ?? '';
     emailController.text = event.card.personalDetails?.email ?? '';
     phoneController.text = event.card.personalDetails?.phoneNumber ?? '';
@@ -180,6 +192,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         accoladeAdded: false,
         socialMediaAdded: false,
         cardAdded: false,
+        personalImageAdded: false,
         message: null,
         datesToRememberAdded: false,
         datesToRememberLoading: true));
@@ -216,6 +229,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         accoladeAdded: false,
         cardAdded: false,
+        personalImageAdded: false,
         message: null,
         socialMediaLoading: true,
         datesToRememberAdded: false,
@@ -253,6 +267,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         cardAdded: false,
         message: null,
+        personalImageAdded: false,
         accoladeLoading: true,
         datesToRememberAdded: false,
         socialMediaAdded: false,
@@ -280,6 +295,49 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       accolade.removeWhere((element) => element.id == event.id);
       return emit(
           state.copyWith(accoladeDeleteLoading: false, accolades: accolade));
+    });
+  }
+
+  FutureOr<void> addPersonalImage(AddPersonalImage event, emit) async {
+    emit(state.copyWith(
+        cardAdded: false,
+        message: null,
+        personalImageAdded: false,
+        personalImageLoading: true,
+        accoladeLoading: false,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        accoladeAdded: false));
+    final image = await ImagePickerClass.getImage(camera: event.cam);
+    if (image == null) {
+      return emit(state.copyWith(personalImageLoading: false));
+    }
+    final result = await cardPatchRepo.addPersonalImage(
+        personalDetailsImage: PersonalDetailsImages(
+            personalDetailsId: state.currentCard?.personalDetailsId,
+            photos: [Photo(photos: image.base64)]));
+    result.fold((l) => emit(state.copyWith(personalImageLoading: false)), (r) {
+      return emit(state.copyWith(personalImges: [
+        ...state.personalImges,
+        ...r.photos?.map((e) => ImageCard(image: e.photos)) ?? []
+      ], personalImageAdded: true, personalImageLoading: false));
+    });
+  }
+
+  FutureOr<void> removePersonalImage(RemovePersonalImage event, emit) async {
+    emit(state.copyWith(
+        accoladeAdded: false,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        cardAdded: false,
+        message: null,
+        personalImageLoading: true));
+    final result = await cardPatchRepo.removePersonalImage(id: event.id);
+    result.fold((l) => emit(state.copyWith(personalImageLoading: false)), (r) {
+      List<ImageCard> images = List.from(state.personalImges);
+      images.removeWhere((element) => element.id == event.id);
+      return emit(
+          state.copyWith(personalImageLoading: false, personalImges: images));
     });
   }
 

@@ -132,6 +132,11 @@ class PickCardsScreen extends StatelessWidget {
                         : AuthButton(
                             text: 'Continue',
                             onTap: () {
+                        context.read<UserDataBloc>().nameController.text='';
+                        context.read<UserDataBloc>().emailController.text='';
+                        context.read<UserDataBloc>().phoneController.text='';
+                        context.read<UserDataBloc>().designationController.text='';
+                        context.read<UserDataBloc>().businessCategoryController.text='';
                               context.read<UserDataBloc>().add(
                                     UserDataEvent.processImageScanning(
                                       images: state.scannedImagesCardCreation,

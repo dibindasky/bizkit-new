@@ -518,15 +518,17 @@ class CardPatchService implements CardPatchRepo {
   }
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> addPersonalImage(
+  Future<Either<Failure, PersonalDetailsImages>> addPersonalImage(
       {required PersonalDetailsImages personalDetailsImage}) async {
     try {
-      await _apiService.post(
+      print(personalDetailsImage.personalDetailsId);
+      final response = await _apiService.post(
         ApiEndPoints.addPersonalImage,
         data: personalDetailsImage.toJson(),
       );
       log('addPersonalImage done');
-      return Right(SuccessResponseModel());
+      print(response.data);
+      return Right(PersonalDetailsImages.fromJson(response.data));
     } on DioException catch (e) {
       log('addPersonalImage DioException error $e');
       return Left(Failure());
@@ -541,10 +543,10 @@ class CardPatchService implements CardPatchRepo {
       {required int id}) async {
     try {
       log('removePersonalImage call');
-      final response = await _apiService.patch(
+      await _apiService.delete(
           ApiEndPoints.removePersonalImage.replaceFirst("{id}", id.toString()));
       log('removePersonalImage done');
-      return Right(SuccessResponseModel.fromJson(response.data));
+      return Right(SuccessResponseModel());
     } on DioException catch (e) {
       log('removePersonalImage creation dio error');
       log(e.toString());

@@ -14,6 +14,8 @@ class UserDataState with _$UserDataState {
       required bool datesToRememberDeleteLoading,
       required bool socialMediaLoading,
       required bool socialMediaAdded,
+      required bool personalImageLoading,
+      required bool personalImageAdded,
       required bool socialMediaDeleteLoading,
       required bool cardAdded,
       String? message,
@@ -25,6 +27,7 @@ class UserDataState with _$UserDataState {
       required List<Category> businessCategories,
       required List<DatesToRemember> datesToRemember,
       required List<SocialMediaHandle> socialMedias,
+      required List<ImageCard> personalImges,
       Card? currentCard,
       ScannedImageDatasModel? scannedImageDatasModel}) = _Initial;
 
@@ -43,9 +46,12 @@ class UserDataState with _$UserDataState {
       socialMediaDeleteLoading: false,
       cardAdded: false,
       socialMediaLoading: false,
+      personalImageAdded: false,
+      personalImageLoading: false,
       accolades: [],
       socialMedias: [],
       businessCategories: [],
+      personalImges: [],
       datesToRemember: [],
       scannedImagesCardCreation: []);
 }

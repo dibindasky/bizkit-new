@@ -79,26 +79,56 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                   },
                   child: SizedBox(
                     height: 170.dm,
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => adjustWidth(10),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: image.length + 1,
-                      itemBuilder: (context, index) {
-                        return MemoryImageMaker(
-                            deleteTap: () {
-                              showCustomConfirmationDialogue(
-                                  context: context,
-                                  title: 'Are you sure want to remove ?',
-                                  buttonText: 'Delete',
-                                  onTap: () {
-                                    image.removeAt(image.length - index);
-                                    setState(() {});
-                                  });
-                            },
-                            image: image.isEmpty || index == 0
-                                ? null
-                                : image[image.length - index]);
-                      },
+                    child: Stack(
+                      children: [
+                        ListView.separated(
+                          separatorBuilder: (context, index) => adjustWidth(10),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: image.length,
+                          itemBuilder: (context, index) {
+                            return MemoryImageMaker(
+                                deleteTap: () {
+                                  showCustomConfirmationDialogue(
+                                      context: context,
+                                      title: 'Are you sure want to remove ?',
+                                      buttonText: 'Delete',
+                                      onTap: () {
+                                        image.removeAt(image.length - index);
+                                        setState(() {});
+                                      });
+                                },
+                                image: image[image.length - index - 1]);
+                          },
+                        ),
+                        Positioned (bottom: 5,right: 5,
+                          child: InkWell(
+                              onTap: () {
+                                cameraAndGalleryPickImage(
+                                    tittle: "Choose image from",
+                                    context: context,
+                                    onPressCam: () async {
+                                      final img = await ImagePickerClass.getImage(
+                                          camera: true);
+                                      if (img != null) {
+                                        image.add(ImageCard(image: img.base64));
+                                        setState(() {});
+                                      }
+                                    },
+                                    onPressGallery: () async {
+                                      final img = await ImagePickerClass.getImage(
+                                          camera: false);
+                                      if (img != null) {
+                                        image.add(ImageCard(image: img.base64));
+                                        setState(() {});
+                                      }
+                                    });
+                              },
+                              child:const CircleAvatar(
+                                radius: 30,
+                                child: Icon(Icons.add_a_photo_outlined),
+                              )),
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -296,7 +326,7 @@ class _MemoryImageMakerState extends State<MemoryImageMaker> {
                     ),
                   ),
                   Positioned(
-                    bottom: 5,
+                    top: 5,
                     right: 5,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),

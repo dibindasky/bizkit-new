@@ -10,7 +10,7 @@ SecondCardNew _$SecondCardNewFromJson(Map<String, dynamic> json) =>
     SecondCardNew(
       id: json['id'] as int?,
       selfie: (json['selfie'] as List<dynamic>?)
-          ?.map((e) => Selfie.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['name'] as String?,
       image: json['image'] as String?,

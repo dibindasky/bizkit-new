@@ -17,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class CardShareMainScreen extends StatefulWidget {
@@ -514,7 +515,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                             if (seconsdCard.selfie != null &&
                                 seconsdCard.image!.isNotEmpty) {
                               selfirBase64 = seconsdCard.selfie!
-                                  .map((e) => e.selfie)
+                                  .map((e) => e.image)
                                   .toString();
                               selfirBase64 = selfirBase64.startsWith('data')
                                   ? selfirBase64.substring(22)
@@ -678,6 +679,26 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                           style: TextStyle(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Share.share(
+                                            'Check out this awesome content!',
+                                          );
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: kblue,
+                                          ),
+                                          width: 100,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text('Share',
+                                                style: textStyle1),
                                           ),
                                         ),
                                       ),

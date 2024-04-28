@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
@@ -13,8 +10,6 @@ import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 class HomeFirstAppBar extends StatefulWidget {
   const HomeFirstAppBar({
@@ -96,9 +91,12 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
               tittle: 'See notification',
               description: '',
               child: CircleAvatar(
-                  radius: kwidth * .060,
-                  backgroundColor: textFieldFillColr,
-                  backgroundImage: const AssetImage(iconNotification)),
+                radius: kwidth * .060,
+                backgroundColor: textFieldFillColr,
+                backgroundImage: const AssetImage(
+                  iconNotification,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 10),

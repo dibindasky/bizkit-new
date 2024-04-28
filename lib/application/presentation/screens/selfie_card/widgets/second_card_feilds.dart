@@ -278,9 +278,6 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {},
-    );
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScope = FocusScope.of(context);
@@ -311,10 +308,8 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
         ),
         body: BlocConsumer<CardSecondBloc, CardSecondState>(
           listener: (context, state) {
-            if (state.selfieImagePickerror) {}
             log('secondCardcreated listener');
             if (state.secondCardcreated) {
-              log('${state.secondCardcreated}');
               log('secondCardcreated secondCardcreated');
               Navigator.pop(context);
               Navigator.pop(context);

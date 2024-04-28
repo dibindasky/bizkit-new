@@ -56,6 +56,8 @@ mixin _$CardSecondEvent {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -95,6 +97,8 @@ mixin _$CardSecondEvent {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -134,6 +138,8 @@ mixin _$CardSecondEvent {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -166,6 +172,9 @@ mixin _$CardSecondEvent {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -193,6 +202,8 @@ mixin _$CardSecondEvent {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -220,6 +231,8 @@ mixin _$CardSecondEvent {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -319,6 +332,8 @@ class _$StartedImpl implements _Started {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return started();
   }
@@ -361,6 +376,8 @@ class _$StartedImpl implements _Started {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return started?.call();
   }
@@ -403,6 +420,8 @@ class _$StartedImpl implements _Started {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -441,6 +460,9 @@ class _$StartedImpl implements _Started {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return started(this);
   }
@@ -471,6 +493,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return started?.call(this);
   }
@@ -501,6 +525,8 @@ class _$StartedImpl implements _Started {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -624,6 +650,8 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return scanImage(isCam, isFront);
   }
@@ -666,6 +694,8 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return scanImage?.call(isCam, isFront);
   }
@@ -708,6 +738,8 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (scanImage != null) {
@@ -746,6 +778,9 @@ class _$ScanImageImpl implements ScanImage {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return scanImage(this);
   }
@@ -776,6 +811,8 @@ class _$ScanImageImpl implements ScanImage {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return scanImage?.call(this);
   }
@@ -806,6 +843,8 @@ class _$ScanImageImpl implements ScanImage {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (scanImage != null) {
@@ -938,6 +977,8 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return processImageScanning(images);
   }
@@ -980,6 +1021,8 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return processImageScanning?.call(images);
   }
@@ -1022,6 +1065,8 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (processImageScanning != null) {
@@ -1060,6 +1105,9 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return processImageScanning(this);
   }
@@ -1090,6 +1138,8 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return processImageScanning?.call(this);
   }
@@ -1120,6 +1170,8 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (processImageScanning != null) {
@@ -1251,6 +1303,8 @@ class _$ProcessImageScanningInfoImpl implements ProcessImageScanningInfo {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return processImageScanningInfo(images);
   }
@@ -1293,6 +1347,8 @@ class _$ProcessImageScanningInfoImpl implements ProcessImageScanningInfo {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return processImageScanningInfo?.call(images);
   }
@@ -1335,6 +1391,8 @@ class _$ProcessImageScanningInfoImpl implements ProcessImageScanningInfo {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (processImageScanningInfo != null) {
@@ -1373,6 +1431,9 @@ class _$ProcessImageScanningInfoImpl implements ProcessImageScanningInfo {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return processImageScanningInfo(this);
   }
@@ -1403,6 +1464,8 @@ class _$ProcessImageScanningInfoImpl implements ProcessImageScanningInfo {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return processImageScanningInfo?.call(this);
   }
@@ -1433,6 +1496,8 @@ class _$ProcessImageScanningInfoImpl implements ProcessImageScanningInfo {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (processImageScanningInfo != null) {
@@ -1555,6 +1620,8 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return removeImageScanning(index);
   }
@@ -1597,6 +1664,8 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return removeImageScanning?.call(index);
   }
@@ -1639,6 +1708,8 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (removeImageScanning != null) {
@@ -1677,6 +1748,9 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return removeImageScanning(this);
   }
@@ -1707,6 +1781,8 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return removeImageScanning?.call(this);
   }
@@ -1737,6 +1813,8 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (removeImageScanning != null) {
@@ -1868,6 +1946,8 @@ class _$SelfieImageImpl implements SelfieImage {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return selfieImage(cameraDeviceFront, isCam);
   }
@@ -1910,6 +1990,8 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return selfieImage?.call(cameraDeviceFront, isCam);
   }
@@ -1952,6 +2034,8 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (selfieImage != null) {
@@ -1990,6 +2074,9 @@ class _$SelfieImageImpl implements SelfieImage {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return selfieImage(this);
   }
@@ -2020,6 +2107,8 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return selfieImage?.call(this);
   }
@@ -2050,6 +2139,8 @@ class _$SelfieImageImpl implements SelfieImage {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (selfieImage != null) {
@@ -2174,6 +2265,8 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return selfieimageClear(index);
   }
@@ -2216,6 +2309,8 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return selfieimageClear?.call(index);
   }
@@ -2258,6 +2353,8 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (selfieimageClear != null) {
@@ -2296,6 +2393,9 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return selfieimageClear(this);
   }
@@ -2326,6 +2426,8 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return selfieimageClear?.call(this);
   }
@@ -2356,6 +2458,8 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (selfieimageClear != null) {
@@ -2545,6 +2649,8 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return autoFillTExtfieldItems(
         scannedImage, email, name, company, number, website, designation);
@@ -2588,6 +2694,8 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return autoFillTExtfieldItems?.call(
         scannedImage, email, name, company, number, website, designation);
@@ -2631,6 +2739,8 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (autoFillTExtfieldItems != null) {
@@ -2670,6 +2780,9 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return autoFillTExtfieldItems(this);
   }
@@ -2700,6 +2813,8 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return autoFillTExtfieldItems?.call(this);
   }
@@ -2730,6 +2845,8 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (autoFillTExtfieldItems != null) {
@@ -2925,6 +3042,8 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return meetingRelatedInfo(
         this.selfieImage, occation, location, occupation, notes);
@@ -2968,6 +3087,8 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return meetingRelatedInfo?.call(
         this.selfieImage, occation, location, occupation, notes);
@@ -3011,6 +3132,8 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (meetingRelatedInfo != null) {
@@ -3050,6 +3173,9 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return meetingRelatedInfo(this);
   }
@@ -3080,6 +3206,8 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return meetingRelatedInfo?.call(this);
   }
@@ -3110,6 +3238,8 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (meetingRelatedInfo != null) {
@@ -3240,6 +3370,8 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return getAllCardsSecond(isLoad);
   }
@@ -3282,6 +3414,8 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return getAllCardsSecond?.call(isLoad);
   }
@@ -3324,6 +3458,8 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (getAllCardsSecond != null) {
@@ -3362,6 +3498,9 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return getAllCardsSecond(this);
   }
@@ -3392,6 +3531,8 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return getAllCardsSecond?.call(this);
   }
@@ -3422,6 +3563,8 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (getAllCardsSecond != null) {
@@ -3553,6 +3696,8 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return updateCardSecond(secondCard, id);
   }
@@ -3595,6 +3740,8 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return updateCardSecond?.call(secondCard, id);
   }
@@ -3637,6 +3784,8 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (updateCardSecond != null) {
@@ -3675,6 +3824,9 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return updateCardSecond(this);
   }
@@ -3705,6 +3857,8 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return updateCardSecond?.call(this);
   }
@@ -3735,6 +3889,8 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (updateCardSecond != null) {
@@ -3869,6 +4025,8 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return deleteCardSecond(cardActionRewuestModel, id);
   }
@@ -3911,6 +4069,8 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return deleteCardSecond?.call(cardActionRewuestModel, id);
   }
@@ -3953,6 +4113,8 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (deleteCardSecond != null) {
@@ -3991,6 +4153,9 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return deleteCardSecond(this);
   }
@@ -4021,6 +4186,8 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return deleteCardSecond?.call(this);
   }
@@ -4051,6 +4218,8 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (deleteCardSecond != null) {
@@ -4175,6 +4344,8 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return getDeleteCardSecond(isLoad);
   }
@@ -4217,6 +4388,8 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return getDeleteCardSecond?.call(isLoad);
   }
@@ -4259,6 +4432,8 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (getDeleteCardSecond != null) {
@@ -4297,6 +4472,9 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return getDeleteCardSecond(this);
   }
@@ -4327,6 +4505,8 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return getDeleteCardSecond?.call(this);
   }
@@ -4357,6 +4537,8 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (getDeleteCardSecond != null) {
@@ -4455,6 +4637,8 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return getDeleteCardSecondEvent();
   }
@@ -4497,6 +4681,8 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return getDeleteCardSecondEvent?.call();
   }
@@ -4539,6 +4725,8 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (getDeleteCardSecondEvent != null) {
@@ -4577,6 +4765,9 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return getDeleteCardSecondEvent(this);
   }
@@ -4607,6 +4798,8 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return getDeleteCardSecondEvent?.call(this);
   }
@@ -4637,6 +4830,8 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (getDeleteCardSecondEvent != null) {
@@ -4765,6 +4960,8 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return restoreDeleteCardSecond(cardActionRewuestModel, id);
   }
@@ -4807,6 +5004,8 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return restoreDeleteCardSecond?.call(cardActionRewuestModel, id);
   }
@@ -4849,6 +5048,8 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (restoreDeleteCardSecond != null) {
@@ -4887,6 +5088,9 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return restoreDeleteCardSecond(this);
   }
@@ -4917,6 +5121,8 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return restoreDeleteCardSecond?.call(this);
   }
@@ -4947,6 +5153,8 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (restoreDeleteCardSecond != null) {
@@ -5044,6 +5252,8 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return getCardSecondEvent();
   }
@@ -5086,6 +5296,8 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return getCardSecondEvent?.call();
   }
@@ -5128,6 +5340,8 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (getCardSecondEvent != null) {
@@ -5166,6 +5380,9 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return getCardSecondEvent(this);
   }
@@ -5196,6 +5413,8 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return getCardSecondEvent?.call(this);
   }
@@ -5226,6 +5445,8 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (getCardSecondEvent != null) {
@@ -5342,6 +5563,8 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return getSecondCardDetail(id);
   }
@@ -5384,6 +5607,8 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return getSecondCardDetail?.call(id);
   }
@@ -5426,6 +5651,8 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (getSecondCardDetail != null) {
@@ -5464,6 +5691,9 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return getSecondCardDetail(this);
   }
@@ -5494,6 +5724,8 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return getSecondCardDetail?.call(this);
   }
@@ -5524,6 +5756,8 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (getSecondCardDetail != null) {
@@ -5619,6 +5853,8 @@ class _$ClearImpl implements Clear {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return clear();
   }
@@ -5661,6 +5897,8 @@ class _$ClearImpl implements Clear {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return clear?.call();
   }
@@ -5703,6 +5941,8 @@ class _$ClearImpl implements Clear {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (clear != null) {
@@ -5741,6 +5981,9 @@ class _$ClearImpl implements Clear {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return clear(this);
   }
@@ -5771,6 +6014,8 @@ class _$ClearImpl implements Clear {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return clear?.call(this);
   }
@@ -5801,6 +6046,8 @@ class _$ClearImpl implements Clear {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (clear != null) {
@@ -5890,6 +6137,8 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return cardFeildClearing();
   }
@@ -5932,6 +6181,8 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return cardFeildClearing?.call();
   }
@@ -5974,6 +6225,8 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (cardFeildClearing != null) {
@@ -6012,6 +6265,9 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return cardFeildClearing(this);
   }
@@ -6042,6 +6298,8 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return cardFeildClearing?.call(this);
   }
@@ -6072,6 +6330,8 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (cardFeildClearing != null) {
@@ -6161,6 +6421,8 @@ class _$ImageClearImpl implements ImageClear {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return imageClear();
   }
@@ -6203,6 +6465,8 @@ class _$ImageClearImpl implements ImageClear {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return imageClear?.call();
   }
@@ -6245,6 +6509,8 @@ class _$ImageClearImpl implements ImageClear {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (imageClear != null) {
@@ -6283,6 +6549,9 @@ class _$ImageClearImpl implements ImageClear {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return imageClear(this);
   }
@@ -6313,6 +6582,8 @@ class _$ImageClearImpl implements ImageClear {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return imageClear?.call(this);
   }
@@ -6343,6 +6614,8 @@ class _$ImageClearImpl implements ImageClear {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (imageClear != null) {
@@ -6432,6 +6705,8 @@ class _$LocationGetingImpl implements LocationGeting {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return locationGeting();
   }
@@ -6474,6 +6749,8 @@ class _$LocationGetingImpl implements LocationGeting {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return locationGeting?.call();
   }
@@ -6516,6 +6793,8 @@ class _$LocationGetingImpl implements LocationGeting {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (locationGeting != null) {
@@ -6554,6 +6833,9 @@ class _$LocationGetingImpl implements LocationGeting {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return locationGeting(this);
   }
@@ -6584,6 +6866,8 @@ class _$LocationGetingImpl implements LocationGeting {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return locationGeting?.call(this);
   }
@@ -6614,6 +6898,8 @@ class _$LocationGetingImpl implements LocationGeting {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (locationGeting != null) {
@@ -6731,6 +7017,8 @@ class _$ContactSaveToPhoneImpl implements ContactSaveToPhone {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return contactSaveToPhone(addNewContact);
   }
@@ -6773,6 +7061,8 @@ class _$ContactSaveToPhoneImpl implements ContactSaveToPhone {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return contactSaveToPhone?.call(addNewContact);
   }
@@ -6815,6 +7105,8 @@ class _$ContactSaveToPhoneImpl implements ContactSaveToPhone {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (contactSaveToPhone != null) {
@@ -6853,6 +7145,9 @@ class _$ContactSaveToPhoneImpl implements ContactSaveToPhone {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return contactSaveToPhone(this);
   }
@@ -6883,6 +7178,8 @@ class _$ContactSaveToPhoneImpl implements ContactSaveToPhone {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return contactSaveToPhone?.call(this);
   }
@@ -6913,6 +7210,8 @@ class _$ContactSaveToPhoneImpl implements ContactSaveToPhone {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (contactSaveToPhone != null) {
@@ -7035,6 +7334,8 @@ class _$SeccondCardShareImpl implements SeccondCardShare {
     required TResult Function() locationGeting,
     required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
     required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
   }) {
     return seccondCardShare(id);
   }
@@ -7077,6 +7378,8 @@ class _$SeccondCardShareImpl implements SeccondCardShare {
     TResult? Function()? locationGeting,
     TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
   }) {
     return seccondCardShare?.call(id);
   }
@@ -7119,6 +7422,8 @@ class _$SeccondCardShareImpl implements SeccondCardShare {
     TResult Function()? locationGeting,
     TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
     TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (seccondCardShare != null) {
@@ -7157,6 +7462,9 @@ class _$SeccondCardShareImpl implements SeccondCardShare {
     required TResult Function(LocationGeting value) locationGeting,
     required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
     required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
   }) {
     return seccondCardShare(this);
   }
@@ -7187,6 +7495,8 @@ class _$SeccondCardShareImpl implements SeccondCardShare {
     TResult? Function(LocationGeting value)? locationGeting,
     TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
   }) {
     return seccondCardShare?.call(this);
   }
@@ -7217,6 +7527,8 @@ class _$SeccondCardShareImpl implements SeccondCardShare {
     TResult Function(LocationGeting value)? locationGeting,
     TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
     TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
     required TResult orElse(),
   }) {
     if (seccondCardShare != null) {
@@ -7234,6 +7546,643 @@ abstract class SeccondCardShare implements CardSecondEvent {
   @JsonKey(ignore: true)
   _$$SeccondCardShareImplCopyWith<_$SeccondCardShareImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveSelfieIndexImagesImplCopyWith<$Res> {
+  factory _$$RemoveSelfieIndexImagesImplCopyWith(
+          _$RemoveSelfieIndexImagesImpl value,
+          $Res Function(_$RemoveSelfieIndexImagesImpl) then) =
+      __$$RemoveSelfieIndexImagesImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$RemoveSelfieIndexImagesImplCopyWithImpl<$Res>
+    extends _$CardSecondEventCopyWithImpl<$Res, _$RemoveSelfieIndexImagesImpl>
+    implements _$$RemoveSelfieIndexImagesImplCopyWith<$Res> {
+  __$$RemoveSelfieIndexImagesImplCopyWithImpl(
+      _$RemoveSelfieIndexImagesImpl _value,
+      $Res Function(_$RemoveSelfieIndexImagesImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$RemoveSelfieIndexImagesImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveSelfieIndexImagesImpl implements RemoveSelfieIndexImages {
+  const _$RemoveSelfieIndexImagesImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'CardSecondEvent.removeSelfieIndexImages(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveSelfieIndexImagesImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveSelfieIndexImagesImplCopyWith<_$RemoveSelfieIndexImagesImpl>
+      get copyWith => __$$RemoveSelfieIndexImagesImplCopyWithImpl<
+          _$RemoveSelfieIndexImagesImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(bool isCam, bool isFront) scanImage,
+    required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
+    required TResult Function(int index) removeImageScanning,
+    required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
+    required TResult Function(int index) selfieimageClear,
+    required TResult Function(
+            String? scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
+        autoFillTExtfieldItems,
+    required TResult Function(List<ImageModel>? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
+        meetingRelatedInfo,
+    required TResult Function(bool isLoad) getAllCardsSecond,
+    required TResult Function(SecondCard secondCard, String id)
+        updateCardSecond,
+    required TResult Function(
+            CardActionRequestModel cardActionRewuestModel, int id)
+        deleteCardSecond,
+    required TResult Function(bool isLoad) getDeleteCardSecond,
+    required TResult Function() getDeleteCardSecondEvent,
+    required TResult Function(
+            CardActionRequestModel cardActionRewuestModel, int id)
+        restoreDeleteCardSecond,
+    required TResult Function() getCardSecondEvent,
+    required TResult Function(int id) getSecondCardDetail,
+    required TResult Function() clear,
+    required TResult Function() cardFeildClearing,
+    required TResult Function() imageClear,
+    required TResult Function() locationGeting,
+    required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
+    required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
+  }) {
+    return removeSelfieIndexImages(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
+    TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
+    TResult? Function(int index)? removeImageScanning,
+    TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
+    TResult? Function(int index)? selfieimageClear,
+    TResult? Function(
+            String? scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
+        autoFillTExtfieldItems,
+    TResult? Function(List<ImageModel>? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)?
+        meetingRelatedInfo,
+    TResult? Function(bool isLoad)? getAllCardsSecond,
+    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        deleteCardSecond,
+    TResult? Function(bool isLoad)? getDeleteCardSecond,
+    TResult? Function()? getDeleteCardSecondEvent,
+    TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        restoreDeleteCardSecond,
+    TResult? Function()? getCardSecondEvent,
+    TResult? Function(int id)? getSecondCardDetail,
+    TResult? Function()? clear,
+    TResult? Function()? cardFeildClearing,
+    TResult? Function()? imageClear,
+    TResult? Function()? locationGeting,
+    TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
+    TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
+  }) {
+    return removeSelfieIndexImages?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(bool isCam, bool isFront)? scanImage,
+    TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
+    TResult Function(int index)? removeImageScanning,
+    TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
+    TResult Function(int index)? selfieimageClear,
+    TResult Function(
+            String? scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
+        autoFillTExtfieldItems,
+    TResult Function(List<ImageModel>? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)?
+        meetingRelatedInfo,
+    TResult Function(bool isLoad)? getAllCardsSecond,
+    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        deleteCardSecond,
+    TResult Function(bool isLoad)? getDeleteCardSecond,
+    TResult Function()? getDeleteCardSecondEvent,
+    TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        restoreDeleteCardSecond,
+    TResult Function()? getCardSecondEvent,
+    TResult Function(int id)? getSecondCardDetail,
+    TResult Function()? clear,
+    TResult Function()? cardFeildClearing,
+    TResult Function()? imageClear,
+    TResult Function()? locationGeting,
+    TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
+    TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
+    required TResult orElse(),
+  }) {
+    if (removeSelfieIndexImages != null) {
+      return removeSelfieIndexImages(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(ScanImage value) scanImage,
+    required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
+    required TResult Function(RemoveImageScanning value) removeImageScanning,
+    required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
+    required TResult Function(AutoFillTExtfieldItems value)
+        autoFillTExtfieldItems,
+    required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
+    required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
+    required TResult Function(UpdateCardSecond value) updateCardSecond,
+    required TResult Function(DeleteCardSecond value) deleteCardSecond,
+    required TResult Function(GetDeleteCardSecond value) getDeleteCardSecond,
+    required TResult Function(GetDeleteCardSecondEvent value)
+        getDeleteCardSecondEvent,
+    required TResult Function(RestoreDeleteCardSecond value)
+        restoreDeleteCardSecond,
+    required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
+    required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
+    required TResult Function(ImageClear value) imageClear,
+    required TResult Function(LocationGeting value) locationGeting,
+    required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
+    required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
+  }) {
+    return removeSelfieIndexImages(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(ScanImage value)? scanImage,
+    TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
+    TResult? Function(RemoveImageScanning value)? removeImageScanning,
+    TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
+    TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
+    TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
+    TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
+    TResult? Function(UpdateCardSecond value)? updateCardSecond,
+    TResult? Function(DeleteCardSecond value)? deleteCardSecond,
+    TResult? Function(GetDeleteCardSecond value)? getDeleteCardSecond,
+    TResult? Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
+    TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
+    TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
+    TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
+    TResult? Function(ImageClear value)? imageClear,
+    TResult? Function(LocationGeting value)? locationGeting,
+    TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
+    TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
+  }) {
+    return removeSelfieIndexImages?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(ScanImage value)? scanImage,
+    TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
+    TResult Function(RemoveImageScanning value)? removeImageScanning,
+    TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
+    TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
+    TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
+    TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
+    TResult Function(UpdateCardSecond value)? updateCardSecond,
+    TResult Function(DeleteCardSecond value)? deleteCardSecond,
+    TResult Function(GetDeleteCardSecond value)? getDeleteCardSecond,
+    TResult Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
+    TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
+    TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
+    TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
+    TResult Function(Clear value)? clear,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
+    TResult Function(ImageClear value)? imageClear,
+    TResult Function(LocationGeting value)? locationGeting,
+    TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
+    TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
+    required TResult orElse(),
+  }) {
+    if (removeSelfieIndexImages != null) {
+      return removeSelfieIndexImages(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveSelfieIndexImages implements CardSecondEvent {
+  const factory RemoveSelfieIndexImages({required final int id}) =
+      _$RemoveSelfieIndexImagesImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$RemoveSelfieIndexImagesImplCopyWith<_$RemoveSelfieIndexImagesImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddSelfieIndexImagesImplCopyWith<$Res> {
+  factory _$$AddSelfieIndexImagesImplCopyWith(_$AddSelfieIndexImagesImpl value,
+          $Res Function(_$AddSelfieIndexImagesImpl) then) =
+      __$$AddSelfieIndexImagesImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$AddSelfieIndexImagesImplCopyWithImpl<$Res>
+    extends _$CardSecondEventCopyWithImpl<$Res, _$AddSelfieIndexImagesImpl>
+    implements _$$AddSelfieIndexImagesImplCopyWith<$Res> {
+  __$$AddSelfieIndexImagesImplCopyWithImpl(_$AddSelfieIndexImagesImpl _value,
+      $Res Function(_$AddSelfieIndexImagesImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$AddSelfieIndexImagesImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddSelfieIndexImagesImpl implements AddSelfieIndexImages {
+  const _$AddSelfieIndexImagesImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'CardSecondEvent.addSelfieIndexImages(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddSelfieIndexImagesImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddSelfieIndexImagesImplCopyWith<_$AddSelfieIndexImagesImpl>
+      get copyWith =>
+          __$$AddSelfieIndexImagesImplCopyWithImpl<_$AddSelfieIndexImagesImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(bool isCam, bool isFront) scanImage,
+    required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanningInfo,
+    required TResult Function(int index) removeImageScanning,
+    required TResult Function(bool cameraDeviceFront, bool isCam) selfieImage,
+    required TResult Function(int index) selfieimageClear,
+    required TResult Function(
+            String? scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)
+        autoFillTExtfieldItems,
+    required TResult Function(List<ImageModel>? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)
+        meetingRelatedInfo,
+    required TResult Function(bool isLoad) getAllCardsSecond,
+    required TResult Function(SecondCard secondCard, String id)
+        updateCardSecond,
+    required TResult Function(
+            CardActionRequestModel cardActionRewuestModel, int id)
+        deleteCardSecond,
+    required TResult Function(bool isLoad) getDeleteCardSecond,
+    required TResult Function() getDeleteCardSecondEvent,
+    required TResult Function(
+            CardActionRequestModel cardActionRewuestModel, int id)
+        restoreDeleteCardSecond,
+    required TResult Function() getCardSecondEvent,
+    required TResult Function(int id) getSecondCardDetail,
+    required TResult Function() clear,
+    required TResult Function() cardFeildClearing,
+    required TResult Function() imageClear,
+    required TResult Function() locationGeting,
+    required TResult Function(AddNewContact addNewContact) contactSaveToPhone,
+    required TResult Function(int id) seccondCardShare,
+    required TResult Function(int id) removeSelfieIndexImages,
+    required TResult Function(int id) addSelfieIndexImages,
+  }) {
+    return addSelfieIndexImages(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(bool isCam, bool isFront)? scanImage,
+    TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanningInfo,
+    TResult? Function(int index)? removeImageScanning,
+    TResult? Function(bool cameraDeviceFront, bool isCam)? selfieImage,
+    TResult? Function(int index)? selfieimageClear,
+    TResult? Function(
+            String? scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
+        autoFillTExtfieldItems,
+    TResult? Function(List<ImageModel>? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)?
+        meetingRelatedInfo,
+    TResult? Function(bool isLoad)? getAllCardsSecond,
+    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        deleteCardSecond,
+    TResult? Function(bool isLoad)? getDeleteCardSecond,
+    TResult? Function()? getDeleteCardSecondEvent,
+    TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        restoreDeleteCardSecond,
+    TResult? Function()? getCardSecondEvent,
+    TResult? Function(int id)? getSecondCardDetail,
+    TResult? Function()? clear,
+    TResult? Function()? cardFeildClearing,
+    TResult? Function()? imageClear,
+    TResult? Function()? locationGeting,
+    TResult? Function(AddNewContact addNewContact)? contactSaveToPhone,
+    TResult? Function(int id)? seccondCardShare,
+    TResult? Function(int id)? removeSelfieIndexImages,
+    TResult? Function(int id)? addSelfieIndexImages,
+  }) {
+    return addSelfieIndexImages?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(bool isCam, bool isFront)? scanImage,
+    TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanningInfo,
+    TResult Function(int index)? removeImageScanning,
+    TResult Function(bool cameraDeviceFront, bool isCam)? selfieImage,
+    TResult Function(int index)? selfieimageClear,
+    TResult Function(
+            String? scannedImage,
+            String? email,
+            String name,
+            String? company,
+            String? number,
+            String? website,
+            String? designation)?
+        autoFillTExtfieldItems,
+    TResult Function(List<ImageModel>? selfieImage, String? occation,
+            String? location, String? occupation, String? notes)?
+        meetingRelatedInfo,
+    TResult Function(bool isLoad)? getAllCardsSecond,
+    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        deleteCardSecond,
+    TResult Function(bool isLoad)? getDeleteCardSecond,
+    TResult Function()? getDeleteCardSecondEvent,
+    TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
+        restoreDeleteCardSecond,
+    TResult Function()? getCardSecondEvent,
+    TResult Function(int id)? getSecondCardDetail,
+    TResult Function()? clear,
+    TResult Function()? cardFeildClearing,
+    TResult Function()? imageClear,
+    TResult Function()? locationGeting,
+    TResult Function(AddNewContact addNewContact)? contactSaveToPhone,
+    TResult Function(int id)? seccondCardShare,
+    TResult Function(int id)? removeSelfieIndexImages,
+    TResult Function(int id)? addSelfieIndexImages,
+    required TResult orElse(),
+  }) {
+    if (addSelfieIndexImages != null) {
+      return addSelfieIndexImages(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(ScanImage value) scanImage,
+    required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(ProcessImageScanningInfo value)
+        processImageScanningInfo,
+    required TResult Function(RemoveImageScanning value) removeImageScanning,
+    required TResult Function(SelfieImage value) selfieImage,
+    required TResult Function(SelfieimageClear value) selfieimageClear,
+    required TResult Function(AutoFillTExtfieldItems value)
+        autoFillTExtfieldItems,
+    required TResult Function(MeetingRelatedInfo value) meetingRelatedInfo,
+    required TResult Function(GetAllCardsSecond value) getAllCardsSecond,
+    required TResult Function(UpdateCardSecond value) updateCardSecond,
+    required TResult Function(DeleteCardSecond value) deleteCardSecond,
+    required TResult Function(GetDeleteCardSecond value) getDeleteCardSecond,
+    required TResult Function(GetDeleteCardSecondEvent value)
+        getDeleteCardSecondEvent,
+    required TResult Function(RestoreDeleteCardSecond value)
+        restoreDeleteCardSecond,
+    required TResult Function(GetCardSecondEvent value) getCardSecondEvent,
+    required TResult Function(GetSecondCardDetail value) getSecondCardDetail,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CardFeildClearing value) cardFeildClearing,
+    required TResult Function(ImageClear value) imageClear,
+    required TResult Function(LocationGeting value) locationGeting,
+    required TResult Function(ContactSaveToPhone value) contactSaveToPhone,
+    required TResult Function(SeccondCardShare value) seccondCardShare,
+    required TResult Function(RemoveSelfieIndexImages value)
+        removeSelfieIndexImages,
+    required TResult Function(AddSelfieIndexImages value) addSelfieIndexImages,
+  }) {
+    return addSelfieIndexImages(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(ScanImage value)? scanImage,
+    TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(ProcessImageScanningInfo value)? processImageScanningInfo,
+    TResult? Function(RemoveImageScanning value)? removeImageScanning,
+    TResult? Function(SelfieImage value)? selfieImage,
+    TResult? Function(SelfieimageClear value)? selfieimageClear,
+    TResult? Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
+    TResult? Function(MeetingRelatedInfo value)? meetingRelatedInfo,
+    TResult? Function(GetAllCardsSecond value)? getAllCardsSecond,
+    TResult? Function(UpdateCardSecond value)? updateCardSecond,
+    TResult? Function(DeleteCardSecond value)? deleteCardSecond,
+    TResult? Function(GetDeleteCardSecond value)? getDeleteCardSecond,
+    TResult? Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
+    TResult? Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
+    TResult? Function(GetCardSecondEvent value)? getCardSecondEvent,
+    TResult? Function(GetSecondCardDetail value)? getSecondCardDetail,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CardFeildClearing value)? cardFeildClearing,
+    TResult? Function(ImageClear value)? imageClear,
+    TResult? Function(LocationGeting value)? locationGeting,
+    TResult? Function(ContactSaveToPhone value)? contactSaveToPhone,
+    TResult? Function(SeccondCardShare value)? seccondCardShare,
+    TResult? Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult? Function(AddSelfieIndexImages value)? addSelfieIndexImages,
+  }) {
+    return addSelfieIndexImages?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(ScanImage value)? scanImage,
+    TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(ProcessImageScanningInfo value)? processImageScanningInfo,
+    TResult Function(RemoveImageScanning value)? removeImageScanning,
+    TResult Function(SelfieImage value)? selfieImage,
+    TResult Function(SelfieimageClear value)? selfieimageClear,
+    TResult Function(AutoFillTExtfieldItems value)? autoFillTExtfieldItems,
+    TResult Function(MeetingRelatedInfo value)? meetingRelatedInfo,
+    TResult Function(GetAllCardsSecond value)? getAllCardsSecond,
+    TResult Function(UpdateCardSecond value)? updateCardSecond,
+    TResult Function(DeleteCardSecond value)? deleteCardSecond,
+    TResult Function(GetDeleteCardSecond value)? getDeleteCardSecond,
+    TResult Function(GetDeleteCardSecondEvent value)? getDeleteCardSecondEvent,
+    TResult Function(RestoreDeleteCardSecond value)? restoreDeleteCardSecond,
+    TResult Function(GetCardSecondEvent value)? getCardSecondEvent,
+    TResult Function(GetSecondCardDetail value)? getSecondCardDetail,
+    TResult Function(Clear value)? clear,
+    TResult Function(CardFeildClearing value)? cardFeildClearing,
+    TResult Function(ImageClear value)? imageClear,
+    TResult Function(LocationGeting value)? locationGeting,
+    TResult Function(ContactSaveToPhone value)? contactSaveToPhone,
+    TResult Function(SeccondCardShare value)? seccondCardShare,
+    TResult Function(RemoveSelfieIndexImages value)? removeSelfieIndexImages,
+    TResult Function(AddSelfieIndexImages value)? addSelfieIndexImages,
+    required TResult orElse(),
+  }) {
+    if (addSelfieIndexImages != null) {
+      return addSelfieIndexImages(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AddSelfieIndexImages implements CardSecondEvent {
+  const factory AddSelfieIndexImages({required final int id}) =
+      _$AddSelfieIndexImagesImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$AddSelfieIndexImagesImplCopyWith<_$AddSelfieIndexImagesImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

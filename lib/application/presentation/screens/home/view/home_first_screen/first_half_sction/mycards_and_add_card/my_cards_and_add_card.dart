@@ -114,9 +114,9 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                                   'asset/images/home add circl.png',
                                 ),
                               ),
-                              Text('Add Card'),
-                            ],
-                          ),
+                            ),
+                            Text('Add Card'),
+                          ],
                         ),
                       // ),
                     );

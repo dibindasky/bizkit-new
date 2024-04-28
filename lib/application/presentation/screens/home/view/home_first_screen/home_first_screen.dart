@@ -59,30 +59,26 @@ class _HomeScreenFirstAnimationScreenState
   late Animation<Offset> _slideAnimation2;
   late Animation<Offset> _slideAnimation2Move;
   bool isShowcaseSeen = false;
+  final homeScreenShowCase = 'isShowcaseSeen';
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       SharedPreferences.getInstance().then((prefs) {
         setState(() {
           log('$isShowcaseSeen');
-          isShowcaseSeen = prefs.getBool('isShowcaseSeen') ?? false;
+          isShowcaseSeen = prefs.getBool(homeScreenShowCase) ?? false;
         });
         if (!isShowcaseSeen) {
-          // If showcase view hasn't been seen, start showcase and mark it as seen
           ShowCaseWidget.of(context).startShowCase([
             globalKeynotificationIcon,
             globalKeylevelSharingIcon,
             globalKeyAddCard,
+            globalKeyaddConnections,
           ]);
-          prefs.setBool('isShowcaseSeen', true); // Save showcase seen status
+          prefs.setBool(homeScreenShowCase, true);
         }
       });
-      // ShowCaseWidget.of(context).startShowCase([
-      //   globalKeynotificationIcon,
-      //   globalKeylevelSharingIcon,
-      // ]);
     });
 
     homeFirstAnimationController = AnimationController(

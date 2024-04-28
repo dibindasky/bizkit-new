@@ -5,16 +5,21 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
+import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
 import 'package:bizkit/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/domain/model/card_second/selfie/selfie_adding_request_model/selfie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SecondCardUpdation extends StatefulWidget {
   const SecondCardUpdation({super.key, required this.secondCard});
@@ -27,22 +32,27 @@ class SecondCardUpdation extends StatefulWidget {
 class _SecondCardUpdationState extends State<SecondCardUpdation> {
   List<String> selfieBase64List = [];
   String? base64imagecard;
+  List<ImageCard> imageList = [];
+  List<ImageCard> newImageList = [];
 
   @override
   void initState() {
-    if (widget.secondCard.selfie != null ||
-        widget.secondCard.selfie!.isNotEmpty) {
-      for (var image in widget.secondCard.selfie!) {
-        String im = image.selfie!;
-        im = im.startsWith('data') ? im.substring(22) : im;
-        selfieBase64List.add(im);
-      }
-    }
+    // if (widget.secondCard.selfie != null ||
+    //     widget.secondCard.selfie!.isNotEmpty) {
+    //   for (var image in widget.secondCard.selfie!) {
+    //     String im = image.image!;
+    //     im = im.startsWith('data') ? im.substring(22) : im;
+    //     selfieBase64List.add(im);
+    //   }
+    // }
     if (widget.secondCard.image != null ||
         widget.secondCard.selfie!.isNotEmpty) {
       base64imagecard = widget.secondCard.image ?? "";
       base64imagecard =
           base64imagecard!.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
+    }
+    if (widget.secondCard.selfie != null) {
+      imageList = widget.secondCard.selfie ?? <ImageCard>[];
     }
     context.read<CardSecondBloc>().updateEmailController.text =
         widget.secondCard.email ?? '';
@@ -290,99 +300,184 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                 ),
                               ),
                     adjustHieght(20),
-                    selfieBase64List.isNotEmpty
+                    imageList.isNotEmpty
                         ? const Text('Selfie Image')
                         : const SizedBox(),
                     adjustHieght(20),
-                    widget.secondCard.selfie == null ||
-                            widget.secondCard.selfie!.isEmpty
-                        ? ContainerPickImage(
-                            onPressedGallery: () =>
-                                context.read<CardSecondBloc>().add(
-                                      const CardSecondEvent.selfieImage(
-                                        isCam: false,
-                                        cameraDeviceFront: false,
-                                      ),
+
+                    // ContainerPickImage(
+                    //     onPressedGallery: () =>
+                    //         context.read<CardSecondBloc>().add(
+                    //               const CardSecondEvent.selfieImage(
+                    //                 isCam: false,
+                    //                 cameraDeviceFront: false,
+                    //               ),
+                    //             ),
+                    //     onPressedCam: () =>
+                    //         context.read<CardSecondBloc>().add(
+                    //               const CardSecondEvent.selfieImage(
+                    //                 isCam: true,
+                    //                 cameraDeviceFront: true,
+                    //               ),
+                    //             ),
+                    //     heading: 'Take Selfie',
+                    //   )
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: 200.dm,
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) {
+                              return adjustWidth(10);
+                            },
+                            scrollDirection: Axis.horizontal,
+                            itemCount: imageList.length,
+                            itemBuilder: (context, index) {
+                              final imageSelfie = imageList[index];
+                              return Stack(
+                                children: [
+                                  InkWell(
+                                    onTap: () => Navigator.of(context).push(
+                                      fadePageRoute(ScreenImagePreview(
+                                          image: imageSelfie.image!)),
                                     ),
-                            onPressedCam: () =>
-                                context.read<CardSecondBloc>().add(
-                                      const CardSecondEvent.selfieImage(
-                                        isCam: true,
-                                        cameraDeviceFront: true,
-                                      ),
-                                    ),
-                            heading: 'Take Selfie',
-                          )
-                        : Stack(
-                            children: [
-                              SizedBox(
-                                height: 200,
-                                child: ListView.separated(
-                                  separatorBuilder: (context, index) {
-                                    return adjustWidth(10);
-                                  },
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: widget.secondCard.selfie!.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () => Navigator.of(context).push(
-                                        fadePageRoute(ScreenImagePreview(
-                                            image: selfieBase64List[index])),
-                                      ),
-                                      child: SizedBox(
-                                        width: kwidth,
-                                        child: Image.memory(
-                                          base64
-                                              .decode(selfieBase64List[index]),
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                            return const Icon(Icons.error);
-                                          },
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              Positioned(
-                                right: 10,
-                                bottom: 10,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: ColoredBox(
-                                    color: neonShade,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        cameraAndGalleryPickImage(
-                                          context: context,
-                                          onPressCam: () {
-                                            context.read<CardSecondBloc>().add(
-                                                const CardSecondEvent.scanImage(
-                                                    isFront: false,
-                                                    isCam: true));
-                                          },
-                                          onPressGallery: () {
-                                            context.read<CardSecondBloc>().add(
-                                                    const CardSecondEvent
-                                                        .scanImage(
-                                                  isFront: false,
-                                                  isCam: false,
-                                                ));
-                                          },
-                                        );
-                                      },
-                                      icon: const Icon(
-                                        size: 30,
-                                        color: kwhite,
-                                        Icons.add,
+                                    child: SizedBox(
+                                      width: 300.dm,
+                                      height: 200.dm,
+                                      child: Image.memory(
+                                        base64.decode(imageSelfie.image!
+                                                .startsWith('data')
+                                            ? imageSelfie.image!.substring(22)
+                                            : imageSelfie.image ?? ''),
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return const Icon(Icons.error);
+                                        },
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ],
+                                  Positioned(
+                                    top: 10,
+                                    right: 10,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: ColoredBox(
+                                        color: neonShade,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            showCustomConfirmationDialogue(
+                                              context: context,
+                                              buttonText: 'Delete',
+                                              title:
+                                                  'You want to delete product image',
+                                              onTap: () {
+                                                if (imageList[index].id !=
+                                                    null) {
+                                                  context
+                                                      .read<CardSecondBloc>()
+                                                      .add(CardSecondEvent
+                                                          .removeSelfieIndexImages(
+                                                              id: imageList[
+                                                                      index]
+                                                                  .id!));
+                                                }
+                                                newImageList.removeWhere(
+                                                    (element) =>
+                                                        element ==
+                                                        imageList[index]);
+                                                imageList.removeAt(index);
+                                                setState(() {});
+                                              },
+                                            );
+                                          },
+                                          icon: const Icon(
+                                            size: 30,
+                                            color: kwhite,
+                                            Icons.delete,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
+                        ),
+                        Positioned(
+                          right: 5,
+                          bottom: 5,
+                          child: InkWell(
+                            onTap: () {
+                              cameraAndGalleryPickImage(
+                                  context: context,
+                                  onPressCam: () async {
+                                    final img = await ImagePickerClass.getImage(
+                                        camera: true);
+                                    if (img != null) {
+                                      imageList
+                                          .add(ImageCard(image: img.base64));
+                                      newImageList
+                                          .add(ImageCard(image: img.base64));
+                                      setState(() {});
+                                    }
+                                  },
+                                  onPressGallery: () async {
+                                    final img = await ImagePickerClass.getImage(
+                                        camera: false);
+                                    if (img != null) {
+                                      imageList
+                                          .add(ImageCard(image: img.base64));
+                                      newImageList
+                                          .add(ImageCard(image: img.base64));
+                                      setState(() {});
+                                    }
+                                  });
+                            },
+                            child: const CircleAvatar(
+                              radius: 30,
+                              child: Icon(Icons.add_a_photo_outlined),
+                            ),
+                          ),
+                        )
+                        // Positioned(
+                        //   right: 10,
+                        //   bottom: 10,
+                        //   child: ClipRRect(
+                        //     borderRadius: BorderRadius.circular(15),
+                        //     child: ColoredBox(
+                        //       color: neonShade,
+                        //       child: IconButton(
+                        //         onPressed: () {
+                        //           cameraAndGalleryPickImage(
+                        //             context: context,
+                        //             onPressCam: () {
+                        //               context.read<CardSecondBloc>().add(
+                        //                   const CardSecondEvent.selfieImage(
+                        //                       cameraDeviceFront: false,
+                        //                       isCam: true));
+                        //             },
+                        //             onPressGallery: () {
+                        //               context.read<CardSecondBloc>().add(
+                        //                       const CardSecondEvent.selfieImage(
+                        //                     cameraDeviceFront: false,
+                        //                     isCam: false,
+                        //                   ));
+                        //             },
+                        //           );
+                        //         },
+                        //         icon: const Icon(
+                        //           size: 30,
+                        //           color: kwhite,
+                        //           Icons.add,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
                     Form(
                       key: context.read<CardSecondBloc>().cardUpdateKey,
                       child: Column(

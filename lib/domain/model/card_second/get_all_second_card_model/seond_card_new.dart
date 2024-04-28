@@ -1,3 +1,4 @@
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'selfie.dart';
@@ -7,7 +8,7 @@ part 'seond_card_new.g.dart';
 @JsonSerializable()
 class SecondCardNew {
   int? id;
-  List<Selfie>? selfie;
+  List<ImageCard>? selfie;
   String? name;
   String? image;
   @JsonKey(name: 'where_we_met')

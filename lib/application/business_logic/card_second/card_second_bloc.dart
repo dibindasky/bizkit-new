@@ -82,11 +82,17 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     on<GetSecondCardDetail>(getSecondCardDetail);
     on<UpdateCardSecond>(updateCardSecond);
     on<Clear>(clear);
+    on((event, emit) {});
     on<ImageClear>(imageClear);
     on<CardFeildClearing>(cardFeildClearing);
     on<LocationGeting>(locationGeting);
     on<ContactSaveToPhone>(contactSaveToPhone);
     on<SeccondCardShare>(seccondCardShare);
+    on<RemoveSelfieIndexImages>(removeSelfieIndexImages);
+  }
+
+  FutureOr<void> removeSelfieIndexImages(RemoveSelfieIndexImages event, emit) {
+    _cardSecondRepo.removeSelfieImage(id: event.id);
   }
 
   FutureOr<void> seccondCardShare(SeccondCardShare event, emit) async {

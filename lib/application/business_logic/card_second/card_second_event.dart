@@ -61,4 +61,7 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.contactSaveToPhone({
     required AddNewContact addNewContact,
   }) = ContactSaveToPhone;
+  const factory CardSecondEvent.seccondCardShare({
+    required int id,
+  }) = SeccondCardShare;
 }

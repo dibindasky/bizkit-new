@@ -3,11 +3,16 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/application/presentation/screens/connections/view_all_connection_contacts.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
+import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/domain/model/connections/get_bizkit_connections_response_model/bizkit_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+final GlobalKey globalKeyViewsAllConnections = GlobalKey();
+final GlobalKey globalKeyShare = GlobalKey();
 
 class MyConnectionContainerHomePage extends StatelessWidget {
   const MyConnectionContainerHomePage({super.key});
@@ -28,9 +33,11 @@ class MyConnectionContainerHomePage extends StatelessWidget {
             children: [
               Text('My connections', style: textHeadStyle1),
               GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                  fadePageRoute(MyConnectionsViewAllContacts()),
-                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    fadePageRoute(MyConnectionsViewAllContacts()),
+                  );
+                },
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                   child: Card(
@@ -90,18 +97,24 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                       child: InkWell(
                         onTap: () => Navigator.push(
                             context, fadePageRoute(ScreenAddConnections())),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: const ColoredBox(
-                            color: textFieldFillColr,
-                            child: SizedBox(
-                              height: 40,
-                              width: 60,
-                              child: Center(
-                                child: Icon(
-                                  Icons.add,
-                                  size: 20,
-                                  color: kwhite,
+                        child: CustomShowCaseView(
+                          description: '',
+                          globalKey: globalKeyaddConnections,
+                          tittle: 'Add connections',
+                          image: '',
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: const ColoredBox(
+                              color: textFieldFillColr,
+                              child: SizedBox(
+                                height: 40,
+                                width: 60,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 20,
+                                    color: kwhite,
+                                  ),
                                 ),
                               ),
                             ),

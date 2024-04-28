@@ -65,6 +65,7 @@ abstract class CardPatchRepo {
       {required PersonalDetailsImages personalDetailsImage});
   Future<Either<Failure, SuccessResponseModel>> removePersonalImage(
       {required int id});
+
   Future<Either<Failure, Accolade>> updateAccolade(
       {required Accolade accolade});
   Future<Either<Failure, Accolade>> uploadAccoladeImages(

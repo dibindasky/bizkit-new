@@ -6,4 +6,5 @@ class AdminEvent with _$AdminEvent {
       GetCompanyUsers;
   const factory AdminEvent.removeIndiVidualusersPartOfBusiness(
       {required String id}) = RemoveIndiVidualusersPartOfBusiness;
+  const factory AdminEvent.showCaseVisited() = ShowCaseVisited;
 }

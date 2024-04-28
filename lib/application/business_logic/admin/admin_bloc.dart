@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/admin/company_selected_users_list_model/company_selected_users_list_model.dart';
 import 'package:bizkit/domain/repository/service/admin_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,12 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     on<GetCompanyUsers>(getCompanyUsers);
     on<RemoveIndiVidualusersPartOfBusiness>(
         removeIndiVidualusersPartOfBusiness);
+    on<ShowCaseVisited>(showCaseVisited);
+  }
+
+  FutureOr<void> showCaseVisited(ShowCaseVisited event, emit) async {
+    final isShowCaseViwed = await SecureStorage.setHomeShowCaseViwed();
+    //emit(state.copyWith(homeShowcaseViwed: isShowCaseViwed));
   }
 
   FutureOr<void> removeIndiVidualusersPartOfBusiness(

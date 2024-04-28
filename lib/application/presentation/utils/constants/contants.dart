@@ -33,6 +33,7 @@ const bloodGroups = [
   'AB-',
   "Don't know"
 ];
+
 const socialMedia = [
   'Instagram',
   'LinkedIn',
@@ -98,7 +99,7 @@ const imageHistoryList = [
   imageHistoryLog1,
   imageHistoryLog2,
   imageHistoryLog3,
-  imageHistoryLog4
+  imageHistoryLog4,
 ];
 const imageHistoryLog1 = 'asset/images/meeting profile png1.png';
 const imageHistoryLog2 = 'asset/images/meeting profile png2.png';
@@ -159,8 +160,6 @@ String getBase64Image(String format, String? base64String) {
   return '';
 }
 
-// images = images.replaceFirst(
-//                                       RegExp(r'data:image/jpg;base64,'), '');
 String getImageFormat(String? base64String) {
   if (base64String == null) return '';
   final formats = ['jpeg', 'png', 'gif', 'bmp', 'jpg'];
@@ -171,3 +170,22 @@ String getImageFormat(String? base64String) {
   }
   return '';
 }
+
+//Show cse asset images
+const String rightArrowShocaseBorderImage =
+    'asset/images/showcase images/right arrow showcase box.png';
+const String leftArrowShocaseBorderImage =
+    'asset/images/showcase images/left_arrow_shacase box.png';
+const String profileCompletionScreen =
+    'asset/images/showcase images/profile-completion.png';
+const String reminders = 'asset/images/showcase images/reminders here.png';
+const String scaanner = 'asset/images/showcase images/scanner.png';
+const String connections = 'asset/images/showcase images/Coneections.png';
+
+//Show case texts
+const String profileCompletionText = 'Profile completion text';
+const String connectionText = 'Connection text';
+const String reminderText = 'reminder text';
+const String scannerText = 'Scanner text';
+const String newConnnectionText = 'New connection text';
+const String levelSettingText = 'Level setting text';

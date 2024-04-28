@@ -20,18 +20,21 @@ mixin _$AdminEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isLoad) getCompanyUsers,
     required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
+    required TResult Function() showCaseVisited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isLoad)? getCompanyUsers,
     TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult? Function()? showCaseVisited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isLoad)? getCompanyUsers,
     TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult Function()? showCaseVisited,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -40,6 +43,7 @@ mixin _$AdminEvent {
     required TResult Function(GetCompanyUsers value) getCompanyUsers,
     required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
         removeIndiVidualusersPartOfBusiness,
+    required TResult Function(ShowCaseVisited value) showCaseVisited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +51,7 @@ mixin _$AdminEvent {
     TResult? Function(GetCompanyUsers value)? getCompanyUsers,
     TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
+    TResult? Function(ShowCaseVisited value)? showCaseVisited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,6 +59,7 @@ mixin _$AdminEvent {
     TResult Function(GetCompanyUsers value)? getCompanyUsers,
     TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
+    TResult Function(ShowCaseVisited value)? showCaseVisited,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -144,6 +150,7 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isLoad) getCompanyUsers,
     required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
+    required TResult Function() showCaseVisited,
   }) {
     return getCompanyUsers(isLoad);
   }
@@ -153,6 +160,7 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isLoad)? getCompanyUsers,
     TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult? Function()? showCaseVisited,
   }) {
     return getCompanyUsers?.call(isLoad);
   }
@@ -162,6 +170,7 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isLoad)? getCompanyUsers,
     TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult Function()? showCaseVisited,
     required TResult orElse(),
   }) {
     if (getCompanyUsers != null) {
@@ -176,6 +185,7 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
     required TResult Function(GetCompanyUsers value) getCompanyUsers,
     required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
         removeIndiVidualusersPartOfBusiness,
+    required TResult Function(ShowCaseVisited value) showCaseVisited,
   }) {
     return getCompanyUsers(this);
   }
@@ -186,6 +196,7 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
     TResult? Function(GetCompanyUsers value)? getCompanyUsers,
     TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
+    TResult? Function(ShowCaseVisited value)? showCaseVisited,
   }) {
     return getCompanyUsers?.call(this);
   }
@@ -196,6 +207,7 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
     TResult Function(GetCompanyUsers value)? getCompanyUsers,
     TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
+    TResult Function(ShowCaseVisited value)? showCaseVisited,
     required TResult orElse(),
   }) {
     if (getCompanyUsers != null) {
@@ -287,6 +299,7 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
   TResult when<TResult extends Object?>({
     required TResult Function(bool isLoad) getCompanyUsers,
     required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
+    required TResult Function() showCaseVisited,
   }) {
     return removeIndiVidualusersPartOfBusiness(id);
   }
@@ -296,6 +309,7 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isLoad)? getCompanyUsers,
     TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult? Function()? showCaseVisited,
   }) {
     return removeIndiVidualusersPartOfBusiness?.call(id);
   }
@@ -305,6 +319,7 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isLoad)? getCompanyUsers,
     TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult Function()? showCaseVisited,
     required TResult orElse(),
   }) {
     if (removeIndiVidualusersPartOfBusiness != null) {
@@ -319,6 +334,7 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
     required TResult Function(GetCompanyUsers value) getCompanyUsers,
     required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
         removeIndiVidualusersPartOfBusiness,
+    required TResult Function(ShowCaseVisited value) showCaseVisited,
   }) {
     return removeIndiVidualusersPartOfBusiness(this);
   }
@@ -329,6 +345,7 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
     TResult? Function(GetCompanyUsers value)? getCompanyUsers,
     TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
+    TResult? Function(ShowCaseVisited value)? showCaseVisited,
   }) {
     return removeIndiVidualusersPartOfBusiness?.call(this);
   }
@@ -339,6 +356,7 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
     TResult Function(GetCompanyUsers value)? getCompanyUsers,
     TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
+    TResult Function(ShowCaseVisited value)? showCaseVisited,
     required TResult orElse(),
   }) {
     if (removeIndiVidualusersPartOfBusiness != null) {
@@ -360,11 +378,123 @@ abstract class RemoveIndiVidualusersPartOfBusiness implements AdminEvent {
 }
 
 /// @nodoc
+abstract class _$$ShowCaseVisitedImplCopyWith<$Res> {
+  factory _$$ShowCaseVisitedImplCopyWith(_$ShowCaseVisitedImpl value,
+          $Res Function(_$ShowCaseVisitedImpl) then) =
+      __$$ShowCaseVisitedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ShowCaseVisitedImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res, _$ShowCaseVisitedImpl>
+    implements _$$ShowCaseVisitedImplCopyWith<$Res> {
+  __$$ShowCaseVisitedImplCopyWithImpl(
+      _$ShowCaseVisitedImpl _value, $Res Function(_$ShowCaseVisitedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ShowCaseVisitedImpl implements ShowCaseVisited {
+  const _$ShowCaseVisitedImpl();
+
+  @override
+  String toString() {
+    return 'AdminEvent.showCaseVisited()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ShowCaseVisitedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isLoad) getCompanyUsers,
+    required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
+    required TResult Function() showCaseVisited,
+  }) {
+    return showCaseVisited();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isLoad)? getCompanyUsers,
+    TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult? Function()? showCaseVisited,
+  }) {
+    return showCaseVisited?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLoad)? getCompanyUsers,
+    TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult Function()? showCaseVisited,
+    required TResult orElse(),
+  }) {
+    if (showCaseVisited != null) {
+      return showCaseVisited();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCompanyUsers value) getCompanyUsers,
+    required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
+        removeIndiVidualusersPartOfBusiness,
+    required TResult Function(ShowCaseVisited value) showCaseVisited,
+  }) {
+    return showCaseVisited(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCompanyUsers value)? getCompanyUsers,
+    TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
+    TResult? Function(ShowCaseVisited value)? showCaseVisited,
+  }) {
+    return showCaseVisited?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCompanyUsers value)? getCompanyUsers,
+    TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
+    TResult Function(ShowCaseVisited value)? showCaseVisited,
+    required TResult orElse(),
+  }) {
+    if (showCaseVisited != null) {
+      return showCaseVisited(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ShowCaseVisited implements AdminEvent {
+  const factory ShowCaseVisited() = _$ShowCaseVisitedImpl;
+}
+
+/// @nodoc
 mixin _$AdminState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   bool get userBlocked => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
+  bool get homeShowcaseViwed => throw _privateConstructorUsedError;
   List<CompanySelectedUsersListModel>? get companySelectedUsersListModel =>
       throw _privateConstructorUsedError;
 
@@ -384,6 +514,7 @@ abstract class $AdminStateCopyWith<$Res> {
       bool hasError,
       bool userBlocked,
       String? message,
+      bool homeShowcaseViwed,
       List<CompanySelectedUsersListModel>? companySelectedUsersListModel});
 }
 
@@ -404,6 +535,7 @@ class _$AdminStateCopyWithImpl<$Res, $Val extends AdminState>
     Object? hasError = null,
     Object? userBlocked = null,
     Object? message = freezed,
+    Object? homeShowcaseViwed = null,
     Object? companySelectedUsersListModel = freezed,
   }) {
     return _then(_value.copyWith(
@@ -423,6 +555,10 @@ class _$AdminStateCopyWithImpl<$Res, $Val extends AdminState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      homeShowcaseViwed: null == homeShowcaseViwed
+          ? _value.homeShowcaseViwed
+          : homeShowcaseViwed // ignore: cast_nullable_to_non_nullable
+              as bool,
       companySelectedUsersListModel: freezed == companySelectedUsersListModel
           ? _value.companySelectedUsersListModel
           : companySelectedUsersListModel // ignore: cast_nullable_to_non_nullable
@@ -444,6 +580,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool hasError,
       bool userBlocked,
       String? message,
+      bool homeShowcaseViwed,
       List<CompanySelectedUsersListModel>? companySelectedUsersListModel});
 }
 
@@ -462,6 +599,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? hasError = null,
     Object? userBlocked = null,
     Object? message = freezed,
+    Object? homeShowcaseViwed = null,
     Object? companySelectedUsersListModel = freezed,
   }) {
     return _then(_$InitialImpl(
@@ -481,6 +619,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      homeShowcaseViwed: null == homeShowcaseViwed
+          ? _value.homeShowcaseViwed
+          : homeShowcaseViwed // ignore: cast_nullable_to_non_nullable
+              as bool,
       companySelectedUsersListModel: freezed == companySelectedUsersListModel
           ? _value._companySelectedUsersListModel
           : companySelectedUsersListModel // ignore: cast_nullable_to_non_nullable
@@ -497,6 +639,7 @@ class _$InitialImpl implements _Initial {
       required this.hasError,
       required this.userBlocked,
       this.message,
+      required this.homeShowcaseViwed,
       final List<CompanySelectedUsersListModel>? companySelectedUsersListModel})
       : _companySelectedUsersListModel = companySelectedUsersListModel;
 
@@ -508,6 +651,8 @@ class _$InitialImpl implements _Initial {
   final bool userBlocked;
   @override
   final String? message;
+  @override
+  final bool homeShowcaseViwed;
   final List<CompanySelectedUsersListModel>? _companySelectedUsersListModel;
   @override
   List<CompanySelectedUsersListModel>? get companySelectedUsersListModel {
@@ -521,7 +666,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'AdminState(isLoading: $isLoading, hasError: $hasError, userBlocked: $userBlocked, message: $message, companySelectedUsersListModel: $companySelectedUsersListModel)';
+    return 'AdminState(isLoading: $isLoading, hasError: $hasError, userBlocked: $userBlocked, message: $message, homeShowcaseViwed: $homeShowcaseViwed, companySelectedUsersListModel: $companySelectedUsersListModel)';
   }
 
   @override
@@ -536,6 +681,8 @@ class _$InitialImpl implements _Initial {
             (identical(other.userBlocked, userBlocked) ||
                 other.userBlocked == userBlocked) &&
             (identical(other.message, message) || other.message == message) &&
+            (identical(other.homeShowcaseViwed, homeShowcaseViwed) ||
+                other.homeShowcaseViwed == homeShowcaseViwed) &&
             const DeepCollectionEquality().equals(
                 other._companySelectedUsersListModel,
                 _companySelectedUsersListModel));
@@ -548,6 +695,7 @@ class _$InitialImpl implements _Initial {
       hasError,
       userBlocked,
       message,
+      homeShowcaseViwed,
       const DeepCollectionEquality().hash(_companySelectedUsersListModel));
 
   @JsonKey(ignore: true)
@@ -563,6 +711,7 @@ abstract class _Initial implements AdminState {
       required final bool hasError,
       required final bool userBlocked,
       final String? message,
+      required final bool homeShowcaseViwed,
       final List<CompanySelectedUsersListModel>?
           companySelectedUsersListModel}) = _$InitialImpl;
 
@@ -574,6 +723,8 @@ abstract class _Initial implements AdminState {
   bool get userBlocked;
   @override
   String? get message;
+  @override
+  bool get homeShowcaseViwed;
   @override
   List<CompanySelectedUsersListModel>? get companySelectedUsersListModel;
   @override

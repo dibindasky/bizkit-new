@@ -7,14 +7,54 @@ import 'package:bizkit/application/presentation/screens/connections/tabs/contact
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
-class MyConnectionsViewAllContacts extends StatelessWidget {
-  MyConnectionsViewAllContacts({super.key});
+final GlobalKey globalSearchConnection = GlobalKey();
+final GlobalKey globalKeycontactList = GlobalKey();
+final GlobalKey globalKeyBizkitConnections = GlobalKey();
+final GlobalKey globalKeyConnectionRequest = GlobalKey();
+final GlobalKey globalKeyVisitingCard = GlobalKey();
 
+class MyConnectionsViewAllContacts extends StatefulWidget {
+  const MyConnectionsViewAllContacts({super.key});
+
+  @override
+  State<MyConnectionsViewAllContacts> createState() =>
+      _MyConnectionsViewAllContactsState();
+}
+
+class _MyConnectionsViewAllContactsState
+    extends State<MyConnectionsViewAllContacts> {
   final ValueNotifier tabNotifier = ValueNotifier(0);
+  bool isShowcaseSeen = false;
+  final homeScreenShowCase = 'isShowcaseSeen';
+
+  @override
+  void initState() {
+    SharedPreferences.getInstance().then((prefs) {
+      setState(() {
+        isShowcaseSeen = prefs.getBool(homeScreenShowCase) ?? false;
+      });
+      if (!isShowcaseSeen) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          ShowCaseWidget.of(context).startShowCase([
+            globalSearchConnection,
+            globalKeycontactList,
+            globalKeyBizkitConnections,
+            globalKeyConnectionRequest,
+            globalKeyVisitingCard,
+          ]);
+        });
+        prefs.setBool(homeScreenShowCase, true);
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

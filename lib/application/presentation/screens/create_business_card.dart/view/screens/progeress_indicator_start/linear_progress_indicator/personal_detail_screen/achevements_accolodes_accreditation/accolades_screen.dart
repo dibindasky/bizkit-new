@@ -70,7 +70,7 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                         onTap: () async {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => AccoladesAddCreateScreen(
-                                accolade: widget.accolade!,
+                                isAccolade: widget.accolade!,
                                 cardId: widget.cardId),
                           ));
                         },
@@ -200,31 +200,36 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return SizedBox(
-                            height: 260,
-                            width: double.infinity,
-                            child: Stack(
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  // Navigator.push(
-                                  //     context,
-                                  //     fadePageRoute(ScreenImagePreview(
-                                  //         image: (widget.accolade == null
-                                  //                 ? achivement[index]
-                                  //                         is Accolade
-                                  //                     ? achivement[index]
-                                  //                         .accoladesImage
-                                  //                     : achivement[index].image
-                                  //                 : widget.accolade!
-                                  //                     ? user.accolades[index]
-                                  //                         .accoladesImage
-                                  //                     : business
-                                  //                         .accreditions[index]
-                                  //                         .images)
-                                  //             .substring(22),
-                                  //         isFileIamge: false))),
-                                  child: SizedBox(
+                          return InkWell(
+                            onTap: () {
+                              if (widget.accolade!) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          AccoladesAddCreateScreen(
+                                              isAccolade: true,
+                                              cardId: widget.cardId,
+                                              accolade: achivement[index]),
+                                    ));
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          AccoladesAddCreateScreen(
+                                              isAccolade: false,
+                                              cardId: widget.cardId,
+                                              accredition: achivement[index]),
+                                    ));
+                              }
+                            },
+                            child: SizedBox(
+                              height: 260,
+                              width: double.infinity,
+                              child: Stack(
+                                children: [
+                                  SizedBox(
                                     height: 200,
                                     width: double.infinity,
                                     child: Image.memory(
@@ -235,111 +240,116 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                                                       .image
                                                   : achivement[index].image
                                               : widget.accolade!
-                                                  ? user.accolades[index]
-                                                      .accoladesImage![0].image
-                                                  : business.accreditions[index]
-                                                      .images![0].image)
+                                                  ? user
+                                                      .accolades[index]
+                                                      .accoladesImage![0]
+                                                      .image
+                                                  : business
+                                                      .accreditions[index]
+                                                      .images![0]
+                                                      .image)
                                           .substring(22)),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  left: 0,
-                                  right: 0,
-                                  bottom: 0,
-                                  child: Container(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    color: kblack.withOpacity(.7),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          widget.accolade == null
-                                              ? achivement[index] is Accolade
-                                                  ? achivement[index].accolades
-                                                  : achivement[index].label
-                                              : widget.accolade!
-                                                  ? user.accolades[index]
-                                                          .accolades ??
-                                                      ''
-                                                  : business.accreditions[index]
-                                                          .label ??
-                                                      '',
-                                          style: textStyle1.copyWith(
-                                            fontSize: kwidth * .04,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        Text(
-                                          widget.accolade == null
-                                              ? achivement[index] is Accolade
-                                                  ? achivement[index]
-                                                      .accoladesDescription
-                                                  : achivement[index]
-                                                      .description
-                                              : widget.accolade!
-                                                  ? user.accolades[index]
-                                                          .accoladesDescription ??
-                                                      ''
-                                                  : business.accreditions[index]
-                                                          .description ??
-                                                      '',
-                                          style: textStyle1.copyWith(
-                                            fontSize: kwidth * .03,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                widget.accolade == null
-                                    ? const SizedBox()
-                                    : Positioned(
-                                        right: 10,
-                                        top: 10,
-                                        child: CircleAvatar(
-                                          child: IconButton(
-                                            onPressed: () {
-                                              showCustomConfirmationDialogue(
-                                                  context: context,
-                                                  title:
-                                                      'Are you sure want to delete ?',
-                                                  buttonText: 'Delete',
-                                                  onTap: () {
-                                                    widget.accolade!
-                                                        ? context
-                                                            .read<
-                                                                UserDataBloc>()
-                                                            .add(
-                                                              UserDataEvent
-                                                                  .removeAccolade(
-                                                                      id: user
-                                                                          .accolades[
-                                                                              index]
-                                                                          .id!),
-                                                            )
-                                                        : context
-                                                            .read<
-                                                                BusinessDataBloc>()
-                                                            .add(
-                                                              BusinessDataEvent
-                                                                  .removeAccredition(
-                                                                      id: business
-                                                                          .accreditions[
-                                                                              index]
-                                                                          .id!),
-                                                            );
-                                                  });
-                                            },
-                                            icon: const Icon(
-                                              Icons.delete,
+                                  Positioned(
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    child: Container(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      color: kblack.withOpacity(.7),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            widget.accolade == null
+                                                ? achivement[index] is Accolade
+                                                    ? achivement[index]
+                                                        .accolades
+                                                    : achivement[index].label
+                                                : widget.accolade!
+                                                    ? user.accolades[index]
+                                                            .accolades ??
+                                                        ''
+                                                    : business
+                                                            .accreditions[index]
+                                                            .label ??
+                                                        '',
+                                            style: textStyle1.copyWith(
+                                              fontSize: kwidth * .04,
+                                              fontWeight: FontWeight.w700,
                                             ),
                                           ),
-                                        ),
-                                      )
-                              ],
+                                          Text(
+                                            widget.accolade == null
+                                                ? achivement[index] is Accolade
+                                                    ? achivement[index]
+                                                        .accoladesDescription
+                                                    : achivement[index]
+                                                        .description
+                                                : widget.accolade!
+                                                    ? user.accolades[index]
+                                                            .accoladesDescription ??
+                                                        ''
+                                                    : business
+                                                            .accreditions[index]
+                                                            .description ??
+                                                        '',
+                                            style: textStyle1.copyWith(
+                                              fontSize: kwidth * .03,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  widget.accolade == null
+                                      ? const SizedBox()
+                                      : Positioned(
+                                          right: 10,
+                                          top: 10,
+                                          child: CircleAvatar(
+                                            child: IconButton(
+                                              onPressed: () {
+                                                showCustomConfirmationDialogue(
+                                                    context: context,
+                                                    title:
+                                                        'Are you sure want to delete ?',
+                                                    buttonText: 'Delete',
+                                                    onTap: () {
+                                                      widget.accolade!
+                                                          ? context
+                                                              .read<
+                                                                  UserDataBloc>()
+                                                              .add(
+                                                                UserDataEvent.removeAccolade(
+                                                                    id: user
+                                                                        .accolades[
+                                                                            index]
+                                                                        .id!),
+                                                              )
+                                                          : context
+                                                              .read<
+                                                                  BusinessDataBloc>()
+                                                              .add(
+                                                                BusinessDataEvent.removeAccredition(
+                                                                    id: business
+                                                                        .accreditions[
+                                                                            index]
+                                                                        .id!),
+                                                              );
+                                                    });
+                                              },
+                                              icon: const Icon(
+                                                Icons.delete,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                ],
+                              ),
                             ),
                           );
                         },

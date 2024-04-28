@@ -22,15 +22,18 @@ class CardViewRowWiceIcons extends StatelessWidget {
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
+                List<String> itemsHead = [];
                 if (state.anotherCard != null &&
                     state.anotherCard!.businessDetails != null &&
                     state.anotherCard!.businessDetails!.mobileNumber != null) {
                   items.add(state.anotherCard!.businessDetails!.mobileNumber!);
+                  itemsHead.add('Business');
                 }
                 if (state.anotherCard != null &&
                     state.anotherCard!.personalDetails != null &&
                     state.anotherCard!.personalDetails!.phoneNumber != null) {
                   items.add(state.anotherCard!.personalDetails!.phoneNumber!);
+                  itemsHead.add('Personal');
                 }
                 showModalBottomSheet(
                   context: context,
@@ -42,6 +45,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     fromPreview: false,
                     image: imagePhone,
                     items: items,
+                    itemsHeading: itemsHead,
                   ),
                 );
               },
@@ -51,15 +55,18 @@ class CardViewRowWiceIcons extends StatelessWidget {
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
+                List<String> itemsHead = [];
                 if (state.anotherCard != null &&
                     state.anotherCard!.businessDetails != null &&
                     state.anotherCard!.businessDetails!.email != null) {
                   items.add(state.anotherCard!.businessDetails!.email!);
+                  itemsHead.add('Business');
                 }
                 if (state.anotherCard != null &&
                     state.anotherCard!.personalDetails != null &&
                     state.anotherCard!.personalDetails!.email != null) {
                   items.add(state.anotherCard!.personalDetails!.email!);
+                  itemsHead.add('Personal');
                 }
                 showModalBottomSheet(
                   context: context,
@@ -71,6 +78,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     fromPreview: false,
                     image: imagePhone,
                     items: items,
+                    itemsHeading: itemsHead,
                   ),
                 );
               },

@@ -4,6 +4,7 @@ import 'package:bizkit/domain/model/commen/success_response_model/success_respon
 import 'package:bizkit/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
 import 'package:bizkit/domain/model/connections/add_connection_tag_model/add_connection_tag_model.dart';
 import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
+import 'package:bizkit/domain/model/connections/connection_request_id_model/connection_request_id_model.dart';
 import 'package:bizkit/domain/model/connections/create_connection_with_card_id_model/create_connection_with_card_id_model.dart';
 import 'package:bizkit/domain/model/connections/get_bizkit_connections_response_model/get_bizkit_connections_response_model.dart';
 import 'package:bizkit/domain/model/connections/get_request_list_responsemodel/get_request_list_responsemodel.dart';
@@ -33,5 +34,8 @@ abstract class ConnectionRequestRepo {
       {required int id});
   Future<Either<Failure, BlockedConnectionModel>> getBlockeConnections({
     required PageQuery pageQuery,
+  });
+  Future<Either<Failure, SuccessResponseModel>> removeConnectionRequest({
+    required ConnectionRequestIdModel connectionRequestIdModel,
   });
 }

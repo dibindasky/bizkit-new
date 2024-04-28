@@ -11,6 +11,8 @@ class BizkitUser {
   String? designation;
   @JsonKey(name: 'connection_request_id')
   int? connectionId;
+  @JsonKey(name: 'is_verified')
+  bool? isVerified;
 
   BizkitUser(
       {this.id,
@@ -18,6 +20,7 @@ class BizkitUser {
       this.name,
       this.company,
       this.image,
+      this.isVerified,
       this.designation});
 
   factory BizkitUser.fromJson(Map<String, dynamic> json) {

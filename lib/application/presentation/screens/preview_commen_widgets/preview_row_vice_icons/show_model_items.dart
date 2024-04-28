@@ -9,10 +9,12 @@ class PreviewScreenRowIconsModelSheet extends StatefulWidget {
     super.key,
     required this.fromPreview,
     required this.image,
+    this.itemsHeading,
     this.items,
   });
 
   final List<String>? items;
+  final List<String>? itemsHeading;
   final bool fromPreview;
   final String image;
 
@@ -44,6 +46,7 @@ class _PreviewScreenRowIconsModelSheetState
                     itemCount: widget.items!.length,
                     itemBuilder: (context, index) {
                       final data = widget.items![index];
+                      final dataHead = widget.itemsHeading![index];
                       return Container(
                         height: 70,
                         decoration: const BoxDecoration(
@@ -68,6 +71,10 @@ class _PreviewScreenRowIconsModelSheetState
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  Text(
+                                    dataHead,
+                                    style: const TextStyle(color: neonShade,fontSize: 10),
+                                  ),adjustHieght(5),
                                   Text(
                                     data,
                                     style: const TextStyle(color: neonShade),

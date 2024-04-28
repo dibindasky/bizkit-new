@@ -12,6 +12,7 @@ BizkitUser _$BizkitUserFromJson(Map<String, dynamic> json) => BizkitUser(
       name: json['name'] as String?,
       company: json['company'] as String?,
       image: json['image'] as String?,
+      isVerified: json['is_verified'] as bool?,
       designation: json['designation'] as String?,
     );
 
@@ -23,4 +24,5 @@ Map<String, dynamic> _$BizkitUserToJson(BizkitUser instance) =>
       'image': instance.image,
       'designation': instance.designation,
       'connection_request_id': instance.connectionId,
+      'is_verified': instance.isVerified,
     };

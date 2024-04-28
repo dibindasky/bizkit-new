@@ -23,32 +23,34 @@ showCustomConfirmationDialogue(
               title,
             ),
             adjustHieght(10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: neonShade)),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(color: neonShade),
-                    )),
-                adjustWidth(10),
-                OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: buttonColor)),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      onTap();
-                    },
-                    child: Text(
-                      buttonText,
-                      style: TextStyle(color: buttonColor),
-                    ))
-              ],
+            FittedBox(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: neonShade)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(color: neonShade),
+                      )),
+                  adjustWidth(10),
+                  OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: buttonColor)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        onTap();
+                      },
+                      child: Text(
+                        buttonText,
+                        style: TextStyle(color: buttonColor),
+                      ))
+                ],
+              ),
             )
           ],
         ),

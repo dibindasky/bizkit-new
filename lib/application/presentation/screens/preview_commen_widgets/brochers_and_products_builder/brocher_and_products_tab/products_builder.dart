@@ -37,14 +37,15 @@ class ProductsBuilder extends StatelessWidget {
                         SizedBox(
                           height: 200,
                           width: double.infinity,
-                          child: Image.memory(
+                          child:data.image!=null&&data.image!.isNotEmpty?
+                           Image.memory(
                               base64.decode(
                                   data.image![0].image!.startsWith('data')
                                       ? data.image![0].image!.substring(22)
                                       : data.image![0].image!),
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.image)),
+                                  const Icon(Icons.image_not_supported_outlined)):null,
                         ),
                         Positioned(
                           left: 0,

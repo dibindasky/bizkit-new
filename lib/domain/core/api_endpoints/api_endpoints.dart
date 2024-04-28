@@ -42,7 +42,13 @@ class ApiEndPoints {
   static String addBrochure = '/card/brochure-create/';
   static String deleteBrochure = '/card/brochure-update-delete/{brochure_id}/';
   static String addAccolaade = '/card/accolade-create/';
+  static String updateAccolaade = '/card/accolade-update-delete/{accolade_id}/';
+  static String uploadAccoladeImages = '/card/accolade-image-create/';
   static String deleteAccolaade = '/card/accolade-update-delete/{accolade_id}/';
+  static String deleteAccolaadeImage = '/card/accolade-image-delete/{accolade_id}/';
+  static String deleteAccreditationImage = '/card/accreditation-image-delete/{acredition_id}/';
+  static String uploadAccreditationImage = '/card/accreditation-image-create/';
+  static String upadateAccredition = '/card/accreditation-update-delete/{accreditation_id}/';
   static String addAcredition = '/card/accreditation-create/';
   static String deleteAcredition =
       '/card/accreditation-update-delete/{acredition_id}/';
@@ -56,6 +62,9 @@ class ApiEndPoints {
   static String deleteBusinessSocialMedia =
       '/card/business-social-media-update-delete/{social_media_id}/';
   static String getCardViewsList = '/card/views/{card_id}/';
+  static String removeProductImage = '/card/product-image-update-delete/{Image_id}/';
+  static String updateProductImage = '/card/product-image-create/';
+  static String updateProduct = '/card/product-update-delete/{id}/';
 
   // text extraction
   static String textExtraction = '/card/extract-text/';
@@ -88,6 +97,8 @@ class ApiEndPoints {
   static String connectionRequest = '/connections/connection-request/';
   static String deleteConnectionRequest =
       '/connections/delete-connection-request/{id}/';
+  static String removeConnectionRequest =
+      '/connections/connection-request-delete/';
 
   // reminder
   static String createReminder = '/reminder/create-reminder/';

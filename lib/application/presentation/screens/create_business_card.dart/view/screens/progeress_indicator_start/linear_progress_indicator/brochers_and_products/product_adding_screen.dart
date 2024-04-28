@@ -3,6 +3,7 @@ import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
+import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
@@ -29,7 +30,7 @@ class AddPrductsScreen extends StatefulWidget {
 class _AddPrductsScreenState extends State<AddPrductsScreen> {
   TextEditingController productTitleController = TextEditingController();
   TextEditingController productDescriptionController = TextEditingController();
-  List<ImageCard>? imageList;
+  List<ImageCard> imageList = [];
   bool switchValue = false;
 
   @override
@@ -69,134 +70,145 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                   BlocBuilder<BusinessDataBloc, BusinessDataState>(
                     builder: (context, state) {
                       return SizedBox(
-                        height: 200.dm,
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            if (index == 0) {
-                              return state.pickImageLoading
-                                  ? SizedBox(
-                                      width: 300.dm,
-                                      height: 200.dm,
-                                      child: const Center(
-                                        child: CircularProgressIndicator(
-                                          color: neonShade,
-                                        ),
-                                      ),
-                                    )
-                                  : ColoredBox(
-                                      color: neonShade.withOpacity(0.1),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          cameraAndGalleryPickImage(
-                                            tittle: 'Choose image from ?',
-                                            context: context,
-                                            onPressCam: () {
-                                              context
-                                                  .read<BusinessDataBloc>()
-                                                  .add(const BusinessDataEvent
-                                                      .pickProductImage(
-                                                      isCam: true));
-                                            },
-                                            onPressGallery: () {
-                                              context
-                                                  .read<BusinessDataBloc>()
-                                                  .add(const BusinessDataEvent
-                                                      .pickProductImage(
-                                                      isCam: false));
-                                            },
-                                          );
-                                        },
-                                        child: SizedBox(
+                          height: 200.dm,
+                          child: Stack(children: [
+                            SizedBox(
+                              height: 200.dm,
+                              width: double.infinity,
+                              child: ListView.separated(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  final imageProduct =
+                                      imageList.reversed.toList()[index];
+                                  return InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          fadePageRoute(ScreenImagePreview(
+                                        image: imageProduct.image!,
+                                      )));
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        SizedBox(
                                           width: 300.dm,
                                           height: 200.dm,
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            child: const ColoredBox(
-                                              color: textFieldFillColr,
-                                              child: Icon(
-                                                Icons.add_a_photo_rounded,
+                                            child: Image.memory(
+                                              base64.decode(imageProduct.image!
+                                                      .startsWith('data')
+                                                  ? imageProduct.image!
+                                                      .substring(22)
+                                                  : imageProduct.image!),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          top: 10,
+                                          right: 10,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: ColoredBox(
+                                              color: neonShade,
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  showCustomConfirmationDialogue(
+                                                    context: context,
+                                                    buttonText: 'Delete',
+                                                    title:
+                                                        'You want to delete product image',
+                                                    onTap: () {
+                                                      if (widget.product !=
+                                                              null &&
+                                                          imageList.length ==
+                                                              1) {
+                                                        showSnackbar(context,
+                                                            message:
+                                                                'Atleast one product image should be there',
+                                                            backgroundColor:
+                                                                kred);
+                                                        return;
+                                                      }
+                                                      if (imageList[imageList
+                                                                      .length -
+                                                                  index]
+                                                              .id !=
+                                                          null) {
+                                                        context
+                                                            .read<
+                                                                BusinessDataBloc>()
+                                                            .add(BusinessDataEvent
+                                                                .removeProductIndexImages(
+                                                                    index: imageList[imageList.length -
+                                                                            index]
+                                                                        .id!));
+                                                      }
+                                                      imageList.removeAt(
+                                                          imageList.length -
+                                                              index -
+                                                              1);
+                                                      setState(() {});
+                                                    },
+                                                  );
+                                                },
+                                                icon: const Icon(
+                                                  size: 30,
+                                                  color: kwhite,
+                                                  Icons.delete,
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                            } else {
-                              final imageProduct = state.productImages.reversed
-                                  .toList()[index - 1];
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .push(fadePageRoute(ScreenImagePreview(
-                                    image: imageProduct.image!,
-                                  )));
+                                      ],
+                                    ),
+                                  );
                                 },
-                                child: Stack(
-                                  children: [
-                                    SizedBox(
-                                      width: 300.dm,
-                                      height: 200.dm,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.memory(
-                                          base64.decode(imageProduct.image!
-                                                  .startsWith('data')
-                                              ? imageProduct.image!
-                                                  .substring(22)
-                                              : imageProduct.image!),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: 10,
-                                      right: 10,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: ColoredBox(
-                                          color: neonShade,
-                                          child: IconButton(
-                                            onPressed: () {
-                                              showCustomConfirmationDialogue(
-                                                context: context,
-                                                buttonText: 'Delete',
-                                                title:
-                                                    'You want to delete product image',
-                                                onTap: () {
-                                                  context
-                                                      .read<BusinessDataBloc>()
-                                                      .add(BusinessDataEvent
-                                                          .removeProductIndexImages(
-                                                              index: state
-                                                                      .productImages
-                                                                      .length -
-                                                                  index));
-                                                },
-                                              );
-                                            },
-                                            icon: const Icon(
-                                              size: 30,
-                                              color: kwhite,
-                                              Icons.delete,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                separatorBuilder: (context, index) {
+                                  return adjustWidth(10);
+                                },
+                                itemCount: imageList.length,
+                              ),
+                            ),
+                            Positioned(
+                              right: 5,
+                              bottom: 5,
+                              child: InkWell(
+                                onTap: () {
+                                  cameraAndGalleryPickImage(
+                                      context: context,
+                                      onPressCam: () async {
+                                        final img =
+                                            await ImagePickerClass.getImage(
+                                                camera: true);
+                                        if (img != null) {
+                                          imageList.add(
+                                              ImageCard(image: img.base64));
+                                          setState(() {});
+                                        }
+                                      },
+                                      onPressGallery: () async {
+                                        final img =
+                                            await ImagePickerClass.getImage(
+                                                camera: false);
+                                        if (img != null) {
+                                          imageList.add(
+                                              ImageCard(image: img.base64));
+                                          setState(() {});
+                                        }
+                                      });
+                                },
+                                child: const CircleAvatar(
+                                  radius: 30,
+                                  child: Icon(Icons.add_a_photo_outlined),
                                 ),
-                              );
-                            }
-                          },
-                          separatorBuilder: (context, index) {
-                            return adjustWidth(10);
-                          },
-                          itemCount: state.productImages.length + 1,
-                        ),
-                      );
+                              ),
+                            )
+                          ]));
                     },
                   ),
                   adjustHieght(khieght * .02),
@@ -262,9 +274,9 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                         onTap: () {
                           if (productDescriptionController.text.isEmpty ||
                               productTitleController.text.isEmpty ||
-                              state.productImages.isEmpty) {
+                              imageList.isEmpty) {
                             showSnackbar(context,
-                                message: state.productImages.isEmpty
+                                message: imageList.isEmpty
                                     ? 'Add atleast one product Image'
                                     : productTitleController.text.isEmpty
                                         ? 'Add product title'
@@ -275,6 +287,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                           }
 
                           final product = Product(
+                            id: widget.product?.id,
                             description:
                                 productDescriptionController.text.trim(),
                             label: productTitleController.text.trim(),
@@ -284,7 +297,9 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                             cardId: state.currentCard!.id,
                           );
                           context.read<BusinessDataBloc>().add(
-                              BusinessDataEvent.addProduct(product: product));
+                              BusinessDataEvent.addProduct(
+                                  product: product,
+                                  edit: widget.product != null));
                           // Navigator.pop(context);
                         },
                       );

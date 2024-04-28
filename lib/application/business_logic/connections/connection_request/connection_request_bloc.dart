@@ -3,6 +3,7 @@ import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
 import 'package:bizkit/domain/model/connections/add_connection_tag_model/add_connection_tag_model.dart';
 import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
+import 'package:bizkit/domain/model/connections/connection_request_id_model/connection_request_id_model.dart';
 import 'package:bizkit/domain/model/connections/create_connection_with_card_id_model/create_connection_with_card_id_model.dart';
 import 'package:bizkit/domain/model/connections/get_bizkit_connections_response_model/bizkit_connection.dart';
 import 'package:bizkit/domain/model/connections/get_request_list_responsemodel/request.dart';
@@ -38,11 +39,30 @@ class ConnectionRequestBloc
     on<DeleteRequest>(deleteRequest);
     on<GetBlockeConnections>(getBlockeConnections);
     on<GgetBlockeConnectionsEvent>(getBlockedConnectionsEvent);
+    on<RemoveConnectionRequest>(removeConnectionRequest);
     on<Clear>(clear);
   }
 
   FutureOr<void> clear(Clear event, emit) async {
     return emit(ConnectionRequestState.initial());
+  }
+
+  FutureOr<void> removeConnectionRequest(
+      RemoveConnectionRequest event, emit) async {
+    emit(state.copyWith(
+        blockedConnectionsLoading: true, hasError: false, message: null));
+    final data = await _connectionRepo.removeConnectionRequest(
+        connectionRequestIdModel: event.connectionRequestIdModel);
+    data.fold(
+        (l) => emit(state.copyWith(
+            blockedConnectionsLoading: false,
+            hasError: true,
+            message: null)), (r) {
+      emit(state.copyWith(
+        blockedConnectionsLoading: false,
+        hasError: false,
+      ));
+    });
   }
 
   FutureOr<void> getBlockedConnectionsEvent(
@@ -184,18 +204,20 @@ class ConnectionRequestBloc
   FutureOr<void> addConnectionRequests(
       AddConnectionRequests event, emit) async {
     emit(state.copyWith(
-        requestLoadingIndex: event.index,
+        requestLoadingIndex: [...state.requestLoadingIndex, event.index],
         hasError: false,
         message: null,
         connected: false));
 
     final result = await _connectionRepo.addConnectionRequest(
         addConnectionRequestModel: event.addConnectionRequestModel);
+    List<int> indexs = List.from(state.requestLoadingIndex);
+    indexs.removeWhere((element) => element == event.index);
     result.fold(
         (l) => emit(state.copyWith(
-            requestLoadingIndex: -1, hasError: true, message: l.message)),
+            requestLoadingIndex: indexs, hasError: true, message: l.message)),
         (r) => emit(state.copyWith(
-            requestLoadingIndex: -1, message: r.message, connected: true)));
+            requestLoadingIndex: indexs, message: r.message, connected: true)));
   }
 
   FutureOr<void> getRequestLists(GetRequestLists event, emit) async {

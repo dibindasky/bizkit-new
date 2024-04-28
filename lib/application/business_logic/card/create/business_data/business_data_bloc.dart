@@ -6,6 +6,7 @@ import 'package:bizkit/application/presentation/utils/image_picker/image_picker.
 import 'package:bizkit/data/features/pdf/pdf_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/accredition/accredition.dart';
+import 'package:bizkit/domain/model/card/card/accredition/accredition_image_adding_model/accredition_image_adding_model.dart';
 import 'package:bizkit/domain/model/card/card/bank_details/bank_details.dart';
 import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
@@ -14,6 +15,7 @@ import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
+import 'package:bizkit/domain/model/card/card/product/product_image_adding_model/product_image_adding_model.dart';
 import 'package:bizkit/domain/model/card/card/product_image_add/image.dart';
 import 'package:bizkit/domain/model/card/card/product_image_add/product_image_add.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
@@ -71,7 +73,6 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<AddAccredition>(addAccredition);
     on<RemoveAccredition>(removeAccredition);
     on<AccreditationPickImage>(accreditationPickImage);
-    on<UpdationAccreditation>(updationAccreditation);
     on<AddSocialMedia>(addSocialMedia);
     on<RemoveSocialMedia>(removeSocialMedia);
     on<RemoveBusinessSocialMedia>(removeBusinessSocialMedia);
@@ -95,13 +96,17 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<GetCompnayList>(getCompnayList);
     on<GetCompnayDetails>(getCompnayDetails);
     on<RemoveBusinessData>(removeBusinessData);
+    on<RemoveAccreditonImage>(removeAccreditonImage);
     on<GetUserData>(getUserData);
     on<GetCurrentCard>(getCurrentCard);
     on<UploadLogo>(uploadLogo);
     on<Clear>(clear);
   }
 
-  FutureOr<void> updationAccreditation(UpdationAccreditation event, emit) {}
+  FutureOr<void> removeAccreditonImage(
+      RemoveAccreditonImage event, emit) async {
+    await cardPatchRepo.deleteAccoladesImage(id: event.id);
+  }
 
   FutureOr<void> accreditationPickImage(
       AccreditationPickImage event, emit) async {
@@ -795,18 +800,48 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       productAdded: false,
       socialMediaAdded: false,
     ));
-    final response = await cardPatchRepo.addProduct(product: event.product);
-    response.fold((l) => emit(state.copyWith(productLoading: false)), (r) {
-      if (r.image != null) {
-        imageList = r.image!;
+    if (event.edit) {
+      final images = event.product.image ??
+          <ImageCard>[].where((element) => element.id == null).toList();
+      if (images.isNotEmpty) {
+        cardPatchRepo.updateProductImages(
+            productImageAddingModel: ProductImageAddingModel(
+                productId: event.product.id, image: images));
       }
-      return emit(state.copyWith(
-        productAdded: true,
-        productLoading: false,
-        productImages: [],
-        products: [...state.products, r],
-      ));
-    });
+      final Product prod = Product(
+          id: event.product.id,
+          cardId: event.product.cardId,
+          description: event.product.description,
+          label: event.product.label,
+          enquiry: event.product.enquiry);
+      final response = await cardPatchRepo.updateProduct(
+          product: prod, id: event.product.id!);
+      response.fold((l) => emit(state.copyWith(productLoading: false)), (r) {
+        List<Product> prodctList = List.from(state.products);
+        final index =
+            prodctList.indexWhere((element) => element.id == event.product.id);
+        prodctList[index] = r;
+        return emit(state.copyWith(
+          productAdded: true,
+          productLoading: false,
+          productImages: [],
+          products: prodctList,
+        ));
+      });
+    } else {
+      final response = await cardPatchRepo.addProduct(product: event.product);
+      response.fold((l) => emit(state.copyWith(productLoading: false)), (r) {
+        if (r.image != null) {
+          imageList = r.image!;
+        }
+        return emit(state.copyWith(
+          productAdded: true,
+          productLoading: false,
+          productImages: [],
+          products: [...state.products, r],
+        ));
+      });
+    }
   }
 
   FutureOr<void> removeProduct(RemoveProduct event, emit) async {
@@ -865,14 +900,42 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       productAdded: false,
       socialMediaAdded: false,
     ));
-    final response =
-        await cardPatchRepo.addAcredition(accredition: event.accredition);
-    response.fold(
-        (l) => emit(state.copyWith(accreditionLoading: false)),
-        (r) => emit(state.copyWith(
-            accreditionLoading: false,
+    if (event.edit) {
+      final images = event.accredition.images ??
+          <ImageCard>[].where((element) => element.id == null).toList();
+      print('image update length ${images.length}');
+      if (images.isNotEmpty) {
+        await cardPatchRepo.uploadAccreditionImages(
+            accreditionImageAddingModel: AccreditionImageAddingModel(
+                accreditionId: event.accredition.id, image: images));
+      }
+      final result = await cardPatchRepo.updateAccredition(
+          accredition: Accredition(
+        label: event.accredition.label,
+        description: event.accredition.description,
+        date: event.accredition.date,
+        cardId: event.accredition.cardId,
+        id: event.accredition.id,
+      ));
+      result.fold((l) => emit(state.copyWith(accreditionLoading: false)), (r) {
+        List<Accredition> accreditation = List.from(state.accreditions);
+        final index = accreditation.indexWhere((element) => element.id == r.id);
+        accreditation[index] = r;
+        return emit(state.copyWith(
             accreditionAdded: true,
-            accreditions: [...state.accreditions, r])));
+            accreditionLoading: false,
+            accreditions: accreditation));
+      });
+    } else {
+      final response =
+          await cardPatchRepo.addAcredition(accredition: event.accredition);
+      response.fold(
+          (l) => emit(state.copyWith(accreditionLoading: false)),
+          (r) => emit(state.copyWith(
+              accreditionLoading: false,
+              accreditionAdded: true,
+              accreditions: [...state.accreditions, r])));
+    }
   }
 
   FutureOr<void> removeAccredition(RemoveAccredition event, emit) async {

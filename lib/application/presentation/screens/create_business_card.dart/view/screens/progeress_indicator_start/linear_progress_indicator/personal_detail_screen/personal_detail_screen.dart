@@ -15,6 +15,7 @@ import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,6 +60,23 @@ class PersonlDetails extends StatelessWidget {
                         BlocBuilder<UserDataBloc, UserDataState>(
                           builder: (context, state) {
                             return ImagePreviewUnderTextField(
+                                onItemTap: (item) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            SlidablePhotoGallery(
+                                          images: state.personalImges
+                                              .map((e) => e.image ?? '')
+                                              .toList(),
+                                          initialIndex: state.personalImges
+                                              .map((e) => e.image ?? '')
+                                              .toList()
+                                              .indexWhere(
+                                                  (element) => element == item),
+                                        ),
+                                      ));
+                                },
                                 removeItem: (index) =>
                                     showCustomConfirmationDialogue(
                                         context: context,

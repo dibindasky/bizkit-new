@@ -141,50 +141,52 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                 //       '',
                                 // ),
                                 adjustHieght(10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    OutlinedButton.icon(
-                                      style: OutlinedButton.styleFrom(
-                                          side: const BorderSide(
-                                              color: neonShade)),
-                                      onPressed: () async {
-                                        if (state.anotherCard != null &&
-                                            state.anotherCard!
-                                                    .businessDetails !=
-                                                null &&
-                                            state.anotherCard!.businessDetails!
-                                                    .websiteLink !=
-                                                null) {
-                                          await LaunchUrl.googleSearch(
-                                            url: state.anotherCard!
-                                                .businessDetails!.websiteLink!,
-                                          ).then(
-                                            (value) => Navigator.pop(context),
-                                          );
-                                        }
-                                      },
-                                      icon: const Icon(
-                                          Icons.open_in_browser_outlined),
-                                      label: const Text(
-                                        'View Website',
-                                        style: TextStyle(color: neonShade),
+                                FittedBox(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      OutlinedButton.icon(
+                                        style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                color: neonShade)),
+                                        onPressed: () async {
+                                          if (state.anotherCard != null &&
+                                              state.anotherCard!
+                                                      .businessDetails !=
+                                                  null &&
+                                              state.anotherCard!.businessDetails!
+                                                      .websiteLink !=
+                                                  null) {
+                                            await LaunchUrl.googleSearch(
+                                              url: state.anotherCard!
+                                                  .businessDetails!.websiteLink!,
+                                            ).then(
+                                              (value) => Navigator.pop(context),
+                                            );
+                                          }
+                                        },
+                                        icon: const Icon(
+                                            Icons.open_in_browser_outlined),
+                                        label: const Text(
+                                          'View Website',
+                                          style: TextStyle(color: neonShade),
+                                        ),
                                       ),
-                                    ),
-                                    adjustWidth(10),
-                                    OutlinedButton(
-                                      style: OutlinedButton.styleFrom(
-                                          side: const BorderSide(
-                                              color: neonShade)),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text(
-                                        'cancel',
-                                        style: TextStyle(color: neonShade),
+                                      adjustWidth(10),
+                                      OutlinedButton(
+                                        style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                color: neonShade)),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'cancel',
+                                          style: TextStyle(color: neonShade),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 )
                               ]
                             : [

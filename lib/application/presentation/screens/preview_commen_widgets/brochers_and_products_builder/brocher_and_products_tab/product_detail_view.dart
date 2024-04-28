@@ -64,15 +64,10 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                // if (widget.product.image != null)
                 SizedBox(height: khieght * .3,
                   child: PageView.builder(
-                    // separatorBuilder: (context, index) {
-                    //   return adjustHieght(20);
-                    // },
                     itemCount: widget.product.image!.length,
                     scrollDirection: Axis.horizontal,
-                    // shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Stack(

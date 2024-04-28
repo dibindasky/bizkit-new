@@ -46,6 +46,7 @@ class _CustomTabBarState extends State<CustomtabBar>
         decoration: const BoxDecoration(color: textFieldFillColr),
         child: TabBar(
           onTap: (value) {
+            FocusScope.of(context).unfocus();
             setState(() {
               _fadeController.forward(from: 0.5);
             });

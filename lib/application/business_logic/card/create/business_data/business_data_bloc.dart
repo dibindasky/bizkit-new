@@ -790,7 +790,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       final images = event.product.image ??
           <ImageCard>[].where((element) => element.id == null).toList();
       if (images.isNotEmpty) {
-        cardPatchRepo.updateProductImages(
+       await cardPatchRepo.updateProductImages(
             productImageAddingModel: ProductImageAddingModel(
                 productId: event.product.id, image: images));
       }

@@ -8,7 +8,6 @@ import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
-import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
     as card;
@@ -17,7 +16,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class CardShareMainScreen extends StatefulWidget {
@@ -683,11 +681,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {
-                                          Share.share(
-                                            'Check out this awesome content!',
-                                          );
-                                        },
+                                        onTap: () {},
                                         child: Container(
                                           decoration: BoxDecoration(
                                             borderRadius:

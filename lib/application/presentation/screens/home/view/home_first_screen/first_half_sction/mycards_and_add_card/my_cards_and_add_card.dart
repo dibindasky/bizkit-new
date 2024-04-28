@@ -82,15 +82,15 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                       return const SizedBox();
                     }
                     return GestureDetector(
-                      onTap: () => Navigator.of(context).push(
-                        fadePageRoute(
-                            const StartingBusinessCardCreation(fromHome: true)),
-                      ),
-                      // child: CustomShowCaseView(
-                      //   image: personImage,
-                      //   description: '',
-                      //   tittle: 'Create Business card from here',
-                      //   globalKey: globalKeyAddCard,
+                        onTap: () => Navigator.of(context).push(
+                              fadePageRoute(const StartingBusinessCardCreation(
+                                  fromHome: true)),
+                            ),
+                        // child: CustomShowCaseView(
+                        //   image: personImage,
+                        //   description: '',
+                        //   tittle: 'Create Business card from here',
+                        //   globalKey: globalKeyAddCard,
                         child: Container(
                           height: kwidth * 0.35,
                           decoration: BoxDecoration(
@@ -114,12 +114,11 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                                   'asset/images/home add circl.png',
                                 ),
                               ),
-                            ),
-                            Text('Add Card'),
-                          ],
-                        ),
-                      // ),
-                    );
+                              Text('Add Card'),
+                            ],
+                          ),
+                          // ),
+                        ));
                   },
                 ),
               ),

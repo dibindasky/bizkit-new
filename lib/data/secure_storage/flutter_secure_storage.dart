@@ -13,6 +13,7 @@ class SecureStorage {
   static const String hasCardKey = 'has_card';
   static const String hasReminderKey = 'has_reminder';
   static const String onboardSetBool = 'on_board';
+  static const String showCaseSetBool = 'show_case_widget';
 
   static Future<SharedPreferences> _getPrefs() async =>
       await SharedPreferences.getInstance();
@@ -135,5 +136,17 @@ class SecureStorage {
     final prefs = await _getPrefs();
     final role = prefs.getBool(hasReminderKey);
     return role ?? false;
+  }
+
+  // Show case function
+  static Future<void> setHomeShowCaseViwed() async {
+    final prefs = await _getPrefs();
+    prefs.setBool(showCaseSetBool, true);
+  }
+
+  static Future<bool> getHomeShowCaseViwed() async {
+    final prefs = await _getPrefs();
+    final viewed = prefs.getBool(showCaseSetBool);
+    return viewed ?? false;
   }
 }

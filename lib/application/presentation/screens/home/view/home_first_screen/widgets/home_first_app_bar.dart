@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
@@ -10,6 +13,7 @@ import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class HomeFirstAppBar extends StatefulWidget {
@@ -24,17 +28,28 @@ class HomeFirstAppBar extends StatefulWidget {
 class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
   bool isOPen = false;
 
-  final GlobalKey globalKeylevelSharingIcon = GlobalKey();
-  final GlobalKey globalKeynotificationIcon = GlobalKey();
-
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ShowCaseWidget.of(context).startShowCase([
-        globalKeynotificationIcon,
-        globalKeylevelSharingIcon,
-      ]);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   SharedPreferences.getInstance().then((prefs) {
+    //     setState(() {
+    //       log('$isShowcaseSeen');
+    //       isShowcaseSeen = prefs.getBool('isShowcaseSeen') ?? false;
+    //     });
+    //     if (!isShowcaseSeen) {
+    //       // If showcase view hasn't been seen, start showcase and mark it as seen
+    //       ShowCaseWidget.of(context).startShowCase([
+    //         globalKeynotificationIcon,
+    //         globalKeylevelSharingIcon,
+    //       ]);
+    //       prefs.setBool('isShowcaseSeen', true); // Save showcase seen status
+    //     }
+    //   });
+    //   // ShowCaseWidget.of(context).startShowCase([
+    //   //   globalKeynotificationIcon,
+    //   //   globalKeylevelSharingIcon,
+    //   // ]);
+    // });
     context
         .read<ProfileBloc>()
         .add(const ProfileEvent.getProfile(isLoad: true));
@@ -71,12 +86,12 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
               ],
             ),
           ),
-          // const Spacer(),
           GestureDetector(
             onTap: () {
               GoRouter.of(context).pushNamed(Routes.notificationPage);
             },
-            child: CustomShaowCaseView(
+            child: CustomShowCaseView(
+              image: personImage,
               globalKey: globalKeynotificationIcon,
               tittle: 'See notification',
               description: '',
@@ -94,7 +109,8 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
                 const CardSharingScreen(),
               ),
             ),
-            child: CustomShaowCaseView(
+            child: CustomShowCaseView(
+              image: personImage,
               globalKey: globalKeylevelSharingIcon,
               tittle: 'Share your card using QR code',
               description: '',

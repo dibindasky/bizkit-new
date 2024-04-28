@@ -93,8 +93,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     builder: (context, state) {
                       if (state.deleteCardLoading) {
                         return SizedBox(
-                            height: khieght * .4,
-                            child: const LoadingAnimation());
+                          height: khieght * .4,
+                          child: const LoadingAnimation(),
+                        );
                       } else if (state.cards.isEmpty) {
                         return SizedBox(
                           height: khieght * .4,
@@ -107,353 +108,299 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                       }
                       return SizedBox(
                         height: 340,
-                        child: CustomShaowCaseView(
-                          description: '',
-                          tittle: 'Default cards',
-                          globalKey: globalKeyShare,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: state.cards.length,
-                            separatorBuilder: (context, index) =>
-                                adjustWidth(kwidth * .05),
-                            itemBuilder: (context, index) {
-                              final card = state.cards[index];
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: textFieldFillColr,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                width: 300,
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        SizedBox(
-                                          width: 300,
-                                          height: 200,
-                                          child: InkWell(
-                                            onTap: () {
-                                              final Map<String, String> map =
-                                                  state.cards[index].id != null
-                                                      ? {
-                                                          'myCard': 'true',
-                                                          'cardId': state
-                                                              .cards[index].id!
-                                                              .toString()
-                                                        }
-                                                      : <String, String>{};
-                                              GoRouter.of(context).pushNamed(
-                                                Routes.cardDetailView,
-                                                pathParameters: map,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(25),
-                                                topRight: Radius.circular(20),
-                                              ),
-                                              child: card.logo == null
-                                                  ? Image.asset(
-                                                      imageBackgroundCard,
-                                                      fit: BoxFit.cover,
-                                                    )
-                                                  : Image.memory(
-                                                      base64.decode(card.logo!),
-                                                      fit: BoxFit.cover,
-                                                    ),
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.cards.length,
+                          separatorBuilder: (context, index) =>
+                              adjustWidth(kwidth * .05),
+                          itemBuilder: (context, index) {
+                            final card = state.cards[index];
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: textFieldFillColr,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              width: 300,
+                              child: Column(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      SizedBox(
+                                        width: 300,
+                                        height: 200,
+                                        child: InkWell(
+                                          onTap: () {
+                                            final Map<String, String> map =
+                                                state.cards[index].id != null
+                                                    ? {
+                                                        'myCard': 'true',
+                                                        'cardId': state
+                                                            .cards[index].id!
+                                                            .toString()
+                                                      }
+                                                    : <String, String>{};
+                                            GoRouter.of(context).pushNamed(
+                                              Routes.cardDetailView,
+                                              pathParameters: map,
+                                            );
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              topRight: Radius.circular(20),
                                             ),
+                                            child: card.logo == null
+                                                ? Image.asset(
+                                                    imageBackgroundCard,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.memory(
+                                                    base64.decode(card.logo!),
+                                                    fit: BoxFit.cover,
+                                                  ),
                                           ),
                                         ),
-                                        if (state.cards[index].isDefault!)
-                                          const Positioned(
-                                            right: 10,
-                                            bottom: 0,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(6)),
-                                              child: ColoredBox(
-                                                  color: neonShade,
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 8,
-                                                            vertical: 2),
-                                                    child: Text('Default'),
-                                                  )),
-                                            ),
+                                      ),
+                                      if (state.cards[index].isDefault!)
+                                        const Positioned(
+                                          right: 10,
+                                          bottom: 0,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(6)),
+                                            child: ColoredBox(
+                                                color: neonShade,
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 2),
+                                                  child: Text('Default'),
+                                                )),
                                           ),
-                                        if (!state.cards[index].isDefault!)
-                                          Positioned(
-                                            right: 10,
-                                            top: 10,
-                                            child: PopupMenuButton<String>(
-                                              icon: const Icon(
-                                                Icons.more_vert,
-                                                size: 32,
-                                                color: kblack,
-                                              ),
-                                              onSelected: (value) {},
-                                              itemBuilder: (context) {
-                                                List<PopupMenuEntry<String>>
-                                                    items = [];
+                                        ),
+                                      if (!state.cards[index].isDefault!)
+                                        Positioned(
+                                          right: 10,
+                                          top: 10,
+                                          child: PopupMenuButton<String>(
+                                            icon: const Icon(
+                                              Icons.more_vert,
+                                              size: 32,
+                                              color: kblack,
+                                            ),
+                                            onSelected: (value) {},
+                                            itemBuilder: (context) {
+                                              List<PopupMenuEntry<String>>
+                                                  items = [];
 
-                                                items.add(
-                                                  PopupMenuItem(
-                                                    onTap: () => context
-                                                        .read<CardBloc>()
-                                                        .add(CardEvent
-                                                            .setDefault(
-                                                                id: card.id!)),
-                                                    value: 'Default',
-                                                    child: const Text(
-                                                        'Set as default'),
-                                                  ),
-                                                );
-                                                items.addAll([
-                                                  PopupMenuItem(
-                                                    onTap: () {
-                                                      showConfirmationDialog(
-                                                        actionButton: 'Archive',
-                                                        heading:
-                                                            'Are you sure you want to archive your card',
-                                                        context,
-                                                        onPressed: () {
-                                                          CardActionRequestModel
-                                                              cardActionRewuestModel =
-                                                              CardActionRequestModel(
-                                                                  isActive:
-                                                                      false,
-                                                                  isArchived:
-                                                                      true);
-                                                          context
-                                                              .read<CardBloc>()
-                                                              .add(CardEvent
-                                                                  .cardArchive(
-                                                                cardActionRequestModel:
-                                                                    cardActionRewuestModel,
-                                                                id: card.id!,
-                                                              ));
-                                                        },
-                                                      );
-                                                    },
-                                                    value: 'Archive',
-                                                    child:
-                                                        const Text('Archive'),
-                                                  ),
-                                                  PopupMenuItem(
-                                                    onTap: () =>
-                                                        showConfirmationDialog(
+                                              items.add(
+                                                PopupMenuItem(
+                                                  onTap: () => context
+                                                      .read<CardBloc>()
+                                                      .add(CardEvent.setDefault(
+                                                          id: card.id!)),
+                                                  value: 'Default',
+                                                  child: const Text(
+                                                      'Set as default'),
+                                                ),
+                                              );
+                                              items.addAll([
+                                                PopupMenuItem(
+                                                  onTap: () {
+                                                    showConfirmationDialog(
+                                                      actionButton: 'Archive',
                                                       heading:
-                                                          'Are you sure you want to delete your card',
+                                                          'Are you sure you want to archive your card',
                                                       context,
                                                       onPressed: () {
                                                         CardActionRequestModel
                                                             cardActionRewuestModel =
                                                             CardActionRequestModel(
-                                                                isActive:
-                                                                    false);
-                                                        context.read<CardBloc>().add(
-                                                            CardEvent.cardDelete(
-                                                                cardActionRequestModel:
-                                                                    cardActionRewuestModel,
-                                                                id: card.id!));
+                                                                isActive: false,
+                                                                isArchived:
+                                                                    true);
+                                                        context
+                                                            .read<CardBloc>()
+                                                            .add(CardEvent
+                                                                .cardArchive(
+                                                              cardActionRequestModel:
+                                                                  cardActionRewuestModel,
+                                                              id: card.id!,
+                                                            ));
                                                       },
-                                                    ),
-                                                    value: 'Delete Card',
-                                                    child: const Text(
-                                                        'Delete Card'),
+                                                    );
+                                                  },
+                                                  value: 'Archive',
+                                                  child: const Text('Archive'),
+                                                ),
+                                                PopupMenuItem(
+                                                  onTap: () =>
+                                                      showConfirmationDialog(
+                                                    heading:
+                                                        'Are you sure you want to delete your card',
+                                                    context,
+                                                    onPressed: () {
+                                                      CardActionRequestModel
+                                                          cardActionRewuestModel =
+                                                          CardActionRequestModel(
+                                                              isActive: false);
+                                                      context.read<CardBloc>().add(
+                                                          CardEvent.cardDelete(
+                                                              cardActionRequestModel:
+                                                                  cardActionRewuestModel,
+                                                              id: card.id!));
+                                                    },
                                                   ),
-                                                ]);
-                                                return items;
-                                              },
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                    adjustHieght(khieght * .02),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            '${state.cards[index].name ?? ''}\n${state.cards[index].designation}',
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                        CustomShaowCaseView(
-                                          globalKey: globalKeyShare,
-                                          tittle:
-                                              'Get start to share your card',
-                                          description: '',
-                                          child: InkWell(
-                                            onTap: () =>
-                                                bottomSheet(context, card),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: kblue,
-                                              ),
-                                              width: 100,
-                                              height: 30,
-                                              child: Center(
-                                                child: Text('Share',
-                                                    style: textStyle1),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    adjustHieght(khieght * .02),
-                                    Row(
-                                      children: [
-                                        adjustWidth(kwidth * .02),
-                                        Expanded(
-                                          child: InkWell(
-                                            onTap: () {
-                                              context.read<CardBloc>().add(
-                                                  CardEvent.getCardViews(
-                                                      id: card.id!));
-                                              showModalBottomSheet(
-                                                context: context,
-                                                enableDrag: true,
-                                                isDismissible: true,
-                                                showDragHandle: true,
-                                                backgroundColor: kblack,
-                                                builder: (context) {
-                                                  return Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 20),
-                                                    child: BlocBuilder<CardBloc,
-                                                        CardState>(
-                                                      builder:
-                                                          (context, state) {
-                                                        if (state
-                                                            .viewsLoading) {
-                                                          return const Center(
-                                                            child:
-                                                                CircularProgressIndicator(),
-                                                          );
-                                                        } else if (state
-                                                                    .cardViewList !=
-                                                                null &&
-                                                            state.cardViewList!
-                                                                .isNotEmpty) {
-                                                          return ListView
-                                                              .builder(
-                                                            itemCount: state
-                                                                .cardViewList!
-                                                                .length,
-                                                            itemBuilder:
-                                                                (context,
-                                                                    index) {
-                                                              final data = state
-                                                                  .cardViewList![
-                                                                      index]
-                                                                  .profile;
-                                                              return Container(
-                                                                decoration:
-                                                                    const BoxDecoration(
-                                                                  color:
-                                                                      smallBigGrey,
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              10)),
-                                                                ),
-                                                                child: ListTile(
-                                                                  leading:
-                                                                      const CircleAvatar(
-                                                                    backgroundColor:
-                                                                        kgrey,
-                                                                    child: Icon(
-                                                                        Icons
-                                                                            .person),
-                                                                  ),
-                                                                  title: Text(
-                                                                      data?.name ??
-                                                                          ''),
-                                                                ),
-                                                              );
-                                                            },
-                                                          );
-                                                        } else {
-                                                          return const Center(
-                                                            child: Text(
-                                                                'No views'),
-                                                          );
-                                                        }
-                                                      },
-                                                    ),
-                                                  );
-                                                },
-                                              );
+                                                  value: 'Delete Card',
+                                                  child:
+                                                      const Text('Delete Card'),
+                                                ),
+                                              ]);
+                                              return items;
                                             },
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                border:
-                                                    Border.all(color: kwhite),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  adjustWidth(kwidth * .01),
-                                                  const Icon(
-                                                    Icons.remove_red_eye,
-                                                    size: 19,
-                                                    color: kwhite,
-                                                  ),
-                                                  adjustWidth(kwidth * .01),
-                                                  Text(
-                                                    state.cards[index].views
-                                                        .toString(),
-                                                  ),
-                                                  adjustWidth(kwidth * .01),
-                                                  const Expanded(
-                                                    child: Text('views',
-                                                        overflow: TextOverflow
-                                                            .ellipsis),
-                                                  ),
-                                                  adjustWidth(kwidth * .01),
-                                                ],
-                                              ),
-                                            ),
                                           ),
                                         ),
-                                        adjustWidth(kwidth * .04),
-                                        Expanded(
+                                    ],
+                                  ),
+                                  adjustHieght(khieght * .02),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          '${state.cards[index].name ?? ''}\n${state.cards[index].designation}',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () => bottomSheet(context, card),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: kblue,
+                                          ),
+                                          width: 100,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text('Share',
+                                                style: textStyle1),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  adjustHieght(khieght * .02),
+                                  Row(
+                                    children: [
+                                      adjustWidth(kwidth * .02),
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            context.read<CardBloc>().add(
+                                                CardEvent.getCardViews(
+                                                    id: card.id!));
+                                            showModalBottomSheet(
+                                              context: context,
+                                              enableDrag: true,
+                                              isDismissible: true,
+                                              showDragHandle: true,
+                                              backgroundColor: kblack,
+                                              builder: (context) {
+                                                return Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 20),
+                                                  child: BlocBuilder<CardBloc,
+                                                      CardState>(
+                                                    builder: (context, state) {
+                                                      if (state.viewsLoading) {
+                                                        return const Center(
+                                                          child:
+                                                              CircularProgressIndicator(),
+                                                        );
+                                                      } else if (state
+                                                                  .cardViewList !=
+                                                              null &&
+                                                          state.cardViewList!
+                                                              .isNotEmpty) {
+                                                        return ListView.builder(
+                                                          itemCount: state
+                                                              .cardViewList!
+                                                              .length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            final data = state
+                                                                .cardViewList![
+                                                                    index]
+                                                                .profile;
+                                                            return Container(
+                                                              decoration:
+                                                                  const BoxDecoration(
+                                                                color:
+                                                                    smallBigGrey,
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            10)),
+                                                              ),
+                                                              child: ListTile(
+                                                                leading:
+                                                                    const CircleAvatar(
+                                                                  backgroundColor:
+                                                                      kgrey,
+                                                                  child: Icon(Icons
+                                                                      .person),
+                                                                ),
+                                                                title: Text(
+                                                                    data?.name ??
+                                                                        ''),
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      } else {
+                                                        return const Center(
+                                                          child:
+                                                              Text('No views'),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          },
                                           child: Container(
                                             height: 50,
                                             decoration: BoxDecoration(
                                               border: Border.all(color: kwhite),
                                             ),
                                             child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 adjustWidth(kwidth * .01),
                                                 const Icon(
-                                                  Icons.share,
-                                                  color: kwhite,
+                                                  Icons.remove_red_eye,
                                                   size: 19,
+                                                  color: kwhite,
                                                 ),
                                                 adjustWidth(kwidth * .01),
                                                 Text(
-                                                  state.cards[index].share
+                                                  state.cards[index].views
                                                       .toString(),
                                                 ),
                                                 adjustWidth(kwidth * .01),
                                                 const Expanded(
-                                                  child: Text('share',
+                                                  child: Text('views',
                                                       overflow: TextOverflow
                                                           .ellipsis),
                                                 ),
@@ -462,14 +409,45 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             ),
                                           ),
                                         ),
-                                        adjustWidth(kwidth * .02),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                                      ),
+                                      adjustWidth(kwidth * .04),
+                                      Expanded(
+                                        child: Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: kwhite),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              adjustWidth(kwidth * .01),
+                                              const Icon(
+                                                Icons.share,
+                                                color: kwhite,
+                                                size: 19,
+                                              ),
+                                              adjustWidth(kwidth * .01),
+                                              Text(
+                                                state.cards[index].share
+                                                    .toString(),
+                                              ),
+                                              adjustWidth(kwidth * .01),
+                                              const Expanded(
+                                                child: Text('share',
+                                                    overflow:
+                                                        TextOverflow.ellipsis),
+                                              ),
+                                              adjustWidth(kwidth * .01),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      adjustWidth(kwidth * .02),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
                       );
                     },
@@ -511,229 +489,205 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                       }
                       return SizedBox(
                         height: 290,
-                        child: CustomShaowCaseView(
-                          description: '',
-                          tittle: 'Visiting cards',
-                          globalKey: globalKeyVisitingCard,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: (state.secondCards.length) +
-                                (state.secondCardEventLoading ? 1 : 0),
-                            separatorBuilder: (context, index) =>
-                                adjustWidth(kwidth * .05),
-                            itemBuilder: (context, index) {
-                              if (state.secondCardEventLoading &&
-                                  index == state.secondCards.length) {
-                                return const LoadingAnimation();
-                              }
-                              final seconsdCard = state.secondCards[index];
-                              String selfirBase64 = '';
-                              String scanImageBase64 = '';
-                              if (seconsdCard.image != null &&
-                                  seconsdCard.image!.isNotEmpty) {
-                                scanImageBase64 = seconsdCard.image!;
-                                scanImageBase64 =
-                                    scanImageBase64.startsWith('data')
-                                        ? scanImageBase64.substring(22)
-                                        : scanImageBase64;
-                              }
-                              if (seconsdCard.selfie != null &&
-                                  seconsdCard.image!.isNotEmpty) {
-                                selfirBase64 = seconsdCard.selfie!
-                                    .map((e) => e.selfie)
-                                    .toString();
-                                selfirBase64 = selfirBase64.startsWith('data')
-                                    ? selfirBase64.substring(22)
-                                    : selfirBase64;
-                              }
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: textFieldFillColr,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                width: 300,
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        SizedBox(
-                                          width: 300,
-                                          height: 200,
-                                          child: InkWell(
-                                            onTap: () {
-                                              Map<String, String> map = state
-                                                          .secondCards[index]
-                                                          .id !=
-                                                      null
-                                                  ? {
-                                                      'cardId': state
-                                                          .secondCards[index]
-                                                          .id!
-                                                          .toString()
-                                                    }
-                                                  : <String, String>{};
-                                              GoRouter.of(context).pushNamed(
-                                                Routes.secondcardDetail,
-                                                pathParameters: map,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(25),
-                                                topRight: Radius.circular(20),
-                                              ),
-                                              child:
-                                                  seconsdCard.selfie == null ||
-                                                          seconsdCard.selfie!
-                                                              .isEmpty ||
-                                                          seconsdCard.image ==
-                                                              null ||
-                                                          seconsdCard
-                                                              .image!.isEmpty
-                                                      ? Image.network(
-                                                          imageDummyNetwork,
-                                                          fit: BoxFit.cover,
-                                                          errorBuilder:
-                                                              (context, error,
-                                                                  stackTrace) {
-                                                            return const Icon(
-                                                              Icons
-                                                                  .image_not_supported_outlined,
-                                                            );
-                                                          },
-                                                        )
-                                                      : scanImageBase64 != '' ||
-                                                              selfirBase64 != ''
-                                                          ? Image.memory(
-                                                              base64Decode(
-                                                                  scanImageBase64),
-                                                              fit: BoxFit.cover,
-                                                              errorBuilder:
-                                                                  (context,
-                                                                      error,
-                                                                      stackTrace) {
-                                                                return const Icon(
-                                                                  Icons
-                                                                      .image_not_supported_outlined,
-                                                                );
-                                                              },
-                                                            )
-                                                          : Image.network(
-                                                              imageDummyNetwork,
-                                                              fit: BoxFit.cover,
-                                                              errorBuilder:
-                                                                  (context,
-                                                                      error,
-                                                                      stackTrace) {
-                                                                return const Icon(
-                                                                  Icons
-                                                                      .image_not_supported_outlined,
-                                                                );
-                                                              },
-                                                            ),
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: (state.secondCards.length) +
+                              (state.secondCardEventLoading ? 1 : 0),
+                          separatorBuilder: (context, index) =>
+                              adjustWidth(kwidth * .05),
+                          itemBuilder: (context, index) {
+                            if (state.secondCardEventLoading &&
+                                index == state.secondCards.length) {
+                              return const LoadingAnimation();
+                            }
+                            final seconsdCard = state.secondCards[index];
+                            String selfirBase64 = '';
+                            String scanImageBase64 = '';
+                            if (seconsdCard.image != null &&
+                                seconsdCard.image!.isNotEmpty) {
+                              scanImageBase64 = seconsdCard.image!;
+                              scanImageBase64 =
+                                  scanImageBase64.startsWith('data')
+                                      ? scanImageBase64.substring(22)
+                                      : scanImageBase64;
+                            }
+                            if (seconsdCard.selfie != null &&
+                                seconsdCard.image!.isNotEmpty) {
+                              selfirBase64 = seconsdCard.selfie!
+                                  .map((e) => e.selfie)
+                                  .toString();
+                              selfirBase64 = selfirBase64.startsWith('data')
+                                  ? selfirBase64.substring(22)
+                                  : selfirBase64;
+                            }
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: textFieldFillColr,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              width: 300,
+                              child: Column(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      SizedBox(
+                                        width: 300,
+                                        height: 200,
+                                        child: InkWell(
+                                          onTap: () {
+                                            Map<String, String> map =
+                                                state.secondCards[index].id !=
+                                                        null
+                                                    ? {
+                                                        'cardId': state
+                                                            .secondCards[index]
+                                                            .id!
+                                                            .toString()
+                                                      }
+                                                    : <String, String>{};
+                                            GoRouter.of(context).pushNamed(
+                                              Routes.secondcardDetail,
+                                              pathParameters: map,
+                                            );
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              topRight: Radius.circular(20),
                                             ),
+                                            child: seconsdCard.selfie == null ||
+                                                    seconsdCard
+                                                        .selfie!.isEmpty ||
+                                                    seconsdCard.image == null ||
+                                                    seconsdCard.image!.isEmpty
+                                                ? Image.network(
+                                                    imageDummyNetwork,
+                                                    fit: BoxFit.cover,
+                                                    errorBuilder: (context,
+                                                        error, stackTrace) {
+                                                      return const Icon(
+                                                        Icons
+                                                            .image_not_supported_outlined,
+                                                      );
+                                                    },
+                                                  )
+                                                : scanImageBase64 != '' ||
+                                                        selfirBase64 != ''
+                                                    ? Image.memory(
+                                                        base64Decode(
+                                                            scanImageBase64),
+                                                        fit: BoxFit.cover,
+                                                        errorBuilder: (context,
+                                                            error, stackTrace) {
+                                                          return const Icon(
+                                                            Icons
+                                                                .image_not_supported_outlined,
+                                                          );
+                                                        },
+                                                      )
+                                                    : Image.network(
+                                                        imageDummyNetwork,
+                                                        fit: BoxFit.cover,
+                                                        errorBuilder: (context,
+                                                            error, stackTrace) {
+                                                          return const Icon(
+                                                            Icons
+                                                                .image_not_supported_outlined,
+                                                          );
+                                                        },
+                                                      ),
                                           ),
                                         ),
-                                        Positioned(
-                                          right: 0,
-                                          top: 10,
-                                          child: PopupMenuButton<String>(
-                                            padding: const EdgeInsets.all(0),
-                                            icon: const Icon(
-                                              Icons.more_vert,
-                                              size: 32,
-                                              color: kblack,
-                                            ),
-                                            itemBuilder: (context) {
-                                              List<PopupMenuEntry<String>>
-                                                  items = [
-                                                PopupMenuItem(
-                                                  onTap: () {},
-                                                  value: 'Share card',
-                                                  child:
-                                                      const Text('Share card'),
-                                                ),
-                                                PopupMenuItem(
-                                                  onTap: () {
+                                      ),
+                                      Positioned(
+                                        right: 0,
+                                        top: 10,
+                                        child: PopupMenuButton<String>(
+                                          padding: const EdgeInsets.all(0),
+                                          icon: const Icon(
+                                            Icons.more_vert,
+                                            size: 32,
+                                            color: kblack,
+                                          ),
+                                          itemBuilder: (context) {
+                                            List<PopupMenuEntry<String>> items =
+                                                [
+                                              PopupMenuItem(
+                                                onTap: () {
+                                                  context
+                                                      .read<CardSecondBloc>()
+                                                      .add(const CardSecondEvent
+                                                          .imageClear());
+                                                  GoRouter.of(context)
+                                                      .pushNamed(
+                                                    Routes.cardUpdating,
+                                                    extra: state
+                                                        .secondCards[index],
+                                                  );
+                                                },
+                                                value: 'Edit Card',
+                                                child: const Text('Edit Card'),
+                                              ),
+                                            ];
+                                            items.addAll([
+                                              PopupMenuItem(
+                                                onTap: () =>
+                                                    showConfirmationDialog(
+                                                  heading:
+                                                      'Are you sure you want to delete your card',
+                                                  context,
+                                                  onPressed: () {
+                                                    CardActionRequestModel
+                                                        cardActionRewuestModel =
+                                                        CardActionRequestModel(
+                                                      isActive: false,
+                                                    );
                                                     context
                                                         .read<CardSecondBloc>()
                                                         .add(
-                                                            const CardSecondEvent
-                                                                .imageClear());
-                                                    GoRouter.of(context)
-                                                        .pushNamed(
-                                                      Routes.cardUpdating,
-                                                      extra: state
-                                                          .secondCards[index],
-                                                    );
+                                                          CardSecondEvent
+                                                              .deleteCardSecond(
+                                                            cardActionRewuestModel:
+                                                                cardActionRewuestModel,
+                                                            id: seconsdCard.id!,
+                                                          ),
+                                                        );
                                                   },
-                                                  value: 'Edit Card',
-                                                  child:
-                                                      const Text('Edit Card'),
                                                 ),
-                                              ];
-                                              items.addAll([
-                                                PopupMenuItem(
-                                                  onTap: () =>
-                                                      showConfirmationDialog(
-                                                    heading:
-                                                        'Are you sure you want to delete your card',
-                                                    context,
-                                                    onPressed: () {
-                                                      CardActionRequestModel
-                                                          cardActionRewuestModel =
-                                                          CardActionRequestModel(
-                                                        isActive: false,
-                                                      );
-                                                      context
-                                                          .read<
-                                                              CardSecondBloc>()
-                                                          .add(
-                                                            CardSecondEvent
-                                                                .deleteCardSecond(
-                                                              cardActionRewuestModel:
-                                                                  cardActionRewuestModel,
-                                                              id: seconsdCard
-                                                                  .id!,
-                                                            ),
-                                                          );
-                                                    },
-                                                  ),
-                                                  value: 'Delete Card',
-                                                  child:
-                                                      const Text('Delete Card'),
-                                                ),
-                                              ]);
-                                              return items;
-                                            },
+                                                value: 'Delete Card',
+                                                child:
+                                                    const Text('Delete Card'),
+                                              ),
+                                            ]);
+                                            return items;
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  adjustHieght(khieght * .02),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          '${state.secondCards[index].name ?? ''}\n${state.secondCards[index].company}',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w700,
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    adjustHieght(khieght * .02),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            '${state.secondCards[index].name ?? ''}\n${state.secondCards[index].company}',
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    adjustHieght(khieght * .02),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                                      ),
+                                    ],
+                                  ),
+                                  adjustHieght(khieght * .02),
+                                ],
+                              ),
+                            );
+                          },
                         ),
                       );
                     },

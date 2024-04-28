@@ -5,6 +5,7 @@ import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
@@ -23,10 +24,8 @@ class MyCardsAndAddCardSection extends StatefulWidget {
 }
 
 class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
-  final GlobalKey globalKeyAddCard = GlobalKey();
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
     super.initState();
   }
 
@@ -87,7 +86,8 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                         fadePageRoute(
                             const StartingBusinessCardCreation(fromHome: true)),
                       ),
-                      child: CustomShaowCaseView(
+                      child: CustomShowCaseView(
+                        image: personImage,
                         description: '',
                         tittle: 'Create Business card from here',
                         globalKey: globalKeyAddCard,

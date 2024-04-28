@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_first_app_bar.dart';
@@ -8,6 +10,8 @@ import 'package:bizkit/application/presentation/screens/home/view/home_second_sc
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 // enum and notifier below are used to shift the screens in home page without shifting home bottom bar
 enum HomeScreensList {
@@ -15,6 +19,11 @@ enum HomeScreensList {
   second,
   third,
 }
+
+final GlobalKey globalKeyAddCard = GlobalKey();
+final GlobalKey globalKeylevelSharingIcon = GlobalKey();
+final GlobalKey globalKeynotificationIcon = GlobalKey();
+final GlobalKey globalKeyaddConnections = GlobalKey();
 
 ValueNotifier<HomeScreensList> showCardsNotifier =
     ValueNotifier(HomeScreensList.first);
@@ -49,10 +58,32 @@ class _HomeScreenFirstAnimationScreenState
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation2;
   late Animation<Offset> _slideAnimation2Move;
-
+  bool isShowcaseSeen = false;
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      SharedPreferences.getInstance().then((prefs) {
+        setState(() {
+          log('$isShowcaseSeen');
+          isShowcaseSeen = prefs.getBool('isShowcaseSeen') ?? false;
+        });
+        if (!isShowcaseSeen) {
+          // If showcase view hasn't been seen, start showcase and mark it as seen
+          ShowCaseWidget.of(context).startShowCase([
+            globalKeynotificationIcon,
+            globalKeylevelSharingIcon,
+            globalKeyAddCard,
+          ]);
+          prefs.setBool('isShowcaseSeen', true); // Save showcase seen status
+        }
+      });
+      // ShowCaseWidget.of(context).startShowCase([
+      //   globalKeynotificationIcon,
+      //   globalKeylevelSharingIcon,
+      // ]);
+    });
 
     homeFirstAnimationController = AnimationController(
       vsync: this,

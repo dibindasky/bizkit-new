@@ -255,8 +255,10 @@ class _LoGInScreenState extends State<LoGInScreen>
                         ),
                         adjustWidth(10),
                         InkWell(
-                          onTap: () =>
-                              GoRouter.of(context).pushNamed(Routes.signUpPage),
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            GoRouter.of(context).pushNamed(Routes.signUpPage);
+                          },
                           child: Text(
                             'Sign Up',
                             style: TextStyle(

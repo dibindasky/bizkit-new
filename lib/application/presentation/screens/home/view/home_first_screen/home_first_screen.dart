@@ -10,6 +10,7 @@ import 'package:bizkit/application/presentation/screens/home/view/home_first_scr
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/second_half_section/home_screen_second_part.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
@@ -158,9 +159,11 @@ class _HomeScreenFirstAnimationScreenState
         controller: refreshController,
         header: const WaterDropHeader(),
         enablePullDown: true,
-        enablePullUp: true,
+        cacheExtent: 0,dragStartBehavior: DragStartBehavior.start,
+        enableTwoLevel: false,
+        // enablePullUp: true,
         onLoading: () async {
-          await Future.delayed(const Duration(seconds: 3));
+          await Future.delayed(const Duration(milliseconds: 300));
           refreshController.loadComplete();
         },
         onRefresh: () async {
@@ -170,7 +173,7 @@ class _HomeScreenFirstAnimationScreenState
           context
               .read<ReminderBloc>()
               .add(const ReminderEvent.getAllRemindersEvent());
-          await Future.delayed(const Duration(seconds: 3));
+          await Future.delayed(const Duration(milliseconds: 300));
           refreshController.refreshCompleted();
         },
         child: SafeArea(

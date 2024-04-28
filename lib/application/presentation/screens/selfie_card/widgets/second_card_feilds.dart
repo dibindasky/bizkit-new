@@ -468,7 +468,8 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                                             .add(CardSecondEvent
                                                                 .selfieimageClear(
                                                                     index:
-                                                                        index));
+                                                                        index -
+                                                                            1));
                                                       },
                                                     );
                                                   },
@@ -508,10 +509,10 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                           BlocBuilder<CardSecondBloc, CardSecondState>(
                             builder: (context, state) {
                               return TTextFormField(
+                                maxLines: 2,
                                 suffix: state.locationFetchLoading
-                                    ? const SizedBox(
-                                        width: 10,
-                                        height: 10,
+                                    ? const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: CircularProgressIndicator(
                                           color: neonShade,
                                         ),

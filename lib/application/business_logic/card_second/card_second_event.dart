@@ -34,7 +34,7 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.getAllCardsSecond({required bool isLoad}) =
       GetAllCardsSecond;
   const factory CardSecondEvent.updateCardSecond({
-    required SecondCard secondCard,
+    required SecondCardNew secondCard,
     required String id,
   }) = UpdateCardSecond;
   const factory CardSecondEvent.deleteCardSecond({

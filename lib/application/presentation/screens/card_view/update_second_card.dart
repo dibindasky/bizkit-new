@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
-import 'package:bizkit/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
@@ -52,7 +50,9 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
           base64imagecard!.replaceFirst(RegExp(r'data:image/jpg;base64,'), '');
     }
     if (widget.secondCard.selfie != null) {
+      log('id ${widget.secondCard.selfie?.length}', name: 'sefie image legth');
       imageList = widget.secondCard.selfie ?? <ImageCard>[];
+      log('${imageList}', name: 'imageList  legth');
     }
     context.read<CardSecondBloc>().updateEmailController.text =
         widget.secondCard.email ?? '';
@@ -76,7 +76,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
         widget.secondCard.name ?? '';
     context.read<CardSecondBloc>().updateCompanyController.text =
         widget.secondCard.company ?? '';
-    log('id ${widget.secondCard.id}');
+
     super.initState();
     log('${selfieBase64List.length}', name: 'selfieBase64List');
   }
@@ -300,28 +300,8 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                 ),
                               ),
                     adjustHieght(20),
-                    imageList.isNotEmpty
-                        ? const Text('Selfie Image')
-                        : const SizedBox(),
+                    imageList.isNotEmpty ? const Text('Selfie Image') : kempty,
                     adjustHieght(20),
-
-                    // ContainerPickImage(
-                    //     onPressedGallery: () =>
-                    //         context.read<CardSecondBloc>().add(
-                    //               const CardSecondEvent.selfieImage(
-                    //                 isCam: false,
-                    //                 cameraDeviceFront: false,
-                    //               ),
-                    //             ),
-                    //     onPressedCam: () =>
-                    //         context.read<CardSecondBloc>().add(
-                    //               const CardSecondEvent.selfieImage(
-                    //                 isCam: true,
-                    //                 cameraDeviceFront: true,
-                    //               ),
-                    //             ),
-                    //     heading: 'Take Selfie',
-                    //   )
                     Stack(
                       children: [
                         SizedBox(
@@ -334,6 +314,9 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             itemCount: imageList.length,
                             itemBuilder: (context, index) {
                               final imageSelfie = imageList[index];
+                              if (imageSelfie.image == null) {
+                                return kempty;
+                              }
                               return Stack(
                                 children: [
                                   InkWell(
@@ -441,41 +424,6 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             ),
                           ),
                         )
-                        // Positioned(
-                        //   right: 10,
-                        //   bottom: 10,
-                        //   child: ClipRRect(
-                        //     borderRadius: BorderRadius.circular(15),
-                        //     child: ColoredBox(
-                        //       color: neonShade,
-                        //       child: IconButton(
-                        //         onPressed: () {
-                        //           cameraAndGalleryPickImage(
-                        //             context: context,
-                        //             onPressCam: () {
-                        //               context.read<CardSecondBloc>().add(
-                        //                   const CardSecondEvent.selfieImage(
-                        //                       cameraDeviceFront: false,
-                        //                       isCam: true));
-                        //             },
-                        //             onPressGallery: () {
-                        //               context.read<CardSecondBloc>().add(
-                        //                       const CardSecondEvent.selfieImage(
-                        //                     cameraDeviceFront: false,
-                        //                     isCam: false,
-                        //                   ));
-                        //             },
-                        //           );
-                        //         },
-                        //         icon: const Icon(
-                        //           size: 30,
-                        //           color: kwhite,
-                        //           Icons.add,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                     Form(
@@ -574,57 +522,59 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                         .cardUpdateKey
                                         .currentState!
                                         .validate()) {
-                                      List<Selfie>? image = [];
-
-                                      SecondCard secondCard = SecondCard(
-                                          whereWeMet: context
-                                              .read<CardSecondBloc>()
-                                              .updateoccationController
-                                              .text,
-                                          designation: context
-                                              .read<CardSecondBloc>()
-                                              .updatedesignationController
-                                              .text,
-                                          email: context
-                                              .read<CardSecondBloc>()
-                                              .updateEmailController
-                                              .text,
-                                          location: context
-                                              .read<CardSecondBloc>()
-                                              .updatelocatioNController
-                                              .text,
-                                          notes: context
-                                              .read<CardSecondBloc>()
-                                              .updatenotesController
-                                              .text,
-                                          occupation: context
-                                              .read<CardSecondBloc>()
-                                              .updateoccupationController
-                                              .text,
-                                          phoneNumber: context
-                                              .read<CardSecondBloc>()
-                                              .updatephoneController
-                                              .text,
-                                          website: context
-                                              .read<CardSecondBloc>()
-                                              .updatewebSiteController
-                                              .text,
-                                          image: state.scannedImagesSecondCardCreation
-                                                  .isNotEmpty
-                                              ? state
-                                                  .scannedImagesSecondCardCreation
-                                                  .last
-                                                  .base64
-                                              : widget.secondCard.image!,
-                                          company: context
-                                              .read<CardSecondBloc>()
-                                              .updateCompanyController
-                                              .text,
-                                          name: context
-                                              .read<CardSecondBloc>()
-                                              .updateNameController
-                                              .text,
-                                          selfie: []);
+                                      SecondCardNew secondCard = SecondCardNew(
+                                        id: widget.secondCard.id,
+                                        whereWeMet: context
+                                            .read<CardSecondBloc>()
+                                            .updateoccationController
+                                            .text,
+                                        designation: context
+                                            .read<CardSecondBloc>()
+                                            .updatedesignationController
+                                            .text,
+                                        email: context
+                                            .read<CardSecondBloc>()
+                                            .updateEmailController
+                                            .text,
+                                        location: context
+                                            .read<CardSecondBloc>()
+                                            .updatelocatioNController
+                                            .text,
+                                        notes: context
+                                            .read<CardSecondBloc>()
+                                            .updatenotesController
+                                            .text,
+                                        occupation: context
+                                            .read<CardSecondBloc>()
+                                            .updateoccupationController
+                                            .text,
+                                        phoneNumber: context
+                                            .read<CardSecondBloc>()
+                                            .updatephoneController
+                                            .text,
+                                        website: context
+                                            .read<CardSecondBloc>()
+                                            .updatewebSiteController
+                                            .text,
+                                        image: state.scannedImagesSecondCardCreation
+                                                .isNotEmpty
+                                            ? state
+                                                .scannedImagesSecondCardCreation
+                                                .last
+                                                .base64
+                                            : widget.secondCard.image!,
+                                        company: context
+                                            .read<CardSecondBloc>()
+                                            .updateCompanyController
+                                            .text,
+                                        name: context
+                                            .read<CardSecondBloc>()
+                                            .updateNameController
+                                            .text,
+                                        selfie: widget.secondCard.id == null
+                                            ? imageList
+                                            : newImageList,
+                                      );
                                       context.read<CardSecondBloc>().add(
                                             CardSecondEvent.updateCardSecond(
                                               secondCard: secondCard,

@@ -16,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class CardShareMainScreen extends StatefulWidget {
@@ -681,7 +682,10 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {},
+                                        onTap: () async {
+                                          await Share.share(
+                                              'https://www.google.com/url?sa=i&url=https%3A%2F%2Fbuffer.com%2Flibrary%2Ffree-images%2F&psig=AOvVaw1vM5f4FvKc0zx1lTJijpeV&ust=1714418095232000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLCXy57P5YUDFQAAAAAdAAAAABAE');
+                                        },
                                         child: Container(
                                           decoration: BoxDecoration(
                                             borderRadius:

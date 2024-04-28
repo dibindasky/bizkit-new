@@ -5,8 +5,8 @@ import 'package:bizkit/domain/core/failure/failure.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card_second/card_second_create_request_model/card_second_create_request_model.dart';
 import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
-import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
 import 'package:bizkit/domain/model/card_second/get_all_second_card_model/get_all_second_card_model.dart';
+import 'package:bizkit/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/domain/model/card_second/get_deleted_second_cards/get_deleted_second_cards.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
 import 'package:bizkit/domain/model/card_second/selfie/selfie_adding_request_model/selfie_adding_request_model.dart';
@@ -63,7 +63,7 @@ class CardSecondService implements CardSecondRepo {
 
   @override
   Future<Either<Failure, CardSecondResponseModel>> updateCardSecond({
-    required SecondCard secondCard,
+    required SecondCardNew secondCard,
     required String id,
   }) async {
     try {

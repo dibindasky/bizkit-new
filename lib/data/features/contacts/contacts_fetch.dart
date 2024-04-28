@@ -20,7 +20,7 @@ class ContactFetchService implements ContactFetchServiceRepo {
       log('permission ===> (  ${permissionStatus.name}  )');
       // if permission is not granted ask for permission
       if (permissionStatus != PermissionStatus.granted) {
-        permissionStatus = await _getContactPermission();
+        permissionStatus = await getContactPermission();
       }
       if (permissionStatus == PermissionStatus.granted) {
         // fetch contacts if granted
@@ -43,7 +43,7 @@ class ContactFetchService implements ContactFetchServiceRepo {
     }
   }
 
-  Future<PermissionStatus> _getContactPermission() async {
+  static Future<PermissionStatus> getContactPermission() async {
     PermissionStatus permission = await Permission.contacts.status;
     if (permission != PermissionStatus.granted &&
         permission != PermissionStatus.permanentlyDenied) {
@@ -62,7 +62,7 @@ class ContactFetchService implements ContactFetchServiceRepo {
     log('permission ===> (  ${permissionStatus.name} )');
     // if permission is not granted ask for permission
     if (permissionStatus != PermissionStatus.granted) {
-      permissionStatus = await _getContactPermission();
+      permissionStatus = await getContactPermission();
     }
     if (permissionStatus == PermissionStatus.granted) {
       Contact newContact = Contact(
@@ -88,7 +88,7 @@ class ContactFetchService implements ContactFetchServiceRepo {
       log('permission ===> (  ${permissionStatus.name} )');
       // if permission is not granted ask for permission
       if (permissionStatus != PermissionStatus.granted) {
-        permissionStatus = await _getContactPermission();
+        permissionStatus = await getContactPermission();
       }
       if (permissionStatus == PermissionStatus.granted) {
         Contact newContact = Contact(

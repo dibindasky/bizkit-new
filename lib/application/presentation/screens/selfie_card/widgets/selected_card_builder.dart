@@ -33,6 +33,7 @@ class SelectedCard extends StatelessWidget {
             child: BlocConsumer<CardSecondBloc, CardSecondState>(
               listener: (context, state) {
                 if (state.cardScanFinish) {
+                  Navigator.pop(context);
                   Navigator.of(context).push(
                     fadePageRoute(CardSecondScannedDatas()),
                   );
@@ -52,19 +53,19 @@ class SelectedCard extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: length,
                       itemBuilder: (context, index) {
-                        if (state.pickImageLoading) {
-                          length += 1;
-                          if (index + 1 == length) {
-                            return SizedBox(
-                              height: 150.dm,
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: neonShade,
-                                ),
-                              ),
-                            );
-                          }
-                        }
+                        // if (state.pickImageLoading) {
+                        //   length += 1;
+                        //   if (index + 1 == length) {
+                        //     return SizedBox(
+                        //       height: 150.dm,
+                        //       child: const Center(
+                        //         child: CircularProgressIndicator(
+                        //           color: neonShade,
+                        //         ),
+                        //       ),
+                        //     );
+                        //   }
+                        // }
                         return Stack(
                           children: [
                             InkWell(
@@ -137,12 +138,6 @@ class SelectedCard extends StatelessWidget {
                                     CardSecondEvent.processImageScanningInfo(
                                         images: state
                                             .scannedImagesSecondCardCreation));
-                                // context.read<CardSecondBloc>().add(
-                                //       CardSecondEvent.processImageScanning(
-                                //         images: state
-                                //             .scannedImagesSecondCardCreation,
-                                //       ),
-                                //     );
                               }
                             },
                           ),

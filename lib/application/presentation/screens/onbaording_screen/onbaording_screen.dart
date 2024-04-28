@@ -118,6 +118,7 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
                   );
                 },
               ),
+              adjustHieght(screenHeight * .1),
             ],
           ),
         );
@@ -294,7 +295,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                   context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
                 },
               ),
-              // adjustHieght(screenHeight * .1),
+              adjustHieght(screenHeight * .1),
             ],
           ),
         );

@@ -1,13 +1,12 @@
 import 'dart:convert';
-
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class BlockedConnections extends StatefulWidget {
   const BlockedConnections({super.key});
@@ -18,6 +17,25 @@ class BlockedConnections extends StatefulWidget {
 
 class _BlockedConnectionsState extends State<BlockedConnections> {
   late ScrollController scrollController = ScrollController();
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+
+  void onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
+        context.read<ConnectionRequestBloc>().add(
+            const ConnectionRequestEvent.getBlockeConnections(isLoad: true)));
+
+    refreshController.refreshCompleted();
+  }
+
+  void onLoading() async {
+    await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
+        context.read<ConnectionRequestBloc>().add(
+            const ConnectionRequestEvent.getBlockeConnections(isLoad: true)));
+    setState(() {});
+    refreshController.loadComplete();
+  }
 
   @override
   void initState() {
@@ -50,14 +68,15 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
           style: textHeadStyle1,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: RefreshIndicator(
-          onRefresh: () async {
-            context
-                .read<ConnectionRequestBloc>()
-                .add(const ConnectionRequestEvent.getBlockeConnectionsEvent());
-          },
+      body: SmartRefresher(
+        onLoading: onLoading,
+        header: const WaterDropHeader(),
+        enablePullDown: true,
+        enablePullUp: true,
+        controller: refreshController,
+        onRefresh: onRefresh,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
             builder: (context, state) {
               if (state.blockedConnectionsLoading) {

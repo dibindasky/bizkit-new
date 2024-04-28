@@ -6,6 +6,7 @@ import 'package:bizkit/application/presentation/screens/selfie_card/widgets/sele
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
 import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
+import 'package:bizkit/data/features/contacts/contacts_fetch.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -156,6 +157,7 @@ class _SelfieScreenState extends State<SelfieScreen>
                   : indexofButton == 1
                       ? Column(
                           children: [
+                            const Text('Create visiting card'),
                             const ContainerPickImage(),
                             adjustHieght(20),
                             TextButton(
@@ -165,7 +167,12 @@ class _SelfieScreenState extends State<SelfieScreen>
                                 );
                               },
                               child: const Text(
-                                  'Create card without visiting card'),
+                                'Create card without visiting card',
+                                style: TextStyle(
+                                  decorationColor: neonShade,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
                             ),
                           ],
                         )

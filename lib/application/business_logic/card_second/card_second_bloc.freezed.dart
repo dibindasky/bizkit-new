@@ -38,7 +38,7 @@ mixin _$CardSecondEvent {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -82,7 +82,7 @@ mixin _$CardSecondEvent {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -123,7 +123,7 @@ mixin _$CardSecondEvent {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -314,7 +314,7 @@ class _$StartedImpl implements _Started {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -361,7 +361,7 @@ class _$StartedImpl implements _Started {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -405,7 +405,7 @@ class _$StartedImpl implements _Started {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -632,7 +632,7 @@ class _$ScanImageImpl implements ScanImage {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -679,7 +679,7 @@ class _$ScanImageImpl implements ScanImage {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -723,7 +723,7 @@ class _$ScanImageImpl implements ScanImage {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -959,7 +959,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -1006,7 +1006,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -1050,7 +1050,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -1285,7 +1285,7 @@ class _$ProcessImageScanningInfoImpl implements ProcessImageScanningInfo {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -1332,7 +1332,7 @@ class _$ProcessImageScanningInfoImpl implements ProcessImageScanningInfo {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -1376,7 +1376,7 @@ class _$ProcessImageScanningInfoImpl implements ProcessImageScanningInfo {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -1602,7 +1602,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -1649,7 +1649,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -1693,7 +1693,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -1928,7 +1928,7 @@ class _$SelfieImageImpl implements SelfieImage {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -1975,7 +1975,7 @@ class _$SelfieImageImpl implements SelfieImage {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -2019,7 +2019,7 @@ class _$SelfieImageImpl implements SelfieImage {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -2247,7 +2247,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -2294,7 +2294,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -2338,7 +2338,7 @@ class _$SelfieimageClearImpl implements SelfieimageClear {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -2631,7 +2631,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -2679,7 +2679,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -2724,7 +2724,7 @@ class _$AutoFillTExtfieldItemsImpl implements AutoFillTExtfieldItems {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -3024,7 +3024,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -3072,7 +3072,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -3117,7 +3117,7 @@ class _$MeetingRelatedInfoImpl implements MeetingRelatedInfo {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -3352,7 +3352,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -3399,7 +3399,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -3443,7 +3443,7 @@ class _$GetAllCardsSecondImpl implements GetAllCardsSecond {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -3590,7 +3590,7 @@ abstract class _$$UpdateCardSecondImplCopyWith<$Res> {
           $Res Function(_$UpdateCardSecondImpl) then) =
       __$$UpdateCardSecondImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({SecondCard secondCard, String id});
+  $Res call({SecondCardNew secondCard, String id});
 }
 
 /// @nodoc
@@ -3611,7 +3611,7 @@ class __$$UpdateCardSecondImplCopyWithImpl<$Res>
       secondCard: null == secondCard
           ? _value.secondCard
           : secondCard // ignore: cast_nullable_to_non_nullable
-              as SecondCard,
+              as SecondCardNew,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -3626,7 +3626,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
   const _$UpdateCardSecondImpl({required this.secondCard, required this.id});
 
   @override
-  final SecondCard secondCard;
+  final SecondCardNew secondCard;
   @override
   final String id;
 
@@ -3678,7 +3678,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -3725,7 +3725,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -3769,7 +3769,7 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -3902,10 +3902,10 @@ class _$UpdateCardSecondImpl implements UpdateCardSecond {
 
 abstract class UpdateCardSecond implements CardSecondEvent {
   const factory UpdateCardSecond(
-      {required final SecondCard secondCard,
+      {required final SecondCardNew secondCard,
       required final String id}) = _$UpdateCardSecondImpl;
 
-  SecondCard get secondCard;
+  SecondCardNew get secondCard;
   String get id;
   @JsonKey(ignore: true)
   _$$UpdateCardSecondImplCopyWith<_$UpdateCardSecondImpl> get copyWith =>
@@ -4007,7 +4007,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -4054,7 +4054,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -4098,7 +4098,7 @@ class _$DeleteCardSecondImpl implements DeleteCardSecond {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -4326,7 +4326,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -4373,7 +4373,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -4417,7 +4417,7 @@ class _$GetDeleteCardSecondImpl implements GetDeleteCardSecond {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -4619,7 +4619,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -4666,7 +4666,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -4710,7 +4710,7 @@ class _$GetDeleteCardSecondEventImpl implements GetDeleteCardSecondEvent {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -4942,7 +4942,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -4989,7 +4989,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -5033,7 +5033,7 @@ class _$RestoreDeleteCardSecondImpl implements RestoreDeleteCardSecond {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -5234,7 +5234,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -5281,7 +5281,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -5325,7 +5325,7 @@ class _$GetCardSecondEventImpl implements GetCardSecondEvent {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -5545,7 +5545,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -5592,7 +5592,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -5636,7 +5636,7 @@ class _$GetSecondCardDetailImpl implements GetSecondCardDetail {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -5835,7 +5835,7 @@ class _$ClearImpl implements Clear {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -5882,7 +5882,7 @@ class _$ClearImpl implements Clear {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -5926,7 +5926,7 @@ class _$ClearImpl implements Clear {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -6119,7 +6119,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -6166,7 +6166,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -6210,7 +6210,7 @@ class _$CardFeildClearingImpl implements CardFeildClearing {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -6403,7 +6403,7 @@ class _$ImageClearImpl implements ImageClear {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -6450,7 +6450,7 @@ class _$ImageClearImpl implements ImageClear {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -6494,7 +6494,7 @@ class _$ImageClearImpl implements ImageClear {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -6687,7 +6687,7 @@ class _$LocationGetingImpl implements LocationGeting {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -6734,7 +6734,7 @@ class _$LocationGetingImpl implements LocationGeting {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -6778,7 +6778,7 @@ class _$LocationGetingImpl implements LocationGeting {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -6999,7 +6999,7 @@ class _$ContactSaveToPhoneImpl implements ContactSaveToPhone {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -7046,7 +7046,7 @@ class _$ContactSaveToPhoneImpl implements ContactSaveToPhone {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -7090,7 +7090,7 @@ class _$ContactSaveToPhoneImpl implements ContactSaveToPhone {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -7316,7 +7316,7 @@ class _$SeccondCardShareImpl implements SeccondCardShare {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -7363,7 +7363,7 @@ class _$SeccondCardShareImpl implements SeccondCardShare {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -7407,7 +7407,7 @@ class _$SeccondCardShareImpl implements SeccondCardShare {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -7635,7 +7635,7 @@ class _$RemoveSelfieIndexImagesImpl implements RemoveSelfieIndexImages {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -7682,7 +7682,7 @@ class _$RemoveSelfieIndexImagesImpl implements RemoveSelfieIndexImages {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -7726,7 +7726,7 @@ class _$RemoveSelfieIndexImagesImpl implements RemoveSelfieIndexImages {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,
@@ -7953,7 +7953,7 @@ class _$AddSelfieIndexImagesImpl implements AddSelfieIndexImages {
             String? location, String? occupation, String? notes)
         meetingRelatedInfo,
     required TResult Function(bool isLoad) getAllCardsSecond,
-    required TResult Function(SecondCard secondCard, String id)
+    required TResult Function(SecondCardNew secondCard, String id)
         updateCardSecond,
     required TResult Function(
             CardActionRequestModel cardActionRewuestModel, int id)
@@ -8000,7 +8000,7 @@ class _$AddSelfieIndexImagesImpl implements AddSelfieIndexImages {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult? Function(bool isLoad)? getAllCardsSecond,
-    TResult? Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult? Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult? Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult? Function(bool isLoad)? getDeleteCardSecond,
@@ -8044,7 +8044,7 @@ class _$AddSelfieIndexImagesImpl implements AddSelfieIndexImages {
             String? location, String? occupation, String? notes)?
         meetingRelatedInfo,
     TResult Function(bool isLoad)? getAllCardsSecond,
-    TResult Function(SecondCard secondCard, String id)? updateCardSecond,
+    TResult Function(SecondCardNew secondCard, String id)? updateCardSecond,
     TResult Function(CardActionRequestModel cardActionRewuestModel, int id)?
         deleteCardSecond,
     TResult Function(bool isLoad)? getDeleteCardSecond,

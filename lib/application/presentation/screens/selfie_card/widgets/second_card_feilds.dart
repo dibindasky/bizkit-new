@@ -313,7 +313,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
               log('secondCardcreated secondCardcreated');
               Navigator.pop(context);
               Navigator.pop(context);
-              Navigator.pop(context);
+              //Navigator.pop(context);
               context
                   .read<CardSecondBloc>()
                   .add(const CardSecondEvent.cardFeildClearing());

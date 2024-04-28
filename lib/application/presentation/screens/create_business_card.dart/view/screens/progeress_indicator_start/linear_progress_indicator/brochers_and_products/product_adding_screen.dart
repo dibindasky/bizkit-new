@@ -30,6 +30,7 @@ class AddPrductsScreen extends StatefulWidget {
 class _AddPrductsScreenState extends State<AddPrductsScreen> {
   TextEditingController productTitleController = TextEditingController();
   TextEditingController productDescriptionController = TextEditingController();
+
   List<ImageCard> imageList = [];
   List<ImageCard> newImageList = [];
   bool switchValue = false;
@@ -144,7 +145,10 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                                                             index]
                                                                         .id!));
                                                       }
-                                                      newImageList.removeWhere((element) => element==imageList[index]);
+                                                      newImageList.removeWhere(
+                                                          (element) =>
+                                                              element ==
+                                                              imageList[index]);
                                                       imageList.removeAt(index);
                                                       setState(() {});
                                                     },
@@ -290,7 +294,9 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                             description:
                                 productDescriptionController.text.trim(),
                             label: productTitleController.text.trim(),
-                            image:widget.product?.id ==null? imageList:newImageList,
+                            image: widget.product?.id == null
+                                ? imageList
+                                : newImageList,
                             //[ImageCard(image: image!.base64)],
                             enquiry: switchValue,
                             cardId: state.currentCard!.id,

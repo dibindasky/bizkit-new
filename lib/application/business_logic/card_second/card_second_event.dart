@@ -64,4 +64,8 @@ class CardSecondEvent with _$CardSecondEvent {
   const factory CardSecondEvent.seccondCardShare({
     required int id,
   }) = SeccondCardShare;
+  const factory CardSecondEvent.removeSelfieIndexImages({required int id}) =
+      RemoveSelfieIndexImages;
+  const factory CardSecondEvent.addSelfieIndexImages({required int id}) =
+      AddSelfieIndexImages;
 }

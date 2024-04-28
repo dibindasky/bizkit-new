@@ -86,37 +86,31 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                         fadePageRoute(
                             const StartingBusinessCardCreation(fromHome: true)),
                       ),
-                      child: CustomShowCaseView(
-                        image: personImage,
-                        description: '',
-                        tittle: 'Create Business card from here',
-                        globalKey: globalKeyAddCard,
-                        child: Container(
-                          height: kwidth * 0.35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: backgroundColour,
-                            boxShadow: const [
-                              BoxShadow(
-                                color: kblack,
-                                blurRadius: 2,
-                                blurStyle: BlurStyle.outer,
-                              )
-                            ],
-                          ),
-                          width: 140,
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CircleAvatar(
-                                radius: 16,
-                                backgroundImage: AssetImage(
-                                  'asset/images/home add circl.png',
-                                ),
+                      child: Container(
+                        height: kwidth * 0.35,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: backgroundColour,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: kblack,
+                              blurRadius: 2,
+                              blurStyle: BlurStyle.outer,
+                            )
+                          ],
+                        ),
+                        width: 140,
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CircleAvatar(
+                              radius: 16,
+                              backgroundImage: AssetImage(
+                                'asset/images/home add circl.png',
                               ),
-                              Text('Add Card'),
-                            ],
-                          ),
+                            ),
+                            Text('Add Card'),
+                          ],
                         ),
                       ),
                     );

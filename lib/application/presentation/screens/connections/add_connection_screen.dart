@@ -185,16 +185,12 @@ class _GridTileAddRequestConnectionState
         ),
         adjustHieght(10),
         Text(
-          name == '' && company != '' ? company : name,
+          name,
           overflow: TextOverflow.ellipsis,
           style: textStyle1.copyWith(fontSize: kwidth * 0.045),
         ),
         Text(
-          name == '' && company != ''
-              ? designation == ''
-                  ? company
-                  : designation
-              : company,
+          widget.data.isVerified ?? false ? company : designation,
           overflow: TextOverflow.ellipsis,
           style: textStyle1,
         ),
@@ -211,13 +207,13 @@ class _GridTileAddRequestConnectionState
           },
           child: BlocConsumer<ConnectionRequestBloc, ConnectionRequestState>(
             listenWhen: (previous, current) =>
-                previous.requestLoadingIndex == widget.index &&
+                previous.requestLoadingIndex.contains(widget.index) &&
                 current.connected,
             listener: (context, state) {
               requested = true;
             },
             builder: (context, state) {
-              if (state.requestLoadingIndex == widget.index) {
+              if (state.requestLoadingIndex.contains(widget.index)) {
                 return const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: ShimmerLoader(itemCount: 1, height: 30, width: 20),

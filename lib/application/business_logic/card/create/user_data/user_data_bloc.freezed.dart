@@ -27,7 +27,7 @@ mixin _$UserDataEvent {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -40,6 +40,7 @@ mixin _$UserDataEvent {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,7 +54,7 @@ mixin _$UserDataEvent {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -64,6 +65,7 @@ mixin _$UserDataEvent {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -77,7 +79,7 @@ mixin _$UserDataEvent {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -87,6 +89,7 @@ mixin _$UserDataEvent {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -112,6 +115,7 @@ mixin _$UserDataEvent {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -135,6 +139,7 @@ mixin _$UserDataEvent {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -158,6 +163,7 @@ mixin _$UserDataEvent {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -255,7 +261,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -268,6 +274,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return pickImageScanning(camera);
   }
@@ -284,7 +291,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -295,6 +302,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return pickImageScanning?.call(camera);
   }
@@ -311,7 +319,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -321,6 +329,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (pickImageScanning != null) {
@@ -352,6 +361,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return pickImageScanning(this);
   }
@@ -378,6 +388,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return pickImageScanning?.call(this);
   }
@@ -404,6 +415,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (pickImageScanning != null) {
@@ -497,7 +509,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -510,6 +522,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return removeImageScanning(index);
   }
@@ -526,7 +539,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -537,6 +550,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return removeImageScanning?.call(index);
   }
@@ -553,7 +567,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -563,6 +577,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removeImageScanning != null) {
@@ -594,6 +609,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return removeImageScanning(this);
   }
@@ -620,6 +636,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return removeImageScanning?.call(this);
   }
@@ -646,6 +663,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removeImageScanning != null) {
@@ -747,7 +765,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -760,6 +778,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return processImageScanning(images);
   }
@@ -776,7 +795,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -787,6 +806,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return processImageScanning?.call(images);
   }
@@ -803,7 +823,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -813,6 +833,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (processImageScanning != null) {
@@ -844,6 +865,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return processImageScanning(this);
   }
@@ -870,6 +892,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return processImageScanning?.call(this);
   }
@@ -896,6 +919,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (processImageScanning != null) {
@@ -962,7 +986,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -975,6 +999,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return getUserDetail();
   }
@@ -991,7 +1016,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -1002,6 +1027,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return getUserDetail?.call();
   }
@@ -1018,7 +1044,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -1028,6 +1054,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (getUserDetail != null) {
@@ -1059,6 +1086,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return getUserDetail(this);
   }
@@ -1085,6 +1113,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return getUserDetail?.call(this);
   }
@@ -1111,6 +1140,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (getUserDetail != null) {
@@ -1173,7 +1203,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -1186,6 +1216,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return getBusinessCategories();
   }
@@ -1202,7 +1233,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -1213,6 +1244,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return getBusinessCategories?.call();
   }
@@ -1229,7 +1261,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -1239,6 +1271,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (getBusinessCategories != null) {
@@ -1270,6 +1303,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return getBusinessCategories(this);
   }
@@ -1296,6 +1330,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return getBusinessCategories?.call(this);
   }
@@ -1322,6 +1357,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (getBusinessCategories != null) {
@@ -1382,7 +1418,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -1395,6 +1431,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return pickUserPhotos();
   }
@@ -1411,7 +1448,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -1422,6 +1459,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return pickUserPhotos?.call();
   }
@@ -1438,7 +1476,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -1448,6 +1486,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (pickUserPhotos != null) {
@@ -1479,6 +1518,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return pickUserPhotos(this);
   }
@@ -1505,6 +1545,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return pickUserPhotos?.call(this);
   }
@@ -1531,6 +1572,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (pickUserPhotos != null) {
@@ -1591,7 +1633,7 @@ class _$ClearImpl implements Clear {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -1604,6 +1646,7 @@ class _$ClearImpl implements Clear {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return clear();
   }
@@ -1620,7 +1663,7 @@ class _$ClearImpl implements Clear {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -1631,6 +1674,7 @@ class _$ClearImpl implements Clear {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return clear?.call();
   }
@@ -1647,7 +1691,7 @@ class _$ClearImpl implements Clear {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -1657,6 +1701,7 @@ class _$ClearImpl implements Clear {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (clear != null) {
@@ -1688,6 +1733,7 @@ class _$ClearImpl implements Clear {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return clear(this);
   }
@@ -1714,6 +1760,7 @@ class _$ClearImpl implements Clear {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return clear?.call(this);
   }
@@ -1740,6 +1787,7 @@ class _$ClearImpl implements Clear {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (clear != null) {
@@ -1800,7 +1848,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -1813,6 +1861,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return createPersonalData();
   }
@@ -1829,7 +1878,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -1840,6 +1889,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return createPersonalData?.call();
   }
@@ -1856,7 +1906,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -1866,6 +1916,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (createPersonalData != null) {
@@ -1897,6 +1948,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return createPersonalData(this);
   }
@@ -1923,6 +1975,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return createPersonalData?.call(this);
   }
@@ -1949,6 +2002,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (createPersonalData != null) {
@@ -2009,7 +2063,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -2022,6 +2076,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return removeUserPhoto();
   }
@@ -2038,7 +2093,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -2049,6 +2104,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return removeUserPhoto?.call();
   }
@@ -2065,7 +2121,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -2075,6 +2131,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removeUserPhoto != null) {
@@ -2106,6 +2163,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return removeUserPhoto(this);
   }
@@ -2132,6 +2190,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return removeUserPhoto?.call(this);
   }
@@ -2158,6 +2217,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removeUserPhoto != null) {
@@ -2177,7 +2237,7 @@ abstract class _$$AddAccoladeImplCopyWith<$Res> {
           _$AddAccoladeImpl value, $Res Function(_$AddAccoladeImpl) then) =
       __$$AddAccoladeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Accolade accolade});
+  $Res call({Accolade accolade, bool edit});
 }
 
 /// @nodoc
@@ -2192,12 +2252,17 @@ class __$$AddAccoladeImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? accolade = null,
+    Object? edit = null,
   }) {
     return _then(_$AddAccoladeImpl(
       accolade: null == accolade
           ? _value.accolade
           : accolade // ignore: cast_nullable_to_non_nullable
               as Accolade,
+      edit: null == edit
+          ? _value.edit
+          : edit // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -2205,14 +2270,16 @@ class __$$AddAccoladeImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddAccoladeImpl implements AddAccolade {
-  _$AddAccoladeImpl({required this.accolade});
+  _$AddAccoladeImpl({required this.accolade, required this.edit});
 
   @override
   final Accolade accolade;
+  @override
+  final bool edit;
 
   @override
   String toString() {
-    return 'UserDataEvent.addAccolade(accolade: $accolade)';
+    return 'UserDataEvent.addAccolade(accolade: $accolade, edit: $edit)';
   }
 
   @override
@@ -2221,11 +2288,12 @@ class _$AddAccoladeImpl implements AddAccolade {
         (other.runtimeType == runtimeType &&
             other is _$AddAccoladeImpl &&
             (identical(other.accolade, accolade) ||
-                other.accolade == accolade));
+                other.accolade == accolade) &&
+            (identical(other.edit, edit) || other.edit == edit));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, accolade);
+  int get hashCode => Object.hash(runtimeType, accolade, edit);
 
   @JsonKey(ignore: true)
   @override
@@ -2245,7 +2313,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -2258,8 +2326,9 @@ class _$AddAccoladeImpl implements AddAccolade {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
-    return addAccolade(accolade);
+    return addAccolade(accolade, edit);
   }
 
   @override
@@ -2274,7 +2343,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -2285,8 +2354,9 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
-    return addAccolade?.call(accolade);
+    return addAccolade?.call(accolade, edit);
   }
 
   @override
@@ -2301,7 +2371,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -2311,10 +2381,11 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (addAccolade != null) {
-      return addAccolade(accolade);
+      return addAccolade(accolade, edit);
     }
     return orElse();
   }
@@ -2342,6 +2413,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return addAccolade(this);
   }
@@ -2368,6 +2440,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return addAccolade?.call(this);
   }
@@ -2394,6 +2467,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (addAccolade != null) {
@@ -2404,9 +2478,12 @@ class _$AddAccoladeImpl implements AddAccolade {
 }
 
 abstract class AddAccolade implements UserDataEvent {
-  factory AddAccolade({required final Accolade accolade}) = _$AddAccoladeImpl;
+  factory AddAccolade(
+      {required final Accolade accolade,
+      required final bool edit}) = _$AddAccoladeImpl;
 
   Accolade get accolade;
+  bool get edit;
   @JsonKey(ignore: true)
   _$$AddAccoladeImplCopyWith<_$AddAccoladeImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2486,7 +2563,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -2499,6 +2576,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return removeAccolade(id);
   }
@@ -2515,7 +2593,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -2526,6 +2604,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return removeAccolade?.call(id);
   }
@@ -2542,7 +2621,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -2552,6 +2631,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removeAccolade != null) {
@@ -2583,6 +2663,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return removeAccolade(this);
   }
@@ -2609,6 +2690,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return removeAccolade?.call(this);
   }
@@ -2635,6 +2717,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removeAccolade != null) {
@@ -2728,7 +2811,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -2741,6 +2824,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return addDateToRemember(datesToRemember);
   }
@@ -2757,7 +2841,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -2768,6 +2852,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return addDateToRemember?.call(datesToRemember);
   }
@@ -2784,7 +2869,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -2794,6 +2879,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (addDateToRemember != null) {
@@ -2825,6 +2911,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return addDateToRemember(this);
   }
@@ -2851,6 +2938,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return addDateToRemember?.call(this);
   }
@@ -2877,6 +2965,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (addDateToRemember != null) {
@@ -2971,7 +3060,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -2984,6 +3073,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return removeDateToRemember(id);
   }
@@ -3000,7 +3090,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -3011,6 +3101,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return removeDateToRemember?.call(id);
   }
@@ -3027,7 +3118,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -3037,6 +3128,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removeDateToRemember != null) {
@@ -3068,6 +3160,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return removeDateToRemember(this);
   }
@@ -3094,6 +3187,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return removeDateToRemember?.call(this);
   }
@@ -3120,6 +3214,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removeDateToRemember != null) {
@@ -3214,7 +3309,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -3227,6 +3322,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return addSocialMedia(socialMediaHandle);
   }
@@ -3243,7 +3339,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -3254,6 +3350,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return addSocialMedia?.call(socialMediaHandle);
   }
@@ -3270,7 +3367,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -3280,6 +3377,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (addSocialMedia != null) {
@@ -3311,6 +3409,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return addSocialMedia(this);
   }
@@ -3337,6 +3436,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return addSocialMedia?.call(this);
   }
@@ -3363,6 +3463,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (addSocialMedia != null) {
@@ -3456,7 +3557,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -3469,6 +3570,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return removeSocialMedia(id);
   }
@@ -3485,7 +3587,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -3496,6 +3598,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return removeSocialMedia?.call(id);
   }
@@ -3512,7 +3615,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -3522,6 +3625,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removeSocialMedia != null) {
@@ -3553,6 +3657,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return removeSocialMedia(this);
   }
@@ -3579,6 +3684,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return removeSocialMedia?.call(this);
   }
@@ -3605,6 +3711,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removeSocialMedia != null) {
@@ -3697,7 +3804,7 @@ class _$CreateCardImpl implements CreateCard {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -3710,6 +3817,7 @@ class _$CreateCardImpl implements CreateCard {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return createCard(cardFirstCreationModel);
   }
@@ -3726,7 +3834,7 @@ class _$CreateCardImpl implements CreateCard {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -3737,6 +3845,7 @@ class _$CreateCardImpl implements CreateCard {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return createCard?.call(cardFirstCreationModel);
   }
@@ -3753,7 +3862,7 @@ class _$CreateCardImpl implements CreateCard {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -3763,6 +3872,7 @@ class _$CreateCardImpl implements CreateCard {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (createCard != null) {
@@ -3794,6 +3904,7 @@ class _$CreateCardImpl implements CreateCard {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return createCard(this);
   }
@@ -3820,6 +3931,7 @@ class _$CreateCardImpl implements CreateCard {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return createCard?.call(this);
   }
@@ -3846,6 +3958,7 @@ class _$CreateCardImpl implements CreateCard {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (createCard != null) {
@@ -3940,7 +4053,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -3953,6 +4066,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return getCurrentCard(card);
   }
@@ -3969,7 +4083,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -3980,6 +4094,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return getCurrentCard?.call(card);
   }
@@ -3996,7 +4111,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -4006,6 +4121,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (getCurrentCard != null) {
@@ -4037,6 +4153,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return getCurrentCard(this);
   }
@@ -4063,6 +4180,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return getCurrentCard?.call(this);
   }
@@ -4089,6 +4207,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (getCurrentCard != null) {
@@ -4181,7 +4300,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -4194,6 +4313,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return addPersonalImage(cam);
   }
@@ -4210,7 +4330,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -4221,6 +4341,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return addPersonalImage?.call(cam);
   }
@@ -4237,7 +4358,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -4247,6 +4368,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (addPersonalImage != null) {
@@ -4278,6 +4400,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return addPersonalImage(this);
   }
@@ -4304,6 +4427,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return addPersonalImage?.call(this);
   }
@@ -4330,6 +4454,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (addPersonalImage != null) {
@@ -4422,7 +4547,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
-    required TResult Function(Accolade accolade) addAccolade,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
     required TResult Function(int id) removeAccolade,
     required TResult Function(DatesToRemember datesToRemember)
         addDateToRemember,
@@ -4435,6 +4560,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     required TResult Function(Card card) getCurrentCard,
     required TResult Function(bool cam) addPersonalImage,
     required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
   }) {
     return removePersonalImage(id);
   }
@@ -4451,7 +4577,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
-    TResult? Function(Accolade accolade)? addAccolade,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
     TResult? Function(int id)? removeAccolade,
     TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult? Function(int id)? removeDateToRemember,
@@ -4462,6 +4588,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     TResult? Function(Card card)? getCurrentCard,
     TResult? Function(bool cam)? addPersonalImage,
     TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
   }) {
     return removePersonalImage?.call(id);
   }
@@ -4478,7 +4605,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
-    TResult Function(Accolade accolade)? addAccolade,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
     TResult Function(int id)? removeAccolade,
     TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
     TResult Function(int id)? removeDateToRemember,
@@ -4488,6 +4615,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     TResult Function(Card card)? getCurrentCard,
     TResult Function(bool cam)? addPersonalImage,
     TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removePersonalImage != null) {
@@ -4519,6 +4647,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     required TResult Function(GetCurrentCard value) getCurrentCard,
     required TResult Function(AddPersonalImage value) addPersonalImage,
     required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
   }) {
     return removePersonalImage(this);
   }
@@ -4545,6 +4674,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     TResult? Function(GetCurrentCard value)? getCurrentCard,
     TResult? Function(AddPersonalImage value)? addPersonalImage,
     TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
   }) {
     return removePersonalImage?.call(this);
   }
@@ -4571,6 +4701,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     TResult Function(GetCurrentCard value)? getCurrentCard,
     TResult Function(AddPersonalImage value)? addPersonalImage,
     TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
     required TResult orElse(),
   }) {
     if (removePersonalImage != null) {
@@ -4587,6 +4718,254 @@ abstract class RemovePersonalImage implements UserDataEvent {
   int get id;
   @JsonKey(ignore: true)
   _$$RemovePersonalImageImplCopyWith<_$RemovePersonalImageImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveAccoladeImageImplCopyWith<$Res> {
+  factory _$$RemoveAccoladeImageImplCopyWith(_$RemoveAccoladeImageImpl value,
+          $Res Function(_$RemoveAccoladeImageImpl) then) =
+      __$$RemoveAccoladeImageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$RemoveAccoladeImageImplCopyWithImpl<$Res>
+    extends _$UserDataEventCopyWithImpl<$Res, _$RemoveAccoladeImageImpl>
+    implements _$$RemoveAccoladeImageImplCopyWith<$Res> {
+  __$$RemoveAccoladeImageImplCopyWithImpl(_$RemoveAccoladeImageImpl _value,
+      $Res Function(_$RemoveAccoladeImageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$RemoveAccoladeImageImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveAccoladeImageImpl implements RemoveAccoladeImage {
+  _$RemoveAccoladeImageImpl({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'UserDataEvent.removeAccoladeImage(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveAccoladeImageImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveAccoladeImageImplCopyWith<_$RemoveAccoladeImageImpl> get copyWith =>
+      __$$RemoveAccoladeImageImplCopyWithImpl<_$RemoveAccoladeImageImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool camera) pickImageScanning,
+    required TResult Function(int index) removeImageScanning,
+    required TResult Function(List<ImageModel> images) processImageScanning,
+    required TResult Function() getUserDetail,
+    required TResult Function() getBusinessCategories,
+    required TResult Function() pickUserPhotos,
+    required TResult Function() clear,
+    required TResult Function() createPersonalData,
+    required TResult Function() removeUserPhoto,
+    required TResult Function(Accolade accolade, bool edit) addAccolade,
+    required TResult Function(int id) removeAccolade,
+    required TResult Function(DatesToRemember datesToRemember)
+        addDateToRemember,
+    required TResult Function(int id) removeDateToRemember,
+    required TResult Function(SocialMediaHandle socialMediaHandle)
+        addSocialMedia,
+    required TResult Function(int id) removeSocialMedia,
+    required TResult Function(CardFirstCreationModel cardFirstCreationModel)
+        createCard,
+    required TResult Function(Card card) getCurrentCard,
+    required TResult Function(bool cam) addPersonalImage,
+    required TResult Function(int id) removePersonalImage,
+    required TResult Function(int id) removeAccoladeImage,
+  }) {
+    return removeAccoladeImage(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool camera)? pickImageScanning,
+    TResult? Function(int index)? removeImageScanning,
+    TResult? Function(List<ImageModel> images)? processImageScanning,
+    TResult? Function()? getUserDetail,
+    TResult? Function()? getBusinessCategories,
+    TResult? Function()? pickUserPhotos,
+    TResult? Function()? clear,
+    TResult? Function()? createPersonalData,
+    TResult? Function()? removeUserPhoto,
+    TResult? Function(Accolade accolade, bool edit)? addAccolade,
+    TResult? Function(int id)? removeAccolade,
+    TResult? Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult? Function(int id)? removeDateToRemember,
+    TResult? Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult? Function(int id)? removeSocialMedia,
+    TResult? Function(CardFirstCreationModel cardFirstCreationModel)?
+        createCard,
+    TResult? Function(Card card)? getCurrentCard,
+    TResult? Function(bool cam)? addPersonalImage,
+    TResult? Function(int id)? removePersonalImage,
+    TResult? Function(int id)? removeAccoladeImage,
+  }) {
+    return removeAccoladeImage?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool camera)? pickImageScanning,
+    TResult Function(int index)? removeImageScanning,
+    TResult Function(List<ImageModel> images)? processImageScanning,
+    TResult Function()? getUserDetail,
+    TResult Function()? getBusinessCategories,
+    TResult Function()? pickUserPhotos,
+    TResult Function()? clear,
+    TResult Function()? createPersonalData,
+    TResult Function()? removeUserPhoto,
+    TResult Function(Accolade accolade, bool edit)? addAccolade,
+    TResult Function(int id)? removeAccolade,
+    TResult Function(DatesToRemember datesToRemember)? addDateToRemember,
+    TResult Function(int id)? removeDateToRemember,
+    TResult Function(SocialMediaHandle socialMediaHandle)? addSocialMedia,
+    TResult Function(int id)? removeSocialMedia,
+    TResult Function(CardFirstCreationModel cardFirstCreationModel)? createCard,
+    TResult Function(Card card)? getCurrentCard,
+    TResult Function(bool cam)? addPersonalImage,
+    TResult Function(int id)? removePersonalImage,
+    TResult Function(int id)? removeAccoladeImage,
+    required TResult orElse(),
+  }) {
+    if (removeAccoladeImage != null) {
+      return removeAccoladeImage(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickImageScanning value) pickImageScanning,
+    required TResult Function(RemoveImageScanning value) removeImageScanning,
+    required TResult Function(ProcessImageScanning value) processImageScanning,
+    required TResult Function(GetUserDetail value) getUserDetail,
+    required TResult Function(GetBusinessCategories value)
+        getBusinessCategories,
+    required TResult Function(PickUserPhotos value) pickUserPhotos,
+    required TResult Function(Clear value) clear,
+    required TResult Function(CreatePersonalData value) createPersonalData,
+    required TResult Function(RemoveUserPhoto value) removeUserPhoto,
+    required TResult Function(AddAccolade value) addAccolade,
+    required TResult Function(RemoveAccolade value) removeAccolade,
+    required TResult Function(AddDateToRemember value) addDateToRemember,
+    required TResult Function(RemoveDateToRemember value) removeDateToRemember,
+    required TResult Function(AddSocialMedia value) addSocialMedia,
+    required TResult Function(RemoveSocialMedia value) removeSocialMedia,
+    required TResult Function(CreateCard value) createCard,
+    required TResult Function(GetCurrentCard value) getCurrentCard,
+    required TResult Function(AddPersonalImage value) addPersonalImage,
+    required TResult Function(RemovePersonalImage value) removePersonalImage,
+    required TResult Function(RemoveAccoladeImage value) removeAccoladeImage,
+  }) {
+    return removeAccoladeImage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickImageScanning value)? pickImageScanning,
+    TResult? Function(RemoveImageScanning value)? removeImageScanning,
+    TResult? Function(ProcessImageScanning value)? processImageScanning,
+    TResult? Function(GetUserDetail value)? getUserDetail,
+    TResult? Function(GetBusinessCategories value)? getBusinessCategories,
+    TResult? Function(PickUserPhotos value)? pickUserPhotos,
+    TResult? Function(Clear value)? clear,
+    TResult? Function(CreatePersonalData value)? createPersonalData,
+    TResult? Function(RemoveUserPhoto value)? removeUserPhoto,
+    TResult? Function(AddAccolade value)? addAccolade,
+    TResult? Function(RemoveAccolade value)? removeAccolade,
+    TResult? Function(AddDateToRemember value)? addDateToRemember,
+    TResult? Function(RemoveDateToRemember value)? removeDateToRemember,
+    TResult? Function(AddSocialMedia value)? addSocialMedia,
+    TResult? Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult? Function(CreateCard value)? createCard,
+    TResult? Function(GetCurrentCard value)? getCurrentCard,
+    TResult? Function(AddPersonalImage value)? addPersonalImage,
+    TResult? Function(RemovePersonalImage value)? removePersonalImage,
+    TResult? Function(RemoveAccoladeImage value)? removeAccoladeImage,
+  }) {
+    return removeAccoladeImage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickImageScanning value)? pickImageScanning,
+    TResult Function(RemoveImageScanning value)? removeImageScanning,
+    TResult Function(ProcessImageScanning value)? processImageScanning,
+    TResult Function(GetUserDetail value)? getUserDetail,
+    TResult Function(GetBusinessCategories value)? getBusinessCategories,
+    TResult Function(PickUserPhotos value)? pickUserPhotos,
+    TResult Function(Clear value)? clear,
+    TResult Function(CreatePersonalData value)? createPersonalData,
+    TResult Function(RemoveUserPhoto value)? removeUserPhoto,
+    TResult Function(AddAccolade value)? addAccolade,
+    TResult Function(RemoveAccolade value)? removeAccolade,
+    TResult Function(AddDateToRemember value)? addDateToRemember,
+    TResult Function(RemoveDateToRemember value)? removeDateToRemember,
+    TResult Function(AddSocialMedia value)? addSocialMedia,
+    TResult Function(RemoveSocialMedia value)? removeSocialMedia,
+    TResult Function(CreateCard value)? createCard,
+    TResult Function(GetCurrentCard value)? getCurrentCard,
+    TResult Function(AddPersonalImage value)? addPersonalImage,
+    TResult Function(RemovePersonalImage value)? removePersonalImage,
+    TResult Function(RemoveAccoladeImage value)? removeAccoladeImage,
+    required TResult orElse(),
+  }) {
+    if (removeAccoladeImage != null) {
+      return removeAccoladeImage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveAccoladeImage implements UserDataEvent {
+  factory RemoveAccoladeImage({required final int id}) =
+      _$RemoveAccoladeImageImpl;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$RemoveAccoladeImageImplCopyWith<_$RemoveAccoladeImageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

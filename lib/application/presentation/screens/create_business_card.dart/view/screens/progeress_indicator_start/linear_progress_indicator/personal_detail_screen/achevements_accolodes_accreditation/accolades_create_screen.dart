@@ -24,10 +24,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccoladesAddCreateScreen extends StatefulWidget {
   const AccoladesAddCreateScreen(
-      {super.key, required this.accolade, required this.cardId});
+      {super.key,
+      required this.isAccolade,
+      required this.cardId,
+      this.accolade,
+      this.accredition});
 
-  final bool accolade;
+  final bool isAccolade;
   final int cardId;
+  final Accolade? accolade;
+  final Accredition? accredition;
 
   @override
   State<AccoladesAddCreateScreen> createState() =>
@@ -39,13 +45,40 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
   String title = '';
   String description = '';
   final dateController = TextEditingController();
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    if (widget.accolade != null) {
+      image = widget.accolade!.accoladesImage ?? [];
+      title = widget.accolade!.accolades ?? '';
+      titleController.text = widget.accolade!.accolades ?? '';
+      description = widget.accolade!.accoladesDescription ?? '';
+      descriptionController.text = widget.accolade!.accoladesDescription ?? '';
+      dateController.text = widget.accolade!.date ?? '';
+    } else if (widget.accredition != null) {
+      image = widget.accredition!.images ?? [];
+      title = widget.accredition!.label ?? '';
+      titleController.text = widget.accredition!.label ?? '';
+      description = widget.accredition!.description ?? '';
+      descriptionController.text = widget.accredition!.description ?? '';
+      dateController.text = widget.accredition!.date ?? '';
+    }
+    print('image achivement = ');
+    for(var i in image){
+      print(i.id);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
         child: AppbarCommen(
-          tittle: widget.accolade ? 'Accolades' : 'Accredition',
+          tittle: widget.isAccolade ? 'Accolades' : 'Accredition',
         ),
       ),
       body: SingleChildScrollView(
@@ -93,37 +126,52 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                       title: 'Are you sure want to remove ?',
                                       buttonText: 'Delete',
                                       onTap: () {
-                                        image.removeAt(image.length - index);
+                                        if (image[image.length - index - 1]
+                                                .id !=
+                                            null) {
+                                          context.read<UserDataBloc>().add(
+                                              UserDataEvent.removeAccoladeImage(
+                                                  id: image[image.length -
+                                                          index -
+                                                          1]
+                                                      .id!));
+                                        }
+                                        image
+                                            .removeAt(image.length - index - 1);
                                         setState(() {});
                                       });
                                 },
                                 image: image[image.length - index - 1]);
                           },
                         ),
-                        Positioned (bottom: 5,right: 5,
+                        Positioned(
+                          bottom: 5,
+                          right: 5,
                           child: InkWell(
                               onTap: () {
                                 cameraAndGalleryPickImage(
                                     tittle: "Choose image from",
                                     context: context,
                                     onPressCam: () async {
-                                      final img = await ImagePickerClass.getImage(
-                                          camera: true);
+                                      final img =
+                                          await ImagePickerClass.getImage(
+                                              camera: true);
                                       if (img != null) {
                                         image.add(ImageCard(image: img.base64));
                                         setState(() {});
                                       }
                                     },
                                     onPressGallery: () async {
-                                      final img = await ImagePickerClass.getImage(
-                                          camera: false);
+                                      final img =
+                                          await ImagePickerClass.getImage(
+                                              camera: false);
                                       if (img != null) {
                                         image.add(ImageCard(image: img.base64));
                                         setState(() {});
                                       }
                                     });
                               },
-                              child:const CircleAvatar(
+                              child: const CircleAvatar(
                                 radius: 30,
                                 child: Icon(Icons.add_a_photo_outlined),
                               )),
@@ -179,6 +227,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                   ),
                 ),
                 TTextFormField(
+                  controller: titleController,
                   maxlegth: 100,
                   textCapitalization: TextCapitalization.words,
                   onChanaged: (value) {
@@ -188,6 +237,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                   inputType: TextInputType.name,
                 ),
                 TTextFormField(
+                  controller: descriptionController,
                   maxlegth: 300,
                   onChanaged: (value) {
                     description = value;
@@ -236,10 +286,12 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                   backgroundColor: kred);
                               return;
                             } else {
-                              widget.accolade
+                              widget.isAccolade
                                   ? context.read<UserDataBloc>().add(
                                       UserDataEvent.addAccolade(
+                                          edit: widget.accolade != null,
                                           accolade: Accolade(
+                                              id: widget.accolade?.id,
                                               cardId: widget.cardId,
                                               accolades: title,
                                               date: dateController.text == ''
@@ -247,18 +299,20 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                                   : dateController.text,
                                               accoladesDescription: description,
                                               accoladesImage: image)))
-                                  : context
-                                      .read<BusinessDataBloc>()
-                                      .add(BusinessDataEvent.addAccredition(
-                                        accredition: Accredition(
-                                            cardId: widget.cardId,
-                                            description: description,
-                                            label: title,
-                                            date: dateController.text == ''
-                                                ? null
-                                                : dateController.text,
-                                            images: image),
-                                      ));
+                                  : context.read<BusinessDataBloc>().add(
+                                        BusinessDataEvent.addAccredition(
+                                          edit: widget.accredition != null,
+                                          accredition: Accredition(
+                                              id: widget.accredition?.id,
+                                              cardId: widget.cardId,
+                                              description: description,
+                                              label: title,
+                                              date: dateController.text == ''
+                                                  ? null
+                                                  : dateController.text,
+                                              images: image),
+                                        ),
+                                      );
                             }
                           },
                         );

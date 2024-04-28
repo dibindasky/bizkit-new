@@ -84,18 +84,27 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             child: ColoredBox(
                               color: smallBigGrey,
-                              child: Image.memory(
-                                base64.decode(networkImages![index]
-                                        .image![0]
-                                        .image!
-                                        .startsWith('data')
-                                    ? networkImages![index]
-                                        .image![0]
-                                        .image!
-                                        .substring(22)
-                                    : networkImages![index].image![0].image!),
-                                fit: BoxFit.cover,
-                              ),
+                              child: networkImages![index].image != null &&
+                                      networkImages![index].image!.isNotEmpty
+                                  ? Image.memory(
+                                      base64.decode(networkImages![index]
+                                              .image![0]
+                                              .image!
+                                              .startsWith('data')
+                                          ? networkImages![index]
+                                              .image![0]
+                                              .image!
+                                              .substring(22)
+                                          : networkImages![index]
+                                              .image![0]
+                                              .image!),
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error,
+                                              stackTrace) =>
+                                          const Icon(Icons
+                                              .image_not_supported_outlined),
+                                    )
+                                  : null,
                             ),
                           ),
                         ),

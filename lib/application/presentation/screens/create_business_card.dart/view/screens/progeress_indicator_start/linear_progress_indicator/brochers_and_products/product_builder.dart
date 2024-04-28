@@ -4,6 +4,7 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/product_detail_view.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,18 +43,23 @@ class ProductBuilder extends StatelessWidget {
                       decoration: BoxDecoration(
                         border: Border.all(color: neonShade),
                         borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: MemoryImage(
-                            base64Decode(
-                              data.image![0].image!.startsWith('data')
-                                  ? data.image![0].image!.substring(22)
-                                  : data.image![0].image!,
-                            ),
-                          ),
-                          onError: (exception, stackTrace) {},
-                          filterQuality: FilterQuality.high,
-                          fit: BoxFit.cover,
-                        ),
+                        image: data.image != null && data.image!.isNotEmpty
+                            ? DecorationImage(
+                                image: MemoryImage(
+                                  base64Decode(
+                                    data.image![0].image!.startsWith('data')
+                                        ? data.image![0].image!.substring(22)
+                                        : data.image![0].image!,
+                                  ),
+                                ),
+                                onError: (exception, stackTrace) {
+                                  const Icon(
+                                      Icons.image_not_supported_outlined);
+                                },
+                                filterQuality: FilterQuality.high,
+                                fit: BoxFit.cover,
+                              )
+                            : null,
                       ),
                     ),
                   ),

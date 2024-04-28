@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
+import 'package:bizkit/domain/model/card/card/accolade/accolade_image_adding_model/accolade_image_adding_model.dart';
 import 'package:bizkit/domain/model/card/card/card/card.dart';
 import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remember.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
@@ -66,6 +67,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<AddDateToRemember>(addDateToRemember);
     on<RemoveDateToRemember>(removeDateToRemember);
     on<RemovePersonalImage>(removePersonalImage);
+    on<RemoveAccoladeImage>(removeAccoladeImage);
     on<AddPersonalImage>(addPersonalImage);
     on<CreatePersonalData>(createPersonalData);
     on<CreateCard>(createCard);
@@ -173,9 +175,6 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
                 ?.map((e) => ImageCard(image: e.photo, id: e.id))
                 .toList() ??
             []));
-    for (var img in event.card.personalDetails?.photos ?? []) {
-      print(img.photo);
-    }
     nameController.text = event.card.personalDetails?.name ?? '';
     emailController.text = event.card.personalDetails?.email ?? '';
     phoneController.text = event.card.personalDetails?.phoneNumber ?? '';
@@ -272,13 +271,38 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         datesToRememberAdded: false,
         socialMediaAdded: false,
         accoladeAdded: false));
-    final result = await cardPatchRepo.addAccolades(accolade: event.accolade);
-    result.fold((l) => emit(state.copyWith(accoladeLoading: false)), (r) {
-      return emit(state.copyWith(
-          accoladeAdded: true,
-          accoladeLoading: false,
-          accolades: [...state.accolades, r]));
-    });
+    if (event.edit) {
+      final images = event.accolade.accoladesImage ??
+          <ImageCard>[].where((element) => element.id == null).toList();
+      if (images.isNotEmpty) {
+        await cardPatchRepo.uploadAccoladeImages(
+            accoladeImageAddingModel: AccoladeImageAddingModel(
+                accoladeId: event.accolade.id, image: images));
+      }
+      final result = await cardPatchRepo.updateAccolade(
+          accolade: Accolade(
+        accolades: event.accolade.accolades,
+        accoladesDescription: event.accolade.accoladesDescription,
+        date: event.accolade.date,
+        cardId: event.accolade.cardId,
+        id: event.accolade.id,
+      ));
+      result.fold((l) => emit(state.copyWith(accoladeLoading: false)), (r) {
+        List<Accolade> accolade = List.from(state.accolades);
+        final index = accolade.indexWhere((element) => element.id == r.id);
+        accolade[index] = r;
+        return emit(state.copyWith(
+            accoladeAdded: true, accoladeLoading: false, accolades: accolade));
+      });
+    } else {
+      final result = await cardPatchRepo.addAccolades(accolade: event.accolade);
+      result.fold((l) => emit(state.copyWith(accoladeLoading: false)), (r) {
+        return emit(state.copyWith(
+            accoladeAdded: true,
+            accoladeLoading: false,
+            accolades: [...state.accolades, r]));
+      });
+    }
   }
 
   FutureOr<void> removeAccolade(RemoveAccolade event, emit) async {
@@ -341,6 +365,10 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     });
   }
 
+  FutureOr<void> removeAccoladeImage(RemoveAccoladeImage event, emit) async {
+    await cardPatchRepo.deleteAccoladesImage(id: event.id);
+  }
+
   FutureOr<void> pickUserPhotos(PickUserPhotos event, emit) async {
     final img = await ImagePickerClass.getImage(camera: false);
     if (img != null) {
@@ -369,6 +397,11 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     for (ImageModel img in state.scannedImagesCardCreation) {
       if (state.scannedImagesCardCreation[event.index] != img) list.add(img);
     }
+    businessCategoryController.text = '';
+    nameController.text = '';
+    emailController.text = '';
+    phoneController.text = '';
+    designationController.text = '';
     emit(state.copyWith(
         scannedImagesCardCreation: list,
         cardAdded: false,

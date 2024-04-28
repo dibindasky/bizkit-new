@@ -14,7 +14,8 @@ class UserDataEvent with _$UserDataEvent {
   factory UserDataEvent.clear() = Clear;
   factory UserDataEvent.createPersonalData() = CreatePersonalData;
   factory UserDataEvent.removeUserPhoto() = RemoveUserPhoto;
-  factory UserDataEvent.addAccolade({required Accolade accolade}) = AddAccolade;
+  factory UserDataEvent.addAccolade(
+      {required Accolade accolade, required bool edit}) = AddAccolade;
   factory UserDataEvent.removeAccolade({required int id}) = RemoveAccolade;
   factory UserDataEvent.addDateToRemember(
       {required DatesToRemember datesToRemember}) = AddDateToRemember;
@@ -27,6 +28,10 @@ class UserDataEvent with _$UserDataEvent {
   factory UserDataEvent.createCard(
       {required CardFirstCreationModel cardFirstCreationModel}) = CreateCard;
   factory UserDataEvent.getCurrentCard({required Card card}) = GetCurrentCard;
-  factory UserDataEvent.addPersonalImage({required bool cam}) = AddPersonalImage;
-  factory UserDataEvent.removePersonalImage({required int id}) = RemovePersonalImage;
+  factory UserDataEvent.addPersonalImage({required bool cam}) =
+      AddPersonalImage;
+  factory UserDataEvent.removePersonalImage({required int id}) =
+      RemovePersonalImage;
+  factory UserDataEvent.removeAccoladeImage({required int id}) =
+      RemoveAccoladeImage;
 }

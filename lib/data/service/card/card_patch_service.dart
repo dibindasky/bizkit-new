@@ -4,7 +4,9 @@ import 'package:bizkit/data/service/api_service.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
+import 'package:bizkit/domain/model/card/card/accolade/accolade_image_adding_model/accolade_image_adding_model.dart';
 import 'package:bizkit/domain/model/card/card/accredition/accredition.dart';
+import 'package:bizkit/domain/model/card/card/accredition/accredition_image_adding_model/accredition_image_adding_model.dart';
 import 'package:bizkit/domain/model/card/card/bank_details/bank_details.dart';
 import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
@@ -12,6 +14,7 @@ import 'package:bizkit/domain/model/card/card/dates_to_remember/dates_to_remembe
 import 'package:bizkit/domain/model/card/card/logo_card/logo_card.dart';
 import 'package:bizkit/domain/model/card/card/personal_data/personal_details_images/personal_details_images.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
+import 'package:bizkit/domain/model/card/card/product/product_image_adding_model/product_image_adding_model.dart';
 import 'package:bizkit/domain/model/card/card/product_image_add/product_image_add.dart';
 import 'package:bizkit/domain/model/card/card/social_media/social_media_handle.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
@@ -44,6 +47,72 @@ class CardPatchService implements CardPatchRepo {
       return Left(Failure());
     } catch (e) {
       log('patchBankingDetails exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Accolade>> updateAccolade(
+      {required Accolade accolade}) async {
+    try {
+      log('updateAccolade creation ${accolade.date}');
+      final response = await _apiService.patch(
+          ApiEndPoints.updateAccolaade
+              .replaceFirst('{accolade_id}', accolade.id.toString()),
+          data: accolade.toJson());
+      log('updateAccolade creation done');
+      return Right(Accolade.fromJson(response.data));
+    } on DioException catch (e) {
+      log('updateAccolade creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('updateAccolade creation exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Accredition>> updateAccredition(
+      {required Accredition accredition}) async {
+    try {
+      final response = await _apiService.patch(
+          ApiEndPoints.upadateAccredition
+              .replaceFirst('{accreditation_id}', accredition.id.toString()),
+          data: accredition.toJson());
+      log('updateAccredition creation done');
+      return Right(Accredition.fromJson(response.data));
+    } on DioException catch (e) {
+      log('updateAccredition creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('updateAccredition creation exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Accolade>> uploadAccoladeImages(
+      {required AccoladeImageAddingModel accoladeImageAddingModel}) async {
+    try {
+      log('uploadAccoladeImages creation ');
+      final response = await _apiService.post(ApiEndPoints.uploadAccoladeImages,
+          data: accoladeImageAddingModel.toJson());
+      log('uploadAccoladeImages creation done');
+      return Right(Accolade.fromJson(response.data));
+    } on DioException catch (e) {
+      log('uploadAccoladeImages creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('uploadAccoladeImages creation exception error');
       log(e.toString());
       return Left(Failure());
     }
@@ -85,6 +154,46 @@ class CardPatchService implements CardPatchRepo {
       return Left(Failure());
     } catch (e) {
       log('deleteAccolades creation exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> deleteAccoladesImage(
+      {required int id}) async {
+    try {
+      await _apiService.delete(ApiEndPoints.deleteAccolaadeImage
+          .replaceFirst('{accolade_id}', id.toString()));
+      log('deleteAccoladesImage creation done');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('deleteAccoladesImage creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('deleteAccoladesImage creation exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> deleteAccreditationImage(
+      {required int id}) async {
+    try {
+      await _apiService.delete(ApiEndPoints.deleteAccreditationImage
+          .replaceFirst('{acredition_id}', id.toString()));
+      log('deleteAccreditationImage creation done');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('deleteAccreditationImage creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('deleteAccreditationImage creation exception error');
       log(e.toString());
       return Left(Failure());
     }
@@ -438,15 +547,15 @@ class CardPatchService implements CardPatchRepo {
   }
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> updateProduct(
+  Future<Either<Failure, Product>> updateProduct(
       {required int id, required Product product}) async {
     try {
-      await _apiService.patch(
+      final response = await _apiService.patch(
         ApiEndPoints.deleteProduct.replaceFirst('{product_id}', id.toString()),
         data: product.toJson(),
       );
       log('editProduct done');
-      return Right(SuccessResponseModel());
+      return Right(Product.fromJson(response.data));
     } on DioException catch (e) {
       log('editProduct DioException error $e');
       return Left(Failure());
@@ -521,13 +630,11 @@ class CardPatchService implements CardPatchRepo {
   Future<Either<Failure, PersonalDetailsImages>> addPersonalImage(
       {required PersonalDetailsImages personalDetailsImage}) async {
     try {
-      print(personalDetailsImage.personalDetailsId);
       final response = await _apiService.post(
         ApiEndPoints.addPersonalImage,
         data: personalDetailsImage.toJson(),
       );
       log('addPersonalImage done');
-      print(response.data);
       return Right(PersonalDetailsImages.fromJson(response.data));
     } on DioException catch (e) {
       log('addPersonalImage DioException error $e');
@@ -554,6 +661,71 @@ class CardPatchService implements CardPatchRepo {
       return Left(Failure());
     } catch (e) {
       log('removePersonalImage creation exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Accredition>> uploadAccreditionImages(
+      {required AccreditionImageAddingModel
+          accreditionImageAddingModel}) async {
+    try {
+      log('uploadAccreditionImages creation ');
+      final response = await _apiService.post(
+          ApiEndPoints.uploadAccreditationImage,
+          data: accreditionImageAddingModel.toJson());
+      log('uploadAccreditionImages creation done');
+      return Right(Accredition.fromJson(response.data));
+    } on DioException catch (e) {
+      log('uploadAccreditionImages creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('uploadAccreditionImages creation exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> deleteProductImage(
+      {required int id}) async {
+    try {
+      log('deleteProductImage creation ');
+      await _apiService.delete(ApiEndPoints.removeProductImage
+          .replaceFirst('{Image_id}', id.toString()));
+      log('deleteProductImage creation done');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('deleteProductImage creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('deleteProductImage creation exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> updateProductImages(
+      {required ProductImageAddingModel productImageAddingModel}) async {
+    try {
+      log('updateProductImages creation ');
+      await _apiService.delete(ApiEndPoints.updateProductImage,
+          data: productImageAddingModel.toJson());
+      log('updateProductImages creation done');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('updateProductImages creation dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('updateProductImages creation exception error');
       log(e.toString());
       return Left(Failure());
     }

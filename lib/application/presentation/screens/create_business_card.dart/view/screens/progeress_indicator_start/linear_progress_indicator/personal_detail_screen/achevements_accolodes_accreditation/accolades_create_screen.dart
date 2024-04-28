@@ -42,6 +42,7 @@ class AccoladesAddCreateScreen extends StatefulWidget {
 
 class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
   List<ImageCard> image = [];
+  List<ImageCard> newimage = [];
   String title = '';
   String description = '';
   final dateController = TextEditingController();
@@ -66,7 +67,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
       dateController.text = widget.accredition!.date ?? '';
     }
     print('image achivement = ');
-    for(var i in image){
+    for (var i in image) {
       print(i.id);
     }
     super.initState();
@@ -98,6 +99,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                               await ImagePickerClass.getImage(camera: true);
                           if (img != null) {
                             image.add(ImageCard(image: img.base64));
+                            newimage.add(ImageCard(image: img.base64));
                             setState(() {});
                           }
                         },
@@ -106,6 +108,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                               await ImagePickerClass.getImage(camera: false);
                           if (img != null) {
                             image.add(ImageCard(image: img.base64));
+                            newimage.add(ImageCard(image: img.base64));
                             setState(() {});
                           }
                         });
@@ -136,6 +139,9 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                                           1]
                                                       .id!));
                                         }
+                                        newimage.removeWhere((element) =>
+                                            element ==
+                                            image[image.length - index - 1]);
                                         image
                                             .removeAt(image.length - index - 1);
                                         setState(() {});
@@ -158,6 +164,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                               camera: true);
                                       if (img != null) {
                                         image.add(ImageCard(image: img.base64));
+                                        newimage.add(ImageCard(image: img.base64));
                                         setState(() {});
                                       }
                                     },
@@ -167,6 +174,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                               camera: false);
                                       if (img != null) {
                                         image.add(ImageCard(image: img.base64));
+                                        newimage.add(ImageCard(image: img.base64));
                                         setState(() {});
                                       }
                                     });
@@ -288,7 +296,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                             } else {
                               widget.isAccolade
                                   ? context.read<UserDataBloc>().add(
-                                      UserDataEvent.addAccolade(
+                                        UserDataEvent.addAccolade(
                                           edit: widget.accolade != null,
                                           accolade: Accolade(
                                               id: widget.accolade?.id,
@@ -298,7 +306,9 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                                   ? null
                                                   : dateController.text,
                                               accoladesDescription: description,
-                                              accoladesImage: image)))
+                                              accoladesImage: newimage),
+                                        ),
+                                      )
                                   : context.read<BusinessDataBloc>().add(
                                         BusinessDataEvent.addAccredition(
                                           edit: widget.accredition != null,
@@ -310,7 +320,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                               date: dateController.text == ''
                                                   ? null
                                                   : dateController.text,
-                                              images: image),
+                                              images: newimage),
                                         ),
                                       );
                             }

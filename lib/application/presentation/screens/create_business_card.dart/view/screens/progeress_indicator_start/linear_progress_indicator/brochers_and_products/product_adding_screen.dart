@@ -31,6 +31,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
   TextEditingController productTitleController = TextEditingController();
   TextEditingController productDescriptionController = TextEditingController();
   List<ImageCard> imageList = [];
+  List<ImageCard> newImageList = [];
   bool switchValue = false;
 
   @override
@@ -79,8 +80,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
-                                  final imageProduct =
-                                      imageList.reversed.toList()[index];
+                                  final imageProduct = imageList[index];
                                   return InkWell(
                                     onTap: () {
                                       Navigator.of(context).push(
@@ -133,24 +133,19 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                                                 kred);
                                                         return;
                                                       }
-                                                      if (imageList[imageList
-                                                                      .length -
-                                                                  index]
-                                                              .id !=
+                                                      if (imageList[index].id !=
                                                           null) {
                                                         context
                                                             .read<
                                                                 BusinessDataBloc>()
                                                             .add(BusinessDataEvent
                                                                 .removeProductIndexImages(
-                                                                    index: imageList[imageList.length -
+                                                                    index: imageList[
                                                                             index]
                                                                         .id!));
                                                       }
-                                                      imageList.removeAt(
-                                                          imageList.length -
-                                                              index -
-                                                              1);
+                                                      newImageList.removeWhere((element) => element==imageList[index]);
+                                                      imageList.removeAt(index);
                                                       setState(() {});
                                                     },
                                                   );
@@ -188,6 +183,8 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                         if (img != null) {
                                           imageList.add(
                                               ImageCard(image: img.base64));
+                                          newImageList.add(
+                                              ImageCard(image: img.base64));
                                           setState(() {});
                                         }
                                       },
@@ -197,6 +194,8 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                                 camera: false);
                                         if (img != null) {
                                           imageList.add(
+                                              ImageCard(image: img.base64));
+                                          newImageList.add(
                                               ImageCard(image: img.base64));
                                           setState(() {});
                                         }
@@ -291,7 +290,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                             description:
                                 productDescriptionController.text.trim(),
                             label: productTitleController.text.trim(),
-                            image: imageList,
+                            image:widget.product?.id ==null? imageList:newImageList,
                             //[ImageCard(image: image!.base64)],
                             enquiry: switchValue,
                             cardId: state.currentCard!.id,

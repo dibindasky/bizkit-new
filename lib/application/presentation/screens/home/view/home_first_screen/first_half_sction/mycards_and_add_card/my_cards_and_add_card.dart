@@ -86,11 +86,11 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                         fadePageRoute(
                             const StartingBusinessCardCreation(fromHome: true)),
                       ),
-                      child: CustomShowCaseView(
-                        image: personImage,
-                        description: '',
-                        tittle: 'Create Business card from here',
-                        globalKey: globalKeyAddCard,
+                      // child: CustomShowCaseView(
+                      //   image: personImage,
+                      //   description: '',
+                      //   tittle: 'Create Business card from here',
+                      //   globalKey: globalKeyAddCard,
                         child: Container(
                           height: kwidth * 0.35,
                           decoration: BoxDecoration(
@@ -118,7 +118,7 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                             ],
                           ),
                         ),
-                      ),
+                      // ),
                     );
                   },
                 ),
@@ -170,8 +170,8 @@ class _CardPageSliderState extends State<CardPageSlider>
 
   @override
   void dispose() {
-    _pageController.dispose();
-    _timer.cancel();
+    // _pageController.dispose();
+    // _timer.cancel();
     super.dispose();
   }
 

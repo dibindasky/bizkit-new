@@ -43,6 +43,7 @@ class TTextFormField extends StatefulWidget {
   final Validate validate;
   final TextCapitalization textCapitalization;
   final bool enabled;
+  final double textSize;
   const TTextFormField(
       {Key? key,
       this.enabled = true,
@@ -65,7 +66,7 @@ class TTextFormField extends StatefulWidget {
       this.onTap,
       this.onChanaged,
       this.focusNode,
-      this.hintText,
+      this.hintText,this.textSize=0.033,
       this.textCapitalization = TextCapitalization.none,
       this.onTapOutside})
       : super(key: key);
@@ -116,7 +117,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
           maxLines: widget.maxLines ?? 1,
           style: TextStyle(
             color: kwhite,
-            fontSize: kwidth * 0.033,
+            fontSize: kwidth * widget.textSize,
           ),
           maxLength: widget.maxlegth,
           onChanged: widget.onChanaged,

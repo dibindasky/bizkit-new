@@ -198,6 +198,8 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                             .pushNamed(Routes.linerarProgressBar);
                       } else {
                         context.go(Routes.homePage);
+                        // Navigator.pushNamedAndRemoveUntil(
+                        //     context, Routes.homePage, (route) => false);
                         context.read<UserDataBloc>().add(UserDataEvent.clear());
                       }
                     }

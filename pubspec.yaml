@@ -84,6 +84,7 @@ dependencies:
   geocoding: ^3.0.0
   showcaseview: ^2.1.0
   tutorial_coach_mark: ^1.2.11
+  photo_view: ^0.15.0
 
 dev_dependencies:
   build_runner: ^2.4.8

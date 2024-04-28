@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -25,14 +26,35 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
   TextEditingController descriptionController = TextEditingController();
   late bool switchValue;
   late List<ImageCard> updateImageCard;
+  late PageController _pageController;
+  int _currentPageIndex = 0;
 
   @override
   void initState() {
+    super.initState();
     updateImageCard = widget.product.image ?? [];
     switchValue = widget.product.enquiry ?? false;
     tittleController.text = widget.product.label ?? '';
     descriptionController.text = widget.product.description ?? '';
-    super.initState();
+    _pageController = PageController(initialPage: _currentPageIndex);
+
+    bool forward = true;
+    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+      if (_currentPageIndex == widget.product.image!.length - 1 ||
+          _currentPageIndex == 0) {
+        forward = !forward;
+      }
+      if (forward && _currentPageIndex < widget.product.image!.length - 1) {
+        _currentPageIndex++;
+      } else if (!forward && _currentPageIndex > 0) {
+        _currentPageIndex--;
+      }
+      _pageController.animateToPage(
+        _currentPageIndex,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 
   @override
@@ -43,8 +65,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
             ? []
             : [
                 IconButton(
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                   icon: const Icon(Icons.add),
                 ),
               ],
@@ -58,95 +79,96 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
           ),
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: khieght * .3,
-                  child: PageView.builder(
-                    itemCount: widget.product.image!.length,
-                    scrollDirection: Axis.horizontal,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Stack(
-                              children: [
-                                Container(height: khieght * .3,
-                                width: khieght * .4,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: neonShade,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                          fadePageRoute(ScreenImagePreview(
-                                        image: widget
-                                            .product.image![index].image!,
-                                      )));
-                                    },
-                                    child: SizedBox(
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10),
-                                        child: widget.product.image != null && widget.product.image!.isNotEmpty
-                                            ? Image.memory(
-                                                base64.decode(
-                                                  widget.product.image![index]
-                                                          .image!
-                                                          .startsWith('data')
-                                                      ? widget
-                                                          .product
-                                                          .image![index]
-                                                          .image!
-                                                          .substring(22)
-                                                      : widget
-                                                          .product
-                                                          .image![index]
-                                                          .image!,
-                                                ),
-                                                filterQuality:
-                                                    FilterQuality.high,
-                                                fit: BoxFit.cover,
-                                              )
-                                            : Image.asset(
-                                                emptyNodata3,
-                                                fit: BoxFit.cover,
-                                              ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              adjustHieght(30),
+              SizedBox(
+                height: khieght * .3,
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: widget.product.image!.length,
+                  scrollDirection: Axis.horizontal,
+                  // physics: const NeverScrollableScrollPhysics(),
+                  // separatorBuilder: (context, index) => adjustWidth(10),
+                  itemBuilder: (context, index) {
+                    return Stack(
+                      children: [
+                        Container(
+                          height: khieght * .3,
+                          width: khieght * .4,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: neonShade,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(fadePageRoute(ScreenImagePreview(
+                                image: widget.product.image![index].image!,
+                              )));
+                            },
+                            child: SizedBox(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: widget.product.image != null &&
+                                        widget.product.image!.isNotEmpty
+                                    ? Image.memory(
+                                        base64.decode(
+                                          widget.product.image![index].image!
+                                                  .startsWith('data')
+                                              ? widget
+                                                  .product.image![index].image!
+                                                  .substring(22)
+                                              : widget
+                                                  .product.image![index].image!,
+                                        ),
+                                        filterQuality: FilterQuality.high,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset(
+                                        emptyNodata3,
+                                        fit: BoxFit.cover,
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                    },
-                  ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
-                adjustHieght(30),
-                !widget.myCard
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Text(tittleController.text),
-                      )
-                    : TTextFormField(
-                        text: 'Tittle',
-                        controller: tittleController,
+              ),
+              adjustHieght(30),
+              !widget.myCard
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Text(
+                        tittleController.text,
+                        style:const TextStyle(fontSize: 20),
                       ),
-                !widget.myCard
-                    ? Text(descriptionController.text)
-                    : TTextFormField(
-                        text: 'Description',
-                        controller: descriptionController,
-                        validate: Validate.notNull,
-                        textCapitalization: TextCapitalization.sentences,
-                        maxLines: 8,
-                      ),
-                adjustHieght(30),
-              ],
-            ),
+                    )
+                  : TTextFormField(
+                      text: 'Tittle',
+                      textSize: 0.045,
+                      controller: tittleController,
+                    ),
+              !widget.myCard
+                  ? Text(descriptionController.text)
+                  : TTextFormField(
+                      text: 'Description',
+                      controller: descriptionController,
+                      validate: Validate.notNull,
+                      textCapitalization: TextCapitalization.sentences,
+                      maxLines: 8,
+                    ),
+              adjustHieght(30),
+            ],
           ),
         ),
       ),

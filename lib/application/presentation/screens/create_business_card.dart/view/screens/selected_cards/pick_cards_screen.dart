@@ -1,5 +1,6 @@
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/card_uploading_showdailogue.dart';
@@ -10,6 +11,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class PickCardsScreen extends StatelessWidget {
   const PickCardsScreen({super.key});
@@ -161,11 +163,13 @@ class PickCardsScreen extends StatelessWidget {
                               context
                                   .read<UserDataBloc>()
                                   .add(UserDataEvent.getBusinessCategories());
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ProfileCreationScreen()));
+                              // Navigator.pushReplacement(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             const ProfileCreationScreen()));
+                              GoRouter.of(context)
+                                  .push(Routes.cardCreationProfilePage);
                             },
                           ),
                     adjustHieght(khieght * .02),

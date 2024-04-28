@@ -66,7 +66,8 @@ class TTextFormField extends StatefulWidget {
       this.onTap,
       this.onChanaged,
       this.focusNode,
-      this.hintText,this.textSize=0.033,
+      this.hintText,
+      this.textSize = 0.033,
       this.textCapitalization = TextCapitalization.none,
       this.onTapOutside})
       : super(key: key);
@@ -202,14 +203,24 @@ class _TTextFormFieldState extends State<TTextFormField> {
             } else if (Validate.rePassword == widget.validate &&
                 widget.password!.text.trim() != value) {
               return 'Password must be same';
-            } else if (Validate.ifsc == widget.validate &&
-                !isValidIFSC(value!)) {
-              return 'enter valid IFSC code';
-            } else if (Validate.upi == widget.validate &&
-                !isValidUpiId(value!)) {
-              return 'enter valid upi id';
-            } else if (Validate.gst == widget.validate && !isValidGst(value!)) {
-              return 'enter valid gst no';
+            } else if (Validate.ifsc == widget.validate) {
+              if (value != '' && !isValidIFSC(value!)) {
+                return 'enter valid IFSC code';
+              } else {
+                return null;
+              }
+            } else if (Validate.upi == widget.validate) {
+              if (value != '' && !isValidUpiId(value!)) {
+                return 'enter valid upi id';
+              } else {
+                return null;
+              }
+            } else if (Validate.gst == widget.validate) {
+              if (value != '' && !isValidGst(value!)) {
+                return 'enter valid gst no';
+              } else {
+                return null;
+              }
             } else if (value == 'Content' && value!.length < 20) {
               return 'Content must be at least 20 characters';
             }

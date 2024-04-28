@@ -21,6 +21,14 @@ class BrocherBuilder extends StatelessWidget {
       height: kwidth * 0.2,
       child: BlocBuilder<BusinessDataBloc, BusinessDataState>(
         builder: (context, state) {
+          if (state.brochures.isEmpty) {
+            return const Center(
+              child: Text(
+                '   No Brochures Available',
+                style: TextStyle(fontSize: 10),
+              ),
+            );
+          }
           return ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: state.brochureLoading

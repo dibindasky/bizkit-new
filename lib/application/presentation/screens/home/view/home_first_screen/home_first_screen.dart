@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_first_app_bar.dart';
@@ -10,6 +12,7 @@ import 'package:bizkit/application/presentation/screens/home/view/home_second_sc
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
@@ -54,6 +57,9 @@ late AnimationController homeSecondAnimationController2;
 class _HomeScreenFirstAnimationScreenState
     extends State<HomeScreenFirstAnimationScreen>
     with TickerProviderStateMixin {
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+
   late Animation<Offset> _slideAnimation;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation2;
@@ -148,89 +154,109 @@ class _HomeScreenFirstAnimationScreenState
     khieght = size.height;
     kwidth = size.width;
     return Scaffold(
-      body: SafeArea(
-        child: ValueListenableBuilder(
-          valueListenable: showCardsNotifier,
-          builder: (context, value, child) {
-            if (value == HomeScreensList.first ||
-                value == HomeScreensList.second ||
-                value == HomeScreensList.third) {
-              return Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Visibility(
-                      visible: homeFirstAnimationController.isCompleted,
-                      child: SecondAnimation(
-                        animationController: [
-                          homeFirstAnimationController,
-                          homeSecondAnimationController,
-                          homeSecondAnimationController2
-                        ],
-                      ),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AnimatedBuilder(
-                        animation: homeFirstAnimationController,
-                        builder: (context, child) {
-                          return FadeTransition(
-                            opacity: _fadeAnimation,
-                            child: SlideTransition(
-                              position: _slideAnimation,
-                              child: SizedBox(
-                                height: kwidth * 1.123,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const HomeFirstAppBar(),
-                                      adjustHieght(khieght * .02),
-                                      const MyCardsAndAddCardSection(),
-                                      adjustHieght(khieght * .03),
-                                      const MyConnectionContainerHomePage(),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      Expanded(
-                        child: AnimatedBuilder(
-                          animation: Listenable.merge([
+      body: SmartRefresher(
+        controller: refreshController,
+        header: const WaterDropHeader(),
+        enablePullDown: true,
+        enablePullUp: true,
+        onLoading: () async {
+          await Future.delayed(const Duration(seconds: 3));
+          refreshController.loadComplete();
+        },
+        onRefresh: () async {
+          context.read<CardBloc>().add(const CardEvent.getCards(call: true));
+          context.read<ConnectionRequestBloc>().add(
+              const ConnectionRequestEvent.getBizkitConnections(query: ''));
+          context
+              .read<ReminderBloc>()
+              .add(const ReminderEvent.getAllRemindersEvent());
+          await Future.delayed(const Duration(seconds: 3));
+          refreshController.refreshCompleted();
+        },
+        child: SafeArea(
+          child: ValueListenableBuilder(
+            valueListenable: showCardsNotifier,
+            builder: (context, value, child) {
+              if (value == HomeScreensList.first ||
+                  value == HomeScreensList.second ||
+                  value == HomeScreensList.third) {
+                return Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Visibility(
+                        visible: homeFirstAnimationController.isCompleted,
+                        child: SecondAnimation(
+                          animationController: [
+                            homeFirstAnimationController,
                             homeSecondAnimationController,
                             homeSecondAnimationController2
-                          ]),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AnimatedBuilder(
+                          animation: homeFirstAnimationController,
                           builder: (context, child) {
-                            return SlideTransition(
-                              position: _slideAnimation2Move,
+                            return FadeTransition(
+                              opacity: _fadeAnimation,
                               child: SlideTransition(
-                                position: _slideAnimation2,
-                                child: HomeScreenSecondPart(
-                                  animationController: [
-                                    homeFirstAnimationController,
-                                    homeSecondAnimationController,
-                                    homeSecondAnimationController2
-                                  ],
+                                position: _slideAnimation,
+                                child: SizedBox(
+                                  height: kwidth * 1.123,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const HomeFirstAppBar(),
+                                        adjustHieght(khieght * .02),
+                                        const MyCardsAndAddCardSection(),
+                                        adjustHieght(khieght * .03),
+                                        const MyConnectionContainerHomePage(),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                             );
                           },
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              );
-            }
-            return const SizedBox();
-          },
+                        Expanded(
+                          child: AnimatedBuilder(
+                            animation: Listenable.merge([
+                              homeSecondAnimationController,
+                              homeSecondAnimationController2
+                            ]),
+                            builder: (context, child) {
+                              return SlideTransition(
+                                position: _slideAnimation2Move,
+                                child: SlideTransition(
+                                  position: _slideAnimation2,
+                                  child: HomeScreenSecondPart(
+                                    animationController: [
+                                      homeFirstAnimationController,
+                                      homeSecondAnimationController,
+                                      homeSecondAnimationController2
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              }
+              return const SizedBox();
+            },
+          ),
         ),
       ),
     );

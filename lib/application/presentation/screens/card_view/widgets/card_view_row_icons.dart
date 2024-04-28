@@ -181,7 +181,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                           Navigator.pop(context);
                                         },
                                         child: const Text(
-                                          'cancel',
+                                          'Cancel',
                                           style: TextStyle(color: neonShade),
                                         ),
                                       ),

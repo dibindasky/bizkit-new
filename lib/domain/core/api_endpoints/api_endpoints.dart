@@ -46,7 +46,7 @@ class ApiEndPoints {
   static String uploadAccoladeImages = '/card/accolade-image-create/';
   static String deleteAccolaade = '/card/accolade-update-delete/{accolade_id}/';
   static String deleteAccolaadeImage = '/card/accolade-image-delete/{accolade_id}/';
-  static String deleteAccreditationImage = '/card/accreditation-image-delete/{acredition_id}/';
+  static String deleteAccreditationImage = '/card/accreditation-update-delete/{acredition_id}/';
   static String uploadAccreditationImage = '/card/accreditation-image-create/';
   static String upadateAccredition = '/card/accreditation-update-delete/{accreditation_id}/';
   static String addAcredition = '/card/accreditation-create/';

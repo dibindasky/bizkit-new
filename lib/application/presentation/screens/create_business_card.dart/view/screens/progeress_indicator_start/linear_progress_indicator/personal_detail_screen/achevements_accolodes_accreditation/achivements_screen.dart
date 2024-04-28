@@ -7,7 +7,7 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
-import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,13 +52,16 @@ class AchivementsScreen extends StatelessWidget {
                           return InkWell(
                             onTap: () => Navigator.push(
                                 context,
-                                fadePageRoute(ScreenImagePreview(
-                                    image: (achivement[index] is Accolade
-                                            ? achivement[index]
-                                                .accoladesImage[0]
-                                                .image
-                                            : achivement[index].images[0].image)
-                                        .substring(22)))),
+                                fadePageRoute(SlidablePhotoGallery(
+                                    images: achivement[index] is Accolade
+                                        ? achivement[index]
+                                            .accoladesImage
+                                            .map((e) => e.image as String)
+                                            .toList()
+                                        : achivement[index]
+                                            .images
+                                            .map((e) => e.image as String)
+                                            .toList()))),
                             child: SizedBox(
                               height: 250,
                               width: double.infinity,

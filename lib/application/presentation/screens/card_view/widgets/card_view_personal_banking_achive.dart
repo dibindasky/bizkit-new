@@ -15,6 +15,7 @@ class CardViewBankPersonAchivedRows extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        // Banking
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: 5, right: 7),
@@ -28,6 +29,7 @@ class CardViewBankPersonAchivedRows extends StatelessWidget {
             ),
           ),
         ),
+        // Personal
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: 5, right: 7),
@@ -41,6 +43,7 @@ class CardViewBankPersonAchivedRows extends StatelessWidget {
             ),
           ),
         ),
+        // Achivements
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: 5, right: 7),

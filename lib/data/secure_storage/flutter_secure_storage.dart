@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:bizkit/domain/model/token/token_model.dart';
+import 'package:bizkit/domain/model/user/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SecureStorage {
@@ -9,6 +10,11 @@ class SecureStorage {
   static const String isLoged = 'is_logedIn';
   static const String isBusinessKey = 'is_business';
   static const String userNameKey = 'user_name';
+  static const String userEmailKey = 'user_email';
+  static const String userCompanyKey = 'user_compnay';
+  static const String userPhoneKey = 'user_phone';
+  static const String userAddressKey = 'user_address';
+  static const String userWebsiteKey = 'user_website';
   static const String isVerifiedKey = 'is_verified';
   static const String hasCardKey = 'has_card';
   static const String hasReminderKey = 'has_reminder';
@@ -148,5 +154,26 @@ class SecureStorage {
     final prefs = await _getPrefs();
     final viewed = prefs.getBool(showCaseSetBool);
     return viewed ?? false;
+  }
+
+  static Future<void> setUserDetails({required User user}) async {
+    final prefs = await _getPrefs();
+    prefs.setString(userEmailKey, user.email ?? "");
+    prefs.setString(userPhoneKey, user.phoneNumber ?? "");
+    prefs.setString(userWebsiteKey, user.websiteLink ?? "");
+    prefs.setString(userCompanyKey, user.companyName ?? "");
+    prefs.setString(userNameKey, user.name ?? "");
+    prefs.setString(userAddressKey, user.address ?? "");
+  }
+
+  static Future<User> getUserDetails() async {
+    final prefs = await _getPrefs();
+    return User(
+        companyName: prefs.getString(userCompanyKey),
+        email: prefs.getString(userEmailKey),
+        phoneNumber: prefs.getString(userPhoneKey),
+        websiteLink: prefs.getString(userWebsiteKey),
+        address: prefs.getString(userAddressKey),
+        name: prefs.getString(userNameKey));
   }
 }

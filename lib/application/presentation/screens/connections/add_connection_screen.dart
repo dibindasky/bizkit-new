@@ -6,6 +6,7 @@ import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
+import 'package:bizkit/domain/model/connections/connection_request_id_model/connection_request_id_model.dart';
 import 'package:bizkit/domain/model/connections/get_serch_connection_response_model/bizkit_user.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:flutter/material.dart';
@@ -202,18 +203,26 @@ class _GridTileAddRequestConnectionState
                   ConnectionRequestEvent.addConnectionRequests(
                       addConnectionRequestModel:
                           AddConnectionRequestModel(cardUserId: widget.data.id),
-                      index: widget.index));
+                      index: widget.data.id!));
+            } else {
+              print(widget.data.connectionId);
+              context.read<ConnectionRequestBloc>().add(
+                  ConnectionRequestEvent.removeConnectionRequest(
+                      connectionRequestIdModel: ConnectionRequestIdModel(
+                          connectionRequestId: widget.data.connectionId),
+                      id: widget.data.id!));
             }
           },
           child: BlocConsumer<ConnectionRequestBloc, ConnectionRequestState>(
             listenWhen: (previous, current) =>
-                previous.requestLoadingIndex.contains(widget.index) &&
-                current.connected,
+                (previous.requestLoadingIndex.contains(widget.data.id) !=
+                    current.requestLoadingIndex.contains(widget.data.id)) &&
+                (current.connected != previous.connected),
             listener: (context, state) {
-              requested = true;
+              requested = !requested;
             },
             builder: (context, state) {
-              if (state.requestLoadingIndex.contains(widget.index)) {
+              if (state.requestLoadingIndex.contains(widget.data.id)) {
                 return const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: ShimmerLoader(itemCount: 1, height: 30, width: 20),
@@ -226,7 +235,7 @@ class _GridTileAddRequestConnectionState
                     gradient: neonShadeGradient,
                     borderRadius: const BorderRadius.all(Radius.circular(10))),
                 child: FittedBox(
-                  child: Text(requested ? 'Requested' : 'Add Connection',
+                  child: Text(requested ? 'Remove Request' : 'Add Connection',
                       style: const TextStyle(color: kwhite)),
                 ),
               );

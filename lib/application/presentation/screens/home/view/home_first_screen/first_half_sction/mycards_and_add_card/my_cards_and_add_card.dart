@@ -8,13 +8,27 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
+import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class MyCardsAndAddCardSection extends StatelessWidget {
+class MyCardsAndAddCardSection extends StatefulWidget {
   const MyCardsAndAddCardSection({super.key});
+
+  @override
+  State<MyCardsAndAddCardSection> createState() =>
+      _MyCardsAndAddCardSectionState();
+}
+
+class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
+  final GlobalKey globalKeyAddCard = GlobalKey();
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,31 +87,36 @@ class MyCardsAndAddCardSection extends StatelessWidget {
                         fadePageRoute(
                             const StartingBusinessCardCreation(fromHome: true)),
                       ),
-                      child: Container(
-                        height: kwidth * 0.35,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: backgroundColour,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: kblack,
-                              blurRadius: 2,
-                              blurStyle: BlurStyle.outer,
-                            )
-                          ],
-                        ),
-                        width: 140,
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            CircleAvatar(
-                              radius: 16,
-                              backgroundImage: AssetImage(
-                                'asset/images/home add circl.png',
+                      child: CustomShaowCaseView(
+                        description: '',
+                        tittle: 'Create Business card from here',
+                        globalKey: globalKeyAddCard,
+                        child: Container(
+                          height: kwidth * 0.35,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: backgroundColour,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: kblack,
+                                blurRadius: 2,
+                                blurStyle: BlurStyle.outer,
+                              )
+                            ],
+                          ),
+                          width: 140,
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              CircleAvatar(
+                                radius: 16,
+                                backgroundImage: AssetImage(
+                                  'asset/images/home add circl.png',
+                                ),
                               ),
-                            ),
-                            Text('Add Card'),
-                          ],
+                              Text('Add Card'),
+                            ],
+                          ),
                         ),
                       ),
                     );

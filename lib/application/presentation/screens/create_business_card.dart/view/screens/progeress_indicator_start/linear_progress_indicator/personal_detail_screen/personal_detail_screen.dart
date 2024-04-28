@@ -59,14 +59,19 @@ class PersonlDetails extends StatelessWidget {
                         BlocBuilder<UserDataBloc, UserDataState>(
                           builder: (context, state) {
                             return ImagePreviewUnderTextField(
-                                removeItem: (index) => showCustomConfirmationDialogue(context: context, title: 'Remove image?', buttonText: 'Remove', onTap: (){
-                                  context
-                                    .read<UserDataBloc>()
-                                    .add(UserDataEvent.removePersonalImage(
-                                        id: state.personalImges[index].id!));
-                                }),
+                                removeItem: (index) =>
+                                    showCustomConfirmationDialogue(
+                                        context: context,
+                                        title: 'Remove image?',
+                                        buttonText: 'Remove',
+                                        onTap: () {
+                                          context.read<UserDataBloc>().add(
+                                              UserDataEvent.removePersonalImage(
+                                                  id: state.personalImges[index]
+                                                      .id!));
+                                        }),
                                 list: state.personalImges
-                                    .map((e) => e.image??'')
+                                    .map((e) => e.image ?? '')
                                     .toList(),
                                 ontap: () {
                                   cameraAndGalleryPickImage(

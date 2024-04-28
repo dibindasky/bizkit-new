@@ -90,11 +90,17 @@ class _StartingBusinessCardCreationState
                     ),
                     TextButton(
                       onPressed: () {
-                        context.read<UserDataBloc>().nameController.text='';
-                        context.read<UserDataBloc>().emailController.text='';
-                        context.read<UserDataBloc>().phoneController.text='';
-                        context.read<UserDataBloc>().designationController.text='';
-                        context.read<UserDataBloc>().businessCategoryController.text='';
+                        context.read<UserDataBloc>().nameController.text = '';
+                        context.read<UserDataBloc>().emailController.text = '';
+                        context.read<UserDataBloc>().phoneController.text = '';
+                        context
+                            .read<UserDataBloc>()
+                            .designationController
+                            .text = '';
+                        context
+                            .read<UserDataBloc>()
+                            .businessCategoryController
+                            .text = '';
                         context
                             .read<UserDataBloc>()
                             .add(UserDataEvent.getBusinessCategories());

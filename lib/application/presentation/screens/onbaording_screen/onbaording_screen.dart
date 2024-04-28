@@ -5,7 +5,6 @@ import 'package:bizkit/application/presentation/screens/authentication/view/widg
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -99,7 +98,7 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
                 'Boost your business risk-free',
                 style: textHeadStyle1.copyWith(fontSize: 24),
               ),
-              adjustHieght(screenHeight * .1),
+              adjustHieght(screenHeight * .05),
               SizedBox(
                 child: Image.asset(
                   onBoardScreenfirstpersonImages,
@@ -107,7 +106,7 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              const Spacer(),
+              adjustHieght(screenHeight * .04),
               AuthButton(
                 wdth: 330,
                 borderRadius: 25,
@@ -119,7 +118,6 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
                   );
                 },
               ),
-              adjustHieght(screenHeight * .1),
             ],
           ),
         );
@@ -285,7 +283,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              const Spacer(),
+              adjustHieght(screenHeight * .04),
               AuthButton(
                 wdth: 330,
                 borderRadius: 25,
@@ -295,7 +293,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                   context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
                 },
               ),
-              adjustHieght(screenHeight * .1),
+              // adjustHieght(screenHeight * .1),
             ],
           ),
         );

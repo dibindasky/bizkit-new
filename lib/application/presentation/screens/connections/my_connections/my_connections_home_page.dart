@@ -9,6 +9,9 @@ import 'package:bizkit/domain/model/connections/get_bizkit_connections_response_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+final GlobalKey globalKeyViewsAllConnections = GlobalKey();
+final GlobalKey globalKeyShare = GlobalKey();
+
 class MyConnectionContainerHomePage extends StatelessWidget {
   const MyConnectionContainerHomePage({super.key});
 
@@ -28,9 +31,11 @@ class MyConnectionContainerHomePage extends StatelessWidget {
             children: [
               Text('My connections', style: textHeadStyle1),
               GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                  fadePageRoute(MyConnectionsViewAllContacts()),
-                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    fadePageRoute(MyConnectionsViewAllContacts()),
+                  );
+                },
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                   child: Card(

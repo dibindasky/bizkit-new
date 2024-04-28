@@ -86,6 +86,17 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     on<CardFeildClearing>(cardFeildClearing);
     on<LocationGeting>(locationGeting);
     on<ContactSaveToPhone>(contactSaveToPhone);
+    on<SeccondCardShare>(seccondCardShare);
+  }
+
+  FutureOr<void> seccondCardShare(SeccondCardShare event, emit) async {
+    emit(state.copyWith(
+      isLoading: true,
+      hasError: false,
+    ));
+    final data = await _cardSecondRepo.secondCardShareAsAImage(id: event.id);
+    data.fold((l) => emit(state.copyWith(isLoading: false, hasError: true)),
+        (r) => emit(state.copyWith(isLoading: false, hasError: false)));
   }
 
   FutureOr<void> contactSaveToPhone(ContactSaveToPhone event, emit) async {
@@ -95,13 +106,15 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
         await contactsRepo.addNewContact(addNewContact: event.addNewContact);
     data.fold(
         (l) => emit(state.copyWith(
-            contactAddError: true,
-            contactAddLoading: false,
-            contactAdded: false)),
+              contactAddError: true,
+              contactAddLoading: false,
+              contactAdded: false,
+            )),
         (r) => emit(state.copyWith(
-            contactAddError: false,
-            contactAddLoading: false,
-            contactAdded: true)));
+              contactAddError: false,
+              contactAddLoading: false,
+              contactAdded: true,
+            )));
   }
 
   FutureOr<void> processImageScanningInfo(

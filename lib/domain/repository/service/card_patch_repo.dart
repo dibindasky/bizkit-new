@@ -61,5 +61,5 @@ abstract class CardPatchRepo {
   Future<Either<Failure, PersonalDetailsImages>> addPersonalImage(
       {required PersonalDetailsImages personalDetailsImage});
   Future<Either<Failure, SuccessResponseModel>> removePersonalImage(
-      {required int id}); 
+      {required int id});
 }

@@ -27,6 +27,8 @@ class UserDataEvent with _$UserDataEvent {
   factory UserDataEvent.createCard(
       {required CardFirstCreationModel cardFirstCreationModel}) = CreateCard;
   factory UserDataEvent.getCurrentCard({required Card card}) = GetCurrentCard;
-  factory UserDataEvent.addPersonalImage({required bool cam}) = AddPersonalImage;
-  factory UserDataEvent.removePersonalImage({required int id}) = RemovePersonalImage;
+  factory UserDataEvent.addPersonalImage({required bool cam}) =
+      AddPersonalImage;
+  factory UserDataEvent.removePersonalImage({required int id}) =
+      RemovePersonalImage;
 }

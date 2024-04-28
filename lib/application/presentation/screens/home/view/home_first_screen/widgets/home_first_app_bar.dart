@@ -6,9 +6,11 @@ import 'package:bizkit/application/presentation/screens/card_share/view/widgets/
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
+import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class HomeFirstAppBar extends StatefulWidget {
   const HomeFirstAppBar({
@@ -22,8 +24,17 @@ class HomeFirstAppBar extends StatefulWidget {
 class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
   bool isOPen = false;
 
+  final GlobalKey globalKeylevelSharingIcon = GlobalKey();
+  final GlobalKey globalKeynotificationIcon = GlobalKey();
+
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ShowCaseWidget.of(context).startShowCase([
+        globalKeynotificationIcon,
+        globalKeylevelSharingIcon,
+      ]);
+    });
     context
         .read<ProfileBloc>()
         .add(const ProfileEvent.getProfile(isLoad: true));
@@ -65,10 +76,15 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
             onTap: () {
               GoRouter.of(context).pushNamed(Routes.notificationPage);
             },
-            child: CircleAvatar(
-                radius: kwidth * .060,
-                backgroundColor: textFieldFillColr,
-                backgroundImage: const AssetImage(iconNotification)),
+            child: CustomShaowCaseView(
+              globalKey: globalKeynotificationIcon,
+              tittle: 'See notification',
+              description: '',
+              child: CircleAvatar(
+                  radius: kwidth * .060,
+                  backgroundColor: textFieldFillColr,
+                  backgroundImage: const AssetImage(iconNotification)),
+            ),
           ),
           const SizedBox(width: 10),
           GestureDetector(
@@ -78,12 +94,17 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
                 const CardSharingScreen(),
               ),
             ),
-            child: CircleAvatar(
-              radius: kwidth * 0.060,
-              backgroundColor: textFieldFillColr,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Image.asset(iconBizkitPng),
+            child: CustomShaowCaseView(
+              globalKey: globalKeylevelSharingIcon,
+              tittle: 'Share your card using QR code',
+              description: '',
+              child: CircleAvatar(
+                radius: kwidth * 0.060,
+                backgroundColor: textFieldFillColr,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Image.asset(iconBizkitPng),
+                ),
               ),
             ),
           )

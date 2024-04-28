@@ -100,30 +100,34 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                 image: image[image.length - index - 1]);
                           },
                         ),
-                        Positioned (bottom: 5,right: 5,
+                        Positioned(
+                          bottom: 5,
+                          right: 5,
                           child: InkWell(
                               onTap: () {
                                 cameraAndGalleryPickImage(
                                     tittle: "Choose image from",
                                     context: context,
                                     onPressCam: () async {
-                                      final img = await ImagePickerClass.getImage(
-                                          camera: true);
+                                      final img =
+                                          await ImagePickerClass.getImage(
+                                              camera: true);
                                       if (img != null) {
                                         image.add(ImageCard(image: img.base64));
                                         setState(() {});
                                       }
                                     },
                                     onPressGallery: () async {
-                                      final img = await ImagePickerClass.getImage(
-                                          camera: false);
+                                      final img =
+                                          await ImagePickerClass.getImage(
+                                              camera: false);
                                       if (img != null) {
                                         image.add(ImageCard(image: img.base64));
                                         setState(() {});
                                       }
                                     });
                               },
-                              child:const CircleAvatar(
+                              child: const CircleAvatar(
                                 radius: 30,
                                 child: Icon(Icons.add_a_photo_outlined),
                               )),

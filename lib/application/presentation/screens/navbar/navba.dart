@@ -10,6 +10,7 @@ import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class BizkitBottomNavigationBar extends StatefulWidget {
   const BizkitBottomNavigationBar({super.key});
@@ -130,11 +131,15 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
             }
           },
           child: Scaffold(
-            body: Stack(
-              children: [
-                _widgetOptions.elementAt(state.slectedtabIndex),
-                PromptHomePage(showPrompt: state.slectedtabIndex == 0)
-              ],
+            body: ShowCaseWidget(
+              builder: Builder(
+                builder: (context) => Stack(
+                  children: [
+                    _widgetOptions.elementAt(state.slectedtabIndex),
+                    PromptHomePage(showPrompt: state.slectedtabIndex == 0)
+                  ],
+                ),
+              ),
             ),
             bottomNavigationBar: Material(
               elevation: 5,

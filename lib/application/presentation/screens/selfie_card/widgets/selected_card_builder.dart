@@ -123,6 +123,8 @@ class SelectedCard extends StatelessWidget {
                         : AuthButton(
                             text: 'Continue',
                             onTap: () {
+                              context.read<CardSecondBloc>().add(
+                                  const CardSecondEvent.cardFeildClearing());
                               if (state
                                   .scannedImagesSecondCardCreation.isEmpty) {
                                 showSnackbar(

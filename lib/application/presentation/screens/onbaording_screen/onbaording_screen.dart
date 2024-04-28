@@ -106,7 +106,7 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              adjustHieght(screenHeight * .04),
+              const Spacer(),
               AuthButton(
                 wdth: 330,
                 borderRadius: 25,
@@ -284,6 +284,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                 ),
               ),
               adjustHieght(screenHeight * .04),
+              const Spacer(),
               AuthButton(
                 wdth: 330,
                 borderRadius: 25,

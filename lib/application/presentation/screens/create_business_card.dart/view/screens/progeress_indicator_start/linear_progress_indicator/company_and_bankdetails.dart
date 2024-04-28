@@ -40,7 +40,7 @@ class CompanyAndBankingDetails extends StatelessWidget {
               // company banking name
               TTextFormField(
                 text: 'Company Banking Name',
-                validate: Validate.notNull,
+                validate: Validate.none,
                 textCapitalization: TextCapitalization.words,
                 controller:
                     context.read<BusinessDataBloc>().nameOfCompanyController,
@@ -48,7 +48,7 @@ class CompanyAndBankingDetails extends StatelessWidget {
               // banking details accound number
               TTextFormField(
                 text: 'Account Number',
-                validate: Validate.notNull,
+                validate: Validate.none,
                 inputType: TextInputType.number,
                 maxlegth: 16,
                 controller:
@@ -95,9 +95,11 @@ class CompanyAndBankingDetails extends StatelessWidget {
                   }
                   return LastSkipContinueButtons(
                     onTap: () {
-                      context
+                     if(bankingCardCreationKey.currentState!.validate()){
+                       context
                           .read<BusinessDataBloc>()
                           .add(const BusinessDataEvent.createBankingData());
+                     }
                     },
                   );
                 },

@@ -1,6 +1,7 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements_accolodes_accreditation/accolades_create_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements_accolodes_accreditation/accolades_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/dates_to_remember.dart';
@@ -106,7 +107,9 @@ class PersonlDetails extends StatelessWidget {
                                       });
                                 },
                                 child: const TTextFormField(
-                                    enabled: false, text: 'Personal Imges'));
+                                    suffix: Icon(Icons.add_a_photo_outlined),
+                                    enabled: false,
+                                    text: 'Personal Imges'));
                           },
                         ),
                         // personal name field
@@ -244,10 +247,17 @@ class PersonlDetails extends StatelessWidget {
                               AccolodesScreen(cardId: state.currentCard!.id!)),
                         );
                       },
-                      onItemTap: (value) => Navigator.push(
-                          context,
-                          fadePageRoute(ScreenImagePreview(
-                              image: value, isFileIamge: false))),
+                      onItemTap: (value) {
+                        int index = state.accolades.indexWhere((element) =>
+                            element.accoladesImage![0].image == value);
+                        return Navigator.push(
+                            context,
+                            fadePageRoute(AccoladesAddCreateScreen(
+                              isAccolade: true,
+                              cardId: state.currentCard!.id!,
+                              accolade: state.accolades[index],
+                            )));
+                      },
                       removeItem: (index) {
                         showCustomConfirmationDialogue(
                             context: context,

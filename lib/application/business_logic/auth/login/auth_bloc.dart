@@ -5,6 +5,7 @@ import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/auth/login_model/login_model.dart';
 import 'package:bizkit/domain/model/auth/login_response_model/login_response_model.dart';
 import 'package:bizkit/domain/model/token/token_model.dart';
+import 'package:bizkit/domain/model/user/user.dart';
 import 'package:bizkit/domain/repository/service/auth_repo.dart';
 import 'package:bizkit/domain/repository/sqflite/user_local_repo.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -111,6 +112,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             isBusiness: loginResponseModel.user?.isBusiness ?? true);
         await SecureStorage.setHasReminder(
             hasReminder: loginResponseModel.user?.hasCard ?? false);
+            SecureStorage.setUserDetails(user: loginResponseModel.user??User());
       },
     );
   }

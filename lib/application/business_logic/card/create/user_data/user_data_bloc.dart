@@ -472,14 +472,14 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> getUserDetail(GetUserDetail event, emit) async {
-    final result = await userLocalService.getUserData();
+    final result = await SecureStorage.getUserDetails();
     final business = await SecureStorage.getRole();
-    result.fold((failure) => null, (userList) {
-      if (userList.isNotEmpty && !business) {
-        nameController.text = userList.first.name ?? nameController.text;
+
+      if (!business) {
+        nameController.text = result.name ?? nameController.text;
         phoneController.text =
-            userList.first.phoneNumber ?? phoneController.text;
-        emailController.text = userList.first.email ?? emailController.text;
+            result.phoneNumber ?? phoneController.text;
+        emailController.text = result.email ?? emailController.text;
       }
       emit(state.copyWith(
           cardAdded: false,
@@ -488,7 +488,6 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           socialMediaAdded: false,
           message: null,
           isBusiness: business));
-    });
   }
 
   FutureOr<void> getBusinessCategories(

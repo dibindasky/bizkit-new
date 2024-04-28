@@ -5,6 +5,7 @@ import 'package:bizkit/application/business_logic/card/create/user_data/user_dat
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/preview_main_screen.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements_accolodes_accreditation/accolades_create_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements_accolodes_accreditation/accolades_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/image_preview_under_textfield.dart';
@@ -269,10 +270,17 @@ class BusinessDetailsScreen extends StatelessWidget {
                                 cardId: state.currentCard!.id!)),
                           );
                         },
-                        onItemTap: (value) => Navigator.push(
-                            context,
-                            fadePageRoute(ScreenImagePreview(
-                                image: value, isFileIamge: false))),
+                        onItemTap: (value) {
+                          int index = state.accreditions
+                              .indexWhere((e) => e.images![0].image == value);
+                          return Navigator.push(
+                              context,
+                              fadePageRoute(AccoladesAddCreateScreen(
+                                isAccolade: false,
+                                cardId: state.currentCard!.id!,
+                                accredition: state.accreditions[index],
+                              )));
+                        },
                         removeItem: (index) {
                           showCustomConfirmationDialogue(
                             context: context,

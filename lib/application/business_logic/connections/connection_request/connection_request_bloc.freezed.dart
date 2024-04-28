@@ -26,7 +26,8 @@ mixin _$ConnectionRequestEvent {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -52,7 +53,8 @@ mixin _$ConnectionRequestEvent {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -78,7 +80,7 @@ mixin _$ConnectionRequestEvent {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -253,7 +255,8 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -282,7 +285,8 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -311,7 +315,7 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -496,7 +500,8 @@ class _$GetBizkitConnectionsNextPageImpl
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -525,7 +530,8 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -554,7 +560,7 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -750,7 +756,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -779,7 +786,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -808,7 +816,7 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -992,7 +1000,8 @@ class _$AddConnectionImpl implements AddConnection {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -1021,7 +1030,8 @@ class _$AddConnectionImpl implements AddConnection {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -1050,7 +1060,7 @@ class _$AddConnectionImpl implements AddConnection {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -1165,7 +1175,7 @@ abstract class _$$RemoveConnectionRequestImplCopyWith<$Res> {
           $Res Function(_$RemoveConnectionRequestImpl) then) =
       __$$RemoveConnectionRequestImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({ConnectionRequestIdModel connectionRequestIdModel});
+  $Res call({ConnectionRequestIdModel connectionRequestIdModel, int id});
 }
 
 /// @nodoc
@@ -1182,12 +1192,17 @@ class __$$RemoveConnectionRequestImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? connectionRequestIdModel = null,
+    Object? id = null,
   }) {
     return _then(_$RemoveConnectionRequestImpl(
       connectionRequestIdModel: null == connectionRequestIdModel
           ? _value.connectionRequestIdModel
           : connectionRequestIdModel // ignore: cast_nullable_to_non_nullable
               as ConnectionRequestIdModel,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -1195,14 +1210,17 @@ class __$$RemoveConnectionRequestImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
-  const _$RemoveConnectionRequestImpl({required this.connectionRequestIdModel});
+  const _$RemoveConnectionRequestImpl(
+      {required this.connectionRequestIdModel, required this.id});
 
   @override
   final ConnectionRequestIdModel connectionRequestIdModel;
+  @override
+  final int id;
 
   @override
   String toString() {
-    return 'ConnectionRequestEvent.removeConnectionRequest(connectionRequestIdModel: $connectionRequestIdModel)';
+    return 'ConnectionRequestEvent.removeConnectionRequest(connectionRequestIdModel: $connectionRequestIdModel, id: $id)';
   }
 
   @override
@@ -1212,11 +1230,12 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
             other is _$RemoveConnectionRequestImpl &&
             (identical(
                     other.connectionRequestIdModel, connectionRequestIdModel) ||
-                other.connectionRequestIdModel == connectionRequestIdModel));
+                other.connectionRequestIdModel == connectionRequestIdModel) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, connectionRequestIdModel);
+  int get hashCode => Object.hash(runtimeType, connectionRequestIdModel, id);
 
   @JsonKey(ignore: true)
   @override
@@ -1236,7 +1255,8 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -1251,7 +1271,7 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     required TResult Function() getBlockeConnectionsEvent,
     required TResult Function() clear,
   }) {
-    return removeConnectionRequest(connectionRequestIdModel);
+    return removeConnectionRequest(connectionRequestIdModel, id);
   }
 
   @override
@@ -1265,7 +1285,8 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -1280,7 +1301,7 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     TResult? Function()? getBlockeConnectionsEvent,
     TResult? Function()? clear,
   }) {
-    return removeConnectionRequest?.call(connectionRequestIdModel);
+    return removeConnectionRequest?.call(connectionRequestIdModel, id);
   }
 
   @override
@@ -1294,7 +1315,7 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -1311,7 +1332,7 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     required TResult orElse(),
   }) {
     if (removeConnectionRequest != null) {
-      return removeConnectionRequest(connectionRequestIdModel);
+      return removeConnectionRequest(connectionRequestIdModel, id);
     }
     return orElse();
   }
@@ -1393,10 +1414,11 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
 
 abstract class RemoveConnectionRequest implements ConnectionRequestEvent {
   const factory RemoveConnectionRequest(
-          {required final ConnectionRequestIdModel connectionRequestIdModel}) =
-      _$RemoveConnectionRequestImpl;
+      {required final ConnectionRequestIdModel connectionRequestIdModel,
+      required final int id}) = _$RemoveConnectionRequestImpl;
 
   ConnectionRequestIdModel get connectionRequestIdModel;
+  int get id;
   @JsonKey(ignore: true)
   _$$RemoveConnectionRequestImplCopyWith<_$RemoveConnectionRequestImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -1490,7 +1512,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -1519,7 +1542,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -1548,7 +1572,7 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -1731,7 +1755,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -1760,7 +1785,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -1789,7 +1815,7 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -1983,7 +2009,8 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -2012,7 +2039,8 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -2041,7 +2069,7 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -2196,7 +2224,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -2225,7 +2254,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -2254,7 +2284,7 @@ class _$GetRequestListsImpl implements GetRequestLists {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -2427,7 +2457,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -2456,7 +2487,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -2485,7 +2517,7 @@ class _$DeleteRequestImpl implements DeleteRequest {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -2666,7 +2698,8 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -2695,7 +2728,8 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -2724,7 +2758,7 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -2881,7 +2915,8 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -2910,7 +2945,8 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -2939,7 +2975,7 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -3086,7 +3122,8 @@ class _$ClearImpl implements Clear {
     required TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
         addConnection,
-    required TResult Function(ConnectionRequestIdModel connectionRequestIdModel)
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
         removeConnectionRequest,
     required TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)
@@ -3115,7 +3152,8 @@ class _$ClearImpl implements Clear {
     TResult? Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult? Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult? Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?
@@ -3144,7 +3182,7 @@ class _$ClearImpl implements Clear {
     TResult Function(
             CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
         addConnection,
-    TResult Function(ConnectionRequestIdModel connectionRequestIdModel)?
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
         removeConnectionRequest,
     TResult Function(
             AddConnectionTagModel addConnectionTagModel, int connectionId)?

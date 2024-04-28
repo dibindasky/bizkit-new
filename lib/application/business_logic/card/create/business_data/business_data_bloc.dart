@@ -105,7 +105,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
 
   FutureOr<void> removeAccreditonImage(
       RemoveAccreditonImage event, emit) async {
-    await cardPatchRepo.deleteAccoladesImage(id: event.id);
+    await cardPatchRepo.deleteAccreditationImage(id: event.id);
   }
 
   FutureOr<void> accreditationPickImage(
@@ -334,16 +334,16 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         ? ''
         : event.card.bankDetails?.upiDetails ?? '';
     if (business) {
-      final result = await userLocalService.getUserData();
-
-      result.fold((l) => null, (r) {
-        websiteLinkController.text =
-            websiteLinkController.text != '' ? r.first.email ?? '' : '';
-        mailController.text =
-            mailController.text != '' ? r.first.email ?? '' : '';
-        companyController.text =
-            companyController.text != '' ? r.first.companyName ?? '' : '';
-      });
+      final user = await SecureStorage.getUserDetails();
+      websiteLinkController.text =
+          websiteLinkController.text == '' ? user.websiteLink ?? '' : '';
+      mailController.text = mailController.text == '' ? user.email ?? '' : '';
+      companyController.text =
+          companyController.text == '' ? user.companyName ?? '' : '';
+      mobileController.text =
+          mobileController.text == '' ? user.phoneNumber ?? '' : '';
+      addressController.text =
+          addressController.text == '' ? user.address ?? '' : '';
     }
   }
 
@@ -790,7 +790,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       final images = event.product.image ??
           <ImageCard>[].where((element) => element.id == null).toList();
       if (images.isNotEmpty) {
-       await cardPatchRepo.updateProductImages(
+        await cardPatchRepo.updateProductImages(
             productImageAddingModel: ProductImageAddingModel(
                 productId: event.product.id, image: images));
       }

@@ -291,7 +291,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                             description:
                                 productDescriptionController.text.trim(),
                             label: productTitleController.text.trim(),
-                            image: state.productImages,
+                            image: imageList,
                             //[ImageCard(image: image!.base64)],
                             enquiry: switchValue,
                             cardId: state.currentCard!.id,

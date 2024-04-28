@@ -257,21 +257,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
 
   FutureOr<void> removeProductIndexImages(
       RemoveProductIndexImages event, emit) {
-    print('remove at ${event.index}');
-    return emit(state.copyWith(
-      productImages: List.from(state.productImages).removeAt(event.index),
-      pickImageError: false,
-      productDeleteLoading: true,
-      hasError: false,
-      accreditionAdded: false,
-      branchAdded: false,
-      brochureAdded: false,
-      productAdded: false,
-      socialMediaAdded: false,
-      businessAdded: false,
-      bankingAdded: false,
-      logoAdded: false,
-    ));
+    cardPatchRepo.removeProductImage(id: event.index);
   }
 
   FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {
@@ -829,6 +815,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         ));
       });
     } else {
+      print('product iamge 0 -> ${event.product.image![0].image}');
       final response = await cardPatchRepo.addProduct(product: event.product);
       response.fold((l) => emit(state.copyWith(productLoading: false)), (r) {
         if (r.image != null) {

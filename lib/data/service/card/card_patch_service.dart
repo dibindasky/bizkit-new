@@ -715,7 +715,7 @@ class CardPatchService implements CardPatchRepo {
       {required ProductImageAddingModel productImageAddingModel}) async {
     try {
       log('updateProductImages creation ');
-      await _apiService.delete(ApiEndPoints.updateProductImage,
+      await _apiService.post(ApiEndPoints.updateProductImage,
           data: productImageAddingModel.toJson());
       log('updateProductImages creation done');
       return Right(SuccessResponseModel());

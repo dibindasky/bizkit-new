@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/product_detail_view.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_adding_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
-import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,9 +29,8 @@ class ProductBuilder extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        fadePageRoute(ProductViewDetail(
+                        fadePageRoute(AddPrductsScreen(
                           product: data,
-                          myCard: true,
                         )),
                       );
                     },

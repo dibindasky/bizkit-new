@@ -1,4 +1,4 @@
-import 'package:bizkit/domain/model/card_second/selfie/selfie_image_update_responce_model/selfie.dart';
+import 'package:bizkit/domain/model/card_second/get_second_card_model/selfie.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'second_card.g.dart';

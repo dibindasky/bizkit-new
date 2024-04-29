@@ -9,7 +9,7 @@ class BusinessDataEvent with _$BusinessDataEvent {
   const factory BusinessDataEvent.removeBusinessSocialMedia({required int id}) =
       RemoveBusinessSocialMedia;
   const factory BusinessDataEvent.addAccredition(
-      {required Accredition accredition,required bool edit}) = AddAccredition;
+      {required Accredition accredition, required bool edit}) = AddAccredition;
   const factory BusinessDataEvent.accreditationPickImage(
       {required bool isCam, required bool isFront}) = AccreditationPickImage;
   const factory BusinessDataEvent.productUpdatePickImage({
@@ -34,8 +34,8 @@ class BusinessDataEvent with _$BusinessDataEvent {
   const factory BusinessDataEvent.addCropedLogo({required String base64}) =
       AddCropedLogo;
   const factory BusinessDataEvent.getUserData() = GetUserData;
-  const factory BusinessDataEvent.addProduct({required Product product,required bool edit}) =
-      AddProduct;
+  const factory BusinessDataEvent.addProduct(
+      {required Product product, required bool edit}) = AddProduct;
   const factory BusinessDataEvent.removeProductImages({required int id}) =
       RemoveProductImages;
   const factory BusinessDataEvent.removeProductIndexImages(
@@ -61,6 +61,6 @@ class BusinessDataEvent with _$BusinessDataEvent {
   factory BusinessDataEvent.getCurrentCard({required Card card}) =
       GetCurrentCard;
   factory BusinessDataEvent.clear() = Clear;
-    factory BusinessDataEvent.removeAccreditonImage({required int id}) =
+  factory BusinessDataEvent.removeAccreditonImage({required int id}) =
       RemoveAccreditonImage;
 }

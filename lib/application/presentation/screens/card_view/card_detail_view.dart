@@ -120,13 +120,15 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                       }
                     },
                     child: const Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.refresh),
-                        Text('Tap to retry'),
-                      ],
-                    )))
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.refresh),
+                          Text('Tap to retry'),
+                        ],
+                      ),
+                    ),
+                  )
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: SingleChildScrollView(

@@ -100,6 +100,7 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
               ),
               adjustHieght(screenHeight * .05),
               SizedBox(
+                height: 350,
                 child: Image.asset(
                   onBoardScreenfirstpersonImages,
                   filterQuality: FilterQuality.high,
@@ -275,7 +276,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                 'Empowering Growth Together.',
                 style: textHeadStyle1.copyWith(fontSize: 24),
               ),
-              adjustHieght(screenHeight * .12),
+              adjustHieght(screenHeight * .05),
               SizedBox(
                 height: 350,
                 child: Image.asset(
@@ -284,7 +285,6 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              adjustHieght(screenHeight * .04),
               const Spacer(),
               AuthButton(
                 wdth: 330,

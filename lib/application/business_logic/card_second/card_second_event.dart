@@ -66,6 +66,9 @@ class CardSecondEvent with _$CardSecondEvent {
   }) = SeccondCardShare;
   const factory CardSecondEvent.removeSelfieIndexImages({required int id}) =
       RemoveSelfieIndexImages;
-  const factory CardSecondEvent.addSelfieIndexImages({required int id}) =
-      AddSelfieIndexImages;
+  const factory CardSecondEvent.addSelfieIndexImages({
+    required AddSelfieModel addSelfieModel,
+    required SecondCardNew secondCard,
+    required String id,
+  }) = AddSelfieIndexImages;
 }

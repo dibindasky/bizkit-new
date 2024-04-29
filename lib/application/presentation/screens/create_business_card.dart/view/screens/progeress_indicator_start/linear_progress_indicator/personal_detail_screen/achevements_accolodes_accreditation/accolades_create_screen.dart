@@ -164,7 +164,8 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                               camera: true);
                                       if (img != null) {
                                         image.add(ImageCard(image: img.base64));
-                                        newimage.add(ImageCard(image: img.base64));
+                                        newimage
+                                            .add(ImageCard(image: img.base64));
                                         setState(() {});
                                       }
                                     },
@@ -174,7 +175,8 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                               camera: false);
                                       if (img != null) {
                                         image.add(ImageCard(image: img.base64));
-                                        newimage.add(ImageCard(image: img.base64));
+                                        newimage
+                                            .add(ImageCard(image: img.base64));
                                         setState(() {});
                                       }
                                     });

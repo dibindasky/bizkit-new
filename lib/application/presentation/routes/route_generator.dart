@@ -7,9 +7,9 @@ import 'package:bizkit/application/presentation/screens/authentication/view/scre
 import 'package:bizkit/application/presentation/screens/authentication/view/screens/signin_screen.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/preview_main_screen.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/screen/card_screen_main.dart';
-import 'package:bizkit/application/presentation/screens/card_view/update_second_card.dart';
 import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/application/presentation/screens/card_view/second_card_detail_view.dart';
+import 'package:bizkit/application/presentation/screens/card_view/update_second_card.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';

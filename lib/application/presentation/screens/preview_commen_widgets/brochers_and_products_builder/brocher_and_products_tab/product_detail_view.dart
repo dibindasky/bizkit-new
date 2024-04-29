@@ -150,7 +150,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Text(
                         tittleController.text,
-                        style:const TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 20),
                       ),
                     )
                   : TTextFormField(

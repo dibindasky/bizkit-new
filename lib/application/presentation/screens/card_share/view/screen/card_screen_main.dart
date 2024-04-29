@@ -78,9 +78,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: FadeTransition(
@@ -514,7 +514,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                             if (seconsdCard.selfie != null &&
                                 seconsdCard.image!.isNotEmpty) {
                               selfirBase64 = seconsdCard.selfie!
-                                  .map((e) => e.image)
+                                  .map((e) => e.selfie)
                                   .toString();
                               selfirBase64 = selfirBase64.startsWith('data')
                                   ? selfirBase64.substring(22)
@@ -572,31 +572,18 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                       );
                                                     },
                                                   )
-                                                : scanImageBase64 != '' ||
-                                                        selfirBase64 != ''
-                                                    ? Image.memory(
-                                                        base64Decode(
-                                                            scanImageBase64),
-                                                        fit: BoxFit.cover,
-                                                        errorBuilder: (context,
-                                                            error, stackTrace) {
-                                                          return const Icon(
-                                                            Icons
-                                                                .image_not_supported_outlined,
-                                                          );
-                                                        },
-                                                      )
-                                                    : Image.network(
-                                                        imageDummyNetwork,
-                                                        fit: BoxFit.cover,
-                                                        errorBuilder: (context,
-                                                            error, stackTrace) {
-                                                          return const Icon(
-                                                            Icons
-                                                                .image_not_supported_outlined,
-                                                          );
-                                                        },
-                                                      ),
+                                                : Image.memory(
+                                                    base64Decode(
+                                                        scanImageBase64),
+                                                    fit: BoxFit.cover,
+                                                    errorBuilder: (context,
+                                                        error, stackTrace) {
+                                                      return const Icon(
+                                                        Icons
+                                                            .image_not_supported_outlined,
+                                                      );
+                                                    },
+                                                  ),
                                           ),
                                         ),
                                       ),

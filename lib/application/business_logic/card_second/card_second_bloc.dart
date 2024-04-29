@@ -3,11 +3,12 @@ import 'dart:developer';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
+import 'package:bizkit/domain/model/card_second/add_selfie_model/add_selfie_model.dart';
 import 'package:bizkit/domain/model/card_second/card_second_create_request_model/card_second_create_request_model.dart';
 import 'package:bizkit/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
 import 'package:bizkit/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/get_second_card_model.dart';
-import 'package:bizkit/domain/model/card_second/selfie/selfie_adding_request_model/selfie.dart';
+import 'package:bizkit/domain/model/card_second/get_second_card_model/selfie.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/contact/add_new_contact/add_new_contact.dart';
@@ -87,6 +88,20 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
     on<ContactSaveToPhone>(contactSaveToPhone);
     on<SeccondCardShare>(seccondCardShare);
     on<RemoveSelfieIndexImages>(removeSelfieIndexImages);
+    on<AddSelfieIndexImages>(addSelfieIndexImages);
+  }
+
+  FutureOr<void> addSelfieIndexImages(AddSelfieIndexImages event, emit) async {
+    emit(state.copyWith(
+      isLoading: true,
+      cardScanFinish: false,
+      hasError: false,
+      message: null,
+      updated: false,
+    ));
+    await _cardSecondRepo.addSelfieImage(selfies: event.addSelfieModel);
+    add(CardSecondEvent.updateCardSecond(
+        secondCard: event.secondCard, id: event.id));
   }
 
   FutureOr<void> removeSelfieIndexImages(RemoveSelfieIndexImages event, emit) {
@@ -384,7 +399,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
 
   FutureOr<void> meetingRelatedInfo(MeetingRelatedInfo event, emit) async {
     state.cardSecondCreateRequestModel.selfie =
-        event.selfieImage?.map((e) => Selfie(selfie: e.base64)).toList();
+        event.selfieImage!.map((e) => Selfie(selfie: e.base64)).toList();
     state.cardSecondCreateRequestModel.occupation = event.occupation;
     state.cardSecondCreateRequestModel.location = event.location;
     state.cardSecondCreateRequestModel.notes = event.notes;
@@ -578,7 +593,6 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
       message: null,
       updated: false,
     ));
-    log("${event.secondCard}");
     final data = await _cardSecondRepo.updateCardSecond(
       secondCard: event.secondCard,
       id: event.id,

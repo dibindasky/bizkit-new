@@ -18,7 +18,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-//phone number botom sheet
+            //phone number botom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -51,7 +51,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
               },
               image: imagePhone,
             ),
-// email bottom sheet
+            // email bottom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -154,12 +154,16 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                               state.anotherCard!
                                                       .businessDetails !=
                                                   null &&
-                                              state.anotherCard!.businessDetails!
+                                              state
+                                                      .anotherCard!
+                                                      .businessDetails!
                                                       .websiteLink !=
                                                   null) {
                                             await LaunchUrl.googleSearch(
-                                              url: state.anotherCard!
-                                                  .businessDetails!.websiteLink!,
+                                              url: state
+                                                  .anotherCard!
+                                                  .businessDetails!
+                                                  .websiteLink!,
                                             ).then(
                                               (value) => Navigator.pop(context),
                                             );

@@ -277,7 +277,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                             fadePageRoute(const EmailFieldForGottPassword()));
                       },
                       child: Text(
-                        'Forgot password',
+                        'Forgot Password',
                         style:
                             TextStyle(fontSize: kwidth * 0.03, color: kwhite),
                       ),

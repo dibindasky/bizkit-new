@@ -235,7 +235,7 @@ class ConnectionService implements ConnectionRequestRepo {
   Future<Either<Failure, SuccessResponseModel>> removeConnectionRequest(
       {required ConnectionRequestIdModel connectionRequestIdModel}) async {
     try {
-      final responce = await _apiService.delete( 
+      final responce = await _apiService.delete(
         ApiEndPoints.removeConnectionRequest,
         data: connectionRequestIdModel.toJson(),
       );

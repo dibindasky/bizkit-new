@@ -14,7 +14,7 @@ import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation
 import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
-import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
 import 'package:bizkit/domain/model/card/card/accredition/accredition.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
@@ -79,7 +79,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
         child: AppbarCommen(
-          tittle: widget.isAccolade ? 'Accolades' : 'Accredition',
+          tittle: widget.isAccolade ? 'Accolades' : 'Accreditation',
         ),
       ),
       body: SingleChildScrollView(
@@ -132,12 +132,24 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                         if (image[image.length - index - 1]
                                                 .id !=
                                             null) {
-                                          context.read<UserDataBloc>().add(
-                                              UserDataEvent.removeAccoladeImage(
-                                                  id: image[image.length -
-                                                          index -
-                                                          1]
-                                                      .id!));
+                                          if (widget.isAccolade) {
+                                            context.read<UserDataBloc>().add(
+                                                UserDataEvent
+                                                    .removeAccoladeImage(
+                                                        id: image[image.length -
+                                                                index -
+                                                                1]
+                                                            .id!));
+                                          } else {
+                                            context
+                                                .read<BusinessDataBloc>()
+                                                .add(BusinessDataEvent
+                                                    .removeAccreditionImage(
+                                                        id: image[image.length -
+                                                                index -
+                                                                1]
+                                                            .id!));
+                                          }
                                         }
                                         newimage.removeWhere((element) =>
                                             element ==
@@ -147,7 +159,8 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                         setState(() {});
                                       });
                                 },
-                                image: image[image.length - index - 1]);
+                                image: image,
+                                index: image.length - index - 1);
                           },
                         ),
                         Positioned(
@@ -343,9 +356,11 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
 }
 
 class MemoryImageMaker extends StatefulWidget {
-  const MemoryImageMaker({super.key, required this.image, this.deleteTap});
+  const MemoryImageMaker(
+      {super.key, required this.image, this.deleteTap, required this.index});
 
-  final ImageCard? image;
+  final List<ImageCard>? image;
+  final int index;
   final VoidCallback? deleteTap;
 
   @override
@@ -378,16 +393,23 @@ class _MemoryImageMakerState extends State<MemoryImageMaker> {
                   InkWell(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              ScreenImagePreview(image: widget.image!.image!)));
+                          builder: (context) => SlidablePhotoGallery(
+                              initialIndex:
+                                  widget.image!.length - widget.index - 1,
+                              images: widget.image!
+                                  .map((e) => e.image!)
+                                  .toList()
+                                  .reversed
+                                  .toList())));
                     },
                     child: SizedBox(
                       width: 270.dm,
                       height: 170.dm,
                       child: Image.memory(
-                          base64.decode(widget.image!.image!.startsWith('data')
-                              ? widget.image!.image!.substring(22)
-                              : widget.image!.image!),
+                          base64.decode(widget.image![widget.index].image!
+                                  .startsWith('data')
+                              ? widget.image![widget.index].image!.substring(22)
+                              : widget.image![widget.index].image!),
                           fit: BoxFit.cover),
                     ),
                   ),

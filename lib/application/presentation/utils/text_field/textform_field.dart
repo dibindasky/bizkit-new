@@ -85,9 +85,9 @@ class _TTextFormFieldState extends State<TTextFormField> {
   void initState() {
     super.initState();
     showEye = widget.obscureText;
-    _focusNode.addListener(() {
-      setState(() {});
-    });
+    // _focusNode.addListener(() {
+    //   setState(() {});
+    // });
   }
 
   @override
@@ -112,7 +112,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
           },
           // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
           enabled: widget.enabled,
-          focusNode: widget.focusNode,
+          // focusNode: widget.focusNode,
           onTap: widget.onTap,
           textCapitalization: widget.textCapitalization,
           maxLines: widget.maxLines ?? 1,

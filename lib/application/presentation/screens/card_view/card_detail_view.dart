@@ -187,10 +187,10 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                                     state.anotherCard?.isVerified == false
                                         ? state.anotherCard?.personalDetails
                                                 ?.name ??
-                                            'Name'
+                                            ''
                                         : state.anotherCard?.businessDetails
                                                 ?.company ??
-                                            'Company',
+                                            '',
                                     overflow: TextOverflow.ellipsis,
                                     style: custumText(fontSize: kwidth * 0.06),
                                   ),
@@ -198,20 +198,20 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                                     state.anotherCard?.isVerified == false
                                         ? state.anotherCard?.personalDetails
                                                 ?.designation ??
-                                            'Designation'
+                                            ''
                                         : state.anotherCard?.personalDetails
                                                 ?.name ??
-                                            'Name',
+                                            '',
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   Text(
                                     state.anotherCard?.isVerified == false
                                         ? state.anotherCard?.businessDetails
                                                 ?.company ??
-                                            'Company'
+                                            ''
                                         : state.anotherCard?.personalDetails
                                                 ?.name ??
-                                            'Name',
+                                            '',
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   adjustHieght(khieght * .02),

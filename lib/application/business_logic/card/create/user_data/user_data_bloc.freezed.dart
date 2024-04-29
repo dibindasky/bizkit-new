@@ -23,7 +23,7 @@ mixin _$UserDataEvent {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -50,7 +50,7 @@ mixin _$UserDataEvent {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -75,7 +75,7 @@ mixin _$UserDataEvent {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -257,7 +257,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -287,7 +287,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -315,7 +315,7 @@ class _$PickImageScanningImpl implements PickImageScanning {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -505,7 +505,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -535,7 +535,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -563,7 +563,7 @@ class _$RemoveImageScanningImpl implements RemoveImageScanning {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -761,7 +761,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -791,7 +791,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -819,7 +819,7 @@ class _$ProcessImageScanningImpl implements ProcessImageScanning {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -982,7 +982,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -1012,7 +1012,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -1040,7 +1040,7 @@ class _$GetUserDetailImpl implements GetUserDetail {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -1199,7 +1199,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -1229,7 +1229,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -1257,7 +1257,7 @@ class _$GetBusinessCategoriesImpl implements GetBusinessCategories {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -1376,6 +1376,8 @@ abstract class _$$PickUserPhotosImplCopyWith<$Res> {
   factory _$$PickUserPhotosImplCopyWith(_$PickUserPhotosImpl value,
           $Res Function(_$PickUserPhotosImpl) then) =
       __$$PickUserPhotosImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool cam});
 }
 
 /// @nodoc
@@ -1385,26 +1387,51 @@ class __$$PickUserPhotosImplCopyWithImpl<$Res>
   __$$PickUserPhotosImplCopyWithImpl(
       _$PickUserPhotosImpl _value, $Res Function(_$PickUserPhotosImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cam = null,
+  }) {
+    return _then(_$PickUserPhotosImpl(
+      cam: null == cam
+          ? _value.cam
+          : cam // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$PickUserPhotosImpl implements PickUserPhotos {
-  _$PickUserPhotosImpl();
+  _$PickUserPhotosImpl({required this.cam});
+
+  @override
+  final bool cam;
 
   @override
   String toString() {
-    return 'UserDataEvent.pickUserPhotos()';
+    return 'UserDataEvent.pickUserPhotos(cam: $cam)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$PickUserPhotosImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$PickUserPhotosImpl &&
+            (identical(other.cam, cam) || other.cam == cam));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, cam);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PickUserPhotosImplCopyWith<_$PickUserPhotosImpl> get copyWith =>
+      __$$PickUserPhotosImplCopyWithImpl<_$PickUserPhotosImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1414,7 +1441,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -1433,7 +1460,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     required TResult Function(int id) removePersonalImage,
     required TResult Function(int id) removeAccoladeImage,
   }) {
-    return pickUserPhotos();
+    return pickUserPhotos(cam);
   }
 
   @override
@@ -1444,7 +1471,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -1461,7 +1488,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult? Function(int id)? removePersonalImage,
     TResult? Function(int id)? removeAccoladeImage,
   }) {
-    return pickUserPhotos?.call();
+    return pickUserPhotos?.call(cam);
   }
 
   @override
@@ -1472,7 +1499,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -1490,7 +1517,7 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
     required TResult orElse(),
   }) {
     if (pickUserPhotos != null) {
-      return pickUserPhotos();
+      return pickUserPhotos(cam);
     }
     return orElse();
   }
@@ -1583,7 +1610,12 @@ class _$PickUserPhotosImpl implements PickUserPhotos {
 }
 
 abstract class PickUserPhotos implements UserDataEvent {
-  factory PickUserPhotos() = _$PickUserPhotosImpl;
+  factory PickUserPhotos({required final bool cam}) = _$PickUserPhotosImpl;
+
+  bool get cam;
+  @JsonKey(ignore: true)
+  _$$PickUserPhotosImplCopyWith<_$PickUserPhotosImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1629,7 +1661,7 @@ class _$ClearImpl implements Clear {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -1659,7 +1691,7 @@ class _$ClearImpl implements Clear {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -1687,7 +1719,7 @@ class _$ClearImpl implements Clear {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -1844,7 +1876,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -1874,7 +1906,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -1902,7 +1934,7 @@ class _$CreatePersonalDataImpl implements CreatePersonalData {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -2059,7 +2091,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -2089,7 +2121,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -2117,7 +2149,7 @@ class _$RemoveUserPhotoImpl implements RemoveUserPhoto {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -2309,7 +2341,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -2339,7 +2371,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -2367,7 +2399,7 @@ class _$AddAccoladeImpl implements AddAccolade {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -2559,7 +2591,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -2589,7 +2621,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -2617,7 +2649,7 @@ class _$RemoveAccoladeImpl implements RemoveAccolade {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -2807,7 +2839,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -2837,7 +2869,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -2865,7 +2897,7 @@ class _$AddDateToRememberImpl implements AddDateToRemember {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -3056,7 +3088,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -3086,7 +3118,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -3114,7 +3146,7 @@ class _$RemoveDateToRememberImpl implements RemoveDateToRemember {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -3305,7 +3337,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -3335,7 +3367,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -3363,7 +3395,7 @@ class _$AddSocialMediaImpl implements AddSocialMedia {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -3553,7 +3585,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -3583,7 +3615,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -3611,7 +3643,7 @@ class _$RemoveSocialMediaImpl implements RemoveSocialMedia {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -3800,7 +3832,7 @@ class _$CreateCardImpl implements CreateCard {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -3830,7 +3862,7 @@ class _$CreateCardImpl implements CreateCard {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -3858,7 +3890,7 @@ class _$CreateCardImpl implements CreateCard {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -4049,7 +4081,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -4079,7 +4111,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -4107,7 +4139,7 @@ class _$GetCurrentCardImpl implements GetCurrentCard {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -4296,7 +4328,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -4326,7 +4358,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -4354,7 +4386,7 @@ class _$AddPersonalImageImpl implements AddPersonalImage {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -4543,7 +4575,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -4573,7 +4605,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -4601,7 +4633,7 @@ class _$RemovePersonalImageImpl implements RemovePersonalImage {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,
@@ -4791,7 +4823,7 @@ class _$RemoveAccoladeImageImpl implements RemoveAccoladeImage {
     required TResult Function(List<ImageModel> images) processImageScanning,
     required TResult Function() getUserDetail,
     required TResult Function() getBusinessCategories,
-    required TResult Function() pickUserPhotos,
+    required TResult Function(bool cam) pickUserPhotos,
     required TResult Function() clear,
     required TResult Function() createPersonalData,
     required TResult Function() removeUserPhoto,
@@ -4821,7 +4853,7 @@ class _$RemoveAccoladeImageImpl implements RemoveAccoladeImage {
     TResult? Function(List<ImageModel> images)? processImageScanning,
     TResult? Function()? getUserDetail,
     TResult? Function()? getBusinessCategories,
-    TResult? Function()? pickUserPhotos,
+    TResult? Function(bool cam)? pickUserPhotos,
     TResult? Function()? clear,
     TResult? Function()? createPersonalData,
     TResult? Function()? removeUserPhoto,
@@ -4849,7 +4881,7 @@ class _$RemoveAccoladeImageImpl implements RemoveAccoladeImage {
     TResult Function(List<ImageModel> images)? processImageScanning,
     TResult Function()? getUserDetail,
     TResult Function()? getBusinessCategories,
-    TResult Function()? pickUserPhotos,
+    TResult Function(bool cam)? pickUserPhotos,
     TResult Function()? clear,
     TResult Function()? createPersonalData,
     TResult Function()? removeUserPhoto,

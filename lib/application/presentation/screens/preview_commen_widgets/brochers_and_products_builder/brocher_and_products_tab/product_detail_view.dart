@@ -5,7 +5,7 @@ import 'package:bizkit/application/presentation/fade_transition/fade_transition.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
-import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
@@ -108,10 +108,11 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                           ),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.of(context)
-                                  .push(fadePageRoute(ScreenImagePreview(
-                                image: widget.product.image![index].image!,
-                              )));
+                              Navigator.of(context).push(fadePageRoute(
+                                  SlidablePhotoGallery(
+                                      images: updateImageCard
+                                          .map((e) => e.image!)
+                                          .toList())));
                             },
                             child: SizedBox(
                               child: ClipRRect(

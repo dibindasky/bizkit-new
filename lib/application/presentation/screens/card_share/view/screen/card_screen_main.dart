@@ -341,6 +341,11 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                                     index]
                                                                 .profile;
                                                             return Container(
+                                                              margin:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      bottom:
+                                                                          10),
                                                               decoration:
                                                                   const BoxDecoration(
                                                                 color:

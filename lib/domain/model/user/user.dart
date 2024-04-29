@@ -6,7 +6,7 @@ part 'user.g.dart';
 class User {
   String? email;
   String? name;
-  @JsonKey(name: 'company_name')
+  @JsonKey(name: 'company')
   String? companyName;
   String? address;
   @JsonKey(name: 'is_business')
@@ -45,7 +45,7 @@ class User {
   static const String colEmail = 'email';
   static const String colPhone = 'phone_number';
   static const String colWebsite = 'website_link';
-  static const String colCompanyName = 'company_name';
+  static const String colCompanyName = 'company';
   static const String colAddress = 'address';
   static const String colIsBusiness = 'is_business';
   // static const String colIsVerified = 'is_verified';

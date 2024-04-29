@@ -50,15 +50,31 @@ class ConnectionRequestBloc
   FutureOr<void> removeConnectionRequest(
       RemoveConnectionRequest event, emit) async {
     emit(state.copyWith(
-        blockedConnectionsLoading: true, hasError: false, message: null));
+        requestLoadingIndex: [...state.requestLoadingIndex, event.id],
+        blockedConnectionsLoading: true,
+        hasError: false,
+        message: null));
     final data = await _connectionRepo.removeConnectionRequest(
         connectionRequestIdModel: event.connectionRequestIdModel);
+    List<int> indexs = List.from(state.requestLoadingIndex);
+    indexs.removeWhere((element) => element == event.id);
+    List<BizkitUser> searchList = List.from(state.bizkitUsers ?? []);
+    for (int i = 0; i < searchList.length; i++) {
+      if (searchList[i].connectionId == event.id) {
+        searchList[i] = searchList[i].copyWith(connectionId: null);
+        break;
+      }
+    }
     data.fold(
         (l) => emit(state.copyWith(
             blockedConnectionsLoading: false,
+            requestLoadingIndex: indexs,
             hasError: true,
+            bizkitUsers: searchList,
             message: null)), (r) {
       emit(state.copyWith(
+        requestLoadingIndex: indexs,
+        bizkitUsers: searchList,
         blockedConnectionsLoading: false,
         hasError: false,
       ));
@@ -213,11 +229,24 @@ class ConnectionRequestBloc
         addConnectionRequestModel: event.addConnectionRequestModel);
     List<int> indexs = List.from(state.requestLoadingIndex);
     indexs.removeWhere((element) => element == event.index);
+    List<BizkitUser> searchList = List.from(state.bizkitUsers ?? []);
+    for (int i = 0; i < searchList.length; i++) {
+      if (searchList[i].connectionId == event.index) {
+        searchList[i] = searchList[i].copyWith(connectionId: null);
+        break;
+      }
+    }
     result.fold(
         (l) => emit(state.copyWith(
-            requestLoadingIndex: indexs, hasError: true, message: l.message)),
+            bizkitUsers: searchList,
+            requestLoadingIndex: indexs,
+            hasError: true,
+            message: l.message)),
         (r) => emit(state.copyWith(
-            requestLoadingIndex: indexs, message: r.message, connected: true)));
+            bizkitUsers: searchList,
+            requestLoadingIndex: indexs,
+            message: r.message,
+            connected: true)));
   }
 
   FutureOr<void> getRequestLists(GetRequestLists event, emit) async {

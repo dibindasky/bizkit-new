@@ -12,6 +12,7 @@ class SlidablePhotoGallery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: PageView.builder(
         itemCount: images.length,
         controller: PageController(initialPage: initialIndex),

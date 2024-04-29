@@ -7,7 +7,6 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
-import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +27,7 @@ class LogoStory extends StatefulWidget {
 class _LogoStoryState extends State<LogoStory> {
   TextEditingController textEditingController = TextEditingController();
   GlobalKey<FormState> logokey = GlobalKey<FormState>();
+  bool showLogoError = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +72,11 @@ class _LogoStoryState extends State<LogoStory> {
                 },
                 child: BlocConsumer<BusinessDataBloc, BusinessDataState>(
                   listener: (context, state) {
-                    if (state.logoPickImageError) {
-                      showSnackbar(context,
-                          message: "Image picking failed",
-                          backgroundColor: kred);
+                    if (state.logoCard?.logo != null) {
+                      print('logo eror false');
+                      setState(() {
+                        showLogoError = false;
+                      });
                     }
                   },
                   buildWhen: (previous, current) =>
@@ -92,7 +93,7 @@ class _LogoStoryState extends State<LogoStory> {
                           )
                         : DottedBorder(
                             dashPattern: const [8, 8],
-                            color: neonShade,
+                            color: showLogoError ? kred : neonShade,
                             strokeWidth: 2.5,
                             child: SizedBox(
                               width: kwidth * 0.8,
@@ -125,59 +126,15 @@ class _LogoStoryState extends State<LogoStory> {
                 ),
               ),
             ),
-            adjustHieght(khieght * .02),
-            // BlocBuilder<UserDataBloc, UserDataState>(
-            //   builder: (context, state) {
-            //     if (state.scannedImagesCardCreation.isEmpty) {
-            //       return const SizedBox();
-            //     } else {
-            //       return Column(
-            //         children: [
-            //           const Align(
-            //               alignment: Alignment.centerLeft,
-            //               child: Text('crop logo from card image')),
-            //           adjustHieght(10),
-            //           SizedBox(
-            //             height: 60,
-            //             child: ListView.builder(
-            //               itemCount: state.scannedImagesCardCreation.length,
-            //               scrollDirection: Axis.horizontal,
-            //               itemBuilder: (context, index) => InkWell(
-            //                 onTap: () async {
-            //                   await state
-            //                       .scannedImagesCardCreation[index].fileImage
-            //                       .readAsBytes()
-            //                       .then((image) async {
-            //                     Navigator.push(
-            //                         context,
-            //                         MaterialPageRoute(
-            //                             builder: (context) =>
-            //                                 Croper(imageToCrop: image)));
-            //                   });
-            //                 },
-            //                 child: Container(
-            //                   margin:
-            //                       const EdgeInsets.symmetric(horizontal: 10),
-            //                   height: 60,
-            //                   width: 60,
-            //                   decoration: BoxDecoration(
-            //                     color: neonShade,
-            //                     image: DecorationImage(
-            //                         image: FileImage(state
-            //                             .scannedImagesCardCreation[index]
-            //                             .fileImage),
-            //                         fit: BoxFit.cover),
-            //                   ),
-            //                 ),
-            //               ),
-            //             ),
-            //           )
-            //         ],
-            //       );
-            //     }
-            //   },
-            // ),
-            // adjustHieght(khieght * .02),
+            adjustHieght(khieght * .01),
+            Visibility(
+                visible: showLogoError,
+                child: const Center(
+                    child: Text(
+                  'Add Logo',
+                  style: TextStyle(color: kred),
+                ))),
+            adjustHieght(khieght * .01),
             const Text(
               'Logo story',
               style: TextStyle(fontSize: 20),
@@ -190,7 +147,7 @@ class _LogoStoryState extends State<LogoStory> {
                 controller:
                     context.read<BusinessDataBloc>().logoStoryController,
                 maxLines: 10,
-                text: 'logoStory',
+                text: 'Logo Story',
                 textCapitalization: TextCapitalization.sentences,
                 hintText:
                     "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",
@@ -221,6 +178,16 @@ class _LogoStoryState extends State<LogoStory> {
                 }
                 return LastSkipContinueButtons(onTap: () {
                   FocusScope.of(context).unfocus();
+                  if (state.logoCard?.logo == null) {
+                    print('logo is not there');
+                    setState(() {
+                      showLogoError = true;
+                    });
+                    return;
+                  }
+                  setState(() {
+                    showLogoError = false;
+                  });
                   if (logokey.currentState!.validate()) {
                     context
                         .read<BusinessDataBloc>()

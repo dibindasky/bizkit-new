@@ -1,3 +1,4 @@
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/business_details/business_details.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/company_and_bankdetails.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/logo_story.dart';
@@ -6,6 +7,7 @@ import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brocers_and_products.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LinearProgressIndicatorStarting extends StatefulWidget {
   const LinearProgressIndicatorStarting({Key? key, this.index})
@@ -55,11 +57,16 @@ class _LinearProgressIndicatorStartingState
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: LinearProgressIndicator(
-                  minHeight: 13,
-                  value: (_currentPage + 1) / 5,
-                  backgroundColor: smallBigGrey,
-                  valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
+                child: BlocBuilder<CardBloc, CardState>(
+                  builder: (context, state) {
+                    return LinearProgressIndicator(
+                      minHeight: 13,
+                      value: ((state.anotherCard?.percentage??10.toDouble()) /100),
+                      backgroundColor: smallBigGrey,
+                      valueColor:
+                          const AlwaysStoppedAnimation<Color>(neonShade),
+                    );
+                  },
                 ),
               ),
               adjustHieght(10),

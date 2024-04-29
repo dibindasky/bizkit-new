@@ -6,6 +6,7 @@ import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -92,9 +93,18 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                                           .add(UserDataEvent.removeUserPhoto());
                                     });
                               } else {
-                                context
-                                    .read<UserDataBloc>()
-                                    .add(UserDataEvent.pickUserPhotos());
+                                cameraAndGalleryPickImage(
+                                    context: context,
+                                    onPressCam: () {
+                                      context.read<UserDataBloc>().add(
+                                          UserDataEvent.pickUserPhotos(
+                                              cam: true));
+                                    },
+                                    onPressGallery: () {
+                                      context.read<UserDataBloc>().add(
+                                          UserDataEvent.pickUserPhotos(
+                                              cam: false));
+                                    });
                               }
                             },
                             child: CircleAvatar(

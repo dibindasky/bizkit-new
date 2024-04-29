@@ -16,27 +16,31 @@ class BrochersBuilder extends StatelessWidget {
     return Scaffold(
       body: Padding(
           padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
-          child: GridView.builder(
-            itemCount: pdf.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ScreenPdfPreview(base64: pdf[index])));
-                },
-                child: PdfViewer.openData(base64Decode(pdf[index]),
-                    params: const PdfViewerParams(pageNumber: 1)),
-              );
-            },
-          )),
+          child: pdf.isEmpty
+              ? const Center(
+                  child: Text('No brochures available'),
+                )
+              : GridView.builder(
+                  itemCount: pdf.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ScreenPdfPreview(base64: pdf[index])));
+                      },
+                      child: PdfViewer.openData(base64Decode(pdf[index]),
+                          params: const PdfViewerParams(pageNumber: 1)),
+                    );
+                  },
+                )),
     );
   }
 }

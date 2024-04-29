@@ -29,12 +29,19 @@ class LaunchUrl {
     }
   }
 
-  static googleSearch({required String url}) {
+  static googleSearch({required String url}) async {
     try {
       if (!url.startsWith('http')) {
-        url = urlGoogleSearch + url;
+        if (await canLaunchUrl(Uri.parse('https://$url'))) {
+          launchUrl(Uri.parse('https://$url'));
+        } else if (await canLaunchUrl(Uri.parse('http://$url'))) {
+          launchUrl(Uri.parse('http://$url'));
+        } else {
+          launchUrl(Uri.parse('$urlGoogleSearch$url'));
+        }
+      } else {
+        launchUrl(Uri.parse(url));
       }
-      launchUrl(Uri.parse(url));
     } catch (e) {
       log('cannot launch url');
       log(e.toString());

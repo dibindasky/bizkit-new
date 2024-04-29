@@ -9,6 +9,7 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
+import 'package:bizkit/domain/model/card/card/accredition/accredition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,11 +35,14 @@ class AchivementsScreen extends StatelessWidget {
                 builder: (context, business) {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
+                      int accoladeLength = isPreview
+                          ? user.accolades.length
+                          : state.anotherCard?.accolades?.length ?? 0;
                       List achivement = isPreview
                           ? [...user.accolades, ...business.accreditions]
                           : [
+                              ...state.anotherCard?.accolades ?? [],
                               ...state.anotherCard?.accreditation ?? [],
-                              ...state.anotherCard?.accolades ?? []
                             ];
                       if (achivement.isEmpty) {
                         return Center(child: Image.asset(emptyNodata2));
@@ -50,18 +54,27 @@ class AchivementsScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return InkWell(
-                            onTap: () => Navigator.push(
-                                context,
-                                fadePageRoute(SlidablePhotoGallery(
-                                    images: achivement[index] is Accolade
-                                        ? achivement[index]
-                                            .accoladesImage
-                                            .map((e) => e.image as String)
-                                            .toList()
-                                        : achivement[index]
-                                            .images
-                                            .map((e) => e.image as String)
-                                            .toList()))),
+                            onTap: () {
+                              if (index < accoladeLength) {
+                                final acc = achivement[index] as Accolade;
+                                Navigator.push(
+                                    context,
+                                    fadePageRoute(SlidablePhotoGallery(
+                                        images: acc.accoladesImage
+                                                ?.map((e) => e.image!)
+                                                .toList() ??
+                                            [])));
+                              } else {
+                                final acc = achivement[index] as Accredition;
+                                Navigator.push(
+                                    context,
+                                    fadePageRoute(SlidablePhotoGallery(
+                                        images: acc.images
+                                                ?.map((e) => e.image!)
+                                                .toList() ??
+                                            [])));
+                              }
+                            },
                             child: SizedBox(
                               height: 250,
                               width: double.infinity,

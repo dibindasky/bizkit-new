@@ -155,28 +155,31 @@ class _HomeScreenFirstAnimationScreenState
     khieght = size.height;
     kwidth = size.width;
     return Scaffold(
-      body: SmartRefresher(
-        controller: refreshController,
-        header: const WaterDropHeader(),
-        enablePullDown: true,
-        cacheExtent: 0,dragStartBehavior: DragStartBehavior.start,
-        enableTwoLevel: false,
-        // enablePullUp: true,
-        onLoading: () async {
-          await Future.delayed(const Duration(milliseconds: 300));
-          refreshController.loadComplete();
-        },
-        onRefresh: () async {
-          context.read<CardBloc>().add(const CardEvent.getCards(call: true));
-          context.read<ConnectionRequestBloc>().add(
-              const ConnectionRequestEvent.getBizkitConnections(query: ''));
-          context
-              .read<ReminderBloc>()
-              .add(const ReminderEvent.getAllRemindersEvent());
-          await Future.delayed(const Duration(milliseconds: 300));
-          refreshController.refreshCompleted();
-        },
-        child: SafeArea(
+      body:
+      //  SmartRefresher(
+        // controller: refreshController,
+        // header: const WaterDropHeader(),
+        // enablePullDown: true,
+        // cacheExtent: 0,dragStartBehavior: DragStartBehavior.start,
+        // enableTwoLevel: false,
+        // // enablePullUp: true,
+        // // onLoading: () async {
+        // //   await Future.delayed(const Duration(milliseconds: 300));
+        // //   refreshController.loadComplete();
+        // // },
+
+        // onRefresh: () async {
+        //   context.read<CardBloc>().add(const CardEvent.getCards(call: true));
+        //   context.read<ConnectionRequestBloc>().add(
+        //       const ConnectionRequestEvent.getBizkitConnections(query: ''));
+        //   context
+        //       .read<ReminderBloc>()
+        //       .add(const ReminderEvent.getAllRemindersEvent());
+        //   await Future.delayed(const Duration(milliseconds: 300));
+        //   refreshController.refreshCompleted();
+        // },
+        // child:
+         SafeArea(
           child: ValueListenableBuilder(
             valueListenable: showCardsNotifier,
             builder: (context, value, child) {
@@ -261,7 +264,7 @@ class _HomeScreenFirstAnimationScreenState
             },
           ),
         ),
-      ),
-    );
+      );
+    // );
   }
 }

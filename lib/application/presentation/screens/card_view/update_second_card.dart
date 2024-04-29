@@ -4,6 +4,7 @@ import 'package:bizkit/application/business_logic/card_second/card_second_bloc.d
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
@@ -12,9 +13,9 @@ import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
-import 'package:bizkit/domain/model/card_second/gate_all_card_second_model/second_card.dart';
+import 'package:bizkit/domain/model/card_second/add_selfie_model/add_selfie_model.dart';
 import 'package:bizkit/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
-import 'package:bizkit/domain/model/card_second/selfie/selfie_adding_request_model/selfie.dart';
+import 'package:bizkit/domain/model/card_second/get_second_card_model/selfie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,8 +31,8 @@ class SecondCardUpdation extends StatefulWidget {
 class _SecondCardUpdationState extends State<SecondCardUpdation> {
   List<String> selfieBase64List = [];
   String? base64imagecard;
-  List<ImageCard> imageList = [];
-  List<ImageCard> newImageList = [];
+  List<Selfie> imageList = [];
+  List<Selfie> newImageList = [];
 
   @override
   void initState() {
@@ -51,7 +52,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
     }
     if (widget.secondCard.selfie != null) {
       log('id ${widget.secondCard.selfie?.length}', name: 'sefie image legth');
-      imageList = widget.secondCard.selfie ?? <ImageCard>[];
+      imageList = widget.secondCard.selfie ?? <Selfie>[];
       log('${imageList}', name: 'imageList  legth');
     }
     context.read<CardSecondBloc>().updateEmailController.text =
@@ -314,7 +315,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             itemCount: imageList.length,
                             itemBuilder: (context, index) {
                               final imageSelfie = imageList[index];
-                              if (imageSelfie.image == null) {
+                              if (imageSelfie.selfie == null) {
                                 return kempty;
                               }
                               return Stack(
@@ -322,16 +323,16 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                   InkWell(
                                     onTap: () => Navigator.of(context).push(
                                       fadePageRoute(ScreenImagePreview(
-                                          image: imageSelfie.image!)),
+                                          image: imageSelfie.selfie!)),
                                     ),
                                     child: SizedBox(
                                       width: 300.dm,
                                       height: 200.dm,
                                       child: Image.memory(
-                                        base64.decode(imageSelfie.image!
+                                        base64.decode(imageSelfie.selfie!
                                                 .startsWith('data')
-                                            ? imageSelfie.image!.substring(22)
-                                            : imageSelfie.image ?? ''),
+                                            ? imageSelfie.selfie!.substring(22)
+                                            : imageSelfie.selfie ?? ''),
                                         fit: BoxFit.cover,
                                         errorBuilder:
                                             (context, error, stackTrace) {
@@ -399,10 +400,9 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                     final img = await ImagePickerClass.getImage(
                                         camera: true);
                                     if (img != null) {
-                                      imageList
-                                          .add(ImageCard(image: img.base64));
+                                      imageList.add(Selfie(selfie: img.base64));
                                       newImageList
-                                          .add(ImageCard(image: img.base64));
+                                          .add(Selfie(selfie: img.base64));
                                       setState(() {});
                                     }
                                   },
@@ -410,10 +410,9 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                     final img = await ImagePickerClass.getImage(
                                         camera: false);
                                     if (img != null) {
-                                      imageList
-                                          .add(ImageCard(image: img.base64));
+                                      imageList.add(Selfie(selfie: img.base64));
                                       newImageList
-                                          .add(ImageCard(image: img.base64));
+                                          .add(Selfie(selfie: img.base64));
                                       setState(() {});
                                     }
                                   });
@@ -432,6 +431,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                         children: [
                           adjustHieght(khieght * 0.008),
                           TTextFormField(
+                            textCapitalization: TextCapitalization.words,
                             validate: Validate.notNull,
                             text: 'Name',
                             controller: context
@@ -440,6 +440,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             inputType: TextInputType.name,
                           ),
                           TTextFormField(
+                            textCapitalization: TextCapitalization.words,
                             //validate: Validate.notNull,
                             text: 'Company',
                             controller: context
@@ -448,6 +449,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             inputType: TextInputType.name,
                           ),
                           TTextFormField(
+                            textCapitalization: TextCapitalization.none,
                             validate: Validate.ifValidEmail,
                             text: 'Email',
                             controller: context
@@ -473,6 +475,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             inputType: TextInputType.emailAddress,
                           ),
                           TTextFormField(
+                            textCapitalization: TextCapitalization.words,
                             // validate: Validate.notNull,
                             text: 'Designation',
                             controller: context
@@ -481,6 +484,8 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             inputType: TextInputType.name,
                           ),
                           TTextFormField(
+                            maxLines: 2,
+                            textCapitalization: TextCapitalization.words,
                             // validate: Validate.notNull,
                             text: 'Location',
                             controller: context
@@ -489,6 +494,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             inputType: TextInputType.name,
                           ),
                           TTextFormField(
+                            textCapitalization: TextCapitalization.words,
                             // validate: Validate.notNull,
                             text: 'Occasion',
                             controller: context
@@ -505,6 +511,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                             inputType: TextInputType.name,
                           ),
                           TTextFormField(
+                            textCapitalization: TextCapitalization.words,
                             //validate: Validate.notNull,
                             text: 'Notes',
                             controller: context
@@ -524,6 +531,10 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                         .validate()) {
                                       SecondCardNew secondCard = SecondCardNew(
                                         id: widget.secondCard.id,
+                                        date: widget.secondCard.date,
+                                        time: widget.secondCard.time,
+                                        isActive: true,
+                                        tag: '',
                                         whereWeMet: context
                                             .read<CardSecondBloc>()
                                             .updateoccationController
@@ -571,16 +582,21 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                             .read<CardSecondBloc>()
                                             .updateNameController
                                             .text,
-                                        selfie: widget.secondCard.id == null
-                                            ? imageList
-                                            : newImageList,
+                                        selfie: newImageList,
+                                      );
+                                      AddSelfieModel addSelfieModel =
+                                          AddSelfieModel(
+                                        businessCardId: widget.secondCard.id,
+                                        selfie: imageList,
                                       );
                                       context.read<CardSecondBloc>().add(
-                                            CardSecondEvent.updateCardSecond(
-                                              secondCard: secondCard,
-                                              id: widget.secondCard.id
-                                                  .toString(),
-                                            ),
+                                            CardSecondEvent
+                                                .addSelfieIndexImages(
+                                                    addSelfieModel:
+                                                        addSelfieModel,
+                                                    secondCard: secondCard,
+                                                    id: widget.secondCard.id
+                                                        .toString()),
                                           );
                                     }
                                   },

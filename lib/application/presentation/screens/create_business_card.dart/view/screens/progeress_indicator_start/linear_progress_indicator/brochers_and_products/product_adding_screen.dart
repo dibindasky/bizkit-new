@@ -71,7 +71,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                 children: [
                   adjustHieght(khieght * .05),
                   BlocBuilder<BusinessDataBloc, BusinessDataState>(
-                    builder: (context, state) {
+                    builder: (context, _) {
                       return SizedBox(
                           height: 200.dm,
                           child: Stack(children: [

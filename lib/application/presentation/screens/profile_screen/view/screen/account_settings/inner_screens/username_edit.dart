@@ -92,20 +92,21 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                     text: 'Save',
                     onTap: () {
                       if (userameFrom.currentState!.validate()) {
-                        String profileImage = '';
-                        if (state.getUserInfoModel != null &&
-                            state.getUserInfoModel!.results != null &&
-                            state.getUserInfoModel!.results!.profilePic !=
-                                null) {
-                          profileImage =
-                              state.getUserInfoModel!.results!.profilePic!;
-                        }
+                        // String profileImage = '';
+                        // if (state.getUserInfoModel != null &&
+                        //     state.getUserInfoModel!.results != null &&
+                        //     state.getUserInfoModel!.results!.profilePic !=
+                        //         null) {
+                        //   profileImage =
+                        //       state.getUserInfoModel!.results!.profilePic!;
+                        // }
                         UserInfoChangeRequestModel userInfoChangeRequestModel =
                             UserInfoChangeRequestModel();
                         userInfoChangeRequestModel =
                             userInfoChangeRequestModel.copyWith(
                                 id: state.getUserInfoModel?.results?.id,
-                                profilePic: profileImage,
+                                profilePic:
+                                    state.getUserInfoModel!.results!.profilePic,
                                 name: context
                                     .read<ProfileBloc>()
                                     .userNameController

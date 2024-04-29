@@ -11,6 +11,7 @@ import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/domain/model/contact/add_new_contact/add_new_contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,14 +78,23 @@ class CardSecondScannedDatas extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  Navigator.of(context).push(
-                                    fadePageRoute(ScreenImagePreview(
-                                      image: state
-                                          .scannedImagesSecondCardCreation[
-                                              index]
-                                          .base64,
-                                    )),
-                                  );
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            SlidablePhotoGallery(
+                                          images: state
+                                              .scannedImagesSecondCardCreation
+                                              .map((e) => e.base64)
+                                              .toList(),
+                                          initialIndex: state
+                                              .scannedImagesSecondCardCreation
+                                              .map((e) => e.base64)
+                                              .toList()
+                                              .indexWhere((element) =>
+                                                  element == index),
+                                        ),
+                                      ));
                                 },
                                 child: SizedBox(
                                   height: 250,
@@ -351,143 +361,135 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                       ),
                               heading: 'Take Selfie',
                             )
-                          : SizedBox(
-                              height: 250,
-                              child: ListView.separated(
-                                separatorBuilder: (context, index) {
-                                  return adjustWidth(10);
-                                },
-                                scrollDirection: Axis.horizontal,
-                                itemCount: state.selfieImageModel.length + 1,
-                                itemBuilder: (context, index) {
-                                  if (index == 0) {
-                                    return state.pickImageLoading
-                                        ? SizedBox(
-                                            width: 300.dm,
-                                            height: 200.dm,
-                                            child: const Center(
-                                              child: CircularProgressIndicator(
-                                                color: neonShade,
+                          : Stack(
+                              children: [
+                                SizedBox(
+                                  height: 250,
+                                  child: ListView.separated(
+                                    separatorBuilder: (context, index) {
+                                      return adjustWidth(10);
+                                    },
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: state.selfieImageModel.length,
+                                    itemBuilder: (context, index) {
+                                      final selfiImages =
+                                          state.selfieImageModel[index];
+                                      return InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SlidablePhotoGallery(
+                                                images: state.selfieImageModel
+                                                    .map((e) => e.base64)
+                                                    .toList(),
+                                                initialIndex: index,
                                               ),
                                             ),
-                                          )
-                                        : ColoredBox(
-                                            color: neonShade.withOpacity(0.1),
-                                            child: InkWell(
-                                              onTap: () async {
-                                                cameraAndGalleryPickImage(
-                                                    tittle:
-                                                        'Choose image from ?',
-                                                    context: context,
-                                                    onPressCam: () {
-                                                      context
-                                                          .read<
-                                                              CardSecondBloc>()
-                                                          .add(
-                                                            const CardSecondEvent
-                                                                .selfieImage(
-                                                              isCam: true,
-                                                              cameraDeviceFront:
-                                                                  true,
-                                                            ),
-                                                          );
+                                          );
+                                          // Navigator.push(
+                                          //   context,
+                                          //   fadePageRoute(ScreenImagePreview(
+                                          //       image: selfiImages.base64)),
+                                          // );
+                                        },
+                                        child: Stack(
+                                          children: [
+                                            Container(
+                                              height: 250,
+                                              width: kwidth,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: FileImage(
+                                                      selfiImages.fileImage),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom: 70,
+                                              right: 10,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                child: ColoredBox(
+                                                  color: neonShade,
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      showCustomConfirmationDialogue(
+                                                        context: context,
+                                                        buttonText: 'Delete',
+                                                        title:
+                                                            'You want to remove your selfie',
+                                                        onTap: () {
+                                                          context
+                                                              .read<
+                                                                  CardSecondBloc>()
+                                                              .add(CardSecondEvent
+                                                                  .selfieimageClear(
+                                                                      index:
+                                                                          index -
+                                                                              1));
+                                                        },
+                                                      );
                                                     },
-                                                    onPressGallery: () {
-                                                      context
-                                                          .read<
-                                                              CardSecondBloc>()
-                                                          .add(
-                                                            const CardSecondEvent
-                                                                .selfieImage(
-                                                              isCam: false,
-                                                              cameraDeviceFront:
-                                                                  false,
-                                                            ),
-                                                          );
-                                                    });
-                                              },
-                                              child: SizedBox(
-                                                width: 300.dm,
-                                                height: 200.dm,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  child: const ColoredBox(
-                                                    color: textFieldFillColr,
-                                                    child: Icon(
-                                                      Icons.add_a_photo_rounded,
+                                                    icon: const Icon(
+                                                      size: 30,
+                                                      color: kwhite,
+                                                      Icons.delete,
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          );
-                                  } else {
-                                    final selfiImages =
-                                        state.selfieImageModel[index - 1];
-                                    return InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          fadePageRoute(ScreenImagePreview(
-                                              image: selfiImages.base64)),
-                                        );
-                                      },
-                                      child: Stack(
-                                        children: [
-                                          Container(
-                                            height: 250,
-                                            width: kwidth,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: FileImage(
-                                                    selfiImages.fileImage),
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            bottom: 10,
-                                            right: 10,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              child: ColoredBox(
-                                                color: neonShade,
-                                                child: IconButton(
-                                                  onPressed: () {
-                                                    showCustomConfirmationDialogue(
-                                                      context: context,
-                                                      buttonText: 'Delete',
-                                                      title:
-                                                          'You want to remove your selfie',
-                                                      onTap: () {
-                                                        context
-                                                            .read<
-                                                                CardSecondBloc>()
-                                                            .add(CardSecondEvent
-                                                                .selfieimageClear(
-                                                                    index:
-                                                                        index -
-                                                                            1));
-                                                      },
-                                                    );
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                Positioned(
+                                    bottom: 10,
+                                    right: 10,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: ColoredBox(
+                                        color: neonShade,
+                                        child: IconButton(
+                                            onPressed: () {
+                                              cameraAndGalleryPickImage(
+                                                  tittle: 'Choose image from ?',
+                                                  context: context,
+                                                  onPressCam: () {
+                                                    context
+                                                        .read<CardSecondBloc>()
+                                                        .add(
+                                                          const CardSecondEvent
+                                                              .selfieImage(
+                                                            isCam: true,
+                                                            cameraDeviceFront:
+                                                                true,
+                                                          ),
+                                                        );
                                                   },
-                                                  icon: const Icon(
-                                                    size: 30,
-                                                    color: kwhite,
-                                                    Icons.delete,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                                  onPressGallery: () {
+                                                    context
+                                                        .read<CardSecondBloc>()
+                                                        .add(
+                                                          const CardSecondEvent
+                                                              .selfieImage(
+                                                            isCam: false,
+                                                            cameraDeviceFront:
+                                                                false,
+                                                          ),
+                                                        );
+                                                  });
+                                            },
+                                            icon: Icon(Icons.camera)),
                                       ),
-                                    );
-                                  }
-                                },
-                              ),
+                                    ))
+                              ],
                             ),
                   Padding(
                     padding:

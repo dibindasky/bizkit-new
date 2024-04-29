@@ -257,66 +257,37 @@ class CardViewRowWiceIcons extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //phone number botom sheet
-            DetailSharingIconWidget(
-              onTap: () {
-                List<String> items = [];
-                if (state.getSecondCardModel != null &&
-                    state.getSecondCardModel!.phoneNumber != null &&
-                    state.getSecondCardModel!.phoneNumber!.isNotEmpty) {
+            if (state.getSecondCardModel!.phoneNumber != null &&
+                state.getSecondCardModel!.phoneNumber!.isNotEmpty)
+              DetailSharingIconWidget(
+                onTap: () {
+                  List<String> items = [];
                   items.add(state.getSecondCardModel!.phoneNumber!);
-                }
-                showModalBottomSheet(
-                  context: context,
-                  enableDrag: true,
-                  isDismissible: true,
-                  showDragHandle: true,
-                  backgroundColor: kblack,
-                  builder: (context) => PreviewScreenRowIconsModelSheet(
-                    fromPreview: false,
-                    image: imagePhone,
-                    items: items,
-                  ),
-                );
-              },
-              image: imagePhone,
-            ),
-            // email bottom sheet
-            DetailSharingIconWidget(
-              onTap: () {
-                List<String> items = [];
-                if (state.getSecondCardModel != null &&
-                    state.getSecondCardModel!.email != null &&
-                    state.getSecondCardModel!.email!.isNotEmpty) {
-                  items.add(state.getSecondCardModel!.email!);
-                } else {
-                  showDialog(
+                  log('${items.length}');
+                  showModalBottomSheet(
                     context: context,
-                    builder: (context) => Dialog(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 20),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: neonShade),
-                            borderRadius: BorderRadius.circular(10),
-                            color: backgroundColour),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            adjustHieght(10),
-                            Text(
-                              'Websie details not available',
-                              style: textHeadStyle1,
-                            ),
-                            adjustHieght(10)
-                          ],
-                        ),
-                      ),
+                    enableDrag: true,
+                    isDismissible: true,
+                    showDragHandle: true,
+                    backgroundColor: kblack,
+                    builder: (context) => PreviewScreenRowIconsModelSheet(
+                      fromPreview: true,
+                      image: imagePhone,
+                      items: items,
+                      itemsHeading: const ['Phone number'],
                     ),
                   );
-                }
-                if (state.getSecondCardModel != null &&
-                    state.getSecondCardModel!.email != null &&
-                    state.getSecondCardModel!.email!.isNotEmpty) {
+                },
+                image: imagePhone,
+              ),
+            // email bottom sheet
+            if (state.getSecondCardModel != null &&
+                state.getSecondCardModel!.email != null &&
+                state.getSecondCardModel!.email!.isNotEmpty)
+              DetailSharingIconWidget(
+                onTap: () {
+                  List<String> items = [];
+                  items.add(state.getSecondCardModel!.email!);
                   showModalBottomSheet(
                     context: context,
                     enableDrag: true,
@@ -327,12 +298,12 @@ class CardViewRowWiceIcons extends StatelessWidget {
                       fromPreview: false,
                       image: imagePhone,
                       items: items,
+                      itemsHeading: const ['Email'],
                     ),
                   );
-                }
-              },
-              image: gifMail,
-            ),
+                },
+                image: gifMail,
+              ),
             // website navigator
             state.getSecondCardModel != null &&
                     state.getSecondCardModel!.website != null &&
@@ -354,19 +325,31 @@ class CardViewRowWiceIcons extends StatelessWidget {
                               children: [
                                 Text('Website', style: textHeadStyle1),
                                 adjustHieght(10),
-                                Text(
-                                  state.getSecondCardModel!.website ?? '',
+                                TextButton(
+                                  onPressed: () {
+                                    LaunchUrl.googleSearch(
+                                      url: state.getSecondCardModel!.website!,
+                                    ).then((value) => Navigator.pop(context));
+                                  },
+                                  child: Text(
+                                    state.getSecondCardModel!.website ?? '',
+                                    style: textStyle1.copyWith(
+                                      color: kblue,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: kblue,
+                                    ),
+                                  ),
                                 ),
                                 adjustHieght(10),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     OutlinedButton.icon(
                                       style: OutlinedButton.styleFrom(
                                           side: const BorderSide(
                                               color: neonShade)),
                                       onPressed: () async {
-                                        LaunchUrl.launchUrls(
+                                        await LaunchUrl.launchUrls(
                                           url: state
                                               .getSecondCardModel!.website!,
                                         ).then(
@@ -387,7 +370,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                         Navigator.pop(context);
                                       },
                                       child: const Text(
-                                        'cancel',
+                                        'Cancel',
                                         style: TextStyle(color: neonShade),
                                       ),
                                     ),
@@ -402,6 +385,8 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     image: gifGlobe,
                   )
                 : kempty,
+
+            //Address screen
             state.getSecondCardModel != null &&
                     state.getSecondCardModel!.location != null &&
                     state.getSecondCardModel!.location!.isNotEmpty
@@ -430,7 +415,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                 ),
                                 adjustHieght(10),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     OutlinedButton.icon(
                                       style: OutlinedButton.styleFrom(
@@ -438,12 +423,11 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                               color: neonShade)),
                                       onPressed: () async {
                                         await LaunchUrl.launchMap(
-                                                address: state
-                                                    .getSecondCardModel!
-                                                    .location!,
-                                                context: context)
-                                            .then((value) =>
-                                                Navigator.pop(context));
+                                          address: state
+                                              .getSecondCardModel!.location!,
+                                          context: context,
+                                        ).then(
+                                            (value) => Navigator.pop(context));
                                       },
                                       icon: const Icon(
                                         Icons.location_on_outlined,
@@ -462,7 +446,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                         Navigator.pop(context);
                                       },
                                       child: const Text(
-                                        'cancel',
+                                        'Cancel',
                                         style: TextStyle(color: neonShade),
                                       ),
                                     ),

@@ -475,19 +475,18 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     final result = await SecureStorage.getUserDetails();
     final business = await SecureStorage.getRole();
 
-      if (!business) {
-        nameController.text = result.name ?? nameController.text;
-        phoneController.text =
-            result.phoneNumber ?? phoneController.text;
-        emailController.text = result.email ?? emailController.text;
-      }
-      emit(state.copyWith(
-          cardAdded: false,
-          accoladeAdded: false,
-          datesToRememberAdded: false,
-          socialMediaAdded: false,
-          message: null,
-          isBusiness: business));
+    if (!business) {
+      nameController.text = result.name ?? nameController.text;
+      phoneController.text = result.phoneNumber ?? phoneController.text;
+      emailController.text = result.email ?? emailController.text;
+    }
+    emit(state.copyWith(
+        cardAdded: false,
+        accoladeAdded: false,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        message: null,
+        isBusiness: business));
   }
 
   FutureOr<void> getBusinessCategories(

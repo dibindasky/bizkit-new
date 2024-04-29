@@ -30,7 +30,7 @@ class _ScreenImagePreviewState extends State<ScreenImagePreview> {
     //     imagee = base64
     //         .decode(image.startsWith('data') ? image.substring(22) : image);
     //   }
-    //   imagess?.add(imagee!);90ik
+    //   imagess?.add(imagee!);
     // }
     if (!widget.isFileIamge) {
       image = base64.decode(widget.image.startsWith('data')

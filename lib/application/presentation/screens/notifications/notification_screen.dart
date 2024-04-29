@@ -39,11 +39,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback(
-    //   (timeStamp) => context
-    //       .read<NotificationBloc>()
-    //       .add(const NotificationEvent.getNotification(isLoad: false)),
-    // );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -93,7 +88,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   }
                   return ListView.separated(
                     controller: scrollController,
-                    // physics: const AlwaysScrollableScrollPhysics(),
                     shrinkWrap: true,
                     separatorBuilder: (context, index) {
                       return adjustHieght(10);
@@ -101,9 +95,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     itemCount: (state.notification?.length ?? 0) +
                         (state.notificationLoading ? 1 : 0),
                     itemBuilder: (context, index) {
-                      // DateTime currentDateTime = DateTime.now();
-                      // String dateTimeString = '2024-03-26T15:30:00';
-
                       log('Noti length ${state.notification!.length}');
                       final notification = state.notification![index];
                       // Split the time string to get hours, minutes, seconds, and microseconds
@@ -135,7 +126,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           if (notification.tag == 'Connection accepted') {
                             Navigator.push(
                               context,
-                              fadePageRoute(MyConnectionsViewAllContacts()),
+                              fadePageRoute(
+                                  const MyConnectionsViewAllContacts()),
                             );
                           }
                           if (notification.tag == 'Reminder') {}

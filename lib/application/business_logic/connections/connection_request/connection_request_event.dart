@@ -13,8 +13,8 @@ class ConnectionRequestEvent with _$ConnectionRequestEvent {
       {required CreateConnectionWithCardIdModel
           createConnectionWithCardIdModel}) = AddConnection;
   const factory ConnectionRequestEvent.removeConnectionRequest(
-          {required ConnectionRequestIdModel connectionRequestIdModel,required int id}) =
-      RemoveConnectionRequest;
+      {required ConnectionRequestIdModel connectionRequestIdModel,
+      required int id}) = RemoveConnectionRequest;
   const factory ConnectionRequestEvent.addTagToBizkitconnection(
       {required AddConnectionTagModel addConnectionTagModel,
       required int connectionId}) = AddTagToBizkitconnection;

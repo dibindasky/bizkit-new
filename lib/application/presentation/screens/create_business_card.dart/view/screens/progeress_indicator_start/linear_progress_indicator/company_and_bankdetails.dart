@@ -95,11 +95,11 @@ class CompanyAndBankingDetails extends StatelessWidget {
                   }
                   return LastSkipContinueButtons(
                     onTap: () {
-                     if(bankingCardCreationKey.currentState!.validate()){
-                       context
-                          .read<BusinessDataBloc>()
-                          .add(const BusinessDataEvent.createBankingData());
-                     }
+                      if (bankingCardCreationKey.currentState!.validate()) {
+                        context
+                            .read<BusinessDataBloc>()
+                            .add(const BusinessDataEvent.createBankingData());
+                      }
                     },
                   );
                 },

@@ -240,14 +240,10 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                                                       .image
                                                   : achivement[index].image
                                               : widget.accolade!
-                                                  ? user
-                                                      .accolades[index]
-                                                      .accoladesImage![0]
-                                                      .image
-                                                  : business
-                                                      .accreditions[index]
-                                                      .images![0]
-                                                      .image)
+                                                  ? user.accolades[index]
+                                                      .accoladesImage![0].image
+                                                  : business.accreditions[index]
+                                                      .images![0].image)
                                           .substring(22)),
                                       fit: BoxFit.cover,
                                     ),

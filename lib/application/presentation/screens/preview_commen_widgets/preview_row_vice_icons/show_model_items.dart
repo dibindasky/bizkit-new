@@ -73,8 +73,10 @@ class _PreviewScreenRowIconsModelSheetState
                                 children: [
                                   Text(
                                     dataHead,
-                                    style: const TextStyle(color: neonShade,fontSize: 10),
-                                  ),adjustHieght(5),
+                                    style: const TextStyle(
+                                        color: neonShade, fontSize: 10),
+                                  ),
+                                  adjustHieght(5),
                                   Text(
                                     data,
                                     style: const TextStyle(color: neonShade),

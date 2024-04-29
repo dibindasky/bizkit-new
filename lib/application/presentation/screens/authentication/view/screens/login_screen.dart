@@ -288,7 +288,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                             .then((value) => FocusScope.of(context).unfocus());
                       },
                       child: Text(
-                        'Forgot password',
+                        'Forgot Password',
                         style:
                             TextStyle(fontSize: kwidth * 0.03, color: kwhite),
                       ),

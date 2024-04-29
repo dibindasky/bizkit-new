@@ -106,6 +106,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   FutureOr<void> removeAccreditonImage(
       RemoveAccreditonImage event, emit) async {
     await cardPatchRepo.deleteAccreditationImage(id: event.id);
+    emit(state);
   }
 
   FutureOr<void> accreditationPickImage(
@@ -333,17 +334,23 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     upiDetailController.text = event.card.isCompanyAutofilled == true
         ? ''
         : event.card.bankDetails?.upiDetails ?? '';
+    print('user ===> $business');
     if (business) {
       final user = await SecureStorage.getUserDetails();
-      websiteLinkController.text =
-          websiteLinkController.text == '' ? user.websiteLink ?? '' : '';
-      mailController.text = mailController.text == '' ? user.email ?? '' : '';
-      companyController.text =
-          companyController.text == '' ? user.companyName ?? '' : '';
-      mobileController.text =
-          mobileController.text == '' ? user.phoneNumber ?? '' : '';
-      addressController.text =
-          addressController.text == '' ? user.address ?? '' : '';
+      websiteLinkController.text = websiteLinkController.text == ''
+          ? user.websiteLink ?? ''
+          : websiteLinkController.text;
+      mailController.text =
+          mailController.text == '' ? user.email ?? '' : mailController.text;
+      companyController.text = companyController.text == ''
+          ? user.companyName ?? ''
+          : companyController.text;
+      mobileController.text = mobileController.text == ''
+          ? user.phoneNumber ?? ''
+          : mobileController.text;
+      addressController.text = addressController.text == ''
+          ? user.address ?? ''
+          : addressController.text;
     }
   }
 
@@ -527,8 +534,6 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             hasError: true,
             gotCompanyData: false,
             message: 'failed to add company data to profile')), (business) {
-      print(
-          '====================================***********************************************************=====================================');
       print('got company detaisa');
       // final card = state.
       emit(state.copyWith(
@@ -543,6 +548,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       addressController.text = business.address ?? '';
       websiteLinkController.text = business.websiteLink ?? '';
       logoStoryController.text = business.logoStory ?? '';
+      companyController.text = business.company ?? '';
     });
   }
 

@@ -225,24 +225,29 @@ class _LoGInScreenState extends State<LoGInScreen>
                           }
                         });
                       },
+                      onTapOutside: () {
+                        // FocusScope.of(context).unfocus();
+                      },
                       validate: Validate.email,
                       text: 'Email',
                       controller: emailController,
                       inputType: TextInputType.emailAddress,
                     ),
                     TTextFormField(
-                      onTap: () {
-                        setState(() {
-                          indexOfEye = 3;
-                          animate(30, -20);
-                        });
-                      },
-                      validate: Validate.notNull,
-                      text: 'Password',
-                      controller: passwordController,
-                      inputType: TextInputType.visiblePassword,
-                      obscureText: true,
-                    ),
+                        onTap: () {
+                          setState(() {
+                            indexOfEye = 3;
+                            animate(30, -20);
+                          });
+                        },
+                        validate: Validate.notNull,
+                        text: 'Password',
+                        controller: passwordController,
+                        inputType: TextInputType.visiblePassword,
+                        obscureText: true,
+                        onTapOutside: () {
+                          // FocusScope.of(context).unfocus();
+                        }),
                     adjustHieght(10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -255,9 +260,12 @@ class _LoGInScreenState extends State<LoGInScreen>
                         ),
                         adjustWidth(10),
                         InkWell(
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            GoRouter.of(context).pushNamed(Routes.signUpPage);
+                          onTap: () async {
+                            await GoRouter.of(context)
+                                .pushNamed(Routes.signUpPage)
+                                .then((value) {
+                              FocusScope.of(context).unfocus();
+                            });
                           },
                           child: Text(
                             'Sign Up',
@@ -272,9 +280,12 @@ class _LoGInScreenState extends State<LoGInScreen>
                     ),
                     adjustHieght(khieght * .01),
                     TextButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            fadePageRoute(const EmailFieldForGottPassword()));
+                      onPressed: () async {
+                        await Navigator.push(
+                                context,
+                                fadePageRoute(
+                                    const EmailFieldForGottPassword()))
+                            .then((value) => FocusScope.of(context).unfocus());
                       },
                       child: Text(
                         'Forgot password',

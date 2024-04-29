@@ -370,7 +370,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> pickUserPhotos(PickUserPhotos event, emit) async {
-    final img = await ImagePickerClass.getImage(camera: false);
+    final img = await ImagePickerClass.getImage(camera: event.cam);
     if (img != null) {
       emit(state.copyWith(
           userPhotos: [PersonalPhoto(photo: img.base64)],

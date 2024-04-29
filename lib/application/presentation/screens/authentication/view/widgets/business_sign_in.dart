@@ -16,22 +16,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class BusinessSignIn extends StatelessWidget {
+class BusinessSignIn extends StatefulWidget {
   BusinessSignIn({super.key});
 
+  @override
+  State<BusinessSignIn> createState() => _BusinessSignInState();
+}
+
+class _BusinessSignInState extends State<BusinessSignIn> {
   final TextEditingController companyMailController = TextEditingController();
+
   final TextEditingController companyPhoneController = TextEditingController();
+
   final TextEditingController companynameController = TextEditingController();
+
   final TextEditingController companyWebsiteController =
       TextEditingController();
+
   final TextEditingController addressController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final TextEditingController rePasswordController = TextEditingController();
+
   final GlobalKey<FormState> businessSignup = GlobalKey();
 
   @override
+  void initState() {
+    // FocusScope.of(context).unfocus();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-      // FocusScope.of(context).unfocus();
     return FadeIn(
       duration: const Duration(milliseconds: 700),
       delay: const Duration(milliseconds: 200),

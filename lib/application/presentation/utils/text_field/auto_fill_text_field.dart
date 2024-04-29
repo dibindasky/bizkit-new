@@ -13,6 +13,7 @@ class AutocompleteTextField extends StatefulWidget {
   final bool showDropdown;
   final bool showDropdownOnTap;
   final bool enabled;
+  final bool doAutoFill;
   final int? maxLength;
   final int? maxLines;
   final Widget? prefixIcon;
@@ -28,6 +29,7 @@ class AutocompleteTextField extends StatefulWidget {
 
   const AutocompleteTextField({
     Key? key,
+    this.doAutoFill = true,
     this.showDropdown = false,
     this.textCapitalization = TextCapitalization.none,
     this.enabled = true,
@@ -72,16 +74,18 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
 
   @override
   void initState() {
-    if (widget.autocompleteItems != null &&
-        widget.autocompleteItems!.isNotEmpty) {
-      filteredAutocompleteItems =
-          convertListToLowercaseExceptFirst(widget.autocompleteItems!);
+    if (widget.doAutoFill) {
+      if (widget.autocompleteItems != null &&
+          widget.autocompleteItems!.isNotEmpty) {
+        filteredAutocompleteItems =
+            convertListToLowercaseExceptFirst(widget.autocompleteItems!);
+      }
+      if (widget.autocompleteItems != null &&
+          widget.autocompleteItems!.length == 1) {
+        widget.controller!.text = widget.autocompleteItems![0];
+      }
     }
     super.initState();
-    if (widget.autocompleteItems != null &&
-        widget.autocompleteItems!.length == 1) {
-      widget.controller!.text = widget.autocompleteItems![0];
-    }
   }
 
   FocusNode myFocusNode = FocusNode();

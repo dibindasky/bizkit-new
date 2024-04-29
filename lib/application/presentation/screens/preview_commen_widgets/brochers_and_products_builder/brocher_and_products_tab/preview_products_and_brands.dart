@@ -58,95 +58,106 @@ class PreviewProductsBrandsLists extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               height: kwidth * .2,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ListView.separated(
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) => adjustWidth(
-                      kwidth * .01,
-                    ),
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProductViewDetail(
-                                    product: networkImages![index],
-                                    myCard: false,
-                                  )),
-                        ),
-                        child: AspectRatio(
-                          aspectRatio: 0.9,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: ColoredBox(
-                              color: smallBigGrey,
-                              child: networkImages![index].image != null &&
-                                      networkImages![index].image!.isNotEmpty
-                                  ? Image.memory(
-                                      base64.decode(networkImages![index]
-                                              .image![0]
-                                              .image!
-                                              .startsWith('data')
-                                          ? networkImages![index]
-                                              .image![0]
-                                              .image!
-                                              .substring(22)
-                                          : networkImages![index]
-                                              .image![0]
-                                              .image!),
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (context, error,
-                                              stackTrace) =>
-                                          const Icon(Icons
-                                              .image_not_supported_outlined),
-                                    )
-                                  : null,
-                            ),
+              child: networkImages!.isEmpty && pdf!.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'Products and Brochures are not available',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    )
+                  : ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        ListView.separated(
+                          shrinkWrap: true,
+                          separatorBuilder: (context, index) => adjustWidth(
+                            kwidth * .01,
                           ),
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProductViewDetail(
+                                          product: networkImages![index],
+                                          myCard: false,
+                                        )),
+                              ),
+                              child: AspectRatio(
+                                aspectRatio: 0.9,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: ColoredBox(
+                                    color: smallBigGrey,
+                                    child: networkImages![index].image !=
+                                                null &&
+                                            networkImages![index]
+                                                .image!
+                                                .isNotEmpty
+                                        ? Image.memory(
+                                            base64.decode(networkImages![index]
+                                                    .image![0]
+                                                    .image!
+                                                    .startsWith('data')
+                                                ? networkImages![index]
+                                                    .image![0]
+                                                    .image!
+                                                    .substring(22)
+                                                : networkImages![index]
+                                                    .image![0]
+                                                    .image!),
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, error,
+                                                    stackTrace) =>
+                                                const Icon(Icons
+                                                    .image_not_supported_outlined),
+                                          )
+                                        : null,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          itemCount: networkImages!.length,
                         ),
-                      );
-                    },
-                    itemCount: networkImages!.length,
-                  ),
-                  adjustWidth(kwidth * .01),
-                  ListView.separated(
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) => adjustWidth(
-                      kwidth * .01,
-                    ),
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ScreenPdfPreview(
-                                    base64: pdf![index],
-                                  )),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: ColoredBox(
-                            color: smallBigGrey,
-                            child: AspectRatio(
-                              aspectRatio: 0.9,
-                              child: PdfViewer.openData(
-                                  base64Decode(pdf![index]),
-                                  params: const PdfViewerParams(pageNumber: 1)),
-                            ),
+                        adjustWidth(kwidth * .01),
+                        ListView.separated(
+                          shrinkWrap: true,
+                          separatorBuilder: (context, index) => adjustWidth(
+                            kwidth * .01,
                           ),
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ScreenPdfPreview(
+                                          base64: pdf![index],
+                                        )),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: ColoredBox(
+                                  color: smallBigGrey,
+                                  child: AspectRatio(
+                                    aspectRatio: 0.9,
+                                    child: PdfViewer.openData(
+                                        base64Decode(pdf![index]),
+                                        params: const PdfViewerParams(
+                                            pageNumber: 1)),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          itemCount: pdf!.length,
                         ),
-                      );
-                    },
-                    itemCount: pdf!.length,
-                  ),
-                ],
-              ),
+                      ],
+                    ),
             ),
           ),
         ],

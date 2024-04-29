@@ -16,7 +16,6 @@ import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -100,6 +99,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
+                        doAutoFill:false,
                         validate: Validate.email,
                         label: 'Company Mail ID',
                         inputType: TextInputType.emailAddress,
@@ -115,8 +115,9 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return AutocompleteTextField(
                         label: 'Company Mobile number',
-                        validate: Validate.phone,
-                        maxLength: 10,
+                        doAutoFill:false,
+                        // validate: Validate.phone,
+                        // maxLength: 10,
                         controller:
                             context.read<BusinessDataBloc>().mobileController,
                         inputType: TextInputType.number,
@@ -130,7 +131,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
-                        maxLines: 4,
+                        maxLines: 4,doAutoFill:false,
                         // maxlegth: 250,
                         maxLength: 250,
                         label: 'Company Address',
@@ -147,7 +148,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return AutocompleteTextField(
                         inputType: TextInputType.url,
-                        label: 'Company Website link',
+                        label: 'Company Website link',doAutoFill:false,
                         controller: context
                             .read<BusinessDataBloc>()
                             .websiteLinkController,

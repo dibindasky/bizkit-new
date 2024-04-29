@@ -12,6 +12,7 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
@@ -84,10 +85,12 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                   final imageProduct = imageList[index];
                                   return InkWell(
                                     onTap: () {
-                                      Navigator.of(context).push(
-                                          fadePageRoute(ScreenImagePreview(
-                                        image: imageProduct.image!,
-                                      )));
+                                      Navigator.of(context).push(fadePageRoute(
+                                          SlidablePhotoGallery(
+                                            initialIndex: index,
+                                              images: imageList
+                                                  .map((e) => e.image!)
+                                                  .toList())));
                                     },
                                     child: Stack(
                                       children: [

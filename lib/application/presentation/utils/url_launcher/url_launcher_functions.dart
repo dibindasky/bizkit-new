@@ -33,7 +33,7 @@ class LaunchUrl {
     try {
       if (!url.startsWith('http')) {
         if (await canLaunchUrl(Uri.parse('https://$url'))) {
-          launchUrl(Uri.parse('https://$url'));
+          launchUrl(Uri.parse('https://$url/'));
         } else if (await canLaunchUrl(Uri.parse('http://$url'))) {
           launchUrl(Uri.parse('http://$url'));
         } else {

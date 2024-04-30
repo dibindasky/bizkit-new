@@ -4,9 +4,11 @@ import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
+import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
+import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,28 +51,29 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                  flex: 2,
-                  child: BlocBuilder<CardBloc, CardState>(
-                    builder: (context, state) {
-                      if (state.isLoading) {
-                        return ShimmerLoader(
-                          itemCount: 1,
-                          height: kwidth * 0.35,
-                          width: kwidth * 0.55,
-                        );
-                      } else if (state.cards.isEmpty) {
-                        return SizedBox(
-                          height: kwidth * 0.35,
-                          width: kwidth * 0.55,
-                          child: const Center(
-                            child: Text('Create Your BizKit Card'),
-                          ),
-                        );
-                      } else {
-                        return CardPageSlider(cards: state.cards);
-                      }
-                    },
-                  )),
+                flex: 2,
+                child: BlocBuilder<CardBloc, CardState>(
+                  builder: (context, state) {
+                    if (state.isLoading) {
+                      return ShimmerLoader(
+                        itemCount: 1,
+                        height: kwidth * 0.35,
+                        width: kwidth * 0.55,
+                      );
+                    } else if (state.cards.isEmpty) {
+                      return SizedBox(
+                        height: kwidth * 0.35,
+                        width: kwidth * 0.55,
+                        child: const Center(
+                          child: Text('Create Your BizKit Card'),
+                        ),
+                      );
+                    } else {
+                      return CardPageSlider(cards: state.cards);
+                    }
+                  },
+                ),
+              ),
               adjustWidth(kwidth * .03),
               Expanded(
                 child: BlocBuilder<CardBloc, CardState>(
@@ -79,43 +82,44 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                       return const SizedBox();
                     }
                     return GestureDetector(
-                        onTap: () => Navigator.of(context).push(
-                              fadePageRoute(const StartingBusinessCardCreation(
-                                  fromHome: true)),
-                            ),
-                        // child: CustomShowCaseView(
-                        //   image: personImage,
-                        //   description: '',
-                        //   tittle: 'Create Business card from here',
-                        //   globalKey: globalKeyAddCard,
-                        child: Container(
-                          height: kwidth * 0.35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: backgroundColour,
-                            boxShadow: const [
-                              BoxShadow(
-                                color: kblack,
-                                blurRadius: 2,
-                                blurStyle: BlurStyle.outer,
-                              )
-                            ],
-                          ),
-                          width: 140,
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CircleAvatar(
-                                radius: 16,
-                                backgroundImage: AssetImage(
-                                  'asset/images/home add circl.png',
-                                ),
+                      onTap: () => Navigator.of(context).push(
+                        fadePageRoute(
+                            const StartingBusinessCardCreation(fromHome: true)),
+                      ),
+                      child: Container(
+                        height: kwidth * 0.35,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: backgroundColour,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: kblack,
+                              blurRadius: 2,
+                              blurStyle: BlurStyle.outer,
+                            )
+                          ],
+                        ),
+                        width: 140,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const CircleAvatar(
+                              radius: 16,
+                              backgroundImage: AssetImage(
+                                'asset/images/home add circl.png',
                               ),
-                              Text('Add Card'),
-                            ],
-                          ),
-                          // ),
-                        ));
+                            ),
+                            CustomShowCaseView(
+                              image: personImage,
+                              description: '',
+                              tittle: 'Start Creating Business card from here',
+                              globalKey: globalKeyAddCard,
+                              child: const Text('Add Card'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),

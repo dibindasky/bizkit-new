@@ -5,14 +5,20 @@ import 'package:bizkit/application/presentation/screens/selfie_card/widgets/seco
 import 'package:bizkit/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
-import 'package:bizkit/data/features/contacts/contacts_fetch.dart';
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
+
+final GlobalKey globalKeyQRLists = GlobalKey();
+final GlobalKey globalKeyQRScan = GlobalKey();
+final GlobalKey globalKeyNFCScan = GlobalKey();
+final GlobalKey globalKeyCreateVsitingCard = GlobalKey();
 
 class SelfieScreen extends StatefulWidget {
   const SelfieScreen({super.key});
@@ -39,26 +45,26 @@ class _SelfieScreenState extends State<SelfieScreen>
 
   late AnimationController _controller;
 
-  final GlobalKey globalKeyQRLists = GlobalKey();
-  final GlobalKey globalKeyQRScan = GlobalKey();
-  final GlobalKey globalKeyNFCScan = GlobalKey();
   bool isShowcaseSeen = false;
-  final homeScreenShowCase = 'isShowcaseSeen';
+  final homeScreenShowCase = 'isShowCaseShareCard';
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      SharedPreferences.getInstance().then((prefs) {
+      SharedPreferences.getInstance().then((prefs) async {
+        final showed =
+            await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
         setState(() {
-          isShowcaseSeen = prefs.getBool(homeScreenShowCase) ?? false;
+          isShowcaseSeen = showed;
         });
         if (!isShowcaseSeen) {
           ShowCaseWidget.of(context).startShowCase([
             globalKeyQRLists,
             globalKeyQRScan,
             globalKeyNFCScan,
+            globalKeyCreateVsitingCard
           ]);
-          prefs.setBool(homeScreenShowCase, true);
+          await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
         }
       });
     });
@@ -157,7 +163,12 @@ class _SelfieScreenState extends State<SelfieScreen>
                   : indexofButton == 1
                       ? Column(
                           children: [
-                            const Text('Create visiting card'),
+                            CustomShowCaseView(
+                                image: personImage,
+                                globalKey: globalKeyCreateVsitingCard,
+                                tittle: 'See notification',
+                                description: '',
+                                child: const Text('Create visiting card')),
                             const ContainerPickImage(),
                             adjustHieght(20),
                             TextButton(

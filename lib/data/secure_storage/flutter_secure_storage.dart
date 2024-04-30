@@ -24,6 +24,23 @@ class SecureStorage {
   static Future<SharedPreferences> _getPrefs() async =>
       await SharedPreferences.getInstance();
 
+  static Future<void> clearLogin() async {
+    final prefs = await _getPrefs();
+    log('clear all storage =>()');
+    await prefs.setString(accessKey, '');
+    await prefs.setString(refreshKey, '');
+    await prefs.setString(idKey, '');
+    await prefs.setString(userNameKey, '');
+    await prefs.setString(accessKey, '');
+    await prefs.setString(isLoged, '1');
+    await prefs.setString(userNameKey, '');
+    await prefs.setBool(isVerifiedKey, false);
+    await prefs.setString(isBusinessKey, '');
+    await prefs.setBool(hasCardKey, false);
+    await prefs.setBool(hasReminderKey, false);
+    // await prefs.;
+  }
+
   static Future<void> saveToken({required TokenModel tokenModel}) async {
     final prefs = await _getPrefs();
     log('save token =>() ${tokenModel.accessToken}');
@@ -60,12 +77,6 @@ class SecureStorage {
     await prefs.setString(isLoged, '1');
     await prefs.setString(userNameKey, name);
     await prefs.setBool(isVerifiedKey, isVerified);
-  }
-
-  static Future<void> clearLogin() async {
-    final prefs = await _getPrefs();
-    log('clear all storage =>()');
-    await prefs.clear();
   }
 
   static Future<bool> getLogin() async {
@@ -145,14 +156,14 @@ class SecureStorage {
   }
 
   // Show case function
-  static Future<void> setHomeShowCaseViwed() async {
+  static Future<void> setHomeShowCaseViwed(String key) async {
     final prefs = await _getPrefs();
-    prefs.setBool(showCaseSetBool, true);
+    await prefs.setBool(key, true);
   }
 
-  static Future<bool> getHomeShowCaseViwed() async {
+  static Future<bool> getHomeShowCaseViwed(String key) async {
     final prefs = await _getPrefs();
-    final viewed = prefs.getBool(showCaseSetBool);
+    final viewed = prefs.getBool(key);
     return viewed ?? false;
   }
 

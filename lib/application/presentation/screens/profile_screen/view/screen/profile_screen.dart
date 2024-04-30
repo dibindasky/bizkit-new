@@ -16,10 +16,14 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -33,8 +37,25 @@ class _ProfileScreenState extends State<ProfileScreen>
   late AnimationController animationController;
   late Animation<double> animation;
 
+  bool isShowcaseSeen = false;
+  final homeScreenShowCase = 'isShowcaseProfile';
+  final GlobalKey globalKeyProfilPicUploading = GlobalKey();
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      SharedPreferences.getInstance().then((prefs) async {
+        final showed =
+            await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+        setState(() {
+          isShowcaseSeen = showed;
+        });
+        if (!isShowcaseSeen) {
+          ShowCaseWidget.of(context)
+              .startShowCase([globalKeyProfilPicUploading]);
+          await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
+        }
+      });
+    });
     super.initState();
     animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
@@ -119,14 +140,20 @@ class _ProfileScreenState extends State<ProfileScreen>
                                         fit: BoxFit.cover,
                                       ),
                                     )
-                                  : const CircleAvatar(
-                                      radius: 66,
-                                      backgroundColor: backgroundColour,
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.person,
-                                          color: neonShade,
-                                          size: 30,
+                                  : CustomShowCaseView(
+                                      image: personImage,
+                                      globalKey: globalKeyProfilPicUploading,
+                                      tittle: 'New Profile Upload',
+                                      description: '',
+                                      child: const CircleAvatar(
+                                        radius: 66,
+                                        backgroundColor: backgroundColour,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.person,
+                                            color: neonShade,
+                                            size: 30,
+                                          ),
                                         ),
                                       ),
                                     ),

@@ -5,14 +5,12 @@ import 'package:bizkit/application/presentation/screens/connections/add_connecti
 import 'package:bizkit/application/presentation/screens/connections/view_all_connection_contacts.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/domain/model/connections/get_bizkit_connections_response_model/bizkit_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-final GlobalKey globalKeyViewsAllConnections = GlobalKey();
-final GlobalKey globalKeyShare = GlobalKey();
 
 class MyConnectionContainerHomePage extends StatelessWidget {
   const MyConnectionContainerHomePage({super.key});
@@ -35,7 +33,7 @@ class MyConnectionContainerHomePage extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                    fadePageRoute(MyConnectionsViewAllContacts()),
+                    fadePageRoute(const MyConnectionsViewAllContacts()),
                   );
                 },
                 child: ClipRRect(
@@ -47,13 +45,19 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 8),
-                        child: Text(
-                          'View All',
-                          style: TextStyle(
-                            decorationColor: kwhite,
-                            decorationThickness: 1.5,
-                            color: kwhite,
-                            fontSize: kwidth * .029,
+                        child: CustomShowCaseView(
+                          image: personImage,
+                          globalKey: globalKeyaddConnections,
+                          tittle: 'View your added conecctions',
+                          description: '',
+                          child: Text(
+                            'View All',
+                            style: TextStyle(
+                              decorationColor: kwhite,
+                              decorationThickness: 1.5,
+                              color: kwhite,
+                              fontSize: kwidth * .029,
+                            ),
                           ),
                         ),
                       ),
@@ -95,12 +99,14 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: InkWell(
-                        onTap: () => Navigator.push(
-                            context, fadePageRoute(ScreenAddConnections())),
+                        onTap: () {
+                          Navigator.push(
+                              context, fadePageRoute(ScreenAddConnections()));
+                        },
                         child: CustomShowCaseView(
                           description: '',
                           globalKey: globalKeyaddConnections,
-                          tittle: 'Add connections',
+                          tittle: 'Start Add connections from here',
                           image: '',
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),

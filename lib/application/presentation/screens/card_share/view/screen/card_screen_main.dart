@@ -8,6 +8,8 @@ import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart'
     as card;
@@ -17,6 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class CardShareMainScreen extends StatefulWidget {
@@ -37,17 +40,28 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
   final GlobalKey globalKeydefaultCard = GlobalKey();
   final GlobalKey globalKeyVisitingCard = GlobalKey();
   final GlobalKey globalKey = GlobalKey();
+  bool isShowcaseSeen = false;
+  final homeScreenShowCase = 'isShowseenCArdListing';
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ShowCaseWidget.of(context).startShowCase([
-        globalKeyShare,
-        globalKeyViews,
-        globalKeydetailView,
-        globalKeydefaultCard,
-        globalKeyVisitingCard,
-      ]);
+      SharedPreferences.getInstance().then((prefs) async {
+        setState(() async {
+          isShowcaseSeen =
+              await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+        });
+        if (!isShowcaseSeen) {
+          ShowCaseWidget.of(context).startShowCase([
+            globalKeyShare,
+            globalKeyViews,
+            globalKeydetailView,
+            globalKeydefaultCard,
+            globalKeyVisitingCard,
+          ]);
+          await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
+        }
+      });
     });
     super.initState();
     secondCardScrollController.addListener(() {
@@ -86,7 +100,6 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
             child: FadeTransition(
               opacity: animation,
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   adjustHieght(khieght * .05),
                   BlocBuilder<CardBloc, CardState>(
@@ -101,8 +114,9 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                           height: khieght * .4,
                           child: const Center(
                             child: Text(
-                                'You have not created any card yet\nCreate your first card now.',
-                                textAlign: TextAlign.center),
+                              'You have not created any card yet\nCreate your first card now.',
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         );
                       }

@@ -93,7 +93,7 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.getAllCardSecond,
         queryParameters: pageQuery.toJson(),
       );
-      log('getAllCardsSecond exception error');
+      log('getAllCardsSecond done');
       return Right(GetAllSecondCardModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getAllCardsSecond dio error $e');

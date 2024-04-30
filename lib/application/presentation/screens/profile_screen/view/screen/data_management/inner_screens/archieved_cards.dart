@@ -76,7 +76,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
         onLoading: onLoading,
         header: const WaterDropHeader(),
         enablePullDown: true,
-        enablePullUp: true,
+        enablePullUp: false,
         controller: refreshController,
         onRefresh: onRefresh,
         child: Padding(

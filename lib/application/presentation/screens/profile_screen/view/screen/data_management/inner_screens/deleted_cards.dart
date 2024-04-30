@@ -169,7 +169,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                                     children: [
                                       SizedBox(
                                         width: 300,
-                                        height: 240,
+                                        height: khieght * .3,
                                         child: InkWell(
                                           onTap: () {},
                                           child: ClipRRect(
@@ -325,14 +325,6 @@ class _DeletedCardsState extends State<DeletedCards> {
                             String base64String = deletedSecondcard.image ?? '';
                             base64String = base64String.replaceFirst(
                                 RegExp(r'data:image/jpg;base64,'), '');
-                            // final card = state.deleteSecondCards![index];
-                            // String base64String = card.image!;
-                            // final format = getImageFormat(base64String);
-                            // final memoryImage =
-                            //     getBase64Image(format, base64String);
-                            // base64String = base64String.replaceFirst(
-                            //     RegExp(r'data:image/jpg;base64,'), '');
-
                             return Container(
                               decoration: BoxDecoration(
                                 color: textFieldFillColr,
@@ -344,8 +336,8 @@ class _DeletedCardsState extends State<DeletedCards> {
                                   Stack(
                                     children: [
                                       SizedBox(
-                                        width: 300,
-                                        height: 240,
+                                        width: double.infinity,
+                                        height: khieght * .3,
                                         child: InkWell(
                                           onTap: () {},
                                           child: ClipRRect(

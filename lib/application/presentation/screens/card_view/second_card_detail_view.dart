@@ -160,7 +160,7 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                             adjustHieght(khieght * .02),
                             Container(
                               margin: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 2),
+                                  horizontal: 20, vertical: 2),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: neonShade,
@@ -173,43 +173,49 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                                   adjustHieght(10),
                                   ItemsContainer(
                                     heading: 'Location',
-                                    item: state.getSecondCardModel?.location ??
-                                        '',
+                                    item: state.getSecondCardModel?.location,
                                   ),
                                   ItemsContainer(
                                     heading: 'Occasion',
-                                    item:
-                                        state.getSecondCardModel?.whereWeMet ??
-                                            '',
+                                    item: state.getSecondCardModel?.whereWeMet,
                                   ),
                                   ItemsContainer(
                                     heading: 'Occupation',
-                                    item:
-                                        state.getSecondCardModel?.occupation ??
-                                            '',
+                                    item: state.getSecondCardModel?.occupation,
                                   ),
                                   ItemsContainer(
                                     heading: 'Designation',
-                                    item:
-                                        state.getSecondCardModel?.designation ??
-                                            '',
+                                    item: state.getSecondCardModel?.designation,
                                   ),
                                   ItemsContainer(
-                                      heading: 'Date',
-                                      item:
-                                          state.getSecondCardModel?.date ?? ''),
+                                    heading: 'Date',
+                                    item: state.getSecondCardModel?.date,
+                                    // needDivider: state.getSecondCardModel !=
+                                    //             null &&
+                                    //         state.getSecondCardModel!.date !=
+                                    //             null
+                                    //     ? true
+                                    //     : false,
+                                  ),
                                   ItemsContainer(
                                     heading: 'Time',
                                     item: formattedTime,
+                                    // needDivider: state.getSecondCardModel !=
+                                    //             null &&
+                                    //         state.getSecondCardModel!.time !=
+                                    //             null
+                                    //     ? false
+                                    //     : true,
                                   ),
                                   ItemsContainer(
                                     heading: 'Notes',
-                                    item: state.getSecondCardModel?.notes ?? '',
+                                    item: state.getSecondCardModel?.notes,
                                   ),
                                   adjustHieght(10),
                                 ],
                               ),
                             ),
+                            adjustHieght(30),
                           ],
                         ),
                       ),
@@ -221,9 +227,15 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
 }
 
 class ItemsContainer extends StatelessWidget {
-  const ItemsContainer({super.key, required this.item, required this.heading});
-  final String item;
+  const ItemsContainer({
+    super.key,
+    required this.item,
+    required this.heading,
+    this.needDivider = true,
+  });
+  final String? item;
   final String heading;
+  final bool needDivider;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -235,20 +247,16 @@ class ItemsContainer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: kwidth * .27,
-                      child: Text(item != "" ? heading : ''),
-                    ),
-                    const Text(
-                      ':   ',
-                      style: TextStyle(color: neonShade),
-                    ),
+                        width: kwidth * .24,
+                        child: Text(item != "" ? heading : '')),
+                    const Text(':   ', style: TextStyle(color: neonShade)),
                     const Divider(color: neonShade, thickness: 2),
-                    Expanded(child: Text(item)),
+                    Expanded(child: Text(item ?? '')),
                   ],
                 ),
               )
             : kempty,
-        if (item != '') const Divider(color: neonShade),
+        if (item != null && item != '') const Divider(color: neonShade),
       ],
     );
   }
@@ -334,8 +342,8 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                 Text('Website', style: textHeadStyle1),
                                 adjustHieght(10),
                                 TextButton(
-                                  onPressed: () {
-                                    LaunchUrl.googleSearch(
+                                  onPressed: () async {
+                                    await LaunchUrl.googleSearch(
                                       url: state.getSecondCardModel!.website!,
                                     ).then((value) => Navigator.pop(context));
                                   },
@@ -357,7 +365,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                           side: const BorderSide(
                                               color: neonShade)),
                                       onPressed: () async {
-                                        await LaunchUrl.launchUrls(
+                                        await LaunchUrl.googleSearch(
                                           url: state
                                               .getSecondCardModel!.website!,
                                         ).then(

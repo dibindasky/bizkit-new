@@ -25,26 +25,6 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
 
   @override
   void initState() {
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   SharedPreferences.getInstance().then((prefs) {
-    //     setState(() {
-    //       log('$isShowcaseSeen');
-    //       isShowcaseSeen = prefs.getBool('isShowcaseSeen') ?? false;
-    //     });
-    //     if (!isShowcaseSeen) {
-    //       // If showcase view hasn't been seen, start showcase and mark it as seen
-    //       ShowCaseWidget.of(context).startShowCase([
-    //         globalKeynotificationIcon,
-    //         globalKeylevelSharingIcon,
-    //       ]);
-    //       prefs.setBool('isShowcaseSeen', true); // Save showcase seen status
-    //     }
-    //   });
-    //   // ShowCaseWidget.of(context).startShowCase([
-    //   //   globalKeynotificationIcon,
-    //   //   globalKeylevelSharingIcon,
-    //   // ]);
-    // });
     context
         .read<ProfileBloc>()
         .add(const ProfileEvent.getProfile(isLoad: true));

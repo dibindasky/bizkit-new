@@ -1,7 +1,4 @@
 import 'dart:developer';
-
-import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_first_app_bar.dart';
@@ -10,6 +7,7 @@ import 'package:bizkit/application/presentation/screens/home/view/home_first_scr
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/second_half_section/home_screen_second_part.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,10 +64,11 @@ class _HomeScreenFirstAnimationScreenState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      SharedPreferences.getInstance().then((prefs) {
+      SharedPreferences.getInstance().then((prefs) async {
+        final showed =
+            await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
         setState(() {
-          log('$isShowcaseSeen');
-          isShowcaseSeen = prefs.getBool(homeScreenShowCase) ?? false;
+          isShowcaseSeen = showed;
         });
         if (!isShowcaseSeen) {
           ShowCaseWidget.of(context).startShowCase([
@@ -78,7 +77,7 @@ class _HomeScreenFirstAnimationScreenState
             globalKeyAddCard,
             globalKeyaddConnections,
           ]);
-          prefs.setBool(homeScreenShowCase, true);
+          await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
         }
       });
     });
@@ -150,31 +149,7 @@ class _HomeScreenFirstAnimationScreenState
     khieght = size.height;
     kwidth = size.width;
     return Scaffold(
-      body:
-          //  SmartRefresher(
-          // controller: refreshController,
-          // header: const WaterDropHeader(),
-          // enablePullDown: true,
-          // cacheExtent: 0,dragStartBehavior: DragStartBehavior.start,
-          // enableTwoLevel: false,
-          // // enablePullUp: true,
-          // // onLoading: () async {
-          // //   await Future.delayed(const Duration(milliseconds: 300));
-          // //   refreshController.loadComplete();
-          // // },
-
-          // onRefresh: () async {
-          //   context.read<CardBloc>().add(const CardEvent.getCards(call: true));
-          //   context.read<ConnectionRequestBloc>().add(
-          //       const ConnectionRequestEvent.getBizkitConnections(query: ''));
-          //   context
-          //       .read<ReminderBloc>()
-          //       .add(const ReminderEvent.getAllRemindersEvent());
-          //   await Future.delayed(const Duration(milliseconds: 300));
-          //   refreshController.refreshCompleted();
-          // },
-          // child:
-          SafeArea(
+      body: SafeArea(
         child: ValueListenableBuilder(
           valueListenable: showCardsNotifier,
           builder: (context, value, child) {

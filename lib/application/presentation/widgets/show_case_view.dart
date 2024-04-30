@@ -20,7 +20,7 @@ class CustomShowCaseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Showcase(
-      key: globalKey, title: tittle, description: description,
+      key: globalKey, description: tittle,
       titleTextStyle: textStyle1.copyWith(color: kblack), child: child,
       //  Showcase.withWidget(
       //   height: double.maxFinite,

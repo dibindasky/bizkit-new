@@ -12,6 +12,7 @@ import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogu
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card_second/add_selfie_model/add_selfie_model.dart';
 import 'package:bizkit/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
@@ -36,6 +37,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
 
   @override
   void initState() {
+    newImageList = [];
     // if (widget.secondCard.selfie != null ||
     //     widget.secondCard.selfie!.isNotEmpty) {
     //   for (var image in widget.secondCard.selfie!) {
@@ -53,7 +55,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
     if (widget.secondCard.selfie != null) {
       log('id ${widget.secondCard.selfie?.length}', name: 'sefie image legth');
       imageList = widget.secondCard.selfie ?? <Selfie>[];
-      log('${imageList}', name: 'imageList  legth');
+      log('${imageList.length}', name: 'imageList  legth');
     }
     context.read<CardSecondBloc>().updateEmailController.text =
         widget.secondCard.email ?? '';
@@ -116,7 +118,7 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                   .read<CardSecondBloc>()
                   .add(const CardSecondEvent.imageClear());
               Navigator.pop(context);
-              showSnackbar(context, message: 'Card updated Successfully');
+              showSnackbar(context, message: 'Card Updated Successfully');
             }
           },
           builder: (context, state) {
@@ -301,7 +303,9 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                 ),
                               ),
                     adjustHieght(20),
-                    imageList.isNotEmpty ? const Text('Selfie Image') : kempty,
+                    imageList.isNotEmpty
+                        ? const Text('Selfie Image')
+                        : const Text('Selfie image is empty'),
                     adjustHieght(20),
                     Stack(
                       children: [
@@ -321,10 +325,25 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                               return Stack(
                                 children: [
                                   InkWell(
-                                    onTap: () => Navigator.of(context).push(
-                                      fadePageRoute(ScreenImagePreview(
-                                          image: imageSelfie.selfie!)),
-                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SlidablePhotoGallery(
+                                            images: imageList
+                                                .map((e) => e.selfie!)
+                                                .toList(),
+                                            initialIndex: index,
+                                          ),
+                                        ),
+                                      );
+                                      // Navigator.of(context).push(
+                                      //   fadePageRoute(ScreenImagePreview(
+                                      //     image: imageSelfie.selfie!,
+                                      //   )),
+                                      // );
+                                    },
                                     child: SizedBox(
                                       width: 300.dm,
                                       height: 200.dm,
@@ -582,21 +601,21 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                             .read<CardSecondBloc>()
                                             .updateNameController
                                             .text,
-                                        selfie: newImageList,
+                                        selfie: [],
                                       );
                                       AddSelfieModel addSelfieModel =
                                           AddSelfieModel(
                                         businessCardId: widget.secondCard.id,
-                                        selfie: imageList,
+                                        selfie: newImageList,
                                       );
                                       context.read<CardSecondBloc>().add(
                                             CardSecondEvent
                                                 .addSelfieIndexImages(
-                                                    addSelfieModel:
-                                                        addSelfieModel,
-                                                    secondCard: secondCard,
-                                                    id: widget.secondCard.id
-                                                        .toString()),
+                                              addSelfieModel: addSelfieModel,
+                                              secondCard: secondCard,
+                                              id: widget.secondCard.id
+                                                  .toString(),
+                                            ),
                                           );
                                     }
                                   },

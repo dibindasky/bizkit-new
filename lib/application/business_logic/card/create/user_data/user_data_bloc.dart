@@ -14,6 +14,7 @@ import 'package:bizkit/domain/model/card/company/get_business_category_response_
 import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
 import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/personal_photo.dart';
 import 'package:bizkit/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
+import 'package:bizkit/domain/model/extracted_text_model/text_extractionimage_model/text_extractionimage_model.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart';
@@ -412,14 +413,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> processImageScanning(ProcessImageScanning event, emit) async {
-    // final result = await cardScanningImpl
-    //     .processAndSortFromImage(state.scannedImagesCardCreation);
+    List<String> images = event.images
+        .map((e) =>
+            e.base64.startsWith('data') ? e.base64.substring(22) : e.base64)
+        .toList();
+
     final result = await textExtractionRepo.extractText(
-      image: ImageCard(
-          image: event.images[0].base64.startsWith('data')
-              ? event.images[0].base64.substring(22)
-              : event.images[0].base64),
-    );
+        image: TextExtractionimageModel(images: images));
     result.fold((l) => null, (r) {
       final texts = ScannedImageDatasModel(
           emails: r.emails,

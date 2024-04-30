@@ -140,7 +140,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                             //textCapitalization: TextCapitalization.words,
                             autocompleteItems:
                                 state.scannedImageDatasModel?.emails ?? [],
-                            // validate: Validate.email,
+                             validate: Validate.ifValidEmail,
                             label: 'Email',
                             controller:
                                 context.read<CardSecondBloc>().emailController,

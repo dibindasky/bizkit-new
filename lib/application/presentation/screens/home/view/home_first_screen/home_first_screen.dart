@@ -24,6 +24,7 @@ final GlobalKey globalKeyAddCard = GlobalKey();
 final GlobalKey globalKeylevelSharingIcon = GlobalKey();
 final GlobalKey globalKeynotificationIcon = GlobalKey();
 final GlobalKey globalKeyaddConnections = GlobalKey();
+final GlobalKey globalKeyViewAllConnections = GlobalKey();
 
 ValueNotifier<HomeScreensList> showCardsNotifier =
     ValueNotifier(HomeScreensList.first);

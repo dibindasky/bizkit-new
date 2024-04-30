@@ -47,7 +47,7 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                             horizontal: 15, vertical: 8),
                         child: CustomShowCaseView(
                           image: personImage,
-                          globalKey: globalKeyaddConnections,
+                          globalKey: globalKeyViewAllConnections,
                           tittle: 'View your added conecctions',
                           description: '',
                           child: Text(

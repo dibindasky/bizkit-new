@@ -199,18 +199,19 @@ class _GridTileAddRequestConnectionState
         InkWell(
           onTap: () {
             if (!requested) {
-              // context.read<ConnectionRequestBloc>().add(
-              //     ConnectionRequestEvent.addConnectionRequests(
-              //         addConnectionRequestModel:
-              //             AddConnectionRequestModel(cardUserId: widget.data.id),
-              //         index: widget.data.id!));
-            } else {
-              print(widget.data.connectionId);
               context.read<ConnectionRequestBloc>().add(
-                  ConnectionRequestEvent.removeConnectionRequest(
-                      connectionRequestIdModel: ConnectionRequestIdModel(
-                          connectionRequestId: widget.data.connectionId),
-                      id: widget.data.id!));
+                  ConnectionRequestEvent.addConnectionRequests(
+                      addConnectionRequestModel:
+                          AddConnectionRequestModel(cardUserId: widget.data.id),
+                      index: widget.data.id!)); 
+                      
+            } else {
+              // print(widget.data.connectionId);
+              // context.read<ConnectionRequestBloc>().add(
+              //     ConnectionRequestEvent.removeConnectionRequest(
+              //         connectionRequestIdModel: ConnectionRequestIdModel(
+              //             connectionRequestId: widget.data.connectionId),
+              //         id: widget.data.id!));
             }
           },
           child: BlocConsumer<ConnectionRequestBloc, ConnectionRequestState>(

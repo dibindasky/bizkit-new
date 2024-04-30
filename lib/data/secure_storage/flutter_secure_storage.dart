@@ -32,7 +32,7 @@ class SecureStorage {
     await prefs.setString(idKey, '');
     await prefs.setString(userNameKey, '');
     await prefs.setString(accessKey, '');
-    await prefs.setString(isLoged, '1');
+    await prefs.setString(isLoged, '0');
     await prefs.setString(userNameKey, '');
     await prefs.setBool(isVerifiedKey, false);
     await prefs.setString(isBusinessKey, '');

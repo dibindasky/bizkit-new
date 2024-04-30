@@ -222,7 +222,7 @@ class _CardPageSliderState extends State<CardPageSlider>
                             Text(
                               data.name != null
                                   ? data.name!.length > 20
-                                      ? '${data.name!.substring(0, 18)}..'
+                                      ? '${data.name!.substring(0, 16)}..'
                                       : data.name!
                                   : '',
                               style: textHeadStyle1.copyWith(
@@ -238,7 +238,7 @@ class _CardPageSliderState extends State<CardPageSlider>
                             Text(
                               data.designation != null
                                   ? data.designation!.length > 20
-                                      ? '${data.designation!.substring(0, 18)}..'
+                                      ? '${data.designation!.substring(0, 16)}..'
                                       : data.designation!
                                   : '',
                               style: TextStyle(

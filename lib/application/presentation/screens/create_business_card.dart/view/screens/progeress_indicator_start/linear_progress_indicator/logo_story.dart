@@ -178,16 +178,16 @@ class _LogoStoryState extends State<LogoStory> {
                 }
                 return LastSkipContinueButtons(onTap: () {
                   FocusScope.of(context).unfocus();
-                  if (state.logoCard?.logo == null) {
-                    print('logo is not there');
-                    setState(() {
-                      showLogoError = true;
-                    });
-                    return;
-                  }
-                  setState(() {
-                    showLogoError = false;
-                  });
+                  // if (state.logoCard?.logo == null) {
+                  //   print('logo is not there');
+                  //   setState(() {
+                  //     showLogoError = true;
+                  //   });
+                  //   return;
+                  // }
+                  // setState(() {
+                  //   showLogoError = false;
+                  // });
                   if (logokey.currentState!.validate()) {
                     context
                         .read<BusinessDataBloc>()

@@ -156,14 +156,12 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                                       null &&
                                   state.anotherCard!.personalDetails!.photos!
                                       .isNotEmpty) {
-                                images.add(state.anotherCard!.personalDetails!
-                                        .photos![0].photo!
-                                        .startsWith('data:')
-                                    ? state.anotherCard!.personalDetails!
-                                        .photos![0].photo!
-                                        .substring(22)
-                                    : state.anotherCard!.personalDetails!
-                                        .photos![0].photo!);
+                                images.addAll(state
+                                    .anotherCard!.personalDetails!.photos!
+                                    .map((e) => e.photo!.startsWith('data')
+                                        ? e.photo!.substring(22)
+                                        : e.photo!)
+                                    .toList());
                               }
                               return SizedBox(
                                 height: 200,

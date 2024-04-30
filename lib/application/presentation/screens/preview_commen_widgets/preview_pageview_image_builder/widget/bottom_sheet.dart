@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,12 +23,19 @@ class PreviewPageViewBottomSheet extends StatelessWidget {
         child: Column(
           children: [
             adjustHieght(khieght * .01),
-            SizedBox(
-              height: 250,
-              width: double.infinity,
-              child: memoryImage != null
-                  ? Image.memory(base64.decode(memoryImage!))
-                  : Image.file(image!, fit: BoxFit.cover),
+            InkWell(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ScreenImagePreview(image: memoryImage!))),
+              child: SizedBox(
+                height: 250,
+                width: double.infinity,
+                child: memoryImage != null
+                    ? Image.memory(base64.decode(memoryImage!))
+                    : Image.file(image!, fit: BoxFit.cover),
+              ),
             ),
             adjustHieght(khieght * .02),
             Padding(

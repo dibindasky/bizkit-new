@@ -235,7 +235,7 @@ class _GridTileAddRequestConnectionState
                     gradient: neonShadeGradient,
                     borderRadius: const BorderRadius.all(Radius.circular(10))),
                 child: FittedBox(
-                  child: Text(requested ? 'Remove Request' : 'Add Connection',
+                  child: Text(requested ? 'Resquested' : 'Add Connection',
                       style: const TextStyle(color: kwhite)),
                 ),
               );

@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -57,6 +56,19 @@ class _PreviewPageviewImageBuilderState
       },
       child: (index, _) {
         return ImagePreviewScrollView(
+            showPreview: () {
+              List<String> images = widget.story != null
+                  ? widget.imagesList.sublist(1)
+                  : widget.imagesList;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SlidablePhotoGallery(
+                      images: images,
+                      initialIndex: widget.story != null ? index - 1 : index,
+                    ),
+                  ));
+            },
             isStory: widget.isStory,
             image: widget.imagesList[index],
             story: index == widget.storyIndex ? widget.story : null);
@@ -67,11 +79,16 @@ class _PreviewPageviewImageBuilderState
 
 class ImagePreviewScrollView extends StatefulWidget {
   const ImagePreviewScrollView(
-      {super.key, required this.image, this.story, this.isStory});
+      {super.key,
+      required this.image,
+      this.story,
+      this.isStory,
+      this.showPreview});
 
   final String image;
   final String? story;
   final bool? isStory;
+  final VoidCallback? showPreview;
 
   @override
   State<ImagePreviewScrollView> createState() => _ImagePreviewScrollViewState();
@@ -93,11 +110,11 @@ class _ImagePreviewScrollViewState extends State<ImagePreviewScrollView> {
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
           onTap: () {
-            if (widget.isStory != null) {
-              Navigator.of(context).push(fadePageRoute(ScreenImagePreview(
-                image: widget.image,
-              )));
-            }
+            // if (widget.isStory??false == false) {
+            //   Navigator.of(context).push(fadePageRoute(ScreenImagePreview(
+            //     image: widget.image,
+            //   )));
+            // }
             if (widget.story != null) {
               showModalBottomSheet(
                 context: context,
@@ -110,6 +127,8 @@ class _ImagePreviewScrollViewState extends State<ImagePreviewScrollView> {
                   logoStory: widget.story,
                 ),
               );
+            } else if (widget.showPreview != null) {
+              widget.showPreview!();
             }
           },
           child: SizedBox(

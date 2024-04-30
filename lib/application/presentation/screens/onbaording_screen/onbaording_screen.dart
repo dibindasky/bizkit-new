@@ -144,35 +144,38 @@ class BizkitOnBoardingScreenSecond extends StatelessWidget {
           child: Column(
             children: [
               adjustHieght(screenHeight * 0.025),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      pageController.previousPage(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                    child: const Text(
-                      'Go back',
-                      style: TextStyle(color: kwhite),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        pageController.previousPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      child: const Text(
+                        'Go back',
+                        style: TextStyle(color: kwhite),
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      GoRouter.of(context)
-                          .pushReplacementNamed(Routes.loginPage);
-                      context
-                          .read<AuthBloc>()
-                          .add(const AuthEvent.onBoardskip());
-                    },
-                    child: const Text(
-                      'skip',
-                      style: TextStyle(color: kwhite),
+                    TextButton(
+                      onPressed: () {
+                        GoRouter.of(context)
+                            .pushReplacementNamed(Routes.loginPage);
+                        context
+                            .read<AuthBloc>()
+                            .add(const AuthEvent.onBoardskip());
+                      },
+                      child: const Text(
+                        'skip',
+                        style: TextStyle(color: kwhite),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               adjustHieght(screenHeight * .1),
               Text(
@@ -242,35 +245,38 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
           child: Column(
             children: [
               adjustHieght(screenHeight * 0.025),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      pageController.previousPage(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                    child: const Text(
-                      'Go back',
-                      style: TextStyle(color: kwhite),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        pageController.previousPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      child: const Text(
+                        'Go back',
+                        style: TextStyle(color: kwhite),
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      GoRouter.of(context)
-                          .pushReplacementNamed(Routes.loginPage);
-                      context
-                          .read<AuthBloc>()
-                          .add(const AuthEvent.onBoardskip());
-                    },
-                    child: const Text(
-                      'skip',
-                      style: TextStyle(color: kwhite),
+                    TextButton(
+                      onPressed: () {
+                        GoRouter.of(context)
+                            .pushReplacementNamed(Routes.loginPage);
+                        context
+                            .read<AuthBloc>()
+                            .add(const AuthEvent.onBoardskip());
+                      },
+                      child: const Text(
+                        'skip',
+                        style: TextStyle(color: kwhite),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               adjustHieght(screenHeight * .1),
               Text(

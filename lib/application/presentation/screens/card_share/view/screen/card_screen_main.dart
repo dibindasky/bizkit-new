@@ -47,9 +47,10 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       SharedPreferences.getInstance().then((prefs) async {
-        setState(() async {
-          isShowcaseSeen =
-              await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+        final vaer =
+            await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+        setState(() {
+          isShowcaseSeen = vaer;
         });
         if (!isShowcaseSeen) {
           ShowCaseWidget.of(context).startShowCase([

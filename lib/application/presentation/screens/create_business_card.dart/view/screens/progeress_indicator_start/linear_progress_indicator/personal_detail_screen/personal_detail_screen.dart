@@ -15,7 +15,6 @@ import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogu
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -269,9 +268,13 @@ class PersonlDetails extends StatelessWidget {
                                       id: state.accolades[index].id!));
                             });
                       },
-                      list: state.accolades
-                          .map((e) => e.accoladesImage?[0].image as String)
-                          .toList(),
+                      list: state.accolades.map((e) {
+                        if (state.accolades.isEmpty) {
+                          return null;
+                        } else {
+                          return e.accoladesImage?[0].image as String;
+                        }
+                      }).toList(),
                       child: Container(
                         decoration: const BoxDecoration(
                           color: textFieldFillColr,
@@ -390,6 +393,13 @@ class PersonlDetails extends StatelessWidget {
                       Navigator.of(context).push(fadePageRoute(
                           DatesToRememberScreen(
                               cardId: state.currentCard!.id!)));
+                    },
+                    onItemTap: (value) {
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (context) => AlertDialog(
+                      //           title: Text(value ?? ''),
+                      //         ));
                     },
                     child: Container(
                       decoration: const BoxDecoration(

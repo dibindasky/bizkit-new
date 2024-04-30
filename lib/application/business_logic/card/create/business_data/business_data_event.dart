@@ -19,8 +19,6 @@ class BusinessDataEvent with _$BusinessDataEvent {
   }) = ProductUpdatePickImage;
   const factory BusinessDataEvent.removeAccredition({required int id}) =
       RemoveAccredition;
-  const factory BusinessDataEvent.removeAccreditionImage({required int id}) =
-      RemoveAccreditionImage;
   const factory BusinessDataEvent.addBranch({required String branch}) =
       AddBranch;
   const factory BusinessDataEvent.updateBranch(
@@ -61,6 +59,6 @@ class BusinessDataEvent with _$BusinessDataEvent {
   factory BusinessDataEvent.getCurrentCard({required Card card}) =
       GetCurrentCard;
   factory BusinessDataEvent.clear() = Clear;
-  factory BusinessDataEvent.removeAccreditonImage({required int id}) =
-      RemoveAccreditonImage;
+  factory BusinessDataEvent.removeAccreditionImage({required int id}) =
+      RemoveAccreditionImage;
 }

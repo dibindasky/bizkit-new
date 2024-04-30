@@ -66,10 +66,6 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
       descriptionController.text = widget.accredition!.description ?? '';
       dateController.text = widget.accredition!.date ?? '';
     }
-    print('image achivement = ');
-    for (var i in image) {
-      print(i.id);
-    }
     super.initState();
   }
 

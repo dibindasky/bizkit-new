@@ -61,7 +61,8 @@ class _LinearProgressIndicatorStartingState
                   builder: (context, state) {
                     return LinearProgressIndicator(
                       minHeight: 13,
-                      value: ((state.anotherCard?.percentage??10.toDouble()) /100),
+                      value: ((state.anotherCard?.percentage ?? 10.toDouble()) /
+                          100),
                       backgroundColor: smallBigGrey,
                       valueColor:
                           const AlwaysStoppedAnimation<Color>(neonShade),

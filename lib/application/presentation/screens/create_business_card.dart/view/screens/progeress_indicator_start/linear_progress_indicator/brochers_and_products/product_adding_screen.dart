@@ -87,7 +87,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                     onTap: () {
                                       Navigator.of(context).push(fadePageRoute(
                                           SlidablePhotoGallery(
-                                            initialIndex: index,
+                                              initialIndex: index,
                                               images: imageList
                                                   .map((e) => e.image!)
                                                   .toList())));

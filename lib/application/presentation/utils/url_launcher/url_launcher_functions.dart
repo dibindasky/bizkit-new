@@ -32,13 +32,7 @@ class LaunchUrl {
   static googleSearch({required String url}) async {
     try {
       if (!url.startsWith('http')) {
-        if (await canLaunchUrl(Uri.parse('https://$url'))) {
-          launchUrl(Uri.parse('https://$url/'));
-        } else if (await canLaunchUrl(Uri.parse('http://$url'))) {
-          launchUrl(Uri.parse('http://$url'));
-        } else {
-          launchUrl(Uri.parse('$urlGoogleSearch$url'));
-        }
+        launchUrl(Uri.parse('https://$url'));
       } else {
         launchUrl(Uri.parse(url));
       }

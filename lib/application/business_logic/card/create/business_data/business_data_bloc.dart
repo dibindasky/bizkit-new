@@ -96,15 +96,15 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<GetCompnayList>(getCompnayList);
     on<GetCompnayDetails>(getCompnayDetails);
     on<RemoveBusinessData>(removeBusinessData);
-    on<RemoveAccreditonImage>(removeAccreditonImage);
+    on<RemoveAccreditionImage>(removeAccreditionImage);
     on<GetUserData>(getUserData);
     on<GetCurrentCard>(getCurrentCard);
     on<UploadLogo>(uploadLogo);
     on<Clear>(clear);
   }
 
-  FutureOr<void> removeAccreditonImage(
-      RemoveAccreditonImage event, emit) async {
+  FutureOr<void> removeAccreditionImage(
+      RemoveAccreditionImage event, emit) async {
     await cardPatchRepo.deleteAccreditationImage(id: event.id);
     emit(state);
   }

@@ -20,9 +20,9 @@ class ImagePreviewUnderTextField extends StatelessWidget {
 
   final VoidCallback ontap;
   final Function(int index)? removeItem;
-  final Function(String value)? onItemTap;
+  final Function(String? value)? onItemTap;
   final Widget child;
-  final List<String>? list;
+  final List<String?>? list;
   final List<String>? listString;
 
   @override
@@ -40,9 +40,12 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemCount: list!.length,
                           itemBuilder: (context, index) {
-                            final image = list![index].startsWith('data')
-                                ? list![index].substring(22)
-                                : list![index];
+                            String? image = list![index];
+                            if (image != null) {
+                              image = list![index]!.startsWith('data')
+                                  ? list![index]!.substring(22)
+                                  : list![index];
+                            }
                             return SizedBox(
                               height: 80,
                               child: Stack(
@@ -63,15 +66,21 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
                                           color: smallBigGrey,
-                                          image: DecorationImage(
-                                              onError: (a, b) {
-                                                const Icon(Icons
-                                                    .image_not_supported_outlined);
-                                              },
-                                              image: MemoryImage(
-                                                base64.decode(image),
-                                              ),
-                                              fit: BoxFit.cover)),
+                                          image: image == null
+                                              ? null
+                                              : DecorationImage(
+                                                  onError: (a, b) {
+                                                    const Icon(Icons
+                                                        .image_not_supported_outlined);
+                                                  },
+                                                  image: MemoryImage(
+                                                    base64.decode(image),
+                                                  ),
+                                                  fit: BoxFit.cover)),
+                                      child: image == null
+                                          ? const Icon(Icons
+                                              .image_not_supported_outlined)
+                                          : null,
                                     ),
                                   ),
                                   removeItem == null

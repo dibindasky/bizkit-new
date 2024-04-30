@@ -240,7 +240,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                           context
                               .read<BusinessDataBloc>()
                               .branchOfficeController
-                              .text = value;
+                              .text = value!;
                           showBranchDialoge(
                               context,
                               state.branchOffices

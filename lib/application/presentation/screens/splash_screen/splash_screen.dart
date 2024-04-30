@@ -49,11 +49,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigateToSignInPage(
       BuildContext context, bool toLogin, bool isOnbaordSkip) async {
     Future.delayed(const Duration(milliseconds: 2000), () {
-      if (toLogin && !isOnbaordSkip) {
+      if (toLogin && isOnbaordSkip) {
         GoRouter.of(context).pushReplacementNamed(Routes.homePage);
-      } else if (!isOnbaordSkip && !toLogin) {
+      } else if (isOnbaordSkip && !toLogin) {
         GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
-      } else if (isOnbaordSkip) {
+      } else if (!isOnbaordSkip) {
         GoRouter.of(context).pushReplacementNamed(Routes.onBoarding);
       }
       //GoRouter.of(context).pushReplacementNamed(Routes.onBoarding);

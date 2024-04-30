@@ -1,11 +1,14 @@
 import 'dart:developer';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
+import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
+import 'package:bizkit/application/presentation/widgets/image_preview.dart';
+import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -119,11 +122,21 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                                   }
                                   imagess.addAll(selfieBase64List);
                                 }
-                                return SizedBox(
-                                  height: 200,
-                                  child: PreviewPageviewImageBuilder(
-                                    isStory: true,
-                                    imagesList: imagess,
+                                return InkWell(
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          SlidablePhotoGallery(
+                                              images: imagess, initialIndex: 0),
+                                    ),
+                                  ),
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: PreviewPageviewImageBuilder(
+                                      isStory: true,
+                                      imagesList: imagess,
+                                    ),
                                   ),
                                 );
                               },

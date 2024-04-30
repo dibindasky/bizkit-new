@@ -100,6 +100,7 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
               ),
               adjustHieght(screenHeight * .05),
               SizedBox(
+                width: kwidth,
                 height: 350,
                 child: Image.asset(
                   onBoardScreenfirstpersonImages,

@@ -10,12 +10,10 @@ import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/domain/model/contact/add_new_contact/add_new_contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardSecondScannedDatas extends StatelessWidget {
   CardSecondScannedDatas({super.key});
@@ -79,22 +77,23 @@ class CardSecondScannedDatas extends StatelessWidget {
                               return InkWell(
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            SlidablePhotoGallery(
-                                          images: state
-                                              .scannedImagesSecondCardCreation
-                                              .map((e) => e.base64)
-                                              .toList(),
-                                          initialIndex: state
-                                              .scannedImagesSecondCardCreation
-                                              .map((e) => e.base64)
-                                              .toList()
-                                              .indexWhere((element) =>
-                                                  element == index),
-                                        ),
-                                      ));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          SlidablePhotoGallery(
+                                        images: state
+                                            .scannedImagesSecondCardCreation
+                                            .map((e) => e.base64)
+                                            .toList(),
+                                        initialIndex: state
+                                            .scannedImagesSecondCardCreation
+                                            .map((e) => e.base64)
+                                            .toList()
+                                            .indexWhere(
+                                                (element) => element == index),
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: SizedBox(
                                   height: 250,
@@ -450,45 +449,46 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                   ),
                                 ),
                                 Positioned(
-                                    bottom: 10,
-                                    right: 10,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: ColoredBox(
-                                        color: neonShade,
-                                        child: IconButton(
-                                            onPressed: () {
-                                              cameraAndGalleryPickImage(
-                                                  tittle: 'Choose image from ?',
-                                                  context: context,
-                                                  onPressCam: () {
-                                                    context
-                                                        .read<CardSecondBloc>()
-                                                        .add(
-                                                          const CardSecondEvent
-                                                              .selfieImage(
-                                                            isCam: true,
-                                                            cameraDeviceFront:
-                                                                true,
-                                                          ),
-                                                        );
-                                                  },
-                                                  onPressGallery: () {
-                                                    context
-                                                        .read<CardSecondBloc>()
-                                                        .add(
-                                                          const CardSecondEvent
-                                                              .selfieImage(
-                                                            isCam: false,
-                                                            cameraDeviceFront:
-                                                                false,
-                                                          ),
-                                                        );
-                                                  });
-                                            },
-                                            icon: Icon(Icons.camera)),
+                                  bottom: 10,
+                                  right: 10,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: ColoredBox(
+                                      color: neonShade,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          cameraAndGalleryPickImage(
+                                              tittle: 'Choose image from ?',
+                                              context: context,
+                                              onPressCam: () {
+                                                context
+                                                    .read<CardSecondBloc>()
+                                                    .add(
+                                                      const CardSecondEvent
+                                                          .selfieImage(
+                                                        isCam: true,
+                                                        cameraDeviceFront: true,
+                                                      ),
+                                                    );
+                                              },
+                                              onPressGallery: () {
+                                                context
+                                                    .read<CardSecondBloc>()
+                                                    .add(
+                                                      const CardSecondEvent
+                                                          .selfieImage(
+                                                        isCam: false,
+                                                        cameraDeviceFront:
+                                                            false,
+                                                      ),
+                                                    );
+                                              });
+                                        },
+                                        icon: const Icon(Icons.camera),
                                       ),
-                                    ))
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
                   Padding(

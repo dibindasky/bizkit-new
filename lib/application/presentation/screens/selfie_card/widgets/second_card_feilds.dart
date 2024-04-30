@@ -520,7 +520,8 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                         ),
                                       )
                                     : null,
-                                textCapitalization: TextCapitalization.words,
+                                textCapitalization:
+                                    TextCapitalization.sentences,
                                 // validate: Validate.notNull,
                                 text: 'Location',
                                 controller: context
@@ -540,7 +541,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                             inputType: TextInputType.name,
                           ),
                           TTextFormField(
-                            textCapitalization: TextCapitalization.words,
+                            textCapitalization: TextCapitalization.sentences,
                             // validate: Validate.notNull,
                             maxLines: 3,
                             text: 'Notes',

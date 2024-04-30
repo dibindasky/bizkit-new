@@ -54,15 +54,15 @@ class _DeletedCardsState extends State<DeletedCards> {
     firstCardscrollController.addListener(() {
       if (firstCardscrollController.position.pixels ==
           firstCardscrollController.position.maxScrollExtent) {
-        context.read<CardBloc>().add(const CardEvent.getdeleteCardsEvent());
+        //context.read<CardBloc>().add(const CardEvent.getdeleteCardsEvent());
       }
     });
     secondcardscrollController.addListener(() {
       if (secondcardscrollController.position.pixels ==
           secondcardscrollController.position.maxScrollExtent) {
-        context
-            .read<CardSecondBloc>()
-            .add(const CardSecondEvent.getDeleteCardSecondEvent());
+        // context
+        //     .read<CardSecondBloc>()
+        //     .add(const CardSecondEvent.getDeleteCardSecondEvent());
       }
     });
   }
@@ -128,7 +128,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                         );
                       }
                       return SizedBox(
-                        height: khieght * .5,
+                        height: khieght * .4,
                         child: ListView.separated(
                           controller: firstCardscrollController,
                           physics: const BouncingScrollPhysics(),
@@ -280,7 +280,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                     builder: (context, state) {
                       if (state.deleteSecondCardLoading) {
                         return SizedBox(
-                          height: khieght * .5,
+                          height: khieght * .4,
                           child: ShimmerLoader(
                             itemCount: 10,
                             height: 240,
@@ -305,7 +305,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                         );
                       }
                       return SizedBox(
-                        height: khieght * .5,
+                        height: khieght * .4,
                         child: ListView.separated(
                           controller: secondcardscrollController,
                           physics: const BouncingScrollPhysics(),

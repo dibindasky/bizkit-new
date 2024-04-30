@@ -159,8 +159,6 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                             const CardViewRowWiceIcons(),
                             adjustHieght(khieght * .02),
                             Container(
-                              padding:
-                                  const EdgeInsets.only(right: 10, left: 20),
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 40, vertical: 2),
                               decoration: BoxDecoration(
@@ -231,20 +229,23 @@ class ItemsContainer extends StatelessWidget {
     return Column(
       children: [
         item != ''
-            ? Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: kwidth * .27,
-                    child: Text(item != "" ? heading : ''),
-                  ),
-                  const Text(
-                    ':   ',
-                    style: TextStyle(color: neonShade),
-                  ),
-                  const Divider(color: neonShade, thickness: 2),
-                  Expanded(child: Text(item)),
-                ],
+            ? Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: kwidth * .27,
+                      child: Text(item != "" ? heading : ''),
+                    ),
+                    const Text(
+                      ':   ',
+                      style: TextStyle(color: neonShade),
+                    ),
+                    const Divider(color: neonShade, thickness: 2),
+                    Expanded(child: Text(item)),
+                  ],
+                ),
               )
             : kempty,
         if (item != '') const Divider(color: neonShade),

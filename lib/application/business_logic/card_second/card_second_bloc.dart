@@ -12,6 +12,7 @@ import 'package:bizkit/domain/model/card_second/get_second_card_model/selfie.dar
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/commen/success_response_model/success_response_model.dart';
 import 'package:bizkit/domain/model/contact/add_new_contact/add_new_contact.dart';
+import 'package:bizkit/domain/model/extracted_text_model/text_extractionimage_model/text_extractionimage_model.dart';
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/scanned_image_datas_model/scanned_image_datas_model.dart';
 import 'package:bizkit/domain/repository/feature/card_scanning_repo.dart';
@@ -151,12 +152,13 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
       hasError: false,
       cardScanFinish: false,
     ));
+    List<String> images = [];
+    images = event.images
+        .map((e) =>
+            e.base64.startsWith('data') ? e.base64.substring(22) : e.base64)
+        .toList();
     final result = await textExtractionRepo.extractText(
-      image: ImageCard(
-          image: event.images[0].base64.startsWith('data')
-              ? event.images[0].base64.substring(22)
-              : event.images[0].base64),
-    );
+        image: TextExtractionimageModel(images: images));
     result.fold(
         (l) => emit(state.copyWith(
               cardScanFinish: false,

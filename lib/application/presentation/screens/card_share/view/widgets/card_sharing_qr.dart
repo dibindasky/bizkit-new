@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/application/presentation/screens/card_share/view/widgets/level_sharing.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
@@ -209,7 +208,7 @@ class CardSharingScreen extends StatelessWidget {
                                         ? const Text(' Company')
                                         : const SizedBox(),
                                     model.personalSocialMedia ?? false
-                                        ? const Text(' Personal Socialmedia')
+                                        ? const Text(' Personal Social Media')
                                         : const SizedBox(),
                                     model.address ?? false
                                         ? const Text(' Address')
@@ -221,7 +220,7 @@ class CardSharingScreen extends StatelessWidget {
                                         ? const Text(' Business Mobile')
                                         : const SizedBox(),
                                     model.socialMediaHandles ?? false
-                                        ? const Text(' Business Socialmedia')
+                                        ? const Text(' Business Social Media')
                                         : const SizedBox(),
                                     model.websiteLink ?? false
                                         ? const Text(' Website')

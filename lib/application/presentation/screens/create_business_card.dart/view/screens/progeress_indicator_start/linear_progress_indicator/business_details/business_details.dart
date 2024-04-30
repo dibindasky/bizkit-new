@@ -99,7 +99,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
-                        doAutoFill:false,
+                        doAutoFill: false,
                         validate: Validate.email,
                         label: 'Company Mail ID',
                         inputType: TextInputType.emailAddress,
@@ -115,7 +115,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return AutocompleteTextField(
                         label: 'Company Mobile number',
-                        doAutoFill:false,
+                        doAutoFill: false,
                         // validate: Validate.phone,
                         // maxLength: 10,
                         controller:
@@ -131,7 +131,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
-                        maxLines: 4,doAutoFill:false,
+                        maxLines: 4, doAutoFill: false,
                         // maxlegth: 250,
                         maxLength: 250,
                         label: 'Company Address',
@@ -148,7 +148,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return AutocompleteTextField(
                         inputType: TextInputType.url,
-                        label: 'Company Website link',doAutoFill:false,
+                        label: 'Company Website link',
+                        doAutoFill: false,
                         controller: context
                             .read<BusinessDataBloc>()
                             .websiteLinkController,

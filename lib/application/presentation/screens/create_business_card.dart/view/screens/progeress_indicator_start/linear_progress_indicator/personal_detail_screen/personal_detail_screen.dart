@@ -60,7 +60,7 @@ class PersonlDetails extends StatelessWidget {
                         BlocBuilder<UserDataBloc, UserDataState>(
                           builder: (context, state) {
                             return ImagePreviewUnderTextField(
-                                onItemTap: (item) {
+                                onItemTap: (item, index) {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -69,11 +69,7 @@ class PersonlDetails extends StatelessWidget {
                                           images: state.personalImges
                                               .map((e) => e.image ?? '')
                                               .toList(),
-                                          initialIndex: state.personalImges
-                                              .map((e) => e.image ?? '')
-                                              .toList()
-                                              .indexWhere(
-                                                  (element) => element == item),
+                                          initialIndex: index,
                                         ),
                                       ));
                                 },
@@ -246,9 +242,7 @@ class PersonlDetails extends StatelessWidget {
                               AccolodesScreen(cardId: state.currentCard!.id!)),
                         );
                       },
-                      onItemTap: (value) {
-                        int index = state.accolades.indexWhere((element) =>
-                            element.accoladesImage![0].image == value);
+                      onItemTap: (value, index) {
                         return Navigator.push(
                             context,
                             fadePageRoute(AccoladesAddCreateScreen(
@@ -293,7 +287,7 @@ class PersonlDetails extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Accolades',
+                              'Personal Achivements',
                               style: custumText(
                                 fontSize: 16,
                                 colr: klightgrey,
@@ -393,13 +387,6 @@ class PersonlDetails extends StatelessWidget {
                       Navigator.of(context).push(fadePageRoute(
                           DatesToRememberScreen(
                               cardId: state.currentCard!.id!)));
-                    },
-                    onItemTap: (value) {
-                      // showDialog(
-                      //     context: context,
-                      //     builder: (context) => AlertDialog(
-                      //           title: Text(value ?? ''),
-                      //         ));
                     },
                     child: Container(
                       decoration: const BoxDecoration(

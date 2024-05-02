@@ -99,7 +99,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Material(
         elevation: 3,
         color: textFieldFillColr,

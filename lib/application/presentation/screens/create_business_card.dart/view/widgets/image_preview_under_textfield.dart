@@ -20,7 +20,7 @@ class ImagePreviewUnderTextField extends StatelessWidget {
 
   final VoidCallback ontap;
   final Function(int index)? removeItem;
-  final Function(String? value)? onItemTap;
+  final Function(String? value,int index)? onItemTap;
   final Widget child;
   final List<String?>? list;
   final List<String>? listString;
@@ -54,7 +54,7 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       if (onItemTap != null) {
-                                        onItemTap!(list![index]);
+                                        onItemTap!(list![index],index);
                                       }
                                     },
                                     child: Container(
@@ -119,7 +119,7 @@ class ImagePreviewUnderTextField extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       if (onItemTap != null) {
-                                        onItemTap!(listString![index]);
+                                        onItemTap!(listString![index],index);
                                       }
                                     },
                                     child: Container(

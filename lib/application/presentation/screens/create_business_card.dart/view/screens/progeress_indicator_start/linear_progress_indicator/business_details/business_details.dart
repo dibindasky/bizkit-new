@@ -16,6 +16,7 @@ import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -114,7 +115,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, state) {
                       return AutocompleteTextField(
-                        label: 'Company Mobile number',
+                        label: 'Company Number',
                         doAutoFill: false,
                         // validate: Validate.phone,
                         // maxLength: 10,
@@ -236,11 +237,20 @@ class BusinessDetailsScreen extends StatelessWidget {
                                         id: state.branchOffices[index].id!));
                               });
                         },
-                        onItemTap: (value) {
+                        onItemTap: (value, index) {
+                          final BranchOffice data = state.branchOffices[index];
                           context
                               .read<BusinessDataBloc>()
                               .branchOfficeController
-                              .text = value!;
+                              .text = data.branch ?? '';
+                          context
+                              .read<BusinessDataBloc>()
+                              .branchOfficePhoneController
+                              .text = data.phoneNumber ?? '';
+                          context
+                              .read<BusinessDataBloc>()
+                              .branchOfficeNameController
+                              .text = data.name ?? '';
                           showBranchDialoge(
                               context,
                               state.branchOffices
@@ -272,7 +282,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                                 cardId: state.currentCard!.id!)),
                           );
                         },
-                        onItemTap: (value) {
+                        onItemTap: (value, index) {
                           int index = state.accreditions
                               .indexWhere((e) => e.images![0].image == value);
                           return Navigator.push(
@@ -316,7 +326,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Accreditation Details',
+                                'Company Achievements',
                                 style:
                                     custumText(colr: klightgrey, fontSize: 17),
                               ),
@@ -398,57 +408,105 @@ showBranchDialoge(context, int? id) {
                 }
               },
               builder: (context, state) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: state.branchLoading
-                      ? [const LoadingAnimation()]
-                      : [
-                          const Text('Enter Branch Office'),
-                          adjustHieght(10),
-                          TTextFormField(
-                              text: 'Branch',
-                              maxLines: 4,
-                              maxlegth: 250,
-                              textCapitalization: TextCapitalization.words,
-                              controller: context
+                if (state.branchLoading) {
+                  return const Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [LoadingAnimation()],
+                  );
+                }
+                return SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('Enter Branch Office Details'),
+                      adjustHieght(10),
+                      TTextFormField(
+                          text: 'Branch Address',
+                          maxLines: 4,
+                          maxlegth: 250,
+                          textCapitalization: TextCapitalization.words,
+                          controller: context
+                              .read<BusinessDataBloc>()
+                              .branchOfficeController),
+                      adjustHieght(10),
+                      TTextFormField(
+                          text: 'Contact Person',
+                          textCapitalization: TextCapitalization.words,
+                          controller: context
+                              .read<BusinessDataBloc>()
+                              .branchOfficeNameController),
+                      adjustHieght(10),
+                      TTextFormField(
+                          inputType: TextInputType.phone,
+                          text: 'Contact Number',
+                          controller: context
+                              .read<BusinessDataBloc>()
+                              .branchOfficePhoneController),
+                      adjustHieght(10),
+                      AuthButton(
+                        text: id != null ? 'Update' : 'Add',
+                        onTap: () {
+                          if (context
                                   .read<BusinessDataBloc>()
-                                  .branchOfficeController),
-                          adjustHieght(10),
-                          AuthButton(
-                            text: id != null ? 'Update' : 'Add',
-                            onTap: () {
-                              if (context
-                                      .read<BusinessDataBloc>()
-                                      .branchOfficeController
-                                      .text !=
-                                  '') {
-                                if (id == null) {
-                                  context.read<BusinessDataBloc>().add(
-                                        BusinessDataEvent.addBranch(
-                                          branch: context
-                                              .read<BusinessDataBloc>()
-                                              .branchOfficeController
-                                              .text,
-                                        ),
-                                      );
-                                } else {
-                                  context.read<BusinessDataBloc>().add(
-                                        BusinessDataEvent.updateBranch(
+                                  .branchOfficeController
+                                  .text !=
+                              '') {
+                            if (id == null) {
+                              context.read<BusinessDataBloc>().add(
+                                    BusinessDataEvent.addBranch(
+                                        branch: BranchOffice(
                                             branch: context
                                                 .read<BusinessDataBloc>()
                                                 .branchOfficeController
                                                 .text,
+                                            name: context
+                                                .read<BusinessDataBloc>()
+                                                .branchOfficeNameController
+                                                .text,
+                                            phoneNumber: context
+                                                .read<BusinessDataBloc>()
+                                                .branchOfficePhoneController
+                                                .text,
+                                            cardId: state.currentCard!.id!)),
+                                  );
+                            } else {
+                              context.read<BusinessDataBloc>().add(
+                                    BusinessDataEvent.updateBranch(
+                                        branch: BranchOffice(
+                                            branch: context
+                                                .read<BusinessDataBloc>()
+                                                .branchOfficeController
+                                                .text,
+                                            name: context
+                                                .read<BusinessDataBloc>()
+                                                .branchOfficeNameController
+                                                .text,
+                                            phoneNumber: context
+                                                .read<BusinessDataBloc>()
+                                                .branchOfficePhoneController
+                                                .text,
+                                            cardId: state.currentCard!.id!,
                                             id: id),
-                                      );
-                                }
-                              }
-                              context
-                                  .read<BusinessDataBloc>()
-                                  .branchOfficeController
-                                  .text = '';
-                            },
-                          )
-                        ],
+                                        id: id),
+                                  );
+                            }
+                          }
+                          context
+                              .read<BusinessDataBloc>()
+                              .branchOfficeController
+                              .text = '';
+                          context
+                              .read<BusinessDataBloc>()
+                              .branchOfficeNameController
+                              .text = '';
+                          context
+                              .read<BusinessDataBloc>()
+                              .branchOfficePhoneController
+                              .text = '';
+                        },
+                      )
+                    ],
+                  ),
                 );
               },
             ),

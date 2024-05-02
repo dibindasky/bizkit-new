@@ -59,7 +59,7 @@ class CardViewCompletionPersentageIndicator extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Details Filled', style: textHeadStyle1),
+                    Text('Profile Completion', style: textHeadStyle1),
                     Align(
                         alignment: Alignment.centerRight,
                         child:

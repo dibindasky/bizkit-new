@@ -60,6 +60,10 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       mat.TextEditingController();
   final mat.TextEditingController branchOfficeController =
       mat.TextEditingController();
+  final mat.TextEditingController branchOfficeNameController =
+      mat.TextEditingController();
+  final mat.TextEditingController branchOfficePhoneController =
+      mat.TextEditingController();
 
   final PdfPickerImpl pdfPicker;
   final CardRepo cardService;
@@ -728,8 +732,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       socialMediaAdded: false,
     ));
     final response = await cardPatchRepo.addBranchOffice(
-        branchOffice:
-            BranchOffice(branch: event.branch, cardId: state.currentCard!.id!));
+        branchOffice:event.branch);
     response.fold(
         (l) => emit(state.copyWith(branchLoading: false)),
         (r) => emit(state.copyWith(
@@ -748,7 +751,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       socialMediaAdded: false,
     ));
     final result = await cardPatchRepo.updateBranchOffice(
-        id: event.id, branchOffice: BranchOffice(branch: event.branch));
+        id: event.id, branchOffice: event.branch);
     result.fold((l) => emit(state.copyWith(branchLoading: false)), (r) {
       List<BranchOffice> branches = List.from(state.branchOffices);
       print('list ${branches}');

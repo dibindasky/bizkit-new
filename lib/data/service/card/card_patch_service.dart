@@ -611,7 +611,7 @@ class CardPatchService implements CardPatchRepo {
       final response = await _apiService.patch(
           ApiEndPoints.deleteBranchOffice
               .replaceFirst("{branch_office_id}", id.toString()),
-          data: {"branch": branchOffice.branch});
+          data: branchOffice.toJson());
       log('updateBranchOffice creation done');
       return Right(BranchOffice.fromJson(response.data));
     } on DioException catch (e) {

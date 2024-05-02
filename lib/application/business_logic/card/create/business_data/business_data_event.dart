@@ -19,10 +19,10 @@ class BusinessDataEvent with _$BusinessDataEvent {
   }) = ProductUpdatePickImage;
   const factory BusinessDataEvent.removeAccredition({required int id}) =
       RemoveAccredition;
-  const factory BusinessDataEvent.addBranch({required String branch}) =
+  const factory BusinessDataEvent.addBranch({required BranchOffice branch}) =
       AddBranch;
   const factory BusinessDataEvent.updateBranch(
-      {required String branch, required int id}) = UpdateBranch;
+      {required BranchOffice branch, required int id}) = UpdateBranch;
   const factory BusinessDataEvent.removeBranch({required int id}) =
       RemoveBranch;
   const factory BusinessDataEvent.createBusinessData() = CreateBusinessData;

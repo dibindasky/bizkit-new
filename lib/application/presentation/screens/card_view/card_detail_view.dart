@@ -61,6 +61,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                     if (state.cardLoading || state.anotherCard == null) {
                       return const SizedBox();
                     }
+                    // editing card button
                     return IconButton(
                         onPressed: () {
                           if (state.anotherCard!.percentage! == 10) {

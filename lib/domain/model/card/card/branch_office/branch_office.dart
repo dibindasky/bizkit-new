@@ -8,8 +8,13 @@ class BranchOffice {
   String? branch;
   @JsonKey(name: 'card_id')
   int? cardId;
+  @JsonKey(name: 'name')
+  String? name;
+  @JsonKey(name: 'phone_number')
+  String? phoneNumber;
 
-  BranchOffice({this.id, this.branch, this.cardId});
+  BranchOffice(
+      {this.id, this.branch, this.cardId, this.name, this.phoneNumber});
 
   factory BranchOffice.fromJson(Map<String, dynamic> json) {
     return _$BranchOfficeFromJson(json);

@@ -182,7 +182,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                                 .read<UserDataBloc>()
                                 .designationController,
                             autocompleteItems:
-                                state.scannedImageDatasModel?.names ??
+                                state.scannedImageDatasModel?.designations ??
                                     <String>[],
                           ),
                           adjustHieght(khieght * .05),
@@ -227,6 +227,9 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                                   cardJson: state.scannedImageDatasModel == null
                                       ? null
                                       : ExtractedTextModel(
+                                          designations: state
+                                              .scannedImageDatasModel
+                                              ?.designations,
                                           emails: state
                                               .scannedImageDatasModel?.emails,
                                           names: state
@@ -243,8 +246,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                                       .nameController
                                       .text
                                       .trim(),
-                                  designation:
-                                      context.read<UserDataBloc>().designationController.text.trim(),
+                                  designation: context.read<UserDataBloc>().designationController.text.trim(),
                                   phoneNumber: context.read<UserDataBloc>().phoneController.text.trim(),
                                   email: context.read<UserDataBloc>().emailController.text.trim(),
                                   photos: state.userPhotos ?? [],

@@ -163,7 +163,8 @@ class PersonlDetails extends StatelessWidget {
                               .read<UserDataBloc>()
                               .designationController,
                           autocompleteItems:
-                              state.scannedImageDatasModel?.names ?? <String>[],
+                              state.scannedImageDatasModel?.designations ??
+                                  <String>[],
                         ),
                       ],
                     ),
@@ -381,6 +382,27 @@ class PersonlDetails extends StatelessWidget {
                                 UserDataEvent.removeDateToRemember(
                                     id: state.datesToRemember[index].id!));
                           });
+                    },
+                    onItemTap: (value, index) {
+                      final data = state.datesToRemember[index];
+                      showDialog(
+                          context: context,
+                          builder: (context) => Dialog(
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20)),
+                                      border: Border.all(color: neonShade)),
+                                  child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text('Date : ${data.date ?? ''}'),
+                                        adjustHieght(5),
+                                        Text(data.label ?? '')
+                                      ]),
+                                ),
+                              ));
                     },
                     ontap: () {
                       FocusScope.of(context).unfocus();

@@ -9,12 +9,14 @@ class ExtractedTextModel {
   @JsonKey(name: 'phone_numbers')
   List<String>? phoneNumbers;
   List<String>? websites;
+  List<String>? designations;
 
   ExtractedTextModel({
     this.names,
     this.emails,
     this.phoneNumbers,
     this.websites,
+    this.designations
   });
 
   factory ExtractedTextModel.fromJson(Map<String, dynamic> json) {

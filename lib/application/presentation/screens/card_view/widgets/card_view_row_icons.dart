@@ -301,57 +301,12 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                       ? const SizedBox()
                                       : const Text('Company Main Addres'),
                                   // adjustHieght(10),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: neonShade),
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: backgroundColour),
-                                    child: ListTile(
-                                        onTap: () async {
-                                          await LaunchUrl.launchMap(
-                                                  address: state
-                                                          .anotherCard
-                                                          ?.businessDetails
-                                                          ?.address ??
-                                                      '',
-                                                  context: context)
-                                              .then((value) =>
-                                                  Navigator.pop(context));
-                                        },
-                                        leading: const CircleAvatar(
-                                            backgroundColor: smallBigGrey,
-                                            child: Icon(
-                                                Icons.location_on_outlined,
-                                                color: neonShade)),
-                                        title: Text(state.anotherCard
-                                                ?.businessDetails?.address ??
-                                            ''),
-                                        trailing: state
-                                                        .anotherCard
-                                                        ?.businessDetails
-                                                        ?.mobileNumber ==
-                                                    null ||
-                                                state
-                                                        .anotherCard
-                                                        ?.businessDetails
-                                                        ?.mobileNumber ==
-                                                    ''
-                                            ? null
-                                            : IconButton(
-                                                onPressed: () {
-                                                  LaunchUrl.launchCall(
-                                                      phone: state
-                                                              .anotherCard
-                                                              ?.businessDetails
-                                                              ?.mobileNumber ??
-                                                          '');
-                                                },
-                                                icon: const Icon(
-                                                    Icons
-                                                        .phone_forwarded_rounded,
-                                                    color: neonShade))),
-                                  ),
+                                  AddressTilePopUp(
+                                      address: state.anotherCard
+                                              ?.businessDetails?.address ??
+                                          '',
+                                      phone: state.anotherCard?.businessDetails
+                                          ?.mobileNumber),
                                   adjustHieght(15),
                                   state.anotherCard?.branchOffices == null ||
                                           state.anotherCard?.branchOffices ==
@@ -371,51 +326,10 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                           itemBuilder: (context, index) {
                                             final data = state.anotherCard!
                                                 .branchOffices![index];
-                                            return Container(
-                                              margin: const EdgeInsets.only(
-                                                  top: 10),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: neonShade),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: backgroundColour),
-                                              child: ListTile(
-                                                onTap: () async {
-                                                  await LaunchUrl.launchMap(
-                                                          address:
-                                                              data.branch ?? '',
-                                                          context: context)
-                                                      .then((value) =>
-                                                          Navigator.pop(
-                                                              context));
-                                                },
-                                                leading: const CircleAvatar(
-                                                    backgroundColor:
-                                                        smallBigGrey,
-                                                    child: Icon(
-                                                        Icons
-                                                            .location_on_outlined,
-                                                        color: neonShade)),
-                                                title: Text(data.branch ?? ''),
-                                                subtitle: Text(data.name ?? ""),
-                                                trailing: data.phoneNumber ==
-                                                            null ||
-                                                        data.phoneNumber == ''
-                                                    ? null
-                                                    : IconButton(
-                                                        onPressed: () {
-                                                          LaunchUrl.launchCall(
-                                                              phone:
-                                                                  data.phoneNumber ??
-                                                                      '');
-                                                        },
-                                                        icon: const Icon(
-                                                            Icons
-                                                                .phone_forwarded_rounded,
-                                                            color: neonShade)),
-                                              ),
-                                            );
+                                            return AddressTilePopUp(
+                                                address: data.branch,
+                                                contactPerson: data.name,
+                                                phone: data.phoneNumber);
                                           },
                                         )
                                 ],
@@ -430,6 +344,67 @@ class CardViewRowWiceIcons extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class AddressTilePopUp extends StatelessWidget {
+  const AddressTilePopUp({
+    super.key,
+    this.address,
+    this.phone,
+    this.contactPerson,
+  });
+  final String? address;
+  final String? phone;
+  final String? contactPerson;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          border: Border.all(color: neonShade),
+          borderRadius: BorderRadius.circular(10),
+          color: backgroundColour),
+      child: Column(
+        children: [
+          Text(address ?? ''),
+          adjustHieght(10),
+          contactPerson == null || contactPerson == ''
+              ? const SizedBox()
+              : Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('contact : ${contactPerson ?? ''}')),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              phone == null || phone == ''
+                  ? const SizedBox()
+                  : OutlinedButton.icon(
+                      onPressed: () {
+                        LaunchUrl.launchCall(phone: phone ?? "");
+                      },
+                      icon: const Icon(Icons.phone_forwarded_outlined,
+                          color: neonShade),
+                      label: const Text('Call')),
+              const SizedBox(width: 20),
+              address == null || address == ''
+                  ? const SizedBox()
+                  : OutlinedButton.icon(
+                      onPressed: () async {
+                        await LaunchUrl.launchMap(
+                                address: address ?? '', context: context)
+                            .then((value) => Navigator.pop(context));
+                      },
+                      icon: const Icon(Icons.location_on_outlined,
+                          color: neonShade),
+                      label: const Text('View Map')),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

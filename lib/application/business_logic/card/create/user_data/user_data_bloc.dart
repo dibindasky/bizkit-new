@@ -426,6 +426,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           names: r.names,
           phone: r.phoneNumbers,
           websites: r.websites,
+          designations: r.designations,
           unknown: []);
       emailController.text =
           r.emails != null && r.emails!.isNotEmpty ? r.emails!.first : '';
@@ -434,6 +435,10 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       phoneController.text =
           r.phoneNumbers != null && r.phoneNumbers!.isNotEmpty
               ? r.phoneNumbers!.first
+              : '';
+      designationController.text =
+          r.designations != null && r.designations!.isNotEmpty
+              ? r.designations!.first
               : '';
       print(r.toJson());
       return emit(state.copyWith(

@@ -18,6 +18,9 @@ ExtractedTextModel _$ExtractedTextModelFromJson(Map<String, dynamic> json) =>
       websites: (json['websites'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      designations: (json['designations'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$ExtractedTextModelToJson(ExtractedTextModel instance) =>
@@ -26,4 +29,5 @@ Map<String, dynamic> _$ExtractedTextModelToJson(ExtractedTextModel instance) =>
       'emails': instance.emails,
       'phone_numbers': instance.phoneNumbers,
       'websites': instance.websites,
+      'designations': instance.designations,
     };

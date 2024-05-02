@@ -167,6 +167,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
         names: r.names,
         phone: r.phoneNumbers,
         websites: r.websites,
+        designations: r.designations,
         unknown: [],
       );
       emailController.text =
@@ -176,6 +177,10 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
       phoneController.text =
           r.phoneNumbers != null && r.phoneNumbers!.isNotEmpty
               ? r.phoneNumbers!.first
+              : '';
+      designationController.text =
+          r.designations != null && r.designations!.isNotEmpty
+              ? r.designations!.first
               : '';
       //print(r.toJson());
       emit(state.copyWith(

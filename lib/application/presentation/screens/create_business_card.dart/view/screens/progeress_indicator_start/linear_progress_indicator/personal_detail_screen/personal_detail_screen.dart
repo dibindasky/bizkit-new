@@ -75,15 +75,16 @@ class PersonlDetails extends StatelessWidget {
                                 },
                                 removeItem: (index) =>
                                     showCustomConfirmationDialogue(
-                                        context: context,
-                                        title: 'Remove image?',
-                                        buttonText: 'Remove',
-                                        onTap: () {
-                                          context.read<UserDataBloc>().add(
-                                              UserDataEvent.removePersonalImage(
-                                                  id: state.personalImges[index]
-                                                      .id!));
-                                        }),
+                                      context: context,
+                                      title: 'Remove image?',
+                                      buttonText: 'Remove',
+                                      onTap: () {
+                                        context.read<UserDataBloc>().add(
+                                            UserDataEvent.removePersonalImage(
+                                                id: state
+                                                    .personalImges[index].id!));
+                                      },
+                                    ),
                                 list: state.personalImges
                                     .map((e) => e.image ?? '')
                                     .toList(),

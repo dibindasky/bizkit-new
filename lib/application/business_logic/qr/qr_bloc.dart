@@ -25,7 +25,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
   }
 
   FutureOr<void> getDefaultQr(GetDefaultQr event, emit) async {
-    if (state.defauiltQr != null) return;
+    // if (state.defauiltQr != null) return;
     emit(state.copyWith(
       isLoading: true,
       hasError: false,

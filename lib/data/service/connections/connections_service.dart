@@ -219,7 +219,7 @@ class ConnectionService implements ConnectionRequestRepo {
         ApiEndPoints.getBlockedConnections,
         data: pageQuery.toJson(),
       );
-      log('getBlockeConnections data ${responce.data}');
+      //log('getBlockeConnections data ${responce.data}');
       return Right(BlockedConnectionModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getBlockeConnections dio error $e');

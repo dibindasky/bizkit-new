@@ -51,8 +51,10 @@ class BusinessDetailsScreen extends StatelessWidget {
               previous.loadCompanyData != current.loadCompanyData,
           listener: (context, state) {
             if (state.gotCompanyData) {
-              Navigator.push(context,
-                  fadePageRoute(const BusinessCardCreationPreviewScreen()));
+              Navigator.push(
+                context,
+                fadePageRoute(const BusinessCardCreationPreviewScreen()),
+              );
             }
           },
           buildWhen: (previous, current) =>

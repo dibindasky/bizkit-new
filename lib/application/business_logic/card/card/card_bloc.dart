@@ -118,16 +118,29 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   FutureOr<void> getArchievedCards(GetArchievedCards event, emit) async {
     if (state.archievedCards != null && event.isLoad == false) return;
     archevedCards = 1;
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+      isLoading: true,
+      hasError: false,
+      message: null,
+      archiveCardRestored: false,
+    ));
     final data = await cardService.archievedCardsList(
         pageQuery: PageQuery(page: archevedCards));
     data.fold(
         (l) => emit(
-              state.copyWith(isLoading: false, hasError: true, message: null),
+              state.copyWith(
+                isLoading: false,
+                hasError: true,
+                message: null,
+                archiveCardRestored: false,
+              ),
             ), (r) {
       emit(
         state.copyWith(
-            isLoading: false, hasError: false, archievedCards: r.archiveCards),
+            archiveCardRestored: false,
+            isLoading: false,
+            hasError: false,
+            archievedCards: r.archiveCards),
       );
     });
   }
@@ -195,7 +208,12 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   }
 
   FutureOr<void> restoreArchiveCard(RestoreArchiveCard event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+      isLoading: true,
+      hasError: false,
+      message: null,
+      archiveCardRestored: false,
+    ));
     final data = await cardService.restoreArchiveDeleteCard(
       cardId: event.cardId,
       cardActionRewuestModel: event.cardActionRequestModel,
@@ -205,6 +223,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
               isLoading: false,
               hasError: true,
               message: null,
+              archiveCardRestored: false,
             )), (r) {
       emit(state.copyWith(
         isLoading: false,
@@ -251,12 +270,20 @@ class CardBloc extends Bloc<CardEvent, CardState> {
 
   FutureOr<void> getCardyUserId(GetCardyUserId event, emit) async {
     emit(state.copyWith(
-        cardLoading: true, hasError: false, message: null, anotherCard: null));
+        archiveCardRestored: false,
+        cardLoading: true,
+        hasError: false,
+        message: null,
+        anotherCard: null));
     final result = await cardService.getCardByUserId(id: event.id);
     result.fold(
       (left) => emit(state.copyWith(
-          cardLoading: false, hasError: true, message: left.message)),
+          archiveCardRestored: false,
+          cardLoading: false,
+          hasError: true,
+          message: left.message)),
       (right) => emit(state.copyWith(
+          archiveCardRestored: false,
           cardLoading: false,
           anotherCard: right.results != null && right.results!.isNotEmpty
               ? right.results!.first
@@ -289,6 +316,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   FutureOr<void> getCards(GetCards event, emit) async {
     if (state.cards.isNotEmpty && !event.call) return;
     emit(state.copyWith(
+      archiveCardRestored: false,
       isLoading: true,
       hasError: false,
       message: null,
@@ -300,6 +328,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     result.fold(
         (failure) => emit(state.copyWith(
             hasError: true,
+            archiveCardRestored: false,
             isLoading: false,
             businessUser: business,
             message: failure.message)), (getCardResposnseModel) {
@@ -311,6 +340,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         defaultCard = def.isEmpty ? null : def.first;
       }
       return emit(state.copyWith(
+          archiveCardRestored: false,
           businessUser: business,
           isLoading: false,
           cards: getCardResposnseModel.results ?? [],

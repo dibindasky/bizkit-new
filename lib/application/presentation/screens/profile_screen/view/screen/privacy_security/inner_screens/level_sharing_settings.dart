@@ -6,11 +6,26 @@ import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DefaultLevelSharing extends StatelessWidget {
+class DefaultLevelSharing extends StatefulWidget {
   const DefaultLevelSharing({super.key});
 
   @override
+  State<DefaultLevelSharing> createState() => _DefaultLevelSharingState();
+}
+
+class _DefaultLevelSharingState extends State<DefaultLevelSharing> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        context.read<QrBloc>().add(const QrEvent.getDefaultQr());
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -23,7 +38,7 @@ class DefaultLevelSharing extends StatelessWidget {
         ),
         backgroundColor: knill,
         title: const Text(
-          'Commen level share settings',
+          'Commen level sharing settings',
         ),
       ),
       body: Padding(
@@ -66,7 +81,7 @@ class DefaultLevelSharing extends StatelessWidget {
                   if (state.qrUpdated) {
                     showSnackbar(
                       context,
-                      message: 'Level sharing Updated successfully',
+                      message: 'Level Sharing Updated Successfully',
                     );
                   }
                 },
@@ -168,6 +183,16 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
                     .copyWith(personalSocialMedia: value);
               });
             }),
+            buildSwitch("Accolades", state.defauiltQr!.accolades ?? false,
+                (value) {
+              setState(() {
+                state.defauiltQr!.accolades = value;
+                context.read<QrBloc>().defauiltQr = context
+                    .read<QrBloc>()
+                    .defauiltQr
+                    .copyWith(accolades: value);
+              });
+            }),
             adjustHieght(khieght * .02),
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
@@ -213,6 +238,17 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
                     .read<QrBloc>()
                     .defauiltQr
                     .copyWith(websiteLink: value);
+              });
+            }),
+            buildSwitch(
+                "Accreditation", state.defauiltQr!.accreditation ?? false,
+                (value) {
+              setState(() {
+                state.defauiltQr!.accreditation = value;
+                context.read<QrBloc>().defauiltQr = context
+                    .read<QrBloc>()
+                    .defauiltQr
+                    .copyWith(accreditation: value);
               });
             }),
             buildSwitch("Address", state.defauiltQr!.address ?? false, (value) {

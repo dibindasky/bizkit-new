@@ -28,9 +28,9 @@ class LocationService implements LocationRepo {
       );
       double latitude = position.latitude;
       double longitude = position.longitude;
-      String address = await getAddressFromLatLng(latitude, longitude);
+      String? address = await getAddressFromLatLng(latitude, longitude);
       //log('Latitude: $latitude, Longitude: $longitude');
-      return Right(address);
+      return Right(address ?? '');
     } on DioException catch (e) {
       return Left(Failure(message: e.toString()));
     } catch (e) {
@@ -39,7 +39,7 @@ class LocationService implements LocationRepo {
   }
 }
 
-Future<String> getAddressFromLatLng(double latitude, double longitude) async {
+Future<String?> getAddressFromLatLng(double latitude, double longitude) async {
   try {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(latitude, longitude);
@@ -49,6 +49,6 @@ Future<String> getAddressFromLatLng(double latitude, double longitude) async {
     log('Address $address');
     return address;
   } catch (e) {
-    return "Unable to fetch address";
+    return null;
   }
 }

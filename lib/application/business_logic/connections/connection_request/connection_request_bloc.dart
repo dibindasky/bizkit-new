@@ -102,9 +102,13 @@ class ConnectionRequestBloc
   }
 
   FutureOr<void> getBlockeConnections(GetBlockeConnections event, emit) async {
+    if (state.blockedConnections != null && !event.isLoad) return;
     blockedConnetions = 1;
     emit(state.copyWith(
-        blockedConnectionsLoading: true, hasError: false, message: null));
+      blockedConnectionsLoading: true,
+      hasError: false,
+      message: null,
+    ));
     final data = await _connectionRepo.getBlockeConnections(
         pageQuery: PageQuery(page: blockedConnetions));
     data.fold(

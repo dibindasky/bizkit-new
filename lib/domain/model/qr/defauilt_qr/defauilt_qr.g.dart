@@ -7,6 +7,8 @@ part of 'defauilt_qr.dart';
 // **************************************************************************
 
 DefauiltQr _$DefauiltQrFromJson(Map<String, dynamic> json) => DefauiltQr(
+      accolades: json['accolades'] as bool?,
+      accreditation: json['accreditation'] as bool?,
       id: json['id'] as int?,
       email: json['email'] as bool?,
       phoneNumber: json['phone_number'] as bool?,
@@ -31,6 +33,8 @@ Map<String, dynamic> _$DefauiltQrToJson(DefauiltQr instance) =>
       'address': instance.address,
       'company': instance.company,
       'business_email': instance.businessEmail,
+      'accolades': instance.accolades,
+      'accreditation': instance.accreditation,
       'social_media_handles': instance.socialMediaHandles,
       'website_link': instance.websiteLink,
       'business_details_mobile_number': instance.businessDetailsMobileNumber,

@@ -1,4 +1,5 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
@@ -10,6 +11,7 @@ import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_mo
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class ArchivedCards extends StatefulWidget {
@@ -141,7 +143,23 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                               width: 300,
                               height: 200,
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  final Map<String, String> map =
+                                      state.archievedCards != null &&
+                                              state.archievedCards![index].id !=
+                                                  null
+                                          ? {
+                                              'myCard': 'true',
+                                              'cardId': state
+                                                  .archievedCards![index].id!
+                                                  .toString()
+                                            }
+                                          : <String, String>{};
+                                  GoRouter.of(context).pushNamed(
+                                    Routes.cardDetailView,
+                                    pathParameters: map,
+                                  );
+                                },
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(25),

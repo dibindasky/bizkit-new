@@ -7,7 +7,6 @@ import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 

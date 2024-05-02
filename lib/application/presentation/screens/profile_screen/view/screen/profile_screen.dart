@@ -143,7 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                   : CustomShowCaseView(
                                       image: personImage,
                                       globalKey: globalKeyProfilPicUploading,
-                                      tittle: 'New Profile Upload',
+                                      tittle: 'Add your Profile image',
                                       description: '',
                                       child: const CircleAvatar(
                                         radius: 66,

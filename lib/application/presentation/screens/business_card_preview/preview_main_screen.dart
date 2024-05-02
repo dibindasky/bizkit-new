@@ -35,22 +35,13 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
             // image slide view
             SizedBox(
               height: 220,
-              child: BlocBuilder<BusinessDataBloc, BusinessDataState>(
-                builder: (context, business) {
-                  return BlocBuilder<UserDataBloc, UserDataState>(
-                    builder: (context, user) {
-                      final logo =
-                          // business.businessData?.logo != null
-                          //     ? [business.businessData!.logo!]
-                          //     :
-                          <String>[];
-                      List<String> images = user.personalData?.photos != null
-                          ? [user.personalData!.photos![0].photo!]
-                          : <String>[];
-                      return PreviewPageviewImageBuilder(
-                          imagesList: images + logo);
-                    },
-                  );
+              child: BlocBuilder<UserDataBloc, UserDataState>(
+                builder: (context, user) {
+                  final logo = <String>[];
+                  List<String> images = user.personalData?.photos != null
+                      ? [user.personalData!.photos![0].photo!]
+                      : <String>[];
+                  return PreviewPageviewImageBuilder(imagesList: images + logo);
                 },
               ),
             ),

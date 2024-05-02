@@ -32,7 +32,7 @@ class PrivacyAndSecurityScreen extends StatelessWidget {
         child: Column(
           children: [
             TileItem(
-              text: 'Commen Level Settings',
+              text: 'Commen Level sharing Settings',
               onTap: () => Navigator.of(context).push(
                 fadePageRoute(const DefaultLevelSharing()),
               ),

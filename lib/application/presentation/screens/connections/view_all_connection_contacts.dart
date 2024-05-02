@@ -7,7 +7,7 @@ import 'package:bizkit/application/presentation/screens/connections/tabs/contact
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
-import 'package:bizkit/application/presentation/widgets/show_case_view.dart';
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,13 +32,15 @@ class _MyConnectionsViewAllContactsState
     extends State<MyConnectionsViewAllContacts> {
   final ValueNotifier tabNotifier = ValueNotifier(0);
   bool isShowcaseSeen = false;
-  final homeScreenShowCase = 'isShowcaseSeen';
+  final homeScreenShowCase = 'isShowcaseConnectionScreen';
 
   @override
   void initState() {
-    SharedPreferences.getInstance().then((prefs) {
+    SharedPreferences.getInstance().then((prefs) async {
+      final showCase =
+          await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
       setState(() {
-        isShowcaseSeen = prefs.getBool(homeScreenShowCase) ?? false;
+        isShowcaseSeen = showCase;
       });
       if (!isShowcaseSeen) {
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -50,7 +52,7 @@ class _MyConnectionsViewAllContactsState
             globalKeyVisitingCard,
           ]);
         });
-        prefs.setBool(homeScreenShowCase, true);
+        await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
       }
     });
     super.initState();
@@ -59,7 +61,6 @@ class _MyConnectionsViewAllContactsState
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // context.read<ContactsBloc>().add(const ContactsEvent.getConnections());
       context
           .read<ConnectionRequestBloc>()
           .add(const ConnectionRequestEvent.getRequestLists());

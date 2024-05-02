@@ -92,7 +92,7 @@ class QRServiceImpl implements QrServiceRepo {
       final responce = await apiService.get(
         ApiEndPoints.defaultQr,
       );
-      //log('${responce.data}');
+      //log('getDefaultQr done${responce.data}');
       return Right(DefauiltQr.fromJson(responce.data));
     } on DioException catch (e) {
       log('getDefaultQr DioException ${e.response?.statusCode} $e');

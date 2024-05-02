@@ -54,7 +54,7 @@ class PreviewBankPersonAchivedRows extends StatelessWidget {
               child: containerStyle(iconAchivementsMedal, 'Achieved'),
             ),
           ),
-        )
+        ),
       ],
     );
   }

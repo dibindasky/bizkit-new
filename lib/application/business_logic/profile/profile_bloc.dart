@@ -204,8 +204,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     if (state.getUserInfoModel != null &&
         state.getUserInfoModel!.results!.name != null) {
       userNameController.text = state.getUserInfoModel!.results!.name!;
+      return;
     }
-    if (state.getUserInfoModel != null && !event.isLoad) return;
+    // if (state.getUserInfoModel != null && !event.isLoad) return;
     emit(state.copyWith(profileLoading: true, hasError: false, message: null));
     final data = await profileRepo.getProfile();
     final role = await SecureStorage.getRole();

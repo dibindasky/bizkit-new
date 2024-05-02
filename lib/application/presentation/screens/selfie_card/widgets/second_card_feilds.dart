@@ -12,6 +12,7 @@ import 'package:bizkit/application/presentation/utils/text_field/textform_field.
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/domain/model/contact/add_new_contact/add_new_contact.dart';
+import 'package:bottom_bar_matu/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -89,8 +90,8 @@ class CardSecondScannedDatas extends StatelessWidget {
                                             .scannedImagesSecondCardCreation
                                             .map((e) => e.base64)
                                             .toList()
-                                            .indexWhere(
-                                                (element) => element == index),
+                                            .indexWhere((element) =>
+                                                element.toInt() == index),
                                       ),
                                     ),
                                   );
@@ -140,7 +141,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                             //textCapitalization: TextCapitalization.words,
                             autocompleteItems:
                                 state.scannedImageDatasModel?.emails ?? [],
-                             validate: Validate.ifValidEmail,
+                            validate: Validate.ifValidEmail,
                             label: 'Email',
                             controller:
                                 context.read<CardSecondBloc>().emailController,

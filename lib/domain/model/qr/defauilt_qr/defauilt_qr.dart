@@ -14,6 +14,8 @@ class DefauiltQr {
   bool? company;
   @JsonKey(name: 'business_email')
   bool? businessEmail;
+  bool? accolades;
+  bool? accreditation;
   @JsonKey(name: 'social_media_handles')
   bool? socialMediaHandles;
   @JsonKey(name: 'website_link')
@@ -26,6 +28,8 @@ class DefauiltQr {
   int? userId;
 
   DefauiltQr({
+    this.accolades,
+    this.accreditation,
     this.id,
     this.email,
     this.phoneNumber,
@@ -51,10 +55,14 @@ class DefauiltQr {
     bool? socialMediaHandles,
     bool? websiteLink,
     bool? businessEmail,
+    bool? accolades,
+    bool? accreditation,
     bool? updateAllCards,
     int? id,
   }) {
     return DefauiltQr(
+      accolades: accolades ?? this.accolades,
+      accreditation: accreditation ?? this.accreditation,
       id: id ?? this.id,
       userId: userId ?? this.userId,
       email: email ?? this.email,

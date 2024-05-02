@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
+import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class BlockedConnections extends StatefulWidget {
@@ -21,7 +24,6 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
       RefreshController(initialRefresh: false);
 
   void onRefresh() async {
-    // monitor network fetch
     await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
         context.read<ConnectionRequestBloc>().add(
             const ConnectionRequestEvent.getBlockeConnections(isLoad: true)));
@@ -72,7 +74,6 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
         onLoading: onLoading,
         header: const WaterDropHeader(),
         enablePullDown: true,
-        enablePullUp: true,
         controller: refreshController,
         onRefresh: onRefresh,
         child: Padding(
@@ -98,7 +99,6 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
               return ListView.builder(
                 controller: scrollController,
                 shrinkWrap: true,
-                //  physics: const AlwaysScrollableScrollPhysics(),
                 itemCount: (state.blockedConnections?.length ?? 0) +
                     (state.blockedConnectionsLoading ? 1 : 0),
                 itemBuilder: (context, index) {
@@ -108,84 +108,119 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
                   }
                   return Column(
                     children: [
-                      Container(
-                        margin: const EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: ClipRRect(
-                          child: Row(
-                            children: [
-                              adjustWidth(kwidth * .04),
-                              CircleAvatar(
-                                backgroundColor: smallBigGrey,
-                                backgroundImage:
-                                    state.blockedConnections?[index].photos ==
-                                            null
-                                        ? null
-                                        : MemoryImage(base64.decode(state
-                                                .blockedConnections![index]
-                                                .photos
-                                                .startsWith('data')
-                                            ? state.blockedConnections![index]
-                                                .photos
-                                                .substring(22)
-                                            : state.blockedConnections![index]
-                                                .photos!)),
-                                child:
-                                    state.blockedConnections?[index].photos ==
-                                            null
-                                        ? const Icon(Icons.person)
-                                        : null,
-                              ),
-                              adjustWidth(kwidth * .04),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text:
-                                            "${state.blockedConnections?[index].name ?? ''} ",
-                                        style: textStyle1),
-                                    TextSpan(
-                                      text: state.blockedConnections?[index]
-                                              .designation ??
-                                          'No company',
-                                      style: textStyle1.copyWith(
-                                        fontSize: 12,
+                      InkWell(
+                        onTap: () {
+                          final Map<String, String> map =
+                              state.blockedConnections != null &&
+                                      state.blockedConnections![index].cardId !=
+                                          null
+                                  ? {
+                                      'myCard': 'true',
+                                      'cardId': state
+                                          .blockedConnections![index].cardId!
+                                          .toString()
+                                    }
+                                  : <String, String>{};
+                          GoRouter.of(context).pushNamed(
+                            Routes.cardDetailView,
+                            pathParameters: map,
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: ClipRRect(
+                            child: Row(
+                              children: [
+                                adjustWidth(kwidth * .04),
+                                CircleAvatar(
+                                  radius: 24,
+                                  backgroundColor: smallBigGrey,
+                                  backgroundImage:
+                                      state.blockedConnections?[index].photos ==
+                                              null
+                                          ? null
+                                          : MemoryImage(base64.decode(state
+                                                  .blockedConnections![index]
+                                                  .photos
+                                                  .startsWith('data')
+                                              ? state.blockedConnections![index]
+                                                  .photos
+                                                  .substring(22)
+                                              : state.blockedConnections![index]
+                                                  .photos!)),
+                                  child:
+                                      state.blockedConnections?[index].photos ==
+                                              null
+                                          ? const Icon(Icons.person)
+                                          : null,
+                                ),
+                                adjustWidth(kwidth * .04),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text:
+                                              "${state.blockedConnections?[index].name ?? ''} ",
+                                          style: textStyle1),
+                                      TextSpan(
+                                        text: state.blockedConnections?[index]
+                                                .designation ??
+                                            'No company',
+                                        style: textStyle1.copyWith(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Spacer(),
+                                GestureDetector(
+                                  onTap: () {
+                                    showCustomConfirmationDialogue(
+                                      context: context,
+                                      title:
+                                          'Do you want to unblock this person',
+                                      onTap: () {
+                                        context
+                                            .read<ConnectionRequestBloc>()
+                                            .add(
+                                              ConnectionRequestEvent
+                                                  .blockBizkitConnections(
+                                                      blockBizkitConnection:
+                                                          BlockBizkitConnection(
+                                                              isBlock: false),
+                                                      connectionId: state
+                                                          .blockedConnections![
+                                                              index]
+                                                          .id!),
+                                            );
+                                      },
+                                      buttonText: 'Unblock',
+                                    );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: neonShade,
+                                        width: 1,
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              const Spacer(),
-                              GestureDetector(
-                                onTap: () {
-                                  context.read<ConnectionRequestBloc>().add(
-                                      ConnectionRequestEvent
-                                          .blockBizkitConnections(
-                                              blockBizkitConnection:
-                                                  BlockBizkitConnection(
-                                                      isBlock: false),
-                                              connectionId: state
-                                                  .blockedConnections![index]
-                                                  .id!));
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: const ColoredBox(
-                                    color: kgrey,
-                                    child: Padding(
+                                    child: const Padding(
                                       padding: EdgeInsets.symmetric(
-                                        horizontal: 20,
-                                        vertical: 4,
+                                        horizontal: 12,
+                                        vertical: 2,
                                       ),
                                       child: Text('Unblock'),
                                     ),
                                   ),
                                 ),
-                              ),
-                              adjustWidth(kwidth * .04),
-                            ],
+                                adjustWidth(kwidth * .04),
+                              ],
+                            ),
                           ),
                         ),
                       ),

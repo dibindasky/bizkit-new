@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
+import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
@@ -12,6 +14,7 @@ import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_mo
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class DeletedCards extends StatefulWidget {
   const DeletedCards({super.key});
@@ -143,35 +146,40 @@ class _DeletedCardsState extends State<DeletedCards> {
                                 index == state.deletedCards!.length) {
                               return const LoadingAnimation();
                             }
-
-                            // final card = state.deletedCards![index];
                             final deletedFirstCard = state.deletedCards![index];
                             String base64String = deletedFirstCard.logo ?? '';
                             base64String = base64String.replaceFirst(
                                 RegExp(r'data:image/jpg;base64,'), '');
-
-                            // String base64String = card.logo ?? '';
-                            // base64String = base64String.replaceFirst(
-                            //     RegExp(r'data:image/jpg;base64,'), '');
-                            // final format = getImageFormat(base64String);
-                            // final memoryImage =
-                            //     getBase64Image(format, base64String);
-
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: textFieldFillColr,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              width: 300,
-                              child: Column(
-                                children: [
-                                  Stack(
-                                    children: [
-                                      SizedBox(
-                                        width: 300,
-                                        height: khieght * .3,
-                                        child: InkWell(
-                                          onTap: () {},
+                            return InkWell(
+                              onTap: () {
+                                final Map<String, String> map = state
+                                                .deletedCards !=
+                                            null &&
+                                        state.deletedCards![index].id != null
+                                    ? {
+                                        'myCard': 'true',
+                                        'cardId': state.deletedCards![index].id!
+                                            .toString()
+                                      }
+                                    : <String, String>{};
+                                GoRouter.of(context).pushNamed(
+                                  Routes.cardDetailView,
+                                  pathParameters: map,
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: textFieldFillColr,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                width: 300,
+                                child: Column(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        SizedBox(
+                                          width: 300,
+                                          height: khieght * .3,
                                           child: ClipRRect(
                                             borderRadius:
                                                 const BorderRadius.only(
@@ -198,68 +206,69 @@ class _DeletedCardsState extends State<DeletedCards> {
                                                     fit: BoxFit.cover),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  adjustHieght(khieght * .02),
-                                  Row(
-                                    children: [
-                                      adjustWidth(kwidth * .02),
-                                      Text(
-                                        '${state.deletedCards![index].name ?? ''}\n${state.deletedCards![index].designation ?? ''}',
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      InkWell(
-                                        onTap: () {
-                                          showConfirmationDialog(
-                                            actionButton: 'Restore',
-                                            heading: 'Restore Deleted cards',
-                                            context,
-                                            onPressed: () {
-                                              CardActionRequestModel
-                                                  cardActionRewuestModel =
-                                                  CardActionRequestModel(
-                                                isArchived: state
-                                                    .deletedCards![index]
-                                                    .isArchived,
-                                                isActive: true,
-                                              );
-                                              context.read<CardBloc>().add(
-                                                    CardEvent
-                                                        .restoreDeletedCard(
-                                                      cardActionRequestModel:
-                                                          cardActionRewuestModel,
-                                                      cardId: state
-                                                          .deletedCards![index]
-                                                          .id!,
-                                                    ),
-                                                  );
-                                            },
-                                          );
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: kblue,
-                                          ),
-                                          width: 100,
-                                          height: 30,
-                                          child: Center(
-                                            child: Text('Restore',
-                                                style: textStyle1),
+                                      ],
+                                    ),
+                                    adjustHieght(khieght * .02),
+                                    Row(
+                                      children: [
+                                        adjustWidth(kwidth * .02),
+                                        Text(
+                                          '${state.deletedCards![index].name ?? ''}\n${state.deletedCards![index].designation ?? ''}',
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w700,
                                           ),
                                         ),
-                                      ),
-                                      adjustWidth(kwidth * .02)
-                                    ],
-                                  ),
-                                  adjustHieght(khieght * .02),
-                                ],
+                                        const Spacer(),
+                                        InkWell(
+                                          onTap: () {
+                                            showConfirmationDialog(
+                                              actionButton: 'Restore',
+                                              heading: 'Restore Deleted cards',
+                                              context,
+                                              onPressed: () {
+                                                CardActionRequestModel
+                                                    cardActionRewuestModel =
+                                                    CardActionRequestModel(
+                                                  isArchived: state
+                                                      .deletedCards![index]
+                                                      .isArchived,
+                                                  isActive: true,
+                                                );
+                                                context.read<CardBloc>().add(
+                                                      CardEvent
+                                                          .restoreDeletedCard(
+                                                        cardActionRequestModel:
+                                                            cardActionRewuestModel,
+                                                        cardId: state
+                                                            .deletedCards![
+                                                                index]
+                                                            .id!,
+                                                      ),
+                                                    );
+                                              },
+                                            );
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: kblue,
+                                            ),
+                                            width: 100,
+                                            height: 30,
+                                            child: Center(
+                                              child: Text('Restore',
+                                                  style: textStyle1),
+                                            ),
+                                          ),
+                                        ),
+                                        adjustWidth(kwidth * .02)
+                                      ],
+                                    ),
+                                    adjustHieght(khieght * .02),
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -325,21 +334,37 @@ class _DeletedCardsState extends State<DeletedCards> {
                             String base64String = deletedSecondcard.image ?? '';
                             base64String = base64String.replaceFirst(
                                 RegExp(r'data:image/jpg;base64,'), '');
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: textFieldFillColr,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              width: 300,
-                              child: Column(
-                                children: [
-                                  Stack(
-                                    children: [
-                                      SizedBox(
-                                        width: double.infinity,
-                                        height: khieght * .3,
-                                        child: InkWell(
-                                          onTap: () {},
+                            return InkWell(
+                              onTap: () {
+                                Map<String, String> map =
+                                    state.deleteSecondCards != null &&
+                                            state.deleteSecondCards![index]
+                                                    .id !=
+                                                null
+                                        ? {
+                                            'cardId': state
+                                                .deleteSecondCards![index].id!
+                                                .toString()
+                                          }
+                                        : <String, String>{};
+                                GoRouter.of(context).pushNamed(
+                                  Routes.secondcardDetail,
+                                  pathParameters: map,
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: textFieldFillColr,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                width: 300,
+                                child: Column(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        SizedBox(
+                                          width: double.infinity,
+                                          height: khieght * .3,
                                           child: ClipRRect(
                                               borderRadius:
                                                   const BorderRadius.only(
@@ -368,64 +393,65 @@ class _DeletedCardsState extends State<DeletedCards> {
                                                       imageDummyNetwork,
                                                       fit: BoxFit.cover)),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  adjustHieght(khieght * .02),
-                                  Row(
-                                    children: [
-                                      adjustWidth(kwidth * .02),
-                                      Text(
-                                        '${deletedSecondcard.name ?? ''}\n${deletedSecondcard.designation}',
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      InkWell(
-                                        onTap: () {
-                                          showConfirmationDialog(
-                                            actionButton: 'Restore',
-                                            heading: 'Restore Deleted cards',
-                                            context,
-                                            onPressed: () {
-                                              CardActionRequestModel
-                                                  cardActionRewuestModel =
-                                                  CardActionRequestModel(
-                                                      isActive: true);
-                                              context
-                                                  .read<CardSecondBloc>()
-                                                  .add(
-                                                    CardSecondEvent
-                                                        .restoreDeleteCardSecond(
-                                                      id: deletedSecondcard.id!,
-                                                      cardActionRewuestModel:
-                                                          cardActionRewuestModel,
-                                                    ),
-                                                  );
-                                            },
-                                          );
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: kblue,
-                                          ),
-                                          width: 100,
-                                          height: 30,
-                                          child: Center(
-                                            child: Text('Restore',
-                                                style: textStyle1),
+                                      ],
+                                    ),
+                                    adjustHieght(khieght * .02),
+                                    Row(
+                                      children: [
+                                        adjustWidth(kwidth * .02),
+                                        Text(
+                                          '${deletedSecondcard.name ?? ''}\n${deletedSecondcard.designation}',
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w700,
                                           ),
                                         ),
-                                      ),
-                                      adjustWidth(kwidth * .02)
-                                    ],
-                                  ),
-                                  adjustHieght(khieght * .02),
-                                ],
+                                        const Spacer(),
+                                        InkWell(
+                                          onTap: () {
+                                            showConfirmationDialog(
+                                              actionButton: 'Restore',
+                                              heading: 'Restore Deleted cards',
+                                              context,
+                                              onPressed: () {
+                                                CardActionRequestModel
+                                                    cardActionRewuestModel =
+                                                    CardActionRequestModel(
+                                                        isActive: true);
+                                                context
+                                                    .read<CardSecondBloc>()
+                                                    .add(
+                                                      CardSecondEvent
+                                                          .restoreDeleteCardSecond(
+                                                        id: deletedSecondcard
+                                                            .id!,
+                                                        cardActionRewuestModel:
+                                                            cardActionRewuestModel,
+                                                      ),
+                                                    );
+                                              },
+                                            );
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: kblue,
+                                            ),
+                                            width: 100,
+                                            height: 30,
+                                            child: Center(
+                                              child: Text('Restore',
+                                                  style: textStyle1),
+                                            ),
+                                          ),
+                                        ),
+                                        adjustWidth(kwidth * .02)
+                                      ],
+                                    ),
+                                    adjustHieght(khieght * .02),
+                                  ],
+                                ),
                               ),
                             );
                           },

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
-import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card_second/add_selfie_model/add_selfie_model.dart';
 import 'package:bizkit/domain/model/card_second/card_second_create_request_model/card_second_create_request_model.dart';
@@ -179,7 +178,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
               ? r.phoneNumbers!.first
               : '';
       //print(r.toJson());
-      return emit(state.copyWith(
+      emit(state.copyWith(
         scannedImageDatasModel: texts,
         message: null,
         cardScanFinish: true,
@@ -201,12 +200,23 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
       (l) => emit(state.copyWith(
         locationAdress: null,
         cardScanFinish: false,
+        contactAdded: false,
         locationfetchError: true,
         locationFetchLoading: false,
       )),
       (r) {
         locatioNController.text = r;
+        if (locatioNController.text == '') {
+          emit(state.copyWith(
+            contactAdded: false,
+            locationAdress: '',
+            cardScanFinish: false,
+            locationfetchError: false,
+            locationFetchLoading: false,
+          ));
+        }
         emit(state.copyWith(
+          contactAdded: false,
           locationAdress: r,
           cardScanFinish: false,
           locationfetchError: false,

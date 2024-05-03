@@ -1,7 +1,6 @@
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/domain/model/card/request/request_card_detail_model/request_card_detail_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,37 +19,30 @@ class CompanyAddingPopUp extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         border: Border.all(color: neonShade),
       ),
-      child: BlocConsumer<BusinessDataBloc, BusinessDataState>(
+      child: BlocConsumer<CardBloc, CardState>(
         listenWhen: (previous, current) =>
-            previous.loadCompanyData && !current.loadCompanyData,
+            previous.companyDataRequestLoading &&
+            !current.companyDataRequestLoading,
         listener: (context, state) {
-          if (state.gotCompanyData) {
-            context
-                .read<CardBloc>()
-                .add(CardEvent.getCardyCardId(id: state.currentCard!.id!));
+          if (state.companyDataRequestSuccess) {
+            // context
+            //     .read<CardBloc>()
+            //     .add(CardEvent.getCardyCardId(id: state.anotherCard!.id!));
             Navigator.pop(context);
             Navigator.pop(context);
-          } else if (state.hasError &&
-              !state.gotCompanyData &&
-              !state.loadCompanyData) {
-            if (state.message != null) {
-              showSnackbar(context,
-                  message: state.message!,
-                  backgroundColor: kred,
-                  textColor: kwhite);
-            }
+          } else if (state.hasError) {
             Navigator.pop(context);
           }
         },
         builder: (context, state) {
-          if (state.loadCompanyData) {
+          if (state.companyDataRequestLoading) {
             return SizedBox(
                 height: kwidth * 0.50,
                 child: const Center(child: CircularProgressIndicator()));
           }
           return Column(mainAxisSize: MainAxisSize.min, children: [
             const Text(
-                """Are you sure you want to add this company's details to your profile? The company can block you from using their data if you are not part of the organization."""),
+                """Are you sure you want to add this company's details to your profile? Company details will be added to your card once your request hasbeen accepeted. The company can block you from using their data if you are not part of the organization."""),
             adjustHieght(10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -76,10 +68,13 @@ class CompanyAddingPopUp extends StatelessWidget {
                 Expanded(
                     child: InkWell(
                   onTap: () {
-                    context.read<BusinessDataBloc>().add(
-                          BusinessDataEvent.getCompnayDetails(id: id),
-                        );
+                    // context.read<BusinessDataBloc>().add(
+                    //       BusinessDataEvent.getCompnayDetails(id: id),
+                    //     );
                     // Navigator.pop(context);
+                    context.read<CardBloc>().add(CardEvent.requestCompanyData(
+                        requestCardDetailModel: RequestCardDetailModel(
+                            companyId: id, cardId: state.anotherCard!.id!)));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),
@@ -89,7 +84,7 @@ class CompanyAddingPopUp extends StatelessWidget {
                       border: Border.all(color: neonShade),
                     ),
                     child: const Center(
-                      child: Text('Continue'),
+                      child: Text('Request'),
                     ),
                   ),
                 )),

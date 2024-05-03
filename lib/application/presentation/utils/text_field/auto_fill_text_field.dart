@@ -93,7 +93,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Material(
         elevation: 3,
         color: textFieldFillColr,
@@ -122,6 +122,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 }
               },
               child: TextFormField(
+                // buildCounter: (context, {int currentLength,bool isFocused,int? maxLength}) =>SizedBox.shrink() ,
                 textCapitalization: widget.textCapitalization,
                 focusNode: widget.focusNode ?? myFocusNode,
                 onTap: () {
@@ -178,6 +179,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 controller: widget.controller,
                 keyboardType: widget.inputType ?? TextInputType.name,
                 decoration: InputDecoration(
+                  counter: const SizedBox.shrink(),
                   suffixIcon: widget.suffixIcon ??
                       (isDropdownVisible && filteredAutocompleteItems.isNotEmpty
                           ? IconButton(

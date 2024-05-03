@@ -12,17 +12,18 @@ class Accredition {
   String? label;
   String? date;
   String? description;
+  String? event;
   @JsonKey(name: 'card_id')
   int? cardId;
 
-  Accredition({
-    this.id,
-    this.images,
-    this.label,
-    this.description,
-    this.cardId,
-    this.date,
-  });
+  Accredition(
+      {this.id,
+      this.images,
+      this.label,
+      this.description,
+      this.cardId,
+      this.date,
+      this.event});
 
   factory Accredition.fromJson(Map<String, dynamic> json) {
     return _$AccreditionFromJson(json);

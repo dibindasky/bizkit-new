@@ -1,5 +1,6 @@
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/brocherss_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/products_builder.dart';
+import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class BrochersAndProductsTab extends StatelessWidget {
   });
 
   final List<Product> networkImages;
-  final List<String> pdf;
+  final List<Brochure> pdf;
 
   @override
   Widget build(BuildContext context) {

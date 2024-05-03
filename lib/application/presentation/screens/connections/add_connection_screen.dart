@@ -203,8 +203,7 @@ class _GridTileAddRequestConnectionState
                   ConnectionRequestEvent.addConnectionRequests(
                       addConnectionRequestModel:
                           AddConnectionRequestModel(cardUserId: widget.data.id),
-                      index: widget.data.id!)); 
-                      
+                      index: widget.data.id!));
             } else {
               // print(widget.data.connectionId);
               // context.read<ConnectionRequestBloc>().add(

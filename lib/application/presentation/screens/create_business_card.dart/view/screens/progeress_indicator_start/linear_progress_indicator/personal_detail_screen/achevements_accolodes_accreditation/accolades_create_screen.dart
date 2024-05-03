@@ -8,11 +8,13 @@ import 'package:bizkit/application/presentation/screens/authentication/view/widg
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
@@ -47,6 +49,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
   String description = '';
   final dateController = TextEditingController();
   final titleController = TextEditingController();
+  final eventController = TextEditingController();
   final descriptionController = TextEditingController();
 
   @override
@@ -58,6 +61,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
       description = widget.accolade!.accoladesDescription ?? '';
       descriptionController.text = widget.accolade!.accoladesDescription ?? '';
       dateController.text = widget.accolade!.date ?? '';
+      eventController.text = widget.accolade!.event ?? '';
     } else if (widget.accredition != null) {
       image = widget.accredition!.images ?? [];
       title = widget.accredition!.label ?? '';
@@ -65,6 +69,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
       description = widget.accredition!.description ?? '';
       descriptionController.text = widget.accredition!.description ?? '';
       dateController.text = widget.accredition!.date ?? '';
+      eventController.text = widget.accredition!.event ?? '';
     }
     super.initState();
   }
@@ -75,7 +80,9 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
         child: AppbarCommen(
-          tittle: widget.isAccolade ? 'Personal Achievements' : 'Company Achievements',
+          tittle: widget.isAccolade
+              ? 'Personal Achievements'
+              : 'Company Achievements',
         ),
       ),
       body: SingleChildScrollView(
@@ -245,6 +252,10 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                     ),
                   ),
                 ),
+                AutocompleteTextField(
+                    controller: eventController,
+                    label: 'Event',
+                    autocompleteItems: achivementEvents),
                 TTextFormField(
                   controller: titleController,
                   maxlegth: 100,
@@ -317,6 +328,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                                   ? null
                                                   : dateController.text,
                                               accoladesDescription: description,
+                                              event: eventController.text,
                                               accoladesImage: newimage),
                                         ),
                                       )
@@ -328,6 +340,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                               cardId: widget.cardId,
                                               description: description,
                                               label: title,
+                                              event: eventController.text,
                                               date: dateController.text == ''
                                                   ? null
                                                   : dateController.text,

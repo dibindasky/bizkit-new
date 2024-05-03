@@ -15,6 +15,8 @@ class CardState with _$CardState {
     required bool deleteCardEventLoading,
     required bool deleteCardRestored,
     required bool viewsLoading,
+    required bool companyDataRequestLoading,
+    required bool companyDataRequestSuccess,
     required List<CardResponse> cards,
     String? message,
     List<ArcheivedCard>? archievedCards,
@@ -35,8 +37,10 @@ class CardState with _$CardState {
         deleteCardEventLoading: false,
         cardLoading: false,
         cards: [],
-        isLoading: false,
+        isLoading: true,
         hasError: false,
         pageLoading: false,
+        companyDataRequestLoading: false,
+        companyDataRequestSuccess: false,
       );
 }

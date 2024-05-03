@@ -7,6 +7,7 @@ import 'package:bizkit/domain/model/card/cards_in_profile/archeived_card_model/a
 import 'package:bizkit/domain/model/card/cards_in_profile/blocked_cards_responce_moede/deleted_cards.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/domain/model/card/get_card_response/card_response.dart';
+import 'package:bizkit/domain/model/card/request/request_card_detail_model/request_card_detail_model.dart';
 import 'package:bizkit/domain/model/card_first/get_views_response_model/user_view.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/repository/service/card_repo.dart';
@@ -37,11 +38,28 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     on<RestoreArchiveCard>(restoreArchiveCard);
     on<RestoreDeletedCard>(restoreDeletedCard);
     on<GetCardViews>(getCardViews);
+    on<RequestCompanyData>(requestCompanyData);
     on<Clear>(clear);
   }
 
   FutureOr<void> clear(Clear event, emit) async {
     emit(CardState.initial());
+  }
+
+  FutureOr<void> requestCompanyData(RequestCompanyData event, emit) async {
+    emit(state.copyWith(
+        companyDataRequestLoading: true,
+        companyDataRequestSuccess: false,
+        message: null,
+        hasError: false));
+    final result = await cardService.requestCompanyDetails(
+        requestCardDetailModel: event.requestCardDetailModel);
+    result.fold(
+        (l) => emit(state.copyWith(companyDataRequestLoading: false)),
+        (r) => emit(state.copyWith(
+            companyDataRequestLoading: false,hasError: true,
+            companyDataRequestSuccess: true)));
+    add(CardEvent.getCardyCardId(id: event.requestCardDetailModel.cardId!));
   }
 
   FutureOr<void> getCardViews(GetCardViews event, emit) async {
@@ -293,7 +311,11 @@ class CardBloc extends Bloc<CardEvent, CardState> {
 
   FutureOr<void> getCardyCardId(GetCardyCardId event, emit) async {
     emit(state.copyWith(
-        cardLoading: true, hasError: false, message: null, anotherCard: null));
+        cardLoading: true,
+        hasError: false,
+        message: null,
+        anotherCard: null,
+        companyDataRequestSuccess: false));
     final result = await cardService.getCardByCardId(id: event.id);
     result.fold(
         (left) => emit(state.copyWith(

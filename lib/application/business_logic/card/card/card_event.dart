@@ -30,5 +30,8 @@ class CardEvent with _$CardEvent {
     required int cardId,
     required CardActionRequestModel cardActionRequestModel,
   }) = RestoreDeletedCard;
+  const factory CardEvent.requestCompanyData(
+          {required RequestCardDetailModel requestCardDetailModel}) =
+      RequestCompanyData;
   const factory CardEvent.clear() = Clear;
 }

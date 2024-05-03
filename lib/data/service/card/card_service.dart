@@ -13,6 +13,7 @@ import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_mo
 import 'package:bizkit/domain/model/card/company/get_business_category_response_model/get_business_category_response_model.dart';
 import 'package:bizkit/domain/model/card/company/get_company_response_model/get_companys.dart';
 import 'package:bizkit/domain/model/card/get_card_response/get_card_response.dart';
+import 'package:bizkit/domain/model/card/request/request_card_detail_model/request_card_detail_model.dart';
 import 'package:bizkit/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
 import 'package:bizkit/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
 import 'package:bizkit/domain/model/card_first/get_views_response_model/get_views_response_model.dart';
@@ -335,6 +336,25 @@ class CardService implements CardRepo {
     } catch (e) {
       log('getCardViews catch $e');
       return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> requestCompanyDetails(
+      {required RequestCardDetailModel requestCardDetailModel}) async {
+    try {
+      final responce = await apiService.post(ApiEndPoints.requestCompany,
+          data: requestCardDetailModel.toJson());
+      log('requestCompanyDetails ==> ${responce.data}');
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('requestCompanyDetails DioException ${e.response?.statusCode} $e');
+      log('error ${e.response?.data}');
+      return Left(
+          Failure(message: e.response?.data['error'] ?? 'Failed to request'));
+    } catch (e) {
+      log('requestCompanyDetails catch $e');
+      return Left(Failure(message: 'Failed to request'));
     }
   }
 }

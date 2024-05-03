@@ -63,41 +63,46 @@ class ProductsBuilder extends StatelessWidget {
                                 child: Container(
                                   padding: const EdgeInsets.only(left: 10),
                                   color: klightgrey.withOpacity(.1),
-                                  child: Row(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
                                               data.label ?? '',
                                               style: textStyle1.copyWith(
                                                 fontSize: kwidth * .04,
                                                 fontWeight: FontWeight.w700,
                                               ),
                                             ),
-                                            Text(
-                                              data.description ?? '',
-                                              style: textStyle1.copyWith(
-                                                fontSize: kwidth * .03,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                          AuthButton(
+                                            hieght: 35,
+                                            wdth: 90,
+                                            text: 'View',
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                  fadePageRoute(
+                                                      ProductViewDetail(
+                                                product: data,
+                                                myCard: false,
+                                              )));
+                                            },
+                                          ),
+                                        ],
                                       ),
                                       adjustWidth(kwidth * .02),
-                                      AuthButton(
-                                        hieght: 35,
-                                        wdth: 90,
-                                        text: 'View',
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              fadePageRoute(ProductViewDetail(
-                                            product: data,
-                                            myCard: false,
-                                          )));
-                                        },
+                                      Text(
+                                        data.description ?? '',
+                                        style: textStyle1.copyWith(
+                                          fontSize: kwidth * .03,
+                                        ),
                                       ),
                                       adjustWidth(kwidth * .02),
                                     ],

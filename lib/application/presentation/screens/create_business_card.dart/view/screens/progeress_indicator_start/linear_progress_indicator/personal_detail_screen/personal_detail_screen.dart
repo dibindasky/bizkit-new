@@ -398,6 +398,11 @@ class PersonlDetails extends StatelessWidget {
                                   child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
+                                        const Text(
+                                          'Dates To Remember',
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        adjustHieght(10),
                                         Text('Date : ${data.date ?? ''}'),
                                         adjustHieght(5),
                                         Text(data.label ?? '')

@@ -5,10 +5,10 @@ import 'package:bizkit/application/presentation/screens/card_view/screen_detail_
 import 'package:bizkit/application/presentation/screens/card_view/screen_detail_editing/widgets/company_search_add_popup.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
+import 'package:bizkit/domain/model/card/request/request_card_detail_model/request_card_detail_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,26 +51,6 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                   adjustHieght(10),
                   state.businessUser
                       ? kempty
-                      // : state.anotherCard?.isCompanyAutofilled ?? false
-                      //     ? SizedBox(
-                      //         child: Row(
-                      //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //           children: [
-                      //             AuthButton(
-                      //                 text: 'Remove Company',
-                      //                 onTap: () {
-                      //                   context.read<BusinessDataBloc>().add(
-                      //                       const BusinessDataEvent
-                      //                           .removeBusinessData());
-                      //                 }),
-                      //             AuthButton(
-                      //                 text: 'Search Company',
-                      //                 onTap: () {
-
-                      //                 })
-                      //           ],
-                      //         ),
-                      //       )
                       : ValueListenableBuilder(
                           valueListenable: companySearchNotifier,
                           builder: (context, value, _) {
@@ -78,53 +58,68 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                AuthButton(
-                                  text:
-                                      state.anotherCard?.isCompanyAutofilled ??
+                                BlocBuilder<CardBloc, CardState>(
+                                  builder: (context, state) {
+                                    return AuthButton(
+                                      text: state.anotherCard
+                                                  ?.isCompanyAutofilled ??
                                               false
                                           ? 'Remove Company'
-                                          : 'Add Company',
-                                  onTap: () {
-                                    if (state
-                                            .anotherCard?.isCompanyAutofilled ==
-                                        true) {
-                                      showCustomConfirmationDialogue(
-                                          context: context,
-                                          title: 'Remove compnay form card ?',
-                                          buttonText: 'Remove',
-                                          onTap: () {
-                                            context
-                                                .read<BusinessDataBloc>()
-                                                .add(const BusinessDataEvent
-                                                    .removeBusinessData());
-                                            companySearchNotifier.value = 0;
-                                            companySearchNotifier
-                                                .notifyListeners();
-                                          });
-                                      // showCustomConfirmationDialogue(
-                                      //     context: context,
-                                      //     title:
-                                      //         'If you add your own company, Your added company will be deleted from your card',
-                                      //     buttonText: 'Add Company',
-                                      //     onTap: () {
-                                      //       companySearchNotifier.value = 0;
-                                      //       companySearchNotifier
-                                      //           .notifyListeners();
-                                      //     });
-                                    } else {
-                                      companySearchNotifier.value = 0;
-                                      companySearchNotifier.notifyListeners();
-                                    }
+                                          : state.anotherCard
+                                                      ?.isCompanyRequested ??
+                                                  false
+                                              ? 'Remove Request'
+                                              : 'Add Company',
+                                      onTap: () {
+                                        if (state.anotherCard
+                                                ?.isCompanyRequested ==
+                                            true) {
+                                          // cancel request call
+                                          return;
+                                        } else if (state.anotherCard
+                                                ?.isCompanyAutofilled ==
+                                            true) {
+                                          showCustomConfirmationDialogue(
+                                              context: context,
+                                              title:
+                                                  'Remove compnay form card ?',
+                                              buttonText: 'Remove',
+                                              onTap: () {
+                                                context
+                                                    .read<BusinessDataBloc>()
+                                                    .add(const BusinessDataEvent
+                                                        .removeBusinessData());
+                                                companySearchNotifier.value = 0;
+                                                companySearchNotifier
+                                                    .notifyListeners();
+                                              });
+                                          // showCustomConfirmationDialogue(
+                                          //     context: context,
+                                          //     title:
+                                          //         'If you add your own company, Your added company will be deleted from your card',
+                                          //     buttonText: 'Add Company',
+                                          //     onTap: () {
+                                          //       companySearchNotifier.value = 0;
+                                          //       companySearchNotifier
+                                          //           .notifyListeners();
+                                          //     });
+                                        } else {
+                                          companySearchNotifier.value = 0;
+                                          companySearchNotifier
+                                              .notifyListeners();
+                                        }
+                                      },
+                                      color: value == 0
+                                          ? null
+                                          : const LinearGradient(
+                                              colors: [
+                                                smallBigGrey,
+                                                kgrey,
+                                                smallBigGrey
+                                              ],
+                                            ),
+                                    );
                                   },
-                                  color: value == 0
-                                      ? null
-                                      : const LinearGradient(
-                                          colors: [
-                                            smallBigGrey,
-                                            kgrey,
-                                            smallBigGrey
-                                          ],
-                                        ),
                                 ),
                                 AuthButton(
                                   text: 'Search Company',

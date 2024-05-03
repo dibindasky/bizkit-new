@@ -7,6 +7,7 @@ import 'package:bizkit/application/presentation/screens/create_business_card.dar
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
 import 'package:bizkit/application/presentation/utils/appbar.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
 import 'package:bizkit/domain/model/card/card/accredition/accredition.dart';
@@ -34,6 +35,7 @@ class AccolodesScreen extends StatefulWidget {
 
 class _AccolodesScreenState extends State<AccolodesScreen> {
   final dateController = TextEditingController(text: '');
+  final eventController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -113,63 +115,97 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                   if (achivement) {
                     return const SizedBox();
                   }
-                  return InkWell(
-                    onTap: () => showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (BuildContext context) {
-                        return DatePickingBottomSheet(
-                          // initialDate: DateTime.now(),
-                          year: 500,
-                          last: 500,
-                          onPressed: (date) {
-                            dateController.text = date;
-                            setState(() {});
-                          },
-                          datePicker: dateController,
-                        );
-                      },
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 10, right: 12),
-                      height: 60,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: kgrey),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              dateController.text.isEmpty
-                                  ? 'Sort By Date '
-                                  : dateController.text,
-                              style: dateController.text.isEmpty
-                                  ? const TextStyle(color: kwhite)
-                                  : const TextStyle(color: kwhite),
+                  return SizedBox(
+                    height: 50,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: () => showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return DatePickingBottomSheet(
+                                  // initialDate: DateTime.now(),
+                                  year: 500,
+                                  last: 500,
+                                  onPressed: (date) {
+                                    dateController.text = date;
+                                    setState(() {});
+                                  },
+                                  datePicker: dateController,
+                                );
+                              },
+                            ),
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 12),
+                              height: 50,
+                              // width: double.infinity,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: kgrey),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      dateController.text.isEmpty
+                                          ? 'Date '
+                                          : dateController.text,
+                                      style: dateController.text.isEmpty
+                                          ? const TextStyle(color: kwhite)
+                                          : const TextStyle(color: kwhite),
+                                    ),
+                                  ),
+                                  dateController.text != ''
+                                      ? InkWell(
+                                          onTap: () => setState(() {
+                                            dateController.text = '';
+                                          }),
+                                          child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              child: const ColoredBox(
+                                                  color: neonShade,
+                                                  child: Icon(
+                                                    Icons.close,
+                                                    color: kblack,
+                                                  ))),
+                                        )
+                                      : const Icon(
+                                          Icons.calendar_month,
+                                          color: neonShade,
+                                        ),
+                                ],
+                              ),
                             ),
                           ),
-                          dateController.text != ''
-                              ? InkWell(
-                                  onTap: () => setState(() {
-                                    dateController.text = '';
-                                  }),
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: const ColoredBox(
-                                          color: neonShade,
-                                          child: Icon(
-                                            Icons.close,
-                                            color: kblack,
-                                          ))),
-                                )
-                              : const Icon(
-                                  Icons.calendar_month,
-                                  color: neonShade,
-                                ),
-                        ],
-                      ),
+                        ),
+                        adjustWidth(20),
+                        Expanded(
+                            child: Container(
+                          padding: const EdgeInsets.only(left: 10, right: 12),
+                          height: 50,
+                          // width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: kgrey),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: CustomDropDown(
+                              title: 'Event',
+                              icon: Icons.sort,
+                              items: const [
+                                ...achivementEvents,
+                                'Others',
+                                'All'
+                              ],
+                              onTap: (value) {
+                                eventController.text = value ?? '';
+                                setState(() {});
+                              }),
+                        ))
+                      ],
                     ),
                   );
                 });
@@ -179,176 +215,55 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                 builder: (context, business) {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
-                      List achivement = widget.accolade ?? true
-                          ? user.accolades
-                          : business.accreditions;
+                      List<Accolade> accolade =
+                          widget.accolade ?? true ? user.accolades : [];
+                      List<Accredition> accredition =
+                          widget.accolade ?? true ? [] : business.accreditions;
                       if (dateController.text != '') {
-                        achivement = achivement
+                        accolade = accolade
                             .where((element) =>
-                                element.date as String ==
-                                dateController.text.trim())
+                                element.date == dateController.text.trim())
+                            .toList();
+                        accredition = accredition
+                            .where((element) =>
+                                element.date == dateController.text.trim())
                             .toList();
                       }
-                      if (achivement.isEmpty && dateController.text != '') {
-                        return Text(
-                            'No Achivements found in ${dateController.text}');
+                      if (eventController.text != '') {
+                        accolade = accolade.where((element) {
+                          if (eventController.text == 'All') return true;
+                          if (eventController.text == element.event) {
+                            return true;
+                          } else if (eventController.text == 'Others' &&
+                              !achivementEvents
+                                  .contains(eventController.text)) {
+                            return true;
+                          }
+                          return false;
+                        }).toList();
+                        accredition = accredition.where((element) {
+                          if (eventController.text == 'All') return true;
+                          if (eventController.text == element.event) {
+                            return true;
+                          } else if (eventController.text == 'Others' &&
+                              !achivementEvents
+                                  .contains(eventController.text)) {
+                            return true;
+                          }
+                          return false;
+                        }).toList();
                       }
-                      return ListView.separated(
-                        separatorBuilder: (context, index) =>
-                            adjustHieght(kwidth * .03),
-                        itemCount: achivement.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              if (widget.accolade!) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          AccoladesAddCreateScreen(
-                                              isAccolade: true,
-                                              cardId: widget.cardId,
-                                              accolade: achivement[index]),
-                                    ));
-                              } else {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          AccoladesAddCreateScreen(
-                                              isAccolade: false,
-                                              cardId: widget.cardId,
-                                              accredition: achivement[index]),
-                                    ));
-                              }
-                            },
-                            child: SizedBox(
-                              height: 260,
-                              width: double.infinity,
-                              child: Stack(
-                                children: [
-                                  SizedBox(
-                                    height: 200,
-                                    width: double.infinity,
-                                    child: Image.memory(
-                                      base64.decode((widget.accolade == null
-                                              ? achivement[index] is Accolade
-                                                  ? achivement[index]
-                                                      .accoladesImage[0]
-                                                      .image
-                                                  : achivement[index].image
-                                              : widget.accolade!
-                                                  ? user.accolades[index]
-                                                      .accoladesImage![0].image
-                                                  : business.accreditions[index]
-                                                      .images![0].image)
-                                          .substring(22)),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    child: Container(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      color: kblack.withOpacity(.7),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            widget.accolade == null
-                                                ? achivement[index] is Accolade
-                                                    ? achivement[index]
-                                                        .accolades
-                                                    : achivement[index].label
-                                                : widget.accolade!
-                                                    ? user.accolades[index]
-                                                            .accolades ??
-                                                        ''
-                                                    : business
-                                                            .accreditions[index]
-                                                            .label ??
-                                                        '',
-                                            style: textStyle1.copyWith(
-                                              fontSize: kwidth * .04,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          Text(
-                                            widget.accolade == null
-                                                ? achivement[index] is Accolade
-                                                    ? achivement[index]
-                                                        .accoladesDescription
-                                                    : achivement[index]
-                                                        .description
-                                                : widget.accolade!
-                                                    ? user.accolades[index]
-                                                            .accoladesDescription ??
-                                                        ''
-                                                    : business
-                                                            .accreditions[index]
-                                                            .description ??
-                                                        '',
-                                            style: textStyle1.copyWith(
-                                              fontSize: kwidth * .03,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  widget.accolade == null
-                                      ? const SizedBox()
-                                      : Positioned(
-                                          right: 10,
-                                          top: 10,
-                                          child: CircleAvatar(
-                                            child: IconButton(
-                                              onPressed: () {
-                                                showCustomConfirmationDialogue(
-                                                    context: context,
-                                                    title:
-                                                        'Are you sure want to delete ?',
-                                                    buttonText: 'Delete',
-                                                    onTap: () {
-                                                      widget.accolade!
-                                                          ? context
-                                                              .read<
-                                                                  UserDataBloc>()
-                                                              .add(
-                                                                UserDataEvent.removeAccolade(
-                                                                    id: user
-                                                                        .accolades[
-                                                                            index]
-                                                                        .id!),
-                                                              )
-                                                          : context
-                                                              .read<
-                                                                  BusinessDataBloc>()
-                                                              .add(
-                                                                BusinessDataEvent.removeAccredition(
-                                                                    id: business
-                                                                        .accreditions[
-                                                                            index]
-                                                                        .id!),
-                                                              );
-                                                    });
-                                              },
-                                              icon: const Icon(
-                                                Icons.delete,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                ],
-                              ),
-                            ),
-                          );
-                        },
+                      if (widget.accolade == true && accolade.isEmpty) {
+                        return const Text('No Personal Achivements found');
+                      }
+                      if (widget.accolade == false && accredition.isEmpty) {
+                        return const Text('No Business Achivements found');
+                      }
+                      return AchivementListViewCreation(
+                        accolades: widget.accolade == true ? accolade : null,
+                        accreditions:
+                            widget.accolade == true ? null : accredition,
+                        cardId: user.currentCard!.id!,
                       );
                     },
                   );
@@ -368,5 +283,192 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
         ),
       ),
     );
+  }
+}
+
+class AchivementListViewCreation extends StatelessWidget {
+  const AchivementListViewCreation(
+      {super.key, this.accolades, this.accreditions, required this.cardId});
+
+  final List<Accolade>? accolades;
+  final List<Accredition>? accreditions;
+  final int cardId;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      separatorBuilder: (context, index) => adjustHieght(kwidth * .03),
+      itemCount: accolades != null
+          ? accolades!.length
+          : accreditions != null
+              ? accreditions!.length
+              : 0,
+      key: UniqueKey(),
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return InkWell(
+          onTap: () {
+            if (accolades != null) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AccoladesAddCreateScreen(
+                        isAccolade: true,
+                        cardId: cardId,
+                        accolade: accolades![index]),
+                  ));
+            } else {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AccoladesAddCreateScreen(
+                        isAccolade: false,
+                        cardId: cardId,
+                        accredition: accreditions![index]),
+                  ));
+            }
+          },
+          child: SizedBox(
+            height: 260,
+            width: double.infinity,
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: 200,
+                  width: double.infinity,
+                  child: Image.memory(
+                    base64.decode((accolades != null
+                            ? accolades![index].accoladesImage![0].image!
+                            : accreditions![index].images![0].image!)
+                        .substring(22)),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 10),
+                    color: kblack.withOpacity(.7),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          accolades != null
+                              ? accolades![index].accolades ?? ''
+                              : accreditions![index].label ?? '',
+                          style: textStyle1.copyWith(
+                            fontSize: kwidth * .04,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          accolades != null
+                              ? accolades![index].accoladesDescription ?? ''
+                              : accreditions![index].description ?? '',
+                          style: textStyle1.copyWith(
+                            fontSize: kwidth * .03,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                accolades != null
+                    ? const SizedBox()
+                    : Positioned(
+                        right: 10,
+                        top: 10,
+                        child: CircleAvatar(
+                          child: IconButton(
+                            onPressed: () {
+                              showCustomConfirmationDialogue(
+                                  context: context,
+                                  title: 'Are you sure want to delete ?',
+                                  buttonText: 'Delete',
+                                  onTap: () {
+                                    accolades != null
+                                        ? context.read<UserDataBloc>().add(
+                                              UserDataEvent.removeAccolade(
+                                                  id: accolades![index].id!),
+                                            )
+                                        : context.read<BusinessDataBloc>().add(
+                                              BusinessDataEvent
+                                                  .removeAccredition(
+                                                      id: accreditions![index]
+                                                          .id!),
+                                            );
+                                  });
+                            },
+                            icon: const Icon(
+                              Icons.delete,
+                            ),
+                          ),
+                        ),
+                      )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class CustomDropDown extends StatefulWidget {
+  const CustomDropDown(
+      {super.key,
+      required this.title,
+      required this.icon,
+      this.showError = false,
+      required this.items,
+      required this.onTap});
+  final String title;
+  final bool showError;
+  final IconData icon;
+  final List<String> items;
+  final Function(String? value) onTap;
+
+  @override
+  State<CustomDropDown> createState() => _CustomDropDownState();
+}
+
+class _CustomDropDownState extends State<CustomDropDown> {
+  @override
+  void initState() {
+    title = widget.title;
+    super.initState();
+  }
+
+  String title = '';
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonHideUnderline(
+        child: DropdownButton(
+            hint: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(title, style: const TextStyle(color: kwhite)),
+              ],
+            ),
+            items: widget.items.map<DropdownMenuItem<String>>(
+              (String value) {
+                return DropdownMenuItem<String>(
+                  onTap: () => setState(() {
+                    title = value;
+                  }),
+                  value: value,
+                  child: Text(
+                    value,
+                    // style: textHeadSemiBold1.copyWith(
+                    //   fontSize: sWidth * 0.04,
+                    // ),
+                  ),
+                );
+              },
+            ).toList(),
+            onChanged: widget.onTap));
   }
 }

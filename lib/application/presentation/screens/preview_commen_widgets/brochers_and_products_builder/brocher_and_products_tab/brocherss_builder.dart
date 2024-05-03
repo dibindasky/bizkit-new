@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:flutter/material.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
 
@@ -9,7 +10,7 @@ class BrochersBuilder extends StatelessWidget {
     super.key,
     required this.pdf,
   });
-  final List<String> pdf;
+  final List<Brochure> pdf;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +34,14 @@ class BrochersBuilder extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    ScreenPdfPreview(base64: pdf[index])));
+                                builder: (context) => ScreenPdfPreview(
+                                    base64: pdf[index].file!.substring(
+                                        'data:application/pdf;base64,'
+                                            .length))));
                       },
-                      child: PdfViewer.openData(base64Decode(pdf[index]),
+                      child: PdfViewer.openData(
+                          base64Decode(pdf[index].file!.substring(
+                              'data:application/pdf;base64,'.length)),
                           params: const PdfViewerParams(pageNumber: 1)),
                     );
                   },

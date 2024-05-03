@@ -99,7 +99,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 0),
       child: Material(
         elevation: 3,
         color: textFieldFillColr,
@@ -127,6 +127,7 @@ class _TTextFormFieldState extends State<TTextFormField> {
           controller: widget.controller,
           keyboardType: widget.inputType,
           decoration: InputDecoration(
+            counter: const SizedBox.shrink(),
             suffixIcon: widget.obscureText
                 ? IconButton(
                     onPressed: () {

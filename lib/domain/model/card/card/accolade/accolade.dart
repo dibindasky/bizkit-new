@@ -11,6 +11,7 @@ class Accolade {
   @JsonKey(name: 'title')
   String? accolades;
   String? date;
+  String? event;
   @JsonKey(name: 'description')
   String? accoladesDescription;
   @JsonKey(name: 'card_id')
@@ -21,6 +22,7 @@ class Accolade {
       this.accoladesImage,
       this.accolades,
       this.date,
+      this.event,
       this.accoladesDescription,
       this.cardId});
 

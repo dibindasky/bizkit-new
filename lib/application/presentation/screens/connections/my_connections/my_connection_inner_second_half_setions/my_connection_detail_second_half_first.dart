@@ -4,6 +4,7 @@ import 'package:bizkit/application/presentation/screens/preview_commen_widgets/b
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/preview_products_and_brands.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_wice_icons.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,14 +32,14 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
                 state.anotherCard!.product != null) {
               images = state.anotherCard!.product!;
             }
-            List<String> pdfBase64 = [];
+            List<Brochure> pdfBase64 = [];
             if (state.anotherCard != null &&
                 state.anotherCard!.businessDetails != null &&
                 state.anotherCard!.brochure != null) {
-              pdfBase64 = state.anotherCard!.brochure!
-                  .map((e) =>
-                      e.file!.substring('data:application/pdf;base64,'.length))
-                  .toList();
+              pdfBase64 = state.anotherCard!.brochure!;
+              // .map((e) =>
+              //     e.file!.substring('data:application/pdf;base64,'.length))
+              // .toList();
             }
             return PreviewProductsBrandsLists(
               networkImages: images,

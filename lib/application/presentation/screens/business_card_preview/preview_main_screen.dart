@@ -1,22 +1,18 @@
-import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
-import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/business_card_preview/widgets/business_card_popupmenu_items.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/banking_personal_achieved/bank_person_achived_rows.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/preview_products_and_brands.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_wice_icons.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
-import 'package:go_router/go_router.dart';
 
 class BusinessCardCreationPreviewScreen extends StatelessWidget {
   const BusinessCardCreationPreviewScreen({super.key});
@@ -74,7 +70,7 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                 // if (business.businessData?.product != null) {
                 //   images = business.businessData!.product!;
                 // }
-                List<String> pdf = [];
+                List<Brochure> pdf = [];
                 // if (business.businessData?.brochure != null) {
                 //   pdf = business.businessData!.brochure!
                 //       .map((e) => e.file!

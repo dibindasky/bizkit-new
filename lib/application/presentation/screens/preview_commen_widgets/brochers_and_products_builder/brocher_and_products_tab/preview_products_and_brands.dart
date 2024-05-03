@@ -5,15 +5,17 @@ import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.d
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/brocher_and_products_tab.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/product_detail_view.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
 
 class PreviewProductsBrandsLists extends StatelessWidget {
-  const PreviewProductsBrandsLists({super.key, this.networkImages, this.pdf});
+  const PreviewProductsBrandsLists(
+      {super.key, required this.networkImages, required this.pdf});
 
-  final List<Product>? networkImages;
-  final List<String>? pdf;
+  final List<Product> networkImages;
+  final List<Brochure> pdf;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                   onTap: () => Navigator.of(context).push(
                     fadePageRoute(
                       BrochersAndProductsTab(
-                          networkImages: networkImages ?? [], pdf: pdf ?? []),
+                          networkImages: networkImages, pdf: pdf),
                     ),
                   ),
                   child: Container(
@@ -58,7 +60,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               height: kwidth * .2,
-              child: networkImages!.isEmpty && pdf!.isEmpty
+              child: networkImages.isEmpty && pdf.isEmpty
                   ? const Center(
                       child: Text(
                         'Products and Brochures are not available',
@@ -81,7 +83,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ProductViewDetail(
-                                          product: networkImages![index],
+                                          product: networkImages[index],
                                           myCard: false,
                                         )),
                               ),
@@ -91,21 +93,20 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                   child: ColoredBox(
                                     color: smallBigGrey,
-                                    child: networkImages![index].image !=
-                                                null &&
-                                            networkImages![index]
+                                    child: networkImages[index].image != null &&
+                                            networkImages[index]
                                                 .image!
                                                 .isNotEmpty
                                         ? Image.memory(
-                                            base64.decode(networkImages![index]
+                                            base64.decode(networkImages[index]
                                                     .image![0]
                                                     .image!
                                                     .startsWith('data')
-                                                ? networkImages![index]
+                                                ? networkImages[index]
                                                     .image![0]
                                                     .image!
                                                     .substring(22)
-                                                : networkImages![index]
+                                                : networkImages[index]
                                                     .image![0]
                                                     .image!),
                                             fit: BoxFit.cover,
@@ -120,7 +121,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                               ),
                             );
                           },
-                          itemCount: networkImages!.length,
+                          itemCount: networkImages.length,
                         ),
                         adjustWidth(kwidth * .01),
                         ListView.separated(
@@ -136,7 +137,9 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ScreenPdfPreview(
-                                          base64: pdf![index],
+                                          base64: pdf[index].file!.substring(
+                                              'data:application/pdf;base64,'
+                                                  .length),
                                         )),
                               ),
                               child: ClipRRect(
@@ -146,7 +149,9 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                                   child: AspectRatio(
                                     aspectRatio: 0.9,
                                     child: PdfViewer.openData(
-                                        base64Decode(pdf![index]),
+                                        base64Decode(pdf[index].file!.substring(
+                                            'data:application/pdf;base64,'
+                                                .length)),
                                         params: const PdfViewerParams(
                                             pageNumber: 1)),
                                   ),
@@ -154,7 +159,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                               ),
                             );
                           },
-                          itemCount: pdf!.length,
+                          itemCount: pdf.length,
                         ),
                       ],
                     ),

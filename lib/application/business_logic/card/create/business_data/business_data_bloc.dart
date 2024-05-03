@@ -687,12 +687,13 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     result.fold((l) {
       return;
     }, (r) {
-      print('got pdf');
       pdf = r;
     });
+    if (pdf.base64 == null) {
+      return emit(state.copyWith(brochureLoading: false));
+    }
     final response = await cardPatchRepo.addBrochure(
         brochure: Brochure(file: pdf.base64, cardId: state.currentCard!.id!));
-    print('got pdf response');
     response.fold(
         (l) => emit(state.copyWith(brochureLoading: false)),
         (r) => emit(state.copyWith(

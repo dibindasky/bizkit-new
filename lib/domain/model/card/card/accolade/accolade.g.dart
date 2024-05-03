@@ -13,6 +13,7 @@ Accolade _$AccoladeFromJson(Map<String, dynamic> json) => Accolade(
           .toList(),
       accolades: json['title'] as String?,
       date: json['date'] as String?,
+      event: json['event'] as String?,
       accoladesDescription: json['description'] as String?,
       cardId: json['card_id'] as int?,
     );
@@ -22,6 +23,7 @@ Map<String, dynamic> _$AccoladeToJson(Accolade instance) => <String, dynamic>{
       'image': instance.accoladesImage,
       'title': instance.accolades,
       'date': instance.date,
+      'event': instance.event,
       'description': instance.accoladesDescription,
       'card_id': instance.cardId,
     };

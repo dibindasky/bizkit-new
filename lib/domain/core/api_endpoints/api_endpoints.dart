@@ -70,6 +70,9 @@ class ApiEndPoints {
   static String updateProductImage = '/card/product-image-create/';
   static String updateProduct = '/card/product-update-delete/{id}/';
 
+  // request company
+  static String requestCompany = '/card/request-company/';
+
   // text extraction
   static String textExtraction = '/card/extract-text/';
 

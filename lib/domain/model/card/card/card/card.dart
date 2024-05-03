@@ -35,6 +35,8 @@ class Card {
   bool? isVerified;
   @JsonKey(name: 'is_company_autofilled')
   bool? isCompanyAutofilled;
+  @JsonKey(name: 'is_company_requested')
+  bool? isCompanyRequested;
   @JsonKey(name: 'personal_details_id')
   int? personalDetailsId;
   @JsonKey(name: 'business_details_id')
@@ -97,7 +99,7 @@ class Card {
       this.product,
       this.socialMedia,
       this.logoCard,
-      this.extractedTextModel,
+      this.extractedTextModel,this.isCompanyRequested,
       this.scannedImage});
 
   factory Card.fromJson(Map<String, dynamic> json) {
@@ -112,6 +114,7 @@ class Card {
           : BusinessDetails.fromJson(
               json['business_details'] as Map<String, dynamic>),
       isDefault: json['is_default'] as bool?,
+      isCompanyRequested: json['is_company_requested'] as bool?,
       userId: json['user_id'] as int?,
       cardLink: json['card_link'] as String?,
       share: json['share'] as int?,

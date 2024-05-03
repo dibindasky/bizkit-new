@@ -148,6 +148,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    adjustHieght( khieght * 0.10),
                     SizedBox(
                       width: double.infinity,
                       height: khieght * 0.25,
@@ -165,6 +166,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                       //     eyeCircleAnimated()
                       //   ],
                       // ),
+                      child: Image.asset('asset/images/Bizkit.png'),
                     ),
                     Text(
                       'Your key to your business',

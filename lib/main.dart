@@ -53,8 +53,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => NavCubit()),
           BlocProvider<InternetConnectionCheckCubit>(
-              create: (ctx) =>
-                  InternetConnectionCheckCubit(connectivity: connectivity)),
+            create: (ctx) =>
+                InternetConnectionCheckCubit(connectivity: connectivity),
+          ),
           BlocProvider(create: (context) => getIt<ContactsBloc>()),
           BlocProvider(create: (context) => getIt<ForgottPasswordBloc>()),
           BlocProvider(create: (context) => getIt<NotificationBloc>()),

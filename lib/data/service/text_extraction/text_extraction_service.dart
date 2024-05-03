@@ -22,8 +22,8 @@ class TextExtractionService implements TextExtractionRepo {
       {required TextExtractionimageModel image}) async {
     try {
       log('extractText ');
-      final response = await _apiService
-          .post(ApiEndPoints.textExtraction, data: image.toJson());
+      final response = await _apiService.post(ApiEndPoints.textExtraction,
+          data: image.toJson());
       log('extractText done ${response.data}');
       return Right(ExtractedTextModel.fromJson(response.data));
     } on DioException catch (e) {

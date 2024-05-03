@@ -6,12 +6,11 @@ class ScannedImageDatasModel {
   List<String>? designations;
   List<String>? unknown;
 
-  ScannedImageDatasModel({
-    this.phone,
-    this.emails,
-    this.websites,
-    this.names,
-    this.unknown,
-    this.designations
-  });
+  ScannedImageDatasModel(
+      {this.phone,
+      this.emails,
+      this.websites,
+      this.names,
+      this.unknown,
+      this.designations});
 }

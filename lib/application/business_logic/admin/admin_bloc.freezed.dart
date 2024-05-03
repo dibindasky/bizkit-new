@@ -21,6 +21,10 @@ mixin _$AdminEvent {
     required TResult Function(bool isLoad) getCompanyUsers,
     required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
     required TResult Function() showCaseVisited,
+    required TResult Function(bool isLoad) getAllBusinessCardRequests,
+    required TResult Function() getAllBusinessCardRequestsNExt,
+    required TResult Function(String id) businessCardRequestAccept,
+    required TResult Function(String id) businessCardRequestAReject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +32,10 @@ mixin _$AdminEvent {
     TResult? Function(bool isLoad)? getCompanyUsers,
     TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
     TResult? Function()? showCaseVisited,
+    TResult? Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult? Function()? getAllBusinessCardRequestsNExt,
+    TResult? Function(String id)? businessCardRequestAccept,
+    TResult? Function(String id)? businessCardRequestAReject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +43,10 @@ mixin _$AdminEvent {
     TResult Function(bool isLoad)? getCompanyUsers,
     TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
     TResult Function()? showCaseVisited,
+    TResult Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult Function()? getAllBusinessCardRequestsNExt,
+    TResult Function(String id)? businessCardRequestAccept,
+    TResult Function(String id)? businessCardRequestAReject,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +56,14 @@ mixin _$AdminEvent {
     required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
         removeIndiVidualusersPartOfBusiness,
     required TResult Function(ShowCaseVisited value) showCaseVisited,
+    required TResult Function(GetAllBusinessCardRequests value)
+        getAllBusinessCardRequests,
+    required TResult Function(GetAllBusinessCardRequestsNExt value)
+        getAllBusinessCardRequestsNExt,
+    required TResult Function(BusinessCardRequestAccept value)
+        businessCardRequestAccept,
+    required TResult Function(BusinessCardRequestAReject value)
+        businessCardRequestAReject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,6 +72,14 @@ mixin _$AdminEvent {
     TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
     TResult? Function(ShowCaseVisited value)? showCaseVisited,
+    TResult? Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult? Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult? Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult? Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,6 +88,14 @@ mixin _$AdminEvent {
     TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
     TResult Function(ShowCaseVisited value)? showCaseVisited,
+    TResult Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -151,6 +187,10 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
     required TResult Function(bool isLoad) getCompanyUsers,
     required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
     required TResult Function() showCaseVisited,
+    required TResult Function(bool isLoad) getAllBusinessCardRequests,
+    required TResult Function() getAllBusinessCardRequestsNExt,
+    required TResult Function(String id) businessCardRequestAccept,
+    required TResult Function(String id) businessCardRequestAReject,
   }) {
     return getCompanyUsers(isLoad);
   }
@@ -161,6 +201,10 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
     TResult? Function(bool isLoad)? getCompanyUsers,
     TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
     TResult? Function()? showCaseVisited,
+    TResult? Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult? Function()? getAllBusinessCardRequestsNExt,
+    TResult? Function(String id)? businessCardRequestAccept,
+    TResult? Function(String id)? businessCardRequestAReject,
   }) {
     return getCompanyUsers?.call(isLoad);
   }
@@ -171,6 +215,10 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
     TResult Function(bool isLoad)? getCompanyUsers,
     TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
     TResult Function()? showCaseVisited,
+    TResult Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult Function()? getAllBusinessCardRequestsNExt,
+    TResult Function(String id)? businessCardRequestAccept,
+    TResult Function(String id)? businessCardRequestAReject,
     required TResult orElse(),
   }) {
     if (getCompanyUsers != null) {
@@ -186,6 +234,14 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
     required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
         removeIndiVidualusersPartOfBusiness,
     required TResult Function(ShowCaseVisited value) showCaseVisited,
+    required TResult Function(GetAllBusinessCardRequests value)
+        getAllBusinessCardRequests,
+    required TResult Function(GetAllBusinessCardRequestsNExt value)
+        getAllBusinessCardRequestsNExt,
+    required TResult Function(BusinessCardRequestAccept value)
+        businessCardRequestAccept,
+    required TResult Function(BusinessCardRequestAReject value)
+        businessCardRequestAReject,
   }) {
     return getCompanyUsers(this);
   }
@@ -197,6 +253,14 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
     TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
     TResult? Function(ShowCaseVisited value)? showCaseVisited,
+    TResult? Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult? Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult? Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult? Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
   }) {
     return getCompanyUsers?.call(this);
   }
@@ -208,6 +272,14 @@ class _$GetCompanyUsersImpl implements GetCompanyUsers {
     TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
     TResult Function(ShowCaseVisited value)? showCaseVisited,
+    TResult Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
     required TResult orElse(),
   }) {
     if (getCompanyUsers != null) {
@@ -300,6 +372,10 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
     required TResult Function(bool isLoad) getCompanyUsers,
     required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
     required TResult Function() showCaseVisited,
+    required TResult Function(bool isLoad) getAllBusinessCardRequests,
+    required TResult Function() getAllBusinessCardRequestsNExt,
+    required TResult Function(String id) businessCardRequestAccept,
+    required TResult Function(String id) businessCardRequestAReject,
   }) {
     return removeIndiVidualusersPartOfBusiness(id);
   }
@@ -310,6 +386,10 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
     TResult? Function(bool isLoad)? getCompanyUsers,
     TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
     TResult? Function()? showCaseVisited,
+    TResult? Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult? Function()? getAllBusinessCardRequestsNExt,
+    TResult? Function(String id)? businessCardRequestAccept,
+    TResult? Function(String id)? businessCardRequestAReject,
   }) {
     return removeIndiVidualusersPartOfBusiness?.call(id);
   }
@@ -320,6 +400,10 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
     TResult Function(bool isLoad)? getCompanyUsers,
     TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
     TResult Function()? showCaseVisited,
+    TResult Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult Function()? getAllBusinessCardRequestsNExt,
+    TResult Function(String id)? businessCardRequestAccept,
+    TResult Function(String id)? businessCardRequestAReject,
     required TResult orElse(),
   }) {
     if (removeIndiVidualusersPartOfBusiness != null) {
@@ -335,6 +419,14 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
     required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
         removeIndiVidualusersPartOfBusiness,
     required TResult Function(ShowCaseVisited value) showCaseVisited,
+    required TResult Function(GetAllBusinessCardRequests value)
+        getAllBusinessCardRequests,
+    required TResult Function(GetAllBusinessCardRequestsNExt value)
+        getAllBusinessCardRequestsNExt,
+    required TResult Function(BusinessCardRequestAccept value)
+        businessCardRequestAccept,
+    required TResult Function(BusinessCardRequestAReject value)
+        businessCardRequestAReject,
   }) {
     return removeIndiVidualusersPartOfBusiness(this);
   }
@@ -346,6 +438,14 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
     TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
     TResult? Function(ShowCaseVisited value)? showCaseVisited,
+    TResult? Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult? Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult? Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult? Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
   }) {
     return removeIndiVidualusersPartOfBusiness?.call(this);
   }
@@ -357,6 +457,14 @@ class _$RemoveIndiVidualusersPartOfBusinessImpl
     TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
     TResult Function(ShowCaseVisited value)? showCaseVisited,
+    TResult Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
     required TResult orElse(),
   }) {
     if (removeIndiVidualusersPartOfBusiness != null) {
@@ -418,6 +526,10 @@ class _$ShowCaseVisitedImpl implements ShowCaseVisited {
     required TResult Function(bool isLoad) getCompanyUsers,
     required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
     required TResult Function() showCaseVisited,
+    required TResult Function(bool isLoad) getAllBusinessCardRequests,
+    required TResult Function() getAllBusinessCardRequestsNExt,
+    required TResult Function(String id) businessCardRequestAccept,
+    required TResult Function(String id) businessCardRequestAReject,
   }) {
     return showCaseVisited();
   }
@@ -428,6 +540,10 @@ class _$ShowCaseVisitedImpl implements ShowCaseVisited {
     TResult? Function(bool isLoad)? getCompanyUsers,
     TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
     TResult? Function()? showCaseVisited,
+    TResult? Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult? Function()? getAllBusinessCardRequestsNExt,
+    TResult? Function(String id)? businessCardRequestAccept,
+    TResult? Function(String id)? businessCardRequestAReject,
   }) {
     return showCaseVisited?.call();
   }
@@ -438,6 +554,10 @@ class _$ShowCaseVisitedImpl implements ShowCaseVisited {
     TResult Function(bool isLoad)? getCompanyUsers,
     TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
     TResult Function()? showCaseVisited,
+    TResult Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult Function()? getAllBusinessCardRequestsNExt,
+    TResult Function(String id)? businessCardRequestAccept,
+    TResult Function(String id)? businessCardRequestAReject,
     required TResult orElse(),
   }) {
     if (showCaseVisited != null) {
@@ -453,6 +573,14 @@ class _$ShowCaseVisitedImpl implements ShowCaseVisited {
     required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
         removeIndiVidualusersPartOfBusiness,
     required TResult Function(ShowCaseVisited value) showCaseVisited,
+    required TResult Function(GetAllBusinessCardRequests value)
+        getAllBusinessCardRequests,
+    required TResult Function(GetAllBusinessCardRequestsNExt value)
+        getAllBusinessCardRequestsNExt,
+    required TResult Function(BusinessCardRequestAccept value)
+        businessCardRequestAccept,
+    required TResult Function(BusinessCardRequestAReject value)
+        businessCardRequestAReject,
   }) {
     return showCaseVisited(this);
   }
@@ -464,6 +592,14 @@ class _$ShowCaseVisitedImpl implements ShowCaseVisited {
     TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
     TResult? Function(ShowCaseVisited value)? showCaseVisited,
+    TResult? Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult? Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult? Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult? Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
   }) {
     return showCaseVisited?.call(this);
   }
@@ -475,6 +611,14 @@ class _$ShowCaseVisitedImpl implements ShowCaseVisited {
     TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
         removeIndiVidualusersPartOfBusiness,
     TResult Function(ShowCaseVisited value)? showCaseVisited,
+    TResult Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
     required TResult orElse(),
   }) {
     if (showCaseVisited != null) {
@@ -489,13 +633,718 @@ abstract class ShowCaseVisited implements AdminEvent {
 }
 
 /// @nodoc
+abstract class _$$GetAllBusinessCardRequestsImplCopyWith<$Res> {
+  factory _$$GetAllBusinessCardRequestsImplCopyWith(
+          _$GetAllBusinessCardRequestsImpl value,
+          $Res Function(_$GetAllBusinessCardRequestsImpl) then) =
+      __$$GetAllBusinessCardRequestsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isLoad});
+}
+
+/// @nodoc
+class __$$GetAllBusinessCardRequestsImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res, _$GetAllBusinessCardRequestsImpl>
+    implements _$$GetAllBusinessCardRequestsImplCopyWith<$Res> {
+  __$$GetAllBusinessCardRequestsImplCopyWithImpl(
+      _$GetAllBusinessCardRequestsImpl _value,
+      $Res Function(_$GetAllBusinessCardRequestsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoad = null,
+  }) {
+    return _then(_$GetAllBusinessCardRequestsImpl(
+      isLoad: null == isLoad
+          ? _value.isLoad
+          : isLoad // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetAllBusinessCardRequestsImpl implements GetAllBusinessCardRequests {
+  const _$GetAllBusinessCardRequestsImpl({required this.isLoad});
+
+  @override
+  final bool isLoad;
+
+  @override
+  String toString() {
+    return 'AdminEvent.getAllBusinessCardRequests(isLoad: $isLoad)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetAllBusinessCardRequestsImpl &&
+            (identical(other.isLoad, isLoad) || other.isLoad == isLoad));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isLoad);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetAllBusinessCardRequestsImplCopyWith<_$GetAllBusinessCardRequestsImpl>
+      get copyWith => __$$GetAllBusinessCardRequestsImplCopyWithImpl<
+          _$GetAllBusinessCardRequestsImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isLoad) getCompanyUsers,
+    required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
+    required TResult Function() showCaseVisited,
+    required TResult Function(bool isLoad) getAllBusinessCardRequests,
+    required TResult Function() getAllBusinessCardRequestsNExt,
+    required TResult Function(String id) businessCardRequestAccept,
+    required TResult Function(String id) businessCardRequestAReject,
+  }) {
+    return getAllBusinessCardRequests(isLoad);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isLoad)? getCompanyUsers,
+    TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult? Function()? showCaseVisited,
+    TResult? Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult? Function()? getAllBusinessCardRequestsNExt,
+    TResult? Function(String id)? businessCardRequestAccept,
+    TResult? Function(String id)? businessCardRequestAReject,
+  }) {
+    return getAllBusinessCardRequests?.call(isLoad);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLoad)? getCompanyUsers,
+    TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult Function()? showCaseVisited,
+    TResult Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult Function()? getAllBusinessCardRequestsNExt,
+    TResult Function(String id)? businessCardRequestAccept,
+    TResult Function(String id)? businessCardRequestAReject,
+    required TResult orElse(),
+  }) {
+    if (getAllBusinessCardRequests != null) {
+      return getAllBusinessCardRequests(isLoad);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCompanyUsers value) getCompanyUsers,
+    required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
+        removeIndiVidualusersPartOfBusiness,
+    required TResult Function(ShowCaseVisited value) showCaseVisited,
+    required TResult Function(GetAllBusinessCardRequests value)
+        getAllBusinessCardRequests,
+    required TResult Function(GetAllBusinessCardRequestsNExt value)
+        getAllBusinessCardRequestsNExt,
+    required TResult Function(BusinessCardRequestAccept value)
+        businessCardRequestAccept,
+    required TResult Function(BusinessCardRequestAReject value)
+        businessCardRequestAReject,
+  }) {
+    return getAllBusinessCardRequests(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCompanyUsers value)? getCompanyUsers,
+    TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
+    TResult? Function(ShowCaseVisited value)? showCaseVisited,
+    TResult? Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult? Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult? Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult? Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
+  }) {
+    return getAllBusinessCardRequests?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCompanyUsers value)? getCompanyUsers,
+    TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
+    TResult Function(ShowCaseVisited value)? showCaseVisited,
+    TResult Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
+    required TResult orElse(),
+  }) {
+    if (getAllBusinessCardRequests != null) {
+      return getAllBusinessCardRequests(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetAllBusinessCardRequests implements AdminEvent {
+  const factory GetAllBusinessCardRequests({required final bool isLoad}) =
+      _$GetAllBusinessCardRequestsImpl;
+
+  bool get isLoad;
+  @JsonKey(ignore: true)
+  _$$GetAllBusinessCardRequestsImplCopyWith<_$GetAllBusinessCardRequestsImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetAllBusinessCardRequestsNExtImplCopyWith<$Res> {
+  factory _$$GetAllBusinessCardRequestsNExtImplCopyWith(
+          _$GetAllBusinessCardRequestsNExtImpl value,
+          $Res Function(_$GetAllBusinessCardRequestsNExtImpl) then) =
+      __$$GetAllBusinessCardRequestsNExtImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetAllBusinessCardRequestsNExtImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res, _$GetAllBusinessCardRequestsNExtImpl>
+    implements _$$GetAllBusinessCardRequestsNExtImplCopyWith<$Res> {
+  __$$GetAllBusinessCardRequestsNExtImplCopyWithImpl(
+      _$GetAllBusinessCardRequestsNExtImpl _value,
+      $Res Function(_$GetAllBusinessCardRequestsNExtImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetAllBusinessCardRequestsNExtImpl
+    implements GetAllBusinessCardRequestsNExt {
+  const _$GetAllBusinessCardRequestsNExtImpl();
+
+  @override
+  String toString() {
+    return 'AdminEvent.getAllBusinessCardRequestsNExt()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetAllBusinessCardRequestsNExtImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isLoad) getCompanyUsers,
+    required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
+    required TResult Function() showCaseVisited,
+    required TResult Function(bool isLoad) getAllBusinessCardRequests,
+    required TResult Function() getAllBusinessCardRequestsNExt,
+    required TResult Function(String id) businessCardRequestAccept,
+    required TResult Function(String id) businessCardRequestAReject,
+  }) {
+    return getAllBusinessCardRequestsNExt();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isLoad)? getCompanyUsers,
+    TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult? Function()? showCaseVisited,
+    TResult? Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult? Function()? getAllBusinessCardRequestsNExt,
+    TResult? Function(String id)? businessCardRequestAccept,
+    TResult? Function(String id)? businessCardRequestAReject,
+  }) {
+    return getAllBusinessCardRequestsNExt?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLoad)? getCompanyUsers,
+    TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult Function()? showCaseVisited,
+    TResult Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult Function()? getAllBusinessCardRequestsNExt,
+    TResult Function(String id)? businessCardRequestAccept,
+    TResult Function(String id)? businessCardRequestAReject,
+    required TResult orElse(),
+  }) {
+    if (getAllBusinessCardRequestsNExt != null) {
+      return getAllBusinessCardRequestsNExt();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCompanyUsers value) getCompanyUsers,
+    required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
+        removeIndiVidualusersPartOfBusiness,
+    required TResult Function(ShowCaseVisited value) showCaseVisited,
+    required TResult Function(GetAllBusinessCardRequests value)
+        getAllBusinessCardRequests,
+    required TResult Function(GetAllBusinessCardRequestsNExt value)
+        getAllBusinessCardRequestsNExt,
+    required TResult Function(BusinessCardRequestAccept value)
+        businessCardRequestAccept,
+    required TResult Function(BusinessCardRequestAReject value)
+        businessCardRequestAReject,
+  }) {
+    return getAllBusinessCardRequestsNExt(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCompanyUsers value)? getCompanyUsers,
+    TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
+    TResult? Function(ShowCaseVisited value)? showCaseVisited,
+    TResult? Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult? Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult? Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult? Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
+  }) {
+    return getAllBusinessCardRequestsNExt?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCompanyUsers value)? getCompanyUsers,
+    TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
+    TResult Function(ShowCaseVisited value)? showCaseVisited,
+    TResult Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
+    required TResult orElse(),
+  }) {
+    if (getAllBusinessCardRequestsNExt != null) {
+      return getAllBusinessCardRequestsNExt(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetAllBusinessCardRequestsNExt implements AdminEvent {
+  const factory GetAllBusinessCardRequestsNExt() =
+      _$GetAllBusinessCardRequestsNExtImpl;
+}
+
+/// @nodoc
+abstract class _$$BusinessCardRequestAcceptImplCopyWith<$Res> {
+  factory _$$BusinessCardRequestAcceptImplCopyWith(
+          _$BusinessCardRequestAcceptImpl value,
+          $Res Function(_$BusinessCardRequestAcceptImpl) then) =
+      __$$BusinessCardRequestAcceptImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$BusinessCardRequestAcceptImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res, _$BusinessCardRequestAcceptImpl>
+    implements _$$BusinessCardRequestAcceptImplCopyWith<$Res> {
+  __$$BusinessCardRequestAcceptImplCopyWithImpl(
+      _$BusinessCardRequestAcceptImpl _value,
+      $Res Function(_$BusinessCardRequestAcceptImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$BusinessCardRequestAcceptImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$BusinessCardRequestAcceptImpl implements BusinessCardRequestAccept {
+  const _$BusinessCardRequestAcceptImpl({required this.id});
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'AdminEvent.businessCardRequestAccept(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BusinessCardRequestAcceptImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BusinessCardRequestAcceptImplCopyWith<_$BusinessCardRequestAcceptImpl>
+      get copyWith => __$$BusinessCardRequestAcceptImplCopyWithImpl<
+          _$BusinessCardRequestAcceptImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isLoad) getCompanyUsers,
+    required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
+    required TResult Function() showCaseVisited,
+    required TResult Function(bool isLoad) getAllBusinessCardRequests,
+    required TResult Function() getAllBusinessCardRequestsNExt,
+    required TResult Function(String id) businessCardRequestAccept,
+    required TResult Function(String id) businessCardRequestAReject,
+  }) {
+    return businessCardRequestAccept(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isLoad)? getCompanyUsers,
+    TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult? Function()? showCaseVisited,
+    TResult? Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult? Function()? getAllBusinessCardRequestsNExt,
+    TResult? Function(String id)? businessCardRequestAccept,
+    TResult? Function(String id)? businessCardRequestAReject,
+  }) {
+    return businessCardRequestAccept?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLoad)? getCompanyUsers,
+    TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult Function()? showCaseVisited,
+    TResult Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult Function()? getAllBusinessCardRequestsNExt,
+    TResult Function(String id)? businessCardRequestAccept,
+    TResult Function(String id)? businessCardRequestAReject,
+    required TResult orElse(),
+  }) {
+    if (businessCardRequestAccept != null) {
+      return businessCardRequestAccept(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCompanyUsers value) getCompanyUsers,
+    required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
+        removeIndiVidualusersPartOfBusiness,
+    required TResult Function(ShowCaseVisited value) showCaseVisited,
+    required TResult Function(GetAllBusinessCardRequests value)
+        getAllBusinessCardRequests,
+    required TResult Function(GetAllBusinessCardRequestsNExt value)
+        getAllBusinessCardRequestsNExt,
+    required TResult Function(BusinessCardRequestAccept value)
+        businessCardRequestAccept,
+    required TResult Function(BusinessCardRequestAReject value)
+        businessCardRequestAReject,
+  }) {
+    return businessCardRequestAccept(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCompanyUsers value)? getCompanyUsers,
+    TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
+    TResult? Function(ShowCaseVisited value)? showCaseVisited,
+    TResult? Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult? Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult? Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult? Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
+  }) {
+    return businessCardRequestAccept?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCompanyUsers value)? getCompanyUsers,
+    TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
+    TResult Function(ShowCaseVisited value)? showCaseVisited,
+    TResult Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
+    required TResult orElse(),
+  }) {
+    if (businessCardRequestAccept != null) {
+      return businessCardRequestAccept(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BusinessCardRequestAccept implements AdminEvent {
+  const factory BusinessCardRequestAccept({required final String id}) =
+      _$BusinessCardRequestAcceptImpl;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$BusinessCardRequestAcceptImplCopyWith<_$BusinessCardRequestAcceptImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$BusinessCardRequestARejectImplCopyWith<$Res> {
+  factory _$$BusinessCardRequestARejectImplCopyWith(
+          _$BusinessCardRequestARejectImpl value,
+          $Res Function(_$BusinessCardRequestARejectImpl) then) =
+      __$$BusinessCardRequestARejectImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$BusinessCardRequestARejectImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res, _$BusinessCardRequestARejectImpl>
+    implements _$$BusinessCardRequestARejectImplCopyWith<$Res> {
+  __$$BusinessCardRequestARejectImplCopyWithImpl(
+      _$BusinessCardRequestARejectImpl _value,
+      $Res Function(_$BusinessCardRequestARejectImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$BusinessCardRequestARejectImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$BusinessCardRequestARejectImpl implements BusinessCardRequestAReject {
+  const _$BusinessCardRequestARejectImpl({required this.id});
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'AdminEvent.businessCardRequestAReject(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BusinessCardRequestARejectImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BusinessCardRequestARejectImplCopyWith<_$BusinessCardRequestARejectImpl>
+      get copyWith => __$$BusinessCardRequestARejectImplCopyWithImpl<
+          _$BusinessCardRequestARejectImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isLoad) getCompanyUsers,
+    required TResult Function(String id) removeIndiVidualusersPartOfBusiness,
+    required TResult Function() showCaseVisited,
+    required TResult Function(bool isLoad) getAllBusinessCardRequests,
+    required TResult Function() getAllBusinessCardRequestsNExt,
+    required TResult Function(String id) businessCardRequestAccept,
+    required TResult Function(String id) businessCardRequestAReject,
+  }) {
+    return businessCardRequestAReject(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isLoad)? getCompanyUsers,
+    TResult? Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult? Function()? showCaseVisited,
+    TResult? Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult? Function()? getAllBusinessCardRequestsNExt,
+    TResult? Function(String id)? businessCardRequestAccept,
+    TResult? Function(String id)? businessCardRequestAReject,
+  }) {
+    return businessCardRequestAReject?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLoad)? getCompanyUsers,
+    TResult Function(String id)? removeIndiVidualusersPartOfBusiness,
+    TResult Function()? showCaseVisited,
+    TResult Function(bool isLoad)? getAllBusinessCardRequests,
+    TResult Function()? getAllBusinessCardRequestsNExt,
+    TResult Function(String id)? businessCardRequestAccept,
+    TResult Function(String id)? businessCardRequestAReject,
+    required TResult orElse(),
+  }) {
+    if (businessCardRequestAReject != null) {
+      return businessCardRequestAReject(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCompanyUsers value) getCompanyUsers,
+    required TResult Function(RemoveIndiVidualusersPartOfBusiness value)
+        removeIndiVidualusersPartOfBusiness,
+    required TResult Function(ShowCaseVisited value) showCaseVisited,
+    required TResult Function(GetAllBusinessCardRequests value)
+        getAllBusinessCardRequests,
+    required TResult Function(GetAllBusinessCardRequestsNExt value)
+        getAllBusinessCardRequestsNExt,
+    required TResult Function(BusinessCardRequestAccept value)
+        businessCardRequestAccept,
+    required TResult Function(BusinessCardRequestAReject value)
+        businessCardRequestAReject,
+  }) {
+    return businessCardRequestAReject(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCompanyUsers value)? getCompanyUsers,
+    TResult? Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
+    TResult? Function(ShowCaseVisited value)? showCaseVisited,
+    TResult? Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult? Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult? Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult? Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
+  }) {
+    return businessCardRequestAReject?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCompanyUsers value)? getCompanyUsers,
+    TResult Function(RemoveIndiVidualusersPartOfBusiness value)?
+        removeIndiVidualusersPartOfBusiness,
+    TResult Function(ShowCaseVisited value)? showCaseVisited,
+    TResult Function(GetAllBusinessCardRequests value)?
+        getAllBusinessCardRequests,
+    TResult Function(GetAllBusinessCardRequestsNExt value)?
+        getAllBusinessCardRequestsNExt,
+    TResult Function(BusinessCardRequestAccept value)?
+        businessCardRequestAccept,
+    TResult Function(BusinessCardRequestAReject value)?
+        businessCardRequestAReject,
+    required TResult orElse(),
+  }) {
+    if (businessCardRequestAReject != null) {
+      return businessCardRequestAReject(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BusinessCardRequestAReject implements AdminEvent {
+  const factory BusinessCardRequestAReject({required final String id}) =
+      _$BusinessCardRequestARejectImpl;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$BusinessCardRequestARejectImplCopyWith<_$BusinessCardRequestARejectImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$AdminState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   bool get userBlocked => throw _privateConstructorUsedError;
+  bool get getBusinessNextLoading => throw _privateConstructorUsedError;
+  bool get getBusinessNextError => throw _privateConstructorUsedError;
+  bool get requestAccepteed => throw _privateConstructorUsedError;
+  bool get requestDiclined => throw _privateConstructorUsedError;
+  bool get businessAcionLoading => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   bool get homeShowcaseViwed => throw _privateConstructorUsedError;
   List<CompanySelectedUsersListModel>? get companySelectedUsersListModel =>
+      throw _privateConstructorUsedError;
+  List<BusinessCardRequest>? get businesscardRequests =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -513,9 +1362,15 @@ abstract class $AdminStateCopyWith<$Res> {
       {bool isLoading,
       bool hasError,
       bool userBlocked,
+      bool getBusinessNextLoading,
+      bool getBusinessNextError,
+      bool requestAccepteed,
+      bool requestDiclined,
+      bool businessAcionLoading,
       String? message,
       bool homeShowcaseViwed,
-      List<CompanySelectedUsersListModel>? companySelectedUsersListModel});
+      List<CompanySelectedUsersListModel>? companySelectedUsersListModel,
+      List<BusinessCardRequest>? businesscardRequests});
 }
 
 /// @nodoc
@@ -534,9 +1389,15 @@ class _$AdminStateCopyWithImpl<$Res, $Val extends AdminState>
     Object? isLoading = null,
     Object? hasError = null,
     Object? userBlocked = null,
+    Object? getBusinessNextLoading = null,
+    Object? getBusinessNextError = null,
+    Object? requestAccepteed = null,
+    Object? requestDiclined = null,
+    Object? businessAcionLoading = null,
     Object? message = freezed,
     Object? homeShowcaseViwed = null,
     Object? companySelectedUsersListModel = freezed,
+    Object? businesscardRequests = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -551,6 +1412,26 @@ class _$AdminStateCopyWithImpl<$Res, $Val extends AdminState>
           ? _value.userBlocked
           : userBlocked // ignore: cast_nullable_to_non_nullable
               as bool,
+      getBusinessNextLoading: null == getBusinessNextLoading
+          ? _value.getBusinessNextLoading
+          : getBusinessNextLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      getBusinessNextError: null == getBusinessNextError
+          ? _value.getBusinessNextError
+          : getBusinessNextError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      requestAccepteed: null == requestAccepteed
+          ? _value.requestAccepteed
+          : requestAccepteed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      requestDiclined: null == requestDiclined
+          ? _value.requestDiclined
+          : requestDiclined // ignore: cast_nullable_to_non_nullable
+              as bool,
+      businessAcionLoading: null == businessAcionLoading
+          ? _value.businessAcionLoading
+          : businessAcionLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -563,6 +1444,10 @@ class _$AdminStateCopyWithImpl<$Res, $Val extends AdminState>
           ? _value.companySelectedUsersListModel
           : companySelectedUsersListModel // ignore: cast_nullable_to_non_nullable
               as List<CompanySelectedUsersListModel>?,
+      businesscardRequests: freezed == businesscardRequests
+          ? _value.businesscardRequests
+          : businesscardRequests // ignore: cast_nullable_to_non_nullable
+              as List<BusinessCardRequest>?,
     ) as $Val);
   }
 }
@@ -579,9 +1464,15 @@ abstract class _$$InitialImplCopyWith<$Res>
       {bool isLoading,
       bool hasError,
       bool userBlocked,
+      bool getBusinessNextLoading,
+      bool getBusinessNextError,
+      bool requestAccepteed,
+      bool requestDiclined,
+      bool businessAcionLoading,
       String? message,
       bool homeShowcaseViwed,
-      List<CompanySelectedUsersListModel>? companySelectedUsersListModel});
+      List<CompanySelectedUsersListModel>? companySelectedUsersListModel,
+      List<BusinessCardRequest>? businesscardRequests});
 }
 
 /// @nodoc
@@ -598,9 +1489,15 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? hasError = null,
     Object? userBlocked = null,
+    Object? getBusinessNextLoading = null,
+    Object? getBusinessNextError = null,
+    Object? requestAccepteed = null,
+    Object? requestDiclined = null,
+    Object? businessAcionLoading = null,
     Object? message = freezed,
     Object? homeShowcaseViwed = null,
     Object? companySelectedUsersListModel = freezed,
+    Object? businesscardRequests = freezed,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -615,6 +1512,26 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.userBlocked
           : userBlocked // ignore: cast_nullable_to_non_nullable
               as bool,
+      getBusinessNextLoading: null == getBusinessNextLoading
+          ? _value.getBusinessNextLoading
+          : getBusinessNextLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      getBusinessNextError: null == getBusinessNextError
+          ? _value.getBusinessNextError
+          : getBusinessNextError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      requestAccepteed: null == requestAccepteed
+          ? _value.requestAccepteed
+          : requestAccepteed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      requestDiclined: null == requestDiclined
+          ? _value.requestDiclined
+          : requestDiclined // ignore: cast_nullable_to_non_nullable
+              as bool,
+      businessAcionLoading: null == businessAcionLoading
+          ? _value.businessAcionLoading
+          : businessAcionLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -627,6 +1544,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value._companySelectedUsersListModel
           : companySelectedUsersListModel // ignore: cast_nullable_to_non_nullable
               as List<CompanySelectedUsersListModel>?,
+      businesscardRequests: freezed == businesscardRequests
+          ? _value._businesscardRequests
+          : businesscardRequests // ignore: cast_nullable_to_non_nullable
+              as List<BusinessCardRequest>?,
     ));
   }
 }
@@ -638,10 +1559,17 @@ class _$InitialImpl implements _Initial {
       {required this.isLoading,
       required this.hasError,
       required this.userBlocked,
+      required this.getBusinessNextLoading,
+      required this.getBusinessNextError,
+      required this.requestAccepteed,
+      required this.requestDiclined,
+      required this.businessAcionLoading,
       this.message,
       required this.homeShowcaseViwed,
-      final List<CompanySelectedUsersListModel>? companySelectedUsersListModel})
-      : _companySelectedUsersListModel = companySelectedUsersListModel;
+      final List<CompanySelectedUsersListModel>? companySelectedUsersListModel,
+      final List<BusinessCardRequest>? businesscardRequests})
+      : _companySelectedUsersListModel = companySelectedUsersListModel,
+        _businesscardRequests = businesscardRequests;
 
   @override
   final bool isLoading;
@@ -649,6 +1577,16 @@ class _$InitialImpl implements _Initial {
   final bool hasError;
   @override
   final bool userBlocked;
+  @override
+  final bool getBusinessNextLoading;
+  @override
+  final bool getBusinessNextError;
+  @override
+  final bool requestAccepteed;
+  @override
+  final bool requestDiclined;
+  @override
+  final bool businessAcionLoading;
   @override
   final String? message;
   @override
@@ -664,9 +1602,20 @@ class _$InitialImpl implements _Initial {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<BusinessCardRequest>? _businesscardRequests;
+  @override
+  List<BusinessCardRequest>? get businesscardRequests {
+    final value = _businesscardRequests;
+    if (value == null) return null;
+    if (_businesscardRequests is EqualUnmodifiableListView)
+      return _businesscardRequests;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'AdminState(isLoading: $isLoading, hasError: $hasError, userBlocked: $userBlocked, message: $message, homeShowcaseViwed: $homeShowcaseViwed, companySelectedUsersListModel: $companySelectedUsersListModel)';
+    return 'AdminState(isLoading: $isLoading, hasError: $hasError, userBlocked: $userBlocked, getBusinessNextLoading: $getBusinessNextLoading, getBusinessNextError: $getBusinessNextError, requestAccepteed: $requestAccepteed, requestDiclined: $requestDiclined, businessAcionLoading: $businessAcionLoading, message: $message, homeShowcaseViwed: $homeShowcaseViwed, companySelectedUsersListModel: $companySelectedUsersListModel, businesscardRequests: $businesscardRequests)';
   }
 
   @override
@@ -680,12 +1629,24 @@ class _$InitialImpl implements _Initial {
                 other.hasError == hasError) &&
             (identical(other.userBlocked, userBlocked) ||
                 other.userBlocked == userBlocked) &&
+            (identical(other.getBusinessNextLoading, getBusinessNextLoading) ||
+                other.getBusinessNextLoading == getBusinessNextLoading) &&
+            (identical(other.getBusinessNextError, getBusinessNextError) ||
+                other.getBusinessNextError == getBusinessNextError) &&
+            (identical(other.requestAccepteed, requestAccepteed) ||
+                other.requestAccepteed == requestAccepteed) &&
+            (identical(other.requestDiclined, requestDiclined) ||
+                other.requestDiclined == requestDiclined) &&
+            (identical(other.businessAcionLoading, businessAcionLoading) ||
+                other.businessAcionLoading == businessAcionLoading) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.homeShowcaseViwed, homeShowcaseViwed) ||
                 other.homeShowcaseViwed == homeShowcaseViwed) &&
             const DeepCollectionEquality().equals(
                 other._companySelectedUsersListModel,
-                _companySelectedUsersListModel));
+                _companySelectedUsersListModel) &&
+            const DeepCollectionEquality()
+                .equals(other._businesscardRequests, _businesscardRequests));
   }
 
   @override
@@ -694,9 +1655,15 @@ class _$InitialImpl implements _Initial {
       isLoading,
       hasError,
       userBlocked,
+      getBusinessNextLoading,
+      getBusinessNextError,
+      requestAccepteed,
+      requestDiclined,
+      businessAcionLoading,
       message,
       homeShowcaseViwed,
-      const DeepCollectionEquality().hash(_companySelectedUsersListModel));
+      const DeepCollectionEquality().hash(_companySelectedUsersListModel),
+      const DeepCollectionEquality().hash(_businesscardRequests));
 
   @JsonKey(ignore: true)
   @override
@@ -710,10 +1677,15 @@ abstract class _Initial implements AdminState {
       {required final bool isLoading,
       required final bool hasError,
       required final bool userBlocked,
+      required final bool getBusinessNextLoading,
+      required final bool getBusinessNextError,
+      required final bool requestAccepteed,
+      required final bool requestDiclined,
+      required final bool businessAcionLoading,
       final String? message,
       required final bool homeShowcaseViwed,
-      final List<CompanySelectedUsersListModel>?
-          companySelectedUsersListModel}) = _$InitialImpl;
+      final List<CompanySelectedUsersListModel>? companySelectedUsersListModel,
+      final List<BusinessCardRequest>? businesscardRequests}) = _$InitialImpl;
 
   @override
   bool get isLoading;
@@ -722,11 +1694,23 @@ abstract class _Initial implements AdminState {
   @override
   bool get userBlocked;
   @override
+  bool get getBusinessNextLoading;
+  @override
+  bool get getBusinessNextError;
+  @override
+  bool get requestAccepteed;
+  @override
+  bool get requestDiclined;
+  @override
+  bool get businessAcionLoading;
+  @override
   String? get message;
   @override
   bool get homeShowcaseViwed;
   @override
   List<CompanySelectedUsersListModel>? get companySelectedUsersListModel;
+  @override
+  List<BusinessCardRequest>? get businesscardRequests;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

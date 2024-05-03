@@ -71,7 +71,7 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
             backgroundColor: knill,
             title: state.isLoading
                 ? null
-                : Text(state.getSecondCardModel?.name ?? 'No name',
+                : Text(state.getSecondCardModel?.name ?? '',
                     style: textHeadStyle1),
           ),
           body: state.isLoading
@@ -159,12 +159,9 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                             adjustHieght(khieght * .02),
                             Container(
                               margin: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 2),
+                                  horizontal: 20, vertical: 4),
                               decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: neonShade,
-                                  width: 1,
-                                ),
+                                border: Border.all(color: neonShade),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Column(
@@ -187,28 +184,17 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                                     item: state.getSecondCardModel?.designation,
                                   ),
                                   ItemsContainer(
+                                    heading: 'Notes',
+                                    item: state.getSecondCardModel?.notes,
+                                  ),
+                                  ItemsContainer(
                                     heading: 'Date',
                                     item: state.getSecondCardModel?.date,
-                                    // needDivider: state.getSecondCardModel !=
-                                    //             null &&
-                                    //         state.getSecondCardModel!.date !=
-                                    //             null
-                                    //     ? true
-                                    //     : false,
                                   ),
                                   ItemsContainer(
                                     heading: 'Time',
                                     item: formattedTime,
-                                    // needDivider: state.getSecondCardModel !=
-                                    //             null &&
-                                    //         state.getSecondCardModel!.time !=
-                                    //             null
-                                    //     ? false
-                                    //     : true,
-                                  ),
-                                  ItemsContainer(
-                                    heading: 'Notes',
-                                    item: state.getSecondCardModel?.notes,
+                                    istime: false,
                                   ),
                                   adjustHieght(10),
                                 ],
@@ -230,18 +216,18 @@ class ItemsContainer extends StatelessWidget {
     super.key,
     required this.item,
     required this.heading,
-    this.needDivider = true,
+    this.istime = true,
   });
   final String? item;
   final String heading;
-  final bool needDivider;
+  final bool istime;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         item != ''
             ? Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 3),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -249,13 +235,14 @@ class ItemsContainer extends StatelessWidget {
                         width: kwidth * .24,
                         child: Text(item != "" ? heading : '')),
                     const Text(':   ', style: TextStyle(color: neonShade)),
-                    const Divider(color: neonShade, thickness: 2),
                     Expanded(child: Text(item ?? '')),
                   ],
                 ),
               )
             : kempty,
-        if (item != null && item != '') const Divider(color: neonShade),
+        item != null && item != '' && istime
+            ? const Divider(color: neonShade)
+            : kempty
       ],
     );
   }

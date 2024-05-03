@@ -7,6 +7,8 @@ class QRModel {
   int? id;
   String? logo;
   bool? email;
+  bool? accolades;
+  bool? accreditation;
   @JsonKey(name: 'phone_number')
   bool? phoneNumber;
   bool? company;
@@ -32,23 +34,26 @@ class QRModel {
   @JsonKey(name: 'user_id')
   int? userId;
 
-  QRModel(
-      {this.id,
-      this.logo,
-      this.email,
-      this.phoneNumber,
-      this.company,
-      this.personalSocialMedia,
-      this.businessDetailsEmail,
-      this.businessDetailsMobileNumber,
-      this.address,
-      this.socialMediaHandles,
-      this.websiteLink,
-      this.qrlink,
-      this.cardId,
-      this.userId,
-      this.qrCode,
-      this.businessEmail});
+  QRModel({
+    this.id,
+    this.logo,
+    this.email,
+    this.accolades,
+    this.accreditation,
+    this.phoneNumber,
+    this.company,
+    this.personalSocialMedia,
+    this.businessDetailsEmail,
+    this.businessDetailsMobileNumber,
+    this.address,
+    this.socialMediaHandles,
+    this.websiteLink,
+    this.qrlink,
+    this.cardId,
+    this.userId,
+    this.qrCode,
+    this.businessEmail,
+  });
 
   factory QRModel.fromJson(Map<String, dynamic> json) {
     return _$QRModelFromJson(json);

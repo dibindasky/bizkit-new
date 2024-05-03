@@ -119,6 +119,11 @@ class ApiEndPoints {
       '/admin_actions/list_company_selected_user/';
   static String companySelectedUserAction =
       '/admin_actions/admin-update-business-details/{id}/';
+  static String getAllBusinessUserRequsts = '/card/request-company/';
+  static String businessUserRequstAccept =
+      ' /card/accept-requested-company/{id}/';
+  static String businessUserRequstReject =
+      '/card/decline-requested-company/{id}/';
 
   // profile section
   static String reportAProblem = '/accounts/report-problem-in-app/';

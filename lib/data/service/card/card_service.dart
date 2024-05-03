@@ -306,8 +306,7 @@ class CardService implements CardRepo {
       log('createBusinessDataCard creation done');
       return Right(BusinessDetails.fromJson(response.data));
     } on DioException catch (e) {
-      log('createBusinessDataCard creation dio error');
-      log(e.toString());
+      log('createBusinessDataCard creation dio error $e');
       log(e.response.toString());
       return Left(
           Failure(message: 'Failed to create business data please try again'));

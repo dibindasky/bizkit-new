@@ -60,52 +60,53 @@ class PersonlDetails extends StatelessWidget {
                         BlocBuilder<UserDataBloc, UserDataState>(
                           builder: (context, state) {
                             return ImagePreviewUnderTextField(
-                                onItemTap: (item, index) {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            SlidablePhotoGallery(
-                                          images: state.personalImges
-                                              .map((e) => e.image ?? '')
-                                              .toList(),
-                                          initialIndex: index,
-                                        ),
-                                      ));
-                                },
-                                removeItem: (index) =>
-                                    showCustomConfirmationDialogue(
-                                      context: context,
-                                      title: 'Remove image?',
-                                      buttonText: 'Remove',
-                                      onTap: () {
-                                        context.read<UserDataBloc>().add(
-                                            UserDataEvent.removePersonalImage(
-                                                id: state
-                                                    .personalImges[index].id!));
-                                      },
+                              onItemTap: (item, index) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SlidablePhotoGallery(
+                                      images: state.personalImges
+                                          .map((e) => e.image ?? '')
+                                          .toList(),
+                                      initialIndex: index,
                                     ),
-                                list: state.personalImges
-                                    .map((e) => e.image ?? '')
-                                    .toList(),
-                                ontap: () {
-                                  cameraAndGalleryPickImage(
-                                      context: context,
-                                      onPressCam: () {
-                                        context.read<UserDataBloc>().add(
-                                            UserDataEvent.addPersonalImage(
-                                                cam: true));
-                                      },
-                                      onPressGallery: () {
-                                        context.read<UserDataBloc>().add(
-                                            UserDataEvent.addPersonalImage(
-                                                cam: false));
-                                      });
+                                  ),
+                                );
+                              },
+                              removeItem: (index) =>
+                                  showCustomConfirmationDialogue(
+                                context: context,
+                                title: 'Remove image?',
+                                buttonText: 'Remove',
+                                onTap: () {
+                                  context.read<UserDataBloc>().add(
+                                      UserDataEvent.removePersonalImage(
+                                          id: state.personalImges[index].id!));
                                 },
-                                child: const TTextFormField(
-                                    suffix: Icon(Icons.add_a_photo_outlined),
-                                    enabled: false,
-                                    text: 'Personal Imges'));
+                              ),
+                              list: state.personalImges
+                                  .map((e) => e.image ?? '')
+                                  .toList(),
+                              ontap: () {
+                                cameraAndGalleryPickImage(
+                                    context: context,
+                                    onPressCam: () {
+                                      context.read<UserDataBloc>().add(
+                                          UserDataEvent.addPersonalImage(
+                                              cam: true));
+                                    },
+                                    onPressGallery: () {
+                                      context.read<UserDataBloc>().add(
+                                          UserDataEvent.addPersonalImage(
+                                              cam: false));
+                                    });
+                              },
+                              child: const TTextFormField(
+                                suffix: Icon(Icons.add_a_photo_outlined),
+                                enabled: false,
+                                text: 'Personal Imges',
+                              ),
+                            );
                           },
                         ),
                         // personal name field

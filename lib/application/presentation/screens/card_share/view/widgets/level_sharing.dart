@@ -132,6 +132,10 @@ class _SwitchButtonsState extends State<SwitchButtons> {
                             null
                         ? null
                         : false,
+                    accolades:
+                        context.read<QrBloc>().createQrModel.accolades == null
+                            ? null
+                            : false,
                     company:
                         context.read<QrBloc>().createQrModel.company == null
                             ? null
@@ -182,6 +186,17 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             }
           });
         }),
+        buildSwitch("Personal achievements",
+            context.read<QrBloc>().createQrModel.accolades, (value) {
+          setState(() {
+            if (personalDetals) {
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(accolades: value);
+            }
+          });
+        }),
         adjustHieght(khieght * .02),
         buildSwitch("Business Details", businessDetals, (value) {
           setState(() {
@@ -217,6 +232,11 @@ class _SwitchButtonsState extends State<SwitchButtons> {
                             : false,
                     websiteLink:
                         context.read<QrBloc>().createQrModel.websiteLink == null
+                            ? null
+                            : false,
+                    accreditation:
+                        context.read<QrBloc>().createQrModel.accreditation ==
+                                null
                             ? null
                             : false,
                   );
@@ -256,6 +276,17 @@ class _SwitchButtonsState extends State<SwitchButtons> {
                   .read<QrBloc>()
                   .createQrModel
                   .copyWith(websiteLink: value);
+            }
+          });
+        }),
+        buildSwitch("Company achievements",
+            context.read<QrBloc>().createQrModel.accreditation, (value) {
+          setState(() {
+            if (businessDetals) {
+              context.read<QrBloc>().createQrModel = context
+                  .read<QrBloc>()
+                  .createQrModel
+                  .copyWith(accreditation: value);
             }
           });
         }),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/domain/model/qr/create_qr_model/create_qr_model.dart';
 import 'package:bizkit/domain/model/qr/defauilt_qr/defauilt_qr.dart';
@@ -25,8 +26,8 @@ class QrBloc extends Bloc<QrEvent, QrState> {
   }
 
   FutureOr<void> getDefaultQr(GetDefaultQr event, emit) async {
-    // if (state.defauiltQr != null) return;
     emit(state.copyWith(
+      qrUpdated: false,
       isLoading: true,
       hasError: false,
       message: null,
@@ -34,12 +35,14 @@ class QrBloc extends Bloc<QrEvent, QrState> {
     final data = await qrServiceImpl.getDefaultQr();
     data.fold(
         (l) => emit(state.copyWith(
+              qrUpdated: false,
               isLoading: false,
               hasError: true,
               message: null,
             )), (r) {
       emit(
         state.copyWith(
+          qrUpdated: false,
           isLoading: false,
           hasError: false,
           defauiltQr: r,
@@ -71,8 +74,15 @@ class QrBloc extends Bloc<QrEvent, QrState> {
   }
 
   FutureOr<void> addNewLevelSharing(AddNewLevelSharing event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+      isLoading: true,
+      hasError: false,
+      message: null,
+      qrUpdated: false,
+    ));
     CreateQrModel createmodel = event.createQrModel.copyWith(
+      accolades: event.createQrModel.accolades ?? false,
+      accreditation: event.createQrModel.accreditation ?? false,
       address: event.createQrModel.address ?? false,
       businessDetailsMobileNumber:
           event.createQrModel.businessDetailsMobileNumber ?? false,
@@ -91,6 +101,8 @@ class QrBloc extends Bloc<QrEvent, QrState> {
       List<QRModel> list = List.from(state.qrList);
       final model = list[state.selectedQrIndex];
       createQrModel = createQrModel.copyWith(
+          accolades: model.accolades,
+          accreditation: model.accreditation,
           address: model.address,
           businessDetailsMobileNumber: model.businessDetailsMobileNumber,
           businessEmail: model.businessEmail,
@@ -101,6 +113,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
           socialMediaHandles: model.socialMediaHandles,
           websiteLink: model.websiteLink);
       return emit(state.copyWith(
+        qrUpdated: false,
         isLoading: false,
         hasError: true,
         message: failure.message ?? errorMessage,
@@ -108,30 +121,55 @@ class QrBloc extends Bloc<QrEvent, QrState> {
     }, (response) {
       List<QRModel> list = List.from(state.qrList);
       list[state.selectedQrIndex] = response;
-      return emit(state.copyWith(isLoading: false, qrList: list));
+      return emit(state.copyWith(
+        isLoading: false,
+        qrList: list,
+        qrUpdated: false,
+      ));
     });
   }
 
   FutureOr<void> getQrCodes(GetQrCodes event, emit) async {
-    emit(state.copyWith(isLoading: true, hasError: false, message: null));
+    emit(state.copyWith(
+      isLoading: true,
+      hasError: false,
+      message: null,
+      qrUpdated: false,
+    ));
     final result = await qrServiceImpl.getAllQrCode();
     result.fold(
         (failure) => emit(state.copyWith(
             isLoading: false,
+            qrUpdated: false,
             hasError: true,
             message: failure.message)), (response) {
-      emit(state.copyWith(isLoading: false, qrList: response.results ?? []));
+      emit(state.copyWith(
+        isLoading: false,
+        qrList: response.results ?? [],
+        qrUpdated: false,
+      ));
+      log('${response.results?.first.accolades}', name: 'Accolades bloc');
+      log('${response.results?.first.accreditation}',
+          name: 'accreditation bloc');
       add(const QrEvent.changeQRSelection(index: 0));
     });
   }
 
   FutureOr<void> changeQRSelection(ChangeQRSelection event, emit) {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(
+      isLoading: true,
+      qrUpdated: false,
+    ));
     if (state.qrList.isEmpty) {
-      return emit(state.copyWith(isLoading: false));
+      return emit(state.copyWith(
+        isLoading: false,
+        qrUpdated: false,
+      ));
     }
     final model = state.qrList[event.index];
     createQrModel = createQrModel.copyWith(
+      accolades: model.accolades,
+      accreditation: model.accreditation,
       address: model.address,
       businessDetailsMobileNumber: model.businessDetailsMobileNumber,
       company: model.company,
@@ -141,8 +179,11 @@ class QrBloc extends Bloc<QrEvent, QrState> {
       socialMediaHandles: model.socialMediaHandles,
       websiteLink: model.websiteLink,
       businessEmail: model.businessEmail,
-      // card: model.cardId,
     );
-    emit(state.copyWith(selectedQrIndex: event.index, isLoading: false));
+    emit(state.copyWith(
+      selectedQrIndex: event.index,
+      isLoading: false,
+      qrUpdated: false,
+    ));
   }
 }

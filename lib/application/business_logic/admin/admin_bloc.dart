@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:bizkit/domain/model/admin/company_selected_users_list_model/company_selected_users_list_model.dart';
+import 'package:bizkit/domain/model/admin/get_all_business_card_requests/business_card_request.dart';
+import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/repository/service/admin_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,10 +13,112 @@ part 'admin_bloc.freezed.dart';
 @injectable
 class AdminBloc extends Bloc<AdminEvent, AdminState> {
   final AdminRepo adminRepo;
+  int getBusinessRequest = 1;
   AdminBloc(this.adminRepo) : super(AdminState.initial()) {
     on<GetCompanyUsers>(getCompanyUsers);
     on<RemoveIndiVidualusersPartOfBusiness>(
         removeIndiVidualusersPartOfBusiness);
+    on<GetAllBusinessCardRequests>(getAllBusinessCardRequests);
+    on<GetAllBusinessCardRequestsNExt>(getAllBusinessCardRequestsNExt);
+    on<BusinessCardRequestAccept>(businessCardRequestAccept);
+    on<BusinessCardRequestAReject>(businessCardRequestAReject);
+  }
+
+  FutureOr<void> businessCardRequestAReject(
+      BusinessCardRequestAReject event, emit) async {
+    emit(state.copyWith(
+        businessAcionLoading: true, hasError: false, requestDiclined: false));
+    final data = await adminRepo.businessCardRequestReject(id: event.id);
+    data.fold(
+      (l) => emit(
+        state.copyWith(
+          businessAcionLoading: false,
+          hasError: false,
+          requestDiclined: false,
+        ),
+      ),
+      (r) {
+        emit(state.copyWith(
+          businessAcionLoading: false,
+          hasError: false,
+          requestDiclined: true,
+        ));
+        add(const AdminEvent.getAllBusinessCardRequests(isLoad: true));
+      },
+    );
+  }
+
+  FutureOr<void> businessCardRequestAccept(
+      BusinessCardRequestAccept event, emit) async {
+    emit(state.copyWith(
+      businessAcionLoading: true,
+      hasError: false,
+      requestAccepteed: false,
+    ));
+    final data = await adminRepo.businessCardRequestAccept(id: event.id);
+    data.fold(
+      (l) => emit(state.copyWith(
+        requestAccepteed: false,
+        businessAcionLoading: false,
+        hasError: true,
+      )),
+      (r) {
+        emit(state.copyWith(
+          requestAccepteed: true,
+          businessAcionLoading: false,
+          hasError: false,
+        ));
+        add(const AdminEvent.getAllBusinessCardRequests(isLoad: true));
+      },
+    );
+  }
+
+  FutureOr<void> getAllBusinessCardRequestsNExt(
+      GetAllBusinessCardRequestsNExt event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false));
+    final data = await adminRepo.getAllBusinessCardRequests(
+        pageQuery: PageQuery(page: ++getBusinessRequest));
+    data.fold(
+      (l) => emit(state.copyWith(isLoading: false, hasError: true)),
+      (r) => emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        businesscardRequests: [
+          ...state.businesscardRequests ?? [],
+          ...r.businesscardRequests!
+        ],
+      )),
+    );
+  }
+
+  FutureOr<void> getAllBusinessCardRequests(
+      GetAllBusinessCardRequests event, emit) async {
+    if (state.businesscardRequests != null && !event.isLoad) return;
+    emit(state.copyWith(
+      isLoading: true,
+      hasError: false,
+      requestDiclined: false,
+      requestAccepteed: false,
+    ));
+    final data = await adminRepo.getAllBusinessCardRequests(
+        pageQuery: PageQuery(page: 1));
+    data.fold(
+      (l) => emit(state.copyWith(
+        isLoading: false,
+        hasError: true,
+        requestDiclined: false,
+        requestAccepteed: false,
+      )),
+      (r) {
+        emit(state.copyWith(
+          isLoading: false,
+          hasError: false,
+          requestDiclined: false,
+          requestAccepteed: false,
+          businesscardRequests: r.businesscardRequests,
+        ));
+      },
+    );
   }
 
   FutureOr<void> removeIndiVidualusersPartOfBusiness(

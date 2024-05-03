@@ -99,7 +99,7 @@ class CardSharingScreen extends StatelessWidget {
                                   color: index == state.selectedQrIndex
                                       ? neonShade
                                       : null),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -113,7 +113,9 @@ class CardSharingScreen extends StatelessWidget {
               if (state.isLoading) {
                 return const LoadingAnimation();
               } else if (state.qrList.isEmpty) {
-                return const Text('No Qr code available');
+                return SizedBox(
+                    height: khieght * .5,
+                    child: const Center(child: Text('No Qr code available')));
               } else if (state.qrList.isNotEmpty) {
                 //print(state.qrList[state.selectedQrIndex].qrCode!);
                 return SizedBox(
@@ -235,19 +237,6 @@ class CardSharingScreen extends StatelessWidget {
                 }
               },
             ),
-            // BlocBuilder<QrBloc, QrState>(
-            //   builder: (context, state) {
-            //     if (state.isLoading || state.qrList.isEmpty) {
-            //       return const SizedBox();
-            //     }
-            //     return AuthButton(
-            //       text: 'Share',
-            //       onTap: () {},
-            //       wdth: 110,
-            //     );
-            //   },
-            // ),
-            // adjustHieght(khieght * .04),
           ],
         ),
       ),

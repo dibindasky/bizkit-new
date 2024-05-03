@@ -32,7 +32,7 @@ class CardSecondService implements CardSecondRepo {
         ApiEndPoints.createSecondCard,
         data: cardSecondCreateRequestModel.toJson(),
       );
-      log('addeded ${responce.data}');
+      //log('addeded ${responce.data}');
       return Right(CardSecondResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('cardSecondCreation dio error $e');
@@ -50,7 +50,7 @@ class CardSecondService implements CardSecondRepo {
     try {
       final responce = await _apiService
           .get(ApiEndPoints.getSecondCard.replaceAll('{id}', id.toString()));
-      log('getCardSecond data ${responce.data}');
+      // log('getCardSecond data ${responce.data}');
       return Right(GetSecondCardModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getCardSecond dio error $e');
@@ -67,7 +67,7 @@ class CardSecondService implements CardSecondRepo {
     required String id,
   }) async {
     try {
-      log('updateCardSecond before ${secondCard.toJson()}');
+      //log('updateCardSecond before ${secondCard.toJson()}');
       final responce = await _apiService.patch(
         ApiEndPoints.updateCardSecond.replaceAll('{id}', id),
         data: secondCard.toJson(),

@@ -157,7 +157,7 @@ class BizkitOnBoardingScreenSecond extends StatelessWidget {
                         );
                       },
                       child: const Text(
-                        'Go back',
+                        'Go Back',
                         style: TextStyle(color: kwhite),
                       ),
                     ),
@@ -170,7 +170,7 @@ class BizkitOnBoardingScreenSecond extends StatelessWidget {
                             .add(const AuthEvent.onBoardskip());
                       },
                       child: const Text(
-                        'skip',
+                        'Skip',
                         style: TextStyle(color: kwhite),
                       ),
                     ),
@@ -258,7 +258,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                         );
                       },
                       child: const Text(
-                        'Go back',
+                        'Go Back',
                         style: TextStyle(color: kwhite),
                       ),
                     ),
@@ -271,7 +271,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                             .add(const AuthEvent.onBoardskip());
                       },
                       child: const Text(
-                        'skip',
+                        'Skip',
                         style: TextStyle(color: kwhite),
                       ),
                     ),

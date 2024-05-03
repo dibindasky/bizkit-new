@@ -5,6 +5,7 @@ import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class BussinessUsers extends StatefulWidget {
@@ -19,7 +20,6 @@ class _BussinessUsersState extends State<BussinessUsers> {
       RefreshController(initialRefresh: false);
 
   void onRefresh() async {
-    // monitor network fetch
     await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
         context
             .read<AdminBloc>()
@@ -66,13 +66,11 @@ class _BussinessUsersState extends State<BussinessUsers> {
           style: textHeadStyle1,
         ),
       ),
-      body: SmartRefresher(
-        onLoading: onLoading,
-        header: const WaterDropHeader(),
-        enablePullDown: true,
-        enablePullUp: true,
-        controller: refreshController,
-        onRefresh: onRefresh,
+      body: LiquidPullToRefresh(
+        springAnimationDurationInMilliseconds: 500,
+        onRefresh: () async {
+          onRefresh();
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: BlocBuilder<AdminBloc, AdminState>(

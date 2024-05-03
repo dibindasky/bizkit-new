@@ -75,7 +75,9 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
         child: AppbarCommen(
-          tittle: widget.isAccolade ? 'Personal Achievements' : 'Company Achievements',
+          tittle: widget.isAccolade
+              ? 'Personal Achievements'
+              : 'Company Achievements',
         ),
       ),
       body: SingleChildScrollView(

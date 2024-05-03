@@ -9,6 +9,7 @@ import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class BlockedConnections extends StatefulWidget {
@@ -23,12 +24,12 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
-  void onRefresh() async {
-    await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
-        context.read<ConnectionRequestBloc>().add(
-            const ConnectionRequestEvent.getBlockeConnections(isLoad: true)));
-
-    refreshController.refreshCompleted();
+  Future<void> onRefresh() async {
+    // await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
+    //     context.read<ConnectionRequestBloc>().add(
+    //         const ConnectionRequestEvent.getBlockeConnections(isLoad: true)));
+    return await Future.delayed(Duration(seconds: 1));
+    // refreshController.refreshCompleted();
   }
 
   void onLoading() async {
@@ -70,11 +71,7 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
           style: textHeadStyle1,
         ),
       ),
-      body: SmartRefresher(
-        onLoading: onLoading,
-        header: const WaterDropHeader(),
-        enablePullDown: true,
-        controller: refreshController,
+      body: LiquidPullToRefresh(
         onRefresh: onRefresh,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -115,7 +112,7 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
                                       state.blockedConnections![index].cardId !=
                                           null
                                   ? {
-                                      'myCard': 'true',
+                                      'myCard': 'false',
                                       'cardId': state
                                           .blockedConnections![index].cardId!
                                           .toString()

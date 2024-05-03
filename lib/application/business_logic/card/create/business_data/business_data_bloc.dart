@@ -731,8 +731,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       productAdded: false,
       socialMediaAdded: false,
     ));
-    final response = await cardPatchRepo.addBranchOffice(
-        branchOffice:event.branch);
+    final response =
+        await cardPatchRepo.addBranchOffice(branchOffice: event.branch);
     response.fold(
         (l) => emit(state.copyWith(branchLoading: false)),
         (r) => emit(state.copyWith(

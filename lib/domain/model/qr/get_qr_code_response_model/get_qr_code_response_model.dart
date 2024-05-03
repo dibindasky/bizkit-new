@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
 import 'qr_model.dart';
-
 part 'get_qr_code_response_model.g.dart';
 
 @JsonSerializable()

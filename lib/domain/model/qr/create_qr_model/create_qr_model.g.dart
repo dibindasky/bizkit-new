@@ -8,6 +8,8 @@ part of 'create_qr_model.dart';
 
 CreateQrModel _$CreateQrModelFromJson(Map<String, dynamic> json) =>
     CreateQrModel(
+      accolades: json['accolades'] as bool?,
+      accreditation: json['accreditation'] as bool?,
       email: json['email'] as bool?,
       phoneNumber: json['phone_number'] as bool?,
       company: json['company'] as bool?,
@@ -24,6 +26,8 @@ Map<String, dynamic> _$CreateQrModelToJson(CreateQrModel instance) =>
     <String, dynamic>{
       'email': instance.email,
       'phone_number': instance.phoneNumber,
+      'accolades': instance.accolades,
+      'accreditation': instance.accreditation,
       'company': instance.company,
       'personal_social_media': instance.personalSocialMedia,
       'business_details_mobile_number': instance.businessDetailsMobileNumber,

@@ -124,9 +124,11 @@ class ApiEndPoints {
       '/admin_actions/admin-update-business-details/{id}/';
   static String getAllBusinessUserRequsts = '/card/request-company/';
   static String businessUserRequstAccept =
-      ' /card/accept-requested-company/{id}/';
+      '/card/accept-requested-company/{id}/';
   static String businessUserRequstReject =
       '/card/decline-requested-company/{id}/';
+  static String businessBlockedUsers = '/admin_actions/blocked-users/';
+  static String businessUnBlockUser = '/admin_actions/unblock-user/{id}/';
 
   // profile section
   static String reportAProblem = '/accounts/report-problem-in-app/';

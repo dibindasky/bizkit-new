@@ -12,6 +12,8 @@ BusinessCardRequest _$BusinessCardRequestFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       designation: json['designation'] as String?,
       photo: json['photo'] as String?,
+      isAccepted: json['is_accepted'] as bool?,
+      isDiclined: json['is_declined'] as bool?,
       companyId: json['company_id'] as int?,
       cardId: json['card_id'] as int?,
     );
@@ -25,4 +27,6 @@ Map<String, dynamic> _$BusinessCardRequestToJson(
       'photo': instance.photo,
       'company_id': instance.companyId,
       'card_id': instance.cardId,
+      'is_accepted': instance.isAccepted,
+      'is_declined': instance.isDiclined,
     };

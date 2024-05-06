@@ -15,4 +15,7 @@ class AdminEvent with _$AdminEvent {
       BusinessCardRequestAccept;
   const factory AdminEvent.businessCardRequestAReject({required String id}) =
       BusinessCardRequestAReject;
+  const factory AdminEvent.getBusinessBlockeUsers() = GetBusinessBlockeUsers;
+  const factory AdminEvent.businessUnBlockeUser({required String id}) =
+      BusinessUnBlockeUser;
 }

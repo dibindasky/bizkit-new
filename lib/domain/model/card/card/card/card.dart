@@ -99,7 +99,8 @@ class Card {
       this.product,
       this.socialMedia,
       this.logoCard,
-      this.extractedTextModel,this.isCompanyRequested,
+      this.extractedTextModel,
+      this.isCompanyRequested,
       this.scannedImage});
 
   factory Card.fromJson(Map<String, dynamic> json) {

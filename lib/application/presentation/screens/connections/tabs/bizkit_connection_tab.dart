@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
@@ -59,7 +61,8 @@ class BizkitConnectionsTab extends StatelessWidget {
                       leading: CircleAvatar(
                         backgroundColor: textFieldFillColr,
                         backgroundImage: data.photos != null
-                            ? NetworkImage(data.photos!)
+                            ? MemoryImage(
+                                base64.decode(getBase64(data.photos!)))
                             : null,
                         child: data.photos != null
                             ? null

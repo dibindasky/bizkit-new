@@ -9,7 +9,7 @@ part of 'bizkit_connection.dart';
 BizkitConnection _$BizkitConnectionFromJson(Map<String, dynamic> json) =>
     BizkitConnection(
       id: json['id'] as int?,
-      photos: json['photos'] as String?,
+      photos: json['image'] as String?,
       name: json['name'] as String?,
       designation: json['designation'] as String?,
       company: json['company'] as String?,
@@ -22,7 +22,7 @@ BizkitConnection _$BizkitConnectionFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$BizkitConnectionToJson(BizkitConnection instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'photos': instance.photos,
+      'image': instance.photos,
       'name': instance.name,
       'designation': instance.designation,
       'company': instance.company,

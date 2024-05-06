@@ -7,7 +7,7 @@ part 'accolade.g.dart';
 class Accolade {
   int? id;
   @JsonKey(name: 'image')
-  List<ImageCard>? accoladesImage;
+  List<ImageCard>? images;
   @JsonKey(name: 'title')
   String? accolades;
   String? date;
@@ -19,7 +19,7 @@ class Accolade {
 
   Accolade(
       {this.id,
-      this.accoladesImage,
+      this.images,
       this.accolades,
       this.date,
       this.event,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
@@ -71,7 +73,7 @@ class MyConnectionContainerHomePage extends StatelessWidget {
         adjustHieght(khieght * .03),
         SizedBox(
           width: double.infinity,
-          height: 60,
+          height: 75,
           child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
             builder: (context, state) {
               if (state.isLoading) {
@@ -98,7 +100,7 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                   if (index == 0) {
                     return Padding(
                       padding: const EdgeInsets.only(left: 15),
-                      child: InkWell(
+                      child: GestureDetector(
                         onTap: () {
                           Navigator.push(
                               context, fadePageRoute(ScreenAddConnections()));
@@ -136,27 +138,46 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                           fadePageRoute(
                               ScreenCardDetailView(cardId: data.cardId)));
                     },
-                    child: Container(
-                      height: 40,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        color: textFieldFillColr,
-                        image: data.photos != null
-                            ? DecorationImage(
-                                image: NetworkImage(data.photos!),
-                                fit: BoxFit.cover,
-                              )
-                            : null,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Center(
-                          child: data.photos == null && data.name != null
-                              ? FittedBox(
-                                  child: Text(
-                                      data.name!.substring(0, 2).toUpperCase(),
-                                      style: textHeadStyle1),
-                                )
-                              : null),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 40,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              color: textFieldFillColr,
+                              image: data.photos != null
+                                  ? DecorationImage(
+                                      image: MemoryImage(
+                                        base64.decode(getBase64(data.photos!)),
+                                      ),
+                                      fit: BoxFit.cover,
+                                      onError: (exception, stackTrace) =>
+                                          const Icon(Icons
+                                              .image_not_supported_outlined),
+                                    )
+                                  : null,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
+                                child: data.photos == null && data.name != null
+                                    ? FittedBox(
+                                        child: Text(
+                                            data.name!
+                                                .substring(0, 2)
+                                                .toUpperCase(),
+                                            style: textHeadStyle1),
+                                      )
+                                    : null),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 60,
+                          child: Text(data.name ?? '',
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center),
+                        )
+                      ],
                     ),
                   );
                 },

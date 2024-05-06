@@ -27,15 +27,18 @@ class SecureStorage {
   static Future<void> clearLogin() async {
     final prefs = await _getPrefs();
     log('clear all storage =>()');
-    await prefs.setString(accessKey, '');
     await prefs.setString(refreshKey, '');
     await prefs.setString(idKey, '');
-    await prefs.setString(userNameKey, '');
     await prefs.setString(accessKey, '');
     await prefs.setString(isLoged, '0');
-    await prefs.setString(userNameKey, '');
     await prefs.setBool(isVerifiedKey, false);
-    await prefs.setString(isBusinessKey, '');
+    await prefs.setString(isBusinessKey, '0');
+    await prefs.setString(userNameKey, '');
+    await prefs.setString(userWebsiteKey, '');
+    await prefs.setString(userAddressKey, '');
+    await prefs.setString(userCompanyKey, '');
+    await prefs.setString(userEmailKey, '');
+    await prefs.setString(userPhoneKey, '');
     await prefs.setBool(hasCardKey, false);
     await prefs.setBool(hasReminderKey, false);
     // await prefs.;

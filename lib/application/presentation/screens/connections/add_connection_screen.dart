@@ -6,7 +6,6 @@ import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
-import 'package:bizkit/domain/model/connections/connection_request_id_model/connection_request_id_model.dart';
 import 'package:bizkit/domain/model/connections/get_serch_connection_response_model/bizkit_user.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:flutter/material.dart';
@@ -51,12 +50,14 @@ class ScreenAddConnections extends StatelessWidget {
             TTextFormField(
               controller: controller,
               onChanaged: (value) {
-                if (value.length > 2) {
+                if (value.length < 3) {
+                  show = false;
+                } else {
                   show = true;
-                  context.read<ConnectionRequestBloc>().add(
-                      ConnectionRequestEvent.searchBizkitUsers(
-                          searchQuery: SearchQuery(search: value)));
                 }
+                context.read<ConnectionRequestBloc>().add(
+                    ConnectionRequestEvent.searchBizkitUsers(
+                        searchQuery: SearchQuery(search: value)));
               },
               text: 'Search',
               su: const Icon(Icons.search),

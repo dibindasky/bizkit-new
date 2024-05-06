@@ -269,7 +269,7 @@ class PersonlDetails extends StatelessWidget {
                         if (state.accolades.isEmpty) {
                           return null;
                         } else {
-                          return e.accoladesImage?[0].image as String;
+                          return e.images?[0].image as String;
                         }
                       }).toList(),
                       child: Container(

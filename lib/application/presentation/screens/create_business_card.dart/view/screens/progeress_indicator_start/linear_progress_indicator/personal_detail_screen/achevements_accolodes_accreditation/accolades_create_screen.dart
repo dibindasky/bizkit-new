@@ -55,7 +55,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
   @override
   void initState() {
     if (widget.accolade != null) {
-      image = widget.accolade!.accoladesImage ?? [];
+      image = widget.accolade!.images ?? [];
       title = widget.accolade!.accolades ?? '';
       titleController.text = widget.accolade!.accolades ?? '';
       description = widget.accolade!.accoladesDescription ?? '';
@@ -329,7 +329,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                                   : dateController.text,
                                               accoladesDescription: description,
                                               event: eventController.text,
-                                              accoladesImage: newimage),
+                                              images: newimage),
                                         ),
                                       )
                                   : context.read<BusinessDataBloc>().add(

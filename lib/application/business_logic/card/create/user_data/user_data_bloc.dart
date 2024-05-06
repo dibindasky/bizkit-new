@@ -273,7 +273,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         socialMediaAdded: false,
         accoladeAdded: false));
     if (event.edit) {
-      final images = event.accolade.accoladesImage ??
+      final images = event.accolade.images ??
           <ImageCard>[].where((element) => element.id == null).toList();
       if (images.isNotEmpty) {
         await cardPatchRepo.uploadAccoladeImages(

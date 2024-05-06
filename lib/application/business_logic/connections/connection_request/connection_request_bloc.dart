@@ -212,6 +212,9 @@ class ConnectionRequestBloc
   }
 
   FutureOr<void> searchBizkitUsers(SearchBizkitUsers event, emit) async {
+    if (event.searchQuery.search!.length < 3) {
+      return emit(state.copyWith(isLoading: false, bizkitUsers: null));
+    }
     emit(state.copyWith(
         isLoading: true, hasError: false, message: null, connected: false));
 

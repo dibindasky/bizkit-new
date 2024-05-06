@@ -18,7 +18,7 @@ class PreviewPageViewBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: khieght * 0.9,
+      // height: khieght * 0.9,
       child: SingleChildScrollView(
         child: Column(
           children: [

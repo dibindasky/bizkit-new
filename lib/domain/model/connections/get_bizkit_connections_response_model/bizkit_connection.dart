@@ -5,6 +5,7 @@ part 'bizkit_connection.g.dart';
 @JsonSerializable()
 class BizkitConnection {
   int? id;
+  @JsonKey(name: 'image')
   String? photos;
   String? name;
   String? designation;

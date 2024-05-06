@@ -339,7 +339,7 @@ class AchivementListViewCreation extends StatelessWidget {
                   width: double.infinity,
                   child: Image.memory(
                     base64.decode((accolades != null
-                            ? accolades![index].accoladesImage![0].image!
+                            ? accolades![index].images![0].image!
                             : accreditions![index].images![0].image!)
                         .substring(22)),
                     fit: BoxFit.cover,

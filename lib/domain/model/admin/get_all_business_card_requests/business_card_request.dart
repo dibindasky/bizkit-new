@@ -12,12 +12,18 @@ class BusinessCardRequest {
   int? companyId;
   @JsonKey(name: 'card_id')
   int? cardId;
+  @JsonKey(name: 'is_accepted')
+  bool? isAccepted;
+  @JsonKey(name: 'is_declined')
+  bool? isDiclined;
 
   BusinessCardRequest({
     this.id,
     this.name,
     this.designation,
     this.photo,
+    this.isAccepted,
+    this.isDiclined,
     this.companyId,
     this.cardId,
   });

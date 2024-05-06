@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bizkit/domain/model/admin/company_selected_users_list_model/company_selected_users_list_model.dart';
 import 'package:bizkit/domain/model/admin/get_all_business_card_requests/business_card_request.dart';
+import 'package:bizkit/domain/model/admin/get_blocked_users/blocked_user.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/repository/service/admin_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +24,37 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     on<GetAllBusinessCardRequestsNExt>(getAllBusinessCardRequestsNExt);
     on<BusinessCardRequestAccept>(businessCardRequestAccept);
     on<BusinessCardRequestAReject>(businessCardRequestAReject);
+    on<GetBusinessBlockeUsers>(getBusinessBlockeUsers);
+    on<BusinessUnBlockeUser>(businessUnBlockeUser);
+  }
+
+  FutureOr<void> businessUnBlockeUser(BusinessUnBlockeUser event, emit) async {
+    final data = await adminRepo.businessUnBlockeUser(id: event.id);
+    data.fold(
+      (l) => null,
+      (r) {
+        emit(state.copyWith(
+          blockedUSerLoading: false,
+          hasError: false,
+          unblockedUserSuccess: true,
+        ));
+        add(const AdminEvent.getBusinessBlockeUsers());
+      },
+    );
+  }
+
+  FutureOr<void> getBusinessBlockeUsers(
+      GetBusinessBlockeUsers event, emit) async {
+    emit(state.copyWith(blockedUSerLoading: true, hasError: false));
+    final data = await adminRepo.getBusinessBlockeUsers();
+    data.fold(
+      (l) => emit(state.copyWith(blockedUSerLoading: false, hasError: true)),
+      (r) => emit(state.copyWith(
+        blockedUSerLoading: false,
+        hasError: false,
+        blockedUsers: r.blockedUsers,
+      )),
+    );
   }
 
   FutureOr<void> businessCardRequestAReject(
@@ -44,6 +77,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
           requestDiclined: true,
         ));
         add(const AdminEvent.getAllBusinessCardRequests(isLoad: true));
+        add(const AdminEvent.getCompanyUsers(isLoad: true));
       },
     );
   }
@@ -69,6 +103,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
           hasError: false,
         ));
         add(const AdminEvent.getAllBusinessCardRequests(isLoad: true));
+        add(const AdminEvent.getBusinessBlockeUsers());
       },
     );
   }
@@ -142,6 +177,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     data.fold(
         (l) => emit(state.copyWith(
             isLoading: false, hasError: true, userBlocked: false)), (r) {
+      log('${r.length}', name: 'getCompanyUsers length');
       emit(state.copyWith(
           isLoading: false,
           hasError: false,

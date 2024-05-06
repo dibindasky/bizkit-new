@@ -8,7 +8,6 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/application/presentation/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
-import 'package:bizkit/domain/model/card/request/request_card_detail_model/request_card_detail_model.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,19 +79,19 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                                                 ?.isCompanyAutofilled ==
                                             true) {
                                           showCustomConfirmationDialogue(
-                                              context: context,
-                                              title:
-                                                  'Remove compnay form card ?',
-                                              buttonText: 'Remove',
-                                              onTap: () {
-                                                context
-                                                    .read<BusinessDataBloc>()
-                                                    .add(const BusinessDataEvent
-                                                        .removeBusinessData());
-                                                companySearchNotifier.value = 0;
-                                                companySearchNotifier
-                                                    .notifyListeners();
-                                              });
+                                            context: context,
+                                            title: 'Remove compnay form card ?',
+                                            buttonText: 'Remove',
+                                            onTap: () {
+                                              context
+                                                  .read<BusinessDataBloc>()
+                                                  .add(const BusinessDataEvent
+                                                      .removeBusinessData());
+                                              companySearchNotifier.value = 0;
+                                              companySearchNotifier
+                                                  .notifyListeners();
+                                            },
+                                          );
                                           // showCustomConfirmationDialogue(
                                           //     context: context,
                                           //     title:

@@ -148,7 +148,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    adjustHieght( khieght * 0.10),
+                    adjustHieght(khieght * 0.10),
                     SizedBox(
                       width: double.infinity,
                       height: khieght * 0.25,

@@ -25,7 +25,7 @@ class AuthService implements AuthRepo {
   Future<Either<Failure, LoginResponseModel>> login(
       {required LoginModel loginModel}) async {
     try {
-      // print(loginModel.toJson());
+      log('Login deviceToken ${loginModel.deviceToken}');
       final response =
           await _dio.post(ApiEndPoints.login, data: loginModel.toJson());
       return Right(LoginResponseModel.fromJson(response.data));

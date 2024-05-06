@@ -55,6 +55,9 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => context
+        .read<ConnectionRequestBloc>()
+        .add(const ConnectionRequestEvent.getBlockeConnections(isLoad: false)));
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

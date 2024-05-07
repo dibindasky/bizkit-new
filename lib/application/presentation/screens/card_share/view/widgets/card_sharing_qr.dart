@@ -74,8 +74,10 @@ class CardSharingScreen extends StatelessWidget {
                             Container(
                               decoration: index == state.selectedQrIndex
                                   ? BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                          color: neonShade, width: 5))
+                                          color: neonShade, width: 5),
+                                    )
                                   : null,
                               height: 50.dm,
                               width: 50.dm,
@@ -111,7 +113,7 @@ class CardSharingScreen extends StatelessWidget {
             adjustHieght(khieght * .06),
             BlocBuilder<QrBloc, QrState>(builder: (context, state) {
               if (state.isLoading) {
-                return const LoadingAnimation();
+                return const Center(child: LoadingAnimation());
               } else if (state.qrList.isEmpty) {
                 return SizedBox(
                     height: khieght * .5,
@@ -121,10 +123,13 @@ class CardSharingScreen extends StatelessWidget {
                 return SizedBox(
                   width: 250.dm,
                   height: 250.dm,
-                  child: Image.memory(
-                    base64Decode(state.qrList[state.selectedQrIndex].qrCode!
-                        .substring(22)), // Remove prefix
-                    fit: BoxFit.cover,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.memory(
+                      base64Decode(state.qrList[state.selectedQrIndex].qrCode!
+                          .substring(22)), // Remove prefix
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 );
               } else {
@@ -145,11 +150,13 @@ class CardSharingScreen extends StatelessWidget {
                           fadePageRoute(const LevelSharing()),
                         ),
                         child: Container(
+                          width: 300.dm,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: neonShade),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           padding: const EdgeInsets.only(left: 15, right: 10),
                           height: 60.dm,
-                          width: 300.dm,
-                          decoration:
-                              BoxDecoration(border: Border.all(color: kwhite)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -184,48 +191,72 @@ class CardSharingScreen extends StatelessWidget {
                       adjustHieght(10),
                       Container(
                         width: 300.dm,
-                        decoration:
-                            BoxDecoration(border: Border.all(color: neonShade)),
-                        child: model.phoneNumber == false &&
-                                model.address == false &&
-                                model.company == false &&
-                                model.socialMediaHandles == false &&
-                                model.personalSocialMedia == false &&
-                                model.email == false &&
-                                model.websiteLink == false &&
-                                model.businessDetailsMobileNumber == false &&
-                                model.businessEmail == false
+                        decoration: BoxDecoration(
+                          border: Border.all(color: neonShade),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        child: (model.phoneNumber == null ||
+                                    model.phoneNumber == false) &&
+                                (model.address == null ||
+                                    model.address == false) &&
+                                (model.company == null ||
+                                    model.company == false) &&
+                                (model.socialMediaHandles == null ||
+                                    model.socialMediaHandles == false) &&
+                                (model.personalSocialMedia == null ||
+                                    model.personalSocialMedia == false) &&
+                                (model.email == null || model.email == false) &&
+                                (model.websiteLink == null ||
+                                    model.websiteLink == false) &&
+                                (model.businessDetailsMobileNumber == null ||
+                                    model.businessDetailsMobileNumber ==
+                                        false) &&
+                                (model.businessEmail == null ||
+                                    model.businessEmail == false) &&
+                                (model.accolades == null ||
+                                    model.accolades == false) &&
+                                (model.accreditation == null ||
+                                    model.accreditation == false)
                             ? const Text(
-                                'your personal and company contacts will not be shared')
+                                'your personal and company contacts will not be shared',
+                              )
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                    model.phoneNumber ?? false
-                                        ? const Text(' Phone Number')
-                                        : const SizedBox(),
                                     model.email ?? false
                                         ? const Text(' Email')
+                                        : const SizedBox(),
+                                    model.phoneNumber ?? false
+                                        ? const Text(' Phone Number')
                                         : const SizedBox(),
                                     model.company ?? false
                                         ? const Text(' Company')
                                         : const SizedBox(),
                                     model.personalSocialMedia ?? false
-                                        ? const Text(' Personal Social Media')
+                                        ? const Text(' Personal Social Medias')
                                         : const SizedBox(),
-                                    model.address ?? false
-                                        ? const Text(' Address')
-                                        : const SizedBox(),
-                                    model.businessEmail ?? false
-                                        ? const Text(' Business Email')
+                                    model.accolades ?? false
+                                        ? const Text(' Personal Achievements')
                                         : const SizedBox(),
                                     model.businessDetailsMobileNumber ?? false
                                         ? const Text(' Business Mobile')
                                         : const SizedBox(),
-                                    model.socialMediaHandles ?? false
-                                        ? const Text(' Business Social Media')
+                                    model.businessEmail ?? false
+                                        ? const Text(' Business Email')
                                         : const SizedBox(),
                                     model.websiteLink ?? false
                                         ? const Text(' Website')
+                                        : const SizedBox(),
+                                    model.accreditation ?? false
+                                        ? const Text(' Company Achievements')
+                                        : const SizedBox(),
+                                    model.address ?? false
+                                        ? const Text(' Address')
+                                        : const SizedBox(),
+                                    model.socialMediaHandles ?? false
+                                        ? const Text(' Company Social Medias')
                                         : const SizedBox(),
                                   ]),
                       ),

@@ -186,7 +186,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             }
           });
         }),
-        buildSwitch("Personal achievements",
+        buildSwitch("Personal Achievements",
             context.read<QrBloc>().createQrModel.accolades, (value) {
           setState(() {
             if (personalDetals) {
@@ -279,7 +279,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             }
           });
         }),
-        buildSwitch("Company achievements",
+        buildSwitch("Company Achievements",
             context.read<QrBloc>().createQrModel.accreditation, (value) {
           setState(() {
             if (businessDetals) {

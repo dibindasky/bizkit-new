@@ -1,5 +1,4 @@
 import 'package:bizkit/domain/core/failure/failure.dart';
-import 'package:bizkit/domain/model/admin/company_selected_users_list_model/company_selected_users_list_model.dart';
 import 'package:bizkit/domain/model/admin/get_all_business_card_requests/get_all_business_card_requests.dart';
 import 'package:bizkit/domain/model/admin/get_blocked_users/get_blocked_users.dart';
 import 'package:bizkit/domain/model/admin/get_company_users_model/get_company_users_model.dart';
@@ -8,8 +7,7 @@ import 'package:bizkit/domain/model/commen/success_response_model/success_respon
 import 'package:dartz/dartz.dart';
 
 abstract class AdminRepo {
-  Future<Either<Failure, GetCompanyUsersModel>>
-      getCompanySelectedUsersList();
+  Future<Either<Failure, GetCompanyUsersModel>> getCompanySelectedUsersList();
   Future<Either<Failure, SuccessResponseModel>>
       removeIndiVidualusersPartOfBusiness({required String id});
   Future<Either<Failure, GetAllBusinessCardRequests>>

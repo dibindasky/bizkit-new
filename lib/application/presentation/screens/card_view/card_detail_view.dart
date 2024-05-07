@@ -61,30 +61,30 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                     if (state.cardLoading || state.anotherCard == null) {
                       return const SizedBox();
                     }
-                    // editing card button
                     return IconButton(
-                        onPressed: () {
-                          if (state.anotherCard!.percentage! == 10) {
-                            companySearchNotifier.value = 2;
-                          } else if (state.anotherCard!.isCompanyAutofilled!) {
-                            companySearchNotifier.value = 1;
-                          } else {
-                            companySearchNotifier.value = 0;
-                          }
-                          companySearchNotifier.notifyListeners();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ScreenCardDetailEditingList()));
-                          context.read<UserDataBloc>().add(
-                              UserDataEvent.getCurrentCard(
-                                  card: state.anotherCard!));
-                          context.read<BusinessDataBloc>().add(
-                              BusinessDataEvent.getCurrentCard(
-                                  card: state.anotherCard!));
-                        },
-                        icon: const Icon(Icons.edit));
+                      onPressed: () {
+                        if (state.anotherCard!.percentage! == 10) {
+                          companySearchNotifier.value = 2;
+                        } else if (state.anotherCard!.isCompanyAutofilled!) {
+                          companySearchNotifier.value = 1;
+                        } else {
+                          companySearchNotifier.value = 0;
+                        }
+                        companySearchNotifier.notifyListeners();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ScreenCardDetailEditingList()));
+                        context.read<UserDataBloc>().add(
+                            UserDataEvent.getCurrentCard(
+                                card: state.anotherCard!));
+                        context.read<BusinessDataBloc>().add(
+                            BusinessDataEvent.getCurrentCard(
+                                card: state.anotherCard!));
+                      },
+                      icon: const Icon(Icons.edit),
+                    );
                   },
                 )
               : const SizedBox(),

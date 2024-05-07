@@ -73,6 +73,7 @@ class RequestsTab extends StatelessWidget {
                     },
                     child: Column(
                       children: [
+                        adjustHieght(20),
                         Row(
                           children: [
                             CircleAvatar(

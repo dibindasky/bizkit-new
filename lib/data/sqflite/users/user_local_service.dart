@@ -35,7 +35,7 @@ class UserLocalService implements UserLocalRepo {
         // bool conversion from int
         map[User.colIsBusiness] =
             map[User.colIsBusiness] as int == 1 ? true : false;
-        print(map);
+        print('getUserData $map');
         return User.fromJson(map);
       }));
     } catch (e) {
@@ -70,9 +70,8 @@ class UserLocalService implements UserLocalRepo {
             ${User.colIsBusiness},
             ${User.colCompanyName},
             ${User.colAddress},
-            ${User.colWebsite}) 
+            ${User.colWebsite})
           VALUES (?,?,?,?,?,?,?,?)
-
           ''';
       await localService.rawInsert(insertQuery, [
         user.name ?? '',

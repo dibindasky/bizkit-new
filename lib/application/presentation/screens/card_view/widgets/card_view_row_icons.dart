@@ -19,7 +19,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-//phone number botom sheet
+// phone number botom sheet
             DetailSharingIconWidget(
               onTap: () {
                 List<String> items = [];
@@ -340,6 +340,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
   }
 }
 
+// Address popup tile
 class AddressTilePopUp extends StatelessWidget {
   const AddressTilePopUp({
     super.key,
@@ -369,31 +370,33 @@ class AddressTilePopUp extends StatelessWidget {
               : Align(
                   alignment: Alignment.centerLeft,
                   child: Text('contact : ${contactPerson ?? ''}')),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              phone == null || phone == ''
-                  ? const SizedBox()
-                  : OutlinedButton.icon(
-                      onPressed: () {
-                        LaunchUrl.launchCall(phone: phone ?? "");
-                      },
-                      icon: const Icon(Icons.phone_forwarded_outlined,
-                          color: neonShade),
-                      label: const Text('Call')),
-              const SizedBox(width: 20),
-              address == null || address == ''
-                  ? const SizedBox()
-                  : OutlinedButton.icon(
-                      onPressed: () async {
-                        await LaunchUrl.launchMap(
-                                address: address ?? '', context: context)
-                            .then((value) => Navigator.pop(context));
-                      },
-                      icon: const Icon(Icons.location_on_outlined,
-                          color: neonShade),
-                      label: const Text('View Map')),
-            ],
+          FittedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                phone == null || phone == ''
+                    ? const SizedBox()
+                    : OutlinedButton.icon(
+                        onPressed: () {
+                          LaunchUrl.launchCall(phone: phone ?? "");
+                        },
+                        icon: const Icon(Icons.phone_forwarded_outlined,
+                            color: neonShade),
+                        label: const Text('Call')),
+                const SizedBox(width: 20),
+                address == null || address == ''
+                    ? const SizedBox()
+                    : OutlinedButton.icon(
+                        onPressed: () async {
+                          await LaunchUrl.launchMap(
+                                  address: address ?? '', context: context)
+                              .then((value) => Navigator.pop(context));
+                        },
+                        icon: const Icon(Icons.location_on_outlined,
+                            color: neonShade),
+                        label: const Text('View Map')),
+              ],
+            ),
           )
         ],
       ),

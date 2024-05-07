@@ -137,6 +137,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ScreenPdfPreview(
+                                          label: pdf[index].label ?? '',
                                           base64: pdf[index].file!.substring(
                                               'data:application/pdf;base64,'
                                                   .length),

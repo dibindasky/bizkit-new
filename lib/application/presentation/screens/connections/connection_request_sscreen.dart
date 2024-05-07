@@ -135,28 +135,30 @@ class ScreenConnectionRequests extends StatelessWidget {
                                   if (data.hasConnection == false) {
                                     showDialog(
                                       context: context,
-                                      builder: (context) =>
-                                          AlertDialog(actions: [
-                                        OutlinedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Cancel')),
-                                        OutlinedButton(
-                                            onPressed: () {
-                                              context
-                                                  .read<ConnectionRequestBloc>()
-                                                  .add(ConnectionRequestEvent
-                                                      .addConnectionRequests(
-                                                          addConnectionRequestModel:
-                                                              AddConnectionRequestModel(
-                                                                  cardUserId: data
-                                                                      .userId),
-                                                          index: index));
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Request'))
-                                      ]),
+                                      builder: (context) => AlertDialog(
+                                          title: const Text('Request back'),
+                                          actions: [
+                                            OutlinedButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Cancel')),
+                                            OutlinedButton(
+                                                onPressed: () {
+                                                  context
+                                                      .read<
+                                                          ConnectionRequestBloc>()
+                                                      .add(ConnectionRequestEvent
+                                                          .addConnectionRequests(
+                                                              addConnectionRequestModel:
+                                                                  AddConnectionRequestModel(
+                                                                      cardUserId:
+                                                                          data.userId),
+                                                              index: index));
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Request'))
+                                          ]),
                                     );
                                   }
                                 },

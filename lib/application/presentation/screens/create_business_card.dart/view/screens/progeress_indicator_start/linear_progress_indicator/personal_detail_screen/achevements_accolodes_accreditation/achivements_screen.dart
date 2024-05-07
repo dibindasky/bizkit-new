@@ -67,7 +67,13 @@ class _AchivementsScreenState extends State<AchivementsScreen> {
                             .where((element) =>
                                 element.event == eventController.text)
                             .toList();
+                      } else if (eventController.text == 'Others') {
+                        achivement = achivement
+                            .where((element) =>
+                                !achivementEvents.contains(element.event))
+                            .toList();
                       }
+
                       return SingleChildScrollView(
                         child: Column(
                           children: [
@@ -166,91 +172,122 @@ class _AchivementsScreenState extends State<AchivementsScreen> {
                               ],
                             ),
                             adjustHieght(30),
-                            ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
-                              separatorBuilder: (context, index) =>
-                                  adjustHieght(kwidth * .09),
-                              itemCount: achivement.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        fadePageRoute(ScreenAchivementDetail(
-                                          accolade: achivement[index]
-                                                  is Accolade
-                                              ? achivement[index] as Accolade
-                                              : null,
-                                          accredition: achivement[index]
-                                                  is Accredition
-                                              ? achivement[index] as Accredition
-                                              : null,
-                                        )));
-                                  },
-                                  child: SizedBox(
-                                    height: 250,
-                                    width: double.infinity,
-                                    child: Stack(
-                                      children: [
-                                        SizedBox(
-                                          height: 230,
-                                          width: double.infinity,
-                                          child: Image.memory(
-                                            base64.decode(
-                                                (achivement[index] is Accolade
-                                                        ? achivement[index]
-                                                            .images[0]
-                                                            .image
-                                                        : achivement[index]
-                                                            .images[0]
-                                                            .image)
-                                                    .substring(22)),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Positioned(
-                                          left: 0,
-                                          right: 0,
-                                          bottom: 0,
-                                          child: Container(
-                                            padding:
-                                                const EdgeInsets.only(left: 10),
-                                            color: kblack.withOpacity(.5),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  achivement[index] is Accolade
+                            achivement.isEmpty
+                                ? const Center(
+                                    child: Text('No Achivements found'),
+                                  )
+                                : ListView.separated(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    separatorBuilder: (context, index) =>
+                                        adjustHieght(kwidth * .09),
+                                    itemCount: achivement.length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: EdgeInsets.only(
+                                            bottom:
+                                                achivement.length == index + 1
+                                                    ? 20
+                                                    : 0),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                fadePageRoute(
+                                                    ScreenAchivementDetail(
+                                                  accolade: achivement[index]
+                                                          is Accolade
                                                       ? achivement[index]
-                                                          .accolades
-                                                      : achivement[index].label,
-                                                  style: textStyle1.copyWith(
-                                                    fontSize: kwidth * .04,
-                                                    fontWeight: FontWeight.w700,
+                                                          as Accolade
+                                                      : null,
+                                                  accredition: achivement[index]
+                                                          is Accredition
+                                                      ? achivement[index]
+                                                          as Accredition
+                                                      : null,
+                                                )));
+                                          },
+                                          child: SizedBox(
+                                            height: 250,
+                                            width: double.infinity,
+                                            child: Stack(
+                                              children: [
+                                                SizedBox(
+                                                  height: 230,
+                                                  width: double.infinity,
+                                                  child: Image.memory(
+                                                    base64.decode((achivement[
+                                                                    index]
+                                                                is Accolade
+                                                            ? achivement[index]
+                                                                .images[0]
+                                                                .image
+                                                            : achivement[index]
+                                                                .images[0]
+                                                                .image)
+                                                        .substring(22)),
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
-                                                Text(
-                                                  achivement[index] is Accolade
-                                                      ? achivement[index]
-                                                          .accoladesDescription
-                                                      : achivement[index]
-                                                          .description,
-                                                  style: textStyle1.copyWith(
-                                                    fontSize: kwidth * .03,
+                                                Positioned(
+                                                  left: 0,
+                                                  right: 0,
+                                                  bottom: 0,
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 10),
+                                                    color:
+                                                        kblack.withOpacity(.5),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          achivement[index]
+                                                                  is Accolade
+                                                              ? achivement[
+                                                                      index]
+                                                                  .accolades
+                                                              : achivement[
+                                                                      index]
+                                                                  .label,
+                                                          style: textStyle1
+                                                              .copyWith(
+                                                            fontSize:
+                                                                kwidth * .04,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          achivement[index]
+                                                                  is Accolade
+                                                              ? achivement[
+                                                                      index]
+                                                                  .accoladesDescription
+                                                              : achivement[
+                                                                      index]
+                                                                  .description,
+                                                          style: textStyle1
+                                                              .copyWith(
+                                                            fontSize:
+                                                                kwidth * .03,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
                           ],
                         ),
                       );

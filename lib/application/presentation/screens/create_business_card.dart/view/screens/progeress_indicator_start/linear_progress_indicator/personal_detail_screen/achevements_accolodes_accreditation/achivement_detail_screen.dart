@@ -23,6 +23,7 @@ class ScreenAchivementDetail extends StatefulWidget {
 class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
   TextEditingController tittleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
   late bool switchValue;
   late List<ImageCard> updateImageCard;
   late PageController _pageController;
@@ -40,6 +41,9 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
     descriptionController.text = widget.accolade == null
         ? widget.accredition!.description ?? ''
         : widget.accolade!.accoladesDescription ?? '';
+    dateController.text = widget.accolade == null
+        ? widget.accredition!.date ?? ''
+        : widget.accolade!.date ?? '';
     _pageController = PageController(initialPage: _currentPageIndex);
 
     bool forward = true;
@@ -65,7 +69,7 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Achivemnet'),
+        title: const Text('Achievement'),
         backgroundColor: knill,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -141,6 +145,7 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
                 ),
               ),
               adjustHieght(30),
+              Text(dateController.text),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Text(

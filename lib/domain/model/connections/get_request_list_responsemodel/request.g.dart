@@ -14,6 +14,7 @@ RequestModel _$RequestModelFromJson(Map<String, dynamic> json) => RequestModel(
       designation: json['designation'] as String?,
       userId: json['user_id'] as int?,
       cardUserId: json['card_user_id'] as int?,
+      hasConnection: json['has_connection'] as bool?,
     );
 
 Map<String, dynamic> _$RequestModelToJson(RequestModel instance) =>
@@ -25,4 +26,5 @@ Map<String, dynamic> _$RequestModelToJson(RequestModel instance) =>
       'designation': instance.designation,
       'user_id': instance.userId,
       'card_user_id': instance.cardUserId,
+      'has_connection': instance.hasConnection,
     };

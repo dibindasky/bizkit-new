@@ -13,6 +13,8 @@ class RequestModel {
   int? userId;
   @JsonKey(name: 'card_user_id')
   int? cardUserId;
+  @JsonKey(name: 'has_connection')
+  bool? hasConnection;
 
   RequestModel({
     this.id,
@@ -22,6 +24,7 @@ class RequestModel {
     this.designation,
     this.userId,
     this.cardUserId,
+    this.hasConnection
   });
 
   factory RequestModel.fromJson(Map<String, dynamic> json) {

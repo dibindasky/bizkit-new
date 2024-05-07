@@ -18,7 +18,7 @@ class BrocherBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: kwidth * 0.2,
+      height: kwidth * 0.25,
       child: BlocBuilder<BusinessDataBloc, BusinessDataState>(
         builder: (context, state) {
           if (state.brochures.isEmpty) {
@@ -29,7 +29,8 @@ class BrocherBuilder extends StatelessWidget {
               ),
             );
           }
-          return ListView.builder(
+          return ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
             scrollDirection: Axis.horizontal,
             itemCount: state.brochureLoading
                 ? state.brochures.length + 1
@@ -75,20 +76,30 @@ class _BrochureTileState extends State<BrochureTile> {
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    ScreenPdfPreview(base64: widget.brochure!.file),
+                builder: (context) => ScreenPdfPreview(
+                    base64: widget.brochure!.file,
+                    label: widget.brochure?.label ?? ''),
               )),
-          child: Container(
-            margin: const EdgeInsets.only(right: 10, left: 10),
+          child: SizedBox(
             width: kwidth * 0.2,
-            decoration: BoxDecoration(
-              // border: Border.all(color: neonShade),
-              borderRadius: BorderRadius.circular(10),
+            child: Column(
+              children: [
+                Container(
+                  // margin: const EdgeInsets.only(right: 10, left: 10),
+                  width: kwidth * 0.2,
+                  height: kwidth * 0.2,
+                  decoration: BoxDecoration(
+                    // border: Border.all(color: neonShade),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: PdfViewer.openData(
+                      base64.decode(widget.brochure!.file!
+                          .substring('data:application/pdf;base64,'.length)),
+                      params: const PdfViewerParams(pageNumber: 1)),
+                ),
+                Expanded(child: Text(widget.brochure?.label ?? ''))
+              ],
             ),
-            child: PdfViewer.openData(
-                base64.decode(widget.brochure!.file!
-                    .substring('data:application/pdf;base64,'.length)),
-                params: const PdfViewerParams(pageNumber: 1)),
           ),
         ),
         Positioned(

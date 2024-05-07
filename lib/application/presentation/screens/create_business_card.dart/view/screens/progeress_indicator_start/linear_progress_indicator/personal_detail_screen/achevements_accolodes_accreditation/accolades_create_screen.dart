@@ -253,6 +253,9 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                   ),
                 ),
                 AutocompleteTextField(
+                    onDropDownSelection: (value) {
+                      FocusScope.of(context).unfocus();
+                    },
                     controller: eventController,
                     label: 'Event',
                     autocompleteItems: achivementEvents),

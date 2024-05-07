@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:alphabet_scroll_view/alphabet_scroll_view.dart';
 import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
@@ -104,7 +106,8 @@ class ContactConnectionsTab extends StatelessWidget {
                     leading: data.photo != null && data.photo!.isNotEmpty
                         ? CircleAvatar(
                             radius: 18,
-                            backgroundImage: NetworkImage(data.photo!))
+                            backgroundImage: MemoryImage(
+                                base64.decode(getBase64(data.photo!))))
                         : const CircleAvatar(
                             radius: 18,
                             backgroundColor: textFieldFillColr,
@@ -123,15 +126,6 @@ class ContactConnectionsTab extends StatelessWidget {
                             fontSize: kwidth * .040,
                           ),
                         ),
-                        //   adjustWidth(kwidth * .03),
-                        //   Text(
-                        //     // data.jobTitle ??
-                        //     'Job Title',
-                        //     style: TextStyle(
-                        //       fontWeight: FontWeight.w200,
-                        //       fontSize: kwidth * .031,
-                        //     ),
-                        //   ),
                       ],
                     ),
                     trailing: data.id == null || data.id == 0

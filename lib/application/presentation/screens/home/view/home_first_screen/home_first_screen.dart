@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:developer';
+import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_first_screen/widgets/home_first_app_bar.dart';
@@ -188,16 +190,30 @@ class _HomeScreenFirstAnimationScreenState
                                 height: kwidth * 1.123,
                                 child: Padding(
                                   padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const HomeFirstAppBar(),
-                                      adjustHieght(khieght * .02),
-                                      const MyCardsAndAddCardSection(),
-                                      adjustHieght(khieght * .03),
-                                      const MyConnectionContainerHomePage(),
-                                    ],
+                                  child: RefreshIndicator(
+                                    onRefresh: () async {
+                                      context.read<CardBloc>().add(
+                                          const CardEvent.getCards(call: true));
+                                      context.read<ConnectionRequestBloc>().add(
+                                          const ConnectionRequestEvent
+                                              .getBizkitConnections(query: ''));
+                                      context.read<ReminderBloc>().add(
+                                          const ReminderEvent
+                                              .getAllRemindersEvent());
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 1500));
+                                    },
+                                    child: ListView(
+                                      // crossAxisAlignment:
+                                      //     CrossAxisAlignment.start,
+                                      children: [
+                                        const HomeFirstAppBar(),
+                                        adjustHieght(khieght * .02),
+                                        const MyCardsAndAddCardSection(),
+                                        adjustHieght(khieght * .03),
+                                        const MyConnectionContainerHomePage(),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

@@ -9,7 +9,6 @@ import 'package:path/path.dart';
 class LocalService {
   static const _databaseName = "bizkit.db";
   static const _databaseVersion = 1;
-
   static sql.Database? _database;
 
   Future<sql.Database> get database async {

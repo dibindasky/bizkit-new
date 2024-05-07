@@ -3,6 +3,7 @@ import 'package:bizkit/application/presentation/screens/profile_screen/view/scre
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/tabs/request_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Tabs extends StatefulWidget {
   const Tabs({super.key});
@@ -37,10 +38,12 @@ class _TabsState extends State<Tabs> {
             ),
             title: const Text('Business card'),
             bottom: const TabBar(
+              indicatorWeight: 4,
+              enableFeedback: true,
               tabs: [
-                Tab(text: 'Requests'),
-                Tab(text: 'Users'),
-                Tab(text: 'Blocked users'),
+                Text('Requests'),
+                Text('Users'),
+                Text('Blocked User'),
               ],
             ),
           ),

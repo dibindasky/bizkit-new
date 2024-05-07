@@ -187,6 +187,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                                   onTap: () {
                                     if (autoFillDataKey.currentState!
                                         .validate()) {
+                                      FocusScope.of(context).unfocus();
                                       Navigator.of(context).push(
                                         fadePageRoute(const SelfieTextFields()),
                                       );
@@ -554,6 +555,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                           state.isLoading
                               ? const LoadingAnimation()
                               : LastSkipContinueButtons(onTap: () {
+                                  FocusScope.of(context).unfocus();
                                   context.read<CardSecondBloc>().add(
                                         CardSecondEvent.meetingRelatedInfo(
                                           selfieImage: state.selfieImageModel,

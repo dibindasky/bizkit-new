@@ -173,7 +173,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
                     context.read<QrBloc>().defauiltQr.copyWith(company: value);
               });
             }),
-            buildSwitch("Personal SocialMedias",
+            buildSwitch("Personal Social Medias",
                 state.defauiltQr!.personalSocialMedia ?? false, (value) {
               setState(() {
                 state.defauiltQr!.personalSocialMedia = value;
@@ -183,7 +183,8 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
                     .copyWith(personalSocialMedia: value);
               });
             }),
-            buildSwitch("Accolades", state.defauiltQr!.accolades ?? false,
+            buildSwitch(
+                "Personal Achievements", state.defauiltQr!.accolades ?? false,
                 (value) {
               setState(() {
                 state.defauiltQr!.accolades = value;
@@ -193,6 +194,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
                     .copyWith(accolades: value);
               });
             }),
+            adjustHieght(5),
             adjustHieght(khieght * .02),
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
@@ -208,7 +210,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
               ),
             ),
             adjustHieght(5),
-            buildSwitch("Business PhoneNumber",
+            buildSwitch("Business Phone Number",
                 state.defauiltQr!.businessDetailsMobileNumber ?? false,
                 (value) {
               setState(() {
@@ -240,17 +242,6 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
                     .copyWith(websiteLink: value);
               });
             }),
-            buildSwitch(
-                "Accreditation", state.defauiltQr!.accreditation ?? false,
-                (value) {
-              setState(() {
-                state.defauiltQr!.accreditation = value;
-                context.read<QrBloc>().defauiltQr = context
-                    .read<QrBloc>()
-                    .defauiltQr
-                    .copyWith(accreditation: value);
-              });
-            }),
             buildSwitch("Address", state.defauiltQr!.address ?? false, (value) {
               setState(() {
                 state.defauiltQr!.address = value;
@@ -258,7 +249,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
                     context.read<QrBloc>().defauiltQr.copyWith(address: value);
               });
             }),
-            buildSwitch("Business SocialMedias",
+            buildSwitch("Business Social Medias",
                 state.defauiltQr!.socialMediaHandles ?? false, (value) {
               setState(() {
                 state.defauiltQr!.socialMediaHandles = value;
@@ -268,18 +259,30 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
                     .copyWith(socialMediaHandles: value);
               });
             }),
+            buildSwitch("Business Achievements",
+                state.defauiltQr!.accreditation ?? false, (value) {
+              setState(() {
+                state.defauiltQr!.accreditation = value;
+                context.read<QrBloc>().defauiltQr = context
+                    .read<QrBloc>()
+                    .defauiltQr
+                    .copyWith(accreditation: value);
+              });
+            }),
             adjustHieght(khieght * .03),
             buildSwitch(
                 "Update all cards", state.defauiltQr!.updateAllCards ?? false,
                 (value) {
-              setState(() {
-                state.defauiltQr!.updateAllCards = value;
-                context.read<QrBloc>().defauiltQr = context
-                    .read<QrBloc>()
-                    .defauiltQr
-                    .copyWith(updateAllCards: value);
-              });
-            }),
+              setState(
+                () {
+                  state.defauiltQr!.updateAllCards = value;
+                  context.read<QrBloc>().defauiltQr = context
+                      .read<QrBloc>()
+                      .defauiltQr
+                      .copyWith(updateAllCards: value);
+                },
+              );
+            }, textFieldFillColr, state.defauiltQr!.updateAllCards ?? true),
           ],
         );
       } else {
@@ -289,7 +292,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
   }
 
   Widget buildSwitch(String label, bool value, Function(bool) onChanged,
-      [Color color = textFieldFillColr]) {
+      [Color color = textFieldFillColr, bool wantShowDailogue = false]) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: Container(
@@ -314,7 +317,43 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
               activeTrackColor: color == neonShade ? kwhite : neonShade,
               activeColor: color == neonShade ? neonShade : kwhite,
               value: value,
-              onChanged: onChanged,
+              onChanged: wantShowDailogue
+                  ? onChanged
+                  : (value) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Update all cards'),
+                            content: const Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    'Enabling this option will affect all the created cards.'),
+                                SizedBox(height: 8),
+                                Text('Are you sure you want to enable this?'),
+                              ],
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  onChanged(value);
+                                },
+                                child: const Text('Confirm'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
             ),
           ],
         ),

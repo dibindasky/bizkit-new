@@ -74,7 +74,6 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                                                 ?.isCompanyRequested ==
                                             true) {
                                           // cancel request call
-
                                           return;
                                         } else if (state.anotherCard
                                                 ?.isCompanyAutofilled ==

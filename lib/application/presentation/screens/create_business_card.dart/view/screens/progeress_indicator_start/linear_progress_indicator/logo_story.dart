@@ -64,7 +64,7 @@ class _LogoStoryState extends State<LogoStory> {
                           .read<BusinessDataBloc>()
                           .add(const BusinessDataEvent.addLogo(isCam: false));
                     },
-                    tittle: 'Chosse image',
+                    tittle: 'Choose image',
                   );
                   // context
                   //     .read<BusinessDataBloc>()
@@ -102,7 +102,8 @@ class _LogoStoryState extends State<LogoStory> {
                                       state.logoCard!.logo != null
                                   ? Image.memory(
                                       base64.decode(state.logoCard!.logo!),
-                                      fit: BoxFit.contain)
+                                      fit: BoxFit.contain,
+                                    )
                                   : Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,

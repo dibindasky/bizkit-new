@@ -1,11 +1,8 @@
-import 'package:bizkit/application/business_logic/admin/admin_bloc.dart';
-import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/tabs/blocked_business_users.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/tabs/company_users.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/tabs/request_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Tabs extends StatefulWidget {
   const Tabs({super.key});
@@ -50,7 +47,7 @@ class _TabsState extends State<Tabs> {
           body: const TabBarView(
             children: [
               RequestsTab(),
-              CompanyUsers(),
+              CompanyUsersList(),
               BlockedBusinessUsers(),
             ],
           ),

@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
@@ -9,21 +11,58 @@ import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SecondCardDetailView extends StatefulWidget {
   const SecondCardDetailView({
     super.key,
     this.cardId,
-    this.myCard = false,
   });
   final int? cardId;
-  final bool myCard;
 
   @override
   State<SecondCardDetailView> createState() => _SecondCardDetailViewState();
 }
 
 class _SecondCardDetailViewState extends State<SecondCardDetailView> {
+  ScreenshotController screenshotController = ScreenshotController();
+  Uint8List? _imageFile;
+  Future<Uint8List?> captureWidgetAsAnImaage() async {
+    await screenshotController.capture().then((image) {
+      setState(() {
+        _imageFile = image;
+      });
+      return _imageFile;
+    }).catchError((onError) {
+      log('captureImaage error');
+      return null;
+    });
+    return null;
+  }
+
+  // Function to convert Uint8List to File
+  Future<File> convertUint8ListToFile(Uint8List data) async {
+    final tempDir = await getTemporaryDirectory();
+    final file = File('${tempDir.path}/image.png');
+    await file.writeAsBytes(data);
+    return file;
+  }
+
+  void shareImage(Uint8List imageBytes, String additionalData) async {
+    try {
+      // Convert Uint8List to File
+      File imageFile = await convertUint8ListToFile(imageBytes);
+
+      // Share the image file using Share.shareFiles
+      await Share.shareFiles([imageFile.path],
+          text: '$additionalData \'s visting card');
+    } catch (e) {
+      print('Error sharing image: $e');
+    }
+  }
+
   @override
   void initState() {
     if (widget.cardId != null) {
@@ -58,6 +97,20 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
         }
         return Scaffold(
           appBar: AppBar(
+            actions: [
+              IconButton(
+                onPressed: () async {
+                  await captureWidgetAsAnImaage();
+                  if (_imageFile != null) {
+                    shareImage(
+                      _imageFile!,
+                      state.getSecondCardModel?.name ?? '',
+                    );
+                  }
+                },
+                icon: const Icon(Icons.share),
+              )
+            ],
             leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -82,126 +135,133 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                   ? const Center(
                       child: Text('Card not found'),
                     )
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            adjustHieght(20),
-                            // image carosal view
-                            BlocBuilder<CardSecondBloc, CardSecondState>(
-                              builder: (context, state) {
-                                List<String> imagess = [];
-                                if (state.getSecondCardModel != null &&
-                                    state.getSecondCardModel!.image != null) {
-                                  String scanImage = '';
-                                  scanImage =
-                                      (state.getSecondCardModel!.image!);
-                                  scanImage = scanImage.startsWith('data')
-                                      ? scanImage.substring(22)
-                                      : scanImage;
-                                  imagess.add(scanImage);
-                                }
-                                if (state.getSecondCardModel != null &&
-                                    state.getSecondCardModel!.selfie != null) {
-                                  List<String> selfieBase64List = [];
+                  : Screenshot(
+                      controller: screenshotController,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              adjustHieght(20),
+                              // image carosal view
+                              BlocBuilder<CardSecondBloc, CardSecondState>(
+                                builder: (context, state) {
+                                  List<String> imagess = [];
+                                  if (state.getSecondCardModel != null &&
+                                      state.getSecondCardModel!.image != null) {
+                                    String scanImage = '';
+                                    scanImage =
+                                        (state.getSecondCardModel!.image!);
+                                    scanImage = scanImage.startsWith('data')
+                                        ? scanImage.substring(22)
+                                        : scanImage;
+                                    imagess.add(scanImage);
+                                  }
                                   if (state.getSecondCardModel != null &&
                                       state.getSecondCardModel!.selfie !=
                                           null) {
-                                    for (var image
-                                        in state.getSecondCardModel!.selfie!) {
-                                      String im = image.selfie!;
-                                      im = im.startsWith('data')
-                                          ? im.substring(22)
-                                          : im;
-                                      selfieBase64List.add(im);
+                                    List<String> selfieBase64List = [];
+                                    if (state.getSecondCardModel != null &&
+                                        state.getSecondCardModel!.selfie !=
+                                            null) {
+                                      for (var image in state
+                                          .getSecondCardModel!.selfie!) {
+                                        String im = image.selfie!;
+                                        im = im.startsWith('data')
+                                            ? im.substring(22)
+                                            : im;
+                                        selfieBase64List.add(im);
+                                      }
                                     }
+                                    imagess.addAll(selfieBase64List);
                                   }
-                                  imagess.addAll(selfieBase64List);
-                                }
-                                return SizedBox(
-                                  height: 200,
-                                  child: PreviewPageviewImageBuilder(
-                                    isStory: true,
-                                    imagesList: imagess,
-                                  ),
-                                );
-                              },
-                            ),
-                            // name and designation
-                            BlocBuilder<CardSecondBloc, CardSecondState>(
-                              builder: (context, state) {
-                                return Column(
+                                  return SizedBox(
+                                    height: 200,
+                                    child: PreviewPageviewImageBuilder(
+                                      isStory: true,
+                                      imagesList: imagess,
+                                    ),
+                                  );
+                                },
+                              ),
+                              // name and designation
+                              BlocBuilder<CardSecondBloc, CardSecondState>(
+                                builder: (context, state) {
+                                  return Column(
+                                    children: [
+                                      const SizedBox(height: 20),
+                                      Text(
+                                        state.getSecondCardModel?.name ?? '',
+                                        overflow: TextOverflow.ellipsis,
+                                        style:
+                                            custumText(fontSize: kwidth * 0.06),
+                                      ),
+                                      Text(
+                                        state.getSecondCardModel?.company ??
+                                            'Company',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        state.getSecondCardModel?.designation ??
+                                            'designation',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      adjustHieght(khieght * .02),
+                                    ],
+                                  );
+                                },
+                              ),
+                              const CardViewRowWiceIcons(),
+                              adjustHieght(khieght * .02),
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: neonShade),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
                                   children: [
-                                    const SizedBox(height: 20),
-                                    Text(
-                                      state.getSecondCardModel?.name ?? '',
-                                      overflow: TextOverflow.ellipsis,
-                                      style:
-                                          custumText(fontSize: kwidth * 0.06),
+                                    adjustHieght(10),
+                                    ItemsContainer(
+                                      heading: 'Location',
+                                      item: state.getSecondCardModel?.location,
                                     ),
-                                    Text(
-                                      state.getSecondCardModel?.company ??
-                                          'Company',
-                                      overflow: TextOverflow.ellipsis,
+                                    ItemsContainer(
+                                      heading: 'Occasion',
+                                      item:
+                                          state.getSecondCardModel?.whereWeMet,
                                     ),
-                                    Text(
-                                      state.getSecondCardModel?.designation ??
-                                          'designation',
-                                      overflow: TextOverflow.ellipsis,
+                                    ItemsContainer(
+                                      heading: 'Occupation',
+                                      item:
+                                          state.getSecondCardModel?.occupation,
                                     ),
-                                    adjustHieght(khieght * .02),
+                                    ItemsContainer(
+                                      heading: 'Designation',
+                                      item:
+                                          state.getSecondCardModel?.designation,
+                                    ),
+                                    ItemsContainer(
+                                      heading: 'Notes',
+                                      item: state.getSecondCardModel?.notes,
+                                    ),
+                                    ItemsContainer(
+                                      heading: 'Date',
+                                      item: state.getSecondCardModel?.date,
+                                    ),
+                                    ItemsContainer(
+                                      heading: 'Time',
+                                      item: formattedTime,
+                                      istime: false,
+                                    ),
+                                    adjustHieght(10),
                                   ],
-                                );
-                              },
-                            ),
-                            const CardViewRowWiceIcons(),
-                            adjustHieght(khieght * .02),
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: neonShade),
-                                borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
-                              child: Column(
-                                children: [
-                                  adjustHieght(10),
-                                  ItemsContainer(
-                                    heading: 'Location',
-                                    item: state.getSecondCardModel?.location,
-                                  ),
-                                  ItemsContainer(
-                                    heading: 'Occasion',
-                                    item: state.getSecondCardModel?.whereWeMet,
-                                  ),
-                                  ItemsContainer(
-                                    heading: 'Occupation',
-                                    item: state.getSecondCardModel?.occupation,
-                                  ),
-                                  ItemsContainer(
-                                    heading: 'Designation',
-                                    item: state.getSecondCardModel?.designation,
-                                  ),
-                                  ItemsContainer(
-                                    heading: 'Notes',
-                                    item: state.getSecondCardModel?.notes,
-                                  ),
-                                  ItemsContainer(
-                                    heading: 'Date',
-                                    item: state.getSecondCardModel?.date,
-                                  ),
-                                  ItemsContainer(
-                                    heading: 'Time',
-                                    item: formattedTime,
-                                    istime: false,
-                                  ),
-                                  adjustHieght(10),
-                                ],
-                              ),
-                            ),
-                            adjustHieght(30),
-                          ],
+                              adjustHieght(30),
+                            ],
+                          ),
                         ),
                       ),
                     ),

@@ -2,12 +2,13 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class ErrorRefreshIndicator extends StatelessWidget {
-  const ErrorRefreshIndicator(
-      {super.key,
-      this.shrinkWrap = false,
-      required this.onRefresh,
-      this.errorMessage = 'something went wrong pull to refresh',
-      this.image});
+  const ErrorRefreshIndicator({
+    super.key,
+    this.shrinkWrap = false,
+    required this.onRefresh,
+    this.errorMessage = 'something went wrong pull to refresh',
+    this.image,
+  });
 
   final VoidCallback onRefresh;
   final String errorMessage;

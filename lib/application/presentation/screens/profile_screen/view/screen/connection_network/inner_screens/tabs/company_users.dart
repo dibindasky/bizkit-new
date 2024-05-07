@@ -1,20 +1,19 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:bizkit/application/business_logic/admin/admin_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
+import 'package:bizkit/application/presentation/widgets/expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class CompanyUsers extends StatelessWidget {
-  const CompanyUsers({
-    super.key,
-  });
+class CompanyUsersList extends StatelessWidget {
+  const CompanyUsersList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,127 +22,106 @@ class CompanyUsers extends StatelessWidget {
           .read<AdminBloc>()
           .add(const AdminEvent.getCompanyUsers(isLoad: true)),
     );
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: BlocBuilder<AdminBloc, AdminState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return const LoadingAnimation();
-          } else if (state.companySelectedUsersListModel == null) {
-            return SizedBox(
-              height: khieght * .7,
-              child: const Center(child: Text('No Company Users')),
-            );
-          } else if (state.companySelectedUsersListModel!.isEmpty) {
-            return SizedBox(
-              height: khieght * .7,
-              child: const Center(child: Text('No Company Users')),
-            );
-          }
-          return ListView.builder(
-            itemCount: state.companySelectedUsersListModel!.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  log('message');
-                  final Map<String, String> map =
-                      state.businesscardRequests![index].cardId != null
-                          ? {
-                              'myCard': 'false',
-                              'cardId': state
-                                  .businesscardRequests![index].cardId!
-                                  .toString()
-                            }
-                          : <String, String>{};
-                  GoRouter.of(context).pushNamed(
-                    Routes.cardDetailView,
-                    pathParameters: map,
-                  );
-                },
-                child: Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Row(
-                        children: [
-                          adjustWidth(kwidth * .04),
-                          CircleAvatar(
-                            backgroundColor: kgrey,
-                            radius: 30,
-                            backgroundImage: state
-                                        .companySelectedUsersListModel![index]
-                                        .profilePic !=
-                                    null
-                                ? MemoryImage(
-                                    base64.decode(state
-                                            .companySelectedUsersListModel![
-                                                index]
-                                            .profilePic!
-                                            .startsWith('data')
-                                        ? state
-                                            .companySelectedUsersListModel![
-                                                index]
-                                            .profilePic!
-                                            .substring(22)
-                                        : state
-                                            .companySelectedUsersListModel![
-                                                index]
-                                            .profilePic!),
-                                  )
-                                : null,
-                            child: state.companySelectedUsersListModel![index]
-                                        .profilePic ==
-                                    null
-                                ? const Icon(Icons.person)
-                                : null,
-                          ),
-                          adjustWidth(kwidth * .04),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                    text: state
-                                        .companySelectedUsersListModel![index]
-                                        .name,
-                                    style: textStyle1),
-                                const WidgetSpan(child: SizedBox(width: 10)),
-                                TextSpan(
-                                  text: state
-                                      .companySelectedUsersListModel![index]
-                                      .email,
-                                  style: textStyle1.copyWith(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
+    return BlocConsumer<AdminBloc, AdminState>(
+      listener: (context, state) {
+        if (state.userBlocked) {
+          showSnackbar(context, message: 'Successfully Blocked this user');
+        }
+      },
+      builder: (context, state) {
+        if (state.isLoading) {
+          return const LoadingAnimation();
+        } else if (state.companyUsers != null &&
+            state.companyUsers!.isNotEmpty) {
+          return RefreshIndicator(
+            onRefresh: () async {
+              context
+                  .read<AdminBloc>()
+                  .add(const AdminEvent.getCompanyUsers(isLoad: true));
+            },
+            child: ListView.builder(
+              itemCount: state.companyUsers!.length,
+              itemBuilder: (context, index) {
+                final data = state.companyUsers![index];
+                return CustomExpansionTile(
+                  isExpandable: false,
+                  subTitle: const Text(''),
+                  title: Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Row(
+                          children: [
+                            adjustWidth(kwidth * .04),
+                            CircleAvatar(
+                              backgroundColor: kgrey,
+                              radius: 30,
+                              backgroundImage: state.companyUsers![index]
+                                              .profilePic !=
+                                          null &&
+                                      state.companyUsers![index].profilePic!
+                                          .isNotEmpty
+                                  ? MemoryImage(
+                                      base64.decode(
+                                        state.companyUsers![index].profilePic!
+                                                .startsWith('data')
+                                            ? state.companyUsers![index]
+                                                .profilePic!
+                                                .substring(22)
+                                            : state.companyUsers![index]
+                                                .profilePic!,
+                                      ),
+                                    )
+                                  : null,
+                              child:
+                                  state.companyUsers![index].profilePic == null
+                                      ? const Icon(Icons.person)
+                                      : null,
                             ),
-                          ),
-                          const Spacer(),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: ColoredBox(
-                              color: kgrey,
+                            adjustWidth(kwidth * .04),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: state.companyUsers![index].name,
+                                      style: textStyle1),
+                                  const WidgetSpan(child: SizedBox(width: 10)),
+                                  TextSpan(
+                                    text: state.companyUsers![index].email,
+                                    style: textStyle1.copyWith(
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Spacer(),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: kgrey,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: neonShade)),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 4,
+                                  horizontal: 10,
+                                  vertical: 6,
                                 ),
                                 child: InkWell(
                                   onTap: () {
                                     showConfirmationDialog(
                                       heading:
-                                          'Are you sure to remove this person',
+                                          'Are you want to block this person',
                                       context,
-                                      actionButton: 'Remove',
+                                      actionButton: 'Block',
                                       onPressed: () {
-                                        context.read<AdminBloc>().add(AdminEvent
-                                                .removeIndiVidualusersPartOfBusiness(
-                                              id: state
-                                                  .companySelectedUsersListModel![
-                                                      index]
-                                                  .id!
-                                                  .toString(),
-                                            ));
+                                        context.read<AdminBloc>().add(
+                                              AdminEvent
+                                                  .removeIndiVidualusersPartOfBusiness(
+                                                id: state
+                                                    .companyUsers![index].id!
+                                                    .toString(),
+                                              ),
+                                            );
                                       },
                                     );
                                   },
@@ -151,21 +129,112 @@ class CompanyUsers extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          ),
-                          adjustWidth(kwidth * .04),
-                        ],
+                            adjustWidth(kwidth * .04),
+                          ],
+                        ),
                       ),
-                    ),
-                    const Divider(
-                      thickness: .3,
-                    ),
+                    ],
+                  ),
+                  children: [
+                    SizedBox(
+                      height: 100,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: data.cardData?.length,
+                        itemBuilder: (context, index) {
+                          final innerData = data.cardData?[index];
+                          return InkWell(
+                            onTap: () {
+                              final Map<String, String> map =
+                                  innerData.id != null
+                                      ? {
+                                          'myCard': 'false',
+                                          'cardId': innerData.id.toString()
+                                        }
+                                      : <String, String>{};
+                              GoRouter.of(context).pushNamed(
+                                Routes.cardDetailView,
+                                pathParameters: map,
+                              );
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Row(
+                                      children: [
+                                        adjustWidth(kwidth * .04),
+                                        CircleAvatar(
+                                          backgroundColor: kgrey,
+                                          radius: 20,
+                                          backgroundImage: innerData != null &&
+                                                  innerData.photos != null
+                                              ? MemoryImage(
+                                                  base64.decode(innerData.photos
+                                                          .startsWith('data')
+                                                      ? innerData.photos
+                                                          .substring(22)
+                                                      : innerData.photos),
+                                                )
+                                              : null,
+                                          child: innerData?.photos == null
+                                              ? const Icon(Icons.person)
+                                              : null,
+                                        ),
+                                        adjustWidth(kwidth * .04),
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                  text: innerData?.name ?? '',
+                                                  style: textStyle1),
+                                              const WidgetSpan(
+                                                  child: SizedBox(width: 10)),
+                                              TextSpan(
+                                                text: innerData!.designation,
+                                                style: textStyle1.copyWith(
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        adjustWidth(kwidth * .04),
+                                        const Spacer(),
+                                        const Icon(Icons.arrow_right_rounded)
+                                      ],
+                                    ),
+                                  ),
+                                  const Divider(
+                                    thickness: .3,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
                   ],
-                ),
-              );
+                );
+              },
+            ),
+          );
+        } else {
+          return ErrorRefreshIndicator(
+            image: emptyNodata2,
+            errorMessage: 'No users found',
+            onRefresh: () {
+              context
+                  .read<AdminBloc>()
+                  .add(const AdminEvent.getCompanyUsers(isLoad: true));
             },
           );
-        },
-      ),
+        }
+      },
     );
   }
 }

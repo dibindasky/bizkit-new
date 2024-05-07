@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:bizkit/application/business_logic/admin/admin_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,62 +44,60 @@ class RequestsTab extends StatelessWidget {
         builder: (context, state) {
           if (state.isLoading) {
             return const LoadingAnimation();
-          } else if (state.businesscardRequests == null) {
-            return SizedBox(
-              height: khieght * .9,
-              child: const Center(child: Text('No Requests found')),
-            );
-          } else if (state.businesscardRequests!.isEmpty) {
-            return SizedBox(
-              height: khieght * .9,
-              child: const Center(child: Text('No Requests found')),
-            );
-          }
-          log('${state.businesscardRequests!.length}');
-          return ListView.builder(
-            itemCount: state.businesscardRequests!.length,
-            itemBuilder: (context, index) {
-              final data = state.businesscardRequests![index];
-              return InkWell(
-                onTap: () {
-                  final Map<String, String> map =
-                      state.businesscardRequests![index].cardId != null
-                          ? {
-                              'myCard': 'false',
-                              'cardId': state
-                                  .businesscardRequests![index].cardId!
-                                  .toString()
-                            }
-                          : <String, String>{};
-                  GoRouter.of(context).pushNamed(
-                    Routes.cardDetailView,
-                    pathParameters: map,
-                  );
-                },
-                child: Column(
-                  children: [
-                    Row(
+          } else if (state.businesscardRequests != null &&
+              state.businesscardRequests!.isNotEmpty) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<AdminBloc>().add(
+                    const AdminEvent.getAllBusinessCardRequests(isLoad: true));
+              },
+              child: ListView.builder(
+                itemCount: state.businesscardRequests!.length,
+                itemBuilder: (context, index) {
+                  final data = state.businesscardRequests![index];
+                  return InkWell(
+                    onTap: () {
+                      final Map<String, String> map =
+                          state.businesscardRequests![index].cardId != null
+                              ? {
+                                  'myCard': 'false',
+                                  'cardId': state
+                                      .businesscardRequests![index].cardId!
+                                      .toString()
+                                }
+                              : <String, String>{};
+                      GoRouter.of(context).pushNamed(
+                        Routes.cardDetailView,
+                        pathParameters: map,
+                      );
+                    },
+                    child: Column(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: kgrey,
-                          radius: 30,
-                          backgroundImage: data.photo != null
-                              ? MemoryImage(
-                                  base64.decode(data.photo!.startsWith('data')
-                                      ? data.photo!.substring(22)
-                                      : data.photo!),
-                                )
-                              : null,
-                          child: data.photo == null
-                              ? const Icon(Icons.person)
-                              : null,
-                        ),
-                        adjustWidth(kwidth * .04),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * .7,
-                          child: Text(
-                            '${data.name} has been sent request to join your company as ${data.designation}',
-                          ),
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: kgrey,
+                              radius: 30,
+                              backgroundImage: data.photo != null
+                                  ? MemoryImage(
+                                      base64.decode(
+                                          data.photo!.startsWith('data')
+                                              ? data.photo!.substring(22)
+                                              : data.photo!),
+                                    )
+                                  : null,
+                              child: data.photo == null
+                                  ? const Icon(Icons.person)
+                                  : null,
+                            ),
+                            adjustWidth(kwidth * .04),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * .7,
+                              child: Text(
+                                '${data.name} has been sent request to join your company as ${data.designation}',
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -202,6 +201,7 @@ class RequestsTab extends StatelessWidget {
               );
             },
           );
+
         },
       ),
     );

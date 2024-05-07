@@ -2,7 +2,6 @@ import 'package:bizkit/application/business_logic/card/create/user_data/user_dat
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
-import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/card_uploading_showdailogue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
@@ -32,7 +31,20 @@ class PickCardsScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Center(
-            child: BlocBuilder<UserDataBloc, UserDataState>(
+            child: BlocConsumer<UserDataBloc, UserDataState>(
+              listener: (context, state) {
+                if (state.scanningDone) {
+                  Navigator.pop(context);
+                  GoRouter.of(context).push(Routes.cardCreationProfilePage);
+                } else if (state.scanningLoading) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              },
               builder: (context, state) {
                 return Column(
                   children: [
@@ -160,16 +172,16 @@ class PickCardsScreen extends StatelessWidget {
                               // context
                               //     .read<UserDataBloc>()
                               //     .add(UserDataEvent.getUserDetail());
-                              context
-                                  .read<UserDataBloc>()
-                                  .add(UserDataEvent.getBusinessCategories());
                               // Navigator.pushReplacement(
                               //     context,
                               //     MaterialPageRoute(
                               //         builder: (context) =>
                               //             const ProfileCreationScreen()));
-                              GoRouter.of(context)
-                                  .push(Routes.cardCreationProfilePage);
+                              context
+                                  .read<UserDataBloc>()
+                                  .add(UserDataEvent.getBusinessCategories());
+                              // GoRouter.of(context)
+                              //     .push(Routes.cardCreationProfilePage);
                             },
                           ),
                     adjustHieght(khieght * .02),

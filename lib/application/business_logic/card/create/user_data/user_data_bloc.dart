@@ -82,6 +82,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         socialMediaAdded: false,
         personalImageAdded: false,
         accoladeAdded: false,
+        scanningDone: false,
         isLoading: true,
         hasError: false,
         message: null,
@@ -110,6 +111,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         isLoading: true,
         hasError: false,
+        scanningDone: false,
         message: null,
         cardAdded: false,
         personalData: null,
@@ -165,6 +167,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         ),
         cardAdded: false,
         message: null,
+        scanningDone: false,
         accoladeAdded: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
@@ -195,6 +198,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         personalImageAdded: false,
         message: null,
         datesToRememberAdded: false,
+        scanningDone: false,
         datesToRememberLoading: true));
     final result = await cardPatchRepo.addDatesToRemember(
         datesToRemember: event.datesToRemember);
@@ -212,6 +216,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         accoladeAdded: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
+        scanningDone: false,
         cardAdded: false,
         message: null,
         datesToRememberDeleteLoading: true));
@@ -232,6 +237,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         personalImageAdded: false,
         message: null,
         socialMediaLoading: true,
+        scanningDone: false,
         datesToRememberAdded: false,
         socialMediaAdded: false));
     final result = await cardPatchRepo.addSocialMedia(
@@ -248,6 +254,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> removeSocialMedia(RemoveSocialMedia event, emit) async {
     emit(state.copyWith(
         accoladeAdded: false,
+        scanningDone: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
         cardAdded: false,
@@ -268,6 +275,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         cardAdded: false,
         message: null,
         personalImageAdded: false,
+        scanningDone: false,
         accoladeLoading: true,
         datesToRememberAdded: false,
         socialMediaAdded: false,
@@ -310,6 +318,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         accoladeAdded: false,
         datesToRememberAdded: false,
+        scanningDone: false,
         socialMediaAdded: false,
         cardAdded: false,
         message: null,
@@ -327,6 +336,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         cardAdded: false,
         message: null,
+        scanningDone: false,
         personalImageAdded: false,
         personalImageLoading: true,
         accoladeLoading: false,
@@ -355,6 +365,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         datesToRememberAdded: false,
         socialMediaAdded: false,
         cardAdded: false,
+        scanningDone: false,
         message: null,
         personalImageLoading: true));
     final result = await cardPatchRepo.removePersonalImage(id: event.id);
@@ -377,6 +388,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           userPhotos: [PersonalPhoto(photo: img.base64)],
           cardAdded: false,
           accoladeAdded: false,
+          scanningDone: false,
           datesToRememberAdded: false,
           socialMediaAdded: false,
           message: null));
@@ -389,6 +401,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         cardAdded: false,
         accoladeAdded: false,
         datesToRememberAdded: false,
+        scanningDone: false,
         socialMediaAdded: false,
         message: null));
   }
@@ -407,12 +420,22 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         scannedImagesCardCreation: list,
         cardAdded: false,
         message: null,
+        scanningDone: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
         accoladeAdded: false));
   }
 
   FutureOr<void> processImageScanning(ProcessImageScanning event, emit) async {
+    emit(state.copyWith(
+        scannedImageDatasModel: null,
+        scanningDone: false,
+        scanningLoading: true,
+        cardAdded: false,
+        accoladeAdded: false,
+        datesToRememberAdded: false,
+        socialMediaAdded: false,
+        message: null));
     List<String> images = event.images
         .map((e) =>
             e.base64.startsWith('data') ? e.base64.substring(22) : e.base64)
@@ -420,7 +443,16 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
     final result = await textExtractionRepo.extractText(
         image: TextExtractionimageModel(images: images));
-    result.fold((l) => null, (r) {
+    result.fold(
+        (l) => emit(state.copyWith(
+            scannedImageDatasModel: ScannedImageDatasModel(),
+            scanningDone: true,
+            scanningLoading: false,
+            cardAdded: false,
+            accoladeAdded: false,
+            datesToRememberAdded: false,
+            socialMediaAdded: false,
+            message: null)), (r) {
       final texts = ScannedImageDatasModel(
           emails: r.emails,
           names: r.names,
@@ -443,6 +475,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       print(r.toJson());
       return emit(state.copyWith(
           scannedImageDatasModel: texts,
+          scanningDone: true,
+          scanningLoading: false,
           cardAdded: false,
           accoladeAdded: false,
           datesToRememberAdded: false,
@@ -457,6 +491,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           accoladeAdded: false,
           datesToRememberAdded: false,
           socialMediaAdded: false,
+          scanningDone: false,
           scannedImagesCardCreation: [],
           cardAdded: false,
           message: null));
@@ -488,6 +523,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         cardAdded: false,
         accoladeAdded: false,
+        scanningDone: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
         message: null,
@@ -503,6 +539,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           accoladeAdded: false,
           datesToRememberAdded: false,
           socialMediaAdded: false,
+          scanningDone: false,
           businessCategories: getBusinessCategories.businessCategories ?? []));
     });
   }

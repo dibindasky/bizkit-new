@@ -64,6 +64,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       mat.TextEditingController();
   final mat.TextEditingController branchOfficePhoneController =
       mat.TextEditingController();
+  final mat.TextEditingController brochureLabelController =
+      mat.TextEditingController();
 
   final PdfPickerImpl pdfPicker;
   final CardRepo cardService;
@@ -82,7 +84,8 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<RemoveBusinessSocialMedia>(removeBusinessSocialMedia);
     on<AddLogo>(addLogo);
     on<AddCropedLogo>(addCropedLogo);
-    on<AddBrochures>(addBrochure);
+    on<AddBrochures>(addBrochures);
+    on<AddBrochure>(addBrochure);
     on<RemoveBrochure>(removeBrochure);
     on<AddProduct>(addProduct);
     on<PickProductImage>(pickProductImage);
@@ -271,6 +274,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       state.copyWith(
           isBusiness: business,
           accreditionAdded: false,
+          companyDataRemoved: false,
           branchAdded: false,
           brochureAdded: false,
           productAdded: false,
@@ -279,6 +283,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
           bankingAdded: false,
           logoAdded: false,
           currentCard: event.card,
+          companiesList: [],
           branchOffices: event.card.isCompanyAutofilled == true
               ? <BranchOffice>[]
               : event.card.branchOffices ?? <BranchOffice>[],
@@ -365,6 +370,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         branchAdded: false,
         brochureAdded: false,
         productAdded: false,
+        companyDataRemoved: false,
         socialMediaAdded: false,
         bankingLoading: true,
         hasError: false,
@@ -415,6 +421,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         businessLoading: true,
         businessAdded: false,
         hasError: false,
+        companyDataRemoved: false,
         message: null,
         gotCompanyData: false));
     final BusinessDetails businessDetails = BusinessDetails(
@@ -457,26 +464,26 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       return emit(state.copyWith(
           accreditionAdded: false,
           branchAdded: false,
+          companyDataRemoved: false,
           brochureAdded: false,
           productAdded: false,
           socialMediaAdded: false,
           gotCompanyData: false,
-          companiesList: []));
+          companiesList: <Company>[]));
     }
     final result = await cardService.getCompanies(search: event.search);
-    result.fold((l) => null, (getCompanysResponseModel) {
+    result.fold((l) => emit(state), (getCompanysResponseModel) {
       return emit(state.copyWith(
           accreditionAdded: false,
           branchAdded: false,
           brochureAdded: false,
           productAdded: false,
           socialMediaAdded: false,
+          companyDataRemoved: false,
           gotCompanyData: false,
           companiesList:
               getCompanysResponseModel.companies ?? state.companiesList));
     });
-    print(
-        '3====================================***********************************************************=====================================');
   }
 
   FutureOr<void> getCompnayDetails(GetCompnayDetails event, emit) async {
@@ -486,6 +493,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         hasError: false,
         accreditionAdded: false,
         branchAdded: false,
+        companyDataRemoved: false,
         brochureAdded: false,
         productAdded: false,
         socialMediaAdded: false,
@@ -521,6 +529,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     emit(state.copyWith(
         loadCompanyData: true,
         message: null,
+        companyDataRemoved: false,
         hasError: false,
         accreditionAdded: false,
         branchAdded: false,
@@ -545,6 +554,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
           businessData: BusinessDetails(),
           gotCompanyData: false,
           loadCompanyData: false,
+          companyDataRemoved: true,
           message: 'company data removed from your profile'));
       businessNameController.text = business.businessName ?? '';
       mailController.text = business.email ?? '';
@@ -582,6 +592,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
           userData.first.websiteLink ?? websiteLinkController.text;
       emit(state.copyWith(
         isBusiness: business,
+        companyDataRemoved: false,
         gotCompanyData: false,
         accreditionAdded: false,
         branchAdded: false,
@@ -600,6 +611,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       emit(state.copyWith(
         logo: image,
         logoImageLoading: false,
+        companyDataRemoved: false,
         logoPickImageError: false,
         gotCompanyData: false,
         logoCard: logoCard,
@@ -618,6 +630,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     emit(state.copyWith(
       logoPickImageError: false,
       logoAdded: false,
+      companyDataRemoved: false,
       logoLoading: true,
       accreditionAdded: false,
       branchAdded: false,
@@ -673,13 +686,33 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         gotCompanyData: false));
   }
 
-  FutureOr<void> addBrochure(AddBrochures event, emit) async {
+  FutureOr<void> addBrochure(AddBrochure event, emit) async {
     emit(state.copyWith(
       brochureLoading: true,
       accreditionAdded: false,
       branchAdded: false,
       brochureAdded: false,
       productAdded: false,
+      companyDataRemoved: false,
+      socialMediaAdded: false,
+    ));
+    final response = await cardPatchRepo.addBrochure(brochure: event.brochure);
+    response.fold(
+        (l) => emit(state.copyWith(brochureLoading: false)),
+        (r) => emit(state.copyWith(
+            brochureAdded: true,
+            brochureLoading: false,
+            brochures: [...state.brochures, r])));
+  }
+
+  FutureOr<void> addBrochures(AddBrochures event, emit) async {
+    emit(state.copyWith(
+      brochureLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      companyDataRemoved: false,
       socialMediaAdded: false,
     ));
     final result = await pdfPicker.pickPDF();
@@ -709,6 +742,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       branchAdded: false,
       brochureAdded: false,
       productAdded: false,
+      companyDataRemoved: false,
       socialMediaAdded: false,
     ));
     final result = await cardPatchRepo.deleteBrochure(id: event.id);
@@ -730,6 +764,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       branchAdded: false,
       brochureAdded: false,
       productAdded: false,
+      companyDataRemoved: false,
       socialMediaAdded: false,
     ));
     final response =
@@ -748,6 +783,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       accreditionAdded: false,
       branchAdded: false,
       brochureAdded: false,
+      companyDataRemoved: false,
       productAdded: false,
       socialMediaAdded: false,
     ));
@@ -769,6 +805,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     emit(state.copyWith(
       branchDeleteLoading: true,
       accreditionAdded: false,
+      companyDataRemoved: false,
       branchAdded: false,
       brochureAdded: false,
       productAdded: false,
@@ -790,6 +827,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     emit(state.copyWith(
       pickImageError: false,
       productLoading: true,
+      companyDataRemoved: false,
       accreditionAdded: false,
       branchAdded: false,
       brochureAdded: false,
@@ -848,6 +886,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       branchAdded: false,
       brochureAdded: false,
       productAdded: false,
+      companyDataRemoved: false,
       socialMediaAdded: false,
     ));
     final result = await cardPatchRepo.deleteProduct(id: event.id);
@@ -868,6 +907,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       accreditionAdded: false,
       branchAdded: false,
       brochureAdded: false,
+      companyDataRemoved: false,
       productAdded: false,
       socialMediaAdded: false,
       productUpdated: false,
@@ -892,6 +932,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     emit(state.copyWith(
       accreditionLoading: true,
       accreditionAdded: false,
+      companyDataRemoved: false,
       branchAdded: false,
       brochureAdded: false,
       productAdded: false,
@@ -940,6 +981,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       accreditionDeleteLoading: true,
       accreditionAdded: false,
       branchAdded: false,
+      companyDataRemoved: false,
       brochureAdded: false,
       productAdded: false,
       socialMediaAdded: false,
@@ -964,6 +1006,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       accreditionAdded: false,
       branchAdded: false,
       brochureAdded: false,
+      companyDataRemoved: false,
       productAdded: false,
       socialMediaAdded: false,
     ));
@@ -985,6 +1028,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       branchAdded: false,
       brochureAdded: false,
       productAdded: false,
+      companyDataRemoved: false,
       socialMediaAdded: false,
     ));
     final result = await cardPatchRepo.deleteSocialMedia(id: event.id);
@@ -1004,6 +1048,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
       socialMediaDeleteLoading: true,
       accreditionAdded: false,
       branchAdded: false,
+      companyDataRemoved: false,
       brochureAdded: false,
       productAdded: false,
       socialMediaAdded: false,

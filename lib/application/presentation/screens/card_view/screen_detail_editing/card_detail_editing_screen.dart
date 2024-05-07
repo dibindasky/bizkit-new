@@ -74,6 +74,7 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                                                 ?.isCompanyRequested ==
                                             true) {
                                           // cancel request call
+
                                           return;
                                         } else if (state.anotherCard
                                                 ?.isCompanyAutofilled ==
@@ -92,16 +93,6 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                                                   .notifyListeners();
                                             },
                                           );
-                                          // showCustomConfirmationDialogue(
-                                          //     context: context,
-                                          //     title:
-                                          //         'If you add your own company, Your added company will be deleted from your card',
-                                          //     buttonText: 'Add Company',
-                                          //     onTap: () {
-                                          //       companySearchNotifier.value = 0;
-                                          //       companySearchNotifier
-                                          //           .notifyListeners();
-                                          //     });
                                         } else {
                                           companySearchNotifier.value = 0;
                                           companySearchNotifier
@@ -147,8 +138,11 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                           valueListenable: companySearchNotifier,
                           builder: (context, value, _) {
                             if (value > 1) {
-                              return const Text(
-                                  'You have the option to either create a new company profile or search and select your existing company profile to associate with your account.');
+                              return Text(state
+                                          .anotherCard?.isCompanyRequested ??
+                                      false
+                                  ? 'You can search for a new company, or you can cancel the request and add your own company to the card.'
+                                  : 'You have the option to either create a new company profile or search and select your existing company profile to associate with your account.');
                             } else if (value == 0) {
                               return const BusinessAndBankingDetailsAddingTiles();
                             } else {
@@ -169,14 +163,6 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                                                   SearchQuery(search: value)));
                                     },
                                     onDropDownSelection: (value) {
-                                      // call for company details with the selected value
-                                      // if (value ==
-                                      //     context
-                                      //         .read<BusinessDataBloc>()
-                                      //         .companyController
-                                      //         .text) {
-                                      //   return;
-                                      // } else {
                                       showDialog(
                                         context: context,
                                         builder: (context) => Dialog(

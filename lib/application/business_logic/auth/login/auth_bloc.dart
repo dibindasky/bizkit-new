@@ -53,10 +53,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       loginResponseModel: null,
     ));
     await FirebaseMessaging.instance.requestPermission();
+    final token = await FirebaseMessaging.instance.getToken();
+    print('Firebase Device token ====> $token');
     final LoginModel model = LoginModel(
         email: event.loginModel.email,
         password: event.loginModel.password,
-        deviceToken: await FirebaseMessaging.instance.getToken(),
+        deviceToken: token,
         deviceType: Platform.isAndroid ? 1 : 2,
         deviceId:
             '${Platform.isAndroid ? 'Android' : 'ios'} device ${DateTime.now().toString()}'

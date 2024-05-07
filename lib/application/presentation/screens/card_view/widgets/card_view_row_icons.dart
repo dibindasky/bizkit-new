@@ -271,8 +271,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                       child: state.anotherCard?.businessDetails?.address ==
                                   null &&
                               (state.anotherCard?.branchOffices == null ||
-                                  state.anotherCard?.branchOffices ==
-                                      <BranchOffice>[])
+                                  state.anotherCard?.branchOffices?.length == 0)
                           ? Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -288,14 +287,6 @@ class CardViewRowWiceIcons extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Text(
-                                    'Address',
-                                    style: textHeadStyle1,
-                                  ),
-                                  state.anotherCard?.businessDetails?.address ==
-                                          null
-                                      ? const SizedBox()
-                                      : adjustHieght(15),
                                   state.anotherCard?.businessDetails?.address ==
                                           null
                                       ? const SizedBox()
@@ -309,8 +300,9 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                           ?.mobileNumber),
                                   adjustHieght(15),
                                   state.anotherCard?.branchOffices == null ||
-                                          state.anotherCard?.branchOffices ==
-                                              <BranchOffice>[]
+                                          state.anotherCard?.branchOffices
+                                                  ?.length ==
+                                              0
                                       ? const SizedBox()
                                       : const Text('Branch Office Address'),
                                   state.anotherCard?.branchOffices == null ||

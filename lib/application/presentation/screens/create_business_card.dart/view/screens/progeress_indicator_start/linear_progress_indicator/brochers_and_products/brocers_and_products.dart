@@ -1,6 +1,7 @@
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brocher_builder.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brochure_adding_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_adding_screen.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_builder.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
@@ -75,7 +76,15 @@ class BrochersAndProductsScreen extends StatelessWidget {
                   onTap: () async {
                     context
                         .read<BusinessDataBloc>()
-                        .add(const BusinessDataEvent.addBrochures());
+                        .brochureLabelController.text='';
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ScreenBrochureAdding(),
+                        ));
+                    // context
+                    //     .read<BusinessDataBloc>()
+                    //     .add(const BusinessDataEvent.addBrochures());
                   },
                   child: DottedBorder(
                     dashPattern: const [8, 8],

@@ -342,9 +342,10 @@ class CardService implements CardRepo {
   Future<Either<Failure, SuccessResponseModel>> requestCompanyDetails(
       {required RequestCardDetailModel requestCardDetailModel}) async {
     try {
+      log('requestCompanyDetails ==> ${requestCardDetailModel.toJson()}');
       final responce = await apiService.post(ApiEndPoints.requestCompany,
           data: requestCardDetailModel.toJson());
-      log('requestCompanyDetails ==> ${responce.data}');
+      log('requestCompanyDetails ==>success');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('requestCompanyDetails DioException ${e.response?.statusCode} $e');

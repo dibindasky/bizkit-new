@@ -97,25 +97,6 @@ class ScreenConnectionRequests extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: textStyle1.copyWith(fontSize: kwidth * 0.045),
                         ),
-                        // Row(
-                        //   children: [
-                        //     Expanded(
-                        //       child: Text(
-                        //         data.company ?? '',
-                        //         overflow: TextOverflow.ellipsis,
-                        //         style: textStyle1,
-                        //       ),
-                        //     ),
-                        //     const Text(' | '),
-                        //     Expanded(
-                        //       child: Text(
-                        //         data.designation ?? '',
-                        //         overflow: TextOverflow.ellipsis,
-                        //         style: textStyle1,
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
                         adjustHieght(10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -150,77 +131,6 @@ class ScreenConnectionRequests extends StatelessWidget {
                                           ),
                                         ),
                                       );
-                                  // showDialog(
-                                  //   context: context,
-                                  //   builder: (context) => Dialog(
-                                  //       child: Container(
-                                  //     padding: const EdgeInsets.all(20),
-                                  //     decoration: BoxDecoration(
-                                  //         borderRadius: const BorderRadius.all(
-                                  //             Radius.circular(20)),
-                                  //         border:
-                                  //             Border.all(color: kneonShade)),
-                                  //     child: Column(
-                                  //       mainAxisSize: MainAxisSize.min,
-                                  //       children: [
-                                  //         const Text(
-                                  //             'Do you wish to share your bizcard with your new connection?'),
-                                  //         adjustHieght(20),
-                                  //         Row(
-                                  //           mainAxisAlignment:
-                                  //               MainAxisAlignment.spaceAround,
-                                  //           children: [
-                                  //             FilledButton(
-                                  //                 style: ButtonStyle(
-                                  //                     side: const MaterialStatePropertyAll(
-                                  //                         BorderSide(
-                                  //                             color:
-                                  //                                 kneonShade)),
-                                  //                     backgroundColor:
-                                  //                         MaterialStatePropertyAll(
-                                  //                             kDefaultIconDarkColor)),
-                                  //                 onPressed: () {
-                                  //                   Navigator.pop(context);
-                                  //                 },
-                                  //                 child: const Text('Cancel',
-                                  //                     style: TextStyle(
-                                  //                         color: kwhite))),
-                                  //             FilledButton(
-                                  //               style: const ButtonStyle(
-                                  //                   side:
-                                  //                       MaterialStatePropertyAll(
-                                  //                           BorderSide(
-                                  //                               color: kblack)),
-                                  //                   backgroundColor:
-                                  //                       MaterialStatePropertyAll(
-                                  //                           neonShade)),
-                                  //               onPressed: () {
-                                  //                 context
-                                  //                     .read<
-                                  //                         ConnectionRequestBloc>()
-                                  //                     .add(
-                                  //                       ConnectionRequestEvent
-                                  //                           .addConnectionRequests(
-                                  //                         addConnectionRequestModel:
-                                  //                             AddConnectionRequestModel(
-                                  //                                 cardUserId: data
-                                  //                                     .cardUserId),
-                                  //                       ),
-                                  //                     );
-                                  //                 Navigator.pop(context);
-                                  //               },
-                                  //               child: const Text(
-                                  //                 'Share Card',
-                                  //                 style:
-                                  //                     TextStyle(color: kwhite),
-                                  //               ),
-                                  //             )
-                                  //           ],
-                                  //         )
-                                  //       ],
-                                  //     ),
-                                  //   )),
-                                  // );
                                 },
                                 child: const CircleAvatar(
                                     child: Icon(Icons.check, color: kwhite))),

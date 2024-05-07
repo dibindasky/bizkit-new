@@ -99,118 +99,109 @@ class RequestsTab extends StatelessWidget {
                             ),
                           ],
                         ),
-                        data.isAccepted! || data.isDiclined!
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: ColoredBox(
-                                      color: neonShade,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 4,
-                                        ),
-                                        child: InkWell(
-                                          child: Text(data.isAccepted!
-                                              ? 'Accepted'
-                                              : 'Rejected'),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: ColoredBox(
-                                      color: const Color.fromARGB(
-                                          255, 66, 165, 39),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 4,
-                                        ),
-                                        child: InkWell(
-                                          onTap: () {
-                                            showConfirmationDialog(
-                                              heading:
-                                                  'Are you sure do you want to Accept ${data.name} to join your company',
-                                              context,
-                                              actionButton: 'Accept',
-                                              onPressed: () {
-                                                context.read<AdminBloc>().add(
-                                                      AdminEvent
-                                                          .businessCardRequestAccept(
-                                                              id: data.id
-                                                                  .toString()),
-                                                    );
-                                              },
-                                            );
-                                          },
-                                          child: const Text('Accept'),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  adjustWidth(kwidth * .04),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: ColoredBox(
-                                      color: kred,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 4,
-                                        ),
-                                        child: InkWell(
-                                          onTap: () {
-                                            showConfirmationDialog(
-                                              heading:
-                                                  'Are you sure do you want to Reject ${data.name} to join your company',
-                                              context,
-                                              actionButton: 'Reject',
-                                              onPressed: () {
-                                                context.read<AdminBloc>().add(
-                                                      AdminEvent
-                                                          .businessCardRequestAReject(
-                                                              id: data.id
-                                                                  .toString()),
-                                                    );
-                                              },
-                                            );
-                                          },
-                                          child: const Text('Reject'),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                        const Divider(
-                          color: neonShade,
-                          thickness: .3,
-                        ),
                       ],
                     ),
-                  );
-                },
-              ),
-            );
-          } else {
-            return ErrorRefreshIndicator(
-              image: emptyNodata2,
-              errorMessage: 'No Requests found',
-              onRefresh: () {
-                context.read<AdminBloc>().add(
-                    const AdminEvent.getAllBusinessCardRequests(isLoad: true));
-              },
-            );
-          }
+                    data.isAccepted! || data.isDiclined!
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: ColoredBox(
+                                  color: neonShade,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 4,
+                                    ),
+                                    child: InkWell(
+                                      child: Text(data.isAccepted!
+                                          ? 'Accepted'
+                                          : 'Rejected'),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: ColoredBox(
+                                  color: const Color.fromARGB(255, 66, 165, 39),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 4,
+                                    ),
+                                    child: InkWell(
+                                      onTap: () {
+                                        showConfirmationDialog(
+                                          heading:
+                                              'Are you sure do you want to Accept ${data.name} to join your company',
+                                          context,
+                                          actionButton: 'Accept',
+                                          onPressed: () {
+                                            context.read<AdminBloc>().add(
+                                                  AdminEvent
+                                                      .businessCardRequestAccept(
+                                                          id: data.id
+                                                              .toString()),
+                                                );
+                                          },
+                                        );
+                                      },
+                                      child: const Text('Accept'),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              adjustWidth(kwidth * .04),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: ColoredBox(
+                                  color: kred,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 4,
+                                    ),
+                                    child: InkWell(
+                                      onTap: () {
+                                        showConfirmationDialog(
+                                          heading:
+                                              'Are you sure do you want to Reject ${data.name} to join your company',
+                                          context,
+                                          actionButton: 'Reject',
+                                          onPressed: () {
+                                            context.read<AdminBloc>().add(
+                                                  AdminEvent
+                                                      .businessCardRequestAReject(
+                                                          id: data.id
+                                                              .toString()),
+                                                );
+                                          },
+                                        );
+                                      },
+                                      child: const Text('Reject'),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                    const Divider(
+                      color: neonShade,
+                      thickness: .3,
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+
         },
       ),
     );

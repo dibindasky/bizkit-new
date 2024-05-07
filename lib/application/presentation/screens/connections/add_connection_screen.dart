@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
-import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
+import 'package:bizkit/domain/model/connections/connection_request_id_model/connection_request_id_model.dart';
 import 'package:bizkit/domain/model/connections/get_serch_connection_response_model/bizkit_user.dart';
 import 'package:bizkit/domain/model/search_query/search_query.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ScreenAddConnections extends StatelessWidget {
   ScreenAddConnections({super.key});
 
-  final TextEditingController controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.text = '';
+      context.read<ConnectionRequestBloc>().connectionController.text = '';
       // context.read<ConnectionRequestBloc>().add(
       //     ConnectionRequestEvent.searchBizkitUsers(
       //         searchQuery: SearchQuery(search: '')));
@@ -48,13 +47,15 @@ class ScreenAddConnections extends StatelessWidget {
         child: Column(
           children: [
             TTextFormField(
-              controller: controller,
+              controller:
+                  context.read<ConnectionRequestBloc>().connectionController,
               onChanaged: (value) {
                 if (value.length < 3) {
                   show = false;
                 } else {
                   show = true;
                 }
+                print(value);
                 context.read<ConnectionRequestBloc>().add(
                     ConnectionRequestEvent.searchBizkitUsers(
                         searchQuery: SearchQuery(search: value)));
@@ -76,12 +77,16 @@ class ScreenAddConnections extends StatelessWidget {
                         child: CircularProgressIndicator(color: neonShade));
                   } else if (state.bizkitUsers != null &&
                       state.bizkitUsers!.isNotEmpty) {
+                    print('search list length => ${state.bizkitUsers!.length}');
                     return RefreshIndicator(
                       onRefresh: () async {
                         context.read<ConnectionRequestBloc>().add(
                             ConnectionRequestEvent.searchBizkitUsers(
-                                searchQuery:
-                                    SearchQuery(search: controller.text)));
+                                searchQuery: SearchQuery(
+                                    search: context
+                                        .read<ConnectionRequestBloc>()
+                                        .connectionController
+                                        .text)));
                         await Future.delayed(
                             const Duration(milliseconds: 1500));
                       },
@@ -95,9 +100,8 @@ class ScreenAddConnections extends StatelessWidget {
                                 crossAxisSpacing: 20,
                                 mainAxisSpacing: 20),
                         itemBuilder: (context, index) {
-                          final data = state.bizkitUsers![index];
                           return GridTileAddRequestConnection(
-                            data: data,
+                            data: state.bizkitUsers![index],
                             index: index,
                           );
                         },
@@ -108,8 +112,11 @@ class ScreenAddConnections extends StatelessWidget {
                         onRefresh: () async {
                           context.read<ConnectionRequestBloc>().add(
                               ConnectionRequestEvent.searchBizkitUsers(
-                                  searchQuery:
-                                      SearchQuery(search: controller.text)));
+                                  searchQuery: SearchQuery(
+                                      search: context
+                                          .read<ConnectionRequestBloc>()
+                                          .connectionController
+                                          .text)));
                           await Future.delayed(
                               const Duration(milliseconds: 1500));
                         },
@@ -151,7 +158,7 @@ class _GridTileAddRequestConnectionState
   bool requested = false;
   @override
   void initState() {
-    print("added ==== ${widget.data.toJson()}");
+    log("added ==== ${widget.data.toJson()}");
     if (widget.data.connectionId != null) {
       requested = true;
     }
@@ -171,79 +178,72 @@ class _GridTileAddRequestConnectionState
           Radius.circular(10),
         ),
       ),
-      child: Column(children: [
-        // image profile
-        CircleAvatar(
-          radius: kwidth * 0.08,
-          backgroundColor: textFieldFillColr,
-          backgroundImage: widget.data.image != null
-              ? MemoryImage(base64.decode(widget.data.image!.startsWith('data')
-                  ? widget.data.image!.substring(22)
-                  : widget.data.image!))
-              : null,
-          child: widget.data.image != null
-              ? null
-              : const Icon(Icons.person, color: neonShade),
-        ),
-        adjustHieght(10),
-        Text(
-          name,
-          overflow: TextOverflow.ellipsis,
-          style: textStyle1.copyWith(fontSize: kwidth * 0.045),
-        ),
-        Text(
-          widget.data.isVerified ?? false ? company : designation,
-          overflow: TextOverflow.ellipsis,
-          style: textStyle1,
-        ),
-        adjustHieght(10),
-        InkWell(
-          onTap: () {
-            if (!requested) {
-              context.read<ConnectionRequestBloc>().add(
-                  ConnectionRequestEvent.addConnectionRequests(
-                      addConnectionRequestModel:
-                          AddConnectionRequestModel(cardUserId: widget.data.id),
-                      index: widget.data.id!));
-            } else {
-              // print(widget.data.connectionId);
-              // context.read<ConnectionRequestBloc>().add(
-              //     ConnectionRequestEvent.removeConnectionRequest(
-              //         connectionRequestIdModel: ConnectionRequestIdModel(
-              //             connectionRequestId: widget.data.connectionId),
-              //         id: widget.data.id!));
-            }
-          },
-          child: BlocConsumer<ConnectionRequestBloc, ConnectionRequestState>(
-            listenWhen: (previous, current) =>
-                (previous.requestLoadingIndex.contains(widget.data.id) !=
-                    current.requestLoadingIndex.contains(widget.data.id)) &&
-                (current.connected != previous.connected),
-            listener: (context, state) {
-              requested = !requested;
-            },
-            builder: (context, state) {
-              if (state.requestLoadingIndex.contains(widget.data.id)) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: ShimmerLoader(itemCount: 1, height: 30, width: 20),
-                );
-              }
-              return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                decoration: BoxDecoration(
-                    gradient: neonShadeGradient,
-                    borderRadius: const BorderRadius.all(Radius.circular(10))),
-                child: FittedBox(
-                  child: Text(requested ? 'Resquested' : 'Add Connection',
-                      style: const TextStyle(color: kwhite)),
-                ),
-              );
-            },
-          ),
-        ),
-      ]),
+      child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
+        builder: (context, state) {
+          return Column(children: [
+            // image profile
+            CircleAvatar(
+              radius: kwidth * 0.08,
+              backgroundColor: textFieldFillColr,
+              backgroundImage: widget.data.image != null
+                  ? MemoryImage(base64.decode(
+                      widget.data.image!.startsWith('data')
+                          ? widget.data.image!.substring(22)
+                          : widget.data.image!))
+                  : null,
+              child: widget.data.image != null
+                  ? null
+                  : const Icon(Icons.person, color: neonShade),
+            ),
+            adjustHieght(10),
+            Text(
+              name,
+              overflow: TextOverflow.ellipsis,
+              style: textStyle1.copyWith(fontSize: kwidth * 0.045),
+            ),
+            Text(
+              widget.data.isVerified ?? false ? company : designation,
+              overflow: TextOverflow.ellipsis,
+              style: textStyle1,
+            ),
+            adjustHieght(10),
+            GestureDetector(
+              onTap: () {
+                if (widget.data.connectionId == null) {
+                  context.read<ConnectionRequestBloc>().add(
+                      ConnectionRequestEvent.addConnectionRequests(
+                          addConnectionRequestModel: AddConnectionRequestModel(
+                              cardUserId: widget.data.id),
+                          index: widget.data.id!));
+                } else {
+                  context.read<ConnectionRequestBloc>().add(
+                      ConnectionRequestEvent.removeConnectionRequest(
+                          connectionRequestIdModel: ConnectionRequestIdModel(
+                              connectionRequestId: widget.data.connectionId),
+                          id: widget.data.id!));
+                }
+              },
+              child: state.requestLoadingIndex.contains(widget.data.id)
+                  ? const Center(child: CircularProgressIndicator())
+                  : Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
+                      decoration: BoxDecoration(
+                          gradient: neonShadeGradient,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10))),
+                      child: FittedBox(
+                        child: Text(
+                            widget.data.connectionId != null
+                                ? 'Remove Request'
+                                : 'Add Connection',
+                            style: const TextStyle(color: kwhite)),
+                      ),
+                    ),
+            ),
+          ]);
+        },
+      ),
     );
   }
 }

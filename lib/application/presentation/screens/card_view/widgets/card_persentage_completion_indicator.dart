@@ -20,6 +20,15 @@ class CardViewCompletionPersentageIndicator extends StatelessWidget {
         context.read<CardBloc>().add(const CardEvent.getCards(call: true));
       },
       builder: (context, state) {
+        // if (state.anotherCard?.isCompanyRequested ?? false) {
+        //   return Container(
+        //       margin: EdgeInsets.only(bottom: 10),
+        //       padding: EdgeInsets.all(10),
+        //       decoration: BoxDecoration(
+        //           border: Border.all(color: neonShade),
+        //           borderRadius: BorderRadius.circular(10)),
+        //       child: const Text('Company Requested'));
+        // }
         if (state.anotherCard!.percentage! == 100) {
           return const SizedBox();
         }

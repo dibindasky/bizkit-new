@@ -23,6 +23,7 @@ class ConnectionRequestEvent with _$ConnectionRequestEvent {
   const factory ConnectionRequestEvent.addConnectionRequests(
       {required AddConnectionRequestModel addConnectionRequestModel,
       required int index}) = AddConnectionRequests;
+  const factory ConnectionRequestEvent.getRequestLoadList({required int id}) = GetRequestLoadList;
   const factory ConnectionRequestEvent.getRequestLists() = GetRequestLists;
   const factory ConnectionRequestEvent.deleteRequest({required int id}) =
       DeleteRequest;

@@ -5008,6 +5008,8 @@ mixin _$UserDataState {
   bool get isBusiness => throw _privateConstructorUsedError;
   bool get accoladeLoading => throw _privateConstructorUsedError;
   bool get accoladeAdded => throw _privateConstructorUsedError;
+  bool get scanningLoading => throw _privateConstructorUsedError;
+  bool get scanningDone => throw _privateConstructorUsedError;
   bool get accoladeDeleteLoading => throw _privateConstructorUsedError;
   bool get datesToRememberLoading => throw _privateConstructorUsedError;
   bool get datesToRememberAdded => throw _privateConstructorUsedError;
@@ -5052,6 +5054,8 @@ abstract class $UserDataStateCopyWith<$Res> {
       bool isBusiness,
       bool accoladeLoading,
       bool accoladeAdded,
+      bool scanningLoading,
+      bool scanningDone,
       bool accoladeDeleteLoading,
       bool datesToRememberLoading,
       bool datesToRememberAdded,
@@ -5094,6 +5098,8 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
     Object? isBusiness = null,
     Object? accoladeLoading = null,
     Object? accoladeAdded = null,
+    Object? scanningLoading = null,
+    Object? scanningDone = null,
     Object? accoladeDeleteLoading = null,
     Object? datesToRememberLoading = null,
     Object? datesToRememberAdded = null,
@@ -5137,6 +5143,14 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
       accoladeAdded: null == accoladeAdded
           ? _value.accoladeAdded
           : accoladeAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
+      scanningLoading: null == scanningLoading
+          ? _value.scanningLoading
+          : scanningLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      scanningDone: null == scanningDone
+          ? _value.scanningDone
+          : scanningDone // ignore: cast_nullable_to_non_nullable
               as bool,
       accoladeDeleteLoading: null == accoladeDeleteLoading
           ? _value.accoladeDeleteLoading
@@ -5244,6 +5258,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool isBusiness,
       bool accoladeLoading,
       bool accoladeAdded,
+      bool scanningLoading,
+      bool scanningDone,
       bool accoladeDeleteLoading,
       bool datesToRememberLoading,
       bool datesToRememberAdded,
@@ -5284,6 +5300,8 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isBusiness = null,
     Object? accoladeLoading = null,
     Object? accoladeAdded = null,
+    Object? scanningLoading = null,
+    Object? scanningDone = null,
     Object? accoladeDeleteLoading = null,
     Object? datesToRememberLoading = null,
     Object? datesToRememberAdded = null,
@@ -5327,6 +5345,14 @@ class __$$InitialImplCopyWithImpl<$Res>
       accoladeAdded: null == accoladeAdded
           ? _value.accoladeAdded
           : accoladeAdded // ignore: cast_nullable_to_non_nullable
+              as bool,
+      scanningLoading: null == scanningLoading
+          ? _value.scanningLoading
+          : scanningLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      scanningDone: null == scanningDone
+          ? _value.scanningDone
+          : scanningDone // ignore: cast_nullable_to_non_nullable
               as bool,
       accoladeDeleteLoading: null == accoladeDeleteLoading
           ? _value.accoladeDeleteLoading
@@ -5429,6 +5455,8 @@ class _$InitialImpl implements _Initial {
       required this.isBusiness,
       required this.accoladeLoading,
       required this.accoladeAdded,
+      required this.scanningLoading,
+      required this.scanningDone,
       required this.accoladeDeleteLoading,
       required this.datesToRememberLoading,
       required this.datesToRememberAdded,
@@ -5469,6 +5497,10 @@ class _$InitialImpl implements _Initial {
   final bool accoladeLoading;
   @override
   final bool accoladeAdded;
+  @override
+  final bool scanningLoading;
+  @override
+  final bool scanningDone;
   @override
   final bool accoladeDeleteLoading;
   @override
@@ -5562,7 +5594,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, isBusiness: $isBusiness, accoladeLoading: $accoladeLoading, accoladeAdded: $accoladeAdded, accoladeDeleteLoading: $accoladeDeleteLoading, datesToRememberLoading: $datesToRememberLoading, datesToRememberAdded: $datesToRememberAdded, datesToRememberDeleteLoading: $datesToRememberDeleteLoading, socialMediaLoading: $socialMediaLoading, socialMediaAdded: $socialMediaAdded, personalImageLoading: $personalImageLoading, personalImageAdded: $personalImageAdded, socialMediaDeleteLoading: $socialMediaDeleteLoading, cardAdded: $cardAdded, message: $message, personalData: $personalData, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, businessCategories: $businessCategories, datesToRemember: $datesToRemember, socialMedias: $socialMedias, personalImges: $personalImges, currentCard: $currentCard, scannedImageDatasModel: $scannedImageDatasModel)';
+    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, isBusiness: $isBusiness, accoladeLoading: $accoladeLoading, accoladeAdded: $accoladeAdded, scanningLoading: $scanningLoading, scanningDone: $scanningDone, accoladeDeleteLoading: $accoladeDeleteLoading, datesToRememberLoading: $datesToRememberLoading, datesToRememberAdded: $datesToRememberAdded, datesToRememberDeleteLoading: $datesToRememberDeleteLoading, socialMediaLoading: $socialMediaLoading, socialMediaAdded: $socialMediaAdded, personalImageLoading: $personalImageLoading, personalImageAdded: $personalImageAdded, socialMediaDeleteLoading: $socialMediaDeleteLoading, cardAdded: $cardAdded, message: $message, personalData: $personalData, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, businessCategories: $businessCategories, datesToRemember: $datesToRemember, socialMedias: $socialMedias, personalImges: $personalImges, currentCard: $currentCard, scannedImageDatasModel: $scannedImageDatasModel)';
   }
 
   @override
@@ -5580,6 +5612,10 @@ class _$InitialImpl implements _Initial {
                 other.accoladeLoading == accoladeLoading) &&
             (identical(other.accoladeAdded, accoladeAdded) ||
                 other.accoladeAdded == accoladeAdded) &&
+            (identical(other.scanningLoading, scanningLoading) ||
+                other.scanningLoading == scanningLoading) &&
+            (identical(other.scanningDone, scanningDone) ||
+                other.scanningDone == scanningDone) &&
             (identical(other.accoladeDeleteLoading, accoladeDeleteLoading) ||
                 other.accoladeDeleteLoading == accoladeDeleteLoading) &&
             (identical(other.datesToRememberLoading, datesToRememberLoading) ||
@@ -5598,8 +5634,7 @@ class _$InitialImpl implements _Initial {
                 other.personalImageLoading == personalImageLoading) &&
             (identical(other.personalImageAdded, personalImageAdded) ||
                 other.personalImageAdded == personalImageAdded) &&
-            (identical(
-                    other.socialMediaDeleteLoading, socialMediaDeleteLoading) ||
+            (identical(other.socialMediaDeleteLoading, socialMediaDeleteLoading) ||
                 other.socialMediaDeleteLoading == socialMediaDeleteLoading) &&
             (identical(other.cardAdded, cardAdded) ||
                 other.cardAdded == cardAdded) &&
@@ -5636,6 +5671,8 @@ class _$InitialImpl implements _Initial {
         isBusiness,
         accoladeLoading,
         accoladeAdded,
+        scanningLoading,
+        scanningDone,
         accoladeDeleteLoading,
         datesToRememberLoading,
         datesToRememberAdded,
@@ -5674,6 +5711,8 @@ abstract class _Initial implements UserDataState {
       required final bool isBusiness,
       required final bool accoladeLoading,
       required final bool accoladeAdded,
+      required final bool scanningLoading,
+      required final bool scanningDone,
       required final bool accoladeDeleteLoading,
       required final bool datesToRememberLoading,
       required final bool datesToRememberAdded,
@@ -5707,6 +5746,10 @@ abstract class _Initial implements UserDataState {
   bool get accoladeLoading;
   @override
   bool get accoladeAdded;
+  @override
+  bool get scanningLoading;
+  @override
+  bool get scanningDone;
   @override
   bool get accoladeDeleteLoading;
   @override

@@ -32,7 +32,7 @@ class SecureStorage {
     await prefs.setString(accessKey, '');
     await prefs.setString(isLoged, '0');
     await prefs.setBool(isVerifiedKey, false);
-    await prefs.setString(isBusinessKey, '0');
+    await prefs.setBool(isBusinessKey, true);
     await prefs.setString(userNameKey, '');
     await prefs.setString(userWebsiteKey, '');
     await prefs.setString(userAddressKey, '');
@@ -127,13 +127,13 @@ class SecureStorage {
   static Future<void> setRole({required bool isBusiness}) async {
     final prefs = await _getPrefs();
     log('set isBusiness token =>() $isBusiness');
-    await prefs.setString(isBusinessKey, isBusiness ? '1' : '0');
+    await prefs.setBool(isBusinessKey, isBusiness);
   }
 
   static Future<bool> getRole() async {
     final prefs = await _getPrefs();
-    final role = prefs.getString(isBusinessKey);
-    return role == '1';
+    final role = prefs.getBool(isBusinessKey);
+    return role ?? true;
   }
 
   static Future<void> setHasCard({required bool hasCard}) async {

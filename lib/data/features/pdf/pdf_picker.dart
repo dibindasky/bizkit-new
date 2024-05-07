@@ -15,6 +15,15 @@ import 'package:pdf_render/pdf_render.dart';
 @LazySingleton()
 @injectable
 class PdfPickerImpl {
+  Future<PdfModel?> getPdf() async {
+    PdfModel? pdf;
+    final result = await pickPDF();
+    result.fold((l) => null, (r) {
+      pdf = r;
+    });
+    return pdf;
+  }
+
   Future<Either<Failure, PdfModel>> pickPDF() async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(

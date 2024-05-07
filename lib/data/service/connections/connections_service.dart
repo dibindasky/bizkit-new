@@ -133,7 +133,7 @@ class ConnectionService implements ConnectionRequestRepo {
       log('searchBizkitUser ');
       final response = await _apiService.get(ApiEndPoints.searchBizkitUser,
           queryParameters: searchQuery.toJson());
-      log('searchBizkitUser done');
+      log('searchBizkitUser done => success');
       return Right(GetSerchConnectionResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log('searchBizkitUser dio error');

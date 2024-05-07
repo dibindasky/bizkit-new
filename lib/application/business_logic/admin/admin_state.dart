@@ -17,7 +17,7 @@ class AdminState with _$AdminState {
     String? message,
     required bool homeShowcaseViwed,
     List<BlockedDUser>? blockedUsers,
-    List<CompanySelectedUsersListModel>? companySelectedUsersListModel,
+    List<CompanyUsers>? companyUsers,
     List<BusinessCardRequest>? businesscardRequests,
   }) = _Initial;
   factory AdminState.initial() => const AdminState(

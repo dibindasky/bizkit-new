@@ -4,6 +4,7 @@ part of 'admin_bloc.dart';
 class AdminEvent with _$AdminEvent {
   const factory AdminEvent.getCompanyUsers({required bool isLoad}) =
       GetCompanyUsers;
+  const factory AdminEvent.getCompanyUsersNext() = GetCompanyUsersNext;
   const factory AdminEvent.removeIndiVidualusersPartOfBusiness(
       {required String id}) = RemoveIndiVidualusersPartOfBusiness;
   const factory AdminEvent.showCaseVisited() = ShowCaseVisited;
@@ -15,7 +16,8 @@ class AdminEvent with _$AdminEvent {
       BusinessCardRequestAccept;
   const factory AdminEvent.businessCardRequestAReject({required String id}) =
       BusinessCardRequestAReject;
-  const factory AdminEvent.getBusinessBlockeUsers() = GetBusinessBlockeUsers;
+  const factory AdminEvent.getBusinessBlockeUsers({required bool isLoad}) =
+      GetBusinessBlockeUsers;
   const factory AdminEvent.businessUnBlockeUser({required String id}) =
       BusinessUnBlockeUser;
 }

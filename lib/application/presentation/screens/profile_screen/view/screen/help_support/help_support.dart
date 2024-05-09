@@ -31,17 +31,10 @@ class _HelpSupportState extends State<HelpSupport> {
   }
 
   void onRefresh() async {
-    await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
-        context
-            .read<ProfileBloc>()
-            .add(const ProfileEvent.getQuestions(serachQuery: '')));
-  }
-
-  void onLoading() async {
-    await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
-        context
-            .read<ProfileBloc>()
-            .add(const ProfileEvent.getQuestions(serachQuery: '')));
+    context
+        .read<ProfileBloc>()
+        .add(const ProfileEvent.getQuestions(serachQuery: ''));
+    await Future.delayed(const Duration(milliseconds: 500));
   }
 
   @override

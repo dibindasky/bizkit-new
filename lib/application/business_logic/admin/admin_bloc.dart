@@ -64,19 +64,19 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   FutureOr<void> businessCardRequestAReject(
       BusinessCardRequestAReject event, emit) async {
     emit(state.copyWith(
-        businessAcionLoading: true, hasError: false, requestDiclined: false));
+        isLoading: true, hasError: false, requestDiclined: false));
     final data = await adminRepo.businessCardRequestReject(id: event.id);
     data.fold(
       (l) => emit(
         state.copyWith(
-          businessAcionLoading: false,
+          isLoading: false,
           hasError: false,
           requestDiclined: false,
         ),
       ),
       (r) {
         emit(state.copyWith(
-          businessAcionLoading: false,
+          isLoading: false,
           hasError: false,
           requestDiclined: true,
         ));
@@ -89,7 +89,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   FutureOr<void> businessCardRequestAccept(
       BusinessCardRequestAccept event, emit) async {
     emit(state.copyWith(
-      businessAcionLoading: true,
+      isLoading: true,
       hasError: false,
       requestAccepteed: false,
     ));
@@ -97,13 +97,13 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     data.fold(
       (l) => emit(state.copyWith(
         requestAccepteed: false,
-        businessAcionLoading: false,
+        isLoading: false,
         hasError: true,
       )),
       (r) {
         emit(state.copyWith(
           requestAccepteed: true,
-          businessAcionLoading: false,
+          isLoading: false,
           hasError: false,
         ));
         add(const AdminEvent.getAllBusinessCardRequests(isLoad: true));

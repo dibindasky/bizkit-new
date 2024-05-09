@@ -23,11 +23,11 @@ class ArchivedCards extends StatefulWidget {
 class _ArchivedCardsState extends State<ArchivedCards> {
   final ScrollController scrollController = ScrollController();
 
-  void onRefresh() async {
-    await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
-        context
-            .read<CardBloc>()
-            .add(const CardEvent.getArchievedCards(isLoad: true)));
+  Future<void> onRefresh() async {
+    context
+        .read<CardBloc>()
+        .add(const CardEvent.getArchievedCards(isLoad: true));
+    await Future.delayed(const Duration(milliseconds: 1000));
   }
 
   @override
@@ -208,7 +208,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                 shrinkWrap: true,
                 image: emptyNodata2,
                 errorMessage: 'No Blocked Users found',
-                onRefresh: onRefresh,
+                onRefresh: () async => await onRefresh(),
               );
             }
           }),

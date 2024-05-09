@@ -259,16 +259,19 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
                     .copyWith(socialMediaHandles: value);
               });
             }),
-            buildSwitch("Business Achievements",
-                state.defauiltQr!.accreditation ?? false, (value) {
-              setState(() {
-                state.defauiltQr!.accreditation = value;
-                context.read<QrBloc>().defauiltQr = context
-                    .read<QrBloc>()
-                    .defauiltQr
-                    .copyWith(accreditation: value);
-              });
-            }),
+            buildSwitch(
+              "Business Achievements",
+              state.defauiltQr!.accreditation ?? false,
+              (value) {
+                setState(() {
+                  state.defauiltQr!.accreditation = value;
+                  context.read<QrBloc>().defauiltQr = context
+                      .read<QrBloc>()
+                      .defauiltQr
+                      .copyWith(accreditation: value);
+                });
+              },
+            ),
             adjustHieght(khieght * .03),
             buildSwitch(
                 "Update all cards", state.defauiltQr!.updateAllCards ?? false,
@@ -282,7 +285,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
                       .copyWith(updateAllCards: value);
                 },
               );
-            }, textFieldFillColr, state.defauiltQr!.updateAllCards ?? true),
+            }, wantShowDailogue: state.defauiltQr!.updateAllCards ?? true),
           ],
         );
       } else {
@@ -292,7 +295,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
   }
 
   Widget buildSwitch(String label, bool value, Function(bool) onChanged,
-      [Color color = textFieldFillColr, bool wantShowDailogue = false]) {
+      {Color color = textFieldFillColr, bool wantShowDailogue = false}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: Container(
@@ -317,44 +320,8 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
               activeTrackColor: color == neonShade ? kwhite : neonShade,
               activeColor: color == neonShade ? neonShade : kwhite,
               value: value,
-              onChanged: wantShowDailogue
-                  ? onChanged
-                  : (value) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Update all cards'),
-                            content: const Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                    'Enabling this option will affect all the created cards.'),
-                                SizedBox(height: 8),
-                                Text('Are you sure you want to enable this?'),
-                              ],
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  onChanged(value);
-                                },
-                                child: const Text('Confirm'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-            ),
+              onChanged: onChanged,
+            )
           ],
         ),
       ),

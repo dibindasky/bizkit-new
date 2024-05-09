@@ -349,12 +349,15 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     cardPage = 1;
     final result = await cardService.getCards(qurey: PageQuery(page: cardPage));
     result.fold(
-        (failure) => emit(state.copyWith(
-            hasError: true,
-            archiveCardRestored: false,
-            isLoading: false,
-            businessUser: business,
-            message: failure.message)), (getCardResposnseModel) {
+        (failure) => emit(
+              state.copyWith(
+                hasError: true,
+                archiveCardRestored: false,
+                isLoading: false,
+                businessUser: business,
+                message: failure.message,
+              ),
+            ), (getCardResposnseModel) {
       CardResponse? defaultCard;
       if (getCardResposnseModel.results != null &&
           getCardResposnseModel.results!.isNotEmpty) {
@@ -362,12 +365,13 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             getCardResposnseModel.results!.where((card) => card.isDefault!);
         defaultCard = def.isEmpty ? null : def.first;
       }
-      return emit(state.copyWith(
-          archiveCardRestored: false,
-          businessUser: business,
-          isLoading: false,
-          cards: getCardResposnseModel.results ?? [],
-          defaultCard: defaultCard));
+      emit(state.copyWith(
+        archiveCardRestored: false,
+        businessUser: business,
+        isLoading: false,
+        cards: getCardResposnseModel.results ?? [],
+        defaultCard: defaultCard,
+      ));
     });
   }
 }

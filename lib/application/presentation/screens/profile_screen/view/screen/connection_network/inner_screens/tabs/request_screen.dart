@@ -21,9 +21,6 @@ class RequestsTab extends StatelessWidget {
         context
             .read<AdminBloc>()
             .add(const AdminEvent.getAllBusinessCardRequests(isLoad: true));
-        // context
-        //     .read<AdminBloc>()
-        //     .add(const AdminEvent.getCompanyUsers(isLoad: true));
       },
     );
     return Padding(

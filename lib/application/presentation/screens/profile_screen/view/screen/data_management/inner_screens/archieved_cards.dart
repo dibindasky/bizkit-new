@@ -80,7 +80,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
             } else if (state.archievedCards != null &&
                 state.archievedCards!.isNotEmpty) {
               return RefreshIndicator(
-                onRefresh: () async => onRefresh,
+                onRefresh: onRefresh,
                 child: ListView.separated(
                   controller: scrollController,
                   shrinkWrap: true,
@@ -208,7 +208,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                 shrinkWrap: true,
                 image: emptyNodata2,
                 errorMessage: 'No Blocked Users found',
-                onRefresh: () async => await onRefresh(),
+                onRefresh: onRefresh,
               );
             }
           }),

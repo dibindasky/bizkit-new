@@ -24,6 +24,11 @@ class ScreenCardDetailView extends StatefulWidget {
 class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
   @override
   void initState() {
+    getCard();
+    super.initState();
+  }
+
+  Future getCard() async {
     if (widget.cardId != null) {
       context
           .read<CardBloc>()
@@ -35,7 +40,6 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
           .read<CardBloc>()
           .add(CardEvent.getCardyUserId(id: widget.userId!));
     }
-    super.initState();
   }
 
   @override
@@ -132,8 +136,9 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                   )
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: SingleChildScrollView(
-                      child: Column(
+                    child: RefreshIndicator(
+                      onRefresh: getCard,
+                      child: ListView(
                         children: [
                           adjustHieght(20),
                           // image carosal view

@@ -81,13 +81,14 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
-                                  final imageProduct = imageList[index];
+                                  final imageProduct =
+                                      imageList[imageList.length - 1 - index];
                                   return InkWell(
                                     onTap: () {
                                       Navigator.of(context).push(fadePageRoute(
                                           SlidablePhotoGallery(
                                               initialIndex: index,
-                                              images: imageList
+                                              images: imageList.reversed
                                                   .map((e) => e.image!)
                                                   .toList())));
                                     },
@@ -136,22 +137,33 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                                                 kred);
                                                         return;
                                                       }
-                                                      if (imageList[index].id !=
+                                                      if (imageList[imageList
+                                                                      .length -
+                                                                  1 -
+                                                                  index]
+                                                              .id !=
                                                           null) {
                                                         context
                                                             .read<
                                                                 BusinessDataBloc>()
                                                             .add(BusinessDataEvent
                                                                 .removeProductIndexImages(
-                                                                    index: imageList[
+                                                                    index: imageList[imageList.length -
+                                                                            1 -
                                                                             index]
                                                                         .id!));
                                                       }
                                                       newImageList.removeWhere(
                                                           (element) =>
                                                               element ==
-                                                              imageList[index]);
-                                                      imageList.removeAt(index);
+                                                              imageList[imageList
+                                                                      .length -
+                                                                  1 -
+                                                                  index]);
+                                                      imageList.removeAt(
+                                                          imageList.length -
+                                                              1 -
+                                                              index);
                                                       setState(() {});
                                                     },
                                                   );

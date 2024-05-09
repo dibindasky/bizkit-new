@@ -22,7 +22,7 @@ class PromtBloc extends Bloc<PromtEvent, PromtState> {
   FutureOr<void> checkPrompt(CheckPrompt event, emit) async {
     await Future.delayed(const Duration(seconds: 3));
     final hasCard = await SecureStorage.getHasCard();
-    final hasReminder = await SecureStorage.getHasReminder();
+    final hasReminder = await SecureStorage.getHasConnection();
     if (!hasCard || !hasReminder) {
       emit(state.copyWith(
           hasCard: hasCard,

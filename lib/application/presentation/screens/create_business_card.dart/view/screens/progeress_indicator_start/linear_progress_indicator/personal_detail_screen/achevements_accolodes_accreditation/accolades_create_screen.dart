@@ -253,6 +253,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                   ),
                 ),
                 AutocompleteTextField(
+                  textCapitalization: TextCapitalization.words,
                     onDropDownSelection: (value) {
                       FocusScope.of(context).unfocus();
                     },

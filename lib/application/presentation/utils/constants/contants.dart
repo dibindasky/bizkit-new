@@ -83,7 +83,7 @@ const imageBanking = 'asset/images/banking.png';
 const imagePerson = 'asset/images/persona.png';
 const imageAchivement = 'asset/images/add_icon.png';
 
-const imageBackgroundCard = 'asset/images/previewImage2.jpeg';
+const imageBackgroundCard = 'asset/images/wp.jpg';
 const imageDummyAsset = 'asset/images/previewimage5.jpeg';
 const personProfile =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8A2wOvDj7sAobit1mD4lCc6ilEaBm_CF3AQ&usqp=CAU';

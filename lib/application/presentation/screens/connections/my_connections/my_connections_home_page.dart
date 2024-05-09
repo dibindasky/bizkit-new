@@ -133,6 +133,7 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                   }
                   return InkWell(
                     onTap: () {
+                      print('data.photo =>${data.photos==''}');
                       Navigator.push(
                           context,
                           fadePageRoute(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
 import 'package:bizkit/domain/model/connections/add_connection_tag_model/add_connection_tag_model.dart';
@@ -272,12 +273,9 @@ class ConnectionRequestBloc
             requestLoadingIndex: indexs,
             hasError: true,
             message: l.message)), (r) {
+      SecureStorage.setHasConnection(hasCard: true);
       emit(state.copyWith(
-          bizkitUsers: searchList,
-          // requestLoadingIndex: indexs,
-          // isLoading: false,
-          message: r.message,
-          connected: true));
+          bizkitUsers: searchList, message: r.message, connected: true));
       add(ConnectionRequestEvent.getRequestLoadList(id: event.index));
     });
   }

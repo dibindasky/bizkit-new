@@ -108,9 +108,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                   } else if (state.deletedCards!.isEmpty) {
                     return SizedBox(
                       height: khieght * .4,
-                      child: const Center(
-                        child: Text("You doesn't have Deleted cards"),
-                      ),
+                      child: Image.asset(emptyNodata2),
                     );
                   }
                   return SizedBox(
@@ -284,9 +282,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                   } else if (state.deleteSecondCards!.isEmpty) {
                     return SizedBox(
                       height: khieght * .4,
-                      child: const Center(
-                        child: Text("You doesn't have Selfie Deleted cards"),
-                      ),
+                      child: Image.asset(emptyNodata2),
                     );
                   }
                   return SizedBox(

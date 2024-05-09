@@ -204,8 +204,6 @@ class _HomeScreenFirstAnimationScreenState
                                           const Duration(milliseconds: 1500));
                                     },
                                     child: ListView(
-                                      // crossAxisAlignment:
-                                      //     CrossAxisAlignment.start,
                                       children: [
                                         const HomeFirstAppBar(),
                                         adjustHieght(khieght * .02),

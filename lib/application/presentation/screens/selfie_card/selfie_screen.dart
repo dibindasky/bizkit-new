@@ -173,6 +173,9 @@ class _SelfieScreenState extends State<SelfieScreen>
                             adjustHieght(20),
                             TextButton(
                               onPressed: () {
+                                context
+                                    .read<CardSecondBloc>()
+                                    .add(const CardSecondEvent.imageClear());
                                 Navigator.of(context).push(
                                   fadePageRoute(CardSecondScannedDatas()),
                                 );

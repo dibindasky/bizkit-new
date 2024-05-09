@@ -44,25 +44,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ReportAProblem>(reportAProblem);
     on<GetQuestions>(getQuestios);
     on<GetQuestionEvent>(getQuestionsEvent);
-    // on<SearchQuestion>(searchQuestion);
   }
 
-  // FutureOr<void> searchQuestion(SearchQuestion event, emit) async {
-  //   final String searchQuery = event.serachQuery.toLowerCase().trim();
-  //   final List<Questions> questionLists = questionList.where((question) {
-  //     final String questionName = question.question!.toLowerCase();
-  //     return questionName.contains(searchQuery);
-  //   }).toList();
-  //   emit(state.copyWith(
-  //     questionList: questionLists,
-  //   ));
-  // }
-
   FutureOr<void> getQuestionsEvent(GetQuestionEvent event, emit) async {
+    faq = 1;
     emit(state.copyWith(
         questionEvenLoading: true, hasError: false, message: null));
     final data = await profileRepo.getQuestions(
-      pageQuery: PageQuery(page: ++faq),
+      pageQuery: PageQuery(page: ++faq, search: ''),
     );
     data.fold((l) {
       emit(state.copyWith(
@@ -84,6 +73,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> getQuestios(GetQuestions event, emit) async {
+    log('faq $faq');
+    faq = 1;
     emit(state.copyWith(questionLoading: true, hasError: false, message: null));
     final data = await profileRepo.getQuestions(
       pageQuery: PageQuery(page: faq, search: event.serachQuery),

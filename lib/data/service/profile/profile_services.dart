@@ -129,10 +129,12 @@ class ProfileService implements ProfileRepo {
     required PageQuery pageQuery,
   }) async {
     try {
+      log('getQuestions before ${pageQuery.toJson()}');
       final responce = await apiService.get(
         ApiEndPoints.faq,
         queryParameters: pageQuery.toJson(),
       );
+      log('getQuestions ${responce.data}');
       return Right(GetQuestionModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getQuestions DioException ${e.response?.statusCode} $e');

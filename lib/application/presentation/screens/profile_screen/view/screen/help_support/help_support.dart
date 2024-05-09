@@ -30,7 +30,8 @@ class _HelpSupportState extends State<HelpSupport> {
     });
   }
 
-  void onRefresh() async {
+  Future<void> onRefresh() async {
+    textEditingController.clear();
     context
         .read<ProfileBloc>()
         .add(const ProfileEvent.getQuestions(serachQuery: ''));
@@ -75,7 +76,7 @@ class _HelpSupportState extends State<HelpSupport> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: RefreshIndicator(
-          onRefresh: () async => onRefresh,
+          onRefresh: onRefresh,
           child: SingleChildScrollView(
             controller: scrollController,
             physics: const BouncingScrollPhysics(),

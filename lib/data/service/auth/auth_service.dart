@@ -32,7 +32,12 @@ class AuthService implements AuthRepo {
     } on DioException catch (e) {
       print(e.response?.data);
       print(e);
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      try {
+        return Left(
+            Failure(message: e.response?.data['error'] ?? errorMessage));
+      } catch (e) {
+        return Left(Failure(message: errorMessage));
+      }
     } catch (e) {
       print(e);
       return Left(Failure(message: errorMessage));

@@ -86,6 +86,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
     on<AddCropedLogo>(addCropedLogo);
     on<AddBrochures>(addBrochures);
     on<AddBrochure>(addBrochure);
+    on<UpdateBrochure>(updateBrochure);
     on<RemoveBrochure>(removeBrochure);
     on<AddProduct>(addProduct);
     on<PickProductImage>(pickProductImage);
@@ -703,6 +704,27 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             brochureAdded: true,
             brochureLoading: false,
             brochures: [...state.brochures, r])));
+  }
+
+  FutureOr<void> updateBrochure(UpdateBrochure event, emit) async {
+    emit(state.copyWith(
+      brochureLoading: true,
+      accreditionAdded: false,
+      branchAdded: false,
+      brochureAdded: false,
+      productAdded: false,
+      companyDataRemoved: false,
+      socialMediaAdded: false,
+    ));
+    final response =
+        await cardPatchRepo.updateBrochure(brochure: event.brochure);
+    response.fold((l) => emit(state.copyWith(brochureLoading: false)), (r) {
+      List<Brochure> broc = List.from(state.brochures);
+      int index = broc.indexWhere((element) => element.id == event.brochure.id);
+      broc[index] = r;
+      return emit(state.copyWith(
+          brochureAdded: true, brochureLoading: false, brochures: broc));
+    });
   }
 
   FutureOr<void> addBrochures(AddBrochures event, emit) async {

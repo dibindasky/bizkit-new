@@ -225,8 +225,8 @@ class _CardPageSliderState extends State<CardPageSlider>
                           children: [
                             Text(
                               data.name != null
-                                  ? data.name!.length > 20
-                                      ? '${data.name!.substring(0, 16)}..'
+                                  ? data.name!.length > 17
+                                      ? '${data.name!.substring(0, 15)}..'
                                       : data.name!
                                   : '',
                               style: textHeadStyle1.copyWith(

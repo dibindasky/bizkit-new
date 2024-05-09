@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:bizkit/data/service/api_service.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
-import 'package:bizkit/domain/model/admin/company_selected_users_list_model/company_selected_users_list_model.dart';
 import 'package:bizkit/domain/model/admin/get_all_business_card_requests/get_all_business_card_requests.dart';
 import 'package:bizkit/domain/model/admin/get_blocked_users/get_blocked_users.dart';
 import 'package:bizkit/domain/model/admin/get_company_users_model/get_company_users_model.dart';
@@ -99,7 +98,7 @@ class AdminServices implements AdminRepo {
     required String id,
   }) async {
     try {
-      final response = await _apiService.patch(
+      final response = await _apiService.delete(
         ApiEndPoints.businessUserRequstReject.replaceFirst('{id}', id),
         data: {'is_declined': true, 'is_accepted': false},
       );

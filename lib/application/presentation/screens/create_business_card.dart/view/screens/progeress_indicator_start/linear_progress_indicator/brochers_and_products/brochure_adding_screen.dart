@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
@@ -15,7 +16,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
 
 class ScreenBrochureAdding extends StatefulWidget {
-  const ScreenBrochureAdding({super.key});
+  const ScreenBrochureAdding({super.key, this.brochure});
+  final Brochure? brochure;
 
   @override
   State<ScreenBrochureAdding> createState() => _ScreenBrochureAddingState();
@@ -23,6 +25,19 @@ class ScreenBrochureAdding extends StatefulWidget {
 
 class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
   PdfModel? pdf;
+
+  @override
+  void initState() {
+    if (widget.brochure != null) {
+      pdf = widget.brochure!.file == null
+          ? null
+          : PdfModel(base64: widget.brochure!.file);
+      context.read<BusinessDataBloc>().brochureLabelController.text =
+          widget.brochure!.label ?? '';
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +54,7 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                   const Align(
                       alignment: Alignment.centerLeft, child: Text('Label')),
                   CustomTextFormField(
+                    textCapitalization: TextCapitalization.words,
                     labelText: 'Label',
                     controller: context
                         .read<BusinessDataBloc>()
@@ -51,14 +67,29 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                           height: khieght * 0.4,
                           child: Stack(
                             children: [
-                              AspectRatio(
-                                  aspectRatio: 0.705,
-                                  child: PdfViewer.openData(base64.decode(pdf!
-                                          .base64!
-                                          .startsWith("data")
-                                      ? pdf!.base64!.substring(
-                                          "data:application/pdf;base64,".length)
-                                      : pdf!.base64!))),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ScreenPdfPreview(
+                                          base64: pdf!.base64!,
+                                          label: context
+                                              .read<BusinessDataBloc>()
+                                              .brochureLabelController
+                                              .text,
+                                        ),
+                                      ));
+                                },
+                                child: AspectRatio(
+                                    aspectRatio: 0.705,
+                                    child: PdfViewer.openData(base64.decode(
+                                        pdf!.base64!.startsWith("data")
+                                            ? pdf!.base64!.substring(
+                                                "data:application/pdf;base64,"
+                                                    .length)
+                                            : pdf!.base64!))),
+                              ),
                               Positioned(
                                 right: 0,
                                 child: InkWell(
@@ -99,21 +130,39 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                               return const LoadingAnimation();
                             }
                             return AuthButton(
-                                text: "Add Brousher",
+                                text: widget.brochure != null
+                                    ? "Update"
+                                    : "Add Brousher",
                                 onTap: () {
-                                  context.read<BusinessDataBloc>().add(
-                                        BusinessDataEvent.addBrochure(
-                                          brochure: Brochure(
-                                            cardId: state.currentCard?.id,
-                                            file: pdf!.base64,
-                                            label: context
-                                                .read<BusinessDataBloc>()
-                                                .brochureLabelController
-                                                .text
-                                                .trim(),
+                                  if (widget.brochure == null) {
+                                    context.read<BusinessDataBloc>().add(
+                                          BusinessDataEvent.addBrochure(
+                                            brochure: Brochure(
+                                              cardId: state.currentCard?.id,
+                                              file: pdf!.base64,
+                                              label: context
+                                                  .read<BusinessDataBloc>()
+                                                  .brochureLabelController
+                                                  .text
+                                                  .trim(),
+                                            ),
                                           ),
-                                        ),
-                                      );
+                                        );
+                                  } else {
+                                    context.read<BusinessDataBloc>().add(
+                                          BusinessDataEvent.updateBrochure(
+                                            brochure: Brochure(
+                                                cardId: state.currentCard?.id,
+                                                file: pdf!.base64,
+                                                label: context
+                                                    .read<BusinessDataBloc>()
+                                                    .brochureLabelController
+                                                    .text
+                                                    .trim(),
+                                                id: widget.brochure!.id),
+                                          ),
+                                        );
+                                  }
                                 });
                           },
                         ),

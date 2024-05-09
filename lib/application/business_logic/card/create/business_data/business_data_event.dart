@@ -51,6 +51,8 @@ class BusinessDataEvent with _$BusinessDataEvent {
   const factory BusinessDataEvent.addBrochures() = AddBrochures;
   const factory BusinessDataEvent.addBrochure({required Brochure brochure}) =
       AddBrochure;
+  const factory BusinessDataEvent.updateBrochure({required Brochure brochure}) =
+      UpdateBrochure;
   const factory BusinessDataEvent.removeBrochure({required int id}) =
       RemoveBrochure;
   const factory BusinessDataEvent.getCompnayList(

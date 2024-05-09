@@ -67,7 +67,7 @@ class BusinessDataState with _$BusinessDataState {
         productImageupdateError: false,
         productImageupdated: false,
         productimageLoading: false,
-        companyDataRemoved:false,
+        companyDataRemoved: false,
         productimageRemoved: false,
         productimageRemoveLoading: false,
         accreditationUpdated: false,

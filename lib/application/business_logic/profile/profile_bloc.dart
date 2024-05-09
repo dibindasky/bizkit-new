@@ -8,7 +8,7 @@ import 'package:bizkit/domain/model/commen/success_response_model/success_respon
 import 'package:bizkit/domain/model/image/image_model.dart';
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
-import 'package:bizkit/domain/model/profile/get_questions_model/questions.dart';
+import 'package:bizkit/domain/model/profile/get_question_model/questions.dart';
 import 'package:bizkit/domain/model/profile/get_user_info_model/get_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/update_user_info_model/update_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
@@ -44,19 +44,19 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ReportAProblem>(reportAProblem);
     on<GetQuestions>(getQuestios);
     on<GetQuestionEvent>(getQuestionsEvent);
-    on<SearchQuestion>(searchQuestion);
+    // on<SearchQuestion>(searchQuestion);
   }
 
-  FutureOr<void> searchQuestion(SearchQuestion event, emit) async {
-    final String searchQuery = event.serachQuery.toLowerCase().trim();
-    final List<Questions> questionLists = questionList.where((question) {
-      final String questionName = question.question!.toLowerCase();
-      return questionName.contains(searchQuery);
-    }).toList();
-    emit(state.copyWith(
-      questionList: questionLists,
-    ));
-  }
+  // FutureOr<void> searchQuestion(SearchQuestion event, emit) async {
+  //   final String searchQuery = event.serachQuery.toLowerCase().trim();
+  //   final List<Questions> questionLists = questionList.where((question) {
+  //     final String questionName = question.question!.toLowerCase();
+  //     return questionName.contains(searchQuery);
+  //   }).toList();
+  //   emit(state.copyWith(
+  //     questionList: questionLists,
+  //   ));
+  // }
 
   FutureOr<void> getQuestionsEvent(GetQuestionEvent event, emit) async {
     emit(state.copyWith(
@@ -72,20 +72,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ));
     }, (r) {
       emit(
-        //questionList.addAll([...state.questionList!, ...r.results!]),
         state.copyWith(
           questionEvenLoading: false,
           hasError: false,
           questionList: [...state.questionList, ...r.results ?? []],
         ),
       );
+      log('${questionList.length}',
+          name: 'getQuestionsEvent questionList length');
     });
   }
 
   FutureOr<void> getQuestios(GetQuestions event, emit) async {
     emit(state.copyWith(questionLoading: true, hasError: false, message: null));
     final data = await profileRepo.getQuestions(
-      pageQuery: PageQuery(page: faq),
+      pageQuery: PageQuery(page: faq, search: event.serachQuery),
     );
     data.fold((l) {
       emit(state.copyWith(
@@ -94,13 +95,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         message: errorMessage,
       ));
     }, (r) {
-      questionList.clear();
-      questionList.addAll(r.results!);
+      log('${r.results?.length}', name: 'r.results? length');
       emit(
         state.copyWith(
           questionLoading: false,
           hasError: false,
-          questionList: questionList,
+          questionList: r.results ?? [],
         ),
       );
     });

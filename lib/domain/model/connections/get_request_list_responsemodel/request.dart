@@ -16,16 +16,15 @@ class RequestModel {
   @JsonKey(name: 'has_connection')
   bool? hasConnection;
 
-  RequestModel({
-    this.id,
-    this.image,
-    this.name,
-    this.company,
-    this.designation,
-    this.userId,
-    this.cardUserId,
-    this.hasConnection
-  });
+  RequestModel(
+      {this.id,
+      this.image,
+      this.name,
+      this.company,
+      this.designation,
+      this.userId,
+      this.cardUserId,
+      this.hasConnection});
 
   factory RequestModel.fromJson(Map<String, dynamic> json) {
     return _$RequestModelFromJson(json);

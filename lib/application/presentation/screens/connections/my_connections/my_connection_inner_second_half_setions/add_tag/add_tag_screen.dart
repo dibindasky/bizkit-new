@@ -12,8 +12,8 @@ class AddTagScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TTextFormField(
-          text: 'Write New Tag Here',
+        CustomTextFormField(
+          labelText: 'Write New Tag Here',
           controller: textEditingController,
           inputType: TextInputType.name,
         ),

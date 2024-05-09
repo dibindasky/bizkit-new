@@ -38,16 +38,16 @@ class CompanyAndBankingDetails extends StatelessWidget {
               ),
               adjustHieght(khieght * .02),
               // company banking name
-              TTextFormField(
-                text: 'Company Banking Name',
+              CustomTextFormField(
+                labelText: 'Company Banking Name',
                 validate: Validate.none,
                 textCapitalization: TextCapitalization.words,
                 controller:
                     context.read<BusinessDataBloc>().nameOfCompanyController,
               ),
               // banking details accound number
-              TTextFormField(
-                text: 'Account Number',
+              CustomTextFormField(
+                labelText: 'Account Number',
                 validate: Validate.none,
                 inputType: TextInputType.number,
                 maxlegth: 16,
@@ -55,8 +55,8 @@ class CompanyAndBankingDetails extends StatelessWidget {
                     context.read<BusinessDataBloc>().accountNumberController,
               ),
               // banking details accound number
-              TTextFormField(
-                text: 'IFSC',
+              CustomTextFormField(
+                labelText: 'IFSC',
                 maxlegth: 11,
                 textCapitalization: TextCapitalization.characters,
                 validate: Validate.ifsc,
@@ -64,15 +64,15 @@ class CompanyAndBankingDetails extends StatelessWidget {
                 controller: context.read<BusinessDataBloc>().ifscController,
               ),
               // upi details
-              TTextFormField(
-                text: 'UPI ID',
+              CustomTextFormField(
+                labelText: 'UPI ID',
                 validate: Validate.upi,
                 controller:
                     context.read<BusinessDataBloc>().upiDetailController,
               ),
               // gst number
-              TTextFormField(
-                text: 'GST Number',
+              CustomTextFormField(
+                labelText: 'GST Number',
                 validate: Validate.gst,
                 maxlegth: 15,
                 controller:

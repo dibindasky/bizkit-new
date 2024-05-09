@@ -49,9 +49,9 @@ class NewPasswordFeild extends StatelessWidget {
               adjustHieght(20),
               Text('Enter your new password', style: textHeadStyle1),
               adjustHieght(20),
-              TTextFormField(
+              CustomTextFormField(
                 textCapitalization: TextCapitalization.words,
-                text: 'Enter password',
+                labelText: 'Enter password',
                 //validate: Validate.password,
                 controller: context.read<ForgottPasswordBloc>().newPassword,
               ),

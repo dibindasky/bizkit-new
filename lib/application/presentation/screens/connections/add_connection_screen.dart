@@ -46,7 +46,7 @@ class ScreenAddConnections extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            TTextFormField(
+            CustomTextFormField(
               controller:
                   context.read<ConnectionRequestBloc>().connectionController,
               onChanaged: (value) {
@@ -60,8 +60,8 @@ class ScreenAddConnections extends StatelessWidget {
                     ConnectionRequestEvent.searchBizkitUsers(
                         searchQuery: SearchQuery(search: value)));
               },
-              text: 'Search',
-              su: const Icon(Icons.search),
+              labelText: 'Search',
+              prefixIcon: const Icon(Icons.search),
             ),
             adjustHieght(10),
             Expanded(

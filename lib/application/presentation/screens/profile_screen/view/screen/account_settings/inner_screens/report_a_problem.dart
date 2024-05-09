@@ -35,16 +35,16 @@ class ReportProblemPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       adjustHieght(kwidth * .03),
-                      TTextFormField(
+                      CustomTextFormField(
                         validate: Validate.notNull,
-                        text: 'Subject',
+                        labelText: 'Subject',
                         controller: context.read<ProfileBloc>().reportSubject,
                       ),
                       adjustHieght(kwidth * .03),
-                      TTextFormField(
+                      CustomTextFormField(
                         validate: Validate.notNull,
                         controller: context.read<ProfileBloc>().reportContent,
-                        text: 'Content',
+                        labelText: 'Content',
                         maxLines: 6,
                       ),
                       adjustHieght(kwidth * .03),

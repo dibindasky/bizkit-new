@@ -70,36 +70,36 @@ class _PreviewHomeAddReminderScreenState
             key: reminderKey,
             child: Column(
               children: [
-                TTextFormField(
+                CustomTextFormField(
                   validate: Validate.notNull,
-                  suffix: Icon(
+                  suffixIcon: Icon(
                     Icons.edit_outlined,
                     color: kwhite.withOpacity(0.5),
                   ),
-                  text: 'Write Meeting Label',
+                  labelText: 'Write Meeting Label',
                   textCapitalization: TextCapitalization.words,
                   maxlegth: 100,
                   controller: context.read<ReminderBloc>().labelController,
                   inputType: TextInputType.text,
                 ),
-                TTextFormField(
+                CustomTextFormField(
                     validate: Validate.notNull,
-                    suffix: Icon(
+                    suffixIcon: Icon(
                       Icons.edit_outlined,
                       color: kwhite.withOpacity(0.5),
                     ),
-                    text: 'Venue',
+                    labelText: 'Venue',
                     textCapitalization: TextCapitalization.words,
                     maxlegth: 100,
                     controller: context.read<ReminderBloc>().venueController,
                     inputType: TextInputType.text),
-                TTextFormField(
+                CustomTextFormField(
                     validate: Validate.notNull,
-                    suffix: Icon(
+                    suffixIcon: Icon(
                       Icons.edit_outlined,
                       color: kwhite.withOpacity(0.5),
                     ),
-                    text: 'Occasion',
+                    labelText: 'Occasion',
                     textCapitalization: TextCapitalization.words,
                     maxlegth: 100,
                     controller: context.read<ReminderBloc>().occationController,
@@ -125,11 +125,11 @@ class _PreviewHomeAddReminderScreenState
                           fontSize: kwidth * 0.04,
                         ),
                       ),
-                      TTextFormField(
+                      CustomTextFormField(
                         controller:
                             context.read<ReminderBloc>().messageController,
                         validate: Validate.notNull,
-                        text: 'write here',
+                        labelText: 'write here',
                         textCapitalization: TextCapitalization.sentences,
                         maxLines: 3,
                         maxlegth: 300,

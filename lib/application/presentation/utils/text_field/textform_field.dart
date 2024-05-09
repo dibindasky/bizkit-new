@@ -19,8 +19,8 @@ enum Validate {
   ifValidEmail,
 }
 
-class TTextFormField extends StatefulWidget {
-  final String text;
+class CustomTextFormField extends StatefulWidget {
+  final String labelText;
   final String? hintText;
   final TextEditingController? controller;
   final TextInputType? inputType;
@@ -30,8 +30,8 @@ class TTextFormField extends StatefulWidget {
   final int? maxlegth;
   final double? height;
   final int? maxLines;
-  final Widget? su;
-  final Widget? suffix;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final Widget? prefix;
   final Color? clr;
   final Function(String value)? onChanaged;
@@ -44,7 +44,7 @@ class TTextFormField extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final bool enabled;
   final double textSize;
-  const TTextFormField(
+  const CustomTextFormField(
       {Key? key,
       this.enabled = true,
       this.prefix,
@@ -53,9 +53,9 @@ class TTextFormField extends StatefulWidget {
       this.password,
       this.showUnderline = false,
       this.clr,
-      required this.text,
-      this.su,
-      this.suffix,
+      required this.labelText,
+      this.prefixIcon,
+      this.suffixIcon,
       this.controller,
       this.inputType = TextInputType.name,
       this.obscureText = false,
@@ -73,10 +73,10 @@ class TTextFormField extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<TTextFormField> createState() => _TTextFormFieldState();
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
-class _TTextFormFieldState extends State<TTextFormField> {
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   final FocusNode _focusNode = FocusNode();
 
   bool showEye = false;
@@ -138,15 +138,15 @@ class _TTextFormFieldState extends State<TTextFormField> {
                     icon: Icon(showEye
                         ? Icons.remove_red_eye_outlined
                         : Icons.remove_red_eye))
-                : widget.suffix,
+                : widget.suffixIcon,
             prefix: widget.prefix,
             suffixIconColor: klightgrey,
-            prefixIcon: widget.su,
+            prefixIcon: widget.prefixIcon,
             prefixIconColor: kwhite,
             fillColor: textFieldFillColr,
             filled: true,
             hintText: widget.hintText,
-            labelText: widget.hintText != null ? null : widget.text,
+            labelText: widget.hintText != null ? null : widget.labelText,
             labelStyle: custumText(
               colr: widget.clr ?? klightgrey,
             ),
@@ -169,10 +169,10 @@ class _TTextFormFieldState extends State<TTextFormField> {
                 widget.validate == Validate.notNull) {
               if (value == 'Content' && value!.length < 20) {
                 return 'Content must be at least 20 characters';
-              } else if (widget.text == '') {
-                return 'enter ${widget.text}';
+              } else if (widget.labelText == '') {
+                return 'Enter ${widget.labelText}';
               }
-              return 'Please enter ${widget.text}';
+              return 'Please enter ${widget.labelText}';
             } else if (widget.validate == Validate.email &&
                 !isValidEmail(value!)) {
               return 'Please enter a valid email address';
@@ -206,19 +206,19 @@ class _TTextFormFieldState extends State<TTextFormField> {
               return 'Password must be same';
             } else if (Validate.ifsc == widget.validate) {
               if (value != '' && !isValidIFSC(value!)) {
-                return 'enter valid IFSC code';
+                return 'Enter valid IFSC code';
               } else {
                 return null;
               }
             } else if (Validate.upi == widget.validate) {
               if (value != '' && !isValidUpiId(value!)) {
-                return 'enter valid upi id';
+                return 'Enter valid upi id';
               } else {
                 return null;
               }
             } else if (Validate.gst == widget.validate) {
               if (value != '' && !isValidGst(value!)) {
-                return 'enter valid gst no';
+                return 'Enter valid gst no';
               } else {
                 return null;
               }

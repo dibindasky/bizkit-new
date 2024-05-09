@@ -8,7 +8,7 @@ import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgo
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/domain/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
-import 'package:bizkit/domain/model/profile/get_questions_model/get_questions_model.dart';
+import 'package:bizkit/domain/model/profile/get_question_model/get_question_model.dart';
 import 'package:bizkit/domain/model/profile/get_user_info_model/get_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/get_user_info_model/result.dart';
 import 'package:bizkit/domain/model/profile/update_user_info_model/update_user_info_model.dart';
@@ -125,15 +125,15 @@ class ProfileService implements ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, GetQuestionsModel>> getQuestions({
+  Future<Either<Failure, GetQuestionModel>> getQuestions({
     required PageQuery pageQuery,
   }) async {
     try {
       final responce = await apiService.get(
         ApiEndPoints.faq,
-        data: pageQuery.toJson(),
+        queryParameters: pageQuery.toJson(),
       );
-      return Right(GetQuestionsModel.fromJson(responce.data));
+      return Right(GetQuestionModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getQuestions DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));

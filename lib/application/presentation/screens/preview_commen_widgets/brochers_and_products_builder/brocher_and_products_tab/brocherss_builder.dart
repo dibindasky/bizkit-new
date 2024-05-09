@@ -26,7 +26,7 @@ class BrochersBuilder extends StatelessWidget {
                   itemCount: pdf.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
-                    childAspectRatio: 1/1.4,
+                    childAspectRatio: 1 / 1.4,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                   ),
@@ -37,21 +37,23 @@ class BrochersBuilder extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ScreenPdfPreview(
-                                  label: pdf[index].label??'',
+                                    label: pdf[index].label ?? '',
                                     base64: pdf[index].file!.substring(
                                         'data:application/pdf;base64,'
                                             .length))));
                       },
                       child: Column(
                         children: [
-                          AspectRatio(aspectRatio: 1,
+                          AspectRatio(
+                            aspectRatio: 1,
                             child: PdfViewer.openData(
                                 base64Decode(pdf[index].file!.substring(
                                     'data:application/pdf;base64,'.length)),
                                 params: const PdfViewerParams(pageNumber: 1)),
                           ),
                           adjustHieght(5),
-                          Text(pdf[index].label??'',overflow: TextOverflow.ellipsis)
+                          Text(pdf[index].label ?? '',
+                              overflow: TextOverflow.ellipsis)
                         ],
                       ),
                     );

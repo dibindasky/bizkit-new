@@ -143,12 +143,12 @@ class _LogoStoryState extends State<LogoStory> {
             adjustHieght(khieght * .02),
             Form(
               key: logokey,
-              child: TTextFormField(
+              child: CustomTextFormField(
                 validate: Validate.notNull,
                 controller:
                     context.read<BusinessDataBloc>().logoStoryController,
                 maxLines: 10,
-                text: 'Logo Story',
+                labelText: 'Logo Story',
                 textCapitalization: TextCapitalization.sentences,
                 hintText:
                     "Your logo has been made with so much of thoughts and is designed to inspire. I'm sure that there is a story/ deep meaning behind your logo. This is one of the few places where you can impress the receiver of your card about the foundation of your logo",

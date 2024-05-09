@@ -182,7 +182,6 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
           r.designations != null && r.designations!.isNotEmpty
               ? r.designations!.first
               : '';
-      //print(r.toJson());
       emit(state.copyWith(
         scannedImageDatasModel: texts,
         message: null,
@@ -574,12 +573,14 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
         seondCardRestored: false,
         cardScanFinish: false,
         secondCardDeleted: false,
+        locationAdress: null,
         secondCardcreated: false));
     secondCard = 1;
     final data = await _cardSecondRepo.getAllCardsSecond(
         pageQuery: PageQuery(page: secondCard));
     data.fold(
       (l) => emit(state.copyWith(
+        locationAdress: null,
         secondCardLoading: false,
         hasError: true,
         message: null,
@@ -590,6 +591,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
         cardScanFinish: false,
       )),
       (r) => emit(state.copyWith(
+        locationAdress: null,
         secondCardLoading: false,
         hasError: false,
         updated: false,

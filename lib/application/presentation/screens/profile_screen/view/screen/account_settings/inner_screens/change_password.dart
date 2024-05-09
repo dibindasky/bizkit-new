@@ -43,24 +43,24 @@ class _ChangePasswordState extends State<ChangePassword> {
             key: passwrdChangeFrom,
             child: Column(
               children: [
-                TTextFormField(
+                CustomTextFormField(
                   validate: Validate.password,
                   inputType: TextInputType.visiblePassword,
                   controller: context.read<ProfileBloc>().oldPasswordController,
-                  text: 'Old password',
+                  labelText: 'Old password',
                   obscureText: true,
                 ),
-                TTextFormField(
+                CustomTextFormField(
                   validate: Validate.password,
                   inputType: TextInputType.visiblePassword,
                   controller: context.read<ProfileBloc>().newPasswordController,
-                  text: 'New password',
+                  labelText: 'New password',
                   obscureText: true,
                 ),
-                TTextFormField(
+                CustomTextFormField(
                   password: context.read<ProfileBloc>().newPasswordController,
                   validate: Validate.rePassword,
-                  text: 'Re-enter password',
+                  labelText: 'Re-enter password',
                   inputType: TextInputType.visiblePassword,
                   controller:
                       context.read<ProfileBloc>().reEnterNewPasswordController,

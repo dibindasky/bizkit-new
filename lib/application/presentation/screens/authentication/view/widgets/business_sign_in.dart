@@ -66,13 +66,13 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                 ),
               ),
               adjustHieght(khieght * .04),
-              TTextFormField(
+              CustomTextFormField(
                 validate: Validate.notNull,
-                text: 'Company Name',
+                labelText: 'Company Name',
                 textCapitalization: TextCapitalization.words,
                 controller: companynameController,
               ),
-              TTextFormField(
+              CustomTextFormField(
                 onChanaged: (value) {
                   formatWebsiteUrl(value, companyWebsiteController);
                   if (value.length < 3) {
@@ -84,12 +84,12 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                   }
                 },
                 validate: Validate.notNull,
-                text: 'Website',
+                labelText: 'Website',
                 controller: companyWebsiteController,
                 inputType: TextInputType.url,
               ),
-              TTextFormField(
-                text: 'Company Contact Number',
+              CustomTextFormField(
+                labelText: 'Company Contact Number',
                 // maxlegth: 10,
                 controller: companyPhoneController,
                 // validate: Validate.phone,
@@ -113,15 +113,15 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                   );
                 },
               ),
-              TTextFormField(
-                text: 'Address',
+              CustomTextFormField(
+                labelText: 'Address',
                 controller: addressController,
                 textCapitalization: TextCapitalization.words,
                 validate: Validate.notNull,
               ),
               PasswordHintmakers(passwordController: passwordController),
-              TTextFormField(
-                text: 'ReEnter Password',
+              CustomTextFormField(
+                labelText: 'ReEnter Password',
                 controller: rePasswordController,
                 password: passwordController,
                 validate: Validate.rePassword,
@@ -233,7 +233,7 @@ class _PasswordHintmakersState extends State<PasswordHintmakers> {
             style: textStyle1.copyWith(color: kred.withOpacity(0.7)),
           ),
         ),
-        TTextFormField(
+        CustomTextFormField(
           onTap: () {
             if (!showHint) {
               setState(() {
@@ -244,7 +244,7 @@ class _PasswordHintmakersState extends State<PasswordHintmakers> {
           onTapOutside: () => setState(() {
             showHint = false;
           }),
-          text: 'Password',
+          labelText: 'Password',
           validate: Validate.password,
           controller: widget.passwordController,
           obscureText: true,

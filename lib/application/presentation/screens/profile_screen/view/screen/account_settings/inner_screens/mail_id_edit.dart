@@ -26,9 +26,9 @@ class ChangeMailId extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            const TTextFormField(
-              text: 'Enter Email id',
-              suffix: Icon(
+            const CustomTextFormField(
+              labelText: 'Enter Email id',
+              suffixIcon: Icon(
                 Icons.cancel,
                 color: kwhite,
               ),

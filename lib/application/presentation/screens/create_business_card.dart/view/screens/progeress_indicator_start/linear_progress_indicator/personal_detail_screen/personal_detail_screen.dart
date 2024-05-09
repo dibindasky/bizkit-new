@@ -101,10 +101,10 @@ class PersonlDetails extends StatelessWidget {
                                               cam: false));
                                     });
                               },
-                              child: const TTextFormField(
-                                suffix: Icon(Icons.add_a_photo_outlined),
+                              child: const CustomTextFormField(
+                                suffixIcon: Icon(Icons.add_a_photo_outlined),
                                 enabled: false,
-                                text: 'Personal Imges',
+                                labelText: 'Personal Imges',
                               ),
                             );
                           },
@@ -223,9 +223,9 @@ class PersonlDetails extends StatelessWidget {
                     },
                   );
                 },
-                child: TTextFormField(
+                child: CustomTextFormField(
                   validate: Validate.notNull,
-                  text: 'Birthday',
+                  labelText: 'Birthday',
                   enabled: false,
                   controller: context.read<UserDataBloc>().birthDaycontroller,
                   inputType: TextInputType.name,

@@ -259,24 +259,24 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                     controller: eventController,
                     label: 'Event',
                     autocompleteItems: achivementEvents),
-                TTextFormField(
+                CustomTextFormField(
                   controller: titleController,
                   maxlegth: 100,
                   textCapitalization: TextCapitalization.words,
                   onChanaged: (value) {
                     title = value;
                   },
-                  text: 'Title',
+                  labelText: 'Title',
                   inputType: TextInputType.name,
                 ),
-                TTextFormField(
+                CustomTextFormField(
                   controller: descriptionController,
                   maxlegth: 300,
                   onChanaged: (value) {
                     description = value;
                   },
                   textCapitalization: TextCapitalization.sentences,
-                  text: 'Description',
+                  labelText: 'Description',
                   maxLines: 8,
                   inputType: TextInputType.name,
                 ),

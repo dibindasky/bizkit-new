@@ -51,7 +51,7 @@ class _EditUserDetailsState extends State<EditUserDetails> {
             children: [
               BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) {
-                  return TTextFormField(
+                  return CustomTextFormField(
                     onChanaged: (value) {
                       if (value.isNotEmpty) {
                         setState(() {
@@ -61,8 +61,8 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                     },
                     controller: context.read<ProfileBloc>().userNameController,
                     validate: Validate.notNull,
-                    text: 'User name',
-                    suffix: isClose
+                    labelText: 'User name',
+                    suffixIcon: isClose
                         ? IconButton(
                             onPressed: () {
                               context

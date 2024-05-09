@@ -38,7 +38,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
   final GlobalKey globalKeyViews = GlobalKey();
   final GlobalKey globalKeyShare = GlobalKey();
   final GlobalKey globalKeydetailView = GlobalKey();
-  final GlobalKey globalKeydefaultCard = GlobalKey();
+  final GlobalKey globalKeyBusinessCard = GlobalKey();
   final GlobalKey globalKeyVisitingCard = GlobalKey();
   final GlobalKey globalKey = GlobalKey();
   bool isShowcaseSeen = false;
@@ -48,20 +48,16 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       SharedPreferences.getInstance().then((prefs) async {
-        final vaer =
-            await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+        final showed = await SecureStorage.getHasCard();
         setState(() {
-          isShowcaseSeen = vaer;
+          isShowcaseSeen = showed;
         });
         if (!isShowcaseSeen) {
           ShowCaseWidget.of(context).startShowCase([
-            globalKeyShare,
-            globalKeyViews,
-            globalKeydetailView,
-            globalKeydefaultCard,
+            globalKeyBusinessCard,
             globalKeyVisitingCard,
           ]);
-          await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
+          await SecureStorage.setHasCard(hasCard: true);
         }
       });
     });
@@ -233,7 +229,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                         CardActionRequestModel
                                                             cardActionRewuestModel =
                                                             CardActionRequestModel(
-                                                                isActive: false,
+                                                                isActive: true,
                                                                 isArchived:
                                                                     true);
                                                         context
@@ -260,7 +256,8 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                       CardActionRequestModel
                                                           cardActionRewuestModel =
                                                           CardActionRequestModel(
-                                                              isActive: false);
+                                                        isActive: false,
+                                                      );
                                                       context.read<CardBloc>().add(
                                                           CardEvent.cardDelete(
                                                               cardActionRequestModel:

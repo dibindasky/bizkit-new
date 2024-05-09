@@ -2,15 +2,15 @@ import 'dart:convert';
 import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class BlockedConnections extends StatefulWidget {
   const BlockedConnections({super.key});
@@ -21,9 +21,6 @@ class BlockedConnections extends StatefulWidget {
 
 class _BlockedConnectionsState extends State<BlockedConnections> {
   late ScrollController scrollController = ScrollController();
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
-
   Future<void> onRefresh() async {
     // await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
     //     context.read<ConnectionRequestBloc>().add(
@@ -36,8 +33,6 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
     await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
         context.read<ConnectionRequestBloc>().add(
             const ConnectionRequestEvent.getBlockeConnections(isLoad: true)));
-    setState(() {});
-    refreshController.loadComplete();
   }
 
   @override
@@ -74,29 +69,22 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
           style: textHeadStyle1,
         ),
       ),
-      body: LiquidPullToRefresh(
-        onRefresh: onRefresh,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
             builder: (context, state) {
-              if (state.blockedConnectionsLoading) {
-                return ShimmerLoader(
-                  itemCount: 10,
-                  height: 70,
-                  width: kwidth * 0.9,
-                  seprator: const SizedBox(height: 10),
-                );
-              } else if (state.blockedConnections == null ||
-                  state.blockedConnections!.isEmpty) {
-                return SizedBox(
-                  height: khieght,
-                  child: const Center(
-                    child: Text("You don't have Blocked conections"),
-                  ),
-                );
-              }
-              return ListView.builder(
+          if (state.blockedConnectionsLoading) {
+            return ShimmerLoader(
+              itemCount: 10,
+              height: 70,
+              width: kwidth * 0.9,
+              seprator: const SizedBox(height: 10),
+            );
+          } else if (state.blockedConnections != null &&
+              state.blockedConnections!.isNotEmpty) {
+            return RefreshIndicator(
+              onRefresh: onRefresh,
+              child: ListView.builder(
                 controller: scrollController,
                 shrinkWrap: true,
                 itemCount: (state.blockedConnections?.length ?? 0) +
@@ -228,10 +216,16 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
                     ],
                   );
                 },
-              );
-            },
-          ),
-        ),
+              ),
+            );
+          } else {
+            return ErrorRefreshIndicator(
+              image: emptyNodata2,
+              errorMessage: 'No Blocked Connections found',
+              onRefresh: onLoading,
+            );
+          }
+        }),
       ),
     );
   }

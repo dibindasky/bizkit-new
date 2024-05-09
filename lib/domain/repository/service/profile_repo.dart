@@ -4,7 +4,7 @@ import 'package:bizkit/domain/model/profile/blocked_connection_model/blocked_con
 import 'package:bizkit/domain/model/profile/foregott_password_responce_mdel/foregott_password_responce_mdel.dart';
 import 'package:bizkit/domain/model/profile/forgott_password_request_model/forgott_password_request_model.dart';
 import 'package:bizkit/domain/core/failure/failure.dart';
-import 'package:bizkit/domain/model/profile/get_questions_model/get_questions_model.dart';
+import 'package:bizkit/domain/model/profile/get_question_model/get_question_model.dart';
 import 'package:bizkit/domain/model/profile/get_user_info_model/get_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/update_user_info_model/update_user_info_model.dart';
 import 'package:bizkit/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
@@ -29,7 +29,7 @@ abstract class ProfileRepo {
   Future<Either<Failure, BlockedConnectionModel>> getBlockeConnections({
     required PageQuery pageQuery,
   });
-  Future<Either<Failure, GetQuestionsModel>> getQuestions({
+  Future<Either<Failure, GetQuestionModel>> getQuestions({
     required PageQuery pageQuery,
   });
 }

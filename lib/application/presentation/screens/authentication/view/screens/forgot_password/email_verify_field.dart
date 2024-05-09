@@ -47,8 +47,8 @@ class EmailFieldForGottPassword extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Form(
                 key: context.read<ForgottPasswordBloc>().emailFormKey,
-                child: TTextFormField(
-                  text: 'Enter Email',
+                child: CustomTextFormField(
+                  labelText: 'Enter Email',
                   validate: Validate.email,
                   controller:
                       context.read<ForgottPasswordBloc>().forgottpasswordEmail,

@@ -501,10 +501,10 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                       child: Column(
                         children: [
                           adjustHieght(khieght * 0.008),
-                          TTextFormField(
+                          CustomTextFormField(
                             textCapitalization: TextCapitalization.words,
                             // validate: Validate.notNull,
-                            text: 'Occasion',
+                            labelText: 'Occasion',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .occationController,
@@ -512,9 +512,9 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                           ),
                           BlocBuilder<CardSecondBloc, CardSecondState>(
                             builder: (context, state) {
-                              return TTextFormField(
+                              return CustomTextFormField(
                                 maxLines: 2,
-                                suffix: state.locationFetchLoading
+                                suffixIcon: state.locationFetchLoading
                                     ? const Padding(
                                         padding: EdgeInsets.all(8.0),
                                         child: CircularProgressIndicator(
@@ -525,7 +525,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                 textCapitalization:
                                     TextCapitalization.sentences,
                                 // validate: Validate.notNull,
-                                text: 'Location',
+                                labelText: 'Location',
                                 controller: context
                                     .read<CardSecondBloc>()
                                     .locatioNController,
@@ -533,20 +533,20 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                               );
                             },
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             textCapitalization: TextCapitalization.words,
                             // validate: Validate.notNull,
-                            text: 'Occupation',
+                            labelText: 'Occupation',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .occupationController,
                             inputType: TextInputType.name,
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             textCapitalization: TextCapitalization.sentences,
                             // validate: Validate.notNull,
                             maxLines: 3,
-                            text: 'Notes',
+                            labelText: 'Notes',
                             controller:
                                 context.read<CardSecondBloc>().notesController,
                             inputType: TextInputType.name,

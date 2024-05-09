@@ -35,7 +35,7 @@ class BlockedBusinessUsers extends StatelessWidget {
                     .add(const AdminEvent.getBusinessBlockeUsers(isLoad: true));
               },
               child: ListView.builder(
-                itemCount: state.blockedUsers!.length,
+                itemCount: state.blockedUsers?.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {

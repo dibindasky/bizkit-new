@@ -176,7 +176,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                       ),
                     ),
                     adjustHieght(khieght * .02),
-                    TTextFormField(
+                    CustomTextFormField(
                       onTap: () {
                         setState(() {
                           if (emailController.text.isEmpty) {
@@ -231,11 +231,11 @@ class _LoGInScreenState extends State<LoGInScreen>
                         // FocusScope.of(context).unfocus();
                       },
                       validate: Validate.email,
-                      text: 'Email',
+                      labelText: 'Email',
                       controller: emailController,
                       inputType: TextInputType.emailAddress,
                     ),
-                    TTextFormField(
+                    CustomTextFormField(
                         onTap: () {
                           setState(() {
                             indexOfEye = 3;
@@ -243,7 +243,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                           });
                         },
                         validate: Validate.notNull,
-                        text: 'Password',
+                        labelText: 'Password',
                         controller: passwordController,
                         inputType: TextInputType.visiblePassword,
                         obscureText: true,

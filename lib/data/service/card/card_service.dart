@@ -38,19 +38,18 @@ class CardService implements CardRepo {
     required CardActionRequestModel cardActionRewuestModel,
   }) async {
     try {
-      log('cardAction ${cardActionRewuestModel.toJson()}');
-      final response = await apiService.patch(
+      log('cardAction before ${cardActionRewuestModel.toJson()}');
+      await apiService.patch(
         data: cardActionRewuestModel.toJson(),
         ApiEndPoints.deleteCard.replaceFirst('{card_id}', id.toString()),
       );
-      print('delete card api success');
-      print(response.data);
+      log('delete card api success');
       return Right(SuccessResponseModel(message: 'Card deleted successfully'));
     } on DioException catch (e) {
-      log(e.toString());
+      log('cardAction DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
-      log(e.toString());
+      log('cardAction catch $e');
       return Left(Failure(message: errorMessage));
     }
   }
@@ -61,18 +60,19 @@ class CardService implements CardRepo {
     required CardActionRequestModel cardActionRewuestModel,
   }) async {
     try {
-      final responce = await apiService.patch(
+      log('restoreArchiveDeleteCard before ${cardActionRewuestModel.toJson()}');
+      await apiService.patch(
         data: cardActionRewuestModel.toJson(),
         ApiEndPoints.restreArcheivedCard
             .replaceFirst('{card_id}', cardId.toString()),
       );
-      log('restoreArchiveCard ${responce.data}');
+      log('restoreArchiveCard ');
       return Right(SuccessResponseModel(message: 'Card restore sucessfully'));
     } on DioException catch (e) {
-      log('getBlockeConnections DioException ${e.response?.statusCode} $e');
+      log('restoreArchiveDeleteCard DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
     } catch (e) {
-      log('getBlockeConnections catch $e');
+      log('restoreArchiveDeleteCard catch $e');
       return Left(Failure(message: errorMessage));
     }
   }
@@ -132,7 +132,7 @@ class CardService implements CardRepo {
       log(e.toString());
       log('dio exception getCardByUserId');
       log(e.toString());
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      return Left(Failure(message: errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));
@@ -152,8 +152,7 @@ class CardService implements CardRepo {
       log('dio exception getCardByCardId');
       log(e.toString());
       try {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
+        return Left(Failure(message: errorMessage));
       } catch (e) {
         return Left(Failure(message: errorMessage));
       }
@@ -175,8 +174,7 @@ class CardService implements CardRepo {
       log('dio exception get cards');
       log(e.toString());
       try {
-        return Left(
-            Failure(message: e.response?.data['error'] ?? errorMessage));
+        return Left(Failure(message: errorMessage));
       } catch (e) {
         return Left(Failure(message: errorMessage));
       }
@@ -199,7 +197,7 @@ class CardService implements CardRepo {
     } on DioException catch (e) {
       log('dio exception setDefault card');
       log(e.toString());
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      return Left(Failure(message: errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));
@@ -235,7 +233,7 @@ class CardService implements CardRepo {
       return Right(GetCompanysResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      return Left(Failure(message: errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));
@@ -251,7 +249,7 @@ class CardService implements CardRepo {
       return Right(BusinessDetails.fromJson(response.data['business_details']));
     } on DioException catch (e) {
       log(e.toString());
-      return Left(Failure(message: e.response?.data['error'] ?? errorMessage));
+      return Left(Failure(message: errorMessage));
     } catch (e) {
       log(e.toString());
       return Left(Failure(message: errorMessage));

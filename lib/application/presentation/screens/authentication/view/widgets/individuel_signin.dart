@@ -44,17 +44,17 @@ class IndividuelSignIn extends StatelessWidget {
                 ),
               ),
               adjustHieght(khieght * .04),
-              TTextFormField(
-                text: 'Name',
+              CustomTextFormField(
+                labelText: 'Name',
                 controller: nameController,
                 validate: Validate.notNull,
                 textCapitalization: TextCapitalization.words,
                 inputType: TextInputType.text,
               ),
-              TTextFormField(
+              CustomTextFormField(
                 validate: Validate.phone,
                 maxlegth: 10,
-                text: 'Mobile Number',
+                labelText: 'Mobile Number',
                 controller: mobileController,
                 inputType: TextInputType.number,
               ),
@@ -88,9 +88,9 @@ class IndividuelSignIn extends StatelessWidget {
                     });
                   }
                 },
-                child: TTextFormField(
+                child: CustomTextFormField(
                   validate: Validate.email,
-                  text: 'Mail',
+                  labelText: 'Mail',
                   controller: emailIdController,
                   inputType: TextInputType.emailAddress,
                   onChanaged: (value) =>
@@ -106,10 +106,10 @@ class IndividuelSignIn extends StatelessWidget {
               //   obscureText: true,
               // ),
               PasswordHintmaker(passwordController: passwordController),
-              TTextFormField(
+              CustomTextFormField(
                 validate: Validate.rePassword,
                 password: passwordController,
-                text: 'Re-Enter Password',
+                labelText: 'Re-Enter Password',
                 controller: rePasswordController,
                 inputType: TextInputType.visiblePassword,
                 obscureText: true,
@@ -185,7 +185,7 @@ class _PasswordHintmakerState extends State<PasswordHintmaker> {
             style: textStyle1.copyWith(color: kred.withOpacity(0.7)),
           ),
         ),
-        TTextFormField(
+        CustomTextFormField(
           onTap: () {
             if (!showHint) {
               setState(() {
@@ -197,7 +197,7 @@ class _PasswordHintmakerState extends State<PasswordHintmaker> {
             showHint = false;
           }),
           validate: Validate.password,
-          text: 'Password',
+          labelText: 'Password',
           controller: widget.passwordController,
           obscureText: true,
           inputType: TextInputType.visiblePassword,

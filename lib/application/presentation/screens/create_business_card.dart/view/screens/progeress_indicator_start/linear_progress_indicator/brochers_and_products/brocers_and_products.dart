@@ -76,7 +76,8 @@ class BrochersAndProductsScreen extends StatelessWidget {
                   onTap: () async {
                     context
                         .read<BusinessDataBloc>()
-                        .brochureLabelController.text='';
+                        .brochureLabelController
+                        .text = '';
                     Navigator.push(
                         context,
                         MaterialPageRoute(

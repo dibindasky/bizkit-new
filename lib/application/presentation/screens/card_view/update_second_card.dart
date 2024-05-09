@@ -449,90 +449,90 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                       child: Column(
                         children: [
                           adjustHieght(khieght * 0.008),
-                          TTextFormField(
+                          CustomTextFormField(
                             textCapitalization: TextCapitalization.words,
                             validate: Validate.notNull,
-                            text: 'Name',
+                            labelText: 'Name',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updateNameController,
                             inputType: TextInputType.name,
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             textCapitalization: TextCapitalization.words,
                             //validate: Validate.notNull,
-                            text: 'Company',
+                            labelText: 'Company',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updateCompanyController,
                             inputType: TextInputType.name,
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             textCapitalization: TextCapitalization.none,
                             validate: Validate.ifValidEmail,
-                            text: 'Email',
+                            labelText: 'Email',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updateEmailController,
                             inputType: TextInputType.emailAddress,
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             maxlegth: 10,
                             validate: Validate.ifValidnumber,
-                            text: 'Phone number',
+                            labelText: 'Phone number',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updatephoneController,
                             inputType: TextInputType.number,
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             validate: Validate.ifValidWebsite,
-                            text: 'Website',
+                            labelText: 'Website',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updatewebSiteController,
                             inputType: TextInputType.emailAddress,
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             textCapitalization: TextCapitalization.words,
                             // validate: Validate.notNull,
-                            text: 'Designation',
+                            labelText: 'Designation',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updatedesignationController,
                             inputType: TextInputType.name,
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             maxLines: 2,
                             textCapitalization: TextCapitalization.words,
                             // validate: Validate.notNull,
-                            text: 'Location',
+                            labelText: 'Location',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updatelocatioNController,
                             inputType: TextInputType.name,
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             textCapitalization: TextCapitalization.words,
                             // validate: Validate.notNull,
-                            text: 'Occasion',
+                            labelText: 'Occasion',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updateoccationController,
                             inputType: TextInputType.name,
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             //validate: Validate.notNull,
-                            text: 'Occupation',
+                            labelText: 'Occupation',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updateoccupationController,
                             inputType: TextInputType.name,
                           ),
-                          TTextFormField(
+                          CustomTextFormField(
                             textCapitalization: TextCapitalization.words,
                             //validate: Validate.notNull,
-                            text: 'Notes',
+                            labelText: 'Notes',
                             controller: context
                                 .read<CardSecondBloc>()
                                 .updatenotesController,

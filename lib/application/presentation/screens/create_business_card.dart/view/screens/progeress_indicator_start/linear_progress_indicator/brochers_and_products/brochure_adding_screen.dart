@@ -38,8 +38,8 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                   adjustHieght(10),
                   const Align(
                       alignment: Alignment.centerLeft, child: Text('Label')),
-                  TTextFormField(
-                    text: 'Label',
+                  CustomTextFormField(
+                    labelText: 'Label',
                     controller: context
                         .read<BusinessDataBloc>()
                         .brochureLabelController,

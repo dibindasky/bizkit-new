@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/application/presentation/routes/routes.dart';
@@ -230,9 +229,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                                                 CardActionRequestModel
                                                     cardActionRewuestModel =
                                                     CardActionRequestModel(
-                                                  isArchived: state
-                                                      .deletedCards![index]
-                                                      .isArchived,
+                                                  isArchived: false,
                                                   isActive: true,
                                                 );
                                                 context.read<CardBloc>().add(

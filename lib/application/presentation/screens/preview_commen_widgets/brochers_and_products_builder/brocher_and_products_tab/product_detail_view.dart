@@ -154,15 +154,15 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                         style: const TextStyle(fontSize: 20),
                       ),
                     )
-                  : TTextFormField(
-                      text: 'Tittle',
+                  : CustomTextFormField(
+                      labelText: 'Tittle',
                       textSize: 0.045,
                       controller: tittleController,
                     ),
               !widget.myCard
                   ? Text(descriptionController.text)
-                  : TTextFormField(
-                      text: 'Description',
+                  : CustomTextFormField(
+                      labelText: 'Description',
                       controller: descriptionController,
                       validate: Validate.notNull,
                       textCapitalization: TextCapitalization.sentences,

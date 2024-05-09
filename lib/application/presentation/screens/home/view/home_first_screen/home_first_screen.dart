@@ -82,7 +82,7 @@ class _HomeScreenFirstAnimationScreenState
             globalKeyAddCard,
             globalKeyaddConnections,
           ]);
-          await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
+          await SecureStorage.setHasCard(hasCard: true);
         }
       });
     });

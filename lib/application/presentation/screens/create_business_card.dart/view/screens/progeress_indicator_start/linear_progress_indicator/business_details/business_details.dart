@@ -91,8 +91,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                     },
                   ),
                   // business name
-                  TTextFormField(
-                    text: 'Business Name',
+                  CustomTextFormField(
+                    labelText: 'Business Name',
                     validate: Validate.notNull,
                     textCapitalization: TextCapitalization.words,
                     controller:
@@ -262,11 +262,11 @@ class BusinessDetailsScreen extends StatelessWidget {
                         },
                         listString:
                             state.branchOffices.map((e) => e.branch!).toList(),
-                        child: const TTextFormField(
+                        child: const CustomTextFormField(
                           enabled: false,
-                          text: 'Branch Offices',
+                          labelText: 'Branch Offices',
                           textCapitalization: TextCapitalization.words,
-                          suffix: Icon(Icons.keyboard_arrow_right_outlined),
+                          suffixIcon: Icon(Icons.keyboard_arrow_right_outlined),
                         ),
                       );
                     },
@@ -422,8 +422,8 @@ showBranchDialoge(context, int? id) {
                     children: [
                       const Text('Enter Branch Office Details'),
                       adjustHieght(10),
-                      TTextFormField(
-                          text: 'Branch Address',
+                      CustomTextFormField(
+                          labelText: 'Branch Address',
                           maxLines: 4,
                           maxlegth: 250,
                           textCapitalization: TextCapitalization.words,
@@ -431,16 +431,16 @@ showBranchDialoge(context, int? id) {
                               .read<BusinessDataBloc>()
                               .branchOfficeController),
                       adjustHieght(10),
-                      TTextFormField(
-                          text: 'Contact Person',
+                      CustomTextFormField(
+                          labelText: 'Contact Person',
                           textCapitalization: TextCapitalization.words,
                           controller: context
                               .read<BusinessDataBloc>()
                               .branchOfficeNameController),
                       adjustHieght(10),
-                      TTextFormField(
+                      CustomTextFormField(
                           inputType: TextInputType.phone,
-                          text: 'Contact Number',
+                          labelText: 'Contact Number',
                           controller: context
                               .read<BusinessDataBloc>()
                               .branchOfficePhoneController),

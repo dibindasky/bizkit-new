@@ -125,10 +125,10 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                     ),
                     adjustHieght(20),
                     const Text('Message  *'),
-                    TTextFormField(
+                    CustomTextFormField(
                       maxlegth: 250,
                       maxLines: 7,
-                      text: 'Write your message here',
+                      labelText: 'Write your message here',
                       controller: labelController,
                     ),
                     adjustHieght(40),

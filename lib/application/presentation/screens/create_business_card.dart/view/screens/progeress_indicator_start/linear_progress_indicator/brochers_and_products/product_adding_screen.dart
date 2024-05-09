@@ -217,15 +217,15 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                     },
                   ),
                   adjustHieght(khieght * .02),
-                  TTextFormField(
-                    text: 'Name',
+                  CustomTextFormField(
+                    labelText: 'Name',
                     controller: productTitleController,
                     inputType: TextInputType.name,
                     textCapitalization: TextCapitalization.words,
                     maxlegth: 50,
                   ),
-                  TTextFormField(
-                    text: 'Description',
+                  CustomTextFormField(
+                    labelText: 'Description',
                     maxLines: 10,
                     controller: productDescriptionController,
                     inputType: TextInputType.name,

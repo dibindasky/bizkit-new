@@ -449,6 +449,29 @@ class CardPatchService implements CardPatchRepo {
   }
 
   @override
+  Future<Either<Failure, Brochure>> updateBrochure(
+      {required Brochure brochure}) async {
+    try {
+      log('updateBrochure ${brochure.toJson()}');
+      final response = await _apiService.patch(
+          ApiEndPoints.deleteBrochure
+              .replaceFirst('{brochure_id}', brochure.id.toString()),
+          data: brochure.toJson());
+      log('updateBrochure done');
+      return Right(Brochure.fromJson(response.data));
+    } on DioException catch (e) {
+      log('updateBrochure dio error');
+      log(e.toString());
+      log(e.response.toString());
+      return Left(Failure());
+    } catch (e) {
+      log('updateBrochure exception error');
+      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
   Future<Either<Failure, Product>> addProduct(
       {required Product product}) async {
     try {

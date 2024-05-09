@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brochure_adding_screen.dart';
 import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
@@ -76,9 +77,7 @@ class _BrochureTileState extends State<BrochureTile> {
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ScreenPdfPreview(
-                    base64: widget.brochure!.file,
-                    label: widget.brochure?.label ?? ''),
+                builder: (context) => ScreenBrochureAdding(brochure: widget.brochure),
               )),
           child: SizedBox(
             width: kwidth * 0.2,

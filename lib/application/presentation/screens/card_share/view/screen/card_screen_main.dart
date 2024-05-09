@@ -319,6 +319,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             context.read<CardBloc>().add(
                                                 CardEvent.getCardViews(
                                                     id: card.id!));
+                                                    
                                             showModalBottomSheet(
                                               context: context,
                                               enableDrag: true,

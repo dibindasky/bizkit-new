@@ -9,12 +9,14 @@ class RefreshIndicatorCustom extends StatelessWidget {
     this.image,
     this.height = 0.3,
     this.axis,
+    this.physics,
   });
   final String message;
   final VoidCallback onRefresh;
   final double height;
   final String? image;
   final Axis? axis;
+  final ScrollPhysics? physics;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class RefreshIndicatorCustom extends StatelessWidget {
         itemCount: 1,
         scrollDirection: axis ?? Axis.vertical,
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        physics: physics,
         itemBuilder: (context, index) => SizedBox(
           height: height * khieght,
           width: double.infinity,

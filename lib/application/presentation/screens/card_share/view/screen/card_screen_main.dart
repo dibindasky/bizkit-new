@@ -329,72 +329,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                               showDragHandle: true,
                                               backgroundColor: kblack,
                                               builder: (context) {
-                                                return Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 20),
-                                                  child: BlocBuilder<CardBloc,
-                                                      CardState>(
-                                                    builder: (context, state) {
-                                                      if (state.viewsLoading) {
-                                                        return const Center(
-                                                          child:
-                                                              CircularProgressIndicator(),
-                                                        );
-                                                      } else if (state
-                                                                  .cardViewList !=
-                                                              null &&
-                                                          state.cardViewList!
-                                                              .isNotEmpty) {
-                                                        return ListView.builder(
-                                                          itemCount: state
-                                                              .cardViewList!
-                                                              .length,
-                                                          itemBuilder:
-                                                              (context, index) {
-                                                            final data = state
-                                                                .cardViewList![
-                                                                    index]
-                                                                .profile;
-                                                            return Container(
-                                                              margin:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      bottom:
-                                                                          10),
-                                                              decoration:
-                                                                  const BoxDecoration(
-                                                                color:
-                                                                    smallBigGrey,
-                                                                borderRadius: BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            10)),
-                                                              ),
-                                                              child: ListTile(
-                                                                leading:
-                                                                    const CircleAvatar(
-                                                                  backgroundColor:
-                                                                      kgrey,
-                                                                  child: Icon(Icons
-                                                                      .person),
-                                                                ),
-                                                                title: Text(
-                                                                    data?.name ??
-                                                                        ''),
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      } else {
-                                                        return const Center(
-                                                          child:
-                                                              Text('No views'),
-                                                        );
-                                                      }
-                                                    },
-                                                  ),
-                                                );
+                                                return const CardViewsListPopUp();
                                               },
                                             );
                                           },
@@ -733,6 +668,54 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
       context: context,
       builder: (context) => CustomBottomSheet(
         card: card,
+      ),
+    );
+  }
+}
+
+class CardViewsListPopUp extends StatelessWidget {
+  const CardViewsListPopUp({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: BlocBuilder<CardBloc, CardState>(
+        builder: (context, state) {
+          if (state.viewsLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state.cardViewList != null &&
+              state.cardViewList!.isNotEmpty) {
+            return ListView.builder(
+              itemCount: state.cardViewList!.length,
+              itemBuilder: (context, index) {
+                final data = state.cardViewList![index].profile;
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  decoration: const BoxDecoration(
+                    color: smallBigGrey,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: ListTile(
+                    leading: const CircleAvatar(
+                      backgroundColor: kgrey,
+                      child: Icon(Icons.person),
+                    ),
+                    title: Text(data?.name ?? ''),
+                  ),
+                );
+              },
+            );
+          } else {
+            return const Center(
+              child: Text('No views'),
+            );
+          }
+        },
       ),
     );
   }

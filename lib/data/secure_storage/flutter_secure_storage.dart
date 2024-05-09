@@ -17,7 +17,7 @@ class SecureStorage {
   static const String userWebsiteKey = 'user_website';
   static const String isVerifiedKey = 'is_verified';
   static const String hasCardKey = 'has_card';
-  static const String hasReminderKey = 'has_reminder';
+  static const String hasConnectionKey = 'has_connection';
   static const String onboardSetBool = 'on_board';
   static const String showCaseSetBool = 'show_case_widget';
 
@@ -40,7 +40,7 @@ class SecureStorage {
     await prefs.setString(userEmailKey, '');
     await prefs.setString(userPhoneKey, '');
     await prefs.setBool(hasCardKey, false);
-    await prefs.setBool(hasReminderKey, false);
+    await prefs.setBool(hasConnectionKey, false);
     // await prefs.;
   }
 
@@ -141,6 +141,11 @@ class SecureStorage {
     await prefs.setBool(hasCardKey, hasCard);
   }
 
+  static Future<void> setHasConnection({required bool hasCard}) async {
+    final prefs = await _getPrefs();
+    await prefs.setBool(hasConnectionKey, hasCard);
+  }
+
   static Future<bool> getHasCard() async {
     final prefs = await _getPrefs();
     final role = prefs.getBool(hasCardKey);
@@ -149,13 +154,13 @@ class SecureStorage {
 
   static Future<void> setHasReminder({required bool hasReminder}) async {
     final prefs = await _getPrefs();
-    await prefs.setBool(hasReminderKey, hasReminder);
+    await prefs.setBool(hasConnectionKey, hasReminder);
   }
 
-  static Future<bool> getHasReminder() async {
+  static Future<bool> getHasConnection() async {
     final prefs = await _getPrefs();
-    final role = prefs.getBool(hasReminderKey);
-    return role ?? false;
+    final hasConnection = prefs.getBool(hasConnectionKey);
+    return hasConnection ?? false;
   }
 
   // Show case function

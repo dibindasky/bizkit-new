@@ -136,7 +136,7 @@ class ScreenConnectionRequests extends StatelessWidget {
                                     showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
-                                          title: const Text('Request back'),
+                                          title: const Text('Request back to Add Connection'),
                                           actions: [
                                             OutlinedButton(
                                                 onPressed: () {

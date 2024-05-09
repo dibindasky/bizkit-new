@@ -34,7 +34,7 @@ class _AchivementsScreenState extends State<AchivementsScreen> {
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
         child: const AppbarCommen(
-          tittle: 'Achivement',
+          tittle: 'Achievement',
         ),
       ),
       body: Padding(

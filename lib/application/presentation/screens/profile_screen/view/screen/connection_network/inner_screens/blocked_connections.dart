@@ -21,18 +21,12 @@ class BlockedConnections extends StatefulWidget {
 
 class _BlockedConnectionsState extends State<BlockedConnections> {
   late ScrollController scrollController = ScrollController();
-  Future<void> onRefresh() async {
-    // await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
-    //     context.read<ConnectionRequestBloc>().add(
-    //         const ConnectionRequestEvent.getBlockeConnections(isLoad: true)));
-    return await Future.delayed(Duration(seconds: 1));
-    // refreshController.refreshCompleted();
-  }
 
-  void onLoading() async {
-    await Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
-        context.read<ConnectionRequestBloc>().add(
-            const ConnectionRequestEvent.getBlockeConnections(isLoad: true)));
+  Future<void> onRefresh() async {
+    context
+        .read<ConnectionRequestBloc>()
+        .add(const ConnectionRequestEvent.getBlockeConnections(isLoad: true));
+    await Future.delayed(const Duration(milliseconds: 1000));
   }
 
   @override
@@ -222,7 +216,7 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
             return ErrorRefreshIndicator(
               image: emptyNodata2,
               errorMessage: 'No Blocked Connections found',
-              onRefresh: onLoading,
+              onRefresh: onRefresh,
             );
           }
         }),

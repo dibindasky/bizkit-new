@@ -26,28 +26,21 @@ class _DeletedCardsState extends State<DeletedCards> {
   late ScrollController firstCardscrollController = ScrollController();
   late ScrollController secondcardscrollController = ScrollController();
 
-  void onRefresh() async {
+  Future<void> onRefresh() async {
+    context.read<CardBloc>().add(const CardEvent.getdeleteCards(isLoad: true));
+    context
+        .read<CardSecondBloc>()
+        .add(const CardSecondEvent.getDeleteCardSecond(isLoad: true));
     // monitor network fetch
-    await Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      context
-          .read<CardBloc>()
-          .add(const CardEvent.getdeleteCards(isLoad: true));
-      context
-          .read<CardSecondBloc>()
-          .add(const CardSecondEvent.getDeleteCardSecond(isLoad: true));
-    });
+    await Future.delayed(const Duration(milliseconds: 500));
   }
 
   void onLoading() async {
-    await Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      context
-          .read<CardBloc>()
-          .add(const CardEvent.getdeleteCards(isLoad: true));
-      context
-          .read<CardSecondBloc>()
-          .add(const CardSecondEvent.getDeleteCardSecond(isLoad: true));
-    });
-    setState(() {});
+    context.read<CardBloc>().add(const CardEvent.getdeleteCards(isLoad: true));
+    context
+        .read<CardSecondBloc>()
+        .add(const CardSecondEvent.getDeleteCardSecond(isLoad: true));
+    await Future.delayed(const Duration(milliseconds: 500));
   }
 
   @override
@@ -91,8 +84,9 @@ class _DeletedCardsState extends State<DeletedCards> {
         builder: (context, constraints) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
-              child: Column(
+            child: RefreshIndicator(
+              onRefresh: onRefresh,
+              child: ListView(
                 children: [
                   BlocConsumer<CardBloc, CardState>(
                     listener: (context, state) {

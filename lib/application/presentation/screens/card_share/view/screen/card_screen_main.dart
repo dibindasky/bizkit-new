@@ -82,6 +82,14 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
         .add(const CardSecondEvent.getAllCardsSecond(isLoad: false));
   }
 
+  Future<void> onRefresh() async {
+    context.read<CardBloc>().add(const CardEvent.getCards(call: false));
+    context
+        .read<CardSecondBloc>()
+        .add(const CardSecondEvent.getAllCardsSecond(isLoad: false));
+    await Future.delayed(const Duration(milliseconds: 500));
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -92,12 +100,13 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: FadeTransition(
-              opacity: animation,
-              child: Column(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: FadeTransition(
+            opacity: animation,
+            child: RefreshIndicator(
+              onRefresh: onRefresh,
+              child: ListView(
                 children: [
                   adjustHieght(khieght * .05),
                   BlocBuilder<CardBloc, CardState>(

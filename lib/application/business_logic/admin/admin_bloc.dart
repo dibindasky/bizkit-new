@@ -33,12 +33,13 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   FutureOr<void> getCompanyUsersNext(GetCompanyUsersNext event, emit) async {}
 
   FutureOr<void> businessUnBlockeUser(BusinessUnBlockeUser event, emit) async {
+    emit(state.copyWith(isLoading: true, hasError: false));
     final data = await adminRepo.businessUnBlockeUser(id: event.id);
     data.fold(
-      (l) => null,
+      (l) => emit(state.copyWith(isLoading: true, hasError: true)),
       (r) {
         emit(state.copyWith(
-          blockedUSerLoading: false,
+          isLoading: false,
           hasError: false,
           unblockedUserSuccess: true,
         ));

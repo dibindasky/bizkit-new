@@ -485,7 +485,7 @@ class CardSecondBloc extends Bloc<CardSecondEvent, CardSecondState> {
           cardScanFinish: false,
           selfieImagePickerror: false,
           pickSelfieCardLoading: false,
-          selfieImageModel: [...state.selfieImageModel, selfieImage],
+          selfieImageModel: [selfieImage, ...state.selfieImageModel],
         ),
       );
     } else {

@@ -47,7 +47,7 @@ class ConnectionNetworkScreen extends StatelessWidget {
                   return kempty;
                 }
                 return TileItem(
-                  text: 'Business card',
+                  text: 'Business Card',
                   onTap: () {
                     Navigator.of(context).push(fadePageRoute(const Tabs()));
                   },

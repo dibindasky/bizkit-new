@@ -107,6 +107,7 @@ class ApiEndPoints {
       '/connections/delete-connection-request/{id}/';
   static String removeConnectionRequest =
       '/connections/connection-request-delete/';
+  static String connectionRquestList = '/connections/connections-im-requetsed/';
 
   // reminder
   static String createReminder = '/reminder/create-reminder/';

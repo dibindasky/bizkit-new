@@ -547,11 +547,9 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
             loadCompanyData: false,
             hasError: true,
             gotCompanyData: false,
-            message: 'failed to add company data to profile')), (business) {
-      print('got company detaisa');
-      // final card = state.
+            message: 'Failed to add company data to profile')), (business) {
+      print('got company details');
       emit(state.copyWith(
-          // businessDetailsCreateId: event.id,
           businessData: BusinessDetails(),
           gotCompanyData: false,
           loadCompanyData: false,

@@ -142,7 +142,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                           AutocompleteTextField(
                             validate: Validate.phone,
                             maxLength: 10,
-                            label: 'Phone number *',
+                            label: 'Phone Number *',
                             controller:
                                 context.read<UserDataBloc>().phoneController,
                             inputType: TextInputType.phone,
@@ -202,16 +202,20 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                       context
                           .read<CardBloc>()
                           .add(const CardEvent.getCards(call: true));
-                      if (state.isBusiness) {
-                        context.go(Routes.homePage);
-                        Navigator.of(context)
-                            .pushNamed(Routes.linerarProgressBar);
-                      } else {
-                        context.go(Routes.homePage);
-                        // Navigator.pushNamedAndRemoveUntil(
-                        //     context, Routes.homePage, (route) => false);
-                        context.read<UserDataBloc>().add(UserDataEvent.clear());
+                      // if (state.isBusiness) {
+                      //   context.go(Routes.homePage);
+                      //   Navigator.of(context)
+                      //       .pushNamed(Routes.linerarProgressBar);
+                      // } else {
+                      // context.go(Routes.homePage);
+                      while (GoRouter.of(context).canPop()) {
+                        GoRouter.of(context).pop();
                       }
+                      context.go(Routes.homePage);
+                      // Navigator.pushNamedAndRemoveUntil(
+                      //     context, Routes.homePage, (route) => false);
+                      context.read<UserDataBloc>().add(UserDataEvent.clear());
+                      // }
                     }
                   },
                   builder: (context, state) {

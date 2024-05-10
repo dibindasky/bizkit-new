@@ -363,7 +363,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                 ),
                                                 adjustWidth(kwidth * .01),
                                                 const Expanded(
-                                                  child: Text('views',
+                                                  child: Text('Views',
                                                       overflow: TextOverflow
                                                           .ellipsis),
                                                 ),
@@ -395,7 +395,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                               ),
                                               adjustWidth(kwidth * .01),
                                               const Expanded(
-                                                child: Text('share',
+                                                child: Text('Share',
                                                     overflow:
                                                         TextOverflow.ellipsis),
                                               ),
@@ -416,7 +416,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                     },
                   ),
                   adjustHieght(khieght * .03),
-                  const Text('Visited cards'),
+                  const Text('Visited Cards'),
                   adjustHieght(khieght * .02),
                   BlocConsumer<CardSecondBloc, CardSecondState>(
                     listener: (context, state) {

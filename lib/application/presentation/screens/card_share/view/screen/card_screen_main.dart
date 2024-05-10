@@ -328,7 +328,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                             context.read<CardBloc>().add(
                                                 CardEvent.getCardViews(
                                                     id: card.id!));
-                                                    
+
                                             showModalBottomSheet(
                                               context: context,
                                               enableDrag: true,
@@ -464,25 +464,26 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                               return const LoadingAnimation();
                             }
                             final seconsdCard = state.secondCards[index];
-                            String selfirBase64 = '';
-                            String scanImageBase64 = '';
+                            String imageBase64 = '';
                             if (seconsdCard.image != null &&
                                 seconsdCard.image!.isNotEmpty) {
-                              scanImageBase64 = seconsdCard.image!;
-                              scanImageBase64 =
-                                  scanImageBase64.startsWith('data')
-                                      ? scanImageBase64.substring(22)
-                                      : scanImageBase64;
-                            }
-                            if (seconsdCard.selfie != null &&
-                                seconsdCard.image!.isNotEmpty) {
-                              selfirBase64 = seconsdCard.selfie!
+                              imageBase64 = seconsdCard.image!;
+                              imageBase64 = imageBase64.startsWith('data')
+                                  ? imageBase64.substring(22)
+                                  : imageBase64;
+                            } else if (seconsdCard.selfie != null &&
+                                seconsdCard.selfie!.isNotEmpty) {
+                              final imageList = seconsdCard.selfie!
                                   .map((e) => e.selfie)
-                                  .toString();
-                              selfirBase64 = selfirBase64.startsWith('data')
-                                  ? selfirBase64.substring(22)
-                                  : selfirBase64;
+                                  .toList();
+                              imageBase64 = imageList.first ?? '';
+                              imageBase64 = imageBase64.startsWith('data')
+                                  ? imageBase64.substring(22)
+                                  : imageBase64;
+                            } else {
+                              imageBase64 = '';
                             }
+
                             return Container(
                               decoration: BoxDecoration(
                                 color: textFieldFillColr,
@@ -519,11 +520,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                               topLeft: Radius.circular(25),
                                               topRight: Radius.circular(20),
                                             ),
-                                            child: seconsdCard.selfie == null ||
-                                                    seconsdCard
-                                                        .selfie!.isEmpty ||
-                                                    seconsdCard.image == null ||
-                                                    seconsdCard.image!.isEmpty
+                                            child: imageBase64.isEmpty
                                                 ? Image.network(
                                                     imageDummyNetwork,
                                                     fit: BoxFit.cover,
@@ -536,8 +533,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                     },
                                                   )
                                                 : Image.memory(
-                                                    base64Decode(
-                                                        scanImageBase64),
+                                                    base64Decode(imageBase64),
                                                     fit: BoxFit.cover,
                                                     errorBuilder: (context,
                                                         error, stackTrace) {

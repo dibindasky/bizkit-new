@@ -48,7 +48,6 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                         : kempty,
                   ],
                 ),
-                widget.subTitle
               ],
             ),
           ),

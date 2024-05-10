@@ -346,6 +346,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                         )
                       : state.selfieImageModel.isEmpty
                           ? ContainerPickImage(
+                              fromMain: false,
                               onPressedGallery: () =>
                                   context.read<CardSecondBloc>().add(
                                         const CardSecondEvent.selfieImage(
@@ -389,11 +390,6 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                               ),
                                             ),
                                           );
-                                          // Navigator.push(
-                                          //   context,
-                                          //   fadePageRoute(ScreenImagePreview(
-                                          //       image: selfiImages.base64)),
-                                          // );
                                         },
                                         child: Stack(
                                           children: [

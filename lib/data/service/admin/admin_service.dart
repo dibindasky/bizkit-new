@@ -98,12 +98,12 @@ class AdminServices implements AdminRepo {
     required String id,
   }) async {
     try {
-      final response = await _apiService.delete(
+      await _apiService.delete(
         ApiEndPoints.businessUserRequstReject.replaceFirst('{id}', id),
         data: {'is_declined': true, 'is_accepted': false},
       );
       log('businessCardRequestReject done');
-      return Right(SuccessResponseModel.fromJson(response.data));
+      return Right(SuccessResponseModel(message: 'Done'));
     } on DioException catch (e) {
       log('businessCardRequestReject DioException error $e');
       return Left(Failure());

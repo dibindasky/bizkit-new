@@ -110,6 +110,7 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
                             onTap: () {
                               Navigator.of(context).push(fadePageRoute(
                                   SlidablePhotoGallery(
+                                      initialIndex: index,
                                       images: updateImageCard
                                           .map((e) => e.image!)
                                           .toList())));

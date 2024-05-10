@@ -136,10 +136,6 @@ class _SwitchButtonsState extends State<SwitchButtons> {
                         context.read<QrBloc>().createQrModel.accolades == null
                             ? null
                             : false,
-                    company:
-                        context.read<QrBloc>().createQrModel.company == null
-                            ? null
-                            : false,
                   );
             }
           });
@@ -163,15 +159,6 @@ class _SwitchButtonsState extends State<SwitchButtons> {
                   .read<QrBloc>()
                   .createQrModel
                   .copyWith(phoneNumber: value);
-            }
-          });
-        }),
-        buildSwitch("Company", context.read<QrBloc>().createQrModel.company,
-            (value) {
-          setState(() {
-            if (personalDetals) {
-              context.read<QrBloc>().createQrModel =
-                  context.read<QrBloc>().createQrModel.copyWith(company: value);
             }
           });
         }),
@@ -239,11 +226,24 @@ class _SwitchButtonsState extends State<SwitchButtons> {
                                 null
                             ? null
                             : false,
+                    company:
+                        context.read<QrBloc>().createQrModel.company == null
+                            ? null
+                            : false,
                   );
             }
           });
         }, neonShade),
         adjustHieght(5),
+        buildSwitch("Company Name", context.read<QrBloc>().createQrModel.company,
+            (value) {
+          setState(() {
+            if (personalDetals) {
+              context.read<QrBloc>().createQrModel =
+                  context.read<QrBloc>().createQrModel.copyWith(company: value);
+            }
+          });
+        }),
         buildSwitch("Business PhoneNumber",
             context.read<QrBloc>().createQrModel.businessDetailsMobileNumber,
             (value) {

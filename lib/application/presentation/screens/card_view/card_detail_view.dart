@@ -102,6 +102,12 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
             previous.anotherCard?.percentage != current.anotherCard?.percentage,
         listener: (context, state) {
           context.read<CardBloc>().add(const CardEvent.getCards(call: true));
+          context
+              .read<UserDataBloc>()
+              .add(UserDataEvent.getCurrentCard(card: state.anotherCard!));
+          context
+              .read<BusinessDataBloc>()
+              .add(BusinessDataEvent.getCurrentCard(card: state.anotherCard!));
         },
         builder: (context, state) => state.cardLoading
             ? const Center(

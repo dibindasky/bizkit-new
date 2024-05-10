@@ -202,19 +202,20 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                       context
                           .read<CardBloc>()
                           .add(const CardEvent.getCards(call: true));
+                      context.read<UserDataBloc>().add(UserDataEvent.clear());
                       // if (state.isBusiness) {
                       //   context.go(Routes.homePage);
                       //   Navigator.of(context)
                       //       .pushNamed(Routes.linerarProgressBar);
                       // } else {
                       // context.go(Routes.homePage);
-                      while (GoRouter.of(context).canPop()) {
-                        GoRouter.of(context).pop();
-                      }
+                      // while (GoRouter.of(context).canPop()) {
+                      //   GoRouter.of(context).pop();
+                      // }
+                      // GoRouter.of(context).push()
                       context.go(Routes.homePage);
                       // Navigator.pushNamedAndRemoveUntil(
                       //     context, Routes.homePage, (route) => false);
-                      context.read<UserDataBloc>().add(UserDataEvent.clear());
                       // }
                     }
                   },

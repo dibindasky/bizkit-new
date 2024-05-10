@@ -501,6 +501,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       emit(state.copyWith(
           accoladeAdded: false,
           datesToRememberAdded: false,
+          scanningDone: false,
           socialMediaAdded: false,
           scannedImagesCardCreation: [
             ...state.scannedImagesCardCreation,

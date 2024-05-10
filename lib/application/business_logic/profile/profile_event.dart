@@ -21,7 +21,8 @@ class ProfileEvent with _$ProfileEvent {
   const factory ProfileEvent.getQuestions({
     required String serachQuery,
   }) = GetQuestions;
-  const factory ProfileEvent.getQuestionEvent() = GetQuestionEvent;
+  const factory ProfileEvent.getQuestionEvent({String? searchData}) =
+      GetQuestionEvent;
   const factory ProfileEvent.searchQuestion({
     required String serachQuery,
   }) = SearchQuestion;

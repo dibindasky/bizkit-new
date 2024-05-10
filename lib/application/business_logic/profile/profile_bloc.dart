@@ -35,6 +35,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   TextEditingController nameController = TextEditingController();
   TextEditingController reportSubject = TextEditingController();
   TextEditingController reportContent = TextEditingController();
+  final TextEditingController faqSearchController = TextEditingController();
   ProfileBloc(this.profileRepo) : super(ProfileState.initial()) {
     on<GetProfile>(getProfile);
     on<EditProfile>(editProfile);
@@ -47,16 +48,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> getQuestionsEvent(GetQuestionEvent event, emit) async {
-    faq = 1;
     emit(state.copyWith(
         questionEvenLoading: true, hasError: false, message: null));
     final data = await profileRepo.getQuestions(
-      pageQuery: PageQuery(page: ++faq, search: ''),
+      pageQuery: PageQuery(page: ++faq, search: event.searchData),
     );
     data.fold((l) {
       emit(state.copyWith(
         questionEvenLoading: false,
-        hasError: false,
+        hasError: true,
         message: errorMessage,
       ));
     }, (r) {
@@ -73,7 +73,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> getQuestios(GetQuestions event, emit) async {
-    log('faq $faq');
     faq = 1;
     emit(state.copyWith(questionLoading: true, hasError: false, message: null));
     final data = await profileRepo.getQuestions(

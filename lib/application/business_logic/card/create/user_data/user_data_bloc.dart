@@ -79,6 +79,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> createCard(CreateCard event, emit) async {
     emit(state.copyWith(
         datesToRememberAdded: false,
+        fromBusinessCategoryGet: false,
         socialMediaAdded: false,
         personalImageAdded: false,
         accoladeAdded: false,
@@ -110,6 +111,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> createPersonalData(CreatePersonalData event, emit) async {
     emit(state.copyWith(
         isLoading: true,
+        fromBusinessCategoryGet: false,
         hasError: false,
         scanningDone: false,
         message: null,
@@ -166,6 +168,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           websites: event.card.extractedTextModel?.websites,
         ),
         cardAdded: false,
+        fromBusinessCategoryGet: false,
         message: null,
         scanningDone: false,
         accoladeAdded: false,
@@ -194,6 +197,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         accoladeAdded: false,
         socialMediaAdded: false,
+        fromBusinessCategoryGet: false,
         cardAdded: false,
         personalImageAdded: false,
         message: null,
@@ -214,6 +218,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> removeDateToRemember(RemoveDateToRemember event, emit) async {
     emit(state.copyWith(
         accoladeAdded: false,
+        fromBusinessCategoryGet: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
         scanningDone: false,
@@ -233,6 +238,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> addSocialMedia(AddSocialMedia event, emit) async {
     emit(state.copyWith(
         accoladeAdded: false,
+        fromBusinessCategoryGet: false,
         cardAdded: false,
         personalImageAdded: false,
         message: null,
@@ -258,6 +264,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         datesToRememberAdded: false,
         socialMediaAdded: false,
         cardAdded: false,
+        fromBusinessCategoryGet: false,
         message: null,
         socialMediaDeleteLoading: true));
     final result = await cardPatchRepo.deleteSocialMedia(id: event.id);
@@ -277,6 +284,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         personalImageAdded: false,
         scanningDone: false,
         accoladeLoading: true,
+        fromBusinessCategoryGet: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
         accoladeAdded: false));
@@ -301,13 +309,19 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         final index = accolade.indexWhere((element) => element.id == r.id);
         accolade[index] = r;
         return emit(state.copyWith(
-            accoladeAdded: true, accoladeLoading: false, accolades: accolade));
+            accoladeAdded: true,
+            accoladeLoading: false,
+            fromBusinessCategoryGet: false,
+            accolades: accolade));
       });
     } else {
       final result = await cardPatchRepo.addAccolades(accolade: event.accolade);
-      result.fold((l) => emit(state.copyWith(accoladeLoading: false)), (r) {
+      result.fold(
+          (l) => emit(state.copyWith(
+              fromBusinessCategoryGet: false, accoladeLoading: false)), (r) {
         return emit(state.copyWith(
             accoladeAdded: true,
+            fromBusinessCategoryGet: false,
             accoladeLoading: false,
             accolades: [...state.accolades, r]));
       });
@@ -319,6 +333,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         accoladeAdded: false,
         datesToRememberAdded: false,
         scanningDone: false,
+        fromBusinessCategoryGet: false,
         socialMediaAdded: false,
         cardAdded: false,
         message: null,
@@ -327,8 +342,10 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     result.fold((l) => emit(state.copyWith(accoladeDeleteLoading: false)), (r) {
       List<Accolade> accolade = List.from(state.accolades);
       accolade.removeWhere((element) => element.id == event.id);
-      return emit(
-          state.copyWith(accoladeDeleteLoading: false, accolades: accolade));
+      return emit(state.copyWith(
+          accoladeDeleteLoading: false,
+          accolades: accolade,
+          fromBusinessCategoryGet: false));
     });
   }
 
@@ -339,23 +356,29 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         scanningDone: false,
         personalImageAdded: false,
         personalImageLoading: true,
+        fromBusinessCategoryGet: false,
         accoladeLoading: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
         accoladeAdded: false));
     final image = await ImagePickerClass.getImage(camera: event.cam);
     if (image == null) {
-      return emit(state.copyWith(personalImageLoading: false));
+      return emit(state.copyWith(
+          personalImageLoading: false, fromBusinessCategoryGet: false));
     }
     final result = await cardPatchRepo.addPersonalImage(
         personalDetailsImage: PersonalDetailsImages(
             personalDetailsId: state.currentCard?.personalDetailsId,
             photos: [Photo(photos: image.base64)]));
     result.fold((l) => emit(state.copyWith(personalImageLoading: false)), (r) {
-      return emit(state.copyWith(personalImges: [
-        ...state.personalImges,
-        ...r.photos?.map((e) => ImageCard(image: e.photos)) ?? []
-      ], personalImageAdded: true, personalImageLoading: false));
+      return emit(state.copyWith(
+          personalImges: [
+            ...state.personalImges,
+            ...r.photos?.map((e) => ImageCard(image: e.photos)) ?? []
+          ],
+          personalImageAdded: true,
+          fromBusinessCategoryGet: false,
+          personalImageLoading: false));
     });
   }
 
@@ -364,6 +387,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         accoladeAdded: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
+        fromBusinessCategoryGet: false,
         cardAdded: false,
         scanningDone: false,
         message: null,
@@ -372,8 +396,10 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     result.fold((l) => emit(state.copyWith(personalImageLoading: false)), (r) {
       List<ImageCard> images = List.from(state.personalImges);
       images.removeWhere((element) => element.id == event.id);
-      return emit(
-          state.copyWith(personalImageLoading: false, personalImges: images));
+      return emit(state.copyWith(
+          personalImageLoading: false,
+          fromBusinessCategoryGet: false,
+          personalImges: images));
     });
   }
 
@@ -389,6 +415,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           cardAdded: false,
           accoladeAdded: false,
           scanningDone: false,
+          fromBusinessCategoryGet: false,
           datesToRememberAdded: false,
           socialMediaAdded: false,
           message: null));
@@ -403,6 +430,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         datesToRememberAdded: false,
         scanningDone: false,
         socialMediaAdded: false,
+        fromBusinessCategoryGet: false,
         message: null));
   }
 
@@ -419,8 +447,10 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     emit(state.copyWith(
         scannedImagesCardCreation: list,
         cardAdded: false,
+        scanningLoading: false,
         message: null,
         scanningDone: false,
+        fromBusinessCategoryGet: false,
         datesToRememberAdded: false,
         socialMediaAdded: false,
         accoladeAdded: false));
@@ -431,6 +461,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         scannedImageDatasModel: null,
         scanningDone: false,
         scanningLoading: true,
+        fromBusinessCategoryGet: false,
         cardAdded: false,
         accoladeAdded: false,
         datesToRememberAdded: false,
@@ -449,6 +480,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
             scanningDone: true,
             scanningLoading: false,
             cardAdded: false,
+            fromBusinessCategoryGet: false,
             accoladeAdded: false,
             datesToRememberAdded: false,
             socialMediaAdded: false,
@@ -478,6 +510,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           scanningDone: true,
           scanningLoading: false,
           cardAdded: false,
+          fromBusinessCategoryGet: false,
           accoladeAdded: false,
           datesToRememberAdded: false,
           socialMediaAdded: false,
@@ -490,8 +523,10 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       emit(state.copyWith(
           accoladeAdded: false,
           datesToRememberAdded: false,
+          scanningLoading: false,
           socialMediaAdded: false,
           scanningDone: false,
+          fromBusinessCategoryGet: false,
           scannedImagesCardCreation: [],
           cardAdded: false,
           message: null));
@@ -502,6 +537,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           accoladeAdded: false,
           datesToRememberAdded: false,
           scanningDone: false,
+          fromBusinessCategoryGet: false,
           socialMediaAdded: false,
           scannedImagesCardCreation: [
             ...state.scannedImagesCardCreation,
@@ -526,6 +562,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         accoladeAdded: false,
         scanningDone: false,
         datesToRememberAdded: false,
+        fromBusinessCategoryGet: false,
         socialMediaAdded: false,
         message: null,
         isBusiness: business));
@@ -539,6 +576,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       emit(state.copyWith(
           accoladeAdded: false,
           datesToRememberAdded: false,
+          fromBusinessCategoryGet: true,
           socialMediaAdded: false,
           scanningDone: false,
           businessCategories: getBusinessCategories.businessCategories ?? []));

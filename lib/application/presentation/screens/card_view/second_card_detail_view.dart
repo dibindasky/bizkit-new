@@ -52,12 +52,9 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
 
   void shareImage(Uint8List imageBytes, String additionalData) async {
     try {
-      // Convert Uint8List to File
       File imageFile = await convertUint8ListToFile(imageBytes);
-
-      // Share the image file using Share.shareFiles
       await Share.shareFiles([imageFile.path],
-          text: '$additionalData \'s visting card');
+          text: '$additionalData\'s visting card');
     } catch (e) {
       print('Error sharing image: $e');
     }
@@ -149,8 +146,7 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                                   List<String> imagess = [];
                                   if (state.getSecondCardModel != null &&
                                       state.getSecondCardModel!.image != null) {
-                                    String scanImage = '';
-                                    scanImage =
+                                    String scanImage =
                                         (state.getSecondCardModel!.image!);
                                     scanImage = scanImage.startsWith('data')
                                         ? scanImage.substring(22)
@@ -178,7 +174,7 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                                   return SizedBox(
                                     height: 200,
                                     child: PreviewPageviewImageBuilder(
-                                      isStory: true,
+                                      isStory: false,
                                       imagesList: imagess,
                                     ),
                                   );

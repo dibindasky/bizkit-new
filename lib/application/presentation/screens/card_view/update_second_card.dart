@@ -4,7 +4,6 @@ import 'package:bizkit/application/business_logic/card_second/card_second_bloc.d
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/create_business_card.dart/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
@@ -13,7 +12,6 @@ import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/utils/text_field/textform_field.dart';
 import 'package:bizkit/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/application/presentation/widgets/image_slidable_list.dart';
-import 'package:bizkit/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/domain/model/card_second/add_selfie_model/add_selfie_model.dart';
 import 'package:bizkit/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/domain/model/card_second/get_second_card_model/selfie.dart';
@@ -338,11 +336,6 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                                           ),
                                         ),
                                       );
-                                      // Navigator.of(context).push(
-                                      //   fadePageRoute(ScreenImagePreview(
-                                      //     image: imageSelfie.selfie!,
-                                      //   )),
-                                      // );
                                     },
                                     child: SizedBox(
                                       width: 300.dm,
@@ -414,27 +407,30 @@ class _SecondCardUpdationState extends State<SecondCardUpdation> {
                           child: InkWell(
                             onTap: () {
                               cameraAndGalleryPickImage(
-                                  context: context,
-                                  onPressCam: () async {
-                                    final img = await ImagePickerClass.getImage(
-                                        camera: true);
-                                    if (img != null) {
-                                      imageList.add(Selfie(selfie: img.base64));
-                                      newImageList
-                                          .add(Selfie(selfie: img.base64));
-                                      setState(() {});
-                                    }
-                                  },
-                                  onPressGallery: () async {
-                                    final img = await ImagePickerClass.getImage(
-                                        camera: false);
-                                    if (img != null) {
-                                      imageList.add(Selfie(selfie: img.base64));
-                                      newImageList
-                                          .add(Selfie(selfie: img.base64));
-                                      setState(() {});
-                                    }
-                                  });
+                                context: context,
+                                onPressCam: () async {
+                                  final img = await ImagePickerClass.getImage(
+                                      camera: true);
+                                  if (img != null) {
+                                    imageList.insert(
+                                        0, Selfie(selfie: img.base64));
+                                    newImageList
+                                        .add(Selfie(selfie: img.base64));
+                                    setState(() {});
+                                  }
+                                },
+                                onPressGallery: () async {
+                                  final img = await ImagePickerClass.getImage(
+                                      camera: false);
+                                  if (img != null) {
+                                    imageList.insert(
+                                        0, Selfie(selfie: img.base64));
+                                    newImageList
+                                        .add(Selfie(selfie: img.base64));
+                                    setState(() {});
+                                  }
+                                },
+                              );
                             },
                             child: const CircleAvatar(
                               radius: 30,

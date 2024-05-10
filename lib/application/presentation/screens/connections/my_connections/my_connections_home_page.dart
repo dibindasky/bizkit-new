@@ -103,7 +103,9 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context, fadePageRoute(ScreenAddConnections()));
+                            context,
+                            fadePageRoute(const ScreenAddConnections()),
+                          );
                         },
                         child: CustomShowCaseView(
                           description: '',
@@ -133,7 +135,7 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                   }
                   return InkWell(
                     onTap: () {
-                      print('data.photo =>${data.photos==''}');
+                      print('data.photo =>${data.photos == ''}');
                       Navigator.push(
                           context,
                           fadePageRoute(
@@ -161,15 +163,16 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Center(
-                                child: data.photos == null && data.name != null
-                                    ? FittedBox(
-                                        child: Text(
-                                            data.name!
-                                                .substring(0, 2)
-                                                .toUpperCase(),
-                                            style: textHeadStyle1),
-                                      )
-                                    : null),
+                              child: data.photos == null && data.name != null
+                                  ? FittedBox(
+                                      child: Text(
+                                          data.name!
+                                              .substring(0, 2)
+                                              .toUpperCase(),
+                                          style: textHeadStyle1),
+                                    )
+                                  : null,
+                            ),
                           ),
                         ),
                         SizedBox(

@@ -25,7 +25,7 @@ class CompanyUsersList extends StatelessWidget {
     return BlocConsumer<AdminBloc, AdminState>(
       listener: (context, state) {
         if (state.userBlocked) {
-          showSnackbar(context, message: 'Successfully Blocked this user');
+          showSnackbar(context, message: 'Successfully Blocked this User');
         }
       },
       builder: (context, state) {
@@ -45,7 +45,6 @@ class CompanyUsersList extends StatelessWidget {
                 final data = state.companyUsers![index];
                 return CustomExpansionTile(
                   isExpandable: false,
-                  subTitle: const Text(''),
                   title: Column(
                     children: [
                       ClipRRect(
@@ -73,34 +72,33 @@ class CompanyUsersList extends StatelessWidget {
                                       ),
                                     )
                                   : null,
-                              child:
-                                  state.companyUsers![index].profilePic == null
-                                      ? const Icon(Icons.person)
-                                      : null,
+                              child: state.companyUsers![index].profilePic ==
+                                          null ||
+                                      state.companyUsers![index].profilePic!
+                                          .isEmpty
+                                  ? const Icon(Icons.person)
+                                  : null,
                             ),
                             adjustWidth(kwidth * .04),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text: state.companyUsers![index].name,
-                                      style: textStyle1),
-                                  const WidgetSpan(child: SizedBox(width: 10)),
-                                  TextSpan(
-                                    text: state.companyUsers![index].email,
-                                    style: textStyle1.copyWith(
-                                      fontSize: 12,
-                                    ),
+                            Column(
+                              children: [
+                                Text(state.companyUsers![index].name ?? '',
+                                    style: textStyle1),
+                                Text(
+                                  state.companyUsers![index].email ?? '',
+                                  style: textStyle1.copyWith(
+                                    fontSize: 12,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                             const Spacer(),
                             Container(
                               decoration: BoxDecoration(
-                                  color: kgrey,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: neonShade)),
+                                color: kgrey,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: neonShade),
+                              ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 10,

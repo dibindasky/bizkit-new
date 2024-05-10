@@ -39,11 +39,28 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     on<RestoreDeletedCard>(restoreDeletedCard);
     on<GetCardViews>(getCardViews);
     on<RequestCompanyData>(requestCompanyData);
+    on<RemoveCompanyRequest>(removeCompanyRequest);
     on<Clear>(clear);
   }
 
   FutureOr<void> clear(Clear event, emit) async {
     emit(CardState.initial());
+  }
+
+  FutureOr<void> removeCompanyRequest(RemoveCompanyRequest event, emit) async {
+    emit(state.copyWith(
+        companyDataRequestLoading: true,
+        companyDataRequestSuccess: false,
+        message: null,
+        hasError: false));
+    final result = await cardService.removeCompanyDetailRequest(id: event.id);
+    result.fold(
+        (l) => emit(state.copyWith(companyDataRequestLoading: false)),
+        (r) => emit(state.copyWith(
+            companyDataRequestLoading: false,
+            hasError: true,
+            companyDataRequestSuccess: true)));
+    add(CardEvent.getCardyCardId(id: state.anotherCard!.id!));
   }
 
   FutureOr<void> requestCompanyData(RequestCompanyData event, emit) async {

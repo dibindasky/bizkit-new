@@ -2,15 +2,14 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomExpansionTile extends StatefulWidget {
-  const CustomExpansionTile(
-      {super.key,
-      this.isExpandable = true,
-      required this.children,
-      required this.title,
-      required this.subTitle});
+  const CustomExpansionTile({
+    super.key,
+    this.isExpandable = true,
+    required this.children,
+    required this.title,
+  });
   final List<Widget> children;
   final Widget title;
-  final Widget subTitle;
   final bool isExpandable;
 
   @override
@@ -48,7 +47,6 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                         : kempty,
                   ],
                 ),
-                widget.subTitle
               ],
             ),
           ),

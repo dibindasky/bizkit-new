@@ -110,7 +110,7 @@ class _StartingBusinessCardCreationState
                             .push(Routes.cardCreationProfilePage);
                       },
                       child: Text(
-                        'Create Card manually',
+                        'Create Card Manually',
                         style: TextStyle(
                           color: kwhite,
                           fontSize: 10.sp,

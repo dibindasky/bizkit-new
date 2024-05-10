@@ -121,7 +121,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
               ),
               PasswordHintmakers(passwordController: passwordController),
               CustomTextFormField(
-                labelText: 'ReEnter Password',
+                labelText: 'Re-Enter Password',
                 controller: rePasswordController,
                 password: passwordController,
                 validate: Validate.rePassword,

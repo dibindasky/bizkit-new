@@ -126,6 +126,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                     adjustHieght(20),
                     const Text('Message  *'),
                     CustomTextFormField(
+                      textCapitalization: TextCapitalization.sentences,
                       maxlegth: 250,
                       maxLines: 7,
                       labelText: 'Write your message here',

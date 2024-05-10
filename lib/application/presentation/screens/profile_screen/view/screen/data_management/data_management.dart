@@ -49,13 +49,13 @@ class DataManagement extends StatelessWidget {
         child: Column(
           children: [
             TileItem(
-              text: 'Archived cards',
+              text: 'Archived Cards',
               onTap: () => Navigator.of(context).push(fadePageRoute(
                 const ArchivedCards(),
               )),
             ),
             TileItem(
-              text: 'Deleted cards',
+              text: 'Deleted Cards',
               onTap: () => Navigator.of(context).push(
                 fadePageRoute(
                   const DeletedCards(),

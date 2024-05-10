@@ -10,10 +10,15 @@ void showSnackbar(BuildContext context,
     behavior: SnackBarBehavior.floating,
     elevation: 5,
     content: Text(
-      message,
+      getFirstCapital(message),
       style: textStyle1.copyWith(color: textColor),
     ),
     backgroundColor: backgroundColor,
     duration: Duration(seconds: duration),
   ));
+}
+
+String getFirstCapital(String message) {
+  if (message.isEmpty) return '';
+  return message.replaceRange(0, 1, message[0].toUpperCase());
 }

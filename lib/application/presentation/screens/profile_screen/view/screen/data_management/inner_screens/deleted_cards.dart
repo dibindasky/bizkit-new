@@ -6,9 +6,9 @@ import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
-import 'package:bizkit/application/presentation/widgets/refresh_indicator.dart';
 import 'package:bizkit/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,50 +67,37 @@ class _DeletedCardsState extends State<DeletedCards> {
         ),
         backgroundColor: knill,
         title: Text(
-          'Deleted cards',
+          'Deleted Cards',
           style: textHeadStyle1,
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: RefreshIndicator(
-          onRefresh: onRefresh,
-          child: ListView(
-            children: [
-              BlocConsumer<CardBloc, CardState>(
-                listener: (context, state) {
-                  if (state.deleteCardRestored) {
-                    showSnackbar(
-                      context,
-                      message: 'Card restored',
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  if (state.deleteCardLoading) {
-                    return SizedBox(
-                      height: khieght * .4,
-                      child: ShimmerLoader(
-                        itemCount: 10,
-                        height: 240,
-                        scrollDirection: Axis.horizontal,
-                        width: kwidth * 0.9,
-                        seprator: const SizedBox(width: 10),
-                      ),
-                    );
-                  } else if (state.deletedCards == null) {
-                    return RefreshIndicatorCustom(
-                      message: errorMessage,
-                      onRefresh: () => context
-                          .read<CardBloc>()
-                          .add(const CardEvent.getdeleteCards(isLoad: true)),
-                    );
-                  } else if (state.deletedCards!.isEmpty) {
-                    return SizedBox(
-                      height: khieght * .4,
-                      child: Image.asset(emptyNodata2),
-                    );
-                  }
+        child: ListView(
+          children: [
+            BlocConsumer<CardBloc, CardState>(
+              listener: (context, state) {
+                if (state.deleteCardRestored) {
+                  showSnackbar(
+                    context,
+                    message: 'Card Restored',
+                  );
+                }
+              },
+              builder: (context, state) {
+                if (state.deleteCardLoading) {
+                  return SizedBox(
+                    height: khieght * .4,
+                    child: ShimmerLoader(
+                      itemCount: 10,
+                      height: 240,
+                      scrollDirection: Axis.horizontal,
+                      width: kwidth * 0.9,
+                      seprator: const SizedBox(width: 10),
+                    ),
+                  );
+                } else if (state.deletedCards != null &&
+                    state.deletedCards!.isNotEmpty) {
                   return SizedBox(
                     height: khieght * .4,
                     child: ListView.separated(
@@ -248,43 +235,40 @@ class _DeletedCardsState extends State<DeletedCards> {
                       },
                     ),
                   );
-                },
-              ),
-              adjustHieght(khieght * .02),
-              BlocConsumer<CardSecondBloc, CardSecondState>(
-                listener: (context, state) {
-                  if (state.message != null && state.seondCardRestored) {
-                    showSnackbar(
-                      context,
-                      message: state.message!,
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  if (state.deleteSecondCardLoading) {
-                    return SizedBox(
-                      height: khieght * .4,
-                      child: ShimmerLoader(
-                        itemCount: 10,
-                        height: 240,
-                        scrollDirection: Axis.horizontal,
-                        width: kwidth * 0.9,
-                        seprator: const SizedBox(height: 10),
-                      ),
-                    );
-                  } else if (state.deleteSecondCards == null) {
-                    return RefreshIndicatorCustom(
-                      message: errorMessage,
-                      onRefresh: () => context
-                          .read<CardBloc>()
-                          .add(const CardEvent.getdeleteCards(isLoad: true)),
-                    );
-                  } else if (state.deleteSecondCards!.isEmpty) {
-                    return SizedBox(
-                      height: khieght * .4,
-                      child: Image.asset(emptyNodata2),
-                    );
-                  }
+                } else {
+                  return ErrorRefreshIndicator(
+                    shrinkWrap: true,
+                    image: emptyNodata2,
+                    errorMessage: 'Deleted Business card is not found',
+                    onRefresh: onRefresh,
+                  );
+                }
+              },
+            ),
+            adjustHieght(khieght * .02),
+            BlocConsumer<CardSecondBloc, CardSecondState>(
+              listener: (context, state) {
+                if (state.message != null && state.seondCardRestored) {
+                  showSnackbar(
+                    context,
+                    message: state.message!,
+                  );
+                }
+              },
+              builder: (context, state) {
+                if (state.deleteSecondCardLoading) {
+                  return SizedBox(
+                    height: khieght * .4,
+                    child: ShimmerLoader(
+                      itemCount: 10,
+                      height: 240,
+                      scrollDirection: Axis.horizontal,
+                      width: kwidth * 0.9,
+                      seprator: const SizedBox(height: 10),
+                    ),
+                  );
+                } else if (state.deleteSecondCards != null &&
+                    state.deleteSecondCards!.isNotEmpty) {
                   return SizedBox(
                     height: khieght * .4,
                     child: ListView.separated(
@@ -357,8 +341,15 @@ class _DeletedCardsState extends State<DeletedCards> {
                                                         Icons.error);
                                                   },
                                                 )
-                                              : Image.network(imageDummyNetwork,
-                                                  fit: BoxFit.cover)),
+                                              : Image.network(
+                                                  imageDummyNetwork,
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    return const Icon(
+                                                        Icons.error);
+                                                  },
+                                                )),
                                     ),
                                   ],
                                 ),
@@ -421,10 +412,17 @@ class _DeletedCardsState extends State<DeletedCards> {
                       },
                     ),
                   );
-                },
-              )
-            ],
-          ),
+                } else {
+                  return ErrorRefreshIndicator(
+                    shrinkWrap: true,
+                    image: emptyNodata2,
+                    errorMessage: 'Deleted Visiting card is not found',
+                    onRefresh: onRefresh,
+                  );
+                }
+              },
+            )
+          ],
         ),
       ),
     );

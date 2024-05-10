@@ -235,6 +235,7 @@ class ConnectionService implements ConnectionRequestRepo {
   Future<Either<Failure, SuccessResponseModel>> removeConnectionRequest(
       {required ConnectionRequestIdModel connectionRequestIdModel}) async {
     try {
+      log('removeConnectionRequest before ${connectionRequestIdModel.toJson()}');
       final responce = await _apiService.delete(
         ApiEndPoints.removeConnectionRequest,
         data: connectionRequestIdModel.toJson(),
@@ -246,7 +247,24 @@ class ConnectionService implements ConnectionRequestRepo {
       return Left(Failure());
     } catch (e) {
       log('removeConnectionRequest exception error');
-      log(e.toString());
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetSerchConnectionResponseModel>>
+      getConnectionList() async {
+    try {
+      final responce = await _apiService.get(
+        ApiEndPoints.connectionRquestList,
+      );
+      log('getConnectionList data');
+      return Right(GetSerchConnectionResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getConnectionList dio error $e');
+      return Left(Failure());
+    } catch (e) {
+      log('getConnectionList exception error');
       return Left(Failure());
     }
   }

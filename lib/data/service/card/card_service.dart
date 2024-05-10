@@ -355,4 +355,24 @@ class CardService implements CardRepo {
       return Left(Failure(message: 'Failed to request'));
     }
   }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> removeCompanyDetailRequest(
+      {required int id}) async {
+    try {
+      log('removeCompanyDetailRequest ==> $id');
+      final responce = await apiService.delete(ApiEndPoints.removeCompanyRequest
+          .replaceFirst('{request_id}', id.toString()));
+      log('removeCompanyDetailRequest ==>success');
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('removeCompanyDetailRequest DioException ${e.response?.statusCode} $e');
+      log('error ${e.response?.data}');
+      return Left(
+          Failure(message: e.response?.data['error'] ?? 'Failed to request'));
+    } catch (e) {
+      log('removeCompanyDetailRequest catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
 }

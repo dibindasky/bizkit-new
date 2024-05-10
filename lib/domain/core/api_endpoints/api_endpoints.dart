@@ -1,9 +1,9 @@
 class ApiEndPoints {
   // static String baseUrl = 'http://192.168.29.216:8000';
-  static String baseUrl = 'https://app.bizkit.club';
+  //static String baseUrl = 'https://app.bizkit.club';
   //static String baseUrl = 'http://44.203.134.42';
   // static String baseUrl = 'https://bizkit.zikrabyte.in';
-  // static String baseUrl = 'http://192.168.25.241:8000';
+  static String baseUrl = 'http://192.168.29.216:8000';
 
   // refesh token
   static String refreshUrl = '/accounts/api/token/refresh/';
@@ -106,6 +106,7 @@ class ApiEndPoints {
       '/connections/delete-connection-request/{id}/';
   static String removeConnectionRequest =
       '/connections/connection-request-delete/';
+  static String connectionRquestList = '/connections/connections-im-requetsed/';
 
   // reminder
   static String createReminder = '/reminder/create-reminder/';

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/commen/page_query/page_query.dart';
 import 'package:bizkit/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
@@ -37,12 +38,32 @@ class ConnectionRequestBloc
     on<SearchBizkitUsers>(searchBizkitUsers);
     on<AddConnectionRequests>(addConnectionRequests);
     on<GetRequestLists>(getRequestLists);
+    on<GetConnectionRequestedList>(getConnectionRequestedList);
     on<DeleteRequest>(deleteRequest);
     on<GetBlockeConnections>(getBlockeConnections);
     on<GgetBlockeConnectionsEvent>(getBlockedConnectionsEvent);
     on<RemoveConnectionRequest>(removeConnectionRequest);
     on<GetRequestLoadList>(getRequestLoadList);
     on<Clear>(clear);
+  }
+
+  FutureOr<void> getConnectionRequestedList(
+      GetConnectionRequestedList event, emit) async {
+    emit(state.copyWith(connectionRequestLoading: false, hasError: false));
+    final data = await _connectionRepo.getConnectionList();
+    data.fold(
+        (l) => emit(
+            state.copyWith(connectionRequestLoading: false, hasError: true)),
+        (r) {
+      for (var element in r.results ?? []) {
+        log('${element.name}', name: 'getConnectionList name');
+      }
+      emit(state.copyWith(
+        connectionRequestLoading: false,
+        hasError: false,
+        connectionRequestedList: r.results,
+      ));
+    });
   }
 
   FutureOr<void> clear(Clear event, emit) async {
@@ -61,11 +82,13 @@ class ConnectionRequestBloc
             blockedConnectionsLoading: false,
             hasError: true,
             message: null)), (r) {
-      emit(state.copyWith(
-        blockedConnectionsLoading: false,
-        hasError: false,
-        blockedConnections: [...state.blockedConnections!, ...r.results!],
-      ));
+      emit(
+        state.copyWith(
+          blockedConnectionsLoading: false,
+          hasError: false,
+          blockedConnections: [...state.blockedConnections!, ...r.results!],
+        ),
+      );
     });
   }
 

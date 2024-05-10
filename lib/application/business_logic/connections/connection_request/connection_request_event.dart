@@ -26,6 +26,8 @@ class ConnectionRequestEvent with _$ConnectionRequestEvent {
   const factory ConnectionRequestEvent.getRequestLoadList({required int id}) =
       GetRequestLoadList;
   const factory ConnectionRequestEvent.getRequestLists() = GetRequestLists;
+  const factory ConnectionRequestEvent.getConnectionRequestedList() =
+      GetConnectionRequestedList;
   const factory ConnectionRequestEvent.deleteRequest({required int id}) =
       DeleteRequest;
   const factory ConnectionRequestEvent.getBlockeConnections(

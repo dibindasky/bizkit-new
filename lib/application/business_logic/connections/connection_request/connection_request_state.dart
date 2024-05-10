@@ -8,6 +8,7 @@ class ConnectionRequestState with _$ConnectionRequestState {
     required bool connected,
     required bool hasError,
     required bool blockedLoading,
+    required bool connectionRequestLoading,
     required bool connectionRequestRemoved,
     required List<int> requestLoadingIndex,
     required bool blockedConnectionsLoading,
@@ -15,11 +16,13 @@ class ConnectionRequestState with _$ConnectionRequestState {
     String? message,
     List<BizkitConnection>? bizkitConnections,
     List<BizkitUser>? bizkitUsers,
+    List<BizkitUser>? connectionRequestedList,
     List<RequestModel>? requestList,
     List<BlockedConnection>? blockedConnections,
   }) = _Initial;
   factory ConnectionRequestState.initial() => const ConnectionRequestState(
         connected: false,
+        connectionRequestLoading: false,
         blockedConnectionsLoading: false,
         blockedLoading: false,
         connectionRequestRemoved: false,

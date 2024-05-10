@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenAddConnections extends StatelessWidget {
-  ScreenAddConnections({super.key});
+  const ScreenAddConnections({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +41,18 @@ class ScreenAddConnections extends StatelessWidget {
           'New Connection',
           style: textHeadStyle1,
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ConnectionPendingRequests()));
+              },
+              icon: const Icon(Icons.person_2_outlined),
+            ),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -74,7 +86,8 @@ class ScreenAddConnections extends StatelessWidget {
                   }
                   if (state.isLoading) {
                     return const Center(
-                        child: CircularProgressIndicator(color: neonShade));
+                      child: CircularProgressIndicator(color: neonShade),
+                    );
                   } else if (state.bizkitUsers != null &&
                       state.bizkitUsers!.isNotEmpty) {
                     print('search list length => ${state.bizkitUsers!.length}');
@@ -95,10 +108,11 @@ class ScreenAddConnections extends StatelessWidget {
                         shrinkWrap: true,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 1 / 1.15,
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 20,
-                                mainAxisSpacing: 20),
+                          childAspectRatio: 1 / 1.15,
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
+                        ),
                         itemBuilder: (context, index) {
                           return GridTileAddRequestConnection(
                             data: state.bizkitUsers![index],
@@ -109,24 +123,26 @@ class ScreenAddConnections extends StatelessWidget {
                     );
                   } else {
                     return RefreshIndicator(
-                        onRefresh: () async {
-                          context.read<ConnectionRequestBloc>().add(
-                              ConnectionRequestEvent.searchBizkitUsers(
-                                  searchQuery: SearchQuery(
-                                      search: context
-                                          .read<ConnectionRequestBloc>()
-                                          .connectionController
-                                          .text)));
-                          await Future.delayed(
-                              const Duration(milliseconds: 1500));
-                        },
-                        child: ListView(
-                          children: [
-                            adjustHieght(40),
-                            Center(child: Image.asset(emptyNodata3)),
-                            adjustHieght(80),
-                          ],
-                        ));
+                      onRefresh: () async {
+                        context.read<ConnectionRequestBloc>().add(
+                            ConnectionRequestEvent.searchBizkitUsers(
+                                searchQuery: SearchQuery(
+                                    search: context
+                                        .read<ConnectionRequestBloc>()
+                                        .connectionController
+                                        .text)));
+                        await Future.delayed(
+                            const Duration(milliseconds: 1500));
+                      },
+                      child: ListView(
+                        children: [
+                          adjustHieght(40),
+                          Center(child: Image.asset(emptyNodata3)),
+                          const Center(child: Text('No data')),
+                          adjustHieght(80),
+                        ],
+                      ),
+                    );
                   }
                 },
               ),
@@ -143,10 +159,12 @@ class GridTileAddRequestConnection extends StatefulWidget {
     super.key,
     required this.data,
     required this.index,
+    this.fromPendingRequests = false,
   });
 
   final BizkitUser data;
   final int index;
+  final bool fromPendingRequests;
 
   @override
   State<GridTileAddRequestConnection> createState() =>
@@ -209,18 +227,27 @@ class _GridTileAddRequestConnectionState
             adjustHieght(10),
             GestureDetector(
               onTap: () {
-                if (widget.data.connectionId == null) {
-                  context.read<ConnectionRequestBloc>().add(
-                      ConnectionRequestEvent.addConnectionRequests(
-                          addConnectionRequestModel: AddConnectionRequestModel(
-                              cardUserId: widget.data.id),
-                          index: widget.data.id!));
-                } else {
+                if (widget.fromPendingRequests) {
                   context.read<ConnectionRequestBloc>().add(
                       ConnectionRequestEvent.removeConnectionRequest(
                           connectionRequestIdModel: ConnectionRequestIdModel(
                               connectionRequestId: widget.data.connectionId),
                           id: widget.data.id!));
+                } else {
+                  if (widget.data.connectionId == null) {
+                    context.read<ConnectionRequestBloc>().add(
+                        ConnectionRequestEvent.addConnectionRequests(
+                            addConnectionRequestModel:
+                                AddConnectionRequestModel(
+                                    cardUserId: widget.data.id),
+                            index: widget.data.id!));
+                  } else {
+                    context.read<ConnectionRequestBloc>().add(
+                        ConnectionRequestEvent.removeConnectionRequest(
+                            connectionRequestIdModel: ConnectionRequestIdModel(
+                                connectionRequestId: widget.data.connectionId),
+                            id: widget.data.id!));
+                  }
                 }
               },
               child: state.requestLoadingIndex.contains(widget.data.id)
@@ -234,15 +261,105 @@ class _GridTileAddRequestConnectionState
                               const BorderRadius.all(Radius.circular(10))),
                       child: FittedBox(
                         child: Text(
-                            widget.data.connectionId != null
+                            widget.fromPendingRequests
                                 ? 'Remove Request'
-                                : 'Add Connection',
+                                : widget.data.connectionId != null
+                                    ? 'Remove Request'
+                                    : 'Add Connection',
                             style: const TextStyle(color: kwhite)),
                       ),
                     ),
             ),
           ]);
         },
+      ),
+    );
+  }
+}
+
+class ConnectionPendingRequests extends StatelessWidget {
+  const ConnectionPendingRequests({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        context
+            .read<ConnectionRequestBloc>()
+            .add(const ConnectionRequestEvent.getConnectionRequestedList());
+      },
+    );
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            size: 18,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          color: kwhite,
+        ),
+        backgroundColor: knill,
+        title: Text(
+          'Pending Connection requests',
+          style: textHeadStyle1,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
+          builder: (context, state) {
+            if (state.connectionRequestLoading) {
+              return const Center(
+                  child: CircularProgressIndicator(color: neonShade));
+            } else if (state.connectionRequestedList != null &&
+                state.connectionRequestedList!.isNotEmpty) {
+              return RefreshIndicator(
+                onRefresh: () async {
+                  context.read<ConnectionRequestBloc>().add(
+                      const ConnectionRequestEvent
+                          .getConnectionRequestedList());
+                  await Future.delayed(const Duration(milliseconds: 1500));
+                },
+                child: GridView.builder(
+                  itemCount: state.connectionRequestedList!.length,
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 1 / 1.15,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20),
+                  itemBuilder: (context, index) {
+                    return GridTileAddRequestConnection(
+                      fromPendingRequests: true,
+                      data: state.connectionRequestedList![index],
+                      index: index,
+                    );
+                  },
+                ),
+              );
+            } else {
+              return RefreshIndicator(
+                onRefresh: () async {
+                  context.read<ConnectionRequestBloc>().add(
+                      const ConnectionRequestEvent
+                          .getConnectionRequestedList());
+                  await Future.delayed(const Duration(milliseconds: 1500));
+                },
+                child: ListView(
+                  children: [
+                    adjustHieght(40),
+                    Center(child: Image.asset(emptyNodata3)),
+                    const Center(child: Text('No Pending Requests')),
+                    adjustHieght(80),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
       ),
     );
   }

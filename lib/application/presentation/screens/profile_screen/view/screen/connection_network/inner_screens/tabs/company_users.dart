@@ -45,7 +45,6 @@ class CompanyUsersList extends StatelessWidget {
                 final data = state.companyUsers![index];
                 return CustomExpansionTile(
                   isExpandable: false,
-                  subTitle: const Text(''),
                   title: Column(
                     children: [
                       ClipRRect(

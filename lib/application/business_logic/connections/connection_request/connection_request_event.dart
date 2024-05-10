@@ -34,5 +34,8 @@ class ConnectionRequestEvent with _$ConnectionRequestEvent {
       {required bool isLoad}) = GetBlockeConnections;
   const factory ConnectionRequestEvent.getBlockeConnectionsEvent() =
       GgetBlockeConnectionsEvent;
+  const factory ConnectionRequestEvent.removeConnectionRequestFromPendingScreen(
+      {required ConnectionRequestIdModel connectionRequestIdModel,
+      required int id}) = RemoveConnectionRequestFromPendingScreen;
   const factory ConnectionRequestEvent.clear() = Clear;
 }

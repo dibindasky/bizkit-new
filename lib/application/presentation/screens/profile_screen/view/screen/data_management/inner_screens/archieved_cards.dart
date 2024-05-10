@@ -55,7 +55,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
         ),
         backgroundColor: knill,
         title: Text(
-          'Archived cards',
+          'Archived Cards',
           style: textHeadStyle1,
         ),
       ),

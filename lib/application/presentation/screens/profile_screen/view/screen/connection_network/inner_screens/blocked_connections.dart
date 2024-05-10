@@ -59,7 +59,7 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
         ),
         backgroundColor: knill,
         title: Text(
-          'Blocked connections',
+          'Blocked Connections',
           style: textHeadStyle1,
         ),
       ),
@@ -150,7 +150,7 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
                                       TextSpan(
                                         text: state.blockedConnections?[index]
                                                 .designation ??
-                                            'No company',
+                                            'No Company',
                                         style: textStyle1.copyWith(
                                           fontSize: 12,
                                         ),

@@ -42,6 +42,9 @@ mixin _$ConnectionRequestEvent {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) =>
       throw _privateConstructorUsedError;
@@ -71,6 +74,9 @@ mixin _$ConnectionRequestEvent {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) =>
       throw _privateConstructorUsedError;
@@ -99,6 +105,8 @@ mixin _$ConnectionRequestEvent {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) =>
@@ -126,6 +134,8 @@ mixin _$ConnectionRequestEvent {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) =>
       throw _privateConstructorUsedError;
@@ -148,6 +158,8 @@ mixin _$ConnectionRequestEvent {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) =>
       throw _privateConstructorUsedError;
@@ -170,6 +182,8 @@ mixin _$ConnectionRequestEvent {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) =>
@@ -286,6 +300,9 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return getBizkitConnections(query);
@@ -318,6 +335,9 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return getBizkitConnections?.call(query);
@@ -349,6 +369,8 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -382,6 +404,8 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return getBizkitConnections(this);
@@ -407,6 +431,8 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return getBizkitConnections?.call(this);
@@ -432,6 +458,8 @@ class _$GetBizkitConnectionsImpl implements GetBizkitConnections {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -546,6 +574,9 @@ class _$GetBizkitConnectionsNextPageImpl
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return getBizkitConnectionsNextPage(query);
@@ -578,6 +609,9 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return getBizkitConnectionsNextPage?.call(query);
@@ -609,6 +643,8 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -642,6 +678,8 @@ class _$GetBizkitConnectionsNextPageImpl
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return getBizkitConnectionsNextPage(this);
@@ -667,6 +705,8 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return getBizkitConnectionsNextPage?.call(this);
@@ -692,6 +732,8 @@ class _$GetBizkitConnectionsNextPageImpl
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -817,6 +859,9 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return blockBizkitConnections(blockBizkitConnection, connectionId);
@@ -849,6 +894,9 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return blockBizkitConnections?.call(blockBizkitConnection, connectionId);
@@ -880,6 +928,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -913,6 +963,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return blockBizkitConnections(this);
@@ -938,6 +990,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return blockBizkitConnections?.call(this);
@@ -963,6 +1017,8 @@ class _$BlockBizkitConnectionsImpl implements BlockBizkitConnections {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -1076,6 +1132,9 @@ class _$AddConnectionImpl implements AddConnection {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return addConnection(createConnectionWithCardIdModel);
@@ -1108,6 +1167,9 @@ class _$AddConnectionImpl implements AddConnection {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return addConnection?.call(createConnectionWithCardIdModel);
@@ -1139,6 +1201,8 @@ class _$AddConnectionImpl implements AddConnection {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -1172,6 +1236,8 @@ class _$AddConnectionImpl implements AddConnection {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return addConnection(this);
@@ -1197,6 +1263,8 @@ class _$AddConnectionImpl implements AddConnection {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return addConnection?.call(this);
@@ -1222,6 +1290,8 @@ class _$AddConnectionImpl implements AddConnection {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -1346,6 +1416,9 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return removeConnectionRequest(connectionRequestIdModel, id);
@@ -1378,6 +1451,9 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return removeConnectionRequest?.call(connectionRequestIdModel, id);
@@ -1409,6 +1485,8 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -1442,6 +1520,8 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return removeConnectionRequest(this);
@@ -1467,6 +1547,8 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return removeConnectionRequest?.call(this);
@@ -1492,6 +1574,8 @@ class _$RemoveConnectionRequestImpl implements RemoveConnectionRequest {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -1618,6 +1702,9 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return addTagToBizkitconnection(addConnectionTagModel, connectionId);
@@ -1650,6 +1737,9 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return addTagToBizkitconnection?.call(addConnectionTagModel, connectionId);
@@ -1681,6 +1771,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -1714,6 +1806,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return addTagToBizkitconnection(this);
@@ -1739,6 +1833,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return addTagToBizkitconnection?.call(this);
@@ -1764,6 +1860,8 @@ class _$AddTagToBizkitconnectionImpl implements AddTagToBizkitconnection {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -1876,6 +1974,9 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return searchBizkitUsers(searchQuery);
@@ -1908,6 +2009,9 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return searchBizkitUsers?.call(searchQuery);
@@ -1939,6 +2043,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -1972,6 +2078,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return searchBizkitUsers(this);
@@ -1997,6 +2105,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return searchBizkitUsers?.call(this);
@@ -2022,6 +2132,8 @@ class _$SearchBizkitUsersImpl implements SearchBizkitUsers {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -2145,6 +2257,9 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return addConnectionRequests(addConnectionRequestModel, index);
@@ -2177,6 +2292,9 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return addConnectionRequests?.call(addConnectionRequestModel, index);
@@ -2208,6 +2326,8 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -2241,6 +2361,8 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return addConnectionRequests(this);
@@ -2266,6 +2388,8 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return addConnectionRequests?.call(this);
@@ -2291,6 +2415,8 @@ class _$AddConnectionRequestsImpl implements AddConnectionRequests {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -2402,6 +2528,9 @@ class _$GetRequestLoadListImpl implements GetRequestLoadList {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return getRequestLoadList(id);
@@ -2434,6 +2563,9 @@ class _$GetRequestLoadListImpl implements GetRequestLoadList {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return getRequestLoadList?.call(id);
@@ -2465,6 +2597,8 @@ class _$GetRequestLoadListImpl implements GetRequestLoadList {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -2498,6 +2632,8 @@ class _$GetRequestLoadListImpl implements GetRequestLoadList {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return getRequestLoadList(this);
@@ -2523,6 +2659,8 @@ class _$GetRequestLoadListImpl implements GetRequestLoadList {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return getRequestLoadList?.call(this);
@@ -2548,6 +2686,8 @@ class _$GetRequestLoadListImpl implements GetRequestLoadList {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -2630,6 +2770,9 @@ class _$GetRequestListsImpl implements GetRequestLists {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return getRequestLists();
@@ -2662,6 +2805,9 @@ class _$GetRequestListsImpl implements GetRequestLists {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return getRequestLists?.call();
@@ -2693,6 +2839,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -2726,6 +2874,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return getRequestLists(this);
@@ -2751,6 +2901,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return getRequestLists?.call(this);
@@ -2776,6 +2928,8 @@ class _$GetRequestListsImpl implements GetRequestLists {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -2856,6 +3010,9 @@ class _$GetConnectionRequestedListImpl implements GetConnectionRequestedList {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return getConnectionRequestedList();
@@ -2888,6 +3045,9 @@ class _$GetConnectionRequestedListImpl implements GetConnectionRequestedList {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return getConnectionRequestedList?.call();
@@ -2919,6 +3079,8 @@ class _$GetConnectionRequestedListImpl implements GetConnectionRequestedList {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -2952,6 +3114,8 @@ class _$GetConnectionRequestedListImpl implements GetConnectionRequestedList {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return getConnectionRequestedList(this);
@@ -2977,6 +3141,8 @@ class _$GetConnectionRequestedListImpl implements GetConnectionRequestedList {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return getConnectionRequestedList?.call(this);
@@ -3002,6 +3168,8 @@ class _$GetConnectionRequestedListImpl implements GetConnectionRequestedList {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -3104,6 +3272,9 @@ class _$DeleteRequestImpl implements DeleteRequest {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return deleteRequest(id);
@@ -3136,6 +3307,9 @@ class _$DeleteRequestImpl implements DeleteRequest {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return deleteRequest?.call(id);
@@ -3167,6 +3341,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -3200,6 +3376,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return deleteRequest(this);
@@ -3225,6 +3403,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return deleteRequest?.call(this);
@@ -3250,6 +3430,8 @@ class _$DeleteRequestImpl implements DeleteRequest {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -3360,6 +3542,9 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return getBlockeConnections(isLoad);
@@ -3392,6 +3577,9 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return getBlockeConnections?.call(isLoad);
@@ -3423,6 +3611,8 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -3456,6 +3646,8 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return getBlockeConnections(this);
@@ -3481,6 +3673,8 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return getBlockeConnections?.call(this);
@@ -3506,6 +3700,8 @@ class _$GetBlockeConnectionsImpl implements GetBlockeConnections {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -3592,6 +3788,9 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return getBlockeConnectionsEvent();
@@ -3624,6 +3823,9 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return getBlockeConnectionsEvent?.call();
@@ -3655,6 +3857,8 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -3688,6 +3892,8 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return getBlockeConnectionsEvent(this);
@@ -3713,6 +3919,8 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return getBlockeConnectionsEvent?.call(this);
@@ -3738,6 +3946,8 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {
@@ -3750,6 +3960,299 @@ class _$GgetBlockeConnectionsEventImpl implements GgetBlockeConnectionsEvent {
 
 abstract class GgetBlockeConnectionsEvent implements ConnectionRequestEvent {
   const factory GgetBlockeConnectionsEvent() = _$GgetBlockeConnectionsEventImpl;
+}
+
+/// @nodoc
+abstract class _$$RemoveConnectionRequestFromPendingScreenImplCopyWith<$Res> {
+  factory _$$RemoveConnectionRequestFromPendingScreenImplCopyWith(
+          _$RemoveConnectionRequestFromPendingScreenImpl value,
+          $Res Function(_$RemoveConnectionRequestFromPendingScreenImpl) then) =
+      __$$RemoveConnectionRequestFromPendingScreenImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ConnectionRequestIdModel connectionRequestIdModel, int id});
+}
+
+/// @nodoc
+class __$$RemoveConnectionRequestFromPendingScreenImplCopyWithImpl<$Res>
+    extends _$ConnectionRequestEventCopyWithImpl<$Res,
+        _$RemoveConnectionRequestFromPendingScreenImpl>
+    implements _$$RemoveConnectionRequestFromPendingScreenImplCopyWith<$Res> {
+  __$$RemoveConnectionRequestFromPendingScreenImplCopyWithImpl(
+      _$RemoveConnectionRequestFromPendingScreenImpl _value,
+      $Res Function(_$RemoveConnectionRequestFromPendingScreenImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? connectionRequestIdModel = null,
+    Object? id = null,
+  }) {
+    return _then(_$RemoveConnectionRequestFromPendingScreenImpl(
+      connectionRequestIdModel: null == connectionRequestIdModel
+          ? _value.connectionRequestIdModel
+          : connectionRequestIdModel // ignore: cast_nullable_to_non_nullable
+              as ConnectionRequestIdModel,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveConnectionRequestFromPendingScreenImpl
+    implements RemoveConnectionRequestFromPendingScreen {
+  const _$RemoveConnectionRequestFromPendingScreenImpl(
+      {required this.connectionRequestIdModel, required this.id});
+
+  @override
+  final ConnectionRequestIdModel connectionRequestIdModel;
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'ConnectionRequestEvent.removeConnectionRequestFromPendingScreen(connectionRequestIdModel: $connectionRequestIdModel, id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveConnectionRequestFromPendingScreenImpl &&
+            (identical(
+                    other.connectionRequestIdModel, connectionRequestIdModel) ||
+                other.connectionRequestIdModel == connectionRequestIdModel) &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, connectionRequestIdModel, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveConnectionRequestFromPendingScreenImplCopyWith<
+          _$RemoveConnectionRequestFromPendingScreenImpl>
+      get copyWith =>
+          __$$RemoveConnectionRequestFromPendingScreenImplCopyWithImpl<
+              _$RemoveConnectionRequestFromPendingScreenImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String query) getBizkitConnections,
+    required TResult Function(String query) getBizkitConnectionsNextPage,
+    required TResult Function(
+            BlockBizkitConnection blockBizkitConnection, int connectionId)
+        blockBizkitConnections,
+    required TResult Function(
+            CreateConnectionWithCardIdModel createConnectionWithCardIdModel)
+        addConnection,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequest,
+    required TResult Function(
+            AddConnectionTagModel addConnectionTagModel, int connectionId)
+        addTagToBizkitconnection,
+    required TResult Function(SearchQuery searchQuery) searchBizkitUsers,
+    required TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)
+        addConnectionRequests,
+    required TResult Function(int id) getRequestLoadList,
+    required TResult Function() getRequestLists,
+    required TResult Function() getConnectionRequestedList,
+    required TResult Function(int id) deleteRequest,
+    required TResult Function(bool isLoad) getBlockeConnections,
+    required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
+    required TResult Function() clear,
+  }) {
+    return removeConnectionRequestFromPendingScreen(
+        connectionRequestIdModel, id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String query)? getBizkitConnections,
+    TResult? Function(String query)? getBizkitConnectionsNextPage,
+    TResult? Function(
+            BlockBizkitConnection blockBizkitConnection, int connectionId)?
+        blockBizkitConnections,
+    TResult? Function(
+            CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
+        addConnection,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequest,
+    TResult? Function(
+            AddConnectionTagModel addConnectionTagModel, int connectionId)?
+        addTagToBizkitconnection,
+    TResult? Function(SearchQuery searchQuery)? searchBizkitUsers,
+    TResult? Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
+        addConnectionRequests,
+    TResult? Function(int id)? getRequestLoadList,
+    TResult? Function()? getRequestLists,
+    TResult? Function()? getConnectionRequestedList,
+    TResult? Function(int id)? deleteRequest,
+    TResult? Function(bool isLoad)? getBlockeConnections,
+    TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
+    TResult? Function()? clear,
+  }) {
+    return removeConnectionRequestFromPendingScreen?.call(
+        connectionRequestIdModel, id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String query)? getBizkitConnections,
+    TResult Function(String query)? getBizkitConnectionsNextPage,
+    TResult Function(
+            BlockBizkitConnection blockBizkitConnection, int connectionId)?
+        blockBizkitConnections,
+    TResult Function(
+            CreateConnectionWithCardIdModel createConnectionWithCardIdModel)?
+        addConnection,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequest,
+    TResult Function(
+            AddConnectionTagModel addConnectionTagModel, int connectionId)?
+        addTagToBizkitconnection,
+    TResult Function(SearchQuery searchQuery)? searchBizkitUsers,
+    TResult Function(
+            AddConnectionRequestModel addConnectionRequestModel, int index)?
+        addConnectionRequests,
+    TResult Function(int id)? getRequestLoadList,
+    TResult Function()? getRequestLists,
+    TResult Function()? getConnectionRequestedList,
+    TResult Function(int id)? deleteRequest,
+    TResult Function(bool isLoad)? getBlockeConnections,
+    TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (removeConnectionRequestFromPendingScreen != null) {
+      return removeConnectionRequestFromPendingScreen(
+          connectionRequestIdModel, id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetBizkitConnections value) getBizkitConnections,
+    required TResult Function(GetBizkitConnectionsNextPage value)
+        getBizkitConnectionsNextPage,
+    required TResult Function(BlockBizkitConnections value)
+        blockBizkitConnections,
+    required TResult Function(AddConnection value) addConnection,
+    required TResult Function(RemoveConnectionRequest value)
+        removeConnectionRequest,
+    required TResult Function(AddTagToBizkitconnection value)
+        addTagToBizkitconnection,
+    required TResult Function(SearchBizkitUsers value) searchBizkitUsers,
+    required TResult Function(AddConnectionRequests value)
+        addConnectionRequests,
+    required TResult Function(GetRequestLoadList value) getRequestLoadList,
+    required TResult Function(GetRequestLists value) getRequestLists,
+    required TResult Function(GetConnectionRequestedList value)
+        getConnectionRequestedList,
+    required TResult Function(DeleteRequest value) deleteRequest,
+    required TResult Function(GetBlockeConnections value) getBlockeConnections,
+    required TResult Function(GgetBlockeConnectionsEvent value)
+        getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
+    required TResult Function(Clear value) clear,
+  }) {
+    return removeConnectionRequestFromPendingScreen(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetBizkitConnections value)? getBizkitConnections,
+    TResult? Function(GetBizkitConnectionsNextPage value)?
+        getBizkitConnectionsNextPage,
+    TResult? Function(BlockBizkitConnections value)? blockBizkitConnections,
+    TResult? Function(AddConnection value)? addConnection,
+    TResult? Function(RemoveConnectionRequest value)? removeConnectionRequest,
+    TResult? Function(AddTagToBizkitconnection value)? addTagToBizkitconnection,
+    TResult? Function(SearchBizkitUsers value)? searchBizkitUsers,
+    TResult? Function(AddConnectionRequests value)? addConnectionRequests,
+    TResult? Function(GetRequestLoadList value)? getRequestLoadList,
+    TResult? Function(GetRequestLists value)? getRequestLists,
+    TResult? Function(GetConnectionRequestedList value)?
+        getConnectionRequestedList,
+    TResult? Function(DeleteRequest value)? deleteRequest,
+    TResult? Function(GetBlockeConnections value)? getBlockeConnections,
+    TResult? Function(GgetBlockeConnectionsEvent value)?
+        getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
+    TResult? Function(Clear value)? clear,
+  }) {
+    return removeConnectionRequestFromPendingScreen?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetBizkitConnections value)? getBizkitConnections,
+    TResult Function(GetBizkitConnectionsNextPage value)?
+        getBizkitConnectionsNextPage,
+    TResult Function(BlockBizkitConnections value)? blockBizkitConnections,
+    TResult Function(AddConnection value)? addConnection,
+    TResult Function(RemoveConnectionRequest value)? removeConnectionRequest,
+    TResult Function(AddTagToBizkitconnection value)? addTagToBizkitconnection,
+    TResult Function(SearchBizkitUsers value)? searchBizkitUsers,
+    TResult Function(AddConnectionRequests value)? addConnectionRequests,
+    TResult Function(GetRequestLoadList value)? getRequestLoadList,
+    TResult Function(GetRequestLists value)? getRequestLists,
+    TResult Function(GetConnectionRequestedList value)?
+        getConnectionRequestedList,
+    TResult Function(DeleteRequest value)? deleteRequest,
+    TResult Function(GetBlockeConnections value)? getBlockeConnections,
+    TResult Function(GgetBlockeConnectionsEvent value)?
+        getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
+    TResult Function(Clear value)? clear,
+    required TResult orElse(),
+  }) {
+    if (removeConnectionRequestFromPendingScreen != null) {
+      return removeConnectionRequestFromPendingScreen(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveConnectionRequestFromPendingScreen
+    implements ConnectionRequestEvent {
+  const factory RemoveConnectionRequestFromPendingScreen(
+      {required final ConnectionRequestIdModel connectionRequestIdModel,
+      required final int id}) = _$RemoveConnectionRequestFromPendingScreenImpl;
+
+  ConnectionRequestIdModel get connectionRequestIdModel;
+  int get id;
+  @JsonKey(ignore: true)
+  _$$RemoveConnectionRequestFromPendingScreenImplCopyWith<
+          _$RemoveConnectionRequestFromPendingScreenImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -3814,6 +4317,9 @@ class _$ClearImpl implements Clear {
     required TResult Function(int id) deleteRequest,
     required TResult Function(bool isLoad) getBlockeConnections,
     required TResult Function() getBlockeConnectionsEvent,
+    required TResult Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function() clear,
   }) {
     return clear();
@@ -3846,6 +4352,9 @@ class _$ClearImpl implements Clear {
     TResult? Function(int id)? deleteRequest,
     TResult? Function(bool isLoad)? getBlockeConnections,
     TResult? Function()? getBlockeConnectionsEvent,
+    TResult? Function(
+            ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function()? clear,
   }) {
     return clear?.call();
@@ -3877,6 +4386,8 @@ class _$ClearImpl implements Clear {
     TResult Function(int id)? deleteRequest,
     TResult Function(bool isLoad)? getBlockeConnections,
     TResult Function()? getBlockeConnectionsEvent,
+    TResult Function(ConnectionRequestIdModel connectionRequestIdModel, int id)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
@@ -3910,6 +4421,8 @@ class _$ClearImpl implements Clear {
     required TResult Function(GetBlockeConnections value) getBlockeConnections,
     required TResult Function(GgetBlockeConnectionsEvent value)
         getBlockeConnectionsEvent,
+    required TResult Function(RemoveConnectionRequestFromPendingScreen value)
+        removeConnectionRequestFromPendingScreen,
     required TResult Function(Clear value) clear,
   }) {
     return clear(this);
@@ -3935,6 +4448,8 @@ class _$ClearImpl implements Clear {
     TResult? Function(GetBlockeConnections value)? getBlockeConnections,
     TResult? Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult? Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult? Function(Clear value)? clear,
   }) {
     return clear?.call(this);
@@ -3960,6 +4475,8 @@ class _$ClearImpl implements Clear {
     TResult Function(GetBlockeConnections value)? getBlockeConnections,
     TResult Function(GgetBlockeConnectionsEvent value)?
         getBlockeConnectionsEvent,
+    TResult Function(RemoveConnectionRequestFromPendingScreen value)?
+        removeConnectionRequestFromPendingScreen,
     TResult Function(Clear value)? clear,
     required TResult orElse(),
   }) {

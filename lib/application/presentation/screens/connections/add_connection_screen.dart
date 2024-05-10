@@ -229,10 +229,12 @@ class _GridTileAddRequestConnectionState
               onTap: () {
                 if (widget.fromPendingRequests) {
                   context.read<ConnectionRequestBloc>().add(
-                      ConnectionRequestEvent.removeConnectionRequest(
-                          connectionRequestIdModel: ConnectionRequestIdModel(
-                              connectionRequestId: widget.data.connectionId),
-                          id: widget.data.id!));
+                      ConnectionRequestEvent
+                          .removeConnectionRequestFromPendingScreen(
+                              connectionRequestIdModel:
+                                  ConnectionRequestIdModel(
+                                      connectionRequestId: widget.data.id!),
+                              id: widget.data.id!));
                 } else {
                   if (widget.data.connectionId == null) {
                     context.read<ConnectionRequestBloc>().add(

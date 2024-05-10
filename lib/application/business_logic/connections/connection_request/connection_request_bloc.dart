@@ -44,7 +44,50 @@ class ConnectionRequestBloc
     on<GgetBlockeConnectionsEvent>(getBlockedConnectionsEvent);
     on<RemoveConnectionRequest>(removeConnectionRequest);
     on<GetRequestLoadList>(getRequestLoadList);
+    on<RemoveConnectionRequestFromPendingScreen>(
+        removeConnectionRequestFromPendingScreen);
     on<Clear>(clear);
+  }
+
+  FutureOr<void> removeConnectionRequestFromPendingScreen(
+    RemoveConnectionRequestFromPendingScreen event,
+    emit,
+  ) async {
+    emit(state.copyWith(
+      requestLoadingIndex: [...state.requestLoadingIndex, event.id],
+      blockedConnectionsLoading: true,
+      connectionRequestRemoved: false,
+      hasError: false,
+      message: null,
+    ));
+    final data = await _connectionRepo.removeConnectionRequest(
+        connectionRequestIdModel: event.connectionRequestIdModel);
+    List<int> indexs = List.from(state.requestLoadingIndex);
+    indexs.removeWhere((element) => element == event.id);
+    List<BizkitUser> searchList =
+        List.from(state.connectionRequestedList ?? []);
+    // for (int i = 0; i < searchList.length; i++) {
+    //   if (searchList[i].connectionId == event.id) {
+    //     searchList[i] = searchList[i].copyWith(connectionId: null);
+    //     break;
+    //   }
+    // }
+    searchList.removeWhere((element) => element.id == event.id);
+    data.fold(
+        (l) => emit(state.copyWith(
+            blockedConnectionsLoading: false,
+            requestLoadingIndex: indexs,
+            hasError: true,
+            message: null)), (r) {
+      emit(state.copyWith(
+        requestLoadingIndex: indexs,
+        bizkitUsers: searchList,
+        blockedConnectionsLoading: false,
+        connectionRequestRemoved: true,
+        hasError: false,
+      ));
+      add(const ConnectionRequestEvent.getConnectionRequestedList());
+    });
   }
 
   FutureOr<void> getConnectionRequestedList(
@@ -236,11 +279,12 @@ class ConnectionRequestBloc
   FutureOr<void> removeConnectionRequest(
       RemoveConnectionRequest event, emit) async {
     emit(state.copyWith(
-        requestLoadingIndex: [...state.requestLoadingIndex, event.id],
-        blockedConnectionsLoading: true,
-        connectionRequestRemoved: false,
-        hasError: false,
-        message: null));
+      requestLoadingIndex: [...state.requestLoadingIndex, event.id],
+      blockedConnectionsLoading: true,
+      connectionRequestRemoved: false,
+      hasError: false,
+      message: null,
+    ));
     final data = await _connectionRepo.removeConnectionRequest(
         connectionRequestIdModel: event.connectionRequestIdModel);
     List<int> indexs = List.from(state.requestLoadingIndex);

@@ -67,7 +67,7 @@ class _DeletedCardsState extends State<DeletedCards> {
         ),
         backgroundColor: knill,
         title: Text(
-          'Deleted cards',
+          'Deleted Cards',
           style: textHeadStyle1,
         ),
       ),
@@ -80,7 +80,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                 if (state.deleteCardRestored) {
                   showSnackbar(
                     context,
-                    message: 'Card restored',
+                    message: 'Card Restored',
                   );
                 }
               },
@@ -341,8 +341,15 @@ class _DeletedCardsState extends State<DeletedCards> {
                                                         Icons.error);
                                                   },
                                                 )
-                                              : Image.network(imageDummyNetwork,
-                                                  fit: BoxFit.cover)),
+                                              : Image.network(
+                                                  imageDummyNetwork,
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    return const Icon(
+                                                        Icons.error);
+                                                  },
+                                                )),
                                     ),
                                   ],
                                 ),

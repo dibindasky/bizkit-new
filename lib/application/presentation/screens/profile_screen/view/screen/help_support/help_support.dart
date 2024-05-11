@@ -26,13 +26,13 @@ class _HelpSupportState extends State<HelpSupport> {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        context.read<ProfileBloc>().add(const ProfileEvent.getQuestionEvent());
+        context.read<ProfileBloc>().add(ProfileEvent.getQuestionEvent(
+            searchData: context.read<ProfileBloc>().faqSearchController.text));
       }
     });
   }
 
   Future<void> onRefresh() async {
-    textEditingController.clear();
     context
         .read<ProfileBloc>()
         .add(const ProfileEvent.getQuestions(serachQuery: ''));
@@ -45,15 +45,12 @@ class _HelpSupportState extends State<HelpSupport> {
     super.dispose();
   }
 
-  final TextEditingController textEditingController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        context
-            .read<ProfileBloc>()
-            .add(const ProfileEvent.getQuestions(serachQuery: ''));
+        context.read<ProfileBloc>().add(ProfileEvent.getQuestions(
+            serachQuery: context.read<ProfileBloc>().faqSearchController.text));
       },
     );
     return Scaffold(
@@ -79,86 +76,102 @@ class _HelpSupportState extends State<HelpSupport> {
         child: SingleChildScrollView(
           controller: scrollController,
           physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              adjustHieght(khieght * .02),
-              Text(
-                'How can we Help You',
-                style: TextStyle(fontSize: 18.sp),
-              ),
-              adjustHieght(khieght * .01),
-              CustomTextFormField(
-                onChanaged: (value) {
-                  context
-                      .read<ProfileBloc>()
-                      .add(ProfileEvent.getQuestions(serachQuery: value));
-                },
-                prefixIcon: const Icon(Icons.search_rounded),
-                labelText: 'Search here',
-                controller: textEditingController,
-                inputType: TextInputType.name,
-              ),
-              adjustHieght(khieght * .02),
-              Text(
-                'Top questions',
-                style: TextStyle(fontSize: 16.sp),
-              ),
-              adjustHieght(khieght * .02),
-              BlocBuilder<ProfileBloc, ProfileState>(
-                builder: (context, state) {
-                  if (state.questionLoading) {
-                    return ShimmerLoader(
-                      itemCount: 10,
-                      height: 60,
-                      width: kwidth * 0.9,
-                      seprator: const SizedBox(height: 10),
-                    );
-                  } else if (state.questionList.isNotEmpty) {
-                    int length = state.questionEvenLoading
-                        ? state.questionList.length + 1
-                        : state.questionList.length;
-                    return ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: length,
-                      itemBuilder: (context, index) {
-                        final question = state.questionList[index];
-                        if (state.questionEvenLoading &&
-                            index == state.questionList.length - 1) {
-                          return const LoadingAnimation();
-                        }
-                        return CustomExpansionTile(
-                          title: Text(
-                            question.question ?? '',
-                            style: const TextStyle(
-                              color: kwhite,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          children: [
-                            Text(
-                              question.answer ?? '',
+          child: RefreshIndicator(
+            onRefresh: () async {
+              context.read<ProfileBloc>().add(
+                    ProfileEvent.getQuestions(
+                        serachQuery: context
+                            .read<ProfileBloc>()
+                            .faqSearchController
+                            .text),
+                  );
+            },
+            child: Column(
+              children: [
+                adjustHieght(khieght * .02),
+                Text(
+                  'How can we Help You',
+                  style: TextStyle(fontSize: 18.sp),
+                ),
+                adjustHieght(khieght * .01),
+                CustomTextFormField(
+                  onChanaged: (value) {
+                    context
+                        .read<ProfileBloc>()
+                        .add(ProfileEvent.getQuestions(serachQuery: value));
+                  },
+                  prefixIcon: const Icon(Icons.search_rounded),
+                  labelText: 'Search here',
+                  controller: context.read<ProfileBloc>().faqSearchController,
+                  inputType: TextInputType.name,
+                ),
+                adjustHieght(khieght * .02),
+                Text(
+                  'Top questions',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                adjustHieght(khieght * .02),
+                BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    if (state.questionLoading) {
+                      return ShimmerLoader(
+                        itemCount: 10,
+                        height: 60,
+                        width: kwidth * 0.9,
+                        seprator: const SizedBox(height: 10),
+                      );
+                    } else if (state.questionList.isNotEmpty) {
+                      int length = state.questionEvenLoading
+                          ? state.questionList.length + 1
+                          : state.questionList.length;
+
+                      return ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: length,
+                        itemBuilder: (context, index) {
+                          if (state.questionList.length < 10 &&
+                              index == state.questionList.length + 1) {
+                            return const SizedBox(height: 100);
+                          }
+                          final question = state.questionList[index];
+                          if (state.questionEvenLoading &&
+                              index == state.questionList.length - 1) {
+                            return const LoadingAnimation();
+                          }
+                          return CustomExpansionTile(
+                            title: Text(
+                              question.question ?? '',
                               style: const TextStyle(
                                 color: kwhite,
-                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
                               ),
                             ),
-                          ],
-                        );
-                      },
-                    );
-                  } else {
-                    return ErrorRefreshIndicator(
-                      shrinkWrap: true,
-                      image: emptyNodata2,
-                      errorMessage: 'No Questions found',
-                      onRefresh: onRefresh,
-                    );
-                  }
-                },
-              )
-            ],
+                            children: [
+                              Text(
+                                question.answer ?? '',
+                                style: const TextStyle(
+                                  color: kwhite,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      return ErrorRefreshIndicator(
+                        shrinkWrap: true,
+                        image: emptyNodata2,
+                        errorMessage: 'No Questions found',
+                        onRefresh: onRefresh,
+                      );
+                    }
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),

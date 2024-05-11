@@ -6,7 +6,7 @@ class ApiEndPoints {
 
   // refesh token
   static String refreshUrl = '/accounts/api/token/refresh/';
-  
+
   // auth
   static String login = '/accounts/login/';
   static String register = '/accounts/register/';

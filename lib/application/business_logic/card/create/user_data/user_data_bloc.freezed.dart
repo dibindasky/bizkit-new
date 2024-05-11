@@ -5020,6 +5020,7 @@ mixin _$UserDataState {
   bool get personalImageAdded => throw _privateConstructorUsedError;
   bool get socialMediaDeleteLoading => throw _privateConstructorUsedError;
   bool get cardAdded => throw _privateConstructorUsedError;
+  bool get fromBusinessCategoryGet => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   PersonalDetails? get personalData => throw _privateConstructorUsedError;
   PersonalDetails get personalDetails => throw _privateConstructorUsedError;
@@ -5066,6 +5067,7 @@ abstract class $UserDataStateCopyWith<$Res> {
       bool personalImageAdded,
       bool socialMediaDeleteLoading,
       bool cardAdded,
+      bool fromBusinessCategoryGet,
       String? message,
       PersonalDetails? personalData,
       PersonalDetails personalDetails,
@@ -5110,6 +5112,7 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
     Object? personalImageAdded = null,
     Object? socialMediaDeleteLoading = null,
     Object? cardAdded = null,
+    Object? fromBusinessCategoryGet = null,
     Object? message = freezed,
     Object? personalData = freezed,
     Object? personalDetails = null,
@@ -5192,6 +5195,10 @@ class _$UserDataStateCopyWithImpl<$Res, $Val extends UserDataState>
           ? _value.cardAdded
           : cardAdded // ignore: cast_nullable_to_non_nullable
               as bool,
+      fromBusinessCategoryGet: null == fromBusinessCategoryGet
+          ? _value.fromBusinessCategoryGet
+          : fromBusinessCategoryGet // ignore: cast_nullable_to_non_nullable
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -5270,6 +5277,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool personalImageAdded,
       bool socialMediaDeleteLoading,
       bool cardAdded,
+      bool fromBusinessCategoryGet,
       String? message,
       PersonalDetails? personalData,
       PersonalDetails personalDetails,
@@ -5312,6 +5320,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? personalImageAdded = null,
     Object? socialMediaDeleteLoading = null,
     Object? cardAdded = null,
+    Object? fromBusinessCategoryGet = null,
     Object? message = freezed,
     Object? personalData = freezed,
     Object? personalDetails = null,
@@ -5394,6 +5403,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.cardAdded
           : cardAdded // ignore: cast_nullable_to_non_nullable
               as bool,
+      fromBusinessCategoryGet: null == fromBusinessCategoryGet
+          ? _value.fromBusinessCategoryGet
+          : fromBusinessCategoryGet // ignore: cast_nullable_to_non_nullable
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -5467,6 +5480,7 @@ class _$InitialImpl implements _Initial {
       required this.personalImageAdded,
       required this.socialMediaDeleteLoading,
       required this.cardAdded,
+      required this.fromBusinessCategoryGet,
       this.message,
       this.personalData,
       required this.personalDetails,
@@ -5521,6 +5535,8 @@ class _$InitialImpl implements _Initial {
   final bool socialMediaDeleteLoading;
   @override
   final bool cardAdded;
+  @override
+  final bool fromBusinessCategoryGet;
   @override
   final String? message;
   @override
@@ -5594,7 +5610,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, isBusiness: $isBusiness, accoladeLoading: $accoladeLoading, accoladeAdded: $accoladeAdded, scanningLoading: $scanningLoading, scanningDone: $scanningDone, accoladeDeleteLoading: $accoladeDeleteLoading, datesToRememberLoading: $datesToRememberLoading, datesToRememberAdded: $datesToRememberAdded, datesToRememberDeleteLoading: $datesToRememberDeleteLoading, socialMediaLoading: $socialMediaLoading, socialMediaAdded: $socialMediaAdded, personalImageLoading: $personalImageLoading, personalImageAdded: $personalImageAdded, socialMediaDeleteLoading: $socialMediaDeleteLoading, cardAdded: $cardAdded, message: $message, personalData: $personalData, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, businessCategories: $businessCategories, datesToRemember: $datesToRemember, socialMedias: $socialMedias, personalImges: $personalImges, currentCard: $currentCard, scannedImageDatasModel: $scannedImageDatasModel)';
+    return 'UserDataState(hasError: $hasError, isLoading: $isLoading, isBusiness: $isBusiness, accoladeLoading: $accoladeLoading, accoladeAdded: $accoladeAdded, scanningLoading: $scanningLoading, scanningDone: $scanningDone, accoladeDeleteLoading: $accoladeDeleteLoading, datesToRememberLoading: $datesToRememberLoading, datesToRememberAdded: $datesToRememberAdded, datesToRememberDeleteLoading: $datesToRememberDeleteLoading, socialMediaLoading: $socialMediaLoading, socialMediaAdded: $socialMediaAdded, personalImageLoading: $personalImageLoading, personalImageAdded: $personalImageAdded, socialMediaDeleteLoading: $socialMediaDeleteLoading, cardAdded: $cardAdded, fromBusinessCategoryGet: $fromBusinessCategoryGet, message: $message, personalData: $personalData, personalDetails: $personalDetails, scannedImagesCardCreation: $scannedImagesCardCreation, userPhotos: $userPhotos, accolades: $accolades, businessCategories: $businessCategories, datesToRemember: $datesToRemember, socialMedias: $socialMedias, personalImges: $personalImges, currentCard: $currentCard, scannedImageDatasModel: $scannedImageDatasModel)';
   }
 
   @override
@@ -5622,8 +5638,7 @@ class _$InitialImpl implements _Initial {
                 other.datesToRememberLoading == datesToRememberLoading) &&
             (identical(other.datesToRememberAdded, datesToRememberAdded) ||
                 other.datesToRememberAdded == datesToRememberAdded) &&
-            (identical(other.datesToRememberDeleteLoading,
-                    datesToRememberDeleteLoading) ||
+            (identical(other.datesToRememberDeleteLoading, datesToRememberDeleteLoading) ||
                 other.datesToRememberDeleteLoading ==
                     datesToRememberDeleteLoading) &&
             (identical(other.socialMediaLoading, socialMediaLoading) ||
@@ -5638,6 +5653,8 @@ class _$InitialImpl implements _Initial {
                 other.socialMediaDeleteLoading == socialMediaDeleteLoading) &&
             (identical(other.cardAdded, cardAdded) ||
                 other.cardAdded == cardAdded) &&
+            (identical(other.fromBusinessCategoryGet, fromBusinessCategoryGet) ||
+                other.fromBusinessCategoryGet == fromBusinessCategoryGet) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.personalData, personalData) ||
                 other.personalData == personalData) &&
@@ -5683,6 +5700,7 @@ class _$InitialImpl implements _Initial {
         personalImageAdded,
         socialMediaDeleteLoading,
         cardAdded,
+        fromBusinessCategoryGet,
         message,
         personalData,
         personalDetails,
@@ -5723,6 +5741,7 @@ abstract class _Initial implements UserDataState {
       required final bool personalImageAdded,
       required final bool socialMediaDeleteLoading,
       required final bool cardAdded,
+      required final bool fromBusinessCategoryGet,
       final String? message,
       final PersonalDetails? personalData,
       required final PersonalDetails personalDetails,
@@ -5770,6 +5789,8 @@ abstract class _Initial implements UserDataState {
   bool get socialMediaDeleteLoading;
   @override
   bool get cardAdded;
+  @override
+  bool get fromBusinessCategoryGet;
   @override
   String? get message;
   @override

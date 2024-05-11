@@ -32,12 +32,15 @@ class PickCardsScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Center(
             child: BlocConsumer<UserDataBloc, UserDataState>(
-              listener: (context, state) async{
+              listenWhen: (previous, current) =>
+                  !current.fromBusinessCategoryGet,
+              listener: (context, state) {
                 if (state.scanningDone) {
+                  print('in state scanning done =====');
                   Navigator.pop(context);
-                 await GoRouter.of(context).push(Routes.cardCreationProfilePage);
-                  Navigator.pop(context);
+                  GoRouter.of(context).push(Routes.cardCreationProfilePage);
                 } else if (state.scanningLoading) {
+                  print('in state scanning loading =====');
                   showDialog(
                     context: context,
                     builder: (context) => const Center(

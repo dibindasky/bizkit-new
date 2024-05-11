@@ -71,6 +71,8 @@ class _ProfileScreenState extends State<ProfileScreen>
     super.dispose();
   }
 
+  String business = '';
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -104,13 +106,15 @@ class _ProfileScreenState extends State<ProfileScreen>
                     }
                   },
                   builder: (context, state) {
+                    if (state.isBusiness) {
+                      business = ', Business Users';
+                    }
                     String base64String = '';
                     if ((state.getUserInfoModel != null &&
                         state.getUserInfoModel!.results != null &&
                         state.getUserInfoModel!.results!.profilePic != null &&
                         state.getUserInfoModel!.results!.profilePic!
                             .isNotEmpty)) {
-                      log('${state.getUserInfoModel!.results!.profilePic?.isEmpty}');
                       final image =
                           state.getUserInfoModel!.results!.profilePic!;
                       base64String = image;
@@ -200,10 +204,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                   subtittle: 'Archived Cards, Soft Deleted Cards.',
                   widget: DataManagement(),
                 ),
-                const ProfileTiles(
+                ProfileTiles(
                   heading: 'Connections & Networking',
-                  subtittle: 'Blocked Connections',
-                  widget: ConnectionNetworkScreen(),
+                  subtittle: 'Blocked Connections$business',
+                  widget: const ConnectionNetworkScreen(),
                 ),
                 const ProfileTiles(
                   heading: 'Help & Support',

@@ -81,6 +81,7 @@ class CompanyUsersList extends StatelessWidget {
                             ),
                             adjustWidth(kwidth * .04),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(state.companyUsers![index].name ?? '',
@@ -185,6 +186,8 @@ class CompanyUsersList extends StatelessWidget {
                                         ),
                                         adjustWidth(kwidth * .04),
                                         Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [

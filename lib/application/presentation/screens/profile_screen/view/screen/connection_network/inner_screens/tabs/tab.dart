@@ -35,7 +35,7 @@ class _TabsState extends State<Tabs> {
                 size: 17,
               ),
             ),
-            title: const Text('Business card'),
+            title: const Text('Business Users'),
             bottom: const TabBar(
               indicatorWeight: 4,
               enableFeedback: true,

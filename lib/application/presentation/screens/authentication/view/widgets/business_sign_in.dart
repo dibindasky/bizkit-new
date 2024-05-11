@@ -25,20 +25,13 @@ class BusinessSignIn extends StatefulWidget {
 
 class _BusinessSignInState extends State<BusinessSignIn> {
   final TextEditingController companyMailController = TextEditingController();
-
   final TextEditingController companyPhoneController = TextEditingController();
-
   final TextEditingController companynameController = TextEditingController();
-
   final TextEditingController companyWebsiteController =
       TextEditingController();
-
   final TextEditingController addressController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
-
   final TextEditingController rePasswordController = TextEditingController();
-
   final GlobalKey<FormState> businessSignup = GlobalKey();
 
   @override
@@ -71,6 +64,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                 labelText: 'Company Name',
                 textCapitalization: TextCapitalization.words,
                 controller: companynameController,
+                onTapOutside: () => FocusScope.of(context).unfocus(),
               ),
               CustomTextFormField(
                 onChanaged: (value) {
@@ -87,6 +81,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                 labelText: 'Website',
                 controller: companyWebsiteController,
                 inputType: TextInputType.url,
+                onTapOutside: () => FocusScope.of(context).unfocus(),
               ),
               CustomTextFormField(
                 labelText: 'Company Contact Number',
@@ -94,6 +89,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                 controller: companyPhoneController,
                 // validate: Validate.phone,
                 inputType: TextInputType.phone,
+                onTapOutside: () => FocusScope.of(context).unfocus(),
               ),
               BlocBuilder<SignUpBloc, SignUpState>(
                 builder: (context, state) {
@@ -118,6 +114,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                 controller: addressController,
                 textCapitalization: TextCapitalization.words,
                 validate: Validate.notNull,
+                onTapOutside: () => FocusScope.of(context).unfocus(),
               ),
               PasswordHintmakers(passwordController: passwordController),
               CustomTextFormField(
@@ -126,6 +123,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                 password: passwordController,
                 validate: Validate.rePassword,
                 obscureText: true,
+                onTapOutside: () => FocusScope.of(context).unfocus(),
               ),
               adjustHieght(khieght * .01),
               InkWell(

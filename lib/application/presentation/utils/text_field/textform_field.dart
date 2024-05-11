@@ -77,7 +77,7 @@ class CustomTextFormField extends StatefulWidget {
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
-  final FocusNode _focusNode = FocusNode();
+  // final FocusNode _focusNode = FocusNode();
 
   bool showEye = false;
 
@@ -92,7 +92,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   @override
   void dispose() {
-    _focusNode.dispose();
+    // _focusNode.dispose();
     super.dispose();
   }
 
@@ -104,6 +104,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         elevation: 3,
         color: textFieldFillColr,
         child: TextFormField(
+          autofocus: false,
           onTapOutside: (event) {
             if (widget.onTapOutside != null) {
               widget.onTapOutside!();

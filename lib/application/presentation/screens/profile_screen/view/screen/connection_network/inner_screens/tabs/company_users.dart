@@ -81,6 +81,7 @@ class CompanyUsersList extends StatelessWidget {
                             ),
                             adjustWidth(kwidth * .04),
                             Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(state.companyUsers![index].name ?? '',
                                     style: textStyle1),
@@ -144,7 +145,7 @@ class CompanyUsersList extends StatelessWidget {
                           return InkWell(
                             onTap: () {
                               final Map<String, String> map =
-                                  innerData.id != null
+                                  innerData != null && innerData.id != null
                                       ? {
                                           'myCard': 'false',
                                           'cardId': innerData.id.toString()
@@ -183,22 +184,19 @@ class CompanyUsersList extends StatelessWidget {
                                               : null,
                                         ),
                                         adjustWidth(kwidth * .04),
-                                        RichText(
-                                          text: TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                  text: innerData?.name ?? '',
-                                                  style: textStyle1),
-                                              const WidgetSpan(
-                                                  child: SizedBox(width: 10)),
-                                              TextSpan(
-                                                text: innerData!.designation,
-                                                style: textStyle1.copyWith(
-                                                  fontSize: 12,
-                                                ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(innerData?.name ?? '',
+                                                style: textStyle1),
+                                            Text(
+                                              innerData?.designation ?? '',
+                                              style: textStyle1.copyWith(
+                                                fontSize: 12,
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                         adjustWidth(kwidth * .04),
                                         const Spacer(),

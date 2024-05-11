@@ -65,7 +65,8 @@ class _AchivementsScreenState extends State<AchivementsScreen> {
                           eventController.text != '') {
                         achivement = achivement
                             .where((element) =>
-                                element.event == eventController.text)
+                                element.event.toLowerCase() ==
+                                eventController.text.toLowerCase())
                             .toList();
                       } else if (eventController.text == 'Others') {
                         achivement = achivement

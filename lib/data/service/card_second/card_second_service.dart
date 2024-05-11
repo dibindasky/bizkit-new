@@ -50,7 +50,7 @@ class CardSecondService implements CardSecondRepo {
     try {
       final responce = await _apiService
           .get(ApiEndPoints.getSecondCard.replaceAll('{id}', id.toString()));
-      // log('getCardSecond data ${responce.data}');
+      log('getCardSecond data ${responce.data}');
       return Right(GetSecondCardModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('getCardSecond dio error $e');

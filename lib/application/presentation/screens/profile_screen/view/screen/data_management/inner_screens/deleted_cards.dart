@@ -239,7 +239,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                   return ErrorRefreshIndicator(
                     shrinkWrap: true,
                     image: emptyNodata2,
-                    errorMessage: 'Deleted Business card is not found',
+                    errorMessage: 'Deleted Card is not found',
                     onRefresh: onRefresh,
                   );
                 }
@@ -416,7 +416,7 @@ class _DeletedCardsState extends State<DeletedCards> {
                   return ErrorRefreshIndicator(
                     shrinkWrap: true,
                     image: emptyNodata2,
-                    errorMessage: 'Deleted Visiting card is not found',
+                    errorMessage: 'Deleted Visiting Card is not found',
                     onRefresh: onRefresh,
                   );
                 }

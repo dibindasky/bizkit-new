@@ -75,22 +75,9 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
     return BlocBuilder<CardSecondBloc, CardSecondState>(
       buildWhen: (previous, current) => previous.isLoading != current.isLoading,
       builder: (context, state) {
-        String formattedTime = '';
         if (state.getSecondCardModel != null &&
             state.getSecondCardModel!.time != null) {
-          final timestampStr = state.getSecondCardModel?.time ?? '';
-          DateTime timestamp = DateFormat("HH:mm:ss.S").parse(timestampStr);
-          // Extract hour, minute, and second
-          int hour = timestamp.hour;
-          int minute = timestamp.minute;
-          int second = timestamp.second;
-          // Determine AM or PM
-          String amPm = hour >= 12 ? 'PM' : 'AM';
-          // Convert to 12-hour format
-          int hour12 = hour % 12 == 0 ? 12 : hour % 12;
-          // Format the time
-          formattedTime =
-              '$hour12:${minute.toString().padLeft(2, '0')}:${second.toString().padLeft(2, '0')} $amPm';
+          
         }
         return Scaffold(
           appBar: AppBar(
@@ -248,7 +235,7 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                                     ),
                                     ItemsContainer(
                                       heading: 'Time',
-                                      item: formattedTime,
+                                      item: state.getSecondCardModel?.time,
                                       istime: false,
                                     ),
                                     adjustHieght(10),

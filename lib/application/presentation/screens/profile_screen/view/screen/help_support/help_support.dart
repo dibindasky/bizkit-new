@@ -76,56 +76,56 @@ class _HelpSupportState extends State<HelpSupport> {
         child: SingleChildScrollView(
           controller: scrollController,
           physics: const BouncingScrollPhysics(),
-          child: RefreshIndicator(
-            onRefresh: () async {
-              context.read<ProfileBloc>().add(
-                    ProfileEvent.getQuestions(
-                        serachQuery: context
-                            .read<ProfileBloc>()
-                            .faqSearchController
-                            .text),
-                  );
-            },
-            child: Column(
-              children: [
-                adjustHieght(khieght * .02),
-                Text(
-                  'How can we Help You',
-                  style: TextStyle(fontSize: 18.sp),
-                ),
-                adjustHieght(khieght * .01),
-                CustomTextFormField(
-                  onChanaged: (value) {
-                    context
-                        .read<ProfileBloc>()
-                        .add(ProfileEvent.getQuestions(serachQuery: value));
-                  },
-                  prefixIcon: const Icon(Icons.search_rounded),
-                  labelText: 'Search here',
-                  controller: context.read<ProfileBloc>().faqSearchController,
-                  inputType: TextInputType.name,
-                ),
-                adjustHieght(khieght * .02),
-                Text(
-                  'Top questions',
-                  style: TextStyle(fontSize: 16.sp),
-                ),
-                adjustHieght(khieght * .02),
-                BlocBuilder<ProfileBloc, ProfileState>(
-                  builder: (context, state) {
-                    if (state.questionLoading) {
-                      return ShimmerLoader(
-                        itemCount: 10,
-                        height: 60,
-                        width: kwidth * 0.9,
-                        seprator: const SizedBox(height: 10),
-                      );
-                    } else if (state.questionList.isNotEmpty) {
-                      int length = state.questionEvenLoading
-                          ? state.questionList.length + 1
-                          : state.questionList.length;
+          child: Column(
+            children: [
+              adjustHieght(khieght * .02),
+              Text(
+                'How can we Help You',
+                style: TextStyle(fontSize: 18.sp),
+              ),
+              adjustHieght(khieght * .01),
+              CustomTextFormField(
+                onChanaged: (value) {
+                  context
+                      .read<ProfileBloc>()
+                      .add(ProfileEvent.getQuestions(serachQuery: value));
+                },
+                prefixIcon: const Icon(Icons.search_rounded),
+                labelText: 'Search here',
+                controller: context.read<ProfileBloc>().faqSearchController,
+                inputType: TextInputType.name,
+              ),
+              adjustHieght(khieght * .02),
+              Text(
+                'Top questions',
+                style: TextStyle(fontSize: 16.sp),
+              ),
+              adjustHieght(khieght * .02),
+              BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  if (state.questionLoading) {
+                    return ShimmerLoader(
+                      itemCount: 10,
+                      height: 60,
+                      width: kwidth * 0.9,
+                      seprator: const SizedBox(height: 10),
+                    );
+                  } else if (state.questionList.isNotEmpty) {
+                    int length = state.questionEvenLoading
+                        ? state.questionList.length + 1
+                        : state.questionList.length;
 
-                      return ListView.builder(
+                    return RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<ProfileBloc>().add(
+                              ProfileEvent.getQuestions(
+                                  serachQuery: context
+                                      .read<ProfileBloc>()
+                                      .faqSearchController
+                                      .text),
+                            );
+                      },
+                      child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: length,
@@ -159,19 +159,19 @@ class _HelpSupportState extends State<HelpSupport> {
                             ],
                           );
                         },
-                      );
-                    } else {
-                      return ErrorRefreshIndicator(
-                        shrinkWrap: true,
-                        image: emptyNodata2,
-                        errorMessage: 'No Questions found',
-                        onRefresh: onRefresh,
-                      );
-                    }
-                  },
-                )
-              ],
-            ),
+                      ),
+                    );
+                  } else {
+                    return ErrorRefreshIndicator(
+                      shrinkWrap: true,
+                      image: emptyNodata2,
+                      errorMessage: 'No Questions found',
+                      onRefresh: onRefresh,
+                    );
+                  }
+                },
+              )
+            ],
           ),
         ),
       ),

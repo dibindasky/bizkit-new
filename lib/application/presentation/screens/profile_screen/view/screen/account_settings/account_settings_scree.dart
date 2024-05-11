@@ -38,7 +38,7 @@ class AccountSettigsScreen extends StatelessWidget {
                   return kempty;
                 }
                 return TileItem(
-                  text: 'Change Username',
+                  text: 'Change User Name',
                   onTap: () => Navigator.push(
                     context,
                     fadePageRoute(const EditUserDetails()),
@@ -47,14 +47,14 @@ class AccountSettigsScreen extends StatelessWidget {
               },
             ),
             TileItem(
-              text: 'Change password',
+              text: 'Change Password',
               onTap: () => Navigator.push(
                 context,
                 fadePageRoute(const ChangePassword()),
               ),
             ),
             TileItem(
-              text: 'Report a problem',
+              text: 'Report Problem',
               onTap: () => Navigator.push(
                 context,
                 fadePageRoute(

@@ -187,31 +187,31 @@ class _ProfileScreenState extends State<ProfileScreen>
                 adjustHieght(khieght * .06),
                 const ProfileTiles(
                   heading: 'Account Settings',
-                  subtittle: 'Profile, Password, Email Etc.',
+                  subtittle: 'Username, Password, Email, Report Problem Etc.',
                   widget: AccountSettigsScreen(),
                 ),
                 const ProfileTiles(
                   heading: 'Privacy and Security',
-                  subtittle: 'Level, Security Preferences Etc.',
+                  subtittle: 'Level Or Security Preferences Etc.',
                   widget: PrivacyAndSecurityScreen(),
                 ),
                 const ProfileTiles(
                   heading: 'Data Management',
-                  subtittle: 'Data Export, delete etc.',
+                  subtittle: 'Archived Cards, Soft Deleted Cards.',
                   widget: DataManagement(),
                 ),
                 const ProfileTiles(
                   heading: 'Connections & Networking',
-                  subtittle: 'Blocked, Restricted, Report Connections',
+                  subtittle: 'Blocked Connections',
                   widget: ConnectionNetworkScreen(),
                 ),
                 const ProfileTiles(
-                  heading: 'Help & support',
-                  subtittle: 'Contact, Faq etc.',
+                  heading: 'Help & Support',
+                  subtittle: ' Faq',
                   widget: HelpSupport(),
                 ),
                 ProfileTiles(
-                  heading: 'Logout',
+                  heading: 'Log Out',
                   onTap: () {
                     showConfirmationDialog(
                       actionButton: 'Log-out',

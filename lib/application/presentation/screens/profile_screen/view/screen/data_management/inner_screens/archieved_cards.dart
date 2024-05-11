@@ -207,7 +207,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
               return ErrorRefreshIndicator(
                 shrinkWrap: true,
                 image: emptyNodata2,
-                errorMessage: 'No Blocked Users found',
+                errorMessage: 'No Archived Card found',
                 onRefresh: onRefresh,
               );
             }

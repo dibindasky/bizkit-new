@@ -224,7 +224,7 @@ class CompanyUsersList extends StatelessWidget {
         } else {
           return ErrorRefreshIndicator(
             image: emptyNodata2,
-            errorMessage: 'No users found',
+            errorMessage: 'No Users found',
             onRefresh: () {
               context
                   .read<AdminBloc>()

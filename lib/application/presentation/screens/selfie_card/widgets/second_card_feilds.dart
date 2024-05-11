@@ -153,13 +153,12 @@ class CardSecondScannedDatas extends StatelessWidget {
                             autocompleteItems:
                                 state.scannedImageDatasModel?.phone ?? [],
                             validate: Validate.ifValidnumber,
-                            label: 'Phone number',
+                            label: 'Phone Number',
                             controller:
                                 context.read<CardSecondBloc>().phoneController,
                             inputType: TextInputType.number,
                           ),
                           AutocompleteTextField(
-                            textCapitalization: TextCapitalization.words,
                             autocompleteItems:
                                 state.scannedImageDatasModel?.websites ?? [],
                             validate: Validate.ifValidWebsite,

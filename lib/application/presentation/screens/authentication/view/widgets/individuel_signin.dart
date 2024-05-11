@@ -46,6 +46,9 @@ class IndividuelSignIn extends StatelessWidget {
               adjustHieght(khieght * .04),
               CustomTextFormField(
                 labelText: 'Name',
+                onTapOutside: () {
+                  FocusScope.of(context).unfocus();
+                },
                 controller: nameController,
                 validate: Validate.notNull,
                 textCapitalization: TextCapitalization.words,
@@ -56,6 +59,9 @@ class IndividuelSignIn extends StatelessWidget {
                 maxlegth: 10,
                 labelText: 'Mobile Number',
                 controller: mobileController,
+                onTapOutside: () {
+                  FocusScope.of(context).unfocus();
+                },
                 inputType: TextInputType.number,
               ),
               // company mail
@@ -91,6 +97,9 @@ class IndividuelSignIn extends StatelessWidget {
                 child: CustomTextFormField(
                   validate: Validate.email,
                   labelText: 'Mail',
+                  onTapOutside: () {
+                    FocusScope.of(context).unfocus();
+                  },
                   controller: emailIdController,
                   inputType: TextInputType.emailAddress,
                   onChanaged: (value) =>
@@ -113,6 +122,9 @@ class IndividuelSignIn extends StatelessWidget {
                 controller: rePasswordController,
                 inputType: TextInputType.visiblePassword,
                 obscureText: true,
+                onTapOutside: () {
+                  FocusScope.of(context).unfocus();
+                },
               ),
               adjustHieght(khieght * .01),
               InkWell(

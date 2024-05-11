@@ -101,4 +101,5 @@ Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'dates_to_remember': instance.datesToRemember,
       'card_extracted_data': instance.extractedTextModel,
       'card_image': instance.scannedImage,
+      'requested_company': instance.requestedCompany,
     };

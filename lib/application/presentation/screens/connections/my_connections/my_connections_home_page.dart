@@ -112,22 +112,27 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                           globalKey: globalKeyaddConnections,
                           tittle: 'Start Add connections from here',
                           image: '',
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: const ColoredBox(
-                              color: textFieldFillColr,
-                              child: SizedBox(
-                                height: 40,
-                                width: 60,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 20,
-                                    color: kwhite,
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: const ColoredBox(
+                                  color: textFieldFillColr,
+                                  child: SizedBox(
+                                    height: 58,
+                                    width: 60,
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.add,
+                                        size: 20,
+                                        color: kwhite,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                              const Expanded(child: Text('Add')),
+                            ],
                           ),
                         ),
                       ),
@@ -145,11 +150,11 @@ class MyConnectionContainerHomePage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Container(
-                            height: 40,
+                            height: 50,
                             width: 60,
                             decoration: BoxDecoration(
                               color: textFieldFillColr,
-                              image: data.photos != null
+                              image: data.photos != null && data.photos != ''
                                   ? DecorationImage(
                                       image: MemoryImage(
                                         base64.decode(getBase64(data.photos!)),

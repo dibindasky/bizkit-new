@@ -83,10 +83,10 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
   }
 
   Future<void> onRefresh() async {
-    context.read<CardBloc>().add(const CardEvent.getCards(call: false));
+    context.read<CardBloc>().add(const CardEvent.getCards(call: true));
     context
         .read<CardSecondBloc>()
-        .add(const CardSecondEvent.getAllCardsSecond(isLoad: false));
+        .add(const CardSecondEvent.getAllCardsSecond(isLoad: true));
     await Future.delayed(const Duration(milliseconds: 500));
   }
 
@@ -105,7 +105,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
           child: FadeTransition(
             opacity: animation,
             child: RefreshIndicator(
-              onRefresh: onRefresh,
+              onRefresh: () => onRefresh(),
               child: ListView(
                 children: [
                   adjustHieght(khieght * .05),
@@ -325,20 +325,23 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                       Expanded(
                                         child: InkWell(
                                           onTap: () {
-                                            context.read<CardBloc>().add(
-                                                CardEvent.getCardViews(
-                                                    id: card.id!));
-
-                                            showModalBottomSheet(
-                                              context: context,
-                                              enableDrag: true,
-                                              isDismissible: true,
-                                              showDragHandle: true,
-                                              backgroundColor: kblack,
-                                              builder: (context) {
-                                                return const CardViewsListPopUp();
-                                              },
-                                            );
+                                            if (state.cards[index].views !=
+                                                    null &&
+                                                state.cards[index].views! > 0) {
+                                              context.read<CardBloc>().add(
+                                                  CardEvent.getCardViews(
+                                                      id: card.id!));
+                                              showModalBottomSheet(
+                                                context: context,
+                                                enableDrag: true,
+                                                isDismissible: true,
+                                                showDragHandle: true,
+                                                backgroundColor: kblack,
+                                                builder: (context) {
+                                                  return const CardViewsListPopUp();
+                                                },
+                                              );
+                                            }
                                           },
                                           child: Container(
                                             height: 50,
@@ -676,9 +679,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
 }
 
 class CardViewsListPopUp extends StatelessWidget {
-  const CardViewsListPopUp({
-    super.key,
-  });
+  const CardViewsListPopUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -707,7 +708,9 @@ class CardViewsListPopUp extends StatelessWidget {
                       backgroundColor: kgrey,
                       child: Icon(Icons.person),
                     ),
-                    title: Text(data?.name ?? ''),
+                    title: Text(
+                      data != null ? data.name ?? data.company ?? '' : '',
+                    ),
                   ),
                 );
               },

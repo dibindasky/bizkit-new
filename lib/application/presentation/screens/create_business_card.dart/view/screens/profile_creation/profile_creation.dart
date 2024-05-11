@@ -209,10 +209,11 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                       //       .pushNamed(Routes.linerarProgressBar);
                       // } else {
                       // context.go(Routes.homePage);
-                      // while (GoRouter.of(context).canPop()) {
-                      //   GoRouter.of(context).pop();
+                      // while (context.canPop()) {
+                      //   context.pop();
                       // }
-                      // GoRouter.of(context).push()
+                      // context.push(Routes.homePage);
+                      // GoRouter.of(context).push();
                       context.go(Routes.homePage);
                       // Navigator.pushNamedAndRemoveUntil(
                       //     context, Routes.homePage, (route) => false);

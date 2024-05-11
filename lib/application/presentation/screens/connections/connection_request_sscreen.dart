@@ -87,14 +87,13 @@ class ScreenConnectionRequests extends StatelessWidget {
                         ),
                         adjustHieght(10),
                         Text(
-                          data.name == null || data.name == ''
-                              ? data.company ?? ''
-                              : data.name ?? '',
+                          data.name ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: textStyle1.copyWith(fontSize: kwidth * 0.045),
                         ),
                         Text(
-                          data.designation ?? '',
+                          data.company==null?
+                          data.designation ?? '':data.company??'',
                           overflow: TextOverflow.ellipsis,
                           style: textStyle1.copyWith(fontSize: kwidth * 0.045),
                         ),

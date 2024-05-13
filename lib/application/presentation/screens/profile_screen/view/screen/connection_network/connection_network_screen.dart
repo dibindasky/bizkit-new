@@ -1,9 +1,11 @@
 import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
+import 'package:bizkit/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/blocked_connections.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/tabs/tab.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,6 +56,8 @@ class ConnectionNetworkScreen extends StatelessWidget {
                 );
               },
             ),
+            SizedBox(
+                height: 400, child: ScreenPdfPreview(base64: pdfbase64Image))
           ],
         ),
       ),

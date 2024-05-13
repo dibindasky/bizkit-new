@@ -15,6 +15,7 @@ class SecondCardNew {
   String? occupation;
   String? notes;
   String? time;
+  String? pdf;
   String? date;
   String? company;
   String? designation;
@@ -41,6 +42,7 @@ class SecondCardNew {
     this.date,
     this.company,
     this.designation,
+    this.pdf,
     this.email,
     this.phoneNumber,
     this.website,

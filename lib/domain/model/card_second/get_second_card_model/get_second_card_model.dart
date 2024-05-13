@@ -13,6 +13,7 @@ class GetSecondCardModel {
   String? whereWeMet;
   String? location;
   String? occupation;
+  String? pdf;
   String? notes;
   String? time;
   String? date;
@@ -32,6 +33,7 @@ class GetSecondCardModel {
     this.id,
     this.image,
     this.selfie,
+    this.pdf,
     this.name,
     this.whereWeMet,
     this.location,

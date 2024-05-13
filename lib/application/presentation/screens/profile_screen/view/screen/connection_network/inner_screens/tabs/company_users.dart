@@ -8,7 +8,6 @@ import 'package:bizkit/application/presentation/utils/loading_indicator/loading_
 import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/widgets/expansion_tile.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,8 +81,7 @@ class CompanyUsersList extends StatelessWidget {
                                   : null,
                             ),
                             adjustWidth(kwidth * .04),
-                            SizedBox(
-                              width: kwidth * .47,
+                            Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -103,39 +101,37 @@ class CompanyUsersList extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: kgrey,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: neonShade),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: kgrey,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: neonShade),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 6,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 6,
-                                  ),
-                                  child: InkWell(
-                                    onTap: () {
-                                      showConfirmationDialog(
-                                        heading:
-                                            'Are you want to block this person',
-                                        context,
-                                        actionButton: 'Block',
-                                        onPressed: () {
-                                          context.read<AdminBloc>().add(
-                                                AdminEvent
-                                                    .removeIndiVidualusersPartOfBusiness(
-                                                  id: state
-                                                      .companyUsers![index].id!
-                                                      .toString(),
-                                                ),
-                                              );
-                                        },
-                                      );
-                                    },
-                                    child: const Text('Block'),
-                                  ),
+                                child: InkWell(
+                                  onTap: () {
+                                    showConfirmationDialog(
+                                      heading:
+                                          'Are you want to block this person',
+                                      context,
+                                      actionButton: 'Block',
+                                      onPressed: () {
+                                        context.read<AdminBloc>().add(
+                                              AdminEvent
+                                                  .removeIndiVidualusersPartOfBusiness(
+                                                id: state
+                                                    .companyUsers![index].id!
+                                                    .toString(),
+                                              ),
+                                            );
+                                      },
+                                    );
+                                  },
+                                  child: const Text('Block'),
                                 ),
                               ),
                             ),

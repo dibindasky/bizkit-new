@@ -9,7 +9,7 @@ class Notification {
   String? body;
   String? tag;
   @JsonKey(name: 'specific_id')
-  int? specificId;
+  int? cardId;
   @JsonKey(name: 'scheduled_at')
   String? scheduledAt;
   @JsonKey(name: 'user_id')
@@ -20,7 +20,7 @@ class Notification {
     this.title,
     this.body,
     this.tag,
-    this.specificId,
+    this.cardId,
     this.scheduledAt,
     this.userId,
   });

@@ -5,6 +5,7 @@ import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,44 +75,39 @@ class BlockedBusinessUsers extends StatelessWidget {
                                   : null,
                             ),
                             adjustWidth(kwidth * .04),
-                            SizedBox(
-                              width: kwidth * .49,
+                            Expanded(
                               child: Text(
                                 state.blockedUsers![index].name ?? '',
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: neonShade),
-                                  borderRadius: BorderRadius.circular(5),
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: neonShade),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 6,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 6,
-                                  ),
-                                  child: InkWell(
-                                    onTap: () {
-                                      showConfirmationDialog(
-                                        heading:
-                                            'Are you sure you want to  unblock this person',
-                                        context,
-                                        actionButton: 'Unblock',
-                                        onPressed: () {
-                                          context.read<AdminBloc>().add(
-                                                  AdminEvent
-                                                      .businessUnBlockeUser(
-                                                id: state
-                                                    .blockedUsers![index].id!
-                                                    .toString(),
-                                              ));
-                                        },
-                                      );
-                                    },
-                                    child: const Text('Unblock'),
-                                  ),
+                                child: InkWell(
+                                  onTap: () {
+                                    showConfirmationDialog(
+                                      heading:
+                                          'Are you sure you want to  unblock this person',
+                                      context,
+                                      actionButton: 'Unblock',
+                                      onPressed: () {
+                                        context.read<AdminBloc>().add(
+                                                AdminEvent.businessUnBlockeUser(
+                                              id: state.blockedUsers![index].id!
+                                                  .toString(),
+                                            ));
+                                      },
+                                    );
+                                  },
+                                  child: const Text('Unblock'),
                                 ),
                               ),
                             ),

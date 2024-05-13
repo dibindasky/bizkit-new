@@ -244,7 +244,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             }
           });
         }),
-        buildSwitch("Business PhoneNumber",
+        buildSwitch("Business Phone Number",
             context.read<QrBloc>().createQrModel.businessDetailsMobileNumber,
             (value) {
           setState(() {

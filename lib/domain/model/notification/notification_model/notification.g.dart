@@ -11,7 +11,7 @@ Notification _$NotificationFromJson(Map<String, dynamic> json) => Notification(
       title: json['title'] as String?,
       body: json['body'] as String?,
       tag: json['tag'] as String?,
-      specificId: json['specific_id'] as int?,
+      cardId: json['specific_id'] as int?,
       scheduledAt: json['scheduled_at'] as String?,
       userId: json['user_id'] as int?,
     );
@@ -22,7 +22,7 @@ Map<String, dynamic> _$NotificationToJson(Notification instance) =>
       'title': instance.title,
       'body': instance.body,
       'tag': instance.tag,
-      'specific_id': instance.specificId,
+      'specific_id': instance.cardId,
       'scheduled_at': instance.scheduledAt,
       'user_id': instance.userId,
     };

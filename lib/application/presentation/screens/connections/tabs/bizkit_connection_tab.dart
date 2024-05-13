@@ -70,7 +70,9 @@ class BizkitConnectionsTab extends StatelessWidget {
                             : const Icon(Icons.person, color: neonShade),
                       ),
                       title: Text(data.name ?? ''),
-                      subtitle: Text(data.company ?? ''),
+                      subtitle: Text(data.isVerified ?? false
+                          ? data.company ?? ''
+                          : data.designation ?? ''),
                       trailing: PopupMenuButton(itemBuilder: (context) {
                         return [
                           PopupMenuItem(

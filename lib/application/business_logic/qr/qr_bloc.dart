@@ -147,7 +147,6 @@ class QrBloc extends Bloc<QrEvent, QrState> {
         qrList: response.results ?? [],
         qrUpdated: false,
       ));
-
       add(const QrEvent.changeQRSelection(index: 0));
     });
   }
@@ -164,7 +163,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
       ));
     }
     final model = state.qrList[event.index];
-    createQrModel = createQrModel.copyWith(
+    createQrModel = CreateQrModel(
       accolades: model.accolades,
       accreditation: model.accreditation,
       address: model.address,

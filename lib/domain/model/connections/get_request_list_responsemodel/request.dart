@@ -15,6 +15,8 @@ class RequestModel {
   int? cardUserId;
   @JsonKey(name: 'has_connection')
   bool? hasConnection;
+  @JsonKey(name: 'is_verified')
+  bool? isVerified;
 
   RequestModel(
       {this.id,
@@ -24,6 +26,7 @@ class RequestModel {
       this.designation,
       this.userId,
       this.cardUserId,
+      this.isVerified,
       this.hasConnection});
 
   factory RequestModel.fromJson(Map<String, dynamic> json) {

@@ -15,6 +15,7 @@ RequestModel _$RequestModelFromJson(Map<String, dynamic> json) => RequestModel(
       userId: json['user_id'] as int?,
       cardUserId: json['card_user_id'] as int?,
       hasConnection: json['has_connection'] as bool?,
+      isVerified: json['is_verified'] as bool?,
     );
 
 Map<String, dynamic> _$RequestModelToJson(RequestModel instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$RequestModelToJson(RequestModel instance) =>
       'user_id': instance.userId,
       'card_user_id': instance.cardUserId,
       'has_connection': instance.hasConnection,
+      'is_verified': instance.isVerified,
     };

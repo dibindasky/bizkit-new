@@ -69,10 +69,10 @@ class BizkitConnectionsTab extends StatelessWidget {
                             ? null
                             : const Icon(Icons.person, color: neonShade),
                       ),
-                      title: Text(data.name ?? ''),
+                      title: Text(data.name ?? '',overflow: TextOverflow.ellipsis,),
                       subtitle: Text(data.isVerified ?? false
                           ? data.company ?? ''
-                          : data.designation ?? ''),
+                          : data.designation ?? '',overflow: TextOverflow.ellipsis,),
                       trailing: PopupMenuButton(itemBuilder: (context) {
                         return [
                           PopupMenuItem(

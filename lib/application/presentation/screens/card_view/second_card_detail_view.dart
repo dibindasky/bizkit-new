@@ -11,10 +11,7 @@ import 'package:bizkit/application/presentation/utils/previewscreen_icons/detail
 import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:widgets_to_image/widgets_to_image.dart';
 
 class SecondCardDetailView extends StatefulWidget {
   const SecondCardDetailView({super.key, this.cardId});

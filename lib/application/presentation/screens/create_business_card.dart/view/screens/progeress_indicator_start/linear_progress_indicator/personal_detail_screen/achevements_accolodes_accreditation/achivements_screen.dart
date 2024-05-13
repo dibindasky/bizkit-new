@@ -45,6 +45,13 @@ class _AchivementsScreenState extends State<AchivementsScreen> {
                 builder: (context, business) {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
+                                                                                          for (Accolade acc in state.anotherCard?.accolades ?? []) {
+                        print('Accolade ==> ${acc.toJson()}');
+                      }
+                      for (Accredition acc
+                          in state.anotherCard?.accreditation ?? []) {
+                        print('Accredition ==> ${acc.toJson()}');
+                      }
                       List achivement = widget.isPreview
                           ? [...user.accolades, ...business.accreditions]
                           : [
@@ -65,8 +72,7 @@ class _AchivementsScreenState extends State<AchivementsScreen> {
                           eventController.text != '') {
                         achivement = achivement
                             .where((element) =>
-                                element.event.toLowerCase() ==
-                                eventController.text.toLowerCase())
+                                element.event == eventController.text)
                             .toList();
                       } else if (eventController.text == 'Others') {
                         achivement = achivement

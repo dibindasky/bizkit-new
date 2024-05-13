@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -301,7 +302,19 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () => bottomSheet(context, card),
+                                        onTap: () {
+                                          if (state.cards[index].cardLink !=
+                                              null) {
+                                            print(
+                                                'Checkout my Bizkit card ${state.cards[index].cardLink ?? ''}');
+                                            Share.share(
+                                                'Checkout my Bizkit card ${state.cards[index].cardLink ?? ''}');
+                                          } else {
+                                            Fluttertoast.showToast(
+                                                msg: "can't share card");
+                                          }
+                                        },
+                                        //  bottomSheet(context, card),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             borderRadius:

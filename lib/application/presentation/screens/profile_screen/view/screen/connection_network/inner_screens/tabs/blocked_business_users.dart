@@ -6,6 +6,7 @@ import 'package:bizkit/application/presentation/utils/dailog.dart';
 import 'package:bizkit/application/presentation/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../../../utils/constants/colors.dart';
@@ -89,48 +90,53 @@ class BlockedBusinessUsers extends StatelessWidget {
                                     : null,
                               ),
                               adjustWidth(kwidth * .04),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: state.blockedUsers![index].name,
-                                      style: textStyle1,
-                                    ),
-                                    const WidgetSpan(
-                                        child: SizedBox(width: 10)),
-                                  ],
+                              SizedBox(
+                                width: 200,
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: state.blockedUsers![index].name,
+                                        style: textStyle1,
+                                      ),
+                                      const WidgetSpan(
+                                        child: SizedBox(width: 10),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                              const Spacer(),
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: neonShade),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 6,
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: neonShade),
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  child: InkWell(
-                                    onTap: () {
-                                      showConfirmationDialog(
-                                        heading:
-                                            'Are you sure you want to  unblock this person',
-                                        context,
-                                        actionButton: 'Unblock',
-                                        onPressed: () {
-                                          context.read<AdminBloc>().add(
-                                                  AdminEvent
-                                                      .businessUnBlockeUser(
-                                                id: state
-                                                    .blockedUsers![index].id!
-                                                    .toString(),
-                                              ));
-                                        },
-                                      );
-                                    },
-                                    child: const Text('Unblock'),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 6,
+                                    ),
+                                    child: InkWell(
+                                      onTap: () {
+                                        showConfirmationDialog(
+                                          heading:
+                                              'Are you sure you want to  unblock this person',
+                                          context,
+                                          actionButton: 'Unblock',
+                                          onPressed: () {
+                                            context.read<AdminBloc>().add(
+                                                    AdminEvent
+                                                        .businessUnBlockeUser(
+                                                  id: state
+                                                      .blockedUsers![index].id!
+                                                      .toString(),
+                                                ));
+                                          },
+                                        );
+                                      },
+                                      child: const Text('Unblock'),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -138,9 +144,7 @@ class BlockedBusinessUsers extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const Divider(
-                          thickness: .3,
-                        ),
+                        const Divider(thickness: .3),
                       ],
                     ),
                   );

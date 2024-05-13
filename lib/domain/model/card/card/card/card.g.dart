@@ -65,6 +65,7 @@ Card _$CardFromJson(Map<String, dynamic> json) => Card(
           : ExtractedTextModel.fromJson(
               json['card_extracted_data'] as Map<String, dynamic>),
       isCompanyRequested: json['is_company_requested'] as bool?,
+      requestedCompany: json['requested_company'] as String?,
       scannedImage: (json['card_image'] as List<dynamic>?)
           ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -81,6 +82,7 @@ Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'is_verified': instance.isVerified,
       'is_company_autofilled': instance.isCompanyAutofilled,
       'is_company_requested': instance.isCompanyRequested,
+      'requested_company': instance.requestedCompany,
       'personal_details_id': instance.personalDetailsId,
       'business_details_id': instance.businessDetailsId,
       'percentage': instance.percentage,
@@ -101,5 +103,4 @@ Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'dates_to_remember': instance.datesToRemember,
       'card_extracted_data': instance.extractedTextModel,
       'card_image': instance.scannedImage,
-      'requested_company': instance.requestedCompany,
     };

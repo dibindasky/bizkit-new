@@ -8,7 +8,9 @@ import 'package:bizkit/application/presentation/utils/loading_indicator/loading_
 import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/application/presentation/widgets/expansion_tile.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -80,52 +82,60 @@ class CompanyUsersList extends StatelessWidget {
                                   : null,
                             ),
                             adjustWidth(kwidth * .04),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(state.companyUsers![index].name ?? '',
-                                    style: textStyle1),
-                                Text(
-                                  state.companyUsers![index].email ?? '',
-                                  style: textStyle1.copyWith(
-                                    fontSize: 12,
+                            SizedBox(
+                              width: 180,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    state.companyUsers![index].name ?? '',
+                                    style: textStyle1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
-                              ],
-                            ),
-                            const Spacer(),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: kgrey,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: neonShade),
+                                  Text(
+                                    state.companyUsers![index].email ?? '',
+                                    style: textStyle1.copyWith(
+                                      fontSize: 12,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 6,
+                            ),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: kgrey,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: neonShade),
                                 ),
-                                child: InkWell(
-                                  onTap: () {
-                                    showConfirmationDialog(
-                                      heading:
-                                          'Are you want to block this person',
-                                      context,
-                                      actionButton: 'Block',
-                                      onPressed: () {
-                                        context.read<AdminBloc>().add(
-                                              AdminEvent
-                                                  .removeIndiVidualusersPartOfBusiness(
-                                                id: state
-                                                    .companyUsers![index].id!
-                                                    .toString(),
-                                              ),
-                                            );
-                                      },
-                                    );
-                                  },
-                                  child: const Text('Block'),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 6,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      showConfirmationDialog(
+                                        heading:
+                                            'Are you want to block this person',
+                                        context,
+                                        actionButton: 'Block',
+                                        onPressed: () {
+                                          context.read<AdminBloc>().add(
+                                                AdminEvent
+                                                    .removeIndiVidualusersPartOfBusiness(
+                                                  id: state
+                                                      .companyUsers![index].id!
+                                                      .toString(),
+                                                ),
+                                              );
+                                        },
+                                      );
+                                    },
+                                    child: const Text('Block'),
+                                  ),
                                 ),
                               ),
                             ),
@@ -185,25 +195,35 @@ class CompanyUsersList extends StatelessWidget {
                                               : null,
                                         ),
                                         adjustWidth(kwidth * .04),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(innerData?.name ?? '',
-                                                style: textStyle1),
-                                            Text(
-                                              innerData?.designation ?? '',
-                                              style: textStyle1.copyWith(
-                                                fontSize: 12,
+                                        SizedBox(
+                                          width: 200,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                '${innerData?.name}',
+                                                style: textStyle1,
+                                                overflow: TextOverflow.ellipsis,
                                               ),
-                                            ),
-                                          ],
+                                              Text(
+                                                innerData?.designation ?? '',
+                                                style: textStyle1.copyWith(
+                                                  fontSize: 12,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         adjustWidth(kwidth * .04),
-                                        const Spacer(),
-                                        const Icon(Icons.arrow_right_rounded)
+                                        const Expanded(
+                                          child: Icon(
+                                            Icons.arrow_right_rounded,
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),

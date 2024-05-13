@@ -235,7 +235,8 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                                     ),
                                     ItemsContainer(
                                       heading: 'Time',
-                                      item: state.getSecondCardModel?.time,
+                                      item: state.getSecondCardModel?.time!
+                                          .substring(0, 5),
                                       istime: false,
                                     ),
                                     adjustHieght(10),

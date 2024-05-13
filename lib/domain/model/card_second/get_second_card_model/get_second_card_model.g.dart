@@ -13,6 +13,7 @@ GetSecondCardModel _$GetSecondCardModelFromJson(Map<String, dynamic> json) =>
       selfie: (json['selfie'] as List<dynamic>?)
           ?.map((e) => Selfie.fromJson(e as Map<String, dynamic>))
           .toList(),
+      pdf: json['pdf'] as String?,
       name: json['name'] as String?,
       whereWeMet: json['where_we_met'] as String?,
       location: json['location'] as String?,
@@ -39,6 +40,7 @@ Map<String, dynamic> _$GetSecondCardModelToJson(GetSecondCardModel instance) =>
       'where_we_met': instance.whereWeMet,
       'location': instance.location,
       'occupation': instance.occupation,
+      'pdf': instance.pdf,
       'notes': instance.notes,
       'time': instance.time,
       'date': instance.date,

@@ -10,6 +10,7 @@ import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation
 import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -148,8 +149,7 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
                                           : null,
                                 ),
                                 adjustWidth(kwidth * .04),
-                                SizedBox(
-                                  width: 200,
+                                Expanded(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -172,46 +172,44 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
                                     ],
                                   ),
                                 ),
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      showCustomConfirmationDialogue(
-                                        context: context,
-                                        title:
-                                            'Do you want to unblock this person',
-                                        onTap: () {
-                                          context
-                                              .read<ConnectionRequestBloc>()
-                                              .add(
-                                                ConnectionRequestEvent
-                                                    .blockBizkitConnections(
-                                                        blockBizkitConnection:
-                                                            BlockBizkitConnection(
-                                                                isBlock: false),
-                                                        connectionId: state
-                                                            .blockedConnections![
-                                                                index]
-                                                            .id!),
-                                              );
-                                        },
-                                        buttonText: 'Unblock',
-                                      );
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                          color: neonShade,
-                                          width: 1,
-                                        ),
+                                GestureDetector(
+                                  onTap: () {
+                                    showCustomConfirmationDialogue(
+                                      context: context,
+                                      title:
+                                          'Do you want to unblock this person',
+                                      onTap: () {
+                                        context
+                                            .read<ConnectionRequestBloc>()
+                                            .add(
+                                              ConnectionRequestEvent
+                                                  .blockBizkitConnections(
+                                                      blockBizkitConnection:
+                                                          BlockBizkitConnection(
+                                                              isBlock: false),
+                                                      connectionId: state
+                                                          .blockedConnections![
+                                                              index]
+                                                          .id!),
+                                            );
+                                      },
+                                      buttonText: 'Unblock',
+                                    );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: neonShade,
+                                        width: 1,
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 2,
-                                        ),
-                                        child: Text('Unblock'),
+                                    ),
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 2,
                                       ),
+                                      child: Text('Unblock'),
                                     ),
                                   ),
                                 ),

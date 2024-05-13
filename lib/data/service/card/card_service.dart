@@ -81,8 +81,9 @@ class CardService implements CardRepo {
   Future<Either<Failure, SuccessResponseModel>> createCard(
       {required CardFirstCreationModel cardFirstCreationModel}) async {
     try {
-      await apiService.post(ApiEndPoints.createCard,
+      final response = await apiService.post(ApiEndPoints.createCard,
           data: cardFirstCreationModel.toJson());
+      log('${response.data}', name: 'create data');
       print('create card ${cardFirstCreationModel.toJson()}');
       return Right(SuccessResponseModel(message: 'Card created successfully'));
     } on DioException catch (e) {
@@ -127,6 +128,7 @@ class CardService implements CardRepo {
     try {
       final response = await apiService.get(ApiEndPoints.getCardByUserId
           .replaceFirst('{user_id}', id.toString()));
+      log('${response.data}', name: 'getCardByUserId data');
       return Right(GetCardResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log(e.toString());

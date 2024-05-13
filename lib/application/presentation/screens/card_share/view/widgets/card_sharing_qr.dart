@@ -64,9 +64,17 @@ class CardSharingScreen extends StatelessWidget {
                       ),
                       child: InkWell(
                         onTap: () {
+                          //             if(index == state.selectedQrIndex){
+                          //                             final map = data.id != null
+                          //     ? {'myCard': 'true', 'cardId': data.id!.toString()}
+                          //     : <String, String>{};
+                          // GoRouter.of(context)
+                          //     .pushNamed(Routes.cardDetailView, pathParameters: map);
+                          //             }else {
                           context
                               .read<QrBloc>()
                               .add(QrEvent.changeQRSelection(index: index));
+                          // }
                         },
                         child: Column(
                           mainAxisSize: MainAxisSize.min,

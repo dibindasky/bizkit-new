@@ -1,6 +1,6 @@
 class ApiEndPoints {
   //static String baseUrl = 'http://192.168.29.216:8000';
-  // static String baseUrl = 'https://app.bizkit.club';
+  static String baseUrl = 'https://app.bizkit.club';
   //static String baseUrl = 'http://44.203.134.42';
   // static String baseUrl = 'http://192.168.29.216:8000';
 

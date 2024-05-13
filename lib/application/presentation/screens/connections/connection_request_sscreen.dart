@@ -92,8 +92,9 @@ class ScreenConnectionRequests extends StatelessWidget {
                           style: textStyle1.copyWith(fontSize: kwidth * 0.045),
                         ),
                         Text(
-                          data.company==null?
-                          data.designation ?? '':data.company??'',
+                          data.isVerified ?? false
+                              ? data.company ?? ''
+                              : data.designation ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: textStyle1.copyWith(fontSize: kwidth * 0.045),
                         ),
@@ -135,7 +136,8 @@ class ScreenConnectionRequests extends StatelessWidget {
                                     showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
-                                          title: const Text('Request back to Add Connection'),
+                                          title: const Text(
+                                              'Request back to Add Connection'),
                                           actions: [
                                             OutlinedButton(
                                                 onPressed: () {

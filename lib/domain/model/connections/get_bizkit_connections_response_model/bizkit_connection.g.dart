@@ -14,6 +14,7 @@ BizkitConnection _$BizkitConnectionFromJson(Map<String, dynamic> json) =>
       designation: json['designation'] as String?,
       company: json['company'] as String?,
       isAccepted: json['is_accepted'] as bool?,
+      isVerified: json['is_verified'] as bool?,
       isBlock: json['is_block'] as bool?,
       userId: json['user_id'] as int?,
       cardId: json['card_id'] as int?,
@@ -30,4 +31,5 @@ Map<String, dynamic> _$BizkitConnectionToJson(BizkitConnection instance) =>
       'is_block': instance.isBlock,
       'user_id': instance.userId,
       'card_id': instance.cardId,
+      'is_verified': instance.isVerified,
     };

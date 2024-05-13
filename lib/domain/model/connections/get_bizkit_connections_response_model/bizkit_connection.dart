@@ -12,6 +12,8 @@ class BizkitConnection {
   String? company;
   @JsonKey(name: 'is_accepted')
   bool? isAccepted;
+  @JsonKey(name: 'is_verified')
+  bool? isVerified;
   @JsonKey(name: 'is_block')
   bool? isBlock;
   @JsonKey(name: 'user_id')
@@ -29,6 +31,7 @@ class BizkitConnection {
     this.isBlock,
     this.userId,
     this.cardId,
+    this.isVerified,
   });
 
   factory BizkitConnection.fromJson(Map<String, dynamic> json) {

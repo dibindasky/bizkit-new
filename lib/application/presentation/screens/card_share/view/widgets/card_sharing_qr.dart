@@ -146,10 +146,12 @@ class CardSharingScreen extends StatelessWidget {
             }),
             adjustHieght(khieght * .04),
             BlocBuilder<QrBloc, QrState>(
+              buildWhen: (previous, current) =>
+                  previous.isLoading != current.isLoading,
               builder: (context, state) {
                 if (state.isLoading) {
                   return const SizedBox();
-                } else if (state.qrList.isNotEmpty) {
+                } else if (state.qrList.isNotEmpty) {         
                   final model = context.read<QrBloc>().createQrModel;
                   return Column(
                     children: [
@@ -228,7 +230,7 @@ class CardSharingScreen extends StatelessWidget {
                                 (model.accreditation == null ||
                                     model.accreditation == false)
                             ? const Text(
-                                'your personal and company contacts will not be shared',
+                                'your personal and company details will not be shared',
                               )
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

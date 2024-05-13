@@ -7,6 +7,7 @@ import 'package:bizkit/application/presentation/utils/loading_indicator/loading_
 import 'package:bizkit/application/presentation/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/application/presentation/utils/shimmier/shimmer.dart';
 import 'package:bizkit/application/presentation/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/application/presentation/utils/snackbar/snackbar.dart';
 import 'package:bizkit/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,8 +66,15 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
-            builder: (context, state) {
+        child: BlocConsumer<ConnectionRequestBloc, ConnectionRequestState>(
+            listener: (context, state) {
+          if (state.message != null) {
+            showSnackbar(
+              context,
+              message: state.message!,
+            );
+          }
+        }, builder: (context, state) {
           if (state.blockedConnectionsLoading) {
             return ShimmerLoader(
               itemCount: 10,
@@ -140,63 +148,70 @@ class _BlockedConnectionsState extends State<BlockedConnections> {
                                           : null,
                                 ),
                                 adjustWidth(kwidth * .04),
-                                RichText(
-                                  text: TextSpan(
+                                SizedBox(
+                                  width: 200,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      TextSpan(
-                                          text:
-                                              "${state.blockedConnections?[index].name ?? ''} ",
-                                          style: textStyle1),
-                                      TextSpan(
-                                        text: state.blockedConnections?[index]
+                                      Text(
+                                        '${state.blockedConnections?[index].name}',
+                                        style: textStyle1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        state.blockedConnections?[index]
                                                 .designation ??
-                                            'No Company',
+                                            '',
                                         style: textStyle1.copyWith(
                                           fontSize: 12,
                                         ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ],
                                   ),
                                 ),
-                                const Spacer(),
-                                GestureDetector(
-                                  onTap: () {
-                                    showCustomConfirmationDialogue(
-                                      context: context,
-                                      title:
-                                          'Do you want to unblock this person',
-                                      onTap: () {
-                                        context
-                                            .read<ConnectionRequestBloc>()
-                                            .add(
-                                              ConnectionRequestEvent
-                                                  .blockBizkitConnections(
-                                                      blockBizkitConnection:
-                                                          BlockBizkitConnection(
-                                                              isBlock: false),
-                                                      connectionId: state
-                                                          .blockedConnections![
-                                                              index]
-                                                          .id!),
-                                            );
-                                      },
-                                      buttonText: 'Unblock',
-                                    );
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: neonShade,
-                                        width: 1,
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      showCustomConfirmationDialogue(
+                                        context: context,
+                                        title:
+                                            'Do you want to unblock this person',
+                                        onTap: () {
+                                          context
+                                              .read<ConnectionRequestBloc>()
+                                              .add(
+                                                ConnectionRequestEvent
+                                                    .blockBizkitConnections(
+                                                        blockBizkitConnection:
+                                                            BlockBizkitConnection(
+                                                                isBlock: false),
+                                                        connectionId: state
+                                                            .blockedConnections![
+                                                                index]
+                                                            .id!),
+                                              );
+                                        },
+                                        buttonText: 'Unblock',
+                                      );
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                          color: neonShade,
+                                          width: 1,
+                                        ),
                                       ),
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                        vertical: 2,
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 2,
+                                        ),
+                                        child: Text('Unblock'),
                                       ),
-                                      child: Text('Unblock'),
                                     ),
                                   ),
                                 ),

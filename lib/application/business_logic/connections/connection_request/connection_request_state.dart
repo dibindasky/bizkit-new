@@ -8,6 +8,8 @@ class ConnectionRequestState with _$ConnectionRequestState {
     required bool connected,
     required bool hasError,
     required bool blockedLoading,
+    required bool connectionBlocked,
+    required bool connectionUnblocked,
     required bool connectionRequestLoading,
     required bool connectionRequestRemoved,
     required List<int> requestLoadingIndex,
@@ -22,6 +24,8 @@ class ConnectionRequestState with _$ConnectionRequestState {
   }) = _Initial;
   factory ConnectionRequestState.initial() => const ConnectionRequestState(
         connected: false,
+        connectionBlocked: false,
+        connectionUnblocked: false,
         connectionRequestLoading: false,
         blockedConnectionsLoading: false,
         blockedLoading: false,

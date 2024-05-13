@@ -10,10 +10,10 @@ import 'package:bizkit/application/presentation/utils/previewscreen_icons/detail
 import 'package:bizkit/application/presentation/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:widgets_to_image/widgets_to_image.dart';
 
 class SecondCardDetailView extends StatefulWidget {
   const SecondCardDetailView({
@@ -28,7 +28,9 @@ class SecondCardDetailView extends StatefulWidget {
 
 class _SecondCardDetailViewState extends State<SecondCardDetailView> {
   ScreenshotController screenshotController = ScreenshotController();
+  WidgetsToImageController controller = WidgetsToImageController();
   Uint8List? _imageFile;
+  Uint8List? bytes;
   Future<Uint8List?> captureWidgetAsAnImaage() async {
     await screenshotController.capture().then((image) {
       setState(() {
@@ -76,9 +78,7 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
       buildWhen: (previous, current) => previous.isLoading != current.isLoading,
       builder: (context, state) {
         if (state.getSecondCardModel != null &&
-            state.getSecondCardModel!.time != null) {
-          
-        }
+            state.getSecondCardModel!.time != null) {}
         return Scaffold(
           appBar: AppBar(
             actions: [
@@ -243,6 +243,7 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
                                 ),
                               ),
                               adjustHieght(30),
+                              if (bytes != null) buildImage(bytes!),
                             ],
                           ),
                         ),
@@ -252,6 +253,8 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
       },
     );
   }
+
+  Widget buildImage(Uint8List bytes) => Image.memory(bytes);
 }
 
 class ItemsContainer extends StatelessWidget {

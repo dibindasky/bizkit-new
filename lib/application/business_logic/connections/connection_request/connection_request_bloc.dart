@@ -206,12 +206,18 @@ class ConnectionRequestBloc
     emit(state.copyWith(
         isLoading: true, hasError: false, message: null, connected: false));
     final result = await _connectionRepo.blockBizkitConnecction(
-        blockBizkitConnection: event.blockBizkitConnection,
-        connectionId: event.connectionId);
+      blockBizkitConnection: event.blockBizkitConnection,
+      connectionId: event.connectionId,
+    );
     result.fold(
         (l) => emit(state.copyWith(
             isLoading: false, hasError: true, message: l.message)), (r) {
-      emit(state.copyWith(isLoading: false, message: r.message));
+      emit(state.copyWith(
+        isLoading: false,
+        message: event.blockBizkitConnection.isBlock!
+            ? 'Blocked User Successfully'
+            : 'Un Blocked User Successfully',
+      ));
       add(const ConnectionRequestEvent.getBizkitConnections(query: ''));
       add(const ConnectionRequestEvent.getBlockeConnections(isLoad: true));
     });

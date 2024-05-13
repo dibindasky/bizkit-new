@@ -38,115 +38,89 @@ class BlockedBusinessUsers extends StatelessWidget {
               child: ListView.builder(
                 itemCount: state.blockedUsers?.length,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      final Map<String, String> map =
-                          state.blockedUsers![index].id != null
-                              ? {
-                                  'myCard': 'false',
-                                  'cardId': state
-                                      .blockedUsers![index].companyId!
-                                      .toString()
-                                }
-                              : <String, String>{};
-                      GoRouter.of(context).pushNamed(
-                        Routes.cardDetailView,
-                        pathParameters: map,
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        adjustHieght(20),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Row(
-                            children: [
-                              adjustWidth(kwidth * .04),
-                              CircleAvatar(
-                                backgroundColor: kgrey,
-                                radius: 30,
-                                backgroundImage: state.blockedUsers != null &&
-                                        state.blockedUsers![index].profilePic !=
-                                            null &&
-                                        state.blockedUsers![index].profilePic!
-                                            .isNotEmpty
-                                    ? MemoryImage(
-                                        base64.decode(state.blockedUsers![index]
-                                                .profilePic!
-                                                .startsWith('data')
-                                            ? state.blockedUsers![index]
-                                                .profilePic!
-                                                .substring(22)
-                                            : state.blockedUsers![index]
-                                                .profilePic!),
-                                      )
-                                    : null,
-                                child: state.blockedUsers == null ||
-                                        state.blockedUsers![index].profilePic ==
-                                            null ||
-                                        state.blockedUsers![index].profilePic!
-                                            .isEmpty
-                                    ? const Icon(Icons.person)
-                                    : null,
+                  return Column(
+                    children: [
+                      adjustHieght(20),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Row(
+                          children: [
+                            adjustWidth(kwidth * .04),
+                            CircleAvatar(
+                              backgroundColor: kgrey,
+                              radius: 30,
+                              backgroundImage: state.blockedUsers != null &&
+                                      state.blockedUsers![index].profilePic !=
+                                          null &&
+                                      state.blockedUsers![index].profilePic!
+                                          .isNotEmpty
+                                  ? MemoryImage(
+                                      base64.decode(state
+                                              .blockedUsers![index].profilePic!
+                                              .startsWith('data')
+                                          ? state
+                                              .blockedUsers![index].profilePic!
+                                              .substring(22)
+                                          : state.blockedUsers![index]
+                                              .profilePic!),
+                                    )
+                                  : null,
+                              child: state.blockedUsers == null ||
+                                      state.blockedUsers![index].profilePic ==
+                                          null ||
+                                      state.blockedUsers![index].profilePic!
+                                          .isEmpty
+                                  ? const Icon(Icons.person)
+                                  : null,
+                            ),
+                            adjustWidth(kwidth * .04),
+                            SizedBox(
+                              width: kwidth * .49,
+                              child: Text(
+                                state.blockedUsers![index].name ?? '',
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              adjustWidth(kwidth * .04),
-                              SizedBox(
-                                width: 200,
-                                child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: state.blockedUsers![index].name,
-                                        style: textStyle1,
-                                      ),
-                                      const WidgetSpan(
-                                        child: SizedBox(width: 10),
-                                      ),
-                                    ],
+                            ),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: neonShade),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 6,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      showConfirmationDialog(
+                                        heading:
+                                            'Are you sure you want to  unblock this person',
+                                        context,
+                                        actionButton: 'Unblock',
+                                        onPressed: () {
+                                          context.read<AdminBloc>().add(
+                                                  AdminEvent
+                                                      .businessUnBlockeUser(
+                                                id: state
+                                                    .blockedUsers![index].id!
+                                                    .toString(),
+                                              ));
+                                        },
+                                      );
+                                    },
+                                    child: const Text('Unblock'),
                                   ),
                                 ),
                               ),
-                              Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: neonShade),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 6,
-                                    ),
-                                    child: InkWell(
-                                      onTap: () {
-                                        showConfirmationDialog(
-                                          heading:
-                                              'Are you sure you want to  unblock this person',
-                                          context,
-                                          actionButton: 'Unblock',
-                                          onPressed: () {
-                                            context.read<AdminBloc>().add(
-                                                    AdminEvent
-                                                        .businessUnBlockeUser(
-                                                  id: state
-                                                      .blockedUsers![index].id!
-                                                      .toString(),
-                                                ));
-                                          },
-                                        );
-                                      },
-                                      child: const Text('Unblock'),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              adjustWidth(kwidth * .04),
-                            ],
-                          ),
+                            ),
+                            adjustWidth(kwidth * .04),
+                          ],
                         ),
-                        const Divider(thickness: .3),
-                      ],
-                    ),
+                      ),
+                      const Divider(thickness: .3),
+                    ],
                   );
                 },
               ),

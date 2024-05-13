@@ -83,7 +83,7 @@ class CompanyUsersList extends StatelessWidget {
                             ),
                             adjustWidth(kwidth * .04),
                             SizedBox(
-                              width: 180,
+                              width: kwidth * .47,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -196,7 +196,7 @@ class CompanyUsersList extends StatelessWidget {
                                         ),
                                         adjustWidth(kwidth * .04),
                                         SizedBox(
-                                          width: 200,
+                                          width: kwidth * .5,
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,

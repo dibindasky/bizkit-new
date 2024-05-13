@@ -24,7 +24,7 @@ class QRServiceImpl implements QrServiceRepo {
   Future<Either<Failure, GetQrCodeResponseModel>> getAllQrCode() async {
     try {
       final response = await apiService.get(ApiEndPoints.getQr);
-      log('get QR done ${response.data}');
+      log('get QR done  ${response.data.toString()}');
       return Right(GetQrCodeResponseModel.fromJson(response.data));
     } on DioException catch (e) {
       log('getQR dioExcepton = > ${e.toString()}');

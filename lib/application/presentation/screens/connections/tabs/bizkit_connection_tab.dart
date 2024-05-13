@@ -53,6 +53,7 @@ class BizkitConnectionsTab extends StatelessWidget {
                   final data = state.bizkitConnections![index];
                   return ListTile(
                       onTap: () {
+                        print(data.toJson());
                         Navigator.push(
                             context,
                             fadePageRoute(

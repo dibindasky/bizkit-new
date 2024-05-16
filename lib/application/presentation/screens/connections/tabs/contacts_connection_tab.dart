@@ -157,7 +157,7 @@ class ContactConnectionsTab extends StatelessWidget {
                     .read<ContactsBloc>()
                     .add(const ContactsEvent.getConnections());
               },
-              errorMessage: 'No contacts',
+              errorMessage: 'No Contacts',
               image: emptyNodata2,
             );
           }

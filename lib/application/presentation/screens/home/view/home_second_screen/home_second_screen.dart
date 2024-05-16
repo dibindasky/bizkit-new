@@ -35,7 +35,6 @@ class _SecondAnimationState extends State<SecondAnimation>
   @override
   void initState() {
     super.initState();
-
     _firstFadeController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -45,8 +44,9 @@ class _SecondAnimationState extends State<SecondAnimation>
       duration: const Duration(milliseconds: 500),
     );
     _listSlideController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
-
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
     _firstOpacityAnimation =
         Tween<double>(begin: 0, end: 1).animate(_firstFadeController);
     _secondOpacityAnimation =

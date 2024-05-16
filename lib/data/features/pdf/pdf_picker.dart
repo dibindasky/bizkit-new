@@ -41,9 +41,10 @@ class PdfPickerImpl {
         log(base64);
         print('pdf file pickeer ==========> $base64');
         return Right(PdfModel(
-            file: File(filePath),
-            multipartFile: multipartFile,
-            base64: base64));
+          file: File(filePath),
+          multipartFile: multipartFile,
+          base64: base64,
+        ));
       } else {
         log('File not selected');
         return Left(Failure());

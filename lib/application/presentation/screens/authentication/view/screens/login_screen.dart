@@ -287,7 +287,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                                 context,
                                 fadePageRoute(
                                     const EmailFieldForGottPassword()))
-                            .then((value) => FocusScope.of(context).unfocus());
+                            .then((value) => FocusScope.of(context));
                       },
                       child: Text(
                         'Forgot Password',
@@ -307,8 +307,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                           );
                         }
                         if (state.loginResponseModel != null) {
-                          log('${state.loginResponseModel!.user!.toJson()}',
-                              name: 'login ');
+                          
                           if (state.isFirstLogin || !state.hasCard) {
                             GoRouter.of(context)
                                 .pushReplacementNamed(Routes.cardCreation);

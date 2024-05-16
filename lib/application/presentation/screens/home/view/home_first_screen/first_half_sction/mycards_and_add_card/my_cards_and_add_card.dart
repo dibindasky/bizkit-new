@@ -241,8 +241,8 @@ class _CardPageSliderState extends State<CardPageSlider>
                             ),
                             Text(
                               data.designation != null
-                                  ? data.designation!.length > 20
-                                      ? '${data.designation!.substring(0, 16)}..'
+                                  ? data.designation!.length > 17
+                                      ? '${data.designation!.substring(0, 15)}..'
                                       : data.designation!
                                   : '',
                               style: TextStyle(

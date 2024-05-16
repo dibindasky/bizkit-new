@@ -56,97 +56,99 @@ class ContactConnectionsTab extends StatelessWidget {
             );
           } else if (state.contactList != null &&
               state.contactList!.isNotEmpty) {
-            return AlphabetScrollView(
-              list: state.contactList!
-                  .map((e) => AlphaModel(e.name ?? 'Names'))
-                  .toList(),
-              alignment: LetterAlignment.right,
-              itemExtent: 50,
-              unselectedTextStyle: TextStyle(
-                fontSize: kwidth * .042,
-                color: smallBigGrey,
-              ),
-              selectedTextStyle:
-                  TextStyle(fontSize: kwidth * .049, color: kwhite),
-              overlayWidget: (value) => Stack(
-                alignment: Alignment.center,
-                children: [
-                  const Icon(
-                    Icons.star_border_sharp,
-                    size: 50,
-                    color: neonShade,
-                  ),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
+            return Scrollbar(
+              child: AlphabetScrollView(
+                list: state.contactList!
+                    .map((e) => AlphaModel(e.name ?? 'Names'))
+                    .toList(),
+                alignment: LetterAlignment.right,
+                itemExtent: 50,
+                unselectedTextStyle: TextStyle(
+                  fontSize: kwidth * .042,
+                  color: smallBigGrey,
+                ),
+                selectedTextStyle:
+                    TextStyle(fontSize: kwidth * .049, color: kwhite),
+                overlayWidget: (value) => Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    const Icon(
+                      Icons.star_border_sharp,
+                      size: 50,
+                      color: neonShade,
                     ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      value.toUpperCase(),
-                      style: const TextStyle(fontSize: 18),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        value.toUpperCase(),
+                        style: const TextStyle(fontSize: 18),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              itemBuilder: (context, index, __) {
-                final data = state.contactList![index];
-                return GestureDetector(
-                  onTap: () {
-                    if (data.id != null && data.id != 0) {
-                      Navigator.of(context).push(
-                        fadePageRoute(ScreenCardDetailView(
-                          userId: data.id,
-                        )),
-                      );
-                    }
-                  },
-                  child: ListTile(
-                    leading: data.photo != null && data.photo!.isNotEmpty
-                        ? CircleAvatar(
-                            radius: 18,
-                            backgroundImage: MemoryImage(
-                                base64.decode(getBase64(data.photo!))))
-                        : const CircleAvatar(
-                            radius: 18,
-                            backgroundColor: textFieldFillColr,
-                            child: Center(
-                              child: Icon(
-                                Icons.person,
-                                color: neonShade,
+                  ],
+                ),
+                itemBuilder: (context, index, __) {
+                  final data = state.contactList![index];
+                  return GestureDetector(
+                    onTap: () {
+                      if (data.id != null && data.id != 0) {
+                        Navigator.of(context).push(
+                          fadePageRoute(ScreenCardDetailView(
+                            userId: data.id,
+                          )),
+                        );
+                      }
+                    },
+                    child: ListTile(
+                      leading: data.photo != null && data.photo!.isNotEmpty
+                          ? CircleAvatar(
+                              radius: 18,
+                              backgroundImage: MemoryImage(
+                                  base64.decode(getBase64(data.photo!))))
+                          : const CircleAvatar(
+                              radius: 18,
+                              backgroundColor: textFieldFillColr,
+                              child: Center(
+                                child: Icon(
+                                  Icons.person,
+                                  color: neonShade,
+                                ),
                               ),
                             ),
+                      title: Row(
+                        children: [
+                          Text(
+                            data.name ?? data.phoneNumber ?? 'data',
+                            style: TextStyle(
+                              fontSize: kwidth * .040,
+                            ),
                           ),
-                    title: Row(
-                      children: [
-                        Text(
-                          data.name ?? data.phoneNumber ?? 'data',
-                          style: TextStyle(
-                            fontSize: kwidth * .040,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      trailing: data.id == null || data.id == 0
+                          ? Wrap(
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      LaunchUrl.openSMS(
+                                          phoneNumber: data.phoneNumber ?? '',
+                                          message: 'join bizkit');
+                                    },
+                                    child: Text('Invite',
+                                        style: textStyle1.copyWith(
+                                            color: neonShade))),
+                                adjustWidth(20)
+                              ],
+                            )
+                          : null,
                     ),
-                    trailing: data.id == null || data.id == 0
-                        ? Wrap(
-                            children: [
-                              InkWell(
-                                  onTap: () {
-                                    LaunchUrl.openSMS(
-                                        phoneNumber: data.phoneNumber ?? '',
-                                        message: 'join bizkit');
-                                  },
-                                  child: Text('Invite',
-                                      style: textStyle1.copyWith(
-                                          color: neonShade))),
-                              adjustWidth(20)
-                            ],
-                          )
-                        : null,
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             );
           } else {
             return ErrorRefreshIndicator(

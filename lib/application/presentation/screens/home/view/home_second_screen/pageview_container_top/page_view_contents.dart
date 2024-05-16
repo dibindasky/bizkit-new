@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/application/presentation/screens/reminder/reminder_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/intl/intl_date_formater.dart';
@@ -26,7 +27,9 @@ class SecondScreenPageViewContents extends StatelessWidget {
                 child: CircleAvatar(
                   backgroundColor: kgrey,
                   radius: 30,
-                  child: reminder != null && reminder!.image != null
+                  child: reminder != null &&
+                          reminder!.image != null &&
+                          reminder!.image!.isNotEmpty
                       ? Image.memory(
                           base64Decode(
                             reminder!.image!.startsWith('data')
@@ -64,19 +67,19 @@ class SecondScreenPageViewContents extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Name :',
+                      'Name ',
                       style: TextStyle(fontSize: kwidth * 0.03),
                     ),
                     Text(
-                      'Venue :',
+                      'Venue ',
                       style: TextStyle(fontSize: kwidth * 0.03),
                     ),
                     Text(
-                      'Created :',
+                      'Created ',
                       style: TextStyle(fontSize: kwidth * 0.03),
                     ),
                     Text(
-                      'Occation :',
+                      'Occation ',
                       style: TextStyle(fontSize: kwidth * 0.03),
                     ),
                   ],
@@ -86,7 +89,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        reminder?.name ?? '',
+                        " :  ${reminder?.name ?? ''}",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: kwidth * 0.03,
@@ -94,7 +97,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        reminder?.venue ?? '',
+                        " :  ${reminder?.venue ?? ''}",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: kwidth * 0.03,
@@ -102,8 +105,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        DateTimeFormater.formatDateTime(
-                            reminder?.date ?? '', reminder?.time ?? ''),
+                        " :  ${DateTimeFormater.formatDateTime(reminder?.date ?? '', reminder?.time ?? '')}",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: kwidth * 0.03,
@@ -111,7 +113,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        reminder?.occation ?? '',
+                        " :  ${reminder?.occation ?? ''}",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: kwidth * 0.03,
@@ -129,16 +131,29 @@ class SecondScreenPageViewContents extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: Container(
-                // height: kwidth * 0.1,
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                  color: neonShade,
-                  borderRadius:
-                      BorderRadius.only(bottomLeft: Radius.circular(7)),
-                ),
-                child: const Center(
-                  child: Text('View card'),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ScreenCardDetailView(
+                        cardId: reminder!.cardId,
+                        myCard: false,
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                  // height: kwidth * 0.1,
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    color: neonShade,
+                    borderRadius:
+                        BorderRadius.only(bottomLeft: Radius.circular(7)),
+                  ),
+                  child: const Center(
+                    child: Text('View card'),
+                  ),
                 ),
               ),
             ),
@@ -146,10 +161,12 @@ class SecondScreenPageViewContents extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PreviewHomeAddReminderScreen(
-                              reminder: reminder)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          PreviewHomeAddReminderScreen(reminder: reminder),
+                    ),
+                  );
                 },
                 child: Container(
                   // height: kwidth * 0.1,

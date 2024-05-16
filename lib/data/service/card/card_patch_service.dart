@@ -657,7 +657,7 @@ class CardPatchService implements CardPatchRepo {
         ApiEndPoints.addPersonalImage,
         data: personalDetailsImage.toJson(),
       );
-      log('addPersonalImage done');
+      log('addPersonalImage done ${response.data}');
       return Right(PersonalDetailsImages.fromJson(response.data));
     } on DioException catch (e) {
       log('addPersonalImage DioException error $e');

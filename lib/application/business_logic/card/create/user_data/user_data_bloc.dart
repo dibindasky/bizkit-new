@@ -374,7 +374,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       return emit(state.copyWith(
           personalImges: [
             ...state.personalImges,
-            ...r.photos?.map((e) => ImageCard(image: e.photos)) ?? []
+            ...r.photos?.map((e) => ImageCard(image: e.photos, id: e.id)) ?? []
           ],
           personalImageAdded: true,
           fromBusinessCategoryGet: false,

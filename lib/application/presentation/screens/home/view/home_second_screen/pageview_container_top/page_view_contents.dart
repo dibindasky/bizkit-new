@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:bizkit/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/application/presentation/screens/reminder/reminder_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
+import 'package:bizkit/application/presentation/utils/constants/contants.dart';
 import 'package:bizkit/application/presentation/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +28,8 @@ class SecondScreenPageViewContents extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: kgrey,
                 backgroundImage: reminder != null && reminder!.image != null
-                    ? NetworkImage(
-                        reminder!.image!,
+                    ? MemoryImage(
+                        base64.decode(getBase64(reminder!.image!)),
                       )
                     : null,
                 radius: 30,
@@ -118,50 +122,69 @@ class SecondScreenPageViewContents extends StatelessWidget {
           ),
         ),
         SizedBox(height: kwidth * 0.05),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                // height: kwidth * 0.1,
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                  color: neonShade,
-                  borderRadius:
-                      BorderRadius.only(bottomLeft: Radius.circular(7)),
-                ),
-                child: const Center(
-                  child: Text('View card'),
-                ),
-              ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: neonShade),
+            borderRadius: const BorderRadius.only(
+              bottomRight: Radius.circular(7),
+              bottomLeft: Radius.circular(7),
             ),
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PreviewHomeAddReminderScreen(
-                              reminder: reminder)));
-                },
-                child: Container(
-                  // height: kwidth * 0.1,
-                  padding: const EdgeInsets.all(9),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: neonShade),
-                    borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(7),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ScreenCardDetailView(
+                                  cardId: reminder!.cardId!,
+                                )));
+                  },
+                  child: Container(
+                    // height: kwidth * 0.1,
+                    padding: const EdgeInsets.all(10),
+                    decoration: const BoxDecoration(
+                      color: neonShade,
+                      borderRadius:
+                          BorderRadius.only(bottomLeft: Radius.circular(7)),
                     ),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Postpone',
-                      style: TextStyle(color: neonShade),
+                    child: const Center(
+                      child: Text('View card'),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PreviewHomeAddReminderScreen(
+                                reminder: reminder)));
+                  },
+                  child: Container(
+                    // height: kwidth * 0.1,
+                    padding: const EdgeInsets.all(9),
+                    // decoration: BoxDecoration(
+                    //   border: Border.all(color: neonShade),
+                    //   borderRadius: const BorderRadius.only(
+                    //     bottomRight: Radius.circular(7),
+                    //   ),
+                    // ),
+                    child: const Center(
+                      child: Text(
+                        'Postpone',
+                        style: TextStyle(color: neonShade),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

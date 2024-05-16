@@ -76,6 +76,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         (r) => emit(state.copyWith(
             companyDataRequestLoading: false,
             hasError: true,
+            message: 'Request send Successfully',
             companyDataRequestSuccess: true)));
     add(CardEvent.getCardyCardId(id: event.requestCardDetailModel.cardId!));
   }

@@ -15,51 +15,11 @@ class MeetingDetailTabBarItems extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(width: double.infinity),
-            // TabBar(
-            //   dividerHeight: 0,
-            //   isScrollable: true,
-            //   tabAlignment: TabAlignment.center,
-            //   labelPadding: const EdgeInsets.symmetric(horizontal: 30),
-            //   indicator: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(12),
-            //     gradient: neonShadeGradient,
-            //   ),
-            //   tabs: [
-            //     Tab(
-            //       child: SizedBox(
-            //         width: kwidth * 0.3,
-            //         child: const Center(
-            //           child: Text(
-            //             "History/Log",
-            //             style: TextStyle(color: kwhite),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //     Tab(
-            //       child: SizedBox(
-            //         width: kwidth * 0.3,
-            //         child: const Center(
-            //           child: Text(
-            //             "Profile",
-            //             style: TextStyle(color: kwhite),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
             adjustHieght(khieght * 0.02),
             AuthButton(text: 'History', onTap: () {}),
             adjustHieght(khieght * 0.02),
             const Expanded(
-              child:
-                  // TabBarView(
-                  //   children: [
-                  MeetingDetailHistoryLogTabBuilder(),
-              // MeetingDetailProfileTabWidgets(),
-              // ],
-              // ),
+              child: MeetingDetailHistoryLogTabBuilder(),
             )
           ],
         ),

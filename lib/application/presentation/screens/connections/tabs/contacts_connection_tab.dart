@@ -122,7 +122,7 @@ class ContactConnectionsTab extends StatelessWidget {
                       title: Row(
                         children: [
                           Text(
-                            data.name ?? data.phoneNumber ?? 'data',
+                            data.name ?? data.phoneNumber ?? '',
                             style: TextStyle(
                               fontSize: kwidth * .040,
                             ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:bizkit/application/presentation/utils/image_picker/image_picker.dart';
 import 'package:bizkit/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/domain/model/card/card/accolade/accolade.dart';
@@ -121,7 +122,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         socialMediaAdded: false,
         accoladeAdded: false));
     final PatchPersonalData personalData = PatchPersonalData(
-      businessCategoryId: 1,
+      businessCategoryId:
+          state.currentCard?.personalDetails?.businessCategoryId,
       bloodGroup: bloodGroup.text.isNotEmpty
           ? bloodGroup.text
           : state.currentCard?.personalDetails?.bloodGroup,
@@ -131,10 +133,18 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       homeAddress: homeAddress.text.isNotEmpty
           ? homeAddress.text
           : state.currentCard?.personalDetails?.homeAddress,
-      designation: state.currentCard?.personalDetails?.designation,
-      email: state.currentCard?.personalDetails?.email,
-      name: state.currentCard?.personalDetails?.name,
-      phoneNumber: state.currentCard?.personalDetails?.phoneNumber,
+      designation: designationController.text.isNotEmpty
+          ? designationController.text
+          : state.currentCard?.personalDetails?.designation,
+      email: emailController.text.isNotEmpty
+          ? emailController.text
+          : state.currentCard?.personalDetails?.email,
+      name: nameController.text.isNotEmpty
+          ? nameController.text
+          : state.currentCard?.personalDetails?.name,
+      phoneNumber: phoneController.text.isNotEmpty
+          ? phoneController.text
+          : state.currentCard?.personalDetails?.phoneNumber,
       // photos: state.currentCard?.personalDetails?.photos
     );
     final result = await cardService.patchPersonalDetails(

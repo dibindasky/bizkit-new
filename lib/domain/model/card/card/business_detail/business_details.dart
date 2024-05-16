@@ -8,6 +8,7 @@ class BusinessDetails {
   String? email;
   @JsonKey(name: 'mobile_number')
   String? mobileNumber;
+  @JsonKey(name: 'business_name')
   String? businessName;
   String? designation;
   String? company;

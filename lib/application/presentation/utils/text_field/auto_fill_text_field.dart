@@ -81,7 +81,8 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
             convertListToLowercaseExceptFirst(widget.autocompleteItems!);
       }
       if (widget.autocompleteItems != null &&
-          widget.autocompleteItems!.length == 1) {
+          widget.autocompleteItems!.length == 1 &&
+          widget.controller!.text == '') {
         widget.controller!.text = widget.autocompleteItems![0];
       }
     }

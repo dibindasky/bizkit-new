@@ -136,7 +136,7 @@ class ContactConnectionsTab extends StatelessWidget {
                                     onTap: () {
                                       LaunchUrl.openSMS(
                                           phoneNumber: data.phoneNumber ?? '',
-                                          message: 'join bizkit');
+                                          message: 'Join bizkit');
                                     },
                                     child: Text('Invite',
                                         style: textStyle1.copyWith(

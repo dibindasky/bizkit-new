@@ -25,14 +25,21 @@ class SecondScreenPageViewContents extends StatelessWidget {
             CircleAvatar(
               radius: 32,
               backgroundColor: neonShade,
-              child: CircleAvatar(
-                backgroundColor: kgrey,
-                backgroundImage: reminder != null && reminder!.image != null
-                    ? MemoryImage(
-                        base64.decode(getBase64(reminder!.image!)),
-                      )
-                    : null,
-                radius: 30,
+              child: ClipOval(
+                child: CircleAvatar(
+                  backgroundColor: kgrey,
+                  radius: 30,
+                  child: reminder != null && reminder!.image != null
+                      ? Image.memory(
+                          base64Decode(
+                            reminder!.image!.startsWith('data')
+                                ? reminder!.image!.substring(22)
+                                : reminder!.image!,
+                          ),
+                          fit: BoxFit.cover,
+                        )
+                      : null,
+                ),
               ),
             ),
             const SizedBox(width: 20),

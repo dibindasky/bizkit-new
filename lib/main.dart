@@ -42,9 +42,7 @@ Future<void> main() async {
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await configuteInjection();
-  runApp(MyApp(
-    connectivity: Connectivity(),
-  ));
+  runApp(MyApp(connectivity: Connectivity()));
 }
 
 class MyApp extends StatelessWidget {
@@ -55,14 +53,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return ScreenUtilInit(
-      designSize: Size(size.width, size.height),
+      //designSize: Size(size.width, size.height),
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => NavCubit()),
           BlocProvider<InternetConnectionCheckCubit>(
-            create: (ctx) =>
-                InternetConnectionCheckCubit(connectivity: connectivity),
-          ),
+              create: (ctx) =>
+                  InternetConnectionCheckCubit(connectivity: connectivity)),
           BlocProvider(create: (context) => getIt<ContactsBloc>()),
           BlocProvider(create: (context) => getIt<ForgottPasswordBloc>()),
           BlocProvider(create: (context) => getIt<NotificationBloc>()),

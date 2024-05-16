@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:bizkit/application/presentation/screens/reminder/reminder_screen.dart';
 import 'package:bizkit/application/presentation/utils/constants/colors.dart';
 import 'package:bizkit/application/presentation/utils/intl/intl_date_formater.dart';
@@ -21,14 +22,21 @@ class SecondScreenPageViewContents extends StatelessWidget {
             CircleAvatar(
               radius: 32,
               backgroundColor: neonShade,
-              child: CircleAvatar(
-                backgroundColor: kgrey,
-                backgroundImage: reminder != null && reminder!.image != null
-                    ? NetworkImage(
-                        reminder!.image!,
-                      )
-                    : null,
-                radius: 30,
+              child: ClipOval(
+                child: CircleAvatar(
+                  backgroundColor: kgrey,
+                  radius: 30,
+                  child: reminder != null && reminder!.image != null
+                      ? Image.memory(
+                          base64Decode(
+                            reminder!.image!.startsWith('data')
+                                ? reminder!.image!.substring(22)
+                                : reminder!.image!,
+                          ),
+                          fit: BoxFit.cover,
+                        )
+                      : null,
+                ),
               ),
             ),
             const SizedBox(width: 20),

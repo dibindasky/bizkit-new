@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/application/presentation/fade_transition/fade_transition.dart';
 import 'package:bizkit/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_without_animation.dart';
@@ -42,21 +44,26 @@ class ReminderTile extends StatelessWidget {
           children: [
             Container(
               width: kwidth * 0.24,
-              decoration: BoxDecoration(
-                image: reminder.image != null
-                    ? DecorationImage(
-                        image: NetworkImage(
-                          reminder.image!,
-                        ),
-                        fit: BoxFit.cover,
-                      )
-                    : null,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12),
-                ),
-              ),
-              child: reminder.image != null ? null : const Icon(Icons.person_2),
+
+              // decoration: BoxDecoration(
+              //   image: reminder.image != null
+              //       ? DecorationImage(
+              //           image: NetworkImage(
+              //             reminder.image!,
+              //           ),
+              //           fit: BoxFit.cover,
+              //         )
+              //       : null,
+              //   borderRadius: const BorderRadius.only(
+              //     topLeft: Radius.circular(12),
+              //     bottomLeft: Radius.circular(12),
+              //   ),
+              // ),
+              child: reminder.image != null && reminder.image!.isNotEmpty
+                  ? Image.memory(base64Decode(reminder.image!.startsWith('data')
+                      ? reminder.image!.substring(22)
+                      : reminder.image!))
+                  : const Icon(Icons.person_2),
             ),
             adjustWidth(kwidth * .02),
             Column(

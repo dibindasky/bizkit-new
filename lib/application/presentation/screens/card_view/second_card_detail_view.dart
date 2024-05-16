@@ -29,7 +29,7 @@ class _SecondCardDetailViewState extends State<SecondCardDetailView> {
 
     // Save PDF data to a temporary file
     final tempDir = Directory.systemTemp;
-    final tempFile = File('${tempDir.path}/bizkit_visiting_card.pdf');
+    final tempFile = File('${tempDir.path}/bizkit_$additionalData.pdf');
     await tempFile.writeAsBytes(pdfData);
 
     // Share PDF file

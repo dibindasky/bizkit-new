@@ -34,6 +34,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
         context
             .read<NotificationBloc>()
             .add(const NotificationEvent.getNotificationEvent());
+      } else if (scrollController.position.pixels ==
+          scrollController.position.minScrollExtent) {
+        context
+            .read<NotificationBloc>()
+            .add(const NotificationEvent.getNotification(isLoad: false));
       }
     });
     context
@@ -59,163 +64,157 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-        child: RefreshIndicator(
-          onRefresh: () async {
-            log('scroll');
-            context
-                .read<NotificationBloc>()
-                .add(const NotificationEvent.getNotification(isLoad: false));
-          },
-          child: ListView(
-            controller: scrollController,
-            children: [
-              BlocBuilder<NotificationBloc, NotificationState>(
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return ShimmerLoader(
-                      itemCount: 6,
-                      height: 120,
-                      width: kwidth * 0.9,
-                      seprator: const SizedBox(height: 10),
-                    );
-                  } else if (state.notification != null &&
-                      state.notification!.isNotEmpty) {
-                    return RefreshIndicator(
-                      onRefresh: () async {
-                        log('scroll');
-                        context.read<NotificationBloc>().add(
-                            const NotificationEvent.getNotification(
-                                isLoad: false));
-                      },
-                      child: ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        separatorBuilder: (context, index) {
-                          return adjustHieght(10);
-                        },
-                        itemCount: (state.notification?.length ?? 0) +
-                            (state.notificationLoading ? 1 : 0) -
-                            1,
-                        itemBuilder: (context, index) {
-                          final notification = state.notification![index];
-                          if (state.notificationLoading &&
-                              index == state.notification!.length - 1) {
-                            return const LoadingAnimation();
+        child: BlocBuilder<NotificationBloc, NotificationState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return ShimmerLoader(
+                itemCount: 6,
+                height: 120,
+                width: kwidth * 0.9,
+                seprator: const SizedBox(height: 10),
+              );
+            } else if (state.notification != null &&
+                state.notification!.isNotEmpty) {
+              print(
+                  'notification item count ==> ${(state.notification?.length ?? 0) + (state.notificationLoading ? 1 : 0) + (!state.notificationLoading && state.notification!.length < 6 ? 1 : 0)}');
+              return RefreshIndicator(
+                onRefresh: () async {
+                  log('scroll');
+                  context.read<NotificationBloc>().add(
+                      const NotificationEvent.getNotification(isLoad: false));
+                },
+                child: ListView.separated(
+                  controller: scrollController,
+                  // physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  separatorBuilder: (context, index) {
+                    return adjustHieght(10);
+                  },
+                  itemCount: (state.notification?.length ?? 0) +
+                      (state.notificationLoading ? 1 : 0)
+                  // + (!state.notificationLoading &&
+                  //         state.notification!.length < 6
+                  //     ? 1
+                  //     : 0)
+                  ,
+                  itemBuilder: (context, index) {
+                    log('notification length ${!state.notificationLoading && state.notification!.length <= index}=>$index ${state.notification!.length}');
+                    final notification = state.notification![index];
+                    // if (!state.notificationLoading && state.notification!.length <= index) {
+                    //   log('now in side condition');
+                    //   return Container(
+                    //       height: 800, width: double.infinity, color: kgreen);
+                    // }
+                    if (state.notificationLoading &&
+                        index >= state.notification!.length - 1) {
+                      return const LoadingAnimation();
+                    } else {
+                      log('in normal return tile $index');
+                      return GestureDetector(
+                        onTap: () {
+                          if (notification.tag == 'Connection request') {
+                            Navigator.push(
+                              context,
+                              fadePageRoute(const ScreenConnectionRequests()),
+                            );
                           }
-                          return GestureDetector(
-                            onTap: () {
-                              if (notification.tag == 'Connection request') {
-                                Navigator.push(
-                                  context,
-                                  fadePageRoute(
-                                      const ScreenConnectionRequests()),
-                                );
-                              }
-                              if (notification.tag == 'Connection accepted') {
-                                Navigator.push(
-                                  context,
-                                  fadePageRoute(
-                                      const MyConnectionsViewAllContacts()),
-                                );
-                              }
-                              if (notification.tag == 'Company Request') {
-                                Map<String, String> map =
-                                    notification.cardId != null
-                                        ? {
-                                            'myCard': 'true',
-                                            'cardId':
-                                                notification.cardId!.toString(),
-                                          }
-                                        : <String, String>{};
-                                GoRouter.of(context).pushNamed(
-                                  Routes.cardDetailView,
-                                  pathParameters: map,
-                                );
-                                // Navigator.push(
-                                //   context,
-                                //   fadePageRoute(const Tabs()),
-                                // );
-                              }
-                              if (notification.tag == 'Request Diclined') {}
-                            },
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                  color: kblack,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          if (notification.tag == 'Connection accepted') {
+                            Navigator.push(
+                              context,
+                              fadePageRoute(
+                                  const MyConnectionsViewAllContacts()),
+                            );
+                          }
+                          if (notification.tag == 'Company Request') {
+                            Map<String, String> map =
+                                notification.cardId != null
+                                    ? {
+                                        'myCard': 'true',
+                                        'cardId':
+                                            notification.cardId!.toString(),
+                                      }
+                                    : <String, String>{};
+                            GoRouter.of(context).pushNamed(
+                              Routes.cardDetailView,
+                              pathParameters: map,
+                            );
+                            // Navigator.push(
+                            //   context,
+                            //   fadePageRoute(const Tabs()),
+                            // );
+                          }
+                          if (notification.tag == 'Request Diclined') {}
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              color: kblack,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              adjustHieght(20),
+                              Row(
                                 children: [
-                                  adjustHieght(20),
-                                  Row(
-                                    children: [
-                                      const CircleAvatar(
-                                        backgroundColor: kred,
-                                        radius: 8,
+                                  const CircleAvatar(
+                                    backgroundColor: kred,
+                                    radius: 8,
+                                  ),
+                                  adjustWidth(10),
+                                  Expanded(
+                                    child: Text(
+                                      notification.title!,
+                                      style: textStyle1.copyWith(
+                                        color: klightgrey,
+                                        fontSize: kwidth * .034,
                                       ),
-                                      adjustWidth(10),
-                                      Expanded(
-                                        child: Text(
-                                          notification.title!,
-                                          style: textStyle1.copyWith(
-                                            color: klightgrey,
-                                            fontSize: kwidth * .034,
-                                          ),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Text(
-                                        notification.scheduledAt!
-                                            .substring(0, 5),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                  adjustHieght(10),
                                   Text(
-                                    notification.body!,
-                                    style: textHeadStyle1.copyWith(
-                                        fontSize: kwidth * .040),
+                                    notification.scheduledAt!.substring(0, 5),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  adjustHieght(4),
-                                  Text(
-                                    notification.tag!,
-                                    style:
-                                        textStyle1.copyWith(color: klightgrey),
-                                  ),
-                                  adjustHieght(4),
-                                  Text(
-                                    'click to get more information',
-                                    style:
-                                        textStyle1.copyWith(color: klightgrey),
-                                  ),
-                                  adjustHieght(10),
                                 ],
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  } else {
-                    return ErrorRefreshIndicator(
-                      shrinkWrap: true,
-                      image: emptyNodata2,
-                      errorMessage: 'No Notifications found',
-                      onRefresh: () {
-                        context.read<NotificationBloc>().add(
-                            const NotificationEvent.getNotification(
-                                isLoad: false));
-                      },
-                    );
-                  }
+                              adjustHieght(10),
+                              Text(
+                                notification.body!,
+                                style: textHeadStyle1.copyWith(
+                                    fontSize: kwidth * .040),
+                              ),
+                              adjustHieght(4),
+                              Text(
+                                notification.tag!,
+                                style: textStyle1.copyWith(color: klightgrey),
+                              ),
+                              adjustHieght(4),
+                              Text(
+                                'click to get more information',
+                                style: textStyle1.copyWith(color: klightgrey),
+                              ),
+                              adjustHieght(10),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              );
+            } else {
+              return ErrorRefreshIndicator(
+                shrinkWrap: true,
+                image: emptyNodata2,
+                errorMessage: 'No Notifications found',
+                onRefresh: () {
+                  context.read<NotificationBloc>().add(
+                      const NotificationEvent.getNotification(isLoad: false));
                 },
-              ),
-              adjustHieght(20)
-            ],
-          ),
+              );
+            }
+          },
         ),
       ),
     );

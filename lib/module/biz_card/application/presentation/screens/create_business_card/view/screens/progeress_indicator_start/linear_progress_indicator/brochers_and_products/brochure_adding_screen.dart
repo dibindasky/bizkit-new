@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/model/pdf/pdf_model.dart';
+import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
@@ -122,6 +123,9 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                       : BlocConsumer<BusinessDataBloc, BusinessDataState>(
                           listener: (context, state) {
                             if (state.brochureAdded) {
+                              context.read<CardBloc>().add(
+                                  CardEvent.getCardyCardId(
+                                      id: state.currentCard!.id!));
                               Navigator.pop(context);
                             }
                           },

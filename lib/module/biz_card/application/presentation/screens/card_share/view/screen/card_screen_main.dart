@@ -1,18 +1,21 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_share/view/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/dailog.dart';
-import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/get_card_response/card_response.dart'
     as card;
+import 'package:bizkit/packages/share/share_product.dart';
+import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/dailog.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/utils/shimmier/shimmer.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -93,7 +96,6 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
   void dispose() {
     super.dispose();
     animationController.dispose();
-    secondCardScrollController.dispose();
   }
 
   @override
@@ -477,17 +479,17 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                 index == state.secondCards.length) {
                               return const LoadingAnimation();
                             }
-                            final seconsdCard = state.secondCards[index];
+                            final secondCard = state.secondCards[index];
                             String imageBase64 = '';
-                            if (seconsdCard.image != null &&
-                                seconsdCard.image!.isNotEmpty) {
-                              imageBase64 = seconsdCard.image!;
+                            if (secondCard.image != null &&
+                                secondCard.image!.isNotEmpty) {
+                              imageBase64 = secondCard.image!;
                               imageBase64 = imageBase64.startsWith('data')
                                   ? imageBase64.substring(22)
                                   : imageBase64;
-                            } else if (seconsdCard.selfie != null &&
-                                seconsdCard.selfie!.isNotEmpty) {
-                              final imageList = seconsdCard.selfie!
+                            } else if (secondCard.selfie != null &&
+                                secondCard.selfie!.isNotEmpty) {
+                              final imageList = secondCard.selfie!
                                   .map((e) => e.selfie)
                                   .toList();
                               imageBase64 = imageList.first ?? '';
@@ -497,7 +499,11 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                             } else {
                               imageBase64 = '';
                             }
-
+                            String secondName = secondCard.company ??
+                                secondCard.designation ??
+                                secondCard.company ??
+                                secondCard.designation ??
+                                '';
                             return Container(
                               decoration: BoxDecoration(
                                 color: textFieldFillColr,
@@ -610,7 +616,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                                               .deleteCardSecond(
                                                             cardActionRewuestModel:
                                                                 cardActionRewuestModel,
-                                                            id: seconsdCard.id!,
+                                                            id: secondCard.id!,
                                                           ),
                                                         );
                                                   },
@@ -633,7 +639,7 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          '${state.secondCards[index].name ?? ''}\n${state.secondCards[index].company}',
+                                          '${state.secondCards[index].name ?? ''}\n$secondName',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 16.sp,
@@ -643,7 +649,11 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                       ),
                                       InkWell(
                                         onTap: () async {
-                                          //await Share.share('');
+                                          await SharePlus.sharePdfFromBase64(
+                                              state.secondCards[index].pdf ??
+                                                  '',
+                                              state.secondCards[index].name ??
+                                                  '');
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(

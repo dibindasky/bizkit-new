@@ -27,16 +27,18 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
     const SelfieScreen(),
     const ProfileScreen()
   ];
+  int slectedtabIndex = 0;
 
   void _onItemTapped(int index) {
     context.read<NavCubit>().navbarChange(index: index);
-    // setState(() {
-    //   state.slectedtabIndex = index;
-    // });
+    setState(() {
+      slectedtabIndex = index;
+    });
   }
 
   @override
   void initState() {
+    slectedtabIndex = 0;
     context.read<PromtBloc>().add(const PromtEvent.checkPrompt());
     context.read<NavCubit>().navbarChange(index: 0);
     super.initState();

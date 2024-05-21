@@ -14,13 +14,13 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/profile_
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
 import 'package:flutter/material.dart';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -193,10 +193,16 @@ class _ProfileScreenState extends State<ProfileScreen>
                   subtittle: 'Username, Password, Email, Report Problem Etc.',
                   widget: AccountSettigsScreen(),
                 ),
-                const ProfileTiles(
-                  heading: 'Privacy and Security',
-                  subtittle: 'Level Or Security Preferences Etc.',
-                  widget: PrivacyAndSecurityScreen(),
+                BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    return !state.isBusiness
+                        ? const ProfileTiles(
+                            heading: 'Privacy and Security',
+                            subtittle: 'Level Or Security Preferences Etc.',
+                            widget: PrivacyAndSecurityScreen(),
+                          )
+                        : kempty;
+                  },
                 ),
                 const ProfileTiles(
                   heading: 'Data Management',

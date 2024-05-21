@@ -1,23 +1,23 @@
-import 'package:bizkit/application/business_logic/admin/admin_bloc.dart';
-import 'package:bizkit/application/business_logic/auth/forgott_passwrod/forgott_password_bloc.dart';
-import 'package:bizkit/application/business_logic/auth/login/auth_bloc.dart';
-import 'package:bizkit/application/business_logic/auth/signup/sign_up_bloc.dart';
-import 'package:bizkit/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/application/business_logic/card/create/business_data/business_data_bloc.dart';
-import 'package:bizkit/application/business_logic/card/create/user_data/user_data_bloc.dart';
-import 'package:bizkit/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/application/business_logic/connections/connection_request/connection_request_bloc.dart';
-import 'package:bizkit/application/business_logic/contacts/contacts_bloc.dart';
-import 'package:bizkit/application/business_logic/cubit/nav_cubit.dart';
-import 'package:bizkit/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
-import 'package:bizkit/application/business_logic/notification/notification_bloc.dart';
-import 'package:bizkit/application/business_logic/profile/profile_bloc.dart';
-import 'package:bizkit/application/business_logic/promt/promt_bloc.dart';
-import 'package:bizkit/application/business_logic/qr/qr_bloc.dart';
-import 'package:bizkit/application/business_logic/reminder/reminder_bloc.dart';
-import 'package:bizkit/application/presentation/routes/route_generator.dart';
-import 'package:bizkit/application/presentation/utils/constants/colors.dart';
-import 'package:bizkit/domain/core/di/dipendency_injection.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/admin/admin_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/auth/forgott_passwrod/forgott_password_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/auth/login/auth_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/auth/signup/sign_up_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/card_second/card_second_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/contacts/contacts_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/cubit/nav_cubit.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/notification/notification_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/profile/profile_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/promt/promt_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/qr/qr_bloc.dart';
+import 'package:bizkit/features/biz_card/application/business_logic/reminder/reminder_bloc.dart';
+import 'package:bizkit/core/routes/route_generator.dart';
+import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/core/di/dipendency_injection.dart';
 import 'package:bizkit/firebase_options.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return ScreenUtilInit(
       //designSize: Size(size.width, size.height),
       child: MultiBlocProvider(

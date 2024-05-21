@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
-import 'package:bizkit/features/biz_card/domain/model/contact/add_new_contact/add_new_contact.dart';
+import 'package:bizkit/module/biz_card/domain/model/contact/add_new_contact/add_new_contact.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';

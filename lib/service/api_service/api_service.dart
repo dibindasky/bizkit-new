@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:bizkit/features/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/token/refresh_response/refresh_response.dart';
 import 'package:dio/dio.dart';

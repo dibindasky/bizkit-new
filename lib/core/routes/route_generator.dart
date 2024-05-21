@@ -10,10 +10,10 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_sha
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/second_card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/update_second_card.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card.dart/view/screens/create_business_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/card_view/my_connection_detail_first_half.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card.dart/view/screens/profile_creation/profile_creation.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card.dart/view/screens/progeress_indicator_start/progress_indicator_start.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/profile_creation/profile_creation.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navba.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';

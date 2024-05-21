@@ -1,0 +1,16 @@
+import 'package:bizkit/core/model/failure/failure.dart';
+import 'package:bizkit/module/biz_card/domain/model/qr/create_qr_model/create_qr_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/qr/defauilt_qr/defauilt_qr.dart';
+import 'package:bizkit/module/biz_card/domain/model/qr/get_qr_code_response_model/get_qr_code_response_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/qr/get_qr_code_response_model/qr_model.dart';
+import 'package:dartz/dartz.dart';
+
+abstract class QrServiceRepo {
+  Future<Either<Failure, QRModel>> updateLevelSharing(
+      {required CreateQrModel createQrModel, required int id});
+  Future<Either<Failure, GetQrCodeResponseModel>> getAllQrCode();
+  Future<Either<Failure, DefauiltQr>> getDefaultQr();
+  Future<Either<Failure, DefauiltQr>> defaultQr({
+    required DefauiltQr defauiltQr,
+  });
+}

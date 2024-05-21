@@ -499,11 +499,14 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                             } else {
                               imageBase64 = '';
                             }
-                            String secondName = secondCard.company ??
-                                secondCard.designation ??
-                                secondCard.company ??
-                                secondCard.designation ??
-                                '';
+                            String secondName = secondCard.company != null &&
+                                    secondCard.company != ''
+                                ? secondCard.company!
+                                : secondCard.designation != null &&
+                                        secondCard.designation != ''
+                                    ? secondCard.designation!
+                                    : '';
+                            print(secondName);
                             return Container(
                               decoration: BoxDecoration(
                                 color: textFieldFillColr,
@@ -647,28 +650,30 @@ class _CardShareMainScreenState extends State<CardShareMainScreen>
                                           ),
                                         ),
                                       ),
-                                      InkWell(
-                                        onTap: () async {
-                                          await SharePlus.sharePdfFromBase64(
-                                              state.secondCards[index].pdf ??
-                                                  '',
-                                              state.secondCards[index].name ??
-                                                  '');
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: kblue,
-                                          ),
-                                          width: 100,
-                                          height: 30,
-                                          child: Center(
-                                            child: Text('Share',
-                                                style: textStyle1),
-                                          ),
-                                        ),
-                                      ),
+                                      // InkWell(
+                                      //   onTap: () async {
+                                      //     print(
+                                      //         'card share=> ${state.secondCards[index].pdf == null ? 'no data' : 'data'}');
+                                      //     await SharePlus.sharePdfFromBase64(
+                                      //         state.secondCards[index].pdf ??
+                                      //             '',
+                                      //         state.secondCards[index].name ??
+                                      //             '');
+                                      //   },
+                                      //   child: Container(
+                                      //     decoration: BoxDecoration(
+                                      //       borderRadius:
+                                      //           BorderRadius.circular(20),
+                                      //       color: kblue,
+                                      //     ),
+                                      //     width: 100,
+                                      //     height: 30,
+                                      //     child: Center(
+                                      //       child: Text('Share',
+                                      //           style: textStyle1),
+                                      //     ),
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                   adjustHieght(khieght * .02),

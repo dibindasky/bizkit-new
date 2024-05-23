@@ -1,6 +1,6 @@
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_tab/history_log_tab_builder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 
 class MeetingDetailTabBarItems extends StatelessWidget {
@@ -50,7 +50,7 @@ class MeetingDetailTabBarItems extends StatelessWidget {
             //   ],
             // ),
             adjustHieght(khieght * 0.02),
-            AuthButton(text: 'History', onTap: () {}),
+            EventButton(text: 'History', onTap: () {}),
             adjustHieght(khieght * 0.02),
             const Expanded(
               child:

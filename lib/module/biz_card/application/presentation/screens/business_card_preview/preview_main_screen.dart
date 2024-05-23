@@ -8,11 +8,11 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/preview_
 import 'package:bizkit/module/biz_card/domain/model/card/card/brochure/brochure.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/product/product.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 
 class BusinessCardCreationPreviewScreen extends StatelessWidget {
   const BusinessCardCreationPreviewScreen({super.key});
@@ -121,7 +121,7 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                     if (userState.isLoading) {
                       return const LoadingAnimation();
                     }
-                    return AuthButton(
+                    return EventButton(
                       wdth: 180,
                       text: 'Create Business Card',
                       onTap: () {

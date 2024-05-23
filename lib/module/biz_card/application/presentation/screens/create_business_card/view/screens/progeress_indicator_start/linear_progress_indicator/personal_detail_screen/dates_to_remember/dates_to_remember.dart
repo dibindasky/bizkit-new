@@ -1,7 +1,7 @@
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/date_bottom_sheet.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
@@ -136,7 +136,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                     state.datesToRememberLoading
                         ? const LoadingAnimation()
                         : Center(
-                            child: AuthButton(
+                            child: EventButton(
                               text: 'Add',
                               onTap: () {
                                 FocusScope.of(context).unfocus();

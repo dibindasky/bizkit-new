@@ -6,10 +6,10 @@ import 'package:bizkit/module/biz_card/application/business_logic/auth/login/aut
 import 'package:bizkit/module/biz_card/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/email_verify_field.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/domain/model/auth/login_model/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
@@ -307,7 +307,6 @@ class _LoGInScreenState extends State<LoGInScreen>
                           );
                         }
                         if (state.loginResponseModel != null) {
-                          
                           if (state.isFirstLogin || !state.hasCard) {
                             GoRouter.of(context)
                                 .pushReplacementNamed(Routes.cardCreation);
@@ -321,7 +320,7 @@ class _LoGInScreenState extends State<LoGInScreen>
                         if (state.isLoading) {
                           return const LoadingAnimation();
                         }
-                        return AuthButton(
+                        return EventButton(
                           text: 'Login',
                           onTap: () {
                             if (loginKey.currentState!.validate()) {

@@ -1,6 +1,6 @@
 import 'package:bizkit/module/biz_card/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -75,7 +75,7 @@ class LevelSharing extends StatelessWidget {
                 adjustHieght(khieght * .04),
                 const SwitchButtons(),
                 adjustHieght(khieght * .02),
-                AuthButton(
+                EventButton(
                   wdth: 100,
                   text: 'Save',
                   onTap: () {
@@ -235,7 +235,8 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }, neonShade),
         adjustHieght(5),
-        buildSwitch("Company Name", context.read<QrBloc>().createQrModel.company,
+        buildSwitch(
+            "Company Name", context.read<QrBloc>().createQrModel.company,
             (value) {
           setState(() {
             if (personalDetals) {

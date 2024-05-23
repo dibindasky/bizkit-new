@@ -65,7 +65,8 @@ class PersonlDetails extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => SlidablePhotoGallery(
-                                      images: state.personalImges.reversed.toList()
+                                      images: state.personalImges.reversed
+                                          .toList()
                                           .map((e) => e.image ?? '')
                                           .toList(),
                                       initialIndex: index,
@@ -81,7 +82,12 @@ class PersonlDetails extends StatelessWidget {
                                 onTap: () {
                                   context.read<UserDataBloc>().add(
                                       UserDataEvent.removePersonalImage(
-                                          id: state.personalImges[state.personalImges.length-index-1].id!));
+                                          id: state
+                                              .personalImges[
+                                                  state.personalImges.length -
+                                                      index -
+                                                      1]
+                                              .id!));
                                 },
                               ),
                               list: state.personalImges.reversed

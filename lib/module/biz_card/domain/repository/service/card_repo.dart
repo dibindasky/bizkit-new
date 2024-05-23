@@ -49,7 +49,8 @@ abstract class CardRepo {
     required CardActionRequestModel cardActionRewuestModel,
   });
   Future<Either<Failure, BusinessDetails>> getCompnayDetails({required int id});
-  Future<Either<Failure, SuccessResponseModel>> removeCompanyDetailRequest({required int id});
+  Future<Either<Failure, SuccessResponseModel>> removeCompanyDetailRequest(
+      {required int id});
   Future<Either<Failure, SuccessResponseModel>> requestCompanyDetails(
       {required RequestCardDetailModel requestCardDetailModel});
   Future<Either<Failure, ArcheivedCardModel>> archievedCardsList({

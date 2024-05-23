@@ -9,7 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 @LazySingleton()
 @injectable
-class ContactFetchService{
+class ContactFetchService {
   Future<Either<Failure, List<Contact>>> getContactsList() async {
     List<Contact> contactsList = [];
     try {

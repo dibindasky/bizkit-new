@@ -45,7 +45,7 @@ class _AchivementsScreenState extends State<AchivementsScreen> {
                 builder: (context, business) {
                   return BlocBuilder<UserDataBloc, UserDataState>(
                     builder: (context, user) {
-                                                                                          for (Accolade acc in state.anotherCard?.accolades ?? []) {
+                      for (Accolade acc in state.anotherCard?.accolades ?? []) {
                         print('Accolade ==> ${acc.toJson()}');
                       }
                       for (Accredition acc

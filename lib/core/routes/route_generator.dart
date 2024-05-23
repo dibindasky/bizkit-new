@@ -240,7 +240,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskNavbar,
       path: Routes.taskNavbar,
-      builder: (context, state) => const ScreenNavbarTaskModule(),
+      builder: (context, state) => ScreenNavbarTaskModule(),
     ),
   ];
 

@@ -3,7 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 
 class ScreenModuleSelector extends StatelessWidget {
-   ScreenModuleSelector({super.key});
+  ScreenModuleSelector({super.key});
   final List<ListItemData> items = [
     ListItemData(
       color: neonShade,
@@ -164,18 +164,18 @@ class ScreenModuleSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: MasonryGridView.count(
-      //     itemCount: items.length,
-      //     crossAxisCount: 4,
-      //     mainAxisSpacing: 4,
-      //     crossAxisSpacing: 4,
-      //     itemBuilder: (context, index) {
-      //       return ListItem(item: items[index]);
-      //     },
-      //   ),
-      // ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: MasonryGridView.count(
+          itemCount: items.length,
+          crossAxisCount: 3,
+          mainAxisSpacing: 4,
+          crossAxisSpacing: 4,
+          itemBuilder: (context, index) {
+            return ListItem(item: items[index]);
+          },
+        ),
+      ),
     );
   }
 }

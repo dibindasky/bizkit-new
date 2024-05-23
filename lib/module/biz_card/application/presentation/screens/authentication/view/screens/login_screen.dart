@@ -307,7 +307,6 @@ class _LoGInScreenState extends State<LoGInScreen>
                           );
                         }
                         if (state.loginResponseModel != null) {
-                          
                           if (state.isFirstLogin || !state.hasCard) {
                             GoRouter.of(context)
                                 .pushReplacementNamed(Routes.cardCreation);

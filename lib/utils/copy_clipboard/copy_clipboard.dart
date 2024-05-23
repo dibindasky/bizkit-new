@@ -6,11 +6,11 @@ import 'package:flutter/services.dart';
 void copyToClipboard({required String text, required BuildContext context}) {
   Clipboard.setData(ClipboardData(text: text));
   Fluttertoast.showToast(
-        msg: "$text copied to clipboard",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 3,
-        backgroundColor: neonShade,
-        textColor: kwhite,
-    );
+    msg: "$text copied to clipboard",
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 3,
+    backgroundColor: neonShade,
+    textColor: kwhite,
+  );
 }

@@ -235,7 +235,8 @@ class _SwitchButtonsState extends State<SwitchButtons> {
           });
         }, neonShade),
         adjustHieght(5),
-        buildSwitch("Company Name", context.read<QrBloc>().createQrModel.company,
+        buildSwitch(
+            "Company Name", context.read<QrBloc>().createQrModel.company,
             (value) {
           setState(() {
             if (personalDetals) {

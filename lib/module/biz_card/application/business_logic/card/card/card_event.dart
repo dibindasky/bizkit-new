@@ -33,6 +33,7 @@ class CardEvent with _$CardEvent {
   const factory CardEvent.requestCompanyData(
           {required RequestCardDetailModel requestCardDetailModel}) =
       RequestCompanyData;
-  const factory CardEvent.removeCompanyRequest({required int id}) = RemoveCompanyRequest;
+  const factory CardEvent.removeCompanyRequest({required int id}) =
+      RemoveCompanyRequest;
   const factory CardEvent.clear() = Clear;
 }

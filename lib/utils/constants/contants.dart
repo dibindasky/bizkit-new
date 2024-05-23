@@ -21,9 +21,13 @@ String getBase64(String? base64) {
   return base64.startsWith('data') ? base64.substring(22) : base64;
 }
 
-String iconHomeBottomBar='asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';
-String iconAccountBottomBar='asset/images/NavPngs/account un selected.png';
-String iconModuleSelectorBottomBar='asset/images/NavPngs/Group 100847.png';
+String iconHomeBottomBar =
+    'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';
+String iconHomeGreyBottomBar = 'asset/images/NavPngs/home_icon_grey.png';
+String iconAccountBottomBar =
+    'asset/images/NavPngs/account_circle_FILL1_wght400_GRAD0_opsz24.png';
+String iconModuleSelectorBottomBar = 'asset/images/NavPngs/Group 100847.png';
+String iconTaskCalenderBottomBar = 'asset/images/NavPngs/task_calender.png';
 
 const onBoardScreenfirstpersonImages =
     'asset/images/onboarding/onboard image fisrt image.png';
@@ -121,7 +125,6 @@ const emptyNodata1 = 'asset/images/Reminders-pana 1 (1).png';
 const emptyNodata2 = 'asset/images/No data-pana 1.png';
 const emptyNodata3 = 'asset/images/No data-amico 1.png';
 const emptyNodata4 = 'asset/images/Menstrual calendar-pana 1.png';
-
 
 //getting base64 String value based on format
 String getBase64Image(String format, String? base64String) {

@@ -53,7 +53,8 @@ abstract class CardPatchRepo {
   Future<Either<Failure, SuccessResponseModel>> deleteAcredition(
       {required int id});
   Future<Either<Failure, Brochure>> addBrochure({required Brochure brochure});
-  Future<Either<Failure, Brochure>> updateBrochure({required Brochure brochure});
+  Future<Either<Failure, Brochure>> updateBrochure(
+      {required Brochure brochure});
   Future<Either<Failure, SuccessResponseModel>> deleteBrochure(
       {required int id});
   Future<Either<Failure, Product>> updateProduct({

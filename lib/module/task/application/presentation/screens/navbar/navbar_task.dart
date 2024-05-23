@@ -24,14 +24,13 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
     const ScreenCalenderTaskView(),
     const ScreenTaskProfile(),
   ];
-  int selectedIndex = 0;
 
+  // int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    // final selectedIndex =
-    //     Get.find<TaskNavbarController>().taskBottomIndex.value;
-    return Builder(builder: (context) {
-      return Scaffold(
+    final controller = Get.find<TaskNavbarController>();
+    int selectedIndex = controller.taskBottomIndex.value;
+    return Scaffold(
         body: _widgetOptions[selectedIndex],
         bottomNavigationBar: Material(
           elevation: 5,
@@ -80,14 +79,16 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
               ),
             ],
             onSelect: (index) {
+              print(index);
+             // selectedIndex == index;
               setState(() {
                 selectedIndex = index;
               });
-              // Get.find<TaskNavbarController>().changeBottomIndex(index);
+              controller.changeBottomIndex(index);
             },
           ),
         ),
       );
-    });
+    
   }
 }

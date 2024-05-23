@@ -1,5 +1,8 @@
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
 import 'package:bizkit/module/task/application/controller/navbar/navbar_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/calender_task/calender_task.dart';
+import 'package:bizkit/module/task/application/presentation/screens/profile/task_profile.dart';
+import 'package:bizkit/module/task/application/presentation/screens/task_home/task_home.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
@@ -7,20 +10,26 @@ import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ScreenNavbarTaskModule extends StatelessWidget {
+class ScreenNavbarTaskModule extends StatefulWidget {
   ScreenNavbarTaskModule({super.key});
 
+  @override
+  State<ScreenNavbarTaskModule> createState() => _ScreenNavbarTaskModuleState();
+}
+
+class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
   final List<Widget> _widgetOptions = [
     ScreenModuleSelector(),
-    ScreenModuleSelector(),
-    ScreenModuleSelector(),
-    ScreenModuleSelector()
+    const ScreenTaskHome(),
+    const ScreenCalenderTaskView(),
+    const ScreenTaskProfile(),
   ];
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    final selectedIndex =
-        Get.find<TaskNavbarController>().taskBottomIndex.value;
+    // final selectedIndex =
+    //     Get.find<TaskNavbarController>().taskBottomIndex.value;
     return Builder(builder: (context) {
       return Scaffold(
         body: _widgetOptions[selectedIndex],
@@ -71,7 +80,10 @@ class ScreenNavbarTaskModule extends StatelessWidget {
               ),
             ],
             onSelect: (index) {
-              Get.find<TaskNavbarController>().changeBottomIndex(index);
+              setState(() {
+                selectedIndex = index;
+              });
+              // Get.find<TaskNavbarController>().changeBottomIndex(index);
             },
           ),
         ),

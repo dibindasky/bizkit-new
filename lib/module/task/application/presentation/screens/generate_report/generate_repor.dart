@@ -1,14 +1,14 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class ReportGenerator extends StatefulWidget {
-  const ReportGenerator({super.key});
+class ScreenTaskReportGenerator extends StatefulWidget {
+  const ScreenTaskReportGenerator({super.key});
 
   @override
-  _ReportGeneratorState createState() => _ReportGeneratorState();
+  _ScreenTaskReportGeneratorState createState() => _ScreenTaskReportGeneratorState();
 }
 
-class _ReportGeneratorState extends State<ReportGenerator> {
+class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
   bool othersToSelf = false;
   bool selfToOthers = false;
   bool selfToSelf = false;

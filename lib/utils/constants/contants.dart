@@ -49,11 +49,6 @@ const String taskOnbaordfirst = 'asset/images/task onboard 1.png';
 const String taskOnbaordSecond = 'asset/images/task onboard 2 .png';
 const String taskOnbaordThird = 'asset/images/task onboard 3.png';
 
-String iconHomeBottomBar =
-    'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';
-String iconAccountBottomBar = 'asset/images/NavPngs/account un selected.png';
-String iconModuleSelectorBottomBar = 'asset/images/NavPngs/Group 100847.png';
-
 const onBoardScreenfirstpersonImages =
     'asset/images/onboarding/onboard image fisrt image.png';
 const onBoardScreenSecond =

@@ -2,14 +2,14 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class TotalTasksScreen extends StatefulWidget {
-  const TotalTasksScreen({super.key});
+class ScreenTotalTasksScreen extends StatefulWidget {
+  const ScreenTotalTasksScreen({super.key});
 
   @override
-  State<TotalTasksScreen> createState() => _TotalTasksScreenState();
+  State<ScreenTotalTasksScreen> createState() => _ScreenTotalTasksScreenState();
 }
 
-class _TotalTasksScreenState extends State<TotalTasksScreen>
+class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 

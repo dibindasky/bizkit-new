@@ -155,7 +155,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
                 items: [
                   BottomBarItem(
                     iconBuilder: (color) => Image.asset(
-                    iconHomeBottomBar,
+                      iconHomeBottomBar,
                       fit: BoxFit.cover,
                       color: state.slectedtabIndex == 0 ? neonShade : color,
                       height: state.slectedtabIndex == 0 ? 38 : 30,

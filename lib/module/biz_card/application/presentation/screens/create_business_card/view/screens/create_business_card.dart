@@ -106,8 +106,8 @@ class _StartingBusinessCardCreationState
                         context
                             .read<UserDataBloc>()
                             .add(UserDataEvent.getUserDetail());
-                        GoRouter.of(context)
-                            .pushReplacementNamed(Routes.cardCreationProfilePage);
+                        GoRouter.of(context).pushReplacementNamed(
+                            Routes.cardCreationProfilePage);
                       },
                       child: Text(
                         'Create Card Manually',

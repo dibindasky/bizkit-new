@@ -151,7 +151,7 @@ class CardSharingScreen extends StatelessWidget {
               builder: (context, state) {
                 if (state.isLoading) {
                   return const SizedBox();
-                } else if (state.qrList.isNotEmpty) {         
+                } else if (state.qrList.isNotEmpty) {
                   final model = context.read<QrBloc>().createQrModel;
                   return Column(
                     children: [

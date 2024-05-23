@@ -21,6 +21,13 @@ String getBase64(String? base64) {
   return base64.startsWith('data') ? base64.substring(22) : base64;
 }
 
+String iconHomeBottomBar =
+    'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';
+String iconHomeGreyBottomBar = 'asset/images/NavPngs/home_icon_grey.png';
+String iconAccountBottomBar =
+    'asset/images/NavPngs/account_circle_FILL1_wght400_GRAD0_opsz24.png';
+String iconModuleSelectorBottomBar = 'asset/images/NavPngs/Group 100847.png';
+String iconTaskCalenderBottomBar = 'asset/images/NavPngs/task_calender.png';
 BorderRadius kBorderRadius5 = BorderRadius.circular(5);
 BorderRadius kBorderRadius10 = BorderRadius.circular(10);
 BorderRadius kBorderRadius20 = const BorderRadius.all(Radius.circular(20));

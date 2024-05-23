@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const Color textFieldFillColr = Color.fromRGBO(49, 49, 49, 0.5);
 const Color smallBigGrey = Color.fromRGBO(255, 255, 255, 0.1);
+const Color kGrayLight = Color.fromRGBO(73, 73, 73, 1);
 const Color bottomsheetContainerclr = Color.fromRGBO(49, 49, 49, 1);
 const Color klightgrey = Color.fromARGB(255, 169, 169, 169);
 const Color kgrey = Color.fromARGB(255, 105, 105, 105);

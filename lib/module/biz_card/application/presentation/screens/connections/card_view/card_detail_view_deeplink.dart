@@ -15,8 +15,7 @@ enum Changing {
 ValueNotifier changeScreenNotifier = ValueNotifier(Changing.first);
 
 class CardDetailViewDeeplinkScreen extends StatelessWidget {
-  const CardDetailViewDeeplinkScreen(
-      {super.key, this.userId, this.cardId});
+  const CardDetailViewDeeplinkScreen({super.key, this.userId, this.cardId});
   final int? userId;
   final int? cardId;
   @override

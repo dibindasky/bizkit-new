@@ -110,7 +110,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                             onTap: () {
                               Navigator.of(context).push(fadePageRoute(
                                   SlidablePhotoGallery(
-                                    initialIndex: index,
+                                      initialIndex: index,
                                       images: updateImageCard
                                           .map((e) => e.image!)
                                           .toList())));

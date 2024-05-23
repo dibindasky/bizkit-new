@@ -76,7 +76,8 @@ class _BrochureTileState extends State<BrochureTile> {
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ScreenBrochureAdding(brochure: widget.brochure),
+                builder: (context) =>
+                    ScreenBrochureAdding(brochure: widget.brochure),
               )),
           child: SizedBox(
             width: kwidth * 0.2,

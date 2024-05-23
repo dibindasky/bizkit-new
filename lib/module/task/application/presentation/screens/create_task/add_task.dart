@@ -9,14 +9,14 @@ import 'package:bizkit/utils/date_bottom_sheet.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 
-class AddTask extends StatefulWidget {
-  const AddTask({super.key});
+class ScreenAddTask extends StatefulWidget {
+  const ScreenAddTask({super.key});
 
   @override
-  State<AddTask> createState() => _AddTaskState();
+  State<ScreenAddTask> createState() => _ScreenAddTaskState();
 }
 
-class _AddTaskState extends State<AddTask> {
+class _ScreenAddTaskState extends State<ScreenAddTask> {
   final dateController = TextEditingController();
   @override
   Widget build(BuildContext context) {

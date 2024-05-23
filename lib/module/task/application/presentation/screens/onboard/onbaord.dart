@@ -5,14 +5,14 @@ import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TaskOnBoardingScreen extends StatefulWidget {
-  const TaskOnBoardingScreen({super.key});
+class ScreenTaskOnBoardingScreen extends StatefulWidget {
+  const ScreenTaskOnBoardingScreen({super.key});
 
   @override
-  State<TaskOnBoardingScreen> createState() => _TaskOnBoardingScreenState();
+  State<ScreenTaskOnBoardingScreen> createState() => _ScreenTaskOnBoardingScreenState();
 }
 
-class _TaskOnBoardingScreenState extends State<TaskOnBoardingScreen> {
+class _ScreenTaskOnBoardingScreenState extends State<ScreenTaskOnBoardingScreen> {
   late PageController _pageController;
   int selectedIndex = 0;
   final int totalPages = 3;

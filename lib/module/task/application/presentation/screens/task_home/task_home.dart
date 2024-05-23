@@ -7,8 +7,8 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 
-class TaskHome extends StatelessWidget {
-  const TaskHome({super.key});
+class ScreenTaskHome extends StatelessWidget {
+  const ScreenTaskHome({super.key});
 
   @override
   Widget build(BuildContext context) {

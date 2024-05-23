@@ -1,8 +1,8 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/auth/forgott_passwrod/forgott_password_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/domain/model/auth/change_password_model/change_password_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
@@ -74,7 +74,7 @@ class NewPasswordFeild extends StatelessWidget {
                   if (state.isLoading) {
                     return const LoadingAnimation();
                   }
-                  return AuthButton(
+                  return EventButton(
                     text: 'Save',
                     onTap: () {
                       final password =

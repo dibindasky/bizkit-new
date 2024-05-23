@@ -3,6 +3,7 @@ import 'package:bizkit/module/biz_card/application/business_logic/card/card/card
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/utils/appbar.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
@@ -10,7 +11,6 @@ import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/product/product.dart';
@@ -286,7 +286,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                       if (state.productLoading) {
                         return const LoadingAnimation();
                       }
-                      return AuthButton(
+                      return EventButton(
                         text: 'Save product',
                         onTap: () {
                           if (productDescriptionController.text.isEmpty ||

@@ -1,5 +1,5 @@
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class ChangeMailId extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            AuthButton(
+            EventButton(
               text: 'Verify',
               onTap: () {},
             ),

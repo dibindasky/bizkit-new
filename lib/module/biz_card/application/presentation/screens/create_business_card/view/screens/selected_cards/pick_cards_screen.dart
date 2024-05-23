@@ -1,9 +1,9 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/widgets/card_uploading_showdailogue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_preview.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -147,7 +147,7 @@ class PickCardsScreen extends StatelessWidget {
                         ? const Center(
                             child: CircularProgressIndicator(color: neonShade),
                           )
-                        : AuthButton(
+                        : EventButton(
                             text: 'Continue',
                             onTap: () {
                               context.read<UserDataBloc>().nameController.text =

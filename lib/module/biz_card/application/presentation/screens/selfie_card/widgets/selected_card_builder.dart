@@ -1,9 +1,9 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_preview.dart';
@@ -121,7 +121,7 @@ class SelectedCard extends StatelessWidget {
                     adjustHieght(khieght * .02),
                     state.isLoading
                         ? const Center(child: LoadingAnimation())
-                        : AuthButton(
+                        : EventButton(
                             text: 'Continue',
                             onTap: () {
                               context.read<CardSecondBloc>().add(

@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_create_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
 import 'package:bizkit/utils/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/date_bottom_sheet.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/accolade/accolade.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/accredition/accredition.dart';
@@ -272,7 +272,7 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
               adjustHieght(khieght * .03),
               widget.accolade == null
                   ? const SizedBox()
-                  : AuthButton(
+                  : EventButton(
                       hieght: 48,
                       text: 'Continue',
                       onTap: () => Navigator.of(context).pop(),

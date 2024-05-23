@@ -3,7 +3,6 @@ import 'package:bizkit/module/biz_card/application/business_logic/card/card/card
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/business_card_preview/preview_main_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_create_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_screen.dart';
@@ -11,6 +10,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/create_b
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
@@ -445,7 +445,7 @@ showBranchDialoge(context, int? id) {
                               .read<BusinessDataBloc>()
                               .branchOfficePhoneController),
                       adjustHieght(10),
-                      AuthButton(
+                      EventButton(
                         text: id != null ? 'Update' : 'Add',
                         onTap: () {
                           if (context

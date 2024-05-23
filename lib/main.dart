@@ -1,3 +1,5 @@
+import 'package:bizkit/core/dipendency/binding/all_controller_binding.dart';
+import 'package:bizkit/core/routes/route_generator.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/admin/admin_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/auth/forgott_passwrod/forgott_password_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/auth/login/auth_bloc.dart';
@@ -15,9 +17,8 @@ import 'package:bizkit/module/biz_card/application/business_logic/profile/profil
 import 'package:bizkit/module/biz_card/application/business_logic/promt/promt_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart';
-import 'package:bizkit/core/routes/route_generator.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/core/di/dipendency_injection.dart';
+import 'package:bizkit/core/dipendency/di/dipendency_injection.dart';
 import 'package:bizkit/firebase_options.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,6 +26,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @pragma('vm:entry-point')
@@ -37,11 +39,11 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
+  await configuteInjection();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await configuteInjection();
   runApp(MyApp(connectivity: Connectivity()));
 }
 
@@ -53,6 +55,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       //designSize: Size(size.width, size.height),
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => NavCubit()),
@@ -75,7 +80,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<PromtBloc>()),
           BlocProvider(create: (context) => getIt<AdminBloc>()),
         ],
-        child: MaterialApp.router(
+        child: GetMaterialApp.router(
           debugShowMaterialGrid: false,
           theme: ThemeData(
             primaryColor: kblack,
@@ -87,10 +92,14 @@ class MyApp extends StatelessWidget {
                   fontFamily: 'Euclid',
                 ),
           ),
+          initialBinding: AllControllerBinding(),
           debugShowCheckedModeBanner: false,
-          routerConfig: GoRouterConfig.router,
-          // routeInformationParser: GoRouterConfig.router.routeInformationParser,
-          // routerDelegate: GoRouterConfig.router.routerDelegate,
+          // getPages: GetXRouterConfig.routes,
+          // routerConfig: GoRouterConfig.router,
+          routeInformationParser: GoRouterConfig.router.routeInformationParser,
+          routeInformationProvider:
+              GoRouterConfig.router.routeInformationProvider,
+          routerDelegate: GoRouterConfig.router.routerDelegate,
         ),
       ),
     );

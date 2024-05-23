@@ -6,6 +6,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_sha
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/profile_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/selfie_screen.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
@@ -154,7 +155,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
                 items: [
                   BottomBarItem(
                     iconBuilder: (color) => Image.asset(
-                      'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png',
+                    iconHomeBottomBar,
                       fit: BoxFit.cover,
                       color: state.slectedtabIndex == 0 ? neonShade : color,
                       height: state.slectedtabIndex == 0 ? 38 : 30,
@@ -181,7 +182,7 @@ class _BizkitBottomNavigationBarState extends State<BizkitBottomNavigationBar> {
                   ),
                   BottomBarItem(
                     iconBuilder: (color) => Image.asset(
-                      'asset/images/NavPngs/account un selected.png',
+                      iconAccountBottomBar,
                       fit: BoxFit.cover,
                       color: state.slectedtabIndex == 3 ? neonShade : color,
                       height: state.slectedtabIndex == 3 ? 30 : 26,

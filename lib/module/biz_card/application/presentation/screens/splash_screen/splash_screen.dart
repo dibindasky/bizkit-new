@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
       } else if (isOnbaordSkip && !toLogin) {
         GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
       } else if (!isOnbaordSkip) {
-        GoRouter.of(context).pushReplacementNamed(Routes.onBoarding);
+        GoRouter.of(context).pushReplacementNamed(Routes.onBoardingBizCard);
       }
       //GoRouter.of(context).pushReplacementNamed(Routes.onBoarding);
       // GoRouter.of(context)

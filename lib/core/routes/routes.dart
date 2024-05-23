@@ -1,6 +1,10 @@
 class Routes {
   static const String initial = '/';
   static const String onBoarding = '/on_boarding';
+
+  // biz card module
+  static const String onBoardingBizCard = '/on_boarding_bizcard';
+  static const String initialBizCard = '/initial_bizcard';
   static const String cardView = '/card';
   static const String cardDetailView = '/card_detail';
   static const String loginPage = '/login';
@@ -22,4 +26,7 @@ class Routes {
   static const String linerarProgressBar = '/card_linear_progress_bar';
   static const String newPasswordScreen = '/new_password_screen';
   static const String otpScreen = '/otp_screen';
+
+  // task module
+  static const String taskNavbar = '/task_navbar';
 }

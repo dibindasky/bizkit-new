@@ -328,6 +328,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   }
 
   FutureOr<void> getCardyCardId(GetCardyCardId event, emit) async {
+    print('bloc get card by id => requested');
     emit(state.copyWith(
         cardLoading: true,
         hasError: false,
@@ -335,13 +336,15 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         anotherCard: null,
         companyDataRequestSuccess: false));
     final result = await cardService.getCardByCardId(id: event.id);
-    result.fold(
-        (left) => emit(state.copyWith(
-            cardLoading: false,
-            hasError: true,
-            message: left.message)), (right) async {
+    result.fold((left) {
+      print('bloc get card by id => failure');
+      return emit(state.copyWith(
+          cardLoading: false, hasError: true, message: left.message));
+    }, (right) async {
+      print('bloc get card by id => done');
       return emit(state.copyWith(cardLoading: false, anotherCard: right));
     });
+    print('bloc get card by id => returned');
   }
 
   FutureOr<void> getCardsnextPage(GetCardsnextPage event, emit) async {

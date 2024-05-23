@@ -2,6 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
+// dummy image for development
+const dummyPersonImage = 'asset/images/person.jpeg';
+const personImage = 'asset/images/camera select Icon.png';
+const image =
+    'https://firebasestorage.googleapis.com/v0/b/travelapp-c2e16.appspot.com/o/userprofile%2Ftest%2Fqr_dummy.jpg?alt=media&token=366b2bb2-6de0-4aa2-835e-1b1fc546f924';
+const imageDummyNetwork =
+    'https://lh5.googleusercontent.com/p/AF1QipPTbbL0IONA4Y6MLSe6cHV0n_MXWsJY-N1P9D4G=w426-h240-k-no';
+
 void formatWebsiteUrl(String url, TextEditingController controller) {
   String formattedUrl = url.replaceAll(' ', '');
   formattedUrl = formattedUrl.toLowerCase();
@@ -12,6 +20,10 @@ String getBase64(String? base64) {
   if (base64 == null) return '';
   return base64.startsWith('data') ? base64.substring(22) : base64;
 }
+
+String iconHomeBottomBar='asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';
+String iconAccountBottomBar='asset/images/NavPngs/account un selected.png';
+String iconModuleSelectorBottomBar='asset/images/NavPngs/Group 100847.png';
 
 const onBoardScreenfirstpersonImages =
     'asset/images/onboarding/onboard image fisrt image.png';
@@ -65,11 +77,6 @@ const imageYoutube = 'asset/images/youtube.jpeg';
 const imageTelegram = 'asset/images/telegram_png..png';
 
 //gif card view
-// const imagePhone = 'asset/images/preview phone.png';
-// const imageSpinner = 'asset/images/preview_spinner.png';
-// const gifMail = 'asset/images/preview messages gif.gif';
-// const gifGlobe = 'asset/images/preview globe.gif';
-// const gifLocation = 'asset/images/preview location gif.gif';
 const imagePhone = 'asset/images/phone.png';
 const imageSpinner = 'asset/images/social_media.png';
 const gifMail = 'asset/images/letter.png';
@@ -93,7 +100,7 @@ const iconAchivementsMedal = 'asset/images/achivements_medal.png';
 const iconPersonOutline = 'asset/images/person_outline.png';
 const iconBankingHouse = 'asset/images/bank_house.png';
 
-// history log images
+// history log images bizcard
 const imageHistoryList = [
   imageHistoryLog1,
   imageHistoryLog2,
@@ -115,13 +122,6 @@ const emptyNodata2 = 'asset/images/No data-pana 1.png';
 const emptyNodata3 = 'asset/images/No data-amico 1.png';
 const emptyNodata4 = 'asset/images/Menstrual calendar-pana 1.png';
 
-// dummy image for development
-const dummyPersonImage = 'asset/images/person.jpeg';
-const personImage = 'asset/images/camera select Icon.png';
-const image =
-    'https://firebasestorage.googleapis.com/v0/b/travelapp-c2e16.appspot.com/o/userprofile%2Ftest%2Fqr_dummy.jpg?alt=media&token=366b2bb2-6de0-4aa2-835e-1b1fc546f924';
-const imageDummyNetwork =
-    'https://lh5.googleusercontent.com/p/AF1QipPTbbL0IONA4Y6MLSe6cHV0n_MXWsJY-N1P9D4G=w426-h240-k-no';
 
 //getting base64 String value based on format
 String getBase64Image(String format, String? base64String) {

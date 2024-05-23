@@ -1,9 +1,9 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/cubit/nav_cubit.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -109,7 +109,7 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              AuthButton(
+              EventButton(
                 wdth: 330,
                 borderRadius: 25,
                 text: 'Next',
@@ -208,7 +208,7 @@ class BizkitOnBoardingScreenSecond extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              AuthButton(
+              EventButton(
                 wdth: 330,
                 borderRadius: 25,
                 text: 'Next',
@@ -293,7 +293,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              AuthButton(
+              EventButton(
                 wdth: 330,
                 borderRadius: 25,
                 text: 'Continue',

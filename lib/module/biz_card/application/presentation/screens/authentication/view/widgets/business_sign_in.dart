@@ -5,11 +5,11 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/auth/signup/sign_up_bloc.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/domain/model/auth/email_model/email_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/auth/sign_up_model/sign_up_model.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class BusinessSignIn extends StatefulWidget {
-  BusinessSignIn({super.key});
+  const BusinessSignIn({super.key});
 
   @override
   State<BusinessSignIn> createState() => _BusinessSignInState();
@@ -180,7 +180,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                     children: [
                       state.isLoading
                           ? const LoadingAnimation()
-                          : AuthButton(
+                          : EventButton(
                               text: 'Sign-Up',
                               onTap: () {
                                 if (businessSignup.currentState!.validate()) {

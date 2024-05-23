@@ -16,6 +16,8 @@ const Color kblack = Colors.black;
 const Color knill = Colors.transparent;
 const Color backgroundColour = Color.fromRGBO(41, 41, 41, 1);
 const Color lightColr = Color.fromRGBO(53, 53, 53, .42);
+Color lightGrey = Colors.grey[800] ?? Colors.grey;
+const Color kOrange = Colors.orange;
 
 double khieght = 850;
 double kwidth = 400;

@@ -1,5 +1,5 @@
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 
 class PrivacyAecurityinner extends StatelessWidget {
@@ -59,7 +59,7 @@ class PrivacyAecurityinner extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            AuthButton(
+            EventButton(
               text: 'Save',
               onTap: () {},
             ),

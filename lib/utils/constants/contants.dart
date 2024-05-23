@@ -28,6 +28,31 @@ String iconAccountBottomBar =
     'asset/images/NavPngs/account_circle_FILL1_wght400_GRAD0_opsz24.png';
 String iconModuleSelectorBottomBar = 'asset/images/NavPngs/Group 100847.png';
 String iconTaskCalenderBottomBar = 'asset/images/NavPngs/task_calender.png';
+BorderRadius kBorderRadius5 = BorderRadius.circular(5);
+BorderRadius kBorderRadius10 = BorderRadius.circular(10);
+BorderRadius kBorderRadius20 = const BorderRadius.all(Radius.circular(20));
+BorderRadius kBorderRadius25 = const BorderRadius.all(Radius.circular(25));
+BorderRadius kBorderRadius15 = const BorderRadius.all(Radius.circular(15));
+const kHeight5 = SizedBox(height: 5);
+const kHeight10 = SizedBox(height: 10);
+const kHeight20 = SizedBox(height: 20);
+const kHeight30 = SizedBox(height: 30);
+const kHeight40 = SizedBox(height: 40);
+const kHeight50 = SizedBox(height: 50);
+
+const kWidth5 = SizedBox(width: 5);
+const kWidth10 = SizedBox(width: 10);
+const kWidth20 = SizedBox(width: 20);
+const kWidth30 = SizedBox(width: 30);
+const kWidth50 = SizedBox(width: 50);
+const String taskOnbaordfirst = 'asset/images/task onboard 1.png';
+const String taskOnbaordSecond = 'asset/images/task onboard 2 .png';
+const String taskOnbaordThird = 'asset/images/task onboard 3.png';
+
+String iconHomeBottomBar =
+    'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';
+String iconAccountBottomBar = 'asset/images/NavPngs/account un selected.png';
+String iconModuleSelectorBottomBar = 'asset/images/NavPngs/Group 100847.png';
 
 const onBoardScreenfirstpersonImages =
     'asset/images/onboarding/onboard image fisrt image.png';
@@ -191,3 +216,7 @@ const String reminderText = 'reminder text';
 const String scannerText = 'Scanner text';
 const String newConnnectionText = 'New connection text';
 const String levelSettingText = 'Level setting text';
+
+commenText(String data, {TextStyle? style}) {
+  return Text(data, style: style);
+}

@@ -1,6 +1,6 @@
 import 'package:bizkit/module/biz_card/application/business_logic/profile/profile_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/module/biz_card/domain/model/profile/user_info_change_request_model/user_info_change_request_model.dart';
@@ -88,7 +88,7 @@ class _EditUserDetailsState extends State<EditUserDetails> {
                   if (state.isLoading) {
                     return const LoadingAnimation();
                   }
-                  return AuthButton(
+                  return EventButton(
                     text: 'Save',
                     onTap: () {
                       if (userameFrom.currentState!.validate()) {

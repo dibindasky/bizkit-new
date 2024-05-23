@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/product_detail_view.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/product/product.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 
 class ProductsBuilder extends StatelessWidget {
@@ -82,7 +82,7 @@ class ProductsBuilder extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          AuthButton(
+                                          EventButton(
                                             hieght: 35,
                                             wdth: 90,
                                             text: 'View',

@@ -4,11 +4,11 @@ import 'dart:typed_data';
 import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/widgets/auth_button.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/date_pick_model_sheet.dart';
 import 'package:bizkit/utils/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/date_bottom_sheet.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
@@ -304,7 +304,7 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                             user.accoladeLoading) {
                           return const LoadingAnimation();
                         }
-                        return AuthButton(
+                        return EventButton(
                           hieght: 48,
                           text: 'Save',
                           onTap: () {

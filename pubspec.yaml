@@ -114,6 +114,8 @@ flutter:
     - asset/images/bottom sheet/
     - asset/images/onboarding/
     - asset/images/showcase images/
+    - asset/images/icon/
+    - asset/images/task_onboard/
     
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

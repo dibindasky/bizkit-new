@@ -1,4 +1,6 @@
+import 'package:bizkit/module/task/application/presentation/screens/total_tasks/tabbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -25,11 +27,73 @@ class _TotalTasksScreenState extends State<TotalTasksScreen>
     super.dispose();
   }
 
+  void _showCustomMenu(BuildContext context) {
+    final RenderBox button = context.findRenderObject() as RenderBox;
+    final RenderBox overlay =
+        Overlay.of(context).context.findRenderObject() as RenderBox;
+
+    final RelativeRect position = RelativeRect.fromRect(
+      Rect.fromPoints(
+        button.localToGlobal(Offset.zero, ancestor: overlay),
+        button.localToGlobal(button.size.bottomRight(Offset.zero),
+            ancestor: overlay),
+      ),
+      Offset.zero & overlay.size,
+    );
+
+    showMenu(
+      color: lightGrey,
+      context: context,
+      position: position,
+      items: [
+        PopupMenuItem(
+          child: CustomPopupMenuItem(
+            text: 'Self to Self    ',
+            onTap: () {
+              Navigator.of(context).pop();
+              // Handle 'Self to Self' action
+            },
+          ),
+        ),
+        PopupMenuItem(
+          child: CustomPopupMenuItem(
+            text: 'Self to others',
+            onTap: () {
+              Navigator.of(context).pop();
+              // Handle 'Self to others' action
+            },
+          ),
+        ),
+        PopupMenuItem(
+          child: CustomPopupMenuItem(
+            text: 'Others to self',
+            onTap: () {
+              Navigator.of(context).pop();
+              // Handle 'Others to self' action
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Total Tasks'),
+        automaticallyImplyLeading: false,
+        backgroundColor: knill,
+        title: Row(
+          children: [
+            const Text('Total Tasks'),
+            IconButton(
+              onPressed: () {
+                _showCustomMenu(context);
+              },
+              icon: const Icon(Icons.arrow_drop_down),
+            )
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -44,16 +108,43 @@ class _TotalTasksScreenState extends State<TotalTasksScreen>
             onPressed: () {},
           ),
         ],
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(text: 'Pinned Tasks (61*)'),
-            Tab(text: 'All Tasks (61*)'),
-          ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(50.0),
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: kBorderRadius15,
+                  color: kgrey,
+                ),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                height: 50,
+              ),
+              TabBar(
+                controller: _tabController,
+                indicator: BoxDecoration(
+                  color: neonShade,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                unselectedLabelColor: kwhite,
+                labelColor: kwhite,
+                indicatorColor: knill,
+                tabs: [
+                  SizedBox(
+                    width: kwidth * 0.5,
+                    child: const Tab(text: 'Pinned tasks'),
+                  ),
+                  SizedBox(
+                    width: kwidth * 0.5,
+                    child: const Tab(text: 'Total Tasks'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       body: TabBarView(
-        dragStartBehavior: DragStartBehavior.down,
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: [
@@ -65,128 +156,38 @@ class _TotalTasksScreenState extends State<TotalTasksScreen>
   }
 }
 
-class TaskListView extends StatelessWidget {
-  TaskListView({super.key});
-  final List<Map<String, String>> tasks = [
-    {
-      'title': 'Edit a Picture',
-      'description':
-          'Image editing encompasses the processes of altering images, whether they are digital photographs, traditional photo-chemical photographs, or illustrations. Traditional analog image editing is known as photo retouching, using tools such as an airbrush to modify photographs or editing illustrations with any traditional art medium.',
-      'date': 'Feb, 21 - Mar, 27',
-      'color': '0xFFe57373'
-    },
-    {
-      'title': 'New Project User Flow',
-      'description':
-          'User interface (UI) design is the process designers use to build interfaces in software or computerized devices, focusing on looks or style. Designers aim to create interfaces which users find easy to use and pleasurable. UI design refers to graphical user interfaces and other forms e.g., voice-controlled interfaces.',
-      'date': 'Feb, 21 - Mar, 12',
-      'color': '0xFFFFB74D'
-    },
-    {
-      'title': 'Laravel Task',
-      'description':
-          'Laravel is a web application framework with expressive, elegant syntax. Web development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication.',
-      'date': 'Feb, 21 - Mar, 22',
-      'color': '0xFF64B5F6'
-    },
-    {
-      'title': 'Edit a Picture',
-      'description':
-          'Image editing encompasses the processes of altering images, whether they are digital photographs, traditional photo-chemical photographs, or illustrations. Traditional analog image editing is known as photo retouching, using tools such as an airbrush to modify photographs or editing illustrations with any traditional art medium.',
-      'date': 'Feb, 21 - Mar, 27',
-      'color': '0xFFe57373'
-    },
-  ];
+class CustomPopupMenuItem extends StatelessWidget {
+  final String text;
+  final VoidCallback onTap;
+
+  const CustomPopupMenuItem({
+    super.key,
+    required this.text,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-      itemCount: tasks.length,
-      itemBuilder: (context, index) {
-        final task = tasks[index];
-        return Card(
-          color: lightGrey,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              width: 3,
-              color: Color(int.parse(task['color']!)),
-            ),
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      task['title']!,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: kwhite,
-                      ),
-                    ),
-                    PopupMenuButton<String>(
-                      color: kwhite,
-                      icon: const Icon(Icons.more_horiz, color: kwhite),
-                      onSelected: (value) {
-                        if (value == 'edit') {
-                          // Handle edit
-                        } else if (value == 'delete') {
-                          // Handle delete
-                        }
-                      },
-                      itemBuilder: (BuildContext context) {
-                        return [
-                          const PopupMenuItem<String>(
-                            value: 'move task',
-                            child: Text(
-                              'Move task',
-                              style: TextStyle(color: kblack),
-                            ),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'Spot light Task',
-                            child: Text(
-                              'Spot light Task',
-                              style: TextStyle(color: kblack),
-                            ),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'Add Sub Task',
-                            child: Text(
-                              'Add Sub Task',
-                              style: TextStyle(color: kblack),
-                            ),
-                          ),
-                        ];
-                      },
-                    ),
-                  ],
-                ),
-                Text(
-                  task['description']!,
-                  style: const TextStyle(color: kwhite, fontSize: 12),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    task['date']!,
-                    style: const TextStyle(
-                      color: kwhite,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+        onTap;
       },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [neonShade, neonShade, lightGrey],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: kBorderRadius10,
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(color: kwhite, fontWeight: FontWeight.bold),
+        ),
+      ),
     );
   }
 }

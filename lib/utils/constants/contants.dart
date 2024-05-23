@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 // dummy image for development
@@ -38,9 +37,10 @@ const kWidth10 = SizedBox(width: 10);
 const kWidth20 = SizedBox(width: 20);
 const kWidth30 = SizedBox(width: 30);
 const kWidth50 = SizedBox(width: 50);
-const String taskOnbaordfirst = 'asset/images/task onboard 1.png';
-const String taskOnbaordSecond = 'asset/images/task onboard 2 .png';
-const String taskOnbaordThird = 'asset/images/task onboard 3.png';
+const String taskOnbaordfirst = 'asset/images/task_onboard/task onboard 1.png';
+const String taskOnbaordSecond =
+    'asset/images/task_onboard/task onboard 2 .png';
+const String taskOnbaordThird = 'asset/images/task_onboard/task onboard 3.png';
 
 String iconHomeBottomBar =
     'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';

@@ -244,20 +244,18 @@ class GoRouterConfig {
       path: Routes.taskNavbar,
       builder: (context, state) => const ScreenNavbarTaskModule(),
     ),
-<<<<<<< HEAD
     // add task screen
     GoRoute(
       name: Routes.addTask,
       path: Routes.addTask,
       builder: (context, state) => const ScreenAddTask(),
-=======
+    ),
 
     // Tasks Screen
     GoRoute(
       name: Routes.taskLists,
       path: Routes.taskLists,
       builder: (context, state) => const ScreenTotalTasksScreen(),
->>>>>>> main
     ),
   ];
 

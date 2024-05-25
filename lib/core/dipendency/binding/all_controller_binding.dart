@@ -7,10 +7,7 @@ class AllControllerBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => TaskNavbarController());
-<<<<<<< HEAD
     Get.lazyPut(() => CreateTaskController());
-=======
     Get.lazyPut(() => TaskCalenderViewController());
->>>>>>> main
   }
 }

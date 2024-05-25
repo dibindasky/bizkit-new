@@ -1,10 +1,7 @@
+import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-
-const kwhite = Colors.white;
-const klightgrey = Colors.grey;
-const kblack = Colors.black;
-const kBorderRadius5 = BorderRadius.all(Radius.circular(5));
 
 class DropDownContainer extends StatefulWidget {
   const DropDownContainer({
@@ -41,11 +38,11 @@ class _DropDownContainerState extends State<DropDownContainer> {
           child: DropdownButton2<String>(
             iconStyleData: IconStyleData(
               icon: containerOpenArrow2
-                  ? Icon(
+                  ? const Icon(
                       Icons.arrow_drop_up_sharp,
                       color: kwhite,
                     )
-                  : Icon(
+                  : const Icon(
                       Icons.arrow_drop_down_outlined,
                       color: kwhite,
                     ),
@@ -89,12 +86,12 @@ class _DropDownContainerState extends State<DropDownContainer> {
               }
             },
             value: selectedItem,
-            dropdownStyleData: const DropdownStyleData(
+            dropdownStyleData: DropdownStyleData(
               decoration: BoxDecoration(
                 borderRadius: kBorderRadius5,
                 color: klightgrey,
               ),
-              offset: Offset(0, -5),
+              offset: const Offset(0, -5),
               maxHeight: 250,
             ),
             menuItemStyleData: const MenuItemStyleData(

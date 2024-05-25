@@ -10,8 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 
-class CalenderView extends StatelessWidget {
-  CalenderView({super.key});
+class ScreenTaskCalenderView extends StatelessWidget {
+  ScreenTaskCalenderView({super.key});
 
   final controller = Get.find<TaskCalenderViewController>();
   TextEditingController deadLineController = TextEditingController();

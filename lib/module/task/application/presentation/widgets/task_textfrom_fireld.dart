@@ -1,5 +1,6 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TaskTextField extends StatelessWidget {
   const TaskTextField({
@@ -21,6 +22,7 @@ class TaskTextField extends StatelessWidget {
     return TextField(
       maxLines: maxLines,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h),
         hintText: hintText,
         hintStyle: const TextStyle(color: klightgrey),
         filled: true,

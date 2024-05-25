@@ -1,9 +1,14 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDropDown extends StatelessWidget {
-  const CustomDropDown(this.label, this.value, this.items, this.onChanged,
-      {super.key});
+  const CustomDropDown(
+      {super.key,
+      required this.label,
+      required this.value,
+      required this.items,
+      required this.onChanged});
   final String label;
   final String value;
   final List<String> items;
@@ -16,18 +21,18 @@ class CustomDropDown extends StatelessWidget {
       children: [
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 16,
+          style: TextStyle(
+            fontSize: 16.sp,
             color: neonShade,
           ),
         ),
-        adjustHieght(8),
+        adjustHieght(8.h),
         DropdownButtonFormField<String>(
           value: value,
-          items: items.map((String item) {
+          items: items.map((String element) {
             return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item),
+              value: element,
+              child: Text(element),
             );
           }).toList(),
           onChanged: onChanged,
@@ -39,7 +44,7 @@ class CustomDropDown extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
           ),
           dropdownColor: lightGrey,
         ),

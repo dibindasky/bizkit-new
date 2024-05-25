@@ -1,7 +1,7 @@
-import 'package:bizkit/module/task/application/presentation/screens/task_home/widgets/home_appbar.dart';
-import 'package:bizkit/module/task/application/presentation/screens/task_home/widgets/legends_container.dart';
-import 'package:bizkit/module/task/application/presentation/screens/task_home/widgets/task_container.dart';
-import 'package:bizkit/module/task/application/presentation/screens/task_home/widgets/task_creation_container.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/widgets/home_appbar.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/widgets/legends_container.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_container.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_creation_container.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';

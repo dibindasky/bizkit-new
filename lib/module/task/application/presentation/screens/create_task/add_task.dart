@@ -1,180 +1,85 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/attachments_chooser.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/deadline_chooser.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/dropdown_items.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/radio_buttons.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/tag_contaner.dart';
-import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/task_bulder.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/sub_task_bulder.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/date_bottom_sheet.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class ScreenAddTask extends StatefulWidget {
+class ScreenAddTask extends StatelessWidget {
   const ScreenAddTask({super.key});
 
   @override
-  State<ScreenAddTask> createState() => _ScreenAddTaskState();
-}
-
-class _ScreenAddTaskState extends State<ScreenAddTask> {
-  final dateController = TextEditingController();
-  @override
   Widget build(BuildContext context) {
+    final controller = Get.find<CreateTaskController>();
+    final style = TextStyle(
+      fontSize: 15.sp,
+      color: neonShade,
+    );
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+            onPressed: () {
+              Get.back(id: 1);
+            },
+            icon: const Icon(Icons.arrow_back_ios)),
         backgroundColor: knill,
         title: const Text('New Task'),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                commenText('Tittle',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: neonShade,
-                    )),
-                adjustHieght(10),
-                const TaskTextField(
-                  hintText: 'Tittle',
-                ),
-                adjustHieght(10),
-                commenText('Description',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: neonShade,
-                    )),
-                adjustHieght(10),
-                const TaskTextField(
-                  maxLines: 3,
-                  hintText: 'Description',
-                ),
-                adjustHieght(15),
-                commenText(
-                  'Task Type',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: neonShade,
-                  ),
-                ),
-                adjustHieght(15),
+                Text('Title', style: style),
+                adjustHieght(10.h),
+                const TaskTextField(hintText: 'Tittle'),
+                adjustHieght(10.h),
+                Text('Description', style: style),
+                adjustHieght(10.h),
+                const TaskTextField(maxLines: 5, hintText: 'Description'),
+                adjustHieght(15.h),
+                Text('Task Type', style: style),
+                adjustHieght(15.h),
                 const RadioButtons(),
-                adjustHieght(20),
+                adjustHieght(20.h),
                 const DropDownItems(),
-                adjustHieght(20),
-                commenText(
-                  'Deadline',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: neonShade,
-                  ),
+                adjustHieght(20.h),
+                Text('Task Head', style: style),
+                adjustHieght(10.h),
+                const TaskTextField(hintText: 'Task Head'),
+                adjustHieght(15.h),
+                Text('Assign to', style: style),
+                adjustHieght(10.h),
+                const TaskTextField(hintText: 'Assign to'),
+                DeadlineChooserCreateTask(
+                  onPressed: (date) {
+                    controller.deadlineDate.value = date;
+                  },
                 ),
-                adjustHieght(10),
-                InkWell(
-                  onTap: () => showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (BuildContext context) {
-                      return DatePickingBottomSheet(
-                        year: 500,
-                        last: 500,
-                        onPressed: (date) {
-                          setState(() {
-                            dateController.text = date;
-                          });
-                        },
-                        datePicker: dateController,
-                      );
-                    },
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 10, right: 12),
-                    height: 60,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: lightGrey,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            dateController.text.isEmpty
-                                ? 'Choose Deadline'
-                                : dateController.text,
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        ),
-                        const Icon(
-                          Icons.calendar_month,
-                          color: neonShade,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                adjustHieght(20),
+                adjustHieght(20.h),
                 const TagsContainer(),
-                adjustHieght(20),
-                const Text(
-                  'Attachments',
-                  style: TextStyle(
-                    color: neonShade,
-                    fontSize: 16,
-                  ),
-                ),
-                adjustHieght(10),
-                Container(
-                  width: double.infinity,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    color: lightGrey,
-                    borderRadius: kBorderRadius15,
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.upload_outlined, color: neonShade),
-                      Text('Browse File or upload')
-                    ],
-                  ),
-                ),
-                adjustHieght(16),
-                const Text(
-                  'Subtasks',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: neonShade,
-                  ),
-                ),
-                TaskBuilder(),
-                adjustHieght(5),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: ClipRRect(
-                    borderRadius: kBorderRadius5,
-                    child: const ColoredBox(
-                      color: neonShade,
-                      child: Icon(
-                        Icons.add,
-                        color: kblack,
-                      ),
-                    ),
-                  ),
-                ),
-                adjustHieght(10),
+                adjustHieght(20.h),
+                const AttachmentChooserTaskCreation(),
+                adjustHieght(16.h),
+                SubTaskBuilder(),
+                adjustHieght(10.h),
                 Center(
                     child: EventButton(
                   color: const LinearGradient(colors: [neonShade, neonShade]),
-                  wdth: 300,
+                  wdth: 300.w,
                   text: 'Create Task',
                   onTap: () {},
                 )),
-                adjustHieght(20)
+                adjustHieght(20.h)
               ],
             ),
           ),

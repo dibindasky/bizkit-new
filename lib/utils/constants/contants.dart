@@ -20,6 +20,10 @@ String getBase64(String? base64) {
   return base64.startsWith('data') ? base64.substring(22) : base64;
 }
 
+enum TaskType { official, personal, others }
+enum PriorityLevel {medium, low, high}
+enum RecurringTimePeriod { everyDay, everyWeek, everyMoth, custom, none}
+
 String iconHomeBottomBar =
     'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';
 String iconHomeGreyBottomBar = 'asset/images/NavPngs/home_icon_grey.png';

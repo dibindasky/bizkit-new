@@ -30,9 +30,29 @@ class TaskHomeAppBar extends StatelessWidget {
               ),
             ),
             adjustWidth(10),
+<<<<<<< HEAD:lib/module/task/application/presentation/screens/home/widgets/home_appbar.dart
+            Stack(
+              children: [
+                CircleAvatar(
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Image.asset('asset/images/icon/image 4 (Traced).png'),
+                  ),
+                ),
+                const Positioned(
+                  right: 0,
+                  top: 0,
+                  child: CircleAvatar(
+                    radius: 5,
+                    backgroundColor: kOrange,
+                  ),
+                ),
+              ],
+=======
             const CustomStackOnlineDotCircleAvatar(
               image: taskHomeNNOtificationAsset,
               dotColor: kOrange,
+>>>>>>> main:lib/module/task/application/presentation/screens/task_home/widgets/home_appbar.dart
             ),
           ],
         ),

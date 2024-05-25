@@ -37,7 +37,7 @@ class TaskHomeAppBar extends StatelessWidget {
                 CircleAvatar(
                   child: Padding(
                     padding: const EdgeInsets.all(6.0),
-                    child: Image.asset('asset/icons/image 4 (Traced).png'),
+                    child: Image.asset('asset/images/icon/image 4 (Traced).png'),
                   ),
                 ),
                 const Positioned(

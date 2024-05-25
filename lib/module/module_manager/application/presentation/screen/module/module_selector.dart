@@ -1,165 +1,32 @@
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 
 class ScreenModuleSelector extends StatelessWidget {
   ScreenModuleSelector({super.key});
-  final List<ListItemData> items = [
-    ListItemData(
-      color: neonShade,
-      height: 120.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 1',
-      subtitle: 'Subtitle 1',
-    ),
-    ListItemData(
-      color: kwhite,
-      height: 150.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 2',
-      subtitle: 'Subtitle 2',
-    ),
-    ListItemData(
-      color: kblack,
-      height: 200.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 3',
-      subtitle: 'Subtitle 3',
-    ),
-    ListItemData(
-      color: neonShade,
-      height: 120.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 4',
-      subtitle: 'Subtitle 4',
-    ),
-    ListItemData(
-      color: kwhite,
-      height: 180.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 5',
-      subtitle: 'Subtitle 5',
-    ),
-    ListItemData(
-      color: kwhite,
-      height: 130.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 6',
-      subtitle: 'Subtitle 6',
-    ),
-    ListItemData(
-      color: neonShade,
-      height: 160.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 7',
-      subtitle: 'Subtitle 7',
-    ),
-    ListItemData(
-      color: kblack,
-      height: 140.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 8',
-      subtitle: 'Subtitle 8',
-    ),
-    ListItemData(
-      color: kwhite,
-      height: 190.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 9',
-      subtitle: 'Subtitle 9',
-    ),
-    ListItemData(
-      color: kblack,
-      height: 120.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 10',
-      subtitle: 'Subtitle 10',
-    ),
-    ListItemData(
-      color: neonShade,
-      height: 160.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 7',
-      subtitle: 'Subtitle 7',
-    ),
-    ListItemData(
-      color: kblack,
-      height: 140.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 8',
-      subtitle: 'Subtitle 8',
-    ),
-    ListItemData(
-      color: kwhite,
-      height: 190.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 9',
-      subtitle: 'Subtitle 9',
-    ),
-    ListItemData(
-      color: kblack,
-      height: 120.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 10',
-      subtitle: 'Subtitle 10',
-    ),
-    ListItemData(
-      color: neonShade,
-      height: 180.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 7',
-      subtitle: 'Subtitle 7',
-    ),
-    ListItemData(
-      color: kblack,
-      height: 140.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 8',
-      subtitle: 'Subtitle 8',
-    ),
-    ListItemData(
-      color: kwhite,
-      height: 190.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 9',
-      subtitle: 'Subtitle 9',
-    ),
-    ListItemData(
-      color: kblack,
-      height: 120.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 10',
-      subtitle: 'Subtitle 10',
-    ),
-    ListItemData(
-      color: neonShade,
-      height: 160.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 7',
-      subtitle: 'Subtitle 7',
-    ),
-    ListItemData(
-      color: kblack,
-      height: 140.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 8',
-      subtitle: 'Subtitle 8',
-    ),
-    ListItemData(
-      color: kwhite,
-      height: 190.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 9',
-      subtitle: 'Subtitle 9',
-    ),
-    ListItemData(
-      color: kblack,
-      height: 120.0,
-      imageUrl: 'https://via.placeholder.com/50',
-      title: 'Title 10',
-      subtitle: 'Subtitle 10',
-    ),
+
+  final List title = [
+    'Biz Card',
+    'Task',
+    'Module 3',
   ];
+  final List subtitle = [
+    'We belive development must be an enjoyable, creative experiance to be truly fulilling',
+    'We belive development must be an enjoyable, creative experiance to be truly fulilling',
+    'We belive development must be an enjoyable, creative experiance to be truly fulilling',
+  ];
+  final List images = [
+    'https://via.placeholder.com/50',
+    'https://via.placeholder.com/50',
+    'https://via.placeholder.com/50'
+  ];
+  final List color = [
+    neonShadeGradientTopToBottom,
+    whiteShadeGradient,
+    blackShadeGradient
+  ];
+  final List height = [200.h, 140.h, 140.h];
 
   @override
   Widget build(BuildContext context) {
@@ -167,12 +34,18 @@ class ScreenModuleSelector extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: MasonryGridView.count(
-          itemCount: items.length,
+          itemCount: title.length,
           crossAxisCount: 3,
           mainAxisSpacing: 4,
           crossAxisSpacing: 4,
           itemBuilder: (context, index) {
-            return ListItem(item: items[index]);
+            return ListItem(
+                item: ListItemData(
+                    color: color[index % 3],
+                    height: height[index % 3],
+                    imageUrl: images[index % 3],
+                    title: title[index % 3],
+                    subtitle: subtitle[index % 3]));
           },
         ),
       ),
@@ -181,7 +54,7 @@ class ScreenModuleSelector extends StatelessWidget {
 }
 
 class ListItemData {
-  final Color color;
+  final Gradient color;
   final double height;
   final String imageUrl;
   final String title;
@@ -205,29 +78,36 @@ class ListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: item.height,
-      margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: .0),
-      padding: const EdgeInsets.all(8.0),
+      margin: EdgeInsets.symmetric(vertical: 6.0.h, horizontal: 1.0.h),
+      padding: EdgeInsets.all(8.0.h),
       decoration: BoxDecoration(
-        color: item.color,
-        borderRadius: BorderRadius.circular(8.0),
+        gradient: item.color,
+        borderRadius: BorderRadius.circular(8.0.h),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.network(item.imageUrl, height: 50),
-          const SizedBox(height: 8),
-          Text(
-            item.title,
-            style: const TextStyle(fontSize: 16, color: Colors.white),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            item.subtitle,
-            style: const TextStyle(fontSize: 12, color: Colors.white70),
-            textAlign: TextAlign.center,
-          ),
-        ],
+      child: Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(item.imageUrl, height: 50.h),
+            SizedBox(height: 8.h),
+            Text(
+              item.title,
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  color: item.color == whiteShadeGradient ? kblack : kwhite),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 4.h),
+            Text(
+              item.subtitle,
+              style: TextStyle(
+                  fontSize: 9.sp,
+                  color:
+                      item.color == whiteShadeGradient ? kblack : klightgrey),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

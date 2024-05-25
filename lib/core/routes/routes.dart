@@ -28,9 +28,9 @@ class Routes {
   static const String otpScreen = '/otp_screen';
 
   // task module
-  static const initaltask = '/initailTask';
+  static const String initaltask = '/initailTask';
   static const String taskNavbar = '/task_navbar';
-  static const addTask = '/addTask';
-  static const taskHome = '/taskHome';
-  static const taskLists = '/taskLists';
+  static const String addTask = '/addTask';
+  static const String taskHome = '/taskHome';
+  static const String taskLists = '/taskLists';
 }

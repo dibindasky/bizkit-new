@@ -24,6 +24,7 @@ import 'package:bizkit/module/biz_card/domain/model/auth/sign_up_indivudal_model
 import 'package:bizkit/module/biz_card/domain/model/auth/sign_up_model/sign_up_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/splash/splash_general.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -210,7 +211,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.selfieDataFeilds,
       path: Routes.selfieDataFeilds,
-      builder: (context, state) => SelfieTextFields(),
+      builder: (context, state) => const SelfieTextFields(),
     ),
     GoRoute(
       name: Routes.cardListingboth,
@@ -240,7 +241,13 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskNavbar,
       path: Routes.taskNavbar,
-      builder: (context, state) => ScreenNavbarTaskModule(),
+      builder: (context, state) => const ScreenNavbarTaskModule(),
+    ),
+    // add task screen
+    GoRoute(
+      name: Routes.addTask,
+      path: Routes.addTask,
+      builder: (context, state) => const ScreenAddTask(),
     ),
   ];
 

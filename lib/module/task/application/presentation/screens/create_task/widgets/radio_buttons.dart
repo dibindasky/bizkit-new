@@ -1,6 +1,8 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/radio_button.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RadioButtons extends StatelessWidget {
   const RadioButtons({
@@ -9,19 +11,33 @@ class RadioButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: customRadioButton('Official', 'official', context, 'official'),
-        ),
-        kWidth10,
-        Expanded(
-          child: customRadioButton('Personal', 'personal', context, 'personal'),
-        ),
-        Expanded(
-          child: customRadioButton('Others', 'others', context, 'others'),
-        ),
-      ],
-    );
+    final controller = Get.find<CreateTaskController>();
+    return Obx(() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          CustomRadioButton(
+              selected: controller.createTaskTupe.value == TaskType.official,
+              text: 'Official',
+              onChanged: () {
+                controller.changeTaskType(TaskType.official);
+              }),
+          kWidth10,
+          CustomRadioButton(
+              selected: controller.createTaskTupe.value == TaskType.personal,
+              text: 'Personal',
+              onChanged: () {
+                controller.changeTaskType(TaskType.personal);
+              }),
+          kWidth10,
+          CustomRadioButton(
+              selected: controller.createTaskTupe.value == TaskType.others,
+              text: 'Others',
+              onChanged: () {
+                controller.changeTaskType(TaskType.others);
+              }),
+        ],
+      );
+    });
   }
 }

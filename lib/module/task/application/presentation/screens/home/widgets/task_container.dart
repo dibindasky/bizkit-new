@@ -66,6 +66,7 @@ class TaskProgress extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 CircularProgressIndicator(
+                  strokeAlign: 2,
                   value: progress / 100,
                   backgroundColor: Colors.grey[800],
                   valueColor: const AlwaysStoppedAnimation<Color>(Colors.teal),

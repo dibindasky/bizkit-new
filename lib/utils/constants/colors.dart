@@ -63,6 +63,35 @@ LinearGradient neonShadeGradient = const LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
 );
+LinearGradient neonShadeGradientTopToBottom = const LinearGradient(
+  colors: [
+    Color.fromRGBO(6, 199, 172, .34),
+    Color.fromRGBO(6, 199, 172, .34),
+    Color.fromRGBO(8, 136, 119, 1),
+    Color.fromRGBO(6, 199, 172, 1),
+  ],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomRight,
+);
+LinearGradient blackShadeGradient = const LinearGradient(
+  colors: [
+    Color.fromRGBO(0, 0, 0, 1),
+    Color.fromRGBO(33, 39, 38, 1),
+    Color.fromRGBO(1, 31, 27, 1),
+  ],
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+);
+LinearGradient whiteShadeGradient = const LinearGradient(
+  colors: [
+    Color.fromRGBO(255, 255, 255, 1),
+    Color.fromRGBO(220, 221, 221, 1),
+    Color.fromRGBO(228, 227, 227, 1),
+    Color.fromRGBO(214, 213, 213, 1),
+  ],
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+);
 
 TextStyle custumText({
   FontWeight? fontWeight,

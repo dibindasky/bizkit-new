@@ -29,7 +29,7 @@ class Routes {
 
   // task module
   static const initaltask = '/initailTask';
-  static const String taskNavbar = '/task_navbar';
+  static const taskNavbar = '/task_navbar';
   static const addTask = '/addTask';
   static const taskHome = '/taskHome';
   static const taskLists = '/taskLists';

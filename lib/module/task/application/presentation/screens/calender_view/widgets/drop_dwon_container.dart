@@ -9,11 +9,15 @@ class DropDownContainer extends StatefulWidget {
     required this.controller,
     required this.items,
     this.onChanged,
+    required this.hint,
+    this.onTap,
   });
 
   final TextEditingController controller;
   final List<String> items;
   final Function(String?)? onChanged;
+  final String hint;
+  final String Function(String?)? onTap;
 
   @override
   State<DropDownContainer> createState() => _DropDownContainerState();
@@ -23,7 +27,7 @@ class _DropDownContainerState extends State<DropDownContainer> {
   bool containerOpenArrow1 = false;
   bool containerOpenArrow2 = false;
   bool dropDownOn = false;
-  String? selectedItem = 'All';
+  String? selectedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -60,14 +64,10 @@ class _DropDownContainerState extends State<DropDownContainer> {
               height: 40,
               width: 0,
             ),
-            hint: const Text('Variant'),
+            hint: Text(widget.hint),
             isExpanded: true,
             items: [
-              const DropdownMenuItem<String>(
-                value: 'All',
-                child: Text('All'),
-              ),
-              ...widget.items.map((String item) {
+              ...widget.items.toSet().map((String item) {
                 return DropdownMenuItem<String>(
                   value: item,
                   child: Text(
@@ -89,7 +89,7 @@ class _DropDownContainerState extends State<DropDownContainer> {
             dropdownStyleData: DropdownStyleData(
               decoration: BoxDecoration(
                 borderRadius: kBorderRadius5,
-                color: klightgrey,
+                color: backgroundColour,
               ),
               offset: const Offset(0, -5),
               maxHeight: 250,
@@ -99,7 +99,7 @@ class _DropDownContainerState extends State<DropDownContainer> {
             ),
             dropdownSearchData: dropdownSearchData(
               controller: widget.controller,
-              data: 'variant',
+              data: widget.hint,
             ),
             onMenuStateChange: (isOpen) {
               setState(() {

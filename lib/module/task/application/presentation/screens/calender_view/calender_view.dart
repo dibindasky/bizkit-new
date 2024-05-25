@@ -181,17 +181,24 @@ class ScreenTaskCalenderView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 children: [
-                  DropDownContainer(controller: deadLineController, items: [
-                    'Jan - 31 - 2023',
-                    'Jan - 31 - 2023',
-                    'Jan - 31 - 2023'
-                  ]),
                   DropDownContainer(
-                      controller: priorityController,
-                      items: ['High', 'Medium', 'Low']),
+                    controller: deadLineController,
+                    items: const [
+                      'Jan - 31 - 2023',
+                      'Jan - 31 - 2023',
+                      'Jan - 31 - 2023'
+                    ],
+                    hint: 'Dead Line',
+                  ),
+                  DropDownContainer(
+                    controller: priorityController,
+                    items: const ['High', 'Medium', 'Low'],
+                    hint: 'Priority',
+                  ),
                   DropDownContainer(
                     controller: taskTypeController,
-                    items: ['Official', 'Personal'],
+                    items: const ['Official', 'Personal'],
+                    hint: 'Task Type',
                   ),
                 ],
               ),

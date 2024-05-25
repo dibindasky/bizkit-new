@@ -21,8 +21,10 @@ String getBase64(String? base64) {
 }
 
 enum TaskType { official, personal, others }
-enum PriorityLevel {medium, low, high}
-enum RecurringTimePeriod { everyDay, everyWeek, everyMoth, custom, none}
+
+enum PriorityLevel { medium, low, high }
+
+enum RecurringTimePeriod { everyDay, everyWeek, everyMoth, custom, none }
 
 String iconHomeBottomBar =
     'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';
@@ -233,27 +235,31 @@ final List<Map<String, String>> tasks = [
     'description':
         'Image editing encompasses the processes of altering images, whether they are digital photographs, traditional photo-chemical photographs, or illustrations. Traditional analog image editing is known as photo retouching, using tools such as an airbrush to modify photographs or editing illustrations with any traditional art medium.',
     'date': 'Feb, 21 - Mar, 27',
-    'color': '0xFFFF6006'
+    'color': '0xFFFF6006',
+    'percentage': '70%',
   },
   {
     'title': 'New Project User Flow',
     'description':
         'User interface (UI) design is the process designers use to build interfaces in software or computerized devices, focusing on looks or style. Designers aim to create interfaces which users find easy to use and pleasurable. UI design refers to graphical user interfaces and other forms e.g., voice-controlled interfaces.',
     'date': 'Feb, 21 - Mar, 12',
-    'color': '0xFF0B06FF'
+    'color': '0xFF0B06FF',
+    'percentage': '67%'
   },
   {
     'title': 'Laravel Task',
     'description':
         'Laravel is a web application framework with expressive, elegant syntax. Web development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication.',
     'date': 'Feb, 21 - Mar, 22',
-    'color': '0xFF06FFD2'
+    'color': '0xFF06FFD2',
+    'percentage': '40%'
   },
   {
     'title': 'Edit a Picture',
     'description':
         'Image editing encompasses the processes of altering images, whether they are digital photographs, traditional photo-chemical photographs, or illustrations. Traditional analog image editing is known as photo retouching, using tools such as an airbrush to modify photographs or editing illustrations with any traditional art medium.',
     'date': 'Feb, 21 - Mar, 27',
-    'color': '0xFFFF6006'
+    'color': '0xFFFF6006',
+    'percentage': '100%'
   },
 ];

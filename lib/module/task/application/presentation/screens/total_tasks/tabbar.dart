@@ -90,6 +90,25 @@ class TaskListView extends StatelessWidget {
                           task['description']!,
                           style: const TextStyle(color: kwhite, fontSize: 12),
                         ),
+                        adjustHieght(10),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: LinearProgressIndicator(
+                                borderRadius: kBorderRadius10,
+                                minHeight: 13,
+                                value: 0.10 *
+                                    double.parse(task['percentage'] ?? '2'),
+                                backgroundColor: smallBigGrey,
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                    neonShade),
+                              ),
+                            ),
+                            adjustWidth(30),
+                            Text('${task['percentage'] ?? '2'}%')
+                          ],
+                        ),
+                        adjustHieght(10),
                         Align(
                           alignment: Alignment.centerRight,
                           child: Text(
@@ -116,6 +135,58 @@ class TaskListView extends StatelessWidget {
               ),
             )
           ],
+        );
+      },
+    );
+  }
+}
+
+class ProgressIndicator extends StatefulWidget {
+  const ProgressIndicator({super.key});
+
+  @override
+  _ProgressIndicatorState createState() => _ProgressIndicatorState();
+}
+
+class _ProgressIndicatorState extends State<ProgressIndicator>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<Color?> _colorAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
+    _colorAnimation = ColorTween(
+      begin: Colors.red,
+      end: Colors.green,
+    ).animate(_animationController);
+
+    // Start the animation
+    _animationController.repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child) {
+        return LinearProgressIndicator(
+          minHeight: 13,
+          value: 20 / 2, // Progress value
+          backgroundColor: smallBigGrey,
+          valueColor: _colorAnimation,
         );
       },
     );

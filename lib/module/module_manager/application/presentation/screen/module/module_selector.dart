@@ -26,7 +26,7 @@ class ScreenModuleSelector extends StatelessWidget {
     whiteShadeGradient,
     blackShadeGradient
   ];
-  final List height = [200.h, 140.h, 140.h];
+  final List height = [200.h, 160.h, 160.h];
 
   @override
   Widget build(BuildContext context) {

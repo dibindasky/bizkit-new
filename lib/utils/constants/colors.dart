@@ -79,8 +79,8 @@ LinearGradient blackShadeGradient = const LinearGradient(
     Color.fromRGBO(33, 39, 38, 1),
     Color.fromRGBO(1, 31, 27, 1),
   ],
-  begin: Alignment.centerLeft,
-  end: Alignment.centerRight,
+  begin: Alignment.topCenter,
+  end: Alignment.bottomRight,
 );
 LinearGradient whiteShadeGradient = const LinearGradient(
   colors: [

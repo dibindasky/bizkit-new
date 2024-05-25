@@ -26,7 +26,8 @@ String iconHomeGreyBottomBar = 'asset/images/NavPngs/home_icon_grey.png';
 String iconAccountBottomBar =
     'asset/images/NavPngs/account_circle_FILL1_wght400_GRAD0_opsz24.png';
 String iconModuleSelectorBottomBar = 'asset/images/NavPngs/Group 100847.png';
-String iconTaskCalenderBottomBar = 'asset/images/NavPngs/task_calender.png';
+String iconTaskCalenderBottomBar = 'asset/images/task/task third tab.png';
+
 BorderRadius kBorderRadius5 = BorderRadius.circular(5);
 BorderRadius kBorderRadius10 = BorderRadius.circular(10);
 BorderRadius kBorderRadius20 = const BorderRadius.all(Radius.circular(20));
@@ -44,6 +45,7 @@ const kWidth10 = SizedBox(width: 10);
 const kWidth20 = SizedBox(width: 20);
 const kWidth30 = SizedBox(width: 30);
 const kWidth50 = SizedBox(width: 50);
+
 const String taskOnbaordfirst = 'asset/images/task_onboard/task onboard 1.png';
 const String taskOnbaordSecond =
     'asset/images/task_onboard/task onboard 2 .png';
@@ -215,3 +217,39 @@ const String levelSettingText = 'Level setting text';
 commenText(String data, {TextStyle? style}) {
   return Text(data, style: style);
 }
+
+//Task Constatnts
+
+const String taskHomeNNOtificationAsset =
+    'asset/images/icon/image 4 (Traced).png';
+
+final List<Map<String, String>> tasks = [
+  {
+    'title': 'Edit a Picture',
+    'description':
+        'Image editing encompasses the processes of altering images, whether they are digital photographs, traditional photo-chemical photographs, or illustrations. Traditional analog image editing is known as photo retouching, using tools such as an airbrush to modify photographs or editing illustrations with any traditional art medium.',
+    'date': 'Feb, 21 - Mar, 27',
+    'color': '0xFFFF6006'
+  },
+  {
+    'title': 'New Project User Flow',
+    'description':
+        'User interface (UI) design is the process designers use to build interfaces in software or computerized devices, focusing on looks or style. Designers aim to create interfaces which users find easy to use and pleasurable. UI design refers to graphical user interfaces and other forms e.g., voice-controlled interfaces.',
+    'date': 'Feb, 21 - Mar, 12',
+    'color': '0xFF0B06FF'
+  },
+  {
+    'title': 'Laravel Task',
+    'description':
+        'Laravel is a web application framework with expressive, elegant syntax. Web development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication.',
+    'date': 'Feb, 21 - Mar, 22',
+    'color': '0xFF06FFD2'
+  },
+  {
+    'title': 'Edit a Picture',
+    'description':
+        'Image editing encompasses the processes of altering images, whether they are digital photographs, traditional photo-chemical photographs, or illustrations. Traditional analog image editing is known as photo retouching, using tools such as an airbrush to modify photographs or editing illustrations with any traditional art medium.',
+    'date': 'Feb, 21 - Mar, 27',
+    'color': '0xFFFF6006'
+  },
+];

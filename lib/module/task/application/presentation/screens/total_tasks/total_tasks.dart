@@ -2,7 +2,6 @@ import 'package:bizkit/module/task/application/presentation/screens/total_tasks/
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/custom_pop_menubutton.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class ScreenTotalTasksScreen extends StatefulWidget {
@@ -148,7 +147,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
-        children: [
+        children: const [
           TaskListView(),
           TaskListView(),
         ],

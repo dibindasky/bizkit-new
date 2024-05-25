@@ -1,4 +1,6 @@
+import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 
 class TaskHomeAppBar extends StatelessWidget {
@@ -24,14 +26,11 @@ class TaskHomeAppBar extends StatelessWidget {
               backgroundColor: lightGrey,
               child: IconButton(
                 icon: const Icon(Icons.notifications),
-                onPressed: () {
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //   builder: (context) => ListScreen(),
-                  // ));
-                },
+                onPressed: () {},
               ),
             ),
             adjustWidth(10),
+<<<<<<< HEAD:lib/module/task/application/presentation/screens/home/widgets/home_appbar.dart
             Stack(
               children: [
                 CircleAvatar(
@@ -49,6 +48,11 @@ class TaskHomeAppBar extends StatelessWidget {
                   ),
                 ),
               ],
+=======
+            const CustomStackOnlineDotCircleAvatar(
+              image: taskHomeNNOtificationAsset,
+              dotColor: kOrange,
+>>>>>>> main:lib/module/task/application/presentation/screens/task_home/widgets/home_appbar.dart
             ),
           ],
         ),

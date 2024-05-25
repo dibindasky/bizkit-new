@@ -3,6 +3,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:go_router/go_router.dart';
 
 class TaskContainers extends StatelessWidget {
   const TaskContainers({super.key});
@@ -16,14 +17,18 @@ class TaskContainers extends StatelessWidget {
           title: 'Others to self',
           progress: 78,
           onTap: () {
-            Get.toNamed(Routes.taskLists);
+            GoRouter.of(context).pushNamed(
+              Routes.taskLists,
+            );
           },
         ),
         TaskProgress(
           title: 'Self to Others',
           progress: 78,
           onTap: () {
-            Get.toNamed(Routes.taskLists);
+            GoRouter.of(context).pushNamed(
+              Routes.taskLists,
+            );
           },
         ),
         TaskProgress(

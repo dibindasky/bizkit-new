@@ -26,6 +26,7 @@ import 'package:bizkit/module/biz_card/domain/model/card_second/get_all_second_c
 import 'package:bizkit/module/module_manager/application/presentation/screen/splash/splash_general.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
+import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -237,17 +238,26 @@ class GoRouterConfig {
 
 // task module route
   static final taskModuleRoute = [
-    // navbar
+    // Navbar
     GoRoute(
       name: Routes.taskNavbar,
       path: Routes.taskNavbar,
       builder: (context, state) => const ScreenNavbarTaskModule(),
     ),
+<<<<<<< HEAD
     // add task screen
     GoRoute(
       name: Routes.addTask,
       path: Routes.addTask,
       builder: (context, state) => const ScreenAddTask(),
+=======
+
+    // Tasks Screen
+    GoRoute(
+      name: Routes.taskLists,
+      path: Routes.taskLists,
+      builder: (context, state) => const ScreenTotalTasksScreen(),
+>>>>>>> main
     ),
   ];
 

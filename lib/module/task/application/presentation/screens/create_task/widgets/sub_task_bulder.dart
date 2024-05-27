@@ -44,32 +44,9 @@ class SubTaskBuilder extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: lightGrey, borderRadius: kBorderRadius10),
                   child: Padding(
-                    padding: EdgeInsets.only(
-                        top: 10.h, bottom: 5.h, left: 15.h, right: 15.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          subtasks[index],
-                          style: const TextStyle(color: kwhite),
-                        ),
-                        adjustHieght(5.h),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: LinearProgressIndicator(
-                                borderRadius: BorderRadius.circular(50),
-                                value: 0.1 * index,
-                                minHeight: 8.h,
-                                // backgroundColor: kwhite,
-                                // color: neonShade,
-                              ),
-                            ),
-                            kWidth10,
-                            Text('$index/5')
-                          ],
-                        )
-                      ],
+                    padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 15.h),                    child: Text(
+                      subtasks[index],
+                      style: const TextStyle(color: kwhite),
                     ),
                   ),
                 ),

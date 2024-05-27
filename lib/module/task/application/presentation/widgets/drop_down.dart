@@ -26,7 +26,7 @@ class CustomDropDown extends StatelessWidget {
             color: neonShade,
           ),
         ),
-        adjustHieght(8.h),
+        adjustHieght(3.h),
         DropdownButtonFormField<String>(
           value: value,
           items: items.map((String element) {

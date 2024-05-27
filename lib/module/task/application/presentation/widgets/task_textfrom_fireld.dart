@@ -10,12 +10,14 @@ class TaskTextField extends StatelessWidget {
     this.icon,
     this.suffixIcon,
     this.maxLines,
+    this.showBorder=false
   });
   final Color? fillColor;
   final String? hintText;
   final IconData? icon;
   final Widget? suffixIcon;
   final int? maxLines;
+  final bool showBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class TaskTextField extends StatelessWidget {
         fillColor: fillColor ?? lightGrey,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
+          borderSide:showBorder?const BorderSide(color: neonShade): BorderSide.none,
         ),
         suffixIcon: suffixIcon,
       ),

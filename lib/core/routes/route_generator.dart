@@ -252,13 +252,18 @@ class GoRouterConfig {
       path: Routes.addTask,
       builder: (context, state) => const ScreenAddTask(),
     ),
-
     // Tasks Screen
     GoRoute(
       name: Routes.taskLists,
       path: Routes.taskLists,
       builder: (context, state) => const ScreenTotalTasksScreen(),
     ),
+
+    // Tasks Screen
+    GoRoute(
+      name: Routes.taskDeail,
+      path: Routes.taskDeail,
+      builder: (context, state) => const ScreenTotalTasksScreen(),
 
     // TAs notification
     GoRoute(

@@ -43,6 +43,9 @@ adjustHieght(double height) {
   );
 }
 
+const String fontPoppins = 'Poppins';
+const String fontEuclid = 'Euclid';
+
 TextStyle textHeadStyle1 = TextStyle(
   color: kwhite,
   fontSize: kwidth * 0.04,

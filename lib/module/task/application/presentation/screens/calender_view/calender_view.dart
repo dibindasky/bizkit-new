@@ -1,6 +1,6 @@
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
-import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/drop_dwon_container.dart';
-import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/hierarchy_tile.dart';
+import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/folder.dart';
+import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/tabbar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -14,9 +14,9 @@ class ScreenTaskCalenderView extends StatelessWidget {
   ScreenTaskCalenderView({super.key});
 
   final controller = Get.find<TaskCalenderViewController>();
-  TextEditingController deadLineController = TextEditingController();
-  TextEditingController priorityController = TextEditingController();
-  TextEditingController taskTypeController = TextEditingController();
+  final TextEditingController deadLineController = TextEditingController();
+  final TextEditingController priorityController = TextEditingController();
+  final TextEditingController taskTypeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ScreenTaskCalenderView extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               height: 80,
               child: Row(
@@ -68,8 +68,8 @@ class ScreenTaskCalenderView extends StatelessWidget {
                         color: lightGrey,
                         borderRadius: kBorderRadius25,
                       ),
-                      height: 40.h,
-                      width: 240.w,
+                      height: 30.h,
+                      width: 210.w,
                       child: Obx(
                         () => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -90,13 +90,18 @@ class ScreenTaskCalenderView extends StatelessWidget {
                                 ),
                                 height: 40.h,
                                 width: 80.w,
-                                child: const Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Icon(Icons.history_edu_sharp),
-                                    Text('Hierarcy'),
-                                  ],
+                                child: const FittedBox(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Icon(Icons.history_edu_sharp),
+                                      Text(
+                                        'Hierarchy',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -105,7 +110,7 @@ class ScreenTaskCalenderView extends StatelessWidget {
                                 controller.changeBottomTab(1);
                               },
                               child: Container(
-                                width: 80.w,
+                                width: 60.w,
                                 height: 40.h,
                                 color: controller.taskBottomTabIndex.value == 1
                                     ? neonShade
@@ -133,7 +138,7 @@ class ScreenTaskCalenderView extends StatelessWidget {
                                     borderRadius: const BorderRadius.only(
                                         topRight: Radius.circular(25),
                                         bottomRight: Radius.circular(25))),
-                                width: 80.w,
+                                width: 70.w,
                                 height: 40.h,
                                 child: const Row(
                                   mainAxisAlignment:
@@ -159,6 +164,27 @@ class ScreenTaskCalenderView extends StatelessWidget {
                         color: neonShade,
                       ),
                     ),
+                    adjustWidth(10),
+                    CustomCircleAvatar(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return const Scaffold(
+                              body: Column(
+                                children: [],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      backgroundColor: lightGrey,
+                      backgroundColorInner: lightGrey,
+                      child: const Icon(
+                        Icons.filter_alt_outlined,
+                        color: neonShade,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -177,32 +203,32 @@ class ScreenTaskCalenderView extends StatelessWidget {
               initialDate: DateTime.now(),
               onDateChange: (selectedDate) {},
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                children: [
-                  DropDownContainer(
-                    controller: deadLineController,
-                    items: const [
-                      'Jan - 31 - 2023',
-                      'Jan - 31 - 2023',
-                      'Jan - 31 - 2023'
-                    ],
-                    hint: 'Dead Line',
-                  ),
-                  DropDownContainer(
-                    controller: priorityController,
-                    items: const ['High', 'Medium', 'Low'],
-                    hint: 'Priority',
-                  ),
-                  DropDownContainer(
-                    controller: taskTypeController,
-                    items: const ['Official', 'Personal'],
-                    hint: 'Task Type',
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 15),
+            //   child: Row(
+            //     children: [
+            //       DropDownContainer(
+            //         controller: deadLineController,
+            //         items: const [
+            //           'Jan - 31 - 2023',
+            //           'Jan - 31 - 2023',
+            //           'Jan - 31 - 2023'
+            //         ],
+            //         hint: 'Dead Line',
+            //       ),
+            //       DropDownContainer(
+            //         controller: priorityController,
+            //         items: const ['High', 'Medium', 'Low'],
+            //         hint: 'Priority',
+            //       ),
+            //       DropDownContainer(
+            //         controller: taskTypeController,
+            //         items: const ['Official', 'Personal'],
+            //         hint: 'Task Type',
+            //       ),
+            //     ],
+            //   ),
+            // ),
             adjustHieght(20),
             Obx(() {
               if (controller.taskBottomTabIndex.value == 0) {
@@ -219,7 +245,15 @@ class ScreenTaskCalenderView extends StatelessWidget {
               if (controller.taskBottomTabIndex.value == 1) {
                 return const Expanded(child: TaskListView());
               } else {
-                return const Expanded(child: TaskListView());
+                return Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return TaskFolderSection(name: names[index]);
+                    },
+                  ),
+                );
               }
             })
           ],

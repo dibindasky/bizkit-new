@@ -16,20 +16,23 @@ class CustomCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: backgroundColor,
-      radius: 24,
+    return GestureDetector(
+      onTap: onTap,
       child: CircleAvatar(
-        radius: 16,
-        backgroundColor: backgroundColorInner,
+        backgroundColor: backgroundColor,
+        radius: 24,
         child: CircleAvatar(
-          backgroundColor: backgroundColor,
-          radius: 14,
-          child: child ??
-              const Icon(
-                Icons.notifications,
-                color: neonShade,
-              ),
+          radius: 16,
+          backgroundColor: backgroundColorInner,
+          child: CircleAvatar(
+            backgroundColor: backgroundColor,
+            radius: 14,
+            child: child ??
+                const Icon(
+                  Icons.notifications,
+                  color: neonShade,
+                ),
+          ),
         ),
       ),
     );

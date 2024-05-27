@@ -9,7 +9,6 @@ import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storag
 import 'package:bizkit/module/biz_card/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/get_card_response/card_response.dart'
     as card;
-import 'package:bizkit/packages/share/share_product.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';

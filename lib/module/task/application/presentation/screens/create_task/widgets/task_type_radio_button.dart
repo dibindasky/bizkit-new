@@ -4,8 +4,8 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RadioButtons extends StatelessWidget {
-  const RadioButtons({
+class TaskTypeRadioButtons extends StatelessWidget {
+  const TaskTypeRadioButtons({
     super.key,
   });
 

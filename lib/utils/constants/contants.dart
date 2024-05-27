@@ -20,6 +20,8 @@ String getBase64(String? base64) {
   return base64.startsWith('data') ? base64.substring(22) : base64;
 }
 
+TextStyle fontPopins = const TextStyle(fontFamily: 'Poppins');
+
 enum TaskType { official, personal, others }
 
 enum PriorityLevel { medium, low, high }
@@ -31,7 +33,7 @@ String iconHomeBottomBar =
 String iconHomeGreyBottomBar = 'asset/images/NavPngs/home_icon_grey.png';
 String iconAccountBottomBar =
     'asset/images/NavPngs/account_circle_FILL1_wght400_GRAD0_opsz24.png';
-String iconModuleSelectorBottomBar = 'asset/images/NavPngs/Group 100847.png';
+String iconModuleSelectorBottomBar = 'asset/images/NavPngs/module_chooser.png';
 String iconTaskCalenderBottomBar = 'asset/images/task/task third tab.png';
 
 BorderRadius kBorderRadius5 = BorderRadius.circular(5);
@@ -225,6 +227,11 @@ commenText(String data, {TextStyle? style}) {
 }
 
 //Task Constatnts
+
+TextStyle fontPopinsBold = fontPopins.copyWith(fontWeight: FontWeight.w700);
+TextStyle fontPopinsRegular = fontPopins.copyWith(fontWeight: FontWeight.w400);
+TextStyle fontPopinsMedium = fontPopins.copyWith(fontWeight: FontWeight.w500);
+TextStyle fontPopinsThin = fontPopins.copyWith(fontWeight: FontWeight.w100);
 
 const String taskHomeNNOtificationAsset =
     'asset/images/icon/image 4 (Traced).png';

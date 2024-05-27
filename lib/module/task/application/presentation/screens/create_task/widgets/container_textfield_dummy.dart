@@ -12,29 +12,31 @@ class ContainerTextFieldDummy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 10.w, right: 12.w),
-      height: 40.h,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: lightGrey,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 14.sp, color: klightgrey),
+    return GestureDetector(onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.only(left: 10.w, right: 12.w),
+        height: 40.h,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: lightGrey,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 14.sp, color: klightgrey),
+              ),
             ),
-          ),
-          suffixIcon != null
-              ? Icon(
-                  suffixIcon!,
-                  color: neonShade,
-                )
-              : kempty,
-        ],
+            suffixIcon != null
+                ? Icon(
+                    suffixIcon!,
+                    color: neonShade,
+                  )
+                : kempty,
+          ],
+        ),
       ),
     );
   }

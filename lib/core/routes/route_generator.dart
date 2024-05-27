@@ -257,6 +257,13 @@ class GoRouterConfig {
       path: Routes.taskLists,
       builder: (context, state) => const ScreenTotalTasksScreen(),
     ),
+
+    // Tasks Screen
+    GoRoute(
+      name: Routes.taskDeail,
+      path: Routes.taskDeail,
+      builder: (context, state) => const ScreenTotalTasksScreen(),
+    ),
   ];
 
   static _errorScreen() {

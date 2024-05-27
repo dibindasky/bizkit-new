@@ -55,11 +55,11 @@ class _TagsContainerState extends State<TagsContainer> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CupertinoTextField(
-                  placeholder: 'Find your tags',
+                  placeholder: 'Add your tags',
                   placeholderStyle: TextStyle(color: kwhite.withOpacity(0.6)),
                   suffix: const Padding(
                     padding: EdgeInsets.only(right: 10.0),
-                    child: Icon(Icons.search, color: neonShade),
+                    child: Icon(Icons.add, color: neonShade),
                   ),
                   style: const TextStyle(color: kwhite),
                   padding: const EdgeInsets.all(10.0),

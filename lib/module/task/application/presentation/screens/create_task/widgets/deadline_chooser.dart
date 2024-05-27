@@ -15,8 +15,9 @@ class DeadlineChooserCreateTask extends StatelessWidget {
   Widget build(BuildContext context) {
     final dateController = TextEditingController();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        showTitle ? adjustHieght(15.h) : kempty,
+        showTitle ? adjustHieght(10.h) : kempty,
         showTitle
             ? Text('Deadline',
                 style: TextStyle(
@@ -24,7 +25,7 @@ class DeadlineChooserCreateTask extends StatelessWidget {
                   color: neonShade,
                 ))
             : kempty,
-        showTitle ? adjustHieght(10.h) : kempty,
+        showTitle ? adjustHieght(3.h) : kempty,
         InkWell(
           onTap: () => showModalBottomSheet(
             context: context,

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class DropDownItems extends StatelessWidget {
-  const DropDownItems({super.key});
+class PriorityRecurringDropDownItems extends StatelessWidget {
+  const PriorityRecurringDropDownItems({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class DropDownItems extends StatelessWidget {
             value: priority,
             items: const <String>['Low', 'Medium', 'High'],
             onChanged: (newValue) {}),
-        adjustHieght(20.h),
+        adjustHieght(10.h),
         CustomDropDown(
             label: 'Recurring',
             value: recurring,

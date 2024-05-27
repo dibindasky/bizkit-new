@@ -24,7 +24,9 @@ import 'package:bizkit/module/biz_card/domain/model/auth/sign_up_indivudal_model
 import 'package:bizkit/module/biz_card/domain/model/auth/sign_up_model/sign_up_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/splash/splash_general.dart';
+import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
 import 'package:flutter/material.dart';
@@ -256,6 +258,20 @@ class GoRouterConfig {
       name: Routes.taskLists,
       path: Routes.taskLists,
       builder: (context, state) => const ScreenTotalTasksScreen(),
+    ),
+
+    // TAs notification
+    GoRoute(
+      name: Routes.taskNotification,
+      path: Routes.taskNotification,
+      builder: (context, state) => const NotoficationBuilder(),
+    ),
+
+    // HeirarchyUserDetail
+    GoRoute(
+      name: Routes.heirarchyUserDetail,
+      path: Routes.heirarchyUserDetail,
+      builder: (context, state) => const ScreenHeirarchyTaskUserDetails(),
     ),
   ];
 

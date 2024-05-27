@@ -225,7 +225,7 @@ commenText(String data, {TextStyle? style}) {
 }
 
 //Task Constatnts
-
+const String taskFolderImage = 'asset/images/task/folder Image.png';
 const String taskHomeNNOtificationAsset =
     'asset/images/icon/image 4 (Traced).png';
 
@@ -262,4 +262,17 @@ final List<Map<String, String>> tasks = [
     'color': '0xFFFF6006',
     'percentage': '100'
   },
+];
+
+List<String> names = [
+  'Alice',
+  'Bob',
+  'Charlie',
+  'David',
+  'Eve',
+  'Frank',
+  'Grace',
+  'Hannah',
+  'Isaac',
+  'Jack',
 ];

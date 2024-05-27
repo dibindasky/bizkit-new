@@ -27,11 +27,12 @@ class Routes {
   static const String newPasswordScreen = '/new_password_screen';
   static const String otpScreen = '/otp_screen';
 
-  // task module
-  static const String initaltask = '/initailTask';
+  // Task module
+  static const String initaltask = '/taskInitail';
   static const String taskNavbar = '/task_navbar';
-  static const String addTask = '/addTask';
+  static const String addTask = '/taskAdd';
   static const String taskHome = '/taskHome';
   static const String taskLists = '/taskLists';
-
+  static const String heirarchyUserDetail = '/TaskheirarchyUserDetail';
+  static const String taskNotification = '/taskNotification';
 }

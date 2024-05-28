@@ -57,10 +57,15 @@ TextStyle textStyle1 = TextStyle(
   fontWeight: FontWeight.w400,
 );
 
+TextStyle textThinStyle1 = TextStyle(
+  fontSize: kwidth * 0.03,
+  fontWeight: FontWeight.w200,
+);
+
 LinearGradient neonShadeGradient = const LinearGradient(
   colors: [
     Color.fromRGBO(6, 199, 172, 1),
-    Color.fromRGBO(6, 199, 172, 1),
+    Color.fromRGBO(17, 129, 114, 1),
     Color.fromRGBO(6, 199, 172, .34),
   ],
   begin: Alignment.centerLeft,

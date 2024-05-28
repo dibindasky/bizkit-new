@@ -36,4 +36,6 @@ class Routes {
   static const String taskDeail = '/task_detail_page';
   static const String heirarchyUserDetail = '/TaskheirarchyUserDetail';
   static const String taskNotification = '/taskNotification';
+  static const String taskChatScreen = '/task_chat_screen';
+  static const String taskAttachmetnsList = '/task_attachments_detail_list';
 }

@@ -27,6 +27,7 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/spl
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
 import 'package:flutter/material.dart';
@@ -265,11 +266,18 @@ class GoRouterConfig {
       path: Routes.taskDeail,
       builder: (context, state) => const ScreenTotalTasksScreen(),
     ),
-    // TAs notification
+
+    // Tsks notification
     GoRoute(
       name: Routes.taskNotification,
       path: Routes.taskNotification,
       builder: (context, state) => const NotoficationBuilder(),
+    ),
+
+    GoRoute(
+      name: Routes.taskTabNotification,
+      path: Routes.taskTabNotification,
+      builder: (context, state) => const TaskTabNotification(),
     ),
 
     // HeirarchyUserDetail

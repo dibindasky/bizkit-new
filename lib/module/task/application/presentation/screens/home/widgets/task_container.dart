@@ -2,8 +2,8 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
-import 'package:go_router/go_router.dart';
 
 class TaskContainers extends StatelessWidget {
   const TaskContainers({super.key});
@@ -17,25 +17,21 @@ class TaskContainers extends StatelessWidget {
           title: 'Others to self',
           progress: 78,
           onTap: () {
-            GoRouter.of(context).pushNamed(
-              Routes.taskLists,
-            );
+            Get.toNamed(Routes.taskLists, id: 1);
           },
         ),
         TaskProgress(
           title: 'Self to Others',
           progress: 78,
           onTap: () {
-            GoRouter.of(context).pushNamed(
-              Routes.taskLists,
-            );
+            Get.toNamed(Routes.taskLists, id: 1);
           },
         ),
         TaskProgress(
           title: 'Self to Self',
           progress: 78,
           onTap: () {
-            Get.toNamed(Routes.taskLists);
+            Get.toNamed(Routes.taskLists, id: 1);
           },
         ),
       ],
@@ -60,10 +56,12 @@ class TaskProgress extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: MediaQuery.of(context).size.width / 3.7,
-        height: 150,
-        decoration:
-            BoxDecoration(borderRadius: kBorderRadius15, color: lightGrey),
+        width: MediaQuery.of(context).size.width / 3.4.w,
+        height: 130.h,
+        decoration: BoxDecoration(
+          borderRadius: kBorderRadius15,
+          color: lightGrey,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -74,7 +72,7 @@ class TaskProgress extends StatelessWidget {
                   strokeAlign: 2,
                   value: progress / 100,
                   backgroundColor: Colors.grey[800],
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.teal),
+                  valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
                   strokeWidth: 6,
                 ),
                 Text('$progress%'),

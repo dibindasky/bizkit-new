@@ -37,10 +37,7 @@ class TaskFolderSection extends StatelessWidget {
           ],
         ),
         trailing: PopupMenuButton<String>(
-          onSelected: (value) {
-            if (value == 'edit') {
-            } else if (value == 'delete') {}
-          },
+          onSelected: (value) {},
           color: kwhite,
           icon: const Icon(Icons.more_vert, color: kwhite),
           itemBuilder: (context) {

@@ -43,35 +43,43 @@ class CustomStackOnlineDotCircleAvatar extends StatelessWidget {
   const CustomStackOnlineDotCircleAvatar({
     super.key,
     required this.image,
-    required this.dotColor,
+    this.dotColor,
     this.backgroundColor,
+    this.isChild = true,
+    this.onTap,
   });
+  final VoidCallback? onTap;
   final String image;
-  final Color dotColor;
+  final Color? dotColor;
   final Color? backgroundColor;
+  final bool isChild;
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        CircleAvatar(
-          backgroundColor: backgroundColor,
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Image.asset(
-              image,
-              fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        children: [
+          CircleAvatar(
+            backgroundColor: backgroundColor,
+            backgroundImage: isChild ? null : AssetImage(image),
+            child: isChild
+                ? Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Image.asset(image),
+                  )
+                : null,
+          ),
+          if (dotColor != null)
+            Positioned(
+              right: 0,
+              top: 0,
+              child: CircleAvatar(
+                radius: 5,
+                backgroundColor: dotColor,
+              ),
             ),
-          ),
-        ),
-        Positioned(
-          right: 0,
-          top: 0,
-          child: CircleAvatar(
-            radius: 5,
-            backgroundColor: dotColor,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

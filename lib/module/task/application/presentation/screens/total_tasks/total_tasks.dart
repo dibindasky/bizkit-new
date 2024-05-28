@@ -81,7 +81,13 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            size: 17,
+          ),
+        ),
         backgroundColor: knill,
         title: Row(
           children: [

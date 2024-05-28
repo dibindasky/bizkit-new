@@ -6,6 +6,7 @@ const Color kGrayLight = Color.fromRGBO(73, 73, 73, 1);
 const Color bottomsheetContainerclr = Color.fromRGBO(49, 49, 49, 1);
 const Color klightgrey = Color.fromARGB(255, 169, 169, 169);
 const Color kgrey = Color.fromARGB(255, 105, 105, 105);
+const Color kNotificationColor = Color(0xFF333333);
 const Color kwhite = Colors.white;
 const Color kgreen = Colors.green;
 const Color kred = Color.fromARGB(255, 255, 0, 0);

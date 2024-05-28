@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/application/presentation/screens/generate_report/generate_repor.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/home_appbar.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/legends_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_container.dart';
@@ -34,12 +35,12 @@ class ScreenTaskHome extends StatelessWidget {
                   wdth: 200,
                   text: 'Generate Report',
                   onTap: () {
-                    // showModalBottomSheet(
-                    //   context: context,
-                    //   builder: (BuildContext context) {
-                    //     return const ReportGenerator();
-                    //   },
-                    // );
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const ScreenTaskReportGenerator();
+                      },
+                    );
                   },
                   color: const LinearGradient(
                     colors: [neonShade, neonShade],

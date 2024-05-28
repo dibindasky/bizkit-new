@@ -28,6 +28,7 @@ import 'package:bizkit/module/task/application/presentation/screens/calender_vie
 import 'package:bizkit/module/task/application/presentation/screens/chat/task_chat_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/task_detail_page.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_detil_view.dart';
@@ -273,14 +274,22 @@ class GoRouterConfig {
       path: Routes.taskDeail,
       builder: (context, state) => const ScreenTaskDetailPage(),
     ),
-// Task notification
+
+    // Tsks notification
     GoRoute(
       name: Routes.taskNotification,
       path: Routes.taskNotification,
       builder: (context, state) => const NotoficationBuilder(),
     ),
 
-// HeirarchyUserDetail
+
+    GoRoute(
+      name: Routes.taskTabNotification,
+      path: Routes.taskTabNotification,
+      builder: (context, state) => const TaskTabNotification(),
+    ),
+
+    // HeirarchyUserDetail
     GoRoute(
       name: Routes.heirarchyUserDetail,
       path: Routes.heirarchyUserDetail,

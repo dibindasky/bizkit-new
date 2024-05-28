@@ -13,9 +13,12 @@ import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenAddTask extends StatelessWidget {
-  const ScreenAddTask({super.key});
+  const ScreenAddTask({super.key, this.edit = false});
+
+  final bool edit;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,11 @@ class ScreenAddTask extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Get.back(id: 1);
+              if (edit) {
+                GoRouter.of(context).pop();
+              } else {
+                Get.back(id: 1);
+              }
             },
             icon: const Icon(Icons.arrow_back_ios)),
         backgroundColor: knill,
@@ -68,7 +75,8 @@ class ScreenAddTask extends StatelessWidget {
                     showModalBottomSheet(
                         // showDragHandle: true,
                         context: context,
-                        builder: (context) => const AddParticipentBottomSheet());
+                        builder: (context) =>
+                            const AddParticipentBottomSheet());
                   },
                 ),
                 DeadlineChooserCreateTask(

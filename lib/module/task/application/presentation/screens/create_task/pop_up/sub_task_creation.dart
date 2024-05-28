@@ -1,4 +1,3 @@
-import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/container_textfield_dummy.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/deadline_chooser.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -7,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SubTaskCreationCustomDialog extends StatelessWidget {
+  const SubTaskCreationCustomDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -34,9 +35,6 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
             const TaskTextField(hintText: 'Description'),
             SizedBox(height: 10.h),
             DeadlineChooserCreateTask(onPressed: (date) {}, showTitle: false),
-            SizedBox(height: 10.h),
-            const ContainerTextFieldDummy(
-                text: 'Assign to', suffixIcon: Icons.arrow_right),
             SizedBox(height: 30.h),
             SizedBox(
                 width: double.infinity,

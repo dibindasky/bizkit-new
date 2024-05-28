@@ -25,10 +25,13 @@ import 'package:bizkit/module/biz_card/domain/model/auth/sign_up_model/sign_up_m
 import 'package:bizkit/module/biz_card/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/splash/splash_general.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/task_chat_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
+import 'package:bizkit/module/task/application/presentation/screens/task_detail/task_detail_page.dart';
+import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_detil_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -241,30 +244,35 @@ class GoRouterConfig {
 
 // task module route
   static final taskModuleRoute = [
-    // Navbar
+// Navbar
     GoRoute(
       name: Routes.taskNavbar,
       path: Routes.taskNavbar,
       builder: (context, state) => const ScreenNavbarTaskModule(),
     ),
-    // add task screen
+// add task screen
     GoRoute(
       name: Routes.addTask,
-      path: Routes.addTask,
-      builder: (context, state) => const ScreenAddTask(),
+      path: "${Routes.addTask}/:edit",
+      builder: (context, state) {
+        final edit = state.pathParameters['edit'] ?? '';
+        return ScreenAddTask(
+          edit: edit == 'true',
+        );
+      },
     ),
-    // Tasks Screen
+// Tasks Screen
     GoRoute(
       name: Routes.taskLists,
       path: Routes.taskLists,
       builder: (context, state) => const ScreenTotalTasksScreen(),
     ),
 
-    // Tasks Screen
+// Tasks Screen
     GoRoute(
       name: Routes.taskDeail,
       path: Routes.taskDeail,
-      builder: (context, state) => const ScreenTotalTasksScreen(),
+      builder: (context, state) => const ScreenTaskDetailPage(),
     ),
 
     // Tsks notification
@@ -273,6 +281,7 @@ class GoRouterConfig {
       path: Routes.taskNotification,
       builder: (context, state) => const NotoficationBuilder(),
     ),
+
 
     GoRoute(
       name: Routes.taskTabNotification,
@@ -285,6 +294,22 @@ class GoRouterConfig {
       name: Routes.heirarchyUserDetail,
       path: Routes.heirarchyUserDetail,
       builder: (context, state) => const ScreenHeirarchyTaskUserDetails(),
+    ),
+
+// chat Screen task
+    GoRoute(
+      name: Routes.taskChatScreen,
+      path: Routes.taskChatScreen,
+      builder: (context, state) => const ScreenTaskChat(),
+    ),
+
+// task attachmets detail list view
+    GoRoute(
+      name: Routes.taskAttachmetnsList,
+      path: Routes.taskAttachmetnsList,
+      builder: (context, state) {
+        return const ScreenTaskDetailAttachmentsDetailList();
+      },
     ),
   ];
 

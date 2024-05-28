@@ -203,7 +203,7 @@ String getImageFormat(String? base64String) {
   return '';
 }
 
-//Show cse asset images
+//Show case asset images
 const String rightArrowShocaseBorderImage =
     'asset/images/showcase images/right arrow showcase box.png';
 const String leftArrowShocaseBorderImage =

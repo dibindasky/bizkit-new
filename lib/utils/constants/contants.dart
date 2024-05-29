@@ -227,14 +227,16 @@ commenText(String data, {TextStyle? style}) {
 }
 
 //Task Constatnts
-
 TextStyle fontPopinsBold = fontPopins.copyWith(fontWeight: FontWeight.w700);
 TextStyle fontPopinsRegular = fontPopins.copyWith(fontWeight: FontWeight.w400);
 TextStyle fontPopinsMedium = fontPopins.copyWith(fontWeight: FontWeight.w500);
 TextStyle fontPopinsThin = fontPopins.copyWith(fontWeight: FontWeight.w100);
 
 const String taskFolderImage = 'asset/images/task/folder Image.png';
-
+const String taskFolderLongPressMergeImage =
+    'asset/images/task/foldeSelecting Merge Icon.png';
+const String taskFolderLongPressSelectAllImage =
+    'asset/images/task/folder all selecting.png';
 const String taskHomeNNOtificationAsset =
     'asset/images/icon/image 4 (Traced).png';
 

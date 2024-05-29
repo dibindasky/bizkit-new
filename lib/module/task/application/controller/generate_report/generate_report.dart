@@ -1,3 +1,4 @@
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,7 @@ class TaskGenerateReportController extends GetxController {
     if (taskFromOptions.isNotEmpty) {
       genareteDropDownData.value = taskFromOptions[0];
     }
+    if (names.isNotEmpty) {}
   }
 
   void changeGenareteDropDownData(String selectedDropDownData) {

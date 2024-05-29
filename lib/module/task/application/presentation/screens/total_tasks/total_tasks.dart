@@ -153,7 +153,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
-        children: const [
+        children: [
           TaskListView(),
           TaskListView(),
         ],

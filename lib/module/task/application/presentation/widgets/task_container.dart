@@ -1,31 +1,37 @@
 import 'dart:developer';
-
-import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 class TaskContainer extends StatelessWidget {
-  const TaskContainer({
+  TaskContainer({
     super.key,
     required this.task,
+    required this.index,
   });
 
+  final int index;
+
   final Map<String, String> task;
+  final controller = Get.find<TaskCalenderViewController>();
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        GestureDetector(onTap: (){
-          GoRouter.of(context).push(Routes.taskChatScreen);
-        },
-          child: Card(
-            color: lightColr,
+    return Obx(
+      () => Stack(
+        children: [
+          Card(
+            color: !controller.selectedIndices.contains(index)
+                ? lightColr
+                : kwhite.withOpacity(.2),
             shape: RoundedRectangleBorder(
               side: BorderSide(
                 width: 2,
-                color: Color(int.parse(task['color']!)),
+                color: controller.selectedIndices.contains(index)
+                    ? neonShade
+                    : Color(int.parse(task['color']!)),
               ),
               borderRadius: BorderRadius.circular(15.0),
             ),
@@ -42,10 +48,24 @@ class TaskContainer extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Image.asset(
-                                'asset/images/icon/Vector.png',
-                                scale: 2,
-                              ),
+                              controller.selectedIndices.contains(index)
+                                  ? Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: neonShade),
+                                        borderRadius: kBorderRadius25,
+                                        color: kblack,
+                                      ),
+                                      child: const Icon(
+                                        Icons.done,
+                                        color: kwhite,
+                                        size: 16,
+                                      ),
+                                    )
+                                  : Image.asset(
+                                      'asset/images/icon/Vector.png',
+                                      scale: 2,
+                                    ),
                               adjustWidth(10),
                               Text(
                                 task['title']!,
@@ -114,18 +134,18 @@ class TaskContainer extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        Positioned(
-          top: 50,
-          bottom: 50,
-          left: 0,
-          child: Container(
-            color: klightgrey,
-            width: 4,
-            height: 100,
-          ),
-        )
-      ],
+          Positioned(
+            top: 50,
+            bottom: 50,
+            left: 0,
+            child: Container(
+              color: klightgrey,
+              width: 4,
+              height: 100,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

@@ -5,17 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class GenerateReportDropDownButton extends StatefulWidget {
-  const GenerateReportDropDownButton({super.key});
+class GenerateReportDropDownButton extends StatelessWidget {
+  GenerateReportDropDownButton({super.key});
 
-  @override
-  State<GenerateReportDropDownButton> createState() =>
-      _GenerateReportDropDownButtonState();
-}
-
-class _GenerateReportDropDownButtonState
-    extends State<GenerateReportDropDownButton> {
   final controller = Get.find<TaskGenerateReportController>();
+
   @override
   Widget build(BuildContext context) {
     return Column(

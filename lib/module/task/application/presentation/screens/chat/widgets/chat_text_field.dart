@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/attachments_chat_dialog.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,11 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
       child: Row(
         children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => const AttachmentsChatDialog());
+            },
             icon: const Icon(Icons.add, color: neonShade),
           ),
           Expanded(

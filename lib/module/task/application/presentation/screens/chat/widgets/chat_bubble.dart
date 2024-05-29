@@ -1,4 +1,3 @@
-
 import 'package:bizkit/utils/clipper/chat_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +24,15 @@ class ChatBubble extends StatelessWidget {
     return Align(
       alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 5.0.w),
+        padding: EdgeInsets.only(
+            top: 5.0.w,
+            bottom: 5.0.w,
+            left: isSender ? 50.w : 0.w,
+            right: !isSender ? 50.w : 0.w),
         child: ClipPath(
           clipper: ChatBubbleClipper(isSender: isSender),
           child: Container(
-            // margin: EdgeInsets.only(left: isSender?100.w:0,right: isSender?0:100.w),
-            color: isSender ? neonShade : kwhite,
+            color: isSender ? neonShade.withOpacity(0.8) : kwhite.withOpacity(.3),
             padding: EdgeInsets.only(
                 left: isSender ? 10.w : 20.w,
                 right: !isSender ? 10.w : 20.w,
@@ -45,7 +47,7 @@ class ChatBubble extends StatelessWidget {
                 ],
                 Text(
                   text,
-                  style: textStyle1.copyWith(color: isSender ? kwhite : kblack),
+                  style: textStyle1.copyWith(color: kwhite ),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -54,7 +56,7 @@ class ChatBubble extends StatelessWidget {
                     Text(
                       time,
                       style: textStyle1.copyWith(
-                        color: kgrey,
+                        color:isSender? kgrey:kGrayLight,
                         fontSize: 10.sp,
                       ),
                     ),

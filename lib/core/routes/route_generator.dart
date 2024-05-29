@@ -53,8 +53,8 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.initial,
       path: Routes.initial,
-      // builder: (context, state) => const ScreenTaskChat(),
-      builder: (context, state) => const ScreenGeneralSplash(),
+      builder: (context, state) => const ScreenTaskChat(),
+      // builder: (context, state) => const ScreenGeneralSplash(),
     ),
   ];
 
@@ -282,7 +282,6 @@ class GoRouterConfig {
       path: Routes.taskNotification,
       builder: (context, state) => const NotoficationBuilder(),
     ),
-
 
     GoRoute(
       name: Routes.taskTabNotification,

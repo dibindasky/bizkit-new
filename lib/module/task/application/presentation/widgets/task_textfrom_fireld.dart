@@ -10,12 +10,14 @@ class TaskTextField extends StatelessWidget {
     this.icon,
     this.suffixIcon,
     this.maxLines,
-    this.showBorder=false,
-    this.textColor=klightgrey,
+    this.showBorder = false,
+    this.textColor = klightgrey,
+    this.labelText
   });
   final Color? fillColor;
   final Color? textColor;
   final String? hintText;
+  final String? labelText;
   final IconData? icon;
   final Widget? suffixIcon;
   final int? maxLines;
@@ -24,16 +26,20 @@ class TaskTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: textStyle1.copyWith(color: textColor),
       maxLines: maxLines,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
         hintText: hintText,
         hintStyle: TextStyle(color: textColor),
+        labelText: labelText,
+        labelStyle: TextStyle(color: textColor),
         filled: true,
         fillColor: fillColor ?? lightGrey,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide:showBorder?const BorderSide(color: neonShade): BorderSide.none,
+          borderSide:
+              showBorder ? const BorderSide(color: neonShade) : BorderSide.none,
         ),
         suffixIcon: suffixIcon,
       ),

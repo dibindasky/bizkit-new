@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/widget/request_dicline_dailog.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/widget/request_mark_dailog.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -97,40 +98,6 @@ class NotificationRequestCard extends StatelessWidget {
               onPressed: () {
                 requestDiclineShowDailog(context);
               },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<dynamic> requestDiclineShowDailog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        backgroundColor: kNotificationColor,
-        title: const Text(
-          'Are you sure do you want to Dicline this task',
-          style: TextStyle(),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text(
-              'No',
-              style: TextStyle(),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text(
-              'Yes',
-              style: TextStyle(),
             ),
           ),
         ],

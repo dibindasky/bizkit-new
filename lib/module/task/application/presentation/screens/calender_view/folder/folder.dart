@@ -1,19 +1,25 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TaskFolderSection extends StatelessWidget {
-  const TaskFolderSection({super.key, required this.name});
+  TaskFolderSection({super.key, required this.name});
 
   final String name;
+  final controller = Get.find<TaskCalenderViewController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPress: () {
+        log('message');
+        controller.folderLongPress(!controller.selectedFolderContainer.value);
+      },
       onTap: () => Get.toNamed(Routes.heirarchyUserDetail, id: 2),
       child: ListTile(
         leading: SizedBox(

@@ -30,14 +30,15 @@ class ScreenAddTask extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              if (edit) {
-                GoRouter.of(context).pop();
-              } else {
-                Get.back(id: 1);
-              }
-            },
-            icon: const Icon(Icons.arrow_back_ios)),
+          onPressed: () {
+            if (edit) {
+              GoRouter.of(context).pop();
+            } else {
+              Get.back(id: 1);
+            }
+          },
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
         backgroundColor: knill,
         title: const Text('New Task'),
       ),
@@ -73,10 +74,10 @@ class ScreenAddTask extends StatelessWidget {
                   suffixIcon: Icons.arrow_right,
                   onTap: () {
                     showModalBottomSheet(
-                        // showDragHandle: true,
-                        context: context,
-                        builder: (context) =>
-                            const AddParticipentBottomSheet());
+                      // showDragHandle: true,
+                      context: context,
+                      builder: (context) => const AddParticipentBottomSheet(),
+                    );
                   },
                 ),
                 DeadlineChooserCreateTask(

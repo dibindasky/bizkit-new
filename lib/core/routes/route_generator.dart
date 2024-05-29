@@ -53,6 +53,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.initial,
       path: Routes.initial,
+      // builder: (context, state) => const ScreenTaskChat(),
       builder: (context, state) => const ScreenGeneralSplash(),
     ),
   ];

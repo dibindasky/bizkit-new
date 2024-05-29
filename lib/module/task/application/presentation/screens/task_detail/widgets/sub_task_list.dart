@@ -93,34 +93,43 @@ class SubTaskTileDetailPage extends StatelessWidget {
           color: kGrayLight,
           borderRadius: kBorderRadius10,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
           children: [
-            Row(
-              children: [
-                Image.asset('asset/images/icon/Vector.png', scale: 2),
-                adjustWidth(10.w),
-                Text(
-                  'new project user flow',
-                  style: textHeadStyle1.copyWith(color: neonShade),
-                ),
-                const Spacer(),
-                Checkbox(
-                  value: false,
-                  onChanged: (bool? value) {},
-                  activeColor: Colors.teal,
-                  checkColor: Colors.white,
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Image.asset('asset/images/icon/Vector.png', scale: 2),
+                      adjustWidth(10.w),
+                      Text(
+                        'new project user flow',
+                        style: textHeadStyle1.copyWith(color: neonShade),
+                      ),
+                    ],
+                  ),
+                  adjustHieght(8.h),
+                  Text(
+                    'User interface (UI) design is the process designers use to build interfaces in software or computerized devices.',
+                    style: textThinStyle1,
+                  ),
+                  adjustHieght(5.h),
+                  Text(
+                    'Deadline : 16 May 2024',
+                    style: textStyle1,
+                  ),
+                ],
+              ),
             ),
-            Text(
-              'User interface (UI) design is the process designers use to build interfaces in software or computerized devices.',
-              style: textThinStyle1,
-            ),
-            adjustHieght(5.h),
-            Text(
-              'Deadline : 16 May 2024',
-              style: textStyle1,
+            adjustWidth(20.w),
+            // change decoration when task got completed
+            Container(
+              height: 27.w,
+              width: 27.w,
+              decoration: BoxDecoration(
+                  border: Border.all(color: neonShade, width: 2.w),
+                  borderRadius: kBorderRadius5),
             ),
           ],
         ),

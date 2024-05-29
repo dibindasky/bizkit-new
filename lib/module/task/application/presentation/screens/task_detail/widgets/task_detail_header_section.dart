@@ -1,4 +1,4 @@
-import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/task_status_dialoge.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,8 +37,11 @@ class TaskDetailHeaderSection extends StatelessWidget {
                 icon:
                     const Icon(Icons.mode_edit_outline_outlined, color: kwhite),
                 onPressed: () {
-                  GoRouter.of(context).pushNamed(Routes.addTask,
-                      pathParameters: {'edit': "true"});
+                  showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (context) => const TaskStatusChangeDialog(),
+                  );
                 },
               ),
             ),

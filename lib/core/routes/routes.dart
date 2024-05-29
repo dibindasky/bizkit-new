@@ -39,4 +39,6 @@ class Routes {
   static const String taskTabNotification = '/taskTabNotification';
   static const String taskChatScreen = '/task_chat_screen';
   static const String taskAttachmetnsList = '/task_attachments_detail_list';
+  static const String taskChatPollCration = '/task_chat_poll_creation';
+  static const String taskChatPollDetail = '/task_chat_poll_detail';
 }

@@ -25,6 +25,7 @@ import 'package:bizkit/module/biz_card/domain/model/auth/sign_up_model/sign_up_m
 import 'package:bizkit/module/biz_card/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/splash/splash_general.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/poll/poll_creation_page.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/task_chat_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
@@ -53,8 +54,8 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.initial,
       path: Routes.initial,
-      builder: (context, state) => const ScreenTaskChat(),
-      // builder: (context, state) => const ScreenGeneralSplash(),
+      // builder: (context, state) => const ScreenTaskChat(),
+      builder: (context, state) => const ScreenGeneralSplash(),
     ),
   ];
 
@@ -309,6 +310,15 @@ class GoRouterConfig {
       path: Routes.taskAttachmetnsList,
       builder: (context, state) {
         return const ScreenTaskDetailAttachmentsDetailList();
+      },
+    ),
+
+// task chat poll creation page
+    GoRoute(
+      name: Routes.taskChatPollCration,
+      path: Routes.taskChatPollCration,
+      builder: (context, state) {
+        return const ScreenPollCreation();
       },
     ),
   ];

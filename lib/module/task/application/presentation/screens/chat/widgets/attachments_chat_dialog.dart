@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,13 @@ class AttachmentsChatDialog extends StatelessWidget {
                     onTap: () {},
                     text: 'Document'),
                 AttachmentTile(
-                    iconData: Icons.poll_outlined, onTap: () {}, text: 'Poll'),
+                    iconData: Icons.poll_outlined,
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                      GoRouter.of(context)
+                          .pushNamed(Routes.taskChatPollCration);
+                    },
+                    text: 'Poll'),
                 AttachmentTile(
                     iconData: Icons.alarm, onTap: () {}, text: 'Update Time'),
                 AttachmentTile(
@@ -80,8 +87,8 @@ class AttachmentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: SizedBox(
-        width: double.infinity,
+      child: Container(
+        color: knill,
         child: Column(
           children: [
             Row(

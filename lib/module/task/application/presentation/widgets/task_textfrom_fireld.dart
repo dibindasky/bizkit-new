@@ -10,9 +10,11 @@ class TaskTextField extends StatelessWidget {
     this.icon,
     this.suffixIcon,
     this.maxLines,
-    this.showBorder=false
+    this.showBorder=false,
+    this.textColor=klightgrey,
   });
   final Color? fillColor;
+  final Color? textColor;
   final String? hintText;
   final IconData? icon;
   final Widget? suffixIcon;
@@ -26,7 +28,7 @@ class TaskTextField extends StatelessWidget {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h),
         hintText: hintText,
-        hintStyle: const TextStyle(color: klightgrey),
+        hintStyle: TextStyle(color: textColor),
         filled: true,
         fillColor: fillColor ?? lightGrey,
         border: OutlineInputBorder(

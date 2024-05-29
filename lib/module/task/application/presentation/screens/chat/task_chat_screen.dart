@@ -1,4 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_bubble.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_text_field.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,6 +45,28 @@ class ScreenTaskChat extends StatelessWidget {
           adjustWidth(10.w)
         ],
       ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+              child: ListView.builder(
+                reverse: true,
+                shrinkWrap: true,
+                itemBuilder: (context, index) => ChatBubble(
+                  isSender: index % 2 == 0,
+                  text: 'Yes.. i am alwase free .. can we meet ',
+                  time: '12:15 PM',
+                  isImage: (index + 1) % 7 == 0,
+                  imageUrl: imageDummyNetwork,
+                ),
+              ),
+            ),
+          ),
+          const ChatTextfieldContainer()
+        ],
+      ),
     );
   }
 }
+

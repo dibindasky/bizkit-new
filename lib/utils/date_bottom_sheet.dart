@@ -21,7 +21,7 @@ class DatePickingBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: khieght * 0.7,
+      height: khieght * 0.6,
       child: Column(
         children: [
           const Padding(

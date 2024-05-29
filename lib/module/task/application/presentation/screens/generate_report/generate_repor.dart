@@ -1,11 +1,17 @@
+import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/date_container.dart';
+import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/drop_down_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScreenTaskReportGenerator extends StatefulWidget {
   const ScreenTaskReportGenerator({super.key});
 
   @override
-  _ScreenTaskReportGeneratorState createState() => _ScreenTaskReportGeneratorState();
+  _ScreenTaskReportGeneratorState createState() =>
+      _ScreenTaskReportGeneratorState();
 }
 
 class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
@@ -16,83 +22,88 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
   bool social = false;
   bool critical = false;
   bool medium = false;
-  DateTimeRange? dateRange;
   String? selectedTaskFrom;
-  final List<String> taskFromOptions = ['Option 1', 'Option 2', 'Option 3'];
+
+  String selectedOptionCategory = '';
+  String selectedTaskType = '';
+  String selectedPriorityType = '';
+
+  void _handleCategoryChange(String newValue) {
+    setState(() {
+      selectedOptionCategory = newValue;
+    });
+  }
+
+  void _handleTaskTypeChange(String newValue) {
+    setState(() {
+      selectedTaskType = newValue;
+    });
+  }
+
+  void _handlePriorityTypeChange(String newValue) {
+    setState(() {
+      selectedPriorityType = newValue;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const Text(
-          'Generate report for your tasks',
-          style: TextStyle(fontSize: 18, color: Colors.tealAccent),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        width: double.infinity,
+        height: khieght * 0.6,
+        child: ListView(
+          children: [
+            const Text(
+              'Generate report for your tasks',
+              style: TextStyle(fontSize: 18, color: neonShade),
+            ),
+            adjustHieght(8.h),
+            const Text(
+              'Identify the problem which is affecting the task progress by getting a detailed report',
+              style: TextStyle(color: klightgrey),
+            ),
+            adjustHieght(16.h),
+            _buildCheckboxRow('Select the reports you want to generate', [
+              _buildCheckbox('Others to self', 'Others to self',
+                  selectedOptionCategory, _handleCategoryChange),
+              _buildCheckbox('Self to others', 'Self to others',
+                  selectedOptionCategory, _handleCategoryChange),
+              _buildCheckbox('Self to Self', 'Self to Self',
+                  selectedOptionCategory, _handleCategoryChange),
+            ]),
+            _buildCheckboxRow('Select the Task type', [
+              _buildCheckbox('Personal', 'Personal', selectedTaskType,
+                  _handleTaskTypeChange),
+              _buildCheckbox(
+                  'Social', 'Social', selectedTaskType, _handleTaskTypeChange),
+            ]),
+            _buildCheckboxRow('Select the Priority type', [
+              _buildCheckbox('High', 'High', selectedPriorityType,
+                  _handlePriorityTypeChange),
+              _buildCheckbox('Medium', 'Medium', selectedPriorityType,
+                  _handlePriorityTypeChange),
+              _buildCheckbox('Low', 'Low', selectedPriorityType,
+                  _handlePriorityTypeChange),
+            ]),
+            adjustHieght(16.h),
+            DateContainer(),
+            adjustHieght(8.h),
+            const GenerateReportDropDownButton(),
+            adjustHieght(20.h),
+            Center(
+              child: EventButton(
+                wdth: kwidth * 98,
+                text: 'Generate',
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ],
         ),
-        adjustHieght(8),
-        const Text(
-          'Identify the problem which is affecting the task progress by getting a detailed report',
-          style: TextStyle(color: Colors.grey),
-        ),
-        adjustHieght(16),
-        _buildCheckboxRow('Select the reports you want to generate', [
-          _buildCheckbox('Others to self', othersToSelf, (value) {
-            setState(() {
-              othersToSelf = value;
-            });
-          }),
-          _buildCheckbox('Self to others', selfToOthers, (value) {
-            setState(() {
-              selfToOthers = value;
-            });
-          }),
-          _buildCheckbox('Self to Self', selfToSelf, (value) {
-            setState(() {
-              selfToSelf = value;
-            });
-          }),
-        ]),
-        adjustHieght(16),
-        _buildCheckboxRow('Select the Task type', [
-          _buildCheckbox('Personal', personal, (value) {
-            setState(() {
-              personal = value;
-            });
-          }),
-          _buildCheckbox('Social', social, (value) {
-            setState(() {
-              social = value;
-            });
-          }),
-        ]),
-        adjustHieght(16),
-        _buildCheckboxRow('Priority Type', [
-          _buildCheckbox('Critical', critical, (value) {
-            setState(() {
-              critical = value;
-            });
-          }),
-          _buildCheckbox('Medium', medium, (value) {
-            setState(() {
-              medium = value;
-            });
-          }),
-        ]),
-        adjustHieght(16),
-        _buildDateRangePicker(context),
-        adjustHieght(16),
-        Text('Select the Tasks From', style: TextStyle(color: Colors.grey)),
-        adjustHieght(8),
-        _buildDropdown(),
-        SizedBox(height: 24),
-        ElevatedButton(
-          onPressed: () {},
-          child: Text('Generate'),
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 16),
-            textStyle: TextStyle(fontSize: 16),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
@@ -100,121 +111,37 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(color: Colors.white)),
-        adjustHieght(8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: checkboxes,
+        Text(title, style: const TextStyle(color: kwhite)),
+        FittedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: checkboxes,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildCheckbox(String label, bool value, Function(bool) onChanged) {
+  Widget _buildCheckbox(String label, String currentValue,
+      String selectedOption, Function(String) onChanged) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Checkbox(
-          value: value,
-          onChanged: (newValue) => onChanged(newValue!),
-          checkColor: Colors.teal,
-          activeColor: Colors.white,
+          side: const BorderSide(color: neonShade),
+          value: selectedOption == currentValue,
+          onChanged: (newValue) {
+            if (newValue != null && newValue) {
+              onChanged(currentValue);
+            } else {
+              onChanged('');
+            }
+          },
+          checkColor: neonShade,
+          activeColor: kwhite,
         ),
-        Text(label, style: TextStyle(color: Colors.white)),
+        Text(label, style: const TextStyle(color: kwhite)),
       ],
-    );
-  }
-
-  Widget _buildDateRangePicker(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Select Date Range', style: TextStyle(color: Colors.white)),
-        adjustHieght(8),
-        Row(
-          children: [
-            ElevatedButton(
-              onPressed: () async {
-                DateTimeRange? picked = await showDateRangePicker(
-                  context: context,
-                  firstDate: DateTime(2020),
-                  lastDate: DateTime(2025),
-                  initialDateRange: dateRange,
-                  builder: (context, child) {
-                    return Theme(
-                      data: Theme.of(context).copyWith(
-                        colorScheme: ColorScheme.dark(
-                          primary: Colors.teal,
-                          onPrimary: Colors.white,
-                          surface: Colors.teal,
-                          onSurface: Colors.black,
-                        ),
-                        dialogBackgroundColor: Colors.white,
-                      ),
-                      child: child!,
-                    );
-                  },
-                );
-                if (picked != null && picked != dateRange) {
-                  setState(() {
-                    dateRange = picked;
-                  });
-                }
-              },
-              child: Text('Inline Preview'),
-            ),
-            SizedBox(width: 16),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      dateRange == null
-                          ? 'Select Date Range'
-                          : '${dateRange!.start.toLocal()} - ${dateRange!.end.toLocal()}',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    Icon(Icons.calendar_today, color: Colors.teal),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildDropdown() {
-    return DropdownButtonFormField<String>(
-      value: selectedTaskFrom,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: Colors.teal),
-        ),
-        filled: true,
-        fillColor: Colors.white,
-      ),
-      items: taskFromOptions.map((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value, style: TextStyle(color: Colors.black)),
-        );
-      }).toList(),
-      onChanged: (newValue) {
-        setState(() {
-          selectedTaskFrom = newValue;
-        });
-      },
-      dropdownColor: Colors.white,
-      iconEnabledColor: Colors.teal,
     );
   }
 }

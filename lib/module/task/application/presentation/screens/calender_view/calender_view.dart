@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
@@ -25,27 +26,29 @@ class ScreenTaskCalenderView extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.only(left: 15.h),
               width: double.infinity,
-              height: 80,
+              height: 80.h,
               child: Row(
                 children: [
                   const Icon(
                     Icons.calendar_month,
                     color: neonShade,
                   ),
-                  adjustWidth(10),
+                  adjustWidth(10.w),
                   Text('Calender view', style: TextStyle(fontSize: 17.sp)),
                   const Spacer(),
                   CustomCircleAvatar(
                     backgroundColor: lightGrey,
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.taskNotification, id: 2);
+                    },
                     backgroundColorInner: neonShade,
                   ),
-                  adjustWidth(10),
+                  adjustWidth(8.5.w),
                   CustomCircleAvatar(
                     backgroundColor: lightGrey,
-                    onTap: () {},
+                    onTap: () => Get.toNamed(Routes.taskTabNotification, id: 1),
                     backgroundColorInner: neonShade,
                     child: const Icon(
                       Icons.add,
@@ -53,7 +56,7 @@ class ScreenTaskCalenderView extends StatelessWidget {
                       color: neonShade,
                     ),
                   ),
-                  adjustWidth(10),
+                  adjustWidth(10.w),
                 ],
               ),
             ),
@@ -170,10 +173,11 @@ class ScreenTaskCalenderView extends StatelessWidget {
                         showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return const Scaffold(
-                              body: Column(
-                                children: [],
-                              ),
+                            return BottomSheet(
+                              onClosing: () {},
+                              builder: (context) {
+                                return Container();
+                              },
                             );
                           },
                         );
@@ -203,38 +207,12 @@ class ScreenTaskCalenderView extends StatelessWidget {
               initialDate: DateTime.now(),
               onDateChange: (selectedDate) {},
             ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 15),
-            //   child: Row(
-            //     children: [
-            //       DropDownContainer(
-            //         controller: deadLineController,
-            //         items: const [
-            //           'Jan - 31 - 2023',
-            //           'Jan - 31 - 2023',
-            //           'Jan - 31 - 2023'
-            //         ],
-            //         hint: 'Dead Line',
-            //       ),
-            //       DropDownContainer(
-            //         controller: priorityController,
-            //         items: const ['High', 'Medium', 'Low'],
-            //         hint: 'Priority',
-            //       ),
-            //       DropDownContainer(
-            //         controller: taskTypeController,
-            //         items: const ['Official', 'Personal'],
-            //         hint: 'Task Type',
-            //       ),
-            //     ],
-            //   ),
-            // ),
             adjustHieght(20),
             Obx(() {
               if (controller.taskBottomTabIndex.value == 0) {
                 return Expanded(
                   child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    padding: EdgeInsets.symmetric(horizontal: 14.0.h),
                     itemCount: 10,
                     itemBuilder: (context, index) {
                       return const HierarchyListtile();

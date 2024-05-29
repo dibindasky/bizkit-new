@@ -23,15 +23,14 @@ class TaskHomeAppBar extends StatelessWidget {
         ),
         Row(
           children: [
-            InkWell(
-              onTap: () => Get.toNamed(Routes.taskNotification, id: 1),
-              child: CircleAvatar(
-                radius: 18.h,
-                backgroundColor: lightGrey,
-                backgroundImage: const AssetImage(iconNotification),
-              ),
+            CustomCircleAvatar(
+              backgroundColor: lightGrey,
+              onTap: () {
+                Get.toNamed(Routes.taskNotification, id: 1);
+              },
+              backgroundColorInner: neonShade,
             ),
-            adjustWidth(10),
+            adjustWidth(10.h),
             CustomStackOnlineDotCircleAvatar(
               onTap: () => Get.toNamed(Routes.taskTabNotification, id: 1),
               image: taskHomeNNOtificationAsset,

@@ -7,6 +7,7 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_textfro
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScreenTaskHome extends StatelessWidget {
   const ScreenTaskHome({super.key});
@@ -16,27 +17,32 @@ class ScreenTaskHome extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView(
+          padding: const EdgeInsets.only(left: 15.0, right: 15, top: 24),
+          child: Column(
             children: [
               const TaskHomeAppBar(),
-              adjustHieght(16),
+              adjustHieght(16.h),
               const TaskTextField(hintText: 'Find your task'),
-              adjustHieght(16),
+              adjustHieght(16.h),
               const TaskCreationContainer(),
-              adjustHieght(16),
+              adjustHieght(16.h),
               const LegendsContainer(),
-              adjustHieght(40),
+              adjustHieght(40.h),
               const TaskContainers(),
-              adjustHieght(70),
+              adjustHieght(70.h),
               Center(
                 child: EventButton(
-                  hieght: 45,
-                  wdth: 200,
+                  hieght: 40.h,
+                  wdth: 200.w,
                   text: 'Generate Report',
                   onTap: () {
                     showModalBottomSheet(
                       context: context,
+                      enableDrag: true,
+                      isDismissible: true,
+                      showDragHandle: true,
+                      isScrollControlled: true,
+                      backgroundColor: backgroundColour,
                       builder: (BuildContext context) {
                         return const ScreenTaskReportGenerator();
                       },

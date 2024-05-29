@@ -1,160 +1,132 @@
+import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class DropDownContainer extends StatefulWidget {
-  const DropDownContainer({
-    super.key,
-    required this.controller,
-    required this.items,
-    this.onChanged,
-    required this.hint,
-    this.onTap,
-  });
+class TaskSortingBottomSheet extends StatelessWidget {
+  TaskSortingBottomSheet({super.key});
 
-  final TextEditingController controller;
-  final List<String> items;
-  final Function(String?)? onChanged;
-  final String hint;
-  final String Function(String?)? onTap;
-
-  @override
-  State<DropDownContainer> createState() => _DropDownContainerState();
-}
-
-class _DropDownContainerState extends State<DropDownContainer> {
-  bool containerOpenArrow1 = false;
-  bool containerOpenArrow2 = false;
-  bool dropDownOn = false;
-  String? selectedItem;
+  final taskCalenderController = Get.find<TaskCalenderViewController>();
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: 40,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton2<String>(
-            iconStyleData: IconStyleData(
-              icon: containerOpenArrow2
-                  ? const Icon(
-                      Icons.arrow_drop_up_sharp,
-                      color: kwhite,
-                    )
-                  : const Icon(
-                      Icons.arrow_drop_down_outlined,
-                      color: kwhite,
+    return BottomSheet(
+      onClosing: () {},
+      builder: (context) {
+        return GetBuilder<TaskCalenderViewController>(builder: (controlller) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Choose Dead Line', style: TextStyle(fontSize: 14.sp)),
+                adjustHieght(4.h),
+                ClipRRect(
+                  child: DropdownButtonFormField<String>(
+                    hint: const Text('Dead Line',
+                        style: TextStyle(color: klightgrey)),
+                    value: taskCalenderController.deadLine.value,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: kBorderRadius10,
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: lightGrey,
                     ),
-            ),
-            buttonStyleData: ButtonStyleData(
-              decoration: BoxDecoration(
-                color: klightgrey,
-                border: Border.all(
-                  color: kblack,
-                ),
-                borderRadius: kBorderRadius5,
-              ),
-              elevation: 0,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              height: 40,
-              width: 0,
-            ),
-            hint: Text(widget.hint),
-            isExpanded: true,
-            items: [
-              ...widget.items.toSet().map((String item) {
-                return DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(
-                    item,
-                    overflow: TextOverflow.ellipsis,
+                    items: names.toSet().map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child:
+                            Text(value, style: const TextStyle(color: kwhite)),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      taskCalenderController.changeDeadLineData(newValue ?? '');
+                    },
+                    dropdownColor: backgroundColour,
+                    iconEnabledColor: neonShade,
                   ),
-                );
-              }).toList(),
-            ],
-            onChanged: (String? value) {
-              setState(() {
-                selectedItem = value;
-              });
-              if (widget.onChanged != null) {
-                widget.onChanged!(value);
-              }
-            },
-            value: selectedItem,
-            dropdownStyleData: DropdownStyleData(
-              decoration: BoxDecoration(
-                borderRadius: kBorderRadius5,
-                color: backgroundColour,
-              ),
-              offset: const Offset(0, -5),
-              maxHeight: 250,
+                ),
+                adjustHieght(10.h),
+                Text('Choose Priority', style: TextStyle(fontSize: 14.sp)),
+                adjustHieght(4.h),
+                ClipRRect(
+                  child: DropdownButtonFormField<String>(
+                    hint: const Text('Prority',
+                        style: TextStyle(color: klightgrey)),
+                    value: taskCalenderController.priority.value,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: kBorderRadius10,
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: lightGrey,
+                    ),
+                    items: names.toSet().map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child:
+                            Text(value, style: const TextStyle(color: kwhite)),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      taskCalenderController.changePriorityData(newValue ?? '');
+                    },
+                    dropdownColor: backgroundColour,
+                    iconEnabledColor: neonShade,
+                  ),
+                ),
+                adjustHieght(10.h),
+                Text('Choose Task Type', style: TextStyle(fontSize: 14.sp)),
+                adjustHieght(4.h),
+                ClipRRect(
+                  child: DropdownButtonFormField<String>(
+                    hint: const Text('Task Type',
+                        style: TextStyle(color: klightgrey)),
+                    value: taskCalenderController.taskType.value,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: kBorderRadius10,
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: lightGrey,
+                    ),
+                    items: names.toSet().map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child:
+                            Text(value, style: const TextStyle(color: kwhite)),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      taskCalenderController.changeTaskTypeData(newValue ?? '');
+                    },
+                    dropdownColor: backgroundColour,
+                    iconEnabledColor: neonShade,
+                  ),
+                ),
+                const Spacer(),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: EventButton(
+                    wdth: 200.w,
+                    text: 'Start Sorting task',
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                adjustHieght(20.h)
+              ],
             ),
-            menuItemStyleData: const MenuItemStyleData(
-              height: 40,
-            ),
-            dropdownSearchData: dropdownSearchData(
-              controller: widget.controller,
-              data: widget.hint,
-            ),
-            onMenuStateChange: (isOpen) {
-              setState(() {
-                containerOpenArrow2 = isOpen;
-                dropDownOn = isOpen;
-                if (!isOpen) {
-                  widget.controller.clear();
-                }
-              });
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  DropdownSearchData<String> dropdownSearchData({
-    TextEditingController? controller,
-    String? data,
-  }) {
-    return DropdownSearchData(
-      searchController: controller,
-      searchInnerWidgetHeight: 0,
-      searchInnerWidget: Container(
-        decoration: const BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: kwhite,
-            ),
-          ),
-        ),
-        height: 50,
-        child: TextFormField(
-          style: const TextStyle(color: kwhite),
-          controller: controller,
-          decoration: const InputDecoration(
-            counterStyle: TextStyle(color: kwhite),
-            icon: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 8,
-              ),
-              child: Icon(
-                Icons.search,
-                color: kwhite,
-              ),
-            ),
-            hintText: 'Search',
-          ),
-        ),
-      ),
-      searchMatchFn: (item, searchValue) {
-        return item.value.toString().toLowerCase().contains(
-              searchValue.toLowerCase(),
-            );
+          );
+        });
       },
     );
   }

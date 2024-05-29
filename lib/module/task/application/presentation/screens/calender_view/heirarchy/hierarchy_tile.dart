@@ -113,7 +113,10 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                 itemCount: tasks.length,
                 itemBuilder: (context, index) {
                   final task = tasks[index];
-                  return TaskContainer(task: task);
+                  return TaskContainer(
+                    task: task,
+                    index: index,
+                  );
                 },
               ),
             ),

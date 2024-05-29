@@ -8,11 +8,14 @@ class CustomCircleAvatar extends StatelessWidget {
     this.child,
     required this.backgroundColor,
     required this.backgroundColorInner,
+    this.radius,
   });
+
   final VoidCallback onTap;
   final Widget? child;
   final Color backgroundColor;
   final Color backgroundColorInner;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +23,13 @@ class CustomCircleAvatar extends StatelessWidget {
       onTap: onTap,
       child: CircleAvatar(
         backgroundColor: backgroundColor,
-        radius: 24,
+        radius: radius ?? 24,
         child: CircleAvatar(
-          radius: 16,
+          radius: radius != null ? radius! - 8 : 16,
           backgroundColor: backgroundColorInner,
           child: CircleAvatar(
             backgroundColor: backgroundColor,
-            radius: 14,
+            radius: radius != null ? radius! - 8 : 14,
             child: child ??
                 const Icon(
                   Icons.notifications,

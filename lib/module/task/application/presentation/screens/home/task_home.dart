@@ -17,8 +17,8 @@ class ScreenTaskHome extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15, top: 24),
-          child: Column(
+          padding: const EdgeInsets.only(left: 10.0, right: 10, top: 24),
+          child: ListView(
             children: [
               const TaskHomeAppBar(),
               adjustHieght(16.h),

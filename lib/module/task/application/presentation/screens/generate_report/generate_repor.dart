@@ -90,7 +90,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
             adjustHieght(16.h),
             DateContainer(),
             adjustHieght(8.h),
-            const GenerateReportDropDownButton(),
+            GenerateReportDropDownButton(),
             adjustHieght(20.h),
             Center(
               child: EventButton(

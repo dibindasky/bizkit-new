@@ -1,13 +1,14 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class TaskContainers extends StatelessWidget {
-  const TaskContainers({super.key});
-
+  TaskContainers({super.key});
+  final homeController = Get.find<TaskHomeScreenController>();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -17,6 +18,7 @@ class TaskContainers extends StatelessWidget {
           title: 'Others to self',
           progress: 100,
           onTap: () {
+            homeController.changeSelectedTaskCategory('Others to self');
             Get.toNamed(Routes.taskLists, id: 1);
           },
         ),
@@ -24,6 +26,7 @@ class TaskContainers extends StatelessWidget {
           title: 'Self to Others',
           progress: 100,
           onTap: () {
+            homeController.changeSelectedTaskCategory('Self to Others');
             Get.toNamed(Routes.taskLists, id: 1);
           },
         ),
@@ -31,6 +34,7 @@ class TaskContainers extends StatelessWidget {
           title: 'Self to Self',
           progress: 100,
           onTap: () {
+            homeController.changeSelectedTaskCategory('Self to Self');
             Get.toNamed(Routes.taskLists, id: 1);
           },
         ),
@@ -57,27 +61,20 @@ class TaskProgress extends StatefulWidget {
 
 class _TaskProgressState extends State<TaskProgress>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 3),
       vsync: this,
-      duration: Duration(seconds: 2),
     );
-    _animation =
-        Tween<double>(begin: 0, end: widget.progress / 100).animate(_controller)
-          ..addListener(() {
-            setState(() {});
-          });
-    _controller.forward();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -98,20 +95,33 @@ class _TaskProgressState extends State<TaskProgress>
             Stack(
               alignment: Alignment.center,
               children: [
-                CircularProgressIndicator(
-                  strokeAlign: 6,
-                  value: _animation.value,
-                  backgroundColor: klightgrey,
-                  valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
-                  strokeWidth: 6,
+                AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    return CircularProgressIndicator(
+                      strokeAlign: 4,
+                      value: _animationController.value,
+                      backgroundColor: klightgrey,
+                      valueColor:
+                          const AlwaysStoppedAnimation<Color>(neonShade),
+                      strokeWidth: 6,
+                    );
+                  },
                 ),
-                CircularProgressIndicator(
-                  strokeAlign: 3,
-                  value: _animation.value,
-                  backgroundColor: klightgrey,
-                  valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
-                  strokeWidth: 6,
-                ),
+                // CircularProgressIndicator(
+                //   strokeAlign: 6,
+                //   value: widget.progress * 12,
+                //   backgroundColor: klightgrey,
+                //   valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
+                //   strokeWidth: 6,
+                // ),
+                // CircularProgressIndicator(
+                //   strokeAlign: 3,
+                //   value: widget.progress * 12,
+                //   backgroundColor: klightgrey,
+                //   valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
+                //   strokeWidth: 6,
+                // ),
                 Text('${widget.progress} %'),
               ],
             ),

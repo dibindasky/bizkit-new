@@ -1,8 +1,13 @@
+import 'dart:developer';
+
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/tabbar.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/custom_pop_menubutton.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 class ScreenTotalTasksScreen extends StatefulWidget {
   const ScreenTotalTasksScreen({super.key});
@@ -15,6 +20,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  final homeController = Get.find<TaskHomeScreenController>();
   @override
   void initState() {
     super.initState();
@@ -50,8 +56,8 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: CustomPopupMenuItem(
             text: 'Self to Self    ',
             onTap: () {
+              homeController.changeSelectedTaskCategory('Self to Self');
               Navigator.of(context).pop();
-              // Handle 'Self to Self' action
             },
           ),
         ),
@@ -59,8 +65,9 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: CustomPopupMenuItem(
             text: 'Self to others',
             onTap: () {
+              homeController.changeSelectedTaskCategory('Self to others');
               Navigator.of(context).pop();
-              // Handle 'Self to others' action
+              log(homeController.taskCategory.value);
             },
           ),
         ),
@@ -68,8 +75,17 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: CustomPopupMenuItem(
             text: 'Others to self',
             onTap: () {
+              homeController.changeSelectedTaskCategory('Others to self');
               Navigator.of(context).pop();
-              // Handle 'Others to self' action
+            },
+          ),
+        ),
+        PopupMenuItem(
+          child: CustomPopupMenuItem(
+            text: 'Combleted task',
+            onTap: () {
+              homeController.changeSelectedTaskCategory('Combleted task');
+              Navigator.of(context).pop();
             },
           ),
         ),
@@ -89,17 +105,23 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           ),
         ),
         backgroundColor: knill,
-        title: Row(
-          children: [
-            const Text('Total Tasks'),
-            IconButton(
-              onPressed: () {
-                _showCustomMenu(context);
-              },
-              icon: const Icon(Icons.arrow_drop_down),
-            )
-          ],
-        ),
+        title: GetBuilder<TaskHomeScreenController>(builder: (controller) {
+          return GestureDetector(
+            onTap: () => _showCustomMenu(context),
+            child: Obx(
+              () => Row(
+                children: [
+                  Text(
+                    controller.taskCategory.value,
+                    style: TextStyle(fontSize: 13.sp),
+                  ),
+                  adjustWidth(10.w),
+                  const Icon(Icons.arrow_drop_down)
+                ],
+              ),
+            ),
+          );
+        }),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -118,14 +140,6 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           preferredSize: const Size.fromHeight(50.0),
           child: Stack(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: kBorderRadius15,
-                  color: kgrey,
-                ),
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                height: 50,
-              ),
               TabBar(
                 controller: _tabController,
                 indicator: BoxDecoration(
@@ -151,7 +165,6 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
         ),
       ),
       body: TabBarView(
-        physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: [
           TaskListView(),

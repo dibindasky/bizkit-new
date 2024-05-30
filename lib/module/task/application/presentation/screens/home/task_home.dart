@@ -28,7 +28,7 @@ class ScreenTaskHome extends StatelessWidget {
               adjustHieght(16.h),
               const LegendsContainer(),
               adjustHieght(40.h),
-              const TaskContainers(),
+              TaskContainers(),
               adjustHieght(70.h),
               Center(
                 child: EventButton(

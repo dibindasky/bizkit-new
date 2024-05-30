@@ -3,7 +3,6 @@ import 'package:bizkit/module/task/application/presentation/screens/generate_rep
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScreenTaskReportGenerator extends StatefulWidget {

@@ -67,9 +67,9 @@ class _TaskProgressState extends State<TaskProgress>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 7),
       vsync: this,
-    );
+    )..repeat();
   }
 
   @override
@@ -99,7 +99,7 @@ class _TaskProgressState extends State<TaskProgress>
                   animation: _animationController,
                   builder: (context, child) {
                     return CircularProgressIndicator(
-                      strokeAlign: 4,
+                      strokeAlign: 2,
                       value: _animationController.value,
                       backgroundColor: klightgrey,
                       valueColor:
@@ -108,21 +108,23 @@ class _TaskProgressState extends State<TaskProgress>
                     );
                   },
                 ),
-                // CircularProgressIndicator(
-                //   strokeAlign: 6,
-                //   value: widget.progress * 12,
-                //   backgroundColor: klightgrey,
-                //   valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
-                //   strokeWidth: 6,
-                // ),
-                // CircularProgressIndicator(
-                //   strokeAlign: 3,
-                //   value: widget.progress * 12,
-                //   backgroundColor: klightgrey,
-                //   valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
-                //   strokeWidth: 6,
-                // ),
-                Text('${widget.progress} %'),
+                AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    return CircularProgressIndicator(
+                      strokeAlign: 6,
+                      value: _animationController.value,
+                      backgroundColor: klightgrey,
+                      valueColor:
+                          const AlwaysStoppedAnimation<Color>(neonShade),
+                      strokeWidth: 6,
+                    );
+                  },
+                ),
+                Text(
+                  '${widget.progress} %',
+                  style: TextStyle(fontSize: 8.sp),
+                ),
               ],
             ),
             adjustHieght(20.h),

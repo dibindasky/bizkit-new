@@ -1,9 +1,11 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/utils/clipper/chat_pol_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class PollContainerChat extends StatefulWidget {
   const PollContainerChat({super.key, required this.isSender});
@@ -145,7 +147,8 @@ class _PollContainerChatState extends State<PollContainerChat> {
                   ? Align(
                       child: GestureDetector(
                         onTap: () {
-                          // show poll detail page
+                          GoRouter.of(context)
+                              .pushNamed(Routes.taskChatPollDetail);
                         },
                         child: Text(
                           'SEE VOTES',

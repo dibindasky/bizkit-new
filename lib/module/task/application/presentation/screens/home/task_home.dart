@@ -22,7 +22,10 @@ class ScreenTaskHome extends StatelessWidget {
             children: [
               const TaskHomeAppBar(),
               adjustHieght(16.h),
-              const TaskTextField(hintText: 'Find your task'),
+              const TaskTextField(
+                hintText: 'Find your task',
+                suffixIcon: Icon(Icons.search, color: neonShade),
+              ),
               adjustHieght(16.h),
               const TaskCreationContainer(),
               adjustHieght(16.h),
@@ -35,6 +38,7 @@ class ScreenTaskHome extends StatelessWidget {
                   hieght: 40.h,
                   wdth: 200.w,
                   text: 'Generate Report',
+                  textColr: kblack,
                   onTap: () {
                     showModalBottomSheet(
                       context: context,

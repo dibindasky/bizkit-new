@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class AppbarCommen extends StatelessWidget {
   const AppbarCommen({
     super.key,
-    this.tittle,
+    this.tittle, this.onTap,this.backgroundColor=knill
   });
 
   final String? tittle;
+  final VoidCallback? onTap;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +20,15 @@ class AppbarCommen extends StatelessWidget {
           size: 18,
         ),
         onPressed: () {
-          Navigator.of(context).pop();
+          if(onTap == null) {
+            Navigator.of(context).pop();
+          }else{
+            onTap!();
+          }
         },
         color: kwhite,
       ),
-      backgroundColor: knill,
+      backgroundColor: backgroundColor,
       title: Text(
         tittle ?? 'Give tittle',
         style: textHeadStyle1,

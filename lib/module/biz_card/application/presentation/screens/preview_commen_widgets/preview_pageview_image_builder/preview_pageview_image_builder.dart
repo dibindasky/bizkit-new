@@ -63,7 +63,7 @@ class _PreviewPageviewImageBuilderState
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SlidablePhotoGallery(
+                    builder: (context) => SlidablePhotoGallery( 
                       images: images,
                       initialIndex: widget.story != null ? index - 1 : index,
                     ),

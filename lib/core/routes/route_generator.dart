@@ -34,6 +34,7 @@ import 'package:bizkit/module/task/application/presentation/screens/navbar/navba
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/task_detail_page.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_detil_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/poll/poll_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -319,6 +320,15 @@ class GoRouterConfig {
       path: Routes.taskChatPollCration,
       builder: (context, state) {
         return const ScreenPollCreation();
+      },
+    ),
+
+// task chat poll Detail page
+    GoRoute(
+      name: Routes.taskChatPollDetail,
+      path: Routes.taskChatPollDetail,
+      builder: (context, state) {
+        return const ScreenPollDetailTask();
       },
     ),
   ];

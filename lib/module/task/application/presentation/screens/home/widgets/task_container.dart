@@ -11,10 +11,11 @@ class TaskContainers extends StatelessWidget {
   final homeController = Get.find<TaskHomeScreenController>();
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ProgressIndicatorWidget(
+    return FittedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ProgressIndicatorWidget(
             text: 'Others to Self',
             centerPercentage: 88,
             outerPercentage1: 30,
@@ -23,30 +24,34 @@ class TaskContainers extends StatelessWidget {
             onTap: () {
               homeController.changeSelectedTaskCategory('Others to self');
               Get.toNamed(Routes.taskLists, id: 1);
-            }),
-        ProgressIndicatorWidget(
-          text: 'Self to Others',
-          centerPercentage: 78,
-          outerPercentage1: 20,
-          outerPercentage2: 30,
-          outerPercentage3: 28,
-          onTap: () {
-            homeController.changeSelectedTaskCategory('Self to Others');
-            Get.toNamed(Routes.taskLists, id: 1);
-          },
-        ),
-        ProgressIndicatorWidget(
-          text: 'Self to Self',
-          centerPercentage: 65,
-          outerPercentage1: 20,
-          outerPercentage2: 25,
-          outerPercentage3: 20,
-          onTap: () {
-            homeController.changeSelectedTaskCategory('Self to Self');
-            Get.toNamed(Routes.taskLists, id: 1);
-          },
-        ),
-      ],
+            },
+          ),
+          kWidth10,
+          ProgressIndicatorWidget(
+            text: 'Self to Others',
+            centerPercentage: 78,
+            outerPercentage1: 20,
+            outerPercentage2: 30,
+            outerPercentage3: 28,
+            onTap: () {
+              homeController.changeSelectedTaskCategory('Self to Others');
+              Get.toNamed(Routes.taskLists, id: 1);
+            },
+          ),
+          kWidth10,
+          ProgressIndicatorWidget(
+            text: 'Self to Self',
+            centerPercentage: 65,
+            outerPercentage1: 20,
+            outerPercentage2: 25,
+            outerPercentage3: 20,
+            onTap: () {
+              homeController.changeSelectedTaskCategory('Self to Self');
+              Get.toNamed(Routes.taskLists, id: 1);
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -60,7 +65,8 @@ class ProgressIndicatorWidget extends StatefulWidget {
   final VoidCallback onTap;
 
   const ProgressIndicatorWidget(
-      {super.key, required this.centerPercentage,
+      {super.key,
+      required this.centerPercentage,
       required this.outerPercentage1,
       required this.outerPercentage2,
       required this.outerPercentage3,
@@ -84,7 +90,7 @@ class _ProgressIndicatorWidgetState extends State<ProgressIndicatorWidget>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
 
@@ -106,7 +112,7 @@ class _ProgressIndicatorWidgetState extends State<ProgressIndicatorWidget>
   }
 
   animate() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     _controller.forward();
   }
 

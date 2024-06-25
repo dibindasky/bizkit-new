@@ -41,4 +41,11 @@ class Routes {
   static const String taskAttachmetnsList = '/task_attachments_detail_list';
   static const String taskChatPollCration = '/task_chat_poll_creation';
   static const String taskChatPollDetail = '/task_chat_poll_detail';
+
+  // Attendence Module
+  static const String attendenceInital = '/attendence_inital';
+  static const String attendenceNavbar = '/attendence_navbar';
+  static const String attendenceHome = '/attendence_home';
+  static const String attendencNotification = '/attendenc_notification';
+  static const String attendenceProfile = '/attendenc_profile';
 }

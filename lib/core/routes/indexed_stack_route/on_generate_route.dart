@@ -28,7 +28,6 @@ class RouteGenerator {
       case Routes.heirarchyUserDetail:
         return MaterialPageRoute(
             builder: (ctx) => const ScreenHeirarchyTaskUserDetails());
-
       default:
         return _errorScreen();
     }

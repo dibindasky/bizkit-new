@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/profile/profile.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/new_password.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/otp_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/login_screen.dart';
@@ -45,6 +48,7 @@ class GoRouterConfig {
       ...generalRoutes,
       ...bizcardRoute,
       ...taskModuleRoute,
+      ...attendeceModule
     ],
     errorBuilder: (context, state) => _errorScreen(),
   );
@@ -111,7 +115,6 @@ class GoRouterConfig {
       name: Routes.cardDetailView,
       path: '${Routes.cardDetailView}/:cardId/:myCard',
       builder: (context, state) {
-        print('in card view navigator');
         final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
         final myCard = state.pathParameters['myCard'] == 'true';
         if (cardId != null) {
@@ -245,15 +248,15 @@ class GoRouterConfig {
     ),
   ];
 
-// task module route
+  // task module route
   static final taskModuleRoute = [
-// Navbar
+    // Navbar
     GoRoute(
       name: Routes.taskNavbar,
       path: Routes.taskNavbar,
       builder: (context, state) => const ScreenNavbarTaskModule(),
     ),
-// add task screen
+    // add task screen
     GoRoute(
       name: Routes.addTask,
       path: "${Routes.addTask}/:edit",
@@ -264,14 +267,14 @@ class GoRouterConfig {
         );
       },
     ),
-// Tasks Screen
+    // Tasks Screen
     GoRoute(
       name: Routes.taskLists,
       path: Routes.taskLists,
       builder: (context, state) => const ScreenTotalTasksScreen(),
     ),
 
-// Tasks Screen
+    // Tasks Screen
     GoRoute(
       name: Routes.taskDeail,
       path: Routes.taskDeail,
@@ -298,14 +301,14 @@ class GoRouterConfig {
       builder: (context, state) => const ScreenHeirarchyTaskUserDetails(),
     ),
 
-// chat Screen task
+    // chat Screen task
     GoRoute(
       name: Routes.taskChatScreen,
       path: Routes.taskChatScreen,
       builder: (context, state) => const ScreenTaskChat(),
     ),
 
-// task attachmets detail list view
+    // task attachmets detail list view
     GoRoute(
       name: Routes.taskAttachmetnsList,
       path: Routes.taskAttachmetnsList,
@@ -314,7 +317,7 @@ class GoRouterConfig {
       },
     ),
 
-// task chat poll creation page
+    // task chat poll creation page
     GoRoute(
       name: Routes.taskChatPollCration,
       path: Routes.taskChatPollCration,
@@ -323,13 +326,36 @@ class GoRouterConfig {
       },
     ),
 
-// task chat poll Detail page
+    // task chat poll Detail page
     GoRoute(
       name: Routes.taskChatPollDetail,
       path: Routes.taskChatPollDetail,
       builder: (context, state) {
         return const ScreenPollDetailTask();
       },
+    ),
+  ];
+
+  // Attendence module
+  static final attendeceModule = [
+    //Navabar
+    GoRoute(
+      name: Routes.attendenceNavbar,
+      path: Routes.attendenceNavbar,
+      builder: (context, state) => const ScreenNavbarAttendenceModule(),
+    ),
+    //Home
+    GoRoute(
+      name: Routes.attendenceHome,
+      path: Routes.attendenceHome,
+      builder: (context, state) => const ScreenAtendenceHome(),
+    ),
+
+    //Profile
+    GoRoute(
+      name: Routes.attendenceProfile,
+      path: Routes.attendenceProfile,
+      builder: (context, state) => const ScreenAtendenceProfile(),
     ),
   ];
 

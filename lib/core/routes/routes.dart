@@ -46,6 +46,26 @@ class Routes {
   static const String attendenceInital = '/attendence_inital';
   static const String attendenceNavbar = '/attendence_navbar';
   static const String attendenceHome = '/attendence_home';
+  static const String attendenceOnboaring = '/attendence_onboaring';
   static const String attendencNotification = '/attendenc_notification';
-  static const String attendenceProfile = '/attendenc_profile';
+  static const String attendenceTimeSheet = '/attendence_timesheet';
+  static const String attendenceSelection = '/attendence_selection';
+  static const String attendenceLeaves = '/attendence_leaves';
+  static const String attendenceRules = '/attendence_rules';
+  static const String attendenceTeamTimeSheet = '/attendence_teamtimesheet';
+  static const String attendenceReport = '/attendence_report';
+  static const String attendenceCalender = '/attendence_calender';
+  static const String attendencePeltAndPell = '/attendence_pelt_pell';
+  static const String attendenceAddNewLeave = '/attendence_add_new_leave';
+  static const String attendenceCreateNewReport =
+      '/attendence_create_new_report';
+  static const String attendenceReportHistory = '/attendence_report_history';
+  static const String attendencePeltAndPellRequestChange =
+      '/attendence_peltAndPell_request_change';
+
+  // Attendence Module Management Side
+  static const String attendenceSelectionManagementSide =
+      '/attendence_selection_management_side';
+  static const String attendenceMSLeaveAndRequests =
+      '/attendence_ms_leave_requests';
 }

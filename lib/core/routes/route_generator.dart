@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/attendence_selection.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/timesheet/time_sheet_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
-import 'package:bizkit/module/attendence/application/presentation/screens/profile/profile.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
+
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/new_password.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/otp_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/login_screen.dart';
@@ -34,6 +37,7 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
+import 'package:bizkit/module/task/application/presentation/screens/onboard/onbaord.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/task_detail_page.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_detil_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
@@ -342,20 +346,18 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.attendenceNavbar,
       path: Routes.attendenceNavbar,
-      builder: (context, state) => const ScreenNavbarAttendenceModule(),
+      builder: (context, state) => const AttendenceNavbarModuleScreen(),
     ),
     //Home
     GoRoute(
       name: Routes.attendenceHome,
       path: Routes.attendenceHome,
-      builder: (context, state) => const ScreenAtendenceHome(),
+      builder: (context, state) => const AttendenceHomeScreen(),
     ),
-
-    //Profile
     GoRoute(
-      name: Routes.attendenceProfile,
-      path: Routes.attendenceProfile,
-      builder: (context, state) => const ScreenAtendenceProfile(),
+      name: Routes.attendenceOnboaring,
+      path: Routes.attendenceOnboaring,
+      builder: (context, state) => const AttendenceOnboardingScreen(),
     ),
   ];
 

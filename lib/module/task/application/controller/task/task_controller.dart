@@ -7,7 +7,7 @@ class CreateTaskController extends GetxController {
   Rx<RecurringTimePeriod> createRecurringTimePeriod =
       RecurringTimePeriod.none.obs;
   RxBool createRecurring = false.obs;
-  RxString deadlineDate=''.obs;
+  RxString deadlineDate = ''.obs;
 
   changeTaskType(TaskType type) {
     createTaskTupe.value = type;

@@ -74,5 +74,3 @@ class ScreenTaskChat extends StatelessWidget {
     );
   }
 }
-
-

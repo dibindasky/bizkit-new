@@ -305,6 +305,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  custom_sliding_segmented_control:
+    dependency: "direct main"
+    description:
+      name: custom_sliding_segmented_control
+      sha256: "53c3e931c3ae1f696085d1ec70ac8e934da836595a9b7d9b88fdd0fcbf2a5574"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.8.3"
   dart_style:
     dependency: transitive
     description:
@@ -1252,10 +1260,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdf_render
-      sha256: f7847075a752205eaf45a0fbffd5ee50e409dbede5ca97bcf71907e2e5b9af44
+      sha256: "51b588a5e52e416a4f7fe5c8d9842b13edb234508d5572d574e7a7c37ea09d95"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.6"
+    version: "1.4.10"
   permission_handler:
     dependency: "direct main"
     description:
@@ -1520,6 +1528,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  simple_gesture_detector:
+    dependency: transitive
+    description:
+      name: simple_gesture_detector
+      sha256: ba2cd5af24ff20a0b8d609cec3f40e5b0744d2a71804a2616ae086b9c19d19a3
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -1621,6 +1637,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0+1"
+  table_calendar:
+    dependency: "direct main"
+    description:
+      name: table_calendar
+      sha256: "4ca32b2fc919452c9974abd4c6ea611a63e33b9e4f0b8c38dba3ac1f4a6549d1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.2"
   term_glyph:
     dependency: transitive
     description:

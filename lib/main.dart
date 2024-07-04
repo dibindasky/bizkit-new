@@ -54,7 +54,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyleController textStyleController = Get.put(TextStyleController());
+    final TextStyleController textStyleController =
+        Get.put(TextStyleController());
     return ScreenUtilInit(
       //designSize: Size(size.width, size.height),
       designSize: const Size(360, 690),
@@ -87,7 +88,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: kblack,
             colorScheme: const ColorScheme.dark(primary: neonShade),
-            scaffoldBackgroundColor: backgroundColour,
+            // scaffoldBackgroundColor: backgroundColour,
+            scaffoldBackgroundColor: kblack,
             textTheme: Theme.of(context).textTheme.apply(
                   bodyColor: kwhite,
                   displayColor: kwhite,

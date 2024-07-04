@@ -12,7 +12,8 @@ class ContainerTextFieldDummy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(onTap: onTap,
+    return GestureDetector(
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.only(left: 10.w, right: 12.w),
         height: 40.h,

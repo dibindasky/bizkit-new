@@ -9,17 +9,23 @@ const Color kgrey = Color.fromARGB(255, 105, 105, 105);
 const Color kNotificationColor = Color(0xFF333333);
 const Color kwhite = Colors.white;
 const Color kgreen = Colors.green;
+const Color kyellow = Color(0xFFFFCE30);
+const Color klightGrey = Color(0xFFF5F5F5);
 const Color kred = Color.fromARGB(255, 255, 0, 0);
 const Color kblue = Colors.blue;
 const Color neonShade = Color.fromRGBO(6, 199, 172, 1);
 const Color kneonShade = Color.fromRGBO(1, 253, 220, 1);
+const Color klightred = Color(0xFFFFECEF);
 const Color kblack = Colors.black;
+const Color kneonShade2 = Color.fromRGBO(25, 255, 221, 1);
 const Color knill = Colors.transparent;
 const Color backgroundColour = Color.fromRGBO(41, 41, 41, 1);
 const Color lightColr = Color.fromRGBO(53, 53, 53, .42);
 Color lightGrey = Colors.grey[800] ?? Colors.grey;
 const Color kOrange = Color.fromARGB(255, 201, 121, 2);
+const klightGreyClr = Color(0xFF313131);
 
+const klightDarkGrey = Color.fromARGB(255, 40, 40, 40);
 double khieght = 850;
 double kwidth = 400;
 
@@ -68,6 +74,14 @@ LinearGradient neonShadeGradient = const LinearGradient(
     Color.fromRGBO(6, 199, 172, 1),
     Color.fromRGBO(17, 129, 114, 1),
     Color.fromRGBO(6, 199, 172, .34),
+  ],
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+);
+LinearGradient neonShadeLinearGradient = const LinearGradient(
+  colors: [
+    Color.fromRGBO(5, 202, 173, 1),
+    Color.fromRGBO(43, 89, 115, 1),
   ],
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,

@@ -1,9 +1,16 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../core/routes/routes.dart';
 
 // dummy image for development
 const dummyPersonImage = 'asset/images/person.jpeg';
+const demoPerosnImgPeltandpell = 'asset/images/peltandpell_person_img_demo.png';
+const dummyImg3 = 'asset/images/dummy_img3.png';
 const personImage = 'asset/images/camera select Icon.png';
+const chatSectionPersonDummyImg1 = 'asset/images/chat_section_dummy_img1.png';
+const chatSectionPersonDummyImg2 = 'asset/images/chat_section_dummy_img2.png';
 const image =
     'https://firebasestorage.googleapis.com/v0/b/travelapp-c2e16.appspot.com/o/userprofile%2Ftest%2Fqr_dummy.jpg?alt=media&token=366b2bb2-6de0-4aa2-835e-1b1fc546f924';
 const imageDummyNetwork =
@@ -286,4 +293,188 @@ List<String> names = [
   'Hannah',
   'Isaac',
   'Jack',
+];
+
+// Attendence Module Assets
+
+// => Onborading Images
+const String attendenceOnboardingFirstImg =
+    'asset/images/attendence onboarding/attendence_onboard 1.png';
+const String attendenceOnboardingSecondImg =
+    'asset/images/attendence onboarding/attendence_onboard 2.png';
+
+// => Home Screen
+const String attendenceClockInBtn =
+    'asset/images/attendence module/home screen btns/clockIn_btn.png';
+const String attendenceBreakBtn =
+    'asset/images/attendence module/home screen btns/break_btn.png';
+const String attendenceLeaveBtn =
+    'asset/images/attendence module/home screen btns/leave_btn.png';
+const String attendenceClockOutBtn =
+    'asset/images/attendence module/home screen btns/clockout_btn.png';
+
+// =>  Home screen Dialogs
+const String clockInLocationDialogimg =
+    'asset/images/attendence module/home screen dialogs/location_img.png';
+const String clockInOutsideDialogimg =
+    'asset/images/attendence module/home screen dialogs/outside.png';
+const String clockInTimeManagementDialogimg =
+    'asset/images/attendence module/home screen dialogs/Time management-img.png';
+const String clockInSuccessDialogimg =
+    'asset/images/attendence module/home screen dialogs/clockIn_success_ig.png';
+const String takeBreakDialogimg =
+    'asset/images/attendence module/home screen dialogs/coffee_break_img.png';
+
+// => Home screen Clocks
+
+const String clockImg =
+    'asset/images/attendence module/home screen clocks/clock.png';
+const String afternoonClockImg =
+    'asset/images/attendence module/home screen clocks/afternoon.png';
+const String countDownClockImg =
+    'asset/images/attendence module/home screen clocks/countdown.png';
+
+// Attendence Selection Grid Images
+const String timesheetImg =
+    'asset/images/attendence module/attendence secetion/timesheet_img.png';
+const String teamTimeSheetImg =
+    'asset/images/attendence module/attendence secetion/teamtimeSheet_img.png';
+const String rulesImg =
+    'asset/images/attendence module/attendence secetion/rules_img.png';
+const String peltAndPellImg =
+    'asset/images/attendence module/attendence secetion/pelt&pell_img.png';
+const String leavesImg =
+    'asset/images/attendence module/attendence secetion/leaves_img.png';
+const String calendarImg =
+    'asset/images/attendence module/attendence secetion/calendar_img.png';
+const String reportImg =
+    'asset/images/attendence module/attendence secetion/report_img.png';
+
+// => Attendence selection screen- userside
+
+const List<String> imageUrls = [
+  timesheetImg,
+  leavesImg,
+  rulesImg,
+  teamTimeSheetImg,
+  reportImg,
+  calendarImg,
+  peltAndPellImg,
+];
+
+const List<String> titles = [
+  'Timesheet',
+  'Leaves',
+  'Rules',
+  'Team Timesheet',
+  'Report',
+  'Calendar',
+  'PELT&PELL',
+];
+
+List<void Function()> onTaps = [
+  () {
+    Get.toNamed(Routes.attendenceTimeSheet, id: 2);
+  },
+  () {
+    Get.toNamed(Routes.attendenceLeaves, id: 2);
+  },
+  () {
+    Get.toNamed(Routes.attendenceRules, id: 2);
+  },
+  () {
+    Get.toNamed(Routes.attendenceTeamTimeSheet, id: 2);
+  },
+  () {
+    Get.toNamed(Routes.attendenceReport, id: 2);
+  },
+  () {
+    Get.toNamed(Routes.attendenceCalender, id: 2);
+  },
+  () {
+    Get.toNamed(Routes.attendencePeltAndPell, id: 2);
+  },
+];
+
+// => Attendence Leaves screen
+
+const List<String> leavesGridTitles = [
+  'Leave Balance',
+  'Leave Pendings',
+  'Leave Approved',
+  'Leave Rejected'
+];
+const List<String> leavesGridSubTitles = ['10', '2', '3', '1'];
+
+// ================ My Team Activities Tab GridView - Management Side ================
+
+const List<String> myTeamActivitiesImageUrls = [
+  teamTimeSheetImg,
+  leavesImg,
+  rulesImg,
+  calendarImg,
+  peltAndPellImg,
+];
+const List<String> myTeamActivitiesTitles = [
+  'Team Timesheet',
+  'Leaves & Requests',
+  'Rules',
+  'Calendar',
+  'PELT&PELL',
+];
+List<void Function()> myTeamActivitiesOnTaps = [
+  () {
+    log("TeamTimesheet");
+  },
+  () {
+    Get.toNamed(Routes.attendenceMSLeaveAndRequests, id: 2);
+  },
+  () {
+    log('Rules');
+  },
+  () {
+    log('Calendar');
+  },
+  () {
+    log('PELT&PELL');
+  },
+];
+
+// ================ My Activities Tab GridView - Management Side ================
+
+const List<String> myActivitiesImageUrls = [
+  timesheetImg,
+  leavesImg,
+  rulesImg,
+  reportImg,
+  calendarImg,
+  peltAndPellImg,
+];
+const List<String> myActivitiesTitles = [
+  'Timesheet',
+  'Leaves',
+  'Rules',
+  'Reports',
+  'Calendar',
+  'PELT&PELL',
+];
+List<void Function()> myActivitiesOnTaps = [
+  () {
+    log("Timesheet");
+  },
+  () {
+    log('Leaves');
+  },
+  () {
+    log('Rules');
+  },
+  () {
+    log('Reports');
+  },
+  () {
+    log('Calendar');
+  },
+  () {
+    log('PELT&PELL');
+  },
 ];

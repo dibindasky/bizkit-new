@@ -24,36 +24,26 @@ class TaskStatusChangeDialog extends StatelessWidget {
             child: Container(
               // height: 200.h,
               width: 200.h,
-              decoration: BoxDecoration(
-                  borderRadius: kBorderRadius20, color: kblack),
+              decoration:
+                  BoxDecoration(borderRadius: kBorderRadius20, color: kblack),
               padding: EdgeInsets.all(10.w),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    kHeight10,
-                    EventButton(
-                        text: 'Edit Task',
-                        onTap: () {
-                          GoRouter.of(context)
-                              .pushReplacementNamed(
-                                  Routes.addTask,
-                                  pathParameters: {
-                                'edit': "true"
-                              });
-                        },
-                        wdth: double.infinity),
-                    kHeight10,
-                    EventButton(
-                        text: 'Kill Task',
-                        onTap: () {},
-                        wdth: double.infinity),
-                    kHeight10,
-                    EventButton(
-                        text: 'Complete Task',
-                        onTap: () {},
-                        wdth: double.infinity),
-                    kHeight10
-                  ]),
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                kHeight10,
+                EventButton(
+                    text: 'Edit Task',
+                    onTap: () {
+                      GoRouter.of(context).pushReplacementNamed(Routes.addTask,
+                          pathParameters: {'edit': "true"});
+                    },
+                    wdth: double.infinity),
+                kHeight10,
+                EventButton(
+                    text: 'Kill Task', onTap: () {}, wdth: double.infinity),
+                kHeight10,
+                EventButton(
+                    text: 'Complete Task', onTap: () {}, wdth: double.infinity),
+                kHeight10
+              ]),
             ),
           ),
         ],

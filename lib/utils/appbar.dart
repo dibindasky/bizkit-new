@@ -2,10 +2,8 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class AppbarCommen extends StatelessWidget {
-  const AppbarCommen({
-    super.key,
-    this.tittle, this.onTap,this.backgroundColor=knill
-  });
+  const AppbarCommen(
+      {super.key, this.tittle, this.onTap, this.backgroundColor = knill});
 
   final String? tittle;
   final VoidCallback? onTap;
@@ -20,9 +18,9 @@ class AppbarCommen extends StatelessWidget {
           size: 18,
         ),
         onPressed: () {
-          if(onTap == null) {
+          if (onTap == null) {
             Navigator.of(context).pop();
-          }else{
+          } else {
             onTap!();
           }
         },

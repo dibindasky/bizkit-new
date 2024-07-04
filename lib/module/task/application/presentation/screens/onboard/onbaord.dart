@@ -9,10 +9,12 @@ class ScreenTaskOnBoardingScreen extends StatefulWidget {
   const ScreenTaskOnBoardingScreen({super.key});
 
   @override
-  State<ScreenTaskOnBoardingScreen> createState() => _ScreenTaskOnBoardingScreenState();
+  State<ScreenTaskOnBoardingScreen> createState() =>
+      _ScreenTaskOnBoardingScreenState();
 }
 
-class _ScreenTaskOnBoardingScreenState extends State<ScreenTaskOnBoardingScreen> {
+class _ScreenTaskOnBoardingScreenState
+    extends State<ScreenTaskOnBoardingScreen> {
   late PageController _pageController;
   int selectedIndex = 0;
   final int totalPages = 3;

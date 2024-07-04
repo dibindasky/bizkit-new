@@ -32,7 +32,8 @@ class ChatBubble extends StatelessWidget {
         child: ClipPath(
           clipper: ChatBubbleClipper(isSender: isSender),
           child: Container(
-            color: isSender ? neonShade.withOpacity(0.8) : kwhite.withOpacity(.3),
+            color:
+                isSender ? neonShade.withOpacity(0.8) : kwhite.withOpacity(.3),
             padding: EdgeInsets.only(
                 left: isSender ? 10.w : 20.w,
                 right: !isSender ? 10.w : 20.w,
@@ -47,7 +48,7 @@ class ChatBubble extends StatelessWidget {
                 ],
                 Text(
                   text,
-                  style: textStyle1.copyWith(color: kwhite ),
+                  style: textStyle1.copyWith(color: kwhite),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -56,7 +57,7 @@ class ChatBubble extends StatelessWidget {
                     Text(
                       time,
                       style: textStyle1.copyWith(
-                        color:isSender? kgrey:kGrayLight,
+                        color: isSender ? kgrey : kGrayLight,
                         fontSize: 10.sp,
                       ),
                     ),

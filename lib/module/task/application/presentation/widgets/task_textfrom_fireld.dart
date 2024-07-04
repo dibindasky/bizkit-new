@@ -3,17 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TaskTextField extends StatelessWidget {
-  const TaskTextField({
-    super.key,
-    this.fillColor,
-    this.hintText,
-    this.icon,
-    this.suffixIcon,
-    this.maxLines,
-    this.showBorder = false,
-    this.textColor = klightgrey,
-    this.labelText
-  });
+  const TaskTextField(
+      {super.key,
+      this.fillColor,
+      this.hintText,
+      this.icon,
+      this.suffixIcon,
+      this.maxLines,
+      this.showBorder = false,
+      this.textColor = klightgrey,
+      this.labelText});
   final Color? fillColor;
   final Color? textColor;
   final String? hintText;

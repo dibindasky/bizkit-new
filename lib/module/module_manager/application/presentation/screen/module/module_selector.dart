@@ -124,8 +124,7 @@ class ListItem extends StatelessWidget {
             item.subtitle,
             style: TextStyle(
                 fontSize: 9.sp,
-                color:
-                    item.color == whiteShadeGradient ? kblack : klightgrey),
+                color: item.color == whiteShadeGradient ? kblack : klightgrey),
             textAlign: TextAlign.center,
           ),
         ],

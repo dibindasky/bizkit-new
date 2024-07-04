@@ -40,13 +40,3 @@ class ScreenTaskDetailPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-

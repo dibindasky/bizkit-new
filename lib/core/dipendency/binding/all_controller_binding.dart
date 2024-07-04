@@ -1,3 +1,4 @@
+import 'package:bizkit/module/attendence/application/controller/home/home_controller.dart';
 import 'package:bizkit/module/attendence/application/controller/navabar/navabar_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/generate_report/generate_report.dart';
@@ -17,5 +18,6 @@ class AllControllerBinding implements Bindings {
 
     // Attendence module
     Get.lazyPut(() => AttendenceNavBarConroller());
+    Get.lazyPut(() => AttendenceHomeConroller());
   }
 }

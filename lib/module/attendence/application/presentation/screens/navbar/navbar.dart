@@ -1,8 +1,8 @@
 import 'package:bizkit/core/routes/indexed_stack_route/on_generate_route.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/controller/navabar/navabar_controller.dart';
-import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/attendence_selection.dart';
-import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/managementside_attendence_selection.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/attendence_selection.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
 import 'package:bizkit/module/task/application/presentation/screens/profile/task_profile.dart';
 import 'package:bizkit/utils/clipper/bottom_bar_clipper.dart';
@@ -14,16 +14,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class ScreenNavbarAttendenceModule extends StatefulWidget {
-  const ScreenNavbarAttendenceModule({super.key});
+class AttendenceNavbarModuleScreen extends StatefulWidget {
+  const AttendenceNavbarModuleScreen({super.key});
 
   @override
-  State<ScreenNavbarAttendenceModule> createState() =>
-      _ScreenNavbarAttendenceModuleState();
+  State<AttendenceNavbarModuleScreen> createState() =>
+      _AttendenceNavbarModuleScreenState();
 }
 
-class _ScreenNavbarAttendenceModuleState
-    extends State<ScreenNavbarAttendenceModule> {
+class _AttendenceNavbarModuleScreenState
+    extends State<AttendenceNavbarModuleScreen> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<AttendenceNavBarConroller>();
@@ -34,8 +34,16 @@ class _ScreenNavbarAttendenceModuleState
         index: selectedIndex,
         children: [
           ScreenModuleSelector(),
-          const ScreenAtendenceHome(),
-          const AttendenceSelection(),
+          Navigator(
+            key: Get.nestedKey(1),
+            initialRoute: Routes.attendenceHome,
+            onGenerateRoute: RouteGenerator().onGenerateRoute,
+          ),
+          Navigator(
+            key: Get.nestedKey(2),
+            initialRoute: Routes.attendenceSelectionManagementSide,
+            onGenerateRoute: RouteGenerator().onGenerateRoute,
+          ),
           const ScreenTaskProfile(),
         ],
       ),

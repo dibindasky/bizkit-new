@@ -8,6 +8,7 @@ import '../../core/routes/routes.dart';
 const dummyPersonImage = 'asset/images/person.jpeg';
 const demoPerosnImgPeltandpell = 'asset/images/peltandpell_person_img_demo.png';
 const dummyImg3 = 'asset/images/dummy_img3.png';
+const personDemoImg = 'asset/images/person_img_demo.png';
 const personImage = 'asset/images/camera select Icon.png';
 const chatSectionPersonDummyImg1 = 'asset/images/chat_section_dummy_img1.png';
 const chatSectionPersonDummyImg2 = 'asset/images/chat_section_dummy_img2.png';
@@ -297,6 +298,9 @@ List<String> names = [
 
 // Attendence Module Assets
 
+const String attendenceSolidPdfImg = 'asset/images/fa-solid_file-pdf.png';
+const String attendenceMedicalBillImg = 'asset/images/medical_bill_img.png';
+
 // => Onborading Images
 const String attendenceOnboardingFirstImg =
     'asset/images/attendence onboarding/attendence_onboard 1.png';
@@ -411,32 +415,27 @@ const List<String> leavesGridSubTitles = ['10', '2', '3', '1'];
 const List<String> myTeamActivitiesImageUrls = [
   teamTimeSheetImg,
   leavesImg,
-  rulesImg,
   calendarImg,
   peltAndPellImg,
 ];
 const List<String> myTeamActivitiesTitles = [
   'Team Timesheet',
   'Leaves & Requests',
-  'Rules',
   'Calendar',
   'PELT&PELL',
 ];
 List<void Function()> myTeamActivitiesOnTaps = [
   () {
-    log("TeamTimesheet");
+    Get.toNamed(Routes.attendenceMsTeamTimeSheet, id: 2);
   },
   () {
     Get.toNamed(Routes.attendenceMSLeaveAndRequests, id: 2);
   },
   () {
-    log('Rules');
+    Get.toNamed(Routes.attendenceMsCalendar, id: 2);
   },
   () {
-    log('Calendar');
-  },
-  () {
-    log('PELT&PELL');
+    Get.toNamed(Routes.attendenceMsPeltAndPell, id: 2);
   },
 ];
 

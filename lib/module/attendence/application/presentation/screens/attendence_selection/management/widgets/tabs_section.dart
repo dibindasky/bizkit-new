@@ -16,9 +16,12 @@ class TabsSection extends StatelessWidget {
         indicatorSize: TabBarIndicatorSize.tab,
         controller: tabController,
         indicator: BoxDecoration(
-            color: neonShade,
-            gradient: neonShadeLinearGradient,
-            borderRadius: const BorderRadius.all(Radius.circular(5))),
+          color: neonShade,
+          gradient: neonShadeLinearGradient,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(5),
+          ),
+        ),
         tabs: const [
           Text(
             'My Activities',

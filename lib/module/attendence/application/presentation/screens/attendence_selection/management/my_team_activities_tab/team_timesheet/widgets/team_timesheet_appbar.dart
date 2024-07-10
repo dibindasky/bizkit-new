@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AttendenceMsLeavesAppbar extends StatelessWidget {
-  final String title;
-  const AttendenceMsLeavesAppbar({super.key, required this.title});
+class AttendenceMsTeamTimesheetAppbar extends StatelessWidget {
+  const AttendenceMsTeamTimesheetAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +17,9 @@ class AttendenceMsLeavesAppbar extends StatelessWidget {
               },
               icon: const Icon(Icons.arrow_back_ios),
             ),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 16),
+            const Text(
+              'Team TimeSheet',
+              style: TextStyle(fontSize: 16),
             ),
           ],
         ),

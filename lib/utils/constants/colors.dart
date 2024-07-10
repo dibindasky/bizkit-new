@@ -24,6 +24,8 @@ const Color lightColr = Color.fromRGBO(53, 53, 53, .42);
 Color lightGrey = Colors.grey[800] ?? Colors.grey;
 const Color kOrange = Color.fromARGB(255, 201, 121, 2);
 const klightGreyClr = Color(0xFF313131);
+const Color holidayBorderClr = Color(0xFF5E77FF);
+const Color leaveBorderClr = Color(0xFFFF814C);
 
 const klightDarkGrey = Color.fromARGB(255, 40, 40, 40);
 double khieght = 850;

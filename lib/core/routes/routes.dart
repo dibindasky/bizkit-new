@@ -68,4 +68,10 @@ class Routes {
       '/attendence_selection_management_side';
   static const String attendenceMSLeaveAndRequests =
       '/attendence_ms_leave_requests';
+  static const attendenceMsLeaveRequestDetailedView =
+      '/attendence_ms_leave_request_detailed_view';
+  static const attendenceMsCalendar = '/attendence_ms_calendar';
+  static const attendenceMsPeltAndPell = '/attendence_ms_pelt&pell';
+  static const attendenceMsTeamTimeSheet = '/attendence_ms_team_timesheet';
+  static const attendenceMsAddNewHoliday = '/attendence_ms_add_new_holiday';
 }

@@ -160,4 +160,10 @@ class ApiEndPoints {
       '/card-connections/selfie-card-image-delete/{id}/';
   static String selfieImageAdding =
       '/card-connections/selfie-card-image-create/';
+
+// ------------------------------------------------------------------------------------------
+
+  // TASK MODULE TEST APIENDPOINTS
+  static const taskTestBaseUrl = 'https://bizkit.onrender.com';
+  static const taskTestgetAllTasks = '/user-tasks/';
 }

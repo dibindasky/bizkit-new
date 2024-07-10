@@ -8,23 +8,26 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class ApiService {
-  final Dio _dio;
+  final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.taskTestBaseUrl));
+  // final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
 
-  ApiService(this._dio) {
-    // dio.options.connectTimeout = const Duration(seconds: 3);
-    // dio.interceptors.add(InterceptorsWrapper(
-    //   onRequest: (options, handler) async {
-    //     final accessToken =
-    //         await SecureStorage.getToken().then((token) => token.accessToken);
-    //     dio.options.headers['Authorization'] = accessToken;
-    //     options.headers['Authorization'] = accessToken;
-    //     log(dio.options.headers);
-    //     log(options.headers);
-    //     return handler.next(options);
-    //   },
-    //   onError: (e, handler) async {},
-    // ));
-  }
+  // final Dio _dio;
+
+  // ApiService(this._dio) {
+  //   // dio.options.connectTimeout = const Duration(seconds: 3);
+  //   // dio.interceptors.add(InterceptorsWrapper(
+  //   //   onRequest: (options, handler) async {
+  //   //     final accessToken =
+  //   //         await SecureStorage.getToken().then((token) => token.accessToken);
+  //   //     dio.options.headers['Authorization'] = accessToken;
+  //   //     options.headers['Authorization'] = accessToken;
+  //   //     log(dio.options.headers);
+  //   //     log(options.headers);
+  //   //     return handler.next(options);
+  //   //   },
+  //   //   onError: (e, handler) async {},
+  //   // ));
+  // }
 
   Future<Response<dynamic>> get(
     String url, {

@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/attachments_chooser.dart';
@@ -46,92 +49,115 @@ class ScreenAddTask extends StatelessWidget {
         title: const Text('New Task'),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        child: Obx(
+          () {
+            final isLoading = controller.isLoading.value;
+
+            return Stack(
               children: [
-                Text('Title', style: style),
-                adjustHieght(3.h),
-                TaskTextField(
-                  hintText: 'Tittle',
-                  controller: titleController,
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Title', style: style),
+                        adjustHieght(3.h),
+                        TaskTextField(
+                          hintText: 'Tittle',
+                          controller: titleController,
+                        ),
+                        adjustHieght(10.h),
+                        Text('Description', style: style),
+                        adjustHieght(3.h),
+                        TaskTextField(
+                          maxLines: 5,
+                          hintText: 'Description',
+                          controller: descriptionController,
+                        ),
+                        adjustHieght(3.h),
+                        Text('Task Type', style: style),
+                        adjustHieght(5.h),
+                        const TaskTypeRadioButtons(),
+                        adjustHieght(10.h),
+                        const PriorityRecurringDropDownItems(),
+                        adjustHieght(10.h),
+                        Text('Task Head', style: style),
+                        adjustHieght(3.h),
+                        const TaskTextField(hintText: 'Task Head'),
+                        adjustHieght(10.h),
+                        Text('Assign to', style: style),
+                        adjustHieght(3.h),
+                        ContainerTextFieldDummy(
+                          text: 'Assign to',
+                          suffixIcon: Icons.arrow_right,
+                          onTap: () {
+                            showModalBottomSheet(
+                              // showDragHandle: true,
+                              context: context,
+                              builder: (context) =>
+                                  const AddParticipentBottomSheet(),
+                            );
+                          },
+                        ),
+                        DeadlineChooserCreateTask(
+                          onPressed: (date) {
+                            controller.deadlineDate.value = date;
+                          },
+                        ),
+                        adjustHieght(10.h),
+                        const TagsContainer(),
+                        adjustHieght(10.h),
+                        const AttachmentChooserTaskCreation(),
+                        adjustHieght(10.h),
+                        SubTaskBuilder(),
+                        adjustHieght(10.h),
+                        Center(
+                          child: EventButton(
+                            color: const LinearGradient(
+                                colors: [neonShade, neonShade]),
+                            wdth: 300.w,
+                            text: 'Create Task',
+                            onTap: () {
+                              controller.createNewTask(
+                                task: TaskModel(
+                                  title: titleController.text,
+                                  description: descriptionController.text,
+                                  deadLine: controller.deadlineDate.value,
+                                  assignedTo: [],
+                                  attachments: [],
+                                  isCompleted: false,
+                                  isKilled: false,
+                                  priorityLevel: controller
+                                      .createPriorityLevel.value
+                                      .toString(),
+                                  recurrentTask:
+                                      controller.createRecurring.value,
+                                  subTask: [],
+                                  tags: [],
+                                  taskType: controller.createTaskTupe.value
+                                      .toString(),
+                                ),
+                              );
+                              Get.back(id: 1);
+                            },
+                          ),
+                        ),
+                        adjustHieght(10.h),
+                      ],
+                    ),
+                  ),
                 ),
-                adjustHieght(10.h),
-                Text('Description', style: style),
-                adjustHieght(3.h),
-                TaskTextField(
-                  maxLines: 5,
-                  hintText: 'Description',
-                  controller: descriptionController,
-                ),
-                adjustHieght(3.h),
-                Text('Task Type', style: style),
-                adjustHieght(5.h),
-                const TaskTypeRadioButtons(),
-                adjustHieght(10.h),
-                const PriorityRecurringDropDownItems(),
-                adjustHieght(10.h),
-                Text('Task Head', style: style),
-                adjustHieght(3.h),
-                const TaskTextField(hintText: 'Task Head'),
-                adjustHieght(10.h),
-                Text('Assign to', style: style),
-                adjustHieght(3.h),
-                ContainerTextFieldDummy(
-                  text: 'Assign to',
-                  suffixIcon: Icons.arrow_right,
-                  onTap: () {
-                    showModalBottomSheet(
-                      // showDragHandle: true,
-                      context: context,
-                      builder: (context) => const AddParticipentBottomSheet(),
-                    );
-                  },
-                ),
-                DeadlineChooserCreateTask(
-                  onPressed: (date) {
-                    controller.deadlineDate.value = date;
-                  },
-                ),
-                adjustHieght(10.h),
-                const TagsContainer(),
-                adjustHieght(10.h),
-                const AttachmentChooserTaskCreation(),
-                adjustHieght(10.h),
-                SubTaskBuilder(),
-                adjustHieght(10.h),
-                Center(
-                    child: EventButton(
-                  color: const LinearGradient(colors: [neonShade, neonShade]),
-                  wdth: 300.w,
-                  text: 'Create Task',
-                  onTap: () {
-                    controller.createNewTask(
-                      task: TaskModel(
-                        title: titleController.text,
-                        description: descriptionController.text,
-                        deadLine: controller.deadlineDate.value,
-                        assignedTo: [],
-                        attachments: [],
-                        isCompleted: false,
-                        isKilled: false,
-                        priorityLevel:
-                            controller.createPriorityLevel.value.toString(),
-                        recurrentTask: controller.createRecurring.value,
-                        subTask: [],
-                        tags: [],
-                        taskType: controller.createTaskTupe.value.toString(),
-                      ),
-                    );
-                    Get.back(id: 1);
-                  },
-                )),
-                adjustHieght(10.h)
+                if (isLoading)
+                  BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
               ],
-            ),
-          ),
+            );
+          },
         ),
       ),
     );

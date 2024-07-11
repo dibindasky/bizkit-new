@@ -14,32 +14,41 @@ class TaskListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-      itemCount: taskController.allTasks.length,
-      // itemCount: tasks.length,
-      itemBuilder: (context, index) {
-        // final task = tasks[index];
-        final task = taskController.allTasks[index];
-        return GestureDetector(
-          onLongPress: () {
-            bool isSelected = !controller.selectedIndices.contains(index);
-            controller.longPress(isSelected, index);
-          },
-          onTap: () {
-            if (controller.selectedFolderContainer.value) {
+    if (taskController.allTasks.isEmpty) {
+      return Center(
+        child: Image.asset(
+          emptyNodata3,
+          width: 250,
+        ),
+      );
+    } else {
+      return ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        itemCount: taskController.allTasks.length,
+        // itemCount: tasks.length,
+        itemBuilder: (context, index) {
+          // final task = tasks[index];
+          final task = taskController.allTasks[index];
+          return GestureDetector(
+            onLongPress: () {
               bool isSelected = !controller.selectedIndices.contains(index);
               controller.longPress(isSelected, index);
-            } else {
-              GoRouter.of(context).push(Routes.taskChatScreen);
-            }
-          },
-          child: TaskContainer(
-            task: task,
-            index: index,
-          ),
-        );
-      },
-    );
+            },
+            onTap: () {
+              if (controller.selectedFolderContainer.value) {
+                bool isSelected = !controller.selectedIndices.contains(index);
+                controller.longPress(isSelected, index);
+              } else {
+                GoRouter.of(context).push(Routes.taskChatScreen);
+              }
+            },
+            child: TaskContainer(
+              task: task,
+              index: index,
+            ),
+          );
+        },
+      );
+    }
   }
 }

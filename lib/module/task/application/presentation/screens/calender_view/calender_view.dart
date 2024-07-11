@@ -5,12 +5,14 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/calender_view_appbar.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/heirarchy_task_folder_data_folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/hierarchy_task_folder.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
+import 'package:intl/intl.dart';
 
 class ScreenTaskCalenderView extends StatelessWidget {
   ScreenTaskCalenderView({super.key});
@@ -79,7 +81,18 @@ class ScreenTaskCalenderView extends StatelessWidget {
                     activeColor: neonShade,
                     initialDate: DateTime.now(),
                     onDateChange: (selectedDate) {
+                      String formattedDate =
+                          DateFormat('yyyy-MM-dd').format(selectedDate);
                       log(selectedDate.toString());
+                      log('formattedDate : $formattedDate');
+                      taskController.taskFilterByDeadline(
+                        filterByDeadline: FilterByDeadlineModel(
+                          date: selectedDate
+                              .toString()
+                              .substring(0, 19)
+                              .replaceAll(' ', ''),
+                        ),
+                      );
                     },
                   ),
             adjustHieght(10.h),

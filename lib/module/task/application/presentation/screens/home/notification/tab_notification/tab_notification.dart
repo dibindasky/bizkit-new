@@ -1,14 +1,21 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/request_recieved.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/request_sent.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class TaskTabNotification extends StatelessWidget {
-  const TaskTabNotification({super.key});
+  TaskTabNotification({super.key});
+  final taskController = Get.find<CreateTaskController>();
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      taskController.fetchSendRequests();
+      taskController.fetchReceivedRequests();
+    });
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -19,6 +26,7 @@ class TaskTabNotification extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios_new, size: 17),
           ),
           bottom: TabBar(
+            dividerColor: kblack,
             indicator: BoxDecoration(
               color: neonShade,
               borderRadius: BorderRadius.circular(10),
@@ -49,9 +57,9 @@ class TaskTabNotification extends StatelessWidget {
             adjustWidth(10)
           ],
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            TabNotificationItemBuilder(),
+            const TabNotificationItemBuilder(),
             RequestSentBuilder(),
           ],
         ),

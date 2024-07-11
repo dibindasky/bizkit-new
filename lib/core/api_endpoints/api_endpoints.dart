@@ -166,9 +166,12 @@ class ApiEndPoints {
   // TASK MODULE TEST APIENDPOINTS
 
   static const testAccessToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjgyMzE2LCJpYXQiOjE3MjA2ODA1MTYsImp0aSI6ImY1ZjM2NGE4MGIxYTQwNDRhZTBiNjA5Yjc0OTUyOTUyIiwidXNlcl9pZCI6IjY2OGY4MDQ0MTczZDM4NTNlZTQzOGRkNiJ9.SNXfx7-yqrv9dnCiydCzbUb4rEW_inenfSMexjFeF7g";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNzAwNzg1LCJpYXQiOjE3MjA2OTAxMDcsImp0aSI6ImVjNDY1NjcyZjE2NzQxZTA4NmQ2MjlkOTk0M2UzODMxIiwidXNlcl9pZCI6IjY2OGZhNWJiYjMxMDE4ZDQzNmUwZTM2MiJ9.HRRjH090V5gssBxMBYOM-uEbvIGKH1myOfWJwzcGnns";
 
   static const taskTestBaseUrl = 'https://bizkit.onrender.com';
   static const taskTestgetAllTasks = '/user-tasks/';
   static const taskTestCreateTask = '/tasks/create/';
+  static const taskTestSendRequests = '/get-send-requests/';
+  static const taskTestReceivedRequests = '/task-requests/';
+  static const taskTestFilterByDeadline = '/filter-tasks-by-deadine/';
 }

@@ -1,7 +1,11 @@
 import 'dart:developer';
 
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
+import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
+import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -16,6 +20,9 @@ class CreateTaskController extends GetxController {
   RxString deadlineDate = ''.obs;
 
   RxList<Tasks> allTasks = <Tasks>[].obs;
+  RxList<SentRequest> sentRequests = <SentRequest>[].obs;
+  RxList<ReceivedRequestsResponce> receivedRequests =
+      <ReceivedRequestsResponce>[].obs;
 
   // Test task id
   String testTaskId = '';
@@ -56,12 +63,43 @@ class CreateTaskController extends GetxController {
 
   void fetchAllTasks() async {
     final result = await taskService.getAllTasks();
-    log('All Tasks list BS : $allTasks');
+
     result.fold(
       (failure) => log(failure.message.toString()),
       (success) {
         allTasks.assignAll(success.tasks);
-        log('All Tasks list AS : $allTasks');
+      },
+    );
+  }
+
+  void fetchSendRequests() async {
+    final result = await taskService.getSendRequests();
+    result.fold(
+      (failure) => log(failure.message.toString()),
+      (success) {
+        sentRequests.assignAll(success.sentRequests ?? []);
+      },
+    );
+  }
+
+  void fetchReceivedRequests() async {
+    final result = await taskService.getReceivedRequests();
+    result.fold(
+      (failure) => log(failure.message.toString()),
+      (success) {
+        receivedRequests.assignAll(success);
+      },
+    );
+  }
+
+  void taskFilterByDeadline(
+      {required FilterByDeadlineModel filterByDeadline}) async {
+    final result =
+        await taskService.filterByDeadline(filterByDeadline: filterByDeadline);
+    result.fold(
+      (failure) => log(failure.message.toString()),
+      (success) {
+        log('filter by deadline $success');
       },
     );
   }

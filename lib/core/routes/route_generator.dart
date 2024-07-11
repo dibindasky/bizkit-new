@@ -293,7 +293,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskTabNotification,
       path: Routes.taskTabNotification,
-      builder: (context, state) => const TaskTabNotification(),
+      builder: (context, state) => TaskTabNotification(),
     ),
 
     // HeirarchyUserDetail

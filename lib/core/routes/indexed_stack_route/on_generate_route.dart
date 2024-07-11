@@ -44,7 +44,7 @@ class RouteGenerator {
       case Routes.taskNotification:
         return MaterialPageRoute(builder: (ctx) => const NotoficationBuilder());
       case Routes.taskTabNotification:
-        return MaterialPageRoute(builder: (ctx) => const TaskTabNotification());
+        return MaterialPageRoute(builder: (ctx) => TaskTabNotification());
       case Routes.cardDetailView:
         return MaterialPageRoute(builder: (ctx) => ScreenTaskCalenderView());
       case Routes.heirarchyUserDetail:

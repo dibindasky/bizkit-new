@@ -29,12 +29,12 @@ class TaskContainer extends StatelessWidget {
                 : kwhite.withOpacity(.2),
             shape: RoundedRectangleBorder(
               side: BorderSide(
-                  width: 2,
-                  color: controller.selectedIndices.contains(index)
-                      ? neonShade
-                      : kwhite
-                  // : Color(int.parse(task['color']!)),
-                  ),
+                width: 2,
+                color: controller.selectedIndices.contains(index)
+                    ? neonShade
+                    : kwhite,
+                // : const Color(0xFF0B06FF),
+              ),
               borderRadius: BorderRadius.circular(15.0),
             ),
             margin: const EdgeInsets.symmetric(vertical: 8.0),

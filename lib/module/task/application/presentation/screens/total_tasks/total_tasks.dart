@@ -141,6 +141,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: Stack(
             children: [
               TabBar(
+                dividerColor: kblack,
                 controller: _tabController,
                 indicator: BoxDecoration(
                   color: neonShade,

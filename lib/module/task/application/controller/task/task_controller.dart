@@ -99,7 +99,7 @@ class CreateTaskController extends GetxController {
     result.fold(
       (failure) => log(failure.message.toString()),
       (success) {
-        log('filter by deadline $success');
+        log('filter by deadline ${success.tasks}');
       },
     );
   }

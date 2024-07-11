@@ -87,10 +87,7 @@ class ScreenTaskCalenderView extends StatelessWidget {
                       log('formattedDate : $formattedDate');
                       taskController.taskFilterByDeadline(
                         filterByDeadline: FilterByDeadlineModel(
-                          date: selectedDate
-                              .toString()
-                              .substring(0, 19)
-                              .replaceAll(' ', ''),
+                          date: formattedDate,
                         ),
                       );
                     },

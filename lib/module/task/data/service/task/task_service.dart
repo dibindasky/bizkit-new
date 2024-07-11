@@ -12,6 +12,8 @@ import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/fi
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_success_responce/filter_by_deadline_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_success_responce/filter_by_type_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
@@ -146,9 +148,37 @@ class TaskService implements TaskRepo {
   }
 
   @override
-  Future<Either<ErrorModel, SuccessResponce>> pinnedATask() {
-    // TODO: implement pinnedATask
-    throw UnimplementedError();
+  Future<Either<ErrorModel, SuccessResponce>> pinnedATask(
+      {required PinnedATaskModel pinnedATask}) async {
+    try {
+      final response = await apiService.patch(
+        ApiEndPoints.taskTestPinnedATask,
+        data: pinnedATask.toJson(),
+      );
+      log("=> Response Pinned A Task  : ${response.data}");
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException pinnedATask $e');
+      return Left(ErrorModel(error: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch pinnedATask $e');
+      return Left(ErrorModel(error: '$e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, PinnedTasksResponce>> getAllPinnedTasks() async {
+    try {
+      final response = await apiService.get(ApiEndPoints.taskTestPinnedATask);
+      log("=> Response All pinned tasks : ${response.data}");
+      return Right(PinnedTasksResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getAllPinnedTasks $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getAllPinnedTasks $e');
+      return Left(Failure(message: e.toString()));
+    }
   }
 
   // Received all task requests

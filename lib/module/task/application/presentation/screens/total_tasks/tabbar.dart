@@ -18,7 +18,7 @@ class TaskListView extends StatelessWidget {
       return Center(
         child: Image.asset(
           emptyNodata3,
-          width: 250,
+          width: 200,
         ),
       );
     } else {

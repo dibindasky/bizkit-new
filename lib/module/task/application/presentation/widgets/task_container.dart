@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class TaskContainer extends StatelessWidget {
 
   final Tasks task;
   final controller = Get.find<TaskCalenderViewController>();
+  final taskController = Get.find<CreateTaskController>();
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +104,20 @@ class TaskContainer extends StatelessWidget {
                                   value: 'Spot light Task',
                                   child: Text(
                                     'Spot light Task',
+                                    style: TextStyle(color: kblack),
+                                  ),
+                                ),
+                                PopupMenuItem<String>(
+                                  value: 'Pin the ask',
+                                  onTap: () {
+                                    taskController.pinnedATask(
+                                        pinnedATask: PinnedATaskModel(
+                                      isPinned: true,
+                                      taskId: task.id,
+                                    ));
+                                  },
+                                  child: const Text(
+                                    'Pin the task',
                                     style: TextStyle(color: kblack),
                                   ),
                                 ),

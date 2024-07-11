@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +9,13 @@ import 'package:get/get.dart';
 class TaskContainer extends StatelessWidget {
   TaskContainer({
     super.key,
-    required this.task,
     required this.index,
+    required this.task,
   });
 
   final int index;
 
-  final Map<String, String> task;
+  final Tasks task;
   final controller = Get.find<TaskCalenderViewController>();
 
   @override
@@ -28,11 +29,12 @@ class TaskContainer extends StatelessWidget {
                 : kwhite.withOpacity(.2),
             shape: RoundedRectangleBorder(
               side: BorderSide(
-                width: 2,
-                color: controller.selectedIndices.contains(index)
-                    ? neonShade
-                    : Color(int.parse(task['color']!)),
-              ),
+                  width: 2,
+                  color: controller.selectedIndices.contains(index)
+                      ? neonShade
+                      : kwhite
+                  // : Color(int.parse(task['color']!)),
+                  ),
               borderRadius: BorderRadius.circular(15.0),
             ),
             margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -54,7 +56,7 @@ class TaskContainer extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         border: Border.all(color: neonShade),
                                         borderRadius: kBorderRadius25,
-                                        color: kblack,
+                                        color: neonShade,
                                       ),
                                       child: const Icon(
                                         Icons.done,
@@ -68,7 +70,8 @@ class TaskContainer extends StatelessWidget {
                                     ),
                               adjustWidth(10),
                               Text(
-                                task['title']!,
+                                // task['title']!,
+                                '${task.title}',
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -114,14 +117,16 @@ class TaskContainer extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        task['description']!,
+                        // task['description']!,
+                        '${task.description}',
                         style: const TextStyle(color: kwhite, fontSize: 12),
                       ),
                       adjustHieght(10),
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          task['date']!,
+                          '${task.deadLine}',
+                          // task['date']!,
                           style: const TextStyle(
                             color: kwhite,
                           ),

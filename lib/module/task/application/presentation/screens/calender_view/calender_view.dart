@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/calender_view_appbar.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/heirarchy_task_folder_data_folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/hierarchy_task_folder.dart';
@@ -15,9 +16,13 @@ class ScreenTaskCalenderView extends StatelessWidget {
   ScreenTaskCalenderView({super.key});
 
   final controller = Get.find<TaskCalenderViewController>();
+  final taskController = Get.find<CreateTaskController>();
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      taskController.fetchAllTasks();
+    });
     return Scaffold(
       body: SafeArea(
           child: Obx(

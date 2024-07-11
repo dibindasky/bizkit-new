@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -41,7 +42,8 @@ class HierarchyListtile extends StatelessWidget {
 }
 
 class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
-  const ScreenHeirarchyTaskUserDetails({super.key});
+  ScreenHeirarchyTaskUserDetails({super.key});
+  final taskController = Get.find<CreateTaskController>();
 
   @override
   Widget build(BuildContext context) {
@@ -110,12 +112,14 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                itemCount: tasks.length,
+                // itemCount: tasks.length,
+                itemCount: taskController.allTasks.length,
                 itemBuilder: (context, index) {
-                  final task = tasks[index];
+                  final task = taskController.allTasks[index];
+                  // final task = tasks[index];
                   return TaskContainer(
-                    task: task,
-                    index: index,
+                    index: index, task: task,
+                    // task: task,
                   );
                 },
               ),

@@ -6,8 +6,7 @@ part of 'all_tasks_responce.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AllTasksResponce _$AllTasksResponceFromJson(Map<String, dynamic> json) =>
-    AllTasksResponce(
+Tasks _$TasksFromJson(Map<String, dynamic> json) => Tasks(
       id: json['_id'] as String?,
       createdBy: json['created_by'] as String?,
       title: json['title'] as String?,
@@ -17,20 +16,14 @@ AllTasksResponce _$AllTasksResponceFromJson(Map<String, dynamic> json) =>
       isCompleted: json['is_completed'] as bool?,
       deadLine: json['dead_line'] as String?,
       isKilled: json['is_killed'] as bool?,
-      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      attachments: (json['attachments'] as List<dynamic>?)
-          ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      subTask: (json['sub_task'] as List<dynamic>?)
-          ?.map((e) => SubTask.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      assignedTo: (json['assigned_to'] as List<dynamic>?)
-          ?.map((e) => AssignedTo.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      tags: json['tags'] as List<dynamic>?,
+      attachments: json['attachments'] as List<dynamic>?,
+      subTask: json['sub_task'] as List<dynamic>?,
+      assignedTo: json['assigned_to'] as List<dynamic>?,
+      isOwned: json['is_owned'] as bool?,
     );
 
-Map<String, dynamic> _$AllTasksResponceToJson(AllTasksResponce instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$TasksToJson(Tasks instance) => <String, dynamic>{
       '_id': instance.id,
       'created_by': instance.createdBy,
       'title': instance.title,
@@ -44,4 +37,17 @@ Map<String, dynamic> _$AllTasksResponceToJson(AllTasksResponce instance) =>
       'attachments': instance.attachments,
       'sub_task': instance.subTask,
       'assigned_to': instance.assignedTo,
+      'is_owned': instance.isOwned,
+    };
+
+AllTasksResponce _$AllTasksResponceFromJson(Map<String, dynamic> json) =>
+    AllTasksResponce(
+      tasks: (json['tasks'] as List<dynamic>)
+          .map((e) => Tasks.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$AllTasksResponceToJson(AllTasksResponce instance) =>
+    <String, dynamic>{
+      'tasks': instance.tasks,
     };

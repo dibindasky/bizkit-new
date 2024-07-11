@@ -3,17 +3,12 @@ import 'dart:developer';
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/module/task/domain/model/errors/error_model/error_model.dart';
-import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/all_assigned_tasks_responce/all_assigned_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
-import 'package:bizkit/module/task/domain/model/task/edit_task_model/edit_task_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_success_responce/filter_by_deadline_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_success_responce/filter_by_type_success_responce.dart';
-import 'package:bizkit/module/task/domain/model/task/received_requests_success_responce/received_requests_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
-import 'package:bizkit/module/task/domain/model/task_success_response/task_success_response.dart';
+import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -25,15 +20,15 @@ class TaskService implements TaskRepo {
 
   // Create new task
   @override
-  Future<Either<ErrorModel, TaskSuccessResponse>> createTask(
+  Future<Either<ErrorModel, TaskSuccessResponce>> createTask(
       {required TaskModel task}) async {
     try {
       final response = await apiService.post(
-        ApiEndPoints.taskTestBaseUrl,
+        ApiEndPoints.taskTestCreateTask,
         data: task.toJson(),
       );
       log("=> Response CreateTask : ${response.data}");
-      return Right(TaskSuccessResponse.fromJson(response.data));
+      return Right(TaskSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException createTask $e');
       return Left(ErrorModel(error: e.message ?? errorMessage));
@@ -48,10 +43,12 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, AllTasksResponce>> getAllTasks() async {
     try {
       final response = await apiService.get(ApiEndPoints.taskTestgetAllTasks);
+      log("=> Response All Tasks : ${response.data}");
 
-      log("=> Response getAllTasks : ${response.data}");
+      List<dynamic> data = response.data;
+      List<Tasks> tasks = data.map((task) => Tasks.fromJson(task)).toList();
 
-      return Right(AllTasksResponce.fromJson(response.data));
+      return Right(AllTasksResponce(tasks: tasks));
     } on DioException catch (e) {
       log('DioException getAllTasks $e');
       return Left(Failure(message: e.message ?? errorMessage));
@@ -62,11 +59,11 @@ class TaskService implements TaskRepo {
   }
 
   // Edit the task
-  @override
-  Future<Either<ErrorModel, SuccessResponce>> editTask(
-      {required EditTaskModel editTask}) {
-    throw UnimplementedError();
-  }
+  // @override
+  // Future<Either<ErrorModel, SuccessResponce>> editTask(
+  //     {required EditTaskModel editTask}) {
+  //   throw UnimplementedError();
+  // }
 
   // Get all assigned tasks
   @override
@@ -75,11 +72,11 @@ class TaskService implements TaskRepo {
   }
 
   // Filter the task by the deadline
-  @override
-  Future<Either<Failure, FilterByDeadlineSuccessResponce>> filterByDeadline(
-      {required FilterByDeadlineModel filterByDeadline}) {
-    throw UnimplementedError();
-  }
+  // @override
+  // Future<Either<Failure, FilterByDeadlineSuccessResponce>> filterByDeadline(
+  //     {required FilterByDeadlineModel filterByDeadline}) {
+  //   throw UnimplementedError();
+  // }
 
   // Filter the task by type
   @override
@@ -89,9 +86,9 @@ class TaskService implements TaskRepo {
   }
 
   // Received all task requests
-  @override
-  Future<Either<Failure, ReceivedRequestsSuccessResponce>>
-      getAllReceivedTaskRequests() {
-    throw UnimplementedError();
-  }
+  // @override
+  // Future<Either<Failure, ReceivedRequestsSuccessResponce>>
+  //     getAllReceivedTaskRequests() {
+  //   throw UnimplementedError();
+  // }
 }

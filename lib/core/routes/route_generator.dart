@@ -300,7 +300,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.heirarchyUserDetail,
       path: Routes.heirarchyUserDetail,
-      builder: (context, state) => const ScreenHeirarchyTaskUserDetails(),
+      builder: (context, state) => ScreenHeirarchyTaskUserDetails(),
     ),
 
     // chat Screen task

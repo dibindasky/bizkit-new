@@ -8,6 +8,7 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/tag_contaner.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/sub_task_bulder.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,11 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class ScreenAddTask extends StatelessWidget {
-  const ScreenAddTask({super.key, this.edit = false});
+  ScreenAddTask({super.key, this.edit = false});
 
   final bool edit;
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +54,18 @@ class ScreenAddTask extends StatelessWidget {
               children: [
                 Text('Title', style: style),
                 adjustHieght(3.h),
-                const TaskTextField(hintText: 'Tittle'),
+                TaskTextField(
+                  hintText: 'Tittle',
+                  controller: titleController,
+                ),
                 adjustHieght(10.h),
                 Text('Description', style: style),
                 adjustHieght(3.h),
-                const TaskTextField(maxLines: 5, hintText: 'Description'),
+                TaskTextField(
+                  maxLines: 5,
+                  hintText: 'Description',
+                  controller: descriptionController,
+                ),
                 adjustHieght(3.h),
                 Text('Task Type', style: style),
                 adjustHieght(5.h),
@@ -97,7 +107,26 @@ class ScreenAddTask extends StatelessWidget {
                   color: const LinearGradient(colors: [neonShade, neonShade]),
                   wdth: 300.w,
                   text: 'Create Task',
-                  onTap: () {},
+                  onTap: () {
+                    controller.createNewTask(
+                      task: TaskModel(
+                        title: titleController.text,
+                        description: descriptionController.text,
+                        deadLine: controller.deadlineDate.value,
+                        assignedTo: [],
+                        attachments: [],
+                        isCompleted: false,
+                        isKilled: false,
+                        priorityLevel:
+                            controller.createPriorityLevel.value.toString(),
+                        recurrentTask: controller.createRecurring.value,
+                        subTask: [],
+                        tags: [],
+                        taskType: controller.createTaskTupe.value.toString(),
+                      ),
+                    );
+                    Get.back(id: 1);
+                  },
                 )),
                 adjustHieght(10.h)
               ],

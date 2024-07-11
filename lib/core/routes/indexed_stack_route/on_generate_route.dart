@@ -40,7 +40,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (ctx) => const ScreenTotalTasksScreen());
       case Routes.addTask:
-        return MaterialPageRoute(builder: (ctx) => const ScreenAddTask());
+        return MaterialPageRoute(builder: (ctx) => ScreenAddTask());
       case Routes.taskNotification:
         return MaterialPageRoute(builder: (ctx) => const NotoficationBuilder());
       case Routes.taskTabNotification:
@@ -49,7 +49,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (ctx) => ScreenTaskCalenderView());
       case Routes.heirarchyUserDetail:
         return MaterialPageRoute(
-            builder: (ctx) => const ScreenHeirarchyTaskUserDetails());
+            builder: (ctx) => ScreenHeirarchyTaskUserDetails());
 
       //Attendence Module
       case Routes.attendenceHome:

@@ -1,13 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'assigned_to.dart';
-import 'attachment.dart';
-import 'sub_task.dart';
-
 part 'all_tasks_responce.g.dart';
 
 @JsonSerializable()
-class AllTasksResponce {
+class Tasks {
   @JsonKey(name: '_id')
   String? id;
   @JsonKey(name: 'created_by')
@@ -24,14 +20,16 @@ class AllTasksResponce {
   String? deadLine;
   @JsonKey(name: 'is_killed')
   bool? isKilled;
-  List<String>? tags;
-  List<Attachment>? attachments;
+  List<dynamic>? tags;
+  List<dynamic>? attachments;
   @JsonKey(name: 'sub_task')
-  List<SubTask>? subTask;
+  List<dynamic>? subTask;
   @JsonKey(name: 'assigned_to')
-  List<AssignedTo>? assignedTo;
+  List<dynamic>? assignedTo;
+  @JsonKey(name: 'is_owned')
+  bool? isOwned;
 
-  AllTasksResponce({
+  Tasks({
     this.id,
     this.createdBy,
     this.title,
@@ -45,7 +43,21 @@ class AllTasksResponce {
     this.attachments,
     this.subTask,
     this.assignedTo,
+    this.isOwned,
   });
+
+  factory Tasks.fromJson(Map<String, dynamic> json) {
+    return _$TasksFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() => _$TasksToJson(this);
+}
+
+@JsonSerializable()
+class AllTasksResponce {
+  List<Tasks> tasks;
+
+  AllTasksResponce({required this.tasks});
 
   factory AllTasksResponce.fromJson(Map<String, dynamic> json) {
     return _$AllTasksResponceFromJson(json);

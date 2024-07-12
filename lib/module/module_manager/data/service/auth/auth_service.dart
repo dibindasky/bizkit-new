@@ -28,7 +28,7 @@ class AuthenticationService implements AuthenticationRepo {
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException registerUser $e');
-      return Left(Failure(message: e.message ?? errorMessage));
+      return Left(Failure(message: e.response?.data["message"] ?? errorMessage));
     } catch (e) {
       log('catch registerUser $e');
       return Left(Failure(message: e.toString()));
@@ -48,7 +48,7 @@ class AuthenticationService implements AuthenticationRepo {
       return Right(TokenModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException otpVerification $e');
-      return Left(Failure(message: e.message ?? errorMessage));
+      return Left(Failure(message: e.response?.data["message"] ?? errorMessage));
     } catch (e) {
       log('catch otpVerification $e');
       return Left(Failure(message: e.toString()));
@@ -68,7 +68,7 @@ class AuthenticationService implements AuthenticationRepo {
       return Right(TokenModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException otpVerification $e');
-      return Left(Failure(message: e.message ?? errorMessage));
+      return Left(Failure(message: e.response?.data["message"] ?? errorMessage));
     } catch (e) {
       log('catch otpVerification $e');
       return Left(Failure(message: e.toString()));
@@ -88,7 +88,7 @@ class AuthenticationService implements AuthenticationRepo {
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException loginUser $e');
-      return Left(Failure(message: e.message ?? errorMessage));
+      return Left(Failure(message: e.response?.data["message"] ?? errorMessage));
     } catch (e) {
       log('catch loginUser $e');
       return Left(Failure(message: e.toString()));
@@ -108,7 +108,7 @@ class AuthenticationService implements AuthenticationRepo {
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException logOut $e');
-      return Left(Failure(message: e.message ?? errorMessage));
+      return Left(Failure(message: e.response?.data["message"] ?? errorMessage));
     } catch (e) {
       log('catch logOut $e');
       return Left(Failure(message: e.toString()));

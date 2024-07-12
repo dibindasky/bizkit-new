@@ -6,6 +6,7 @@ import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/au
 import 'package:bizkit/module/module_manager/domain/repository/authentication_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -33,13 +34,17 @@ class AuthenticationController extends GetxController {
             email: authPostModel.email,
             phoneNumber: authPostModel.phoneNumber));
     result.fold((l) {
-      Get.snackbar('Request faild', l.message ?? errorMessage,
-          backgroundColor: kred, colorText: kwhite);
+      showSnackbar(context,
+          message: l.message ?? errorMessage,
+          backgroundColor: kred,
+          textColor: kwhite);
     }, (r) {
       otpFromRegisterUser.value = true;
       GoRouter.of(context).pushNamed(Routes.otpPage);
-      Get.snackbar('Verify Email', r.message ?? 'Otp send to your mail id',
-          backgroundColor: kneonShade, colorText: kwhite);
+      showSnackbar(context,
+          message: r.message ?? 'Otp send to your mail id',
+          backgroundColor: kneonShade,
+          textColor: kwhite);
     });
     loadingregister.value = false;
   }
@@ -51,14 +56,18 @@ class AuthenticationController extends GetxController {
         authPostmodel: postModel.value.copyWith(otp: otp));
     result.fold((l) {
       GoRouter.of(context).pop();
-      Get.snackbar('Failed to Verify otp', l.message ?? errorMessage,
-          backgroundColor: kred, colorText: kwhite);
+      showSnackbar(context,
+          message: l.message ?? errorMessage,
+          backgroundColor: kred,
+          textColor: kwhite);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
       SecureStorage.setLogin();
       context.go(Routes.taskNavbar);
-      Get.snackbar('Register Success', 'User Registered Successfully',
-          backgroundColor: kneonShade, colorText: kwhite);
+      showSnackbar(context,
+          message: 'User Registered Successfully',
+          backgroundColor: kneonShade,
+          textColor: kwhite);
     });
     loadingOtpEmail.value = false;
   }
@@ -70,14 +79,17 @@ class AuthenticationController extends GetxController {
     final result = await authRepo.loginUser(
         authPostmodel: AuthPostmodel(phoneNumber: authPostModel.phoneNumber));
     result.fold((l) {
-      Get.snackbar('Request faild', l.message ?? errorMessage,
-          backgroundColor: kred, colorText: kwhite);
+      showSnackbar(context,
+          message: l.message ?? errorMessage,
+          backgroundColor: kred,
+          textColor: kwhite);
     }, (r) {
       otpFromRegisterUser.value = false;
       GoRouter.of(context).pushNamed(Routes.otpPage);
-      Get.snackbar(
-          'Enter Otp', r.message ?? 'Otp send to your registered mobile number',
-          backgroundColor: kneonShade, colorText: kwhite);
+      showSnackbar(context,
+          message: 'Otp send to your registered mobile number',
+          backgroundColor: kneonShade,
+          textColor: kwhite);
     });
     loadingLogin.value = false;
   }
@@ -89,14 +101,18 @@ class AuthenticationController extends GetxController {
             otp: otp, phoneNumber: postModel.value.phoneNumber));
     result.fold((l) {
       GoRouter.of(context).pop();
-      Get.snackbar('Failed to Verify otp', l.message ?? errorMessage,
-          backgroundColor: kred, colorText: kwhite);
+      showSnackbar(context,
+          message: l.message ?? errorMessage,
+          backgroundColor: kred,
+          textColor: kwhite);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
       SecureStorage.setLogin();
       context.go(Routes.taskNavbar);
-      Get.snackbar('Login Success', 'User Logged In Successfully',
-          backgroundColor: kneonShade, colorText: kwhite);
+      showSnackbar(context,
+          message: 'User Logged In Successfully',
+          backgroundColor: kneonShade,
+          textColor: kwhite);
     });
     loadingOtpPhone.value = false;
   }

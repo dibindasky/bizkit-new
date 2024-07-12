@@ -7,7 +7,7 @@ import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_task
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_task.dart';
-import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -26,6 +26,12 @@ class CreateTaskController extends GetxController {
   RxList<ReceivedRequestsResponce> receivedRequests =
       <ReceivedRequestsResponce>[].obs;
   RxList<PinnedTask> allPinnedTasks = <PinnedTask>[].obs;
+
+  @override
+  void onInit() {
+    fetchAllPinnedTasks();
+    super.onInit();
+  }
 
   // Test task id
   String testTaskId = '';
@@ -113,6 +119,7 @@ class CreateTaskController extends GetxController {
       (error) => log('${error.error}', name: 'Error from pinnedATask '),
       (success) {
         log("${success.message}");
+        fetchAllPinnedTasks();
       },
     );
   }
@@ -123,6 +130,17 @@ class CreateTaskController extends GetxController {
       (failure) => log(failure.message.toString()),
       (success) {
         allPinnedTasks.assignAll(success.pinnedTasks ?? []);
+      },
+    );
+  }
+
+  void unpinATask({required UnpinATaskModel unpinATask}) async {
+    final result = await taskService.unpinATask(unpinATask: unpinATask);
+    result.fold(
+      (failure) => log(failure.message.toString()),
+      (success) {
+        log("${success.message}");
+        fetchAllPinnedTasks();
       },
     );
   }

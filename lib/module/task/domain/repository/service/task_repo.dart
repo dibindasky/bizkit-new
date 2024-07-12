@@ -11,6 +11,7 @@ import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_success_responce/filter_by_type_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
 import 'package:dartz/dartz.dart';
@@ -40,6 +41,10 @@ abstract class TaskRepo {
       {required PinnedATaskModel pinnedATask});
 
   Future<Either<Failure, PinnedTasksResponce>> getAllPinnedTasks();
+
+  Future<Either<Failure, SuccessResponce>> unpinATask({
+    required UnpinATaskModel unpinATask,
+  });
 
   // Future<Either<ErrorModel, SuccessResponce>> editTask({
   //   required EditTaskModel editTask,

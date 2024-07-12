@@ -139,7 +139,12 @@ class ScreenAddTask extends StatelessWidget {
                                       .toString(),
                                 ),
                               );
-                              Get.back(id: 1);
+                              Future.delayed(
+                                const Duration(seconds: 2),
+                                () {
+                                  Get.back(id: 1);
+                                },
+                              );
                             },
                           ),
                         ),

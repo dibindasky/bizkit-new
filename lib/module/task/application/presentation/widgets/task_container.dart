@@ -2,9 +2,11 @@ import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
+// import 'package:bizkit/module/task/domain/model/task/filter_by_type_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_task.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +17,16 @@ class TaskContainer extends StatelessWidget {
     super.key,
     required this.index,
     this.task,
+    this.tabIndex,
     this.pinnedTasks,
+    this.typeTask,
   });
 
   final int index;
-
+  final int? tabIndex;
   final Tasks? task;
+  final Task? typeTask;
+
   final PinnedTask? pinnedTasks;
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
@@ -83,7 +89,7 @@ class TaskContainer extends StatelessWidget {
                                       style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
-                                        color: kwhite,
+                                        color: neonShade,
                                       ),
                                     )
                                   : pinnedTasks != null
@@ -93,10 +99,20 @@ class TaskContainer extends StatelessWidget {
                                           style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
-                                            color: kwhite,
+                                            color: neonShade,
                                           ),
                                         )
-                                      : const Text('Title'),
+                                      : typeTask != null
+                                          ? Text(
+                                              // task['title']!,
+                                              typeTask?.task?.title ?? 'Tittle',
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                color: neonShade,
+                                              ),
+                                            )
+                                          : const Text('Title'),
                             ],
                           ),
                           PopupMenuButton<String>(
@@ -126,35 +142,29 @@ class TaskContainer extends StatelessWidget {
                                 PopupMenuItem<String>(
                                   value: 'Pin the task',
                                   onTap: () {
-                                    taskController.pinnedATask(
-                                        pinnedATask: PinnedATaskModel(
-                                      isPinned: true,
-                                      taskId: task?.id ?? '',
-                                    ));
+                                    tabIndex == 0
+                                        ? taskController.unpinATask(
+                                            unpinATask: UnpinATaskModel(
+                                            taskId: pinnedTasks?.taskId,
+                                            isPinned: false,
+                                          ))
+                                        : taskController.pinnedATask(
+                                            pinnedATask: PinnedATaskModel(
+                                            isPinned: true,
+                                            taskId: task?.id ?? '',
+                                          ));
                                   },
-                                  child: const Text(
-                                    'Pin the task',
-                                    style: TextStyle(color: kblack),
+                                  child: Text(
+                                    tabIndex == 0
+                                        ? 'Unpin the task'
+                                        : 'Pin the task',
+                                    style: const TextStyle(color: kblack),
                                   ),
                                 ),
                                 const PopupMenuItem<String>(
                                   value: 'Add Sub Task',
                                   child: Text(
                                     'Add Sub Task',
-                                    style: TextStyle(color: kblack),
-                                  ),
-                                ),
-                                PopupMenuItem<String>(
-                                  value: 'Unpin the task',
-                                  onTap: () {
-                                    taskController.unpinATask(
-                                        unpinATask: UnpinATaskModel(
-                                      taskId: pinnedTasks?.taskId,
-                                      isPinned: false,
-                                    ));
-                                  },
-                                  child: const Text(
-                                    'Unpin the task',
                                     style: TextStyle(color: kblack),
                                   ),
                                 ),
@@ -175,7 +185,14 @@ class TaskContainer extends StatelessWidget {
                                   style: const TextStyle(
                                       color: kwhite, fontSize: 12),
                                 )
-                              : const Text('description'),
+                              : typeTask != null
+                                  ? Text(
+                                      typeTask?.task?.description ??
+                                          'description',
+                                      style: const TextStyle(
+                                          color: kwhite, fontSize: 12),
+                                    )
+                                  : const Text('description'),
                       adjustHieght(10),
                       Align(
                         alignment: Alignment.centerRight,

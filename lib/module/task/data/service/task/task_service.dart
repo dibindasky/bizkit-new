@@ -9,12 +9,12 @@ import 'package:bizkit/module/task/domain/model/success_responce/success_responc
 import 'package:bizkit/module/task/domain/model/task/all_assigned_tasks_responce/all_assigned_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_success_responce/filter_by_deadline_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/filter_by_deadline_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_type_success_responce/filter_by_type_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/self_to_others_type_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
@@ -79,18 +79,25 @@ class TaskService implements TaskRepo {
     throw UnimplementedError();
   }
 
-  // Filter the task by the deadline
-  // @override
-  // Future<Either<Failure, FilterByDeadlineSuccessResponce>> filterByDeadline(
-  //     {required FilterByDeadlineModel filterByDeadline}) {
-  //   throw UnimplementedError();
-  // }
-
   // Filter the task by type
   @override
-  Future<Either<Failure, FilterByTypeSuccessResponce>> filterByType(
-      {required FilterByTypeModel filterByType}) {
-    throw UnimplementedError();
+  Future<Either<Failure, SelfToOthersTypeResponce>> filterByType(
+      {required FilterByTypeModel filterByType}) async {
+    try {
+      log('${filterByType.toJson()}');
+      final response = await apiService.post(
+        ApiEndPoints.taskTestFilterByType,
+        data: filterByType.toJson(),
+      );
+      log("=> Response Filter by Type : ${response.data}");
+      return Right(SelfToOthersTypeResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException filterByType $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch filterByType $e');
+      return Left(Failure(message: e.toString()));
+    }
   }
 
   @override
@@ -128,25 +135,25 @@ class TaskService implements TaskRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, FilterByDeadlineSuccessResponce>> filterByDeadline(
-      {required FilterByDeadlineModel filterByDeadline}) async {
-    try {
-      log('${filterByDeadline.toJson()}');
-      final response = await apiService.post(
-        ApiEndPoints.taskTestFilterByDeadline,
-        data: filterByDeadline.toJson(),
-      );
-      log("=> Response Filter by deadline : ${response.data}");
-      return Right(FilterByDeadlineSuccessResponce.fromJson(response.data));
-    } on DioException catch (e) {
-      log('DioException filterByDeadline $e');
-      return Left(Failure(message: e.message ?? errorMessage));
-    } catch (e) {
-      log('catch filterByDeadline $e');
-      return Left(Failure(message: e.toString()));
-    }
-  }
+  // @override
+  // Future<Either<Failure, FilterByTypeResponce>> filterByDeadline(
+  //     {required FilterByDeadlineModel filterByDeadline}) async {
+  //   try {
+  //     log('${filterByDeadline.toJson()}');
+  //     final response = await apiService.post(
+  //       ApiEndPoints.taskTestFilterByDeadline,
+  //       data: filterByDeadline.toJson(),
+  //     );
+  //     log("=> Response Filter by deadline : ${response.data}");
+  //     return Right(FilterByTypeResponce.fromJson(response.data));
+  //   } on DioException catch (e) {
+  //     log('DioException filterByDeadline $e');
+  //     return Left(Failure(message: e.message ?? errorMessage));
+  //   } catch (e) {
+  //     log('catch filterByDeadline $e');
+  //     return Left(Failure(message: e.toString()));
+  //   }
+  // }
 
   @override
   Future<Either<ErrorModel, SuccessResponce>> pinnedATask(
@@ -197,6 +204,26 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch unpinATask $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  // Filter the task by the deadline
+  @override
+  Future<Either<Failure, FilterByDeadlineResponce>> filterByDeadline(
+      {required FilterByDeadlineModel filterByDeadline}) async {
+    try {
+      final response = await apiService.post(
+        ApiEndPoints.taskTestFilterByDeadline,
+        data: filterByDeadline.toJson(),
+      );
+      log("=> Response Filter by Deadline : ${response.data}");
+      return Right(FilterByDeadlineResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException filterByDeadline $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch filterByDeadline $e');
       return Left(Failure(message: e.toString()));
     }
   }

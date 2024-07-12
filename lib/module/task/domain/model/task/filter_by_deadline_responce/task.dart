@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/deadline_tasks/deadline_tasks.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'task.dart';
@@ -5,10 +6,10 @@ import 'task.dart';
 part 'task.g.dart';
 
 @JsonSerializable()
-class Task {
+class DTasks {
   @JsonKey(name: '_id')
   String? id;
-  Task? task;
+  DeadlineTasks? task;
   @JsonKey(name: 'task_type')
   String? taskType;
   @JsonKey(name: 'is_owned')
@@ -18,7 +19,7 @@ class Task {
   @JsonKey(name: 'is_pinned')
   bool? isPinned;
 
-  Task({
+  DTasks({
     this.id,
     this.task,
     this.taskType,
@@ -27,7 +28,7 @@ class Task {
     this.isPinned,
   });
 
-  factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
+  factory DTasks.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 
   Map<String, dynamic> toJson() => _$TaskToJson(this);
 }

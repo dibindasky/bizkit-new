@@ -4,7 +4,6 @@ part 'sub_task.g.dart';
 
 @JsonSerializable()
 class SubTask {
-  String? id;
   String? title;
   String? description;
   @JsonKey(name: 'dead_line')
@@ -14,16 +13,15 @@ class SubTask {
   @JsonKey(name: 'total_time_taken')
   String? totalTimeTaken;
   @JsonKey(name: '_id')
-  String? subId;
+  String? id;
 
   SubTask({
-    this.id,
     this.title,
     this.description,
     this.deadLine,
     this.isCompleted,
     this.totalTimeTaken,
-    this.subId,
+    this.id,
   });
 
   factory SubTask.fromJson(Map<String, dynamic> json) {

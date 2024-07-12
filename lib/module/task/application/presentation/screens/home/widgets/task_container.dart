@@ -1,5 +1,7 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ class TaskContainers extends StatelessWidget {
   final homeController = Get.find<TaskHomeScreenController>();
   @override
   Widget build(BuildContext context) {
+    final taskController = Get.find<CreateTaskController>();
     return FittedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -23,6 +26,8 @@ class TaskContainers extends StatelessWidget {
             outerPercentage3: 28,
             onTap: () {
               homeController.changeSelectedTaskCategory('Others to self');
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(taskType: 'others_to_self'));
               Get.toNamed(Routes.taskLists, id: 1);
             },
           ),
@@ -35,6 +40,8 @@ class TaskContainers extends StatelessWidget {
             outerPercentage3: 28,
             onTap: () {
               homeController.changeSelectedTaskCategory('Self to Others');
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(taskType: 'self_to_others'));
               Get.toNamed(Routes.taskLists, id: 1);
             },
           ),
@@ -47,6 +54,8 @@ class TaskContainers extends StatelessWidget {
             outerPercentage3: 20,
             onTap: () {
               homeController.changeSelectedTaskCategory('Self to Self');
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(taskType: 'self_to_self'));
               Get.toNamed(Routes.taskLists, id: 1);
             },
           ),

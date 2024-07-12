@@ -55,6 +55,7 @@ class AuthenticationController extends GetxController {
           backgroundColor: kred, colorText: kwhite);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
+      SecureStorage.setLogin();
       context.go(Routes.taskNavbar);
       Get.snackbar('Register Success', 'User Registered Successfully',
           backgroundColor: kneonShade, colorText: kwhite);

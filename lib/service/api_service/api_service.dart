@@ -70,12 +70,11 @@ class ApiService {
     dynamic data,
   }) async {
     try {
-      // final accessToken =
-      //     await SecureStorage.getToken().then((token) => token.accessToken);
+      final accessToken =
+          await SecureStorage.getToken().then((token) => token.accessToken);
       _dio.options.headers.addAll(
         {
-          // 'Authorization': "Bearer ${ApiEndPoints.testAccessToken}",
-          'Authorization': "Bearer ${ApiEndPoints.testAccessToken}",
+          'Authorization': "Bearer $accessToken",
           ...headers ?? {'content-Type': 'application/json'}
         },
       );
@@ -171,12 +170,11 @@ class ApiService {
     Map<String, dynamic>? data,
   }) async {
     try {
-      // final accessToken =
-      //     await SecureStorage.getToken().then((token) => token.accessToken);
+      final accessToken =
+          await SecureStorage.getToken().then((token) => token.accessToken);
       _dio.options.headers.addAll(
         {
-          // 'Authorization': "Bearer $accessToken",
-          'Authorization': "Bearer ${ApiEndPoints.testAccessToken}",
+          'Authorization': "Bearer $accessToken",
           ...headers ?? {'content-Type': 'application/json'}
         },
       );

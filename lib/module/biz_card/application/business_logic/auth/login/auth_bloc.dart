@@ -106,10 +106,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           await userLocalService.addUser(loginResponseModel.user!);
         }
         await SecureStorage.setLogin(
-            name: loginResponseModel.user?.name ??
-                loginResponseModel.user?.companyName ??
-                '',
-            isVerified: loginResponseModel.user?.isVerified ?? false);
+            // name: loginResponseModel.user?.name ??
+            //     loginResponseModel.user?.companyName ??
+            //     '',
+            // isVerified: loginResponseModel.user?.isVerified ?? false
+            );
         await SecureStorage.setRole(
             isBusiness: loginResponseModel.user?.isBusiness ?? true);
         await SecureStorage.setHasReminder(

@@ -6,9 +6,6 @@ import 'package:bizkit/module/attendence/application/presentation/screens/onboar
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/new_password.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/otp_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/login_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/otp_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/signin_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/business_card_preview/preview_main_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_share/view/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/card_detail_view.dart';
@@ -24,9 +21,10 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/onbaordi
 import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/splash_screen/splash_screen.dart';
-import 'package:bizkit/module/biz_card/domain/model/auth/sign_up_indivudal_model/sign_up_indivudal_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/auth/sign_up_model/sign_up_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/auth/signup_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/splash/splash_general.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/poll_creation_page.dart';
@@ -35,7 +33,6 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
-import 'package:bizkit/module/task/application/presentation/screens/onboard/onbaord.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/task_detail_page.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_detil_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
@@ -63,6 +60,49 @@ class GoRouterConfig {
       path: Routes.initial,
       // builder: (context, state) => const ScreenTaskChat(),
       builder: (context, state) => const ScreenGeneralSplash(),
+    ),
+    // login page
+    GoRoute(
+      name: Routes.loginPage,
+      path: Routes.loginPage,
+      builder: (context, state) => const ScreenLogin(),
+    ),
+
+    // signup page
+    GoRoute(
+      name: Routes.signUpPage,
+      path: Routes.signUpPage,
+      builder: (context, state) => const ScreenSignUp(),
+    ),
+
+    // otp page
+    GoRoute(
+      name: Routes.otpPage,
+      path: Routes.otpPage,
+      builder: (context, state) => const ScreenOtpValidation(),
+      // path: '${Routes.otpPage}/:email/:fromBusiness/:model',
+      // builder: (context, state) {
+      //   SignUpModel? businessModel;
+      //   SignUpIndivudalModel? individualModel;
+      //   if (state.pathParameters['model'] != null) {
+      //     final model = jsonDecode(state.pathParameters['model']!)
+      //         as Map<String, dynamic>;
+      //     if (model['signUpModel'] != null) {
+      //       businessModel = SignUpModel.fromJson(
+      //           jsonDecode(model['signUpModel']!) as Map<String, dynamic>);
+      //     }
+      //     if (model['signUpIndivudalModel'] != null) {
+      //       individualModel = SignUpIndivudalModel.fromJson(
+      //           jsonDecode(model['signUpIndivudalModel']!)
+      //               as Map<String, dynamic>);
+      //     }
+      //   }
+      //   return ScreenOtpValidation(
+      //       email: state.pathParameters['email']!,
+      //       fromBusiness: state.pathParameters['fromBusiness'] == 'true',
+      //       signUpIndivudalModel: individualModel,
+      //       signUpModel: businessModel);
+      // },
     ),
   ];
 
@@ -163,54 +203,18 @@ class GoRouterConfig {
     ),
 
     GoRoute(
-      name: Routes.loginPage,
-      path: Routes.loginPage,
-      builder: (context, state) => const LoGInScreen(),
-    ),
-    GoRoute(
       name: Routes.cardCreationProfilePage,
       path: Routes.cardCreationProfilePage,
       builder: (context, state) => const ProfileCreationScreen(),
     ),
 
-    GoRoute(
-      name: Routes.signUpPage,
-      path: Routes.signUpPage,
-      builder: (context, state) => const SignInscreeen(),
-    ),
     //Second card creation selected scanned images
     GoRoute(
       name: Routes.selectedCards,
       path: Routes.selectedCards,
       builder: (context, state) => const SelectedCard(),
     ),
-    // otp page
-    GoRoute(
-      name: Routes.otpPage,
-      path: '${Routes.otpPage}/:email/:fromBusiness/:model',
-      builder: (context, state) {
-        SignUpModel? businessModel;
-        SignUpIndivudalModel? individualModel;
-        if (state.pathParameters['model'] != null) {
-          final model = jsonDecode(state.pathParameters['model']!)
-              as Map<String, dynamic>;
-          if (model['signUpModel'] != null) {
-            businessModel = SignUpModel.fromJson(
-                jsonDecode(model['signUpModel']!) as Map<String, dynamic>);
-          }
-          if (model['signUpIndivudalModel'] != null) {
-            individualModel = SignUpIndivudalModel.fromJson(
-                jsonDecode(model['signUpIndivudalModel']!)
-                    as Map<String, dynamic>);
-          }
-        }
-        return ScreenOtpValidation(
-            email: state.pathParameters['email']!,
-            fromBusiness: state.pathParameters['fromBusiness'] == 'true',
-            signUpIndivudalModel: individualModel,
-            signUpModel: businessModel);
-      },
-    ),
+
     GoRoute(
       name: Routes.cardCreation,
       path: Routes.cardCreation,

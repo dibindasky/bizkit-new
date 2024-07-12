@@ -1,6 +1,6 @@
 class ApiEndPoints {
   // static String baseUrl = 'http://192.168.29.216:8000';
-  static String baseUrl = 'https://app.bizkit.club';
+  static String baseUrl = 'https://bizkit.onrender.com';
   //static String baseUrl = 'http://44.203.134.42';
   // static String baseUrl = 'http://192.168.29.216:8000';
 
@@ -8,10 +8,11 @@ class ApiEndPoints {
   static String refreshUrl = '/accounts/api/token/refresh/';
 
   // auth
-  static String login = '/accounts/login/';
-  static String register = '/accounts/register/';
+  static String login = '/login/';
+  static String logOut = '/logout/';
+  static String register = '/register/';
   static String sendOtpMail = '/verification/send_verification_email/';
-  static String verifyOtp = '/verification/verify_email/';
+  static String verifyOtp = '/verify-otp/';
   static String forgotPassword = '/verification/forgot_password/';
   static String verifyforgotPassword = '/verification/verify_forgot_password/';
   static String forgottPassword = '/verification/change_password/';

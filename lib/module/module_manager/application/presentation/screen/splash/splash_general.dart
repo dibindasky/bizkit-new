@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 class ScreenGeneralSplash extends StatelessWidget {
   const ScreenGeneralSplash({super.key});
@@ -24,7 +24,8 @@ class ScreenGeneralSplash extends StatelessWidget {
 
   void _navigateToSignInPage(BuildContext context) async {
     Future.delayed(const Duration(milliseconds: 2000), () {
-      GoRouter.of(context).pushReplacementNamed(Routes.taskNavbar);
+      // GoRouter.of(context).pushReplacementNamed(Routes.taskNavbar);
+      Get.find<AuthenticationController>().checkLoginStatus(context);
     });
   }
 }

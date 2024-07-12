@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class ApiService {
-  final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.taskTestBaseUrl));
+  final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
   // final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
 
   // final Dio _dio;
@@ -36,12 +36,12 @@ class ApiService {
     Map<String, dynamic>? data,
   }) async {
     try {
-      // final accessToken =
-      //     await SecureStorage.getToken().then((token) => token.accessToken);
+      final accessToken =
+          await SecureStorage.getToken().then((token) => token.accessToken);
       _dio.options.headers.addAll(
         {
           // 'Authorization': "Bearer $accessToken",
-          'Authorization': "Bearer ${ApiEndPoints.testAccessToken}",
+          'Authorization': "Bearer $accessToken",
           ...headers ?? {'content-Type': 'application/json'}
         },
       );

@@ -3,6 +3,8 @@ import 'package:bizkit/module/task/application/controller/caleder_view/calender_
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_task.dart';
+import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +14,14 @@ class TaskContainer extends StatelessWidget {
   TaskContainer({
     super.key,
     required this.index,
-    required this.task,
+    this.task,
+    this.pinnedTasks,
   });
 
   final int index;
 
-  final Tasks task;
+  final Tasks? task;
+  final PinnedTask? pinnedTasks;
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
 
@@ -72,15 +76,27 @@ class TaskContainer extends StatelessWidget {
                                       scale: 2,
                                     ),
                               adjustWidth(10),
-                              Text(
-                                // task['title']!,
-                                '${task.title}',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: kwhite,
-                                ),
-                              ),
+                              task != null
+                                  ? Text(
+                                      // task['title']!,
+                                      task?.title ?? 'Tittle',
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: kwhite,
+                                      ),
+                                    )
+                                  : pinnedTasks != null
+                                      ? Text(
+                                          // task['title']!,
+                                          pinnedTasks!.taskTitle ?? 'Title',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: kwhite,
+                                          ),
+                                        )
+                                      : const Text('Title'),
                             ],
                           ),
                           PopupMenuButton<String>(
@@ -108,12 +124,12 @@ class TaskContainer extends StatelessWidget {
                                   ),
                                 ),
                                 PopupMenuItem<String>(
-                                  value: 'Pin the ask',
+                                  value: 'Pin the task',
                                   onTap: () {
                                     taskController.pinnedATask(
                                         pinnedATask: PinnedATaskModel(
                                       isPinned: true,
-                                      taskId: task.id,
+                                      taskId: task?.id ?? '',
                                     ));
                                   },
                                   child: const Text(
@@ -128,21 +144,43 @@ class TaskContainer extends StatelessWidget {
                                     style: TextStyle(color: kblack),
                                   ),
                                 ),
+                                PopupMenuItem<String>(
+                                  value: 'Unpin the task',
+                                  onTap: () {
+                                    taskController.unpinATask(
+                                        unpinATask: UnpinATaskModel(
+                                      taskId: pinnedTasks?.taskId,
+                                      isPinned: false,
+                                    ));
+                                  },
+                                  child: const Text(
+                                    'Unpin the task',
+                                    style: TextStyle(color: kblack),
+                                  ),
+                                ),
                               ];
                             },
                           ),
                         ],
                       ),
-                      Text(
-                        // task['description']!,
-                        '${task.description}',
-                        style: const TextStyle(color: kwhite, fontSize: 12),
-                      ),
+                      task != null
+                          ? Text(
+                              task?.description ?? 'description',
+                              style:
+                                  const TextStyle(color: kwhite, fontSize: 12),
+                            )
+                          : pinnedTasks != null
+                              ? Text(
+                                  pinnedTasks!.description ?? 'description',
+                                  style: const TextStyle(
+                                      color: kwhite, fontSize: 12),
+                                )
+                              : const Text('description'),
                       adjustHieght(10),
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          '${task.deadLine}',
+                          task?.deadLine ?? 'dead',
                           // task['date']!,
                           style: const TextStyle(
                             color: kwhite,

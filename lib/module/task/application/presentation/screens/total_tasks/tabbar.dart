@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-class TaskListView extends StatelessWidget {
-  TaskListView({super.key});
+class TotalTaskListView extends StatelessWidget {
+  TotalTaskListView({super.key});
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
 

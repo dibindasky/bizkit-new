@@ -166,7 +166,7 @@ class ApiEndPoints {
   // TASK MODULE TEST APIENDPOINTS
 
   static const testAccessToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNzE2MTU3LCJpYXQiOjE3MjA3MDAxNTMsImp0aSI6IjYxM2FjODRmNzE1NzQ3MTE4YzU3ODcwNGRkNWVlODMxIiwidXNlcl9pZCI6IjY2OGZjY2Y5YTM5ODVkYTZlMDNjNjI1ZiJ9.Ofd_aNhJkHU7wX42es5Ii5F__EI1DN8Vw7CD_ZrFImU";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODQzNDMxLCJpYXQiOjE3MjA3NTcwMzEsImp0aSI6ImYzZmMyODI2ODhiYzQzYWQ4YmM3NWU0MzgwMjViNGZlIiwidXNlcl9pZCI6IjY2OTBhYjI3Yjc0YzFmZDlhMWQxMTFlMCJ9.kgah9yh5BMeMcjCPMZdA7jkXex5NFZkQDeJjlPNZKbs";
 
   static const taskTestBaseUrl = 'https://bizkit.onrender.com';
   static const taskTestgetAllTasks = '/user-tasks/';

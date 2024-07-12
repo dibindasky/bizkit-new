@@ -1,12 +1,17 @@
 import 'dart:developer';
 
+import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/tabbar.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/custom_pop_menubutton.dart';
+import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenTotalTasksScreen extends StatefulWidget {
   const ScreenTotalTasksScreen({super.key});
@@ -94,6 +99,10 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
 
   @override
   Widget build(BuildContext context) {
+    final taskController = Get.find<CreateTaskController>();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      taskController.fetchAllPinnedTasks();
+    });
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -167,10 +176,55 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
       body: TabBarView(
         controller: _tabController,
         children: [
-          TaskListView(),
-          TaskListView(),
+          const PinnedTasks(),
+          TotalTaskListView(),
         ],
       ),
     );
+  }
+}
+
+class PinnedTasks extends StatelessWidget {
+  const PinnedTasks({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // final controller = Get.find<TaskCalenderViewController>();
+    final taskController = Get.find<CreateTaskController>();
+    return Obx(() {
+      if (taskController.allPinnedTasks.isEmpty) {
+        return const Center(
+          child: Text('Pinned Tasks is Empty'),
+        );
+      } else {
+        return ListView.builder(
+          shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          itemCount: taskController.allPinnedTasks.length,
+          // itemCount: tasks.length,
+          itemBuilder: (context, index) {
+            final pinnedTasks = taskController.allPinnedTasks[index];
+            return GestureDetector(
+              onLongPress: () {
+                // bool isSelected = !controller.selectedIndices.contains(index);
+                // controller.longPress(isSelected, index);
+              },
+              onTap: () {
+                // if (controller.selectedFolderContainer.value) {
+                //   bool isSelected = !controller.selectedIndices.contains(index);
+                //   controller.longPress(isSelected, index);
+                // } else {
+                GoRouter.of(context).push(Routes.taskChatScreen);
+                //}
+              },
+              child: TaskContainer(
+                index: index,
+                pinnedTasks: pinnedTasks,
+              ),
+            );
+          },
+        );
+      }
+    });
   }
 }

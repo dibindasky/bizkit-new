@@ -17,7 +17,7 @@ import 'package:bizkit/module/biz_card/application/business_logic/profile/profil
 import 'package:bizkit/module/biz_card/application/business_logic/promt/promt_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart';
-import 'package:bizkit/module/module_manager/data/controller/text_style_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/text_style_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/core/dipendency/di/dipendency_injection.dart';
 import 'package:bizkit/firebase_options.dart';

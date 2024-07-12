@@ -7,7 +7,7 @@ class SecureStorage {
   static const String accessKey = 'access_key';
   static const String refreshKey = 'refresh_key';
   static const String idKey = 'user_id_key';
-  static const String isLoged = 'is_logedIn';
+  static const String isLoged = 'is_loggedin';
   static const String isBusinessKey = 'is_business';
   static const String userNameKey = 'user_name';
   static const String userEmailKey = 'user_email';
@@ -73,13 +73,10 @@ class SecureStorage {
     await prefs.setString(accessKey, accessToken);
   }
 
-  static Future<void> setLogin(
-      {required String name, required bool isVerified}) async {
+  static Future<void> setLogin() async {
     final prefs = await _getPrefs();
     log('set login =>()');
     await prefs.setString(isLoged, '1');
-    await prefs.setString(userNameKey, name);
-    await prefs.setBool(isVerifiedKey, isVerified);
   }
 
   static Future<bool> getLogin() async {

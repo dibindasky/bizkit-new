@@ -6,18 +6,18 @@ part of 'task.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Task _$TaskFromJson(Map<String, dynamic> json) => Task(
+DTasks _$TaskFromJson(Map<String, dynamic> json) => DTasks(
       id: json['_id'] as String?,
       task: json['task'] == null
           ? null
-          : Task.fromJson(json['task'] as Map<String, dynamic>),
+          : DeadlineTasks.fromJson(json['task'] as Map<String, dynamic>),
       taskType: json['task_type'] as String?,
       isOwned: json['is_owned'] as bool?,
       spotlightOn: json['spotlight_on'] as bool?,
       isPinned: json['is_pinned'] as bool?,
     );
 
-Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
+Map<String, dynamic> _$TaskToJson(DTasks instance) => <String, dynamic>{
       '_id': instance.id,
       'task': instance.task,
       'task_type': instance.taskType,

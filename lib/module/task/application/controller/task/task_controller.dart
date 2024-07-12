@@ -5,9 +5,12 @@ import 'package:bizkit/module/task/domain/model/requests/received_requests_respo
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/task.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_task.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -22,9 +25,16 @@ class CreateTaskController extends GetxController {
   RxString deadlineDate = ''.obs;
 
   RxList<Tasks> allTasks = <Tasks>[].obs;
+
+  RxList<Task> typeTasks = <Task>[].obs;
+
+  RxList<DTasks> deadlineTasks = <DTasks>[].obs;
+
   RxList<SentRequest> sentRequests = <SentRequest>[].obs;
+
   RxList<ReceivedRequestsResponce> receivedRequests =
       <ReceivedRequestsResponce>[].obs;
+
   RxList<PinnedTask> allPinnedTasks = <PinnedTask>[].obs;
 
   @override
@@ -71,14 +81,14 @@ class CreateTaskController extends GetxController {
   }
 
   void fetchAllTasks() async {
-    final result = await taskService.getAllTasks();
+    // final result = await taskService.getAllTasks();
 
-    result.fold(
-      (failure) => log(failure.message.toString()),
-      (success) {
-        allTasks.assignAll(success.tasks);
-      },
-    );
+    // result.fold(
+    //   (failure) => log(failure.message.toString()),
+    //   (success) {
+    //     allTasks.assignAll(success.tasks);
+    //   },
+    // );
   }
 
   void fetchSendRequests() async {
@@ -103,12 +113,15 @@ class CreateTaskController extends GetxController {
 
   void taskFilterByDeadline(
       {required FilterByDeadlineModel filterByDeadline}) async {
+    isLoading.value = true;
     final result =
         await taskService.filterByDeadline(filterByDeadline: filterByDeadline);
     result.fold(
       (failure) => log(failure.message.toString()),
       (success) {
         log('filter by deadline ${success.tasks}');
+        deadlineTasks.assignAll(success.tasks ?? []);
+        isLoading.value = false;
       },
     );
   }
@@ -141,6 +154,20 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
         fetchAllPinnedTasks();
+      },
+    );
+  }
+
+  void filterByType({required FilterByTypeModel filterByType}) async {
+    isLoading.value = true;
+    final result = await taskService.filterByType(filterByType: filterByType);
+
+    result.fold(
+      (failure) => log(failure.message.toString()),
+      (success) {
+        typeTasks.assignAll(success.tasks ?? []);
+        isLoading.value = false;
+        update();
       },
     );
   }

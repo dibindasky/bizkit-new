@@ -1,6 +1,5 @@
+import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/type_task/type_task.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'task.dart';
 
 part 'task.g.dart';
 
@@ -8,25 +7,23 @@ part 'task.g.dart';
 class Task {
   @JsonKey(name: '_id')
   String? id;
-  Task? task;
-  String? type;
+  TypeTask? task;
+  @JsonKey(name: 'task_type')
+  String? taskType;
   @JsonKey(name: 'is_owned')
   bool? isOwned;
   @JsonKey(name: 'spotlight_on')
   bool? spotlightOn;
   @JsonKey(name: 'is_pinned')
   bool? isPinned;
-  @JsonKey(name: 'is_accepted')
-  String? isAccepted;
 
   Task({
     this.id,
     this.task,
-    this.type,
+    this.taskType,
     this.isOwned,
     this.spotlightOn,
     this.isPinned,
-    this.isAccepted,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);

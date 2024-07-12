@@ -175,4 +175,5 @@ class ApiEndPoints {
   static const taskTestReceivedRequests = '/task-requests/';
   static const taskTestFilterByDeadline = '/filter-tasks-by-deadine/';
   static const taskTestPinnedATask = '/pinned-tasks/';
+  static const taskTestFilterByType = '/filter-tasks/';
 }

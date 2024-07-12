@@ -23,7 +23,7 @@ class ScreenTaskCalenderView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      taskController.fetchAllTasks();
+      // taskController.fetchAllTasks();
       // taskController.fetchAllPinnedTasks();
     });
     return Scaffold(

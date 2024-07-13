@@ -166,15 +166,13 @@ class ApiEndPoints {
 
   // TASK MODULE TEST APIENDPOINTS
 
-  static const testAccessToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODQzNDMxLCJpYXQiOjE3MjA3NTcwMzEsImp0aSI6ImYzZmMyODI2ODhiYzQzYWQ4YmM3NWU0MzgwMjViNGZlIiwidXNlcl9pZCI6IjY2OTBhYjI3Yjc0YzFmZDlhMWQxMTFlMCJ9.kgah9yh5BMeMcjCPMZdA7jkXex5NFZkQDeJjlPNZKbs";
-
-  static const taskTestBaseUrl = 'https://bizkit.onrender.com';
   static const taskTestgetAllTasks = '/user-tasks/';
   static const taskTestCreateTask = '/tasks/create/';
+  static const taskTestEditTask = '/tasks';
   static const taskTestSendRequests = '/get-send-requests/';
   static const taskTestReceivedRequests = '/task-requests/';
   static const taskTestFilterByDeadline = '/filter-tasks-by-deadine/';
   static const taskTestPinnedATask = '/pinned-tasks/';
   static const taskTestFilterByType = '/filter-tasks/';
+  static const taskTestFolders = '/task-folders/';
 }

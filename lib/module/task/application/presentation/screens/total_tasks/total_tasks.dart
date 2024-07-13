@@ -7,6 +7,7 @@ import 'package:bizkit/module/task/application/presentation/screens/total_tasks/
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/custom_pop_menubutton.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -64,6 +65,11 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
               homeController.changeSelectedTaskCategory('All tasks');
               taskController.filterByType(
                   filterByType: FilterByTypeModel(taskType: 'all'));
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                taskType: 'all',
+                isPinned: true,
+              ));
               log('=> ${homeController.taskCategory.value}');
               Navigator.of(context).pop();
             },
@@ -76,6 +82,11 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
               homeController.changeSelectedTaskCategory('Self to self');
               taskController.filterByType(
                   filterByType: FilterByTypeModel(taskType: 'self_to_self'));
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                taskType: 'self_to_self',
+                isPinned: true,
+              ));
               log('=> ${homeController.taskCategory.value}');
               Navigator.of(context).pop();
             },
@@ -88,6 +99,11 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
               homeController.changeSelectedTaskCategory('Self to others');
               taskController.filterByType(
                   filterByType: FilterByTypeModel(taskType: 'self_to_others'));
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                taskType: 'self_to_others',
+                isPinned: true,
+              ));
               log('=> ${homeController.taskCategory.value}');
               Navigator.of(context).pop();
               log(homeController.taskCategory.value);
@@ -101,7 +117,11 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
               homeController.changeSelectedTaskCategory('Others to self');
               taskController.filterByType(
                   filterByType: FilterByTypeModel(taskType: 'others_to_self'));
-
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                taskType: 'others_to_self',
+                isPinned: true,
+              ));
               Navigator.of(context).pop();
             },
           ),
@@ -127,133 +147,89 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
       // taskController.filterByType(
       //     filterByType: FilterByTypeModel(taskType: 'self_to_self'));
     });
-    return Obx(
-      () => Scaffold(
-        appBar: homeController.taskCategory.value == 'All tasks'
-            ? AppBar(
-                leading: IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 17,
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            size: 17,
+          ),
+        ),
+        backgroundColor: knill,
+        title: GetBuilder<TaskHomeScreenController>(builder: (controller) {
+          return GestureDetector(
+            onTap: () => _showCustomMenu(context),
+            child: Obx(
+              () => Row(
+                children: [
+                  Text(
+                    controller.taskCategory.value,
+                    style: TextStyle(fontSize: 13.sp),
                   ),
-                ),
-                backgroundColor: knill,
-                title:
-                    GetBuilder<TaskHomeScreenController>(builder: (controller) {
-                  return GestureDetector(
-                    onTap: () => _showCustomMenu(context),
-                    child: Obx(
-                      () => Row(
-                        children: [
-                          Text(
-                            controller.taskCategory.value,
-                            style: TextStyle(fontSize: 13.sp),
-                          ),
-                          adjustWidth(10.w),
-                          const Icon(Icons.arrow_drop_down)
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.filter_list),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: () {},
-                  ),
+                  adjustWidth(10.w),
+                  const Icon(Icons.arrow_drop_down)
                 ],
-                bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(50.0),
-                  child: Stack(
-                    children: [
-                      TabBar(
-                        dividerColor: kblack,
-                        controller: _tabController,
-                        indicator: BoxDecoration(
-                          color: neonShade,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        unselectedLabelColor: kwhite,
-                        labelColor: kwhite,
-                        indicatorColor: knill,
-                        tabs: [
-                          SizedBox(
-                            width: kwidth * 0.5,
-                            child: const Tab(text: 'Pinned tasks'),
-                          ),
-                          SizedBox(
-                            width: kwidth * 0.5,
-                            child: const Tab(text: 'Total Tasks'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+              ),
+            ),
+          );
+        }),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.filter_list),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {},
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(50.0),
+          child: Stack(
+            children: [
+              TabBar(
+                dividerColor: kblack,
+                controller: _tabController,
+                indicator: BoxDecoration(
+                  color: neonShade,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              )
-            : AppBar(
-                leading: IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 17,
+                unselectedLabelColor: kwhite,
+                labelColor: kwhite,
+                indicatorColor: knill,
+                tabs: [
+                  SizedBox(
+                    width: kwidth * 0.5,
+                    child: const Tab(text: 'Pinned tasks'),
                   ),
-                ),
-                backgroundColor: knill,
-                title:
-                    GetBuilder<TaskHomeScreenController>(builder: (controller) {
-                  return GestureDetector(
-                    onTap: () => _showCustomMenu(context),
-                    child: Obx(
-                      () => Row(
-                        children: [
-                          Text(
-                            controller.taskCategory.value,
-                            style: TextStyle(fontSize: 13.sp),
-                          ),
-                          adjustWidth(10.w),
-                          const Icon(Icons.arrow_drop_down)
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.filter_list),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: () {},
+                  SizedBox(
+                    width: kwidth * 0.5,
+                    child: const Tab(text: 'Total Tasks'),
                   ),
                 ],
               ),
-        body: TabBarView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: _tabController,
-          children: [
-            homeController.taskCategory.value == 'All tasks'
-                ? PinnedTasks(
-                    tabController: _tabController,
-                  )
-                : kempty,
-            TotalTaskListView(),
-          ],
+            ],
+          ),
         ),
+      ),
+      body: GetBuilder<CreateTaskController>(
+        builder: (controller) {
+          return TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: _tabController,
+            children: [
+              PinnedTasks(
+                tabController: _tabController,
+              ),
+              TotalTaskListView(),
+            ],
+          );
+        },
       ),
     );
   }

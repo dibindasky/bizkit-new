@@ -38,76 +38,80 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
 
     return Scaffold(
       body: SafeArea(
-          child: Obx(
-        () => Column(
-          children: [
-            controller.selectedFolderContainer.value
-                ? TaskLongPressAppBarItems()
-                : const TaskCalenderViewAppBar(),
-            controller.selectedFolderContainer.value
-                ? kempty
-                : HeirarchyTaskFolderRow(),
-            controller.selectedFolderContainer.value
-                ? kempty
-                : adjustHieght(5.h),
-            controller.selectedFolderContainer.value
-                ? kempty
-                : EasyDateTimeLine(
-                    dayProps: EasyDayProps(
-                      todayStyle: DayStyle(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: kred),
-                          borderRadius: kBorderRadius15,
+        child: Obx(
+          () => Column(
+            children: [
+              controller.selectedFolderContainer.value
+                  ? TaskLongPressAppBarItems()
+                  : const TaskCalenderViewAppBar(),
+              controller.selectedFolderContainer.value
+                  ? kempty
+                  : HeirarchyTaskFolderRow(),
+              controller.selectedFolderContainer.value
+                  ? kempty
+                  : adjustHieght(5.h),
+              controller.selectedFolderContainer.value
+                  ? kempty
+                  : EasyDateTimeLine(
+                      dayProps: EasyDayProps(
+                        todayStyle: DayStyle(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: kred),
+                            borderRadius: kBorderRadius15,
+                          ),
+                          monthStrStyle:
+                              TextStyle(color: kwhite, fontSize: 11.sp),
+                          dayNumStyle:
+                              TextStyle(color: kwhite, fontSize: 12.sp),
+                          dayStrStyle:
+                              TextStyle(color: kwhite, fontSize: 11.sp),
                         ),
-                        monthStrStyle:
-                            TextStyle(color: kwhite, fontSize: 11.sp),
-                        dayNumStyle: TextStyle(color: kwhite, fontSize: 12.sp),
-                        dayStrStyle: TextStyle(color: kwhite, fontSize: 11.sp),
+                        todayHighlightColor: kwhite,
+                        activeDayStyle: DayStyle(
+                          dayNumStyle: const TextStyle(color: kblack),
+                          decoration: BoxDecoration(
+                            color: neonShade,
+                            borderRadius: kBorderRadius15,
+                            border: Border.all(color: neonShade),
+                          ),
+                        ),
+                        inactiveDayStyle: DayStyle(
+                          decoration: BoxDecoration(
+                            color: lightGrey,
+                            borderRadius: kBorderRadius15,
+                          ),
+                          dayNumStyle: const TextStyle(color: kwhite),
+                        ),
                       ),
-                      todayHighlightColor: kwhite,
-                      activeDayStyle: DayStyle(
-                        dayNumStyle: const TextStyle(color: kblack),
-                        decoration: BoxDecoration(
-                          color: neonShade,
-                          borderRadius: kBorderRadius15,
-                          border: Border.all(color: neonShade),
-                        ),
+                      timeLineProps: const EasyTimeLineProps(
+                        vPadding: 20,
+                        hPadding: 10,
                       ),
-                      inactiveDayStyle: DayStyle(
-                        decoration: BoxDecoration(
-                          color: lightGrey,
-                          borderRadius: kBorderRadius15,
-                        ),
-                        dayNumStyle: const TextStyle(color: kwhite),
+                      headerProps: const EasyHeaderProps(
+                        showSelectedDate: false,
+                        showHeader: false,
                       ),
+                      activeColor: neonShade,
+                      initialDate: DateTime.now(),
+                      onDateChange: (selectedDate) {
+                        String formattedDate =
+                            DateFormat('yyyy-MM-dd').format(selectedDate);
+                        log(selectedDate.toString());
+                        if (controller.taskTabChangeIndex.value == 1) {
+                          taskController.taskFilterByDeadline(
+                            filterByDeadline: FilterByDeadlineModel(
+                              date: formattedDate,
+                            ),
+                          );
+                        }
+                      },
                     ),
-                    timeLineProps: const EasyTimeLineProps(
-                      vPadding: 20,
-                      hPadding: 10,
-                    ),
-                    headerProps: const EasyHeaderProps(
-                      showSelectedDate: false,
-                      showHeader: false,
-                    ),
-                    activeColor: neonShade,
-                    initialDate: DateTime.now(),
-                    onDateChange: (selectedDate) {
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(selectedDate);
-                      log(selectedDate.toString());
-                      log('formattedDate : $formattedDate');
-                      taskController.taskFilterByDeadline(
-                        filterByDeadline: FilterByDeadlineModel(
-                          date: formattedDate,
-                        ),
-                      );
-                    },
-                  ),
-            adjustHieght(10.h),
-            HeirarchyTaskFolderDataRow()
-          ],
+              adjustHieght(10.h),
+              HeirarchyTaskFolderDataRow()
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

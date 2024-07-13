@@ -17,6 +17,7 @@ PinnedTask _$PinnedTaskFromJson(Map<String, dynamic> json) => PinnedTask(
           ?.map((e) => AssignedTo.fromJson(e as Map<String, dynamic>))
           .toList(),
       priorityLevel: json['priority_level'] as String?,
+      ispinned: json['is_pinned'] as bool?,
     );
 
 Map<String, dynamic> _$PinnedTaskToJson(PinnedTask instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$PinnedTaskToJson(PinnedTask instance) =>
       'subtasks': instance.subtasks,
       'assigned_to': instance.assignedTo,
       'priority_level': instance.priorityLevel,
+      'is_pinned': instance.ispinned,
     };

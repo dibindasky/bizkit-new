@@ -48,7 +48,6 @@ class TotalTaskListView extends StatelessWidget {
                   }
                 },
                 child: TaskContainer(
-                  // task: task,
                   index: index,
                   typeTask: typeTask,
                 ),

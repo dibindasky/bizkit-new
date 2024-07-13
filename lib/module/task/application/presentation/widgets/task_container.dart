@@ -3,6 +3,7 @@ import 'package:bizkit/module/task/application/controller/caleder_view/calender_
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/task.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/task.dart';
 // import 'package:bizkit/module/task/domain/model/task/filter_by_type_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_task.dart';
@@ -30,7 +31,7 @@ class TaskContainer extends StatelessWidget {
   final Task? typeTask;
   final DTasks? deadlineTasks;
 
-  final PinnedTask? pinnedTasks;
+  final PinnedTasksByTypes? pinnedTasks;
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
 
@@ -98,7 +99,7 @@ class TaskContainer extends StatelessWidget {
                                   : pinnedTasks != null
                                       ? Text(
                                           // task['title']!,
-                                          pinnedTasks!.taskTitle ?? 'Title',
+                                          pinnedTasks!.task?.title ?? 'Title',
                                           style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -138,7 +139,7 @@ class TaskContainer extends StatelessWidget {
                               } else if (value == 'delete') {}
                             },
                             itemBuilder: (BuildContext context) {
-                              return [
+                              List<PopupMenuItem<String>> items = [
                                 const PopupMenuItem<String>(
                                   value: 'Move task',
                                   child: Text(
@@ -153,28 +154,45 @@ class TaskContainer extends StatelessWidget {
                                     style: TextStyle(color: kblack),
                                   ),
                                 ),
-                                PopupMenuItem<String>(
-                                  value: 'Pin the task',
-                                  onTap: () {
-                                    tabIndex == 0
-                                        ? taskController.unpinATask(
-                                            unpinATask: UnpinATaskModel(
-                                            taskId: pinnedTasks?.taskId,
-                                            isPinned: false,
-                                          ))
-                                        : taskController.pinnedATask(
-                                            pinnedATask: PinnedATaskModel(
-                                            isPinned: true,
-                                            taskId: task?.id ?? '',
-                                          ));
-                                  },
-                                  child: Text(
-                                    tabIndex == 0
-                                        ? 'Unpin the task'
-                                        : 'Pin the task',
-                                    style: const TextStyle(color: kblack),
+                                if (typeTask?.isPinned != true &&
+                                    pinnedTasks?.isPinned != true)
+                                  PopupMenuItem<String>(
+                                    value: 'Pin the task',
+                                    onTap: () {
+                                      taskController.pinnedATask(
+                                        pinnedATask: PinnedATaskModel(
+                                          isPinned: true,
+                                          taskId: typeTask?.id ?? '',
+                                        ),
+                                      );
+                                      // taskController.filterByType(
+                                      //     filterByType: FilterByTypeModel(
+                                      //         taskType: Get.find<
+                                      //                 TaskHomeScreenController>()
+                                      //             .taskCategory
+                                      //             .value));
+                                    },
+                                    child: const Text(
+                                      'Pin the task',
+                                      style: TextStyle(color: kblack),
+                                    ),
                                   ),
-                                ),
+                                if (pinnedTasks?.isPinned == true)
+                                  PopupMenuItem<String>(
+                                    value: 'Unpin the task',
+                                    onTap: () {
+                                      taskController.unpinATask(
+                                        unpinATask: UnpinATaskModel(
+                                          taskId: pinnedTasks?.id ?? '',
+                                          isPinned: false,
+                                        ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      'Unpin the task',
+                                      style: TextStyle(color: kblack),
+                                    ),
+                                  ),
                                 const PopupMenuItem<String>(
                                   value: 'Add Sub Task',
                                   child: Text(
@@ -183,6 +201,8 @@ class TaskContainer extends StatelessWidget {
                                   ),
                                 ),
                               ];
+
+                              return items;
                             },
                           ),
                         ],
@@ -195,7 +215,8 @@ class TaskContainer extends StatelessWidget {
                             )
                           : pinnedTasks != null
                               ? Text(
-                                  pinnedTasks!.description ?? 'description',
+                                  pinnedTasks!.task?.description ??
+                                      'description',
                                   style: const TextStyle(
                                       color: kwhite, fontSize: 12),
                                 )

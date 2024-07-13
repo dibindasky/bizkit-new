@@ -1,3 +1,8 @@
+import 'dart:developer';
+
+import 'package:bizkit/module/task/data/service/folder/folder_service.dart';
+import 'package:bizkit/module/task/domain/model/folders/folder_model/folder_model.dart';
+import 'package:bizkit/module/task/domain/repository/service/folder_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +12,10 @@ class TaskCalenderViewController extends GetxController {
   RxString deadLine = ''.obs;
   RxString priority = ''.obs;
   RxString taskType = ''.obs;
+  RxBool isLoading = false.obs;
+
+// Folder Id
+  String folderId = '';
 
   @override
   void onInit() {
@@ -17,6 +26,8 @@ class TaskCalenderViewController extends GetxController {
       taskType.value = names[2];
     }
   }
+
+  final FolderRepo folderService = FolderService();
 
   taskTabchangeIndex(int index) {
     taskTabChangeIndex.value = index;
@@ -50,5 +61,21 @@ class TaskCalenderViewController extends GetxController {
       }
     }
     selectedFolderContainer.value = selectedIndices.isNotEmpty;
+  }
+
+  void createNewFolder({required FolderModel folder}) async {
+    isLoading.value = true;
+    final result = await folderService.createNewFolder(folder: folder);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        log('${success.message}');
+        isLoading.value = false;
+        folderId = success.folderId.toString();
+      },
+    );
   }
 }

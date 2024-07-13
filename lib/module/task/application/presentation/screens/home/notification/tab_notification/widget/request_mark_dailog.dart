@@ -1,9 +1,17 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-Future<dynamic> requestMarkingDailog(BuildContext context) {
+Future<dynamic> requestMarkingDailog(
+  BuildContext context, {
+  String? taskId,
+  bool? isAccepted,
+}) {
+  final taskController = Get.find<CreateTaskController>();
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -12,22 +20,35 @@ Future<dynamic> requestMarkingDailog(BuildContext context) {
       ),
       backgroundColor: kNotificationColor,
       content: SizedBox(
-        height: 155.h,
+        height: 170.h,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Mark This Task As',
               style: TextStyle(fontSize: 16.sp),
             ),
             adjustHieght(20.h),
-            ClipRRect(
-              borderRadius: kBorderRadius15,
-              child: const ColoredBox(
-                color: neonShade,
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Text('Official'),
+            GestureDetector(
+              onTap: () {
+                taskController.acceptOrReject(
+                  acceptOrReject: AcceptOrRejectModel(
+                    taskId: taskId,
+                    taskType: 'official',
+                    acceptanceStatus:
+                        isAccepted == true ? 'accepted' : 'rejected',
+                  ),
+                );
+              },
+              child: ClipRRect(
+                borderRadius: kBorderRadius15,
+                child: const ColoredBox(
+                  color: neonShade,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      child: Text('Official'),
+                    ),
                   ),
                 ),
               ),

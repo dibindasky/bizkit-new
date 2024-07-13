@@ -1,13 +1,13 @@
-import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/deadline_tasks/deadline_tasks.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/pinned_tasks_by_type/pinned_tasks_by_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'task.g.dart';
 
 @JsonSerializable()
-class DTasks {
+class PinnedTasksByTypes {
   @JsonKey(name: '_id')
   String? id;
-  DeadlineTasks? task;
+  PinnedTasksByType? task;
   @JsonKey(name: 'task_type')
   String? taskType;
   @JsonKey(name: 'is_owned')
@@ -17,7 +17,7 @@ class DTasks {
   @JsonKey(name: 'is_pinned')
   bool? isPinned;
 
-  DTasks({
+  PinnedTasksByTypes({
     this.id,
     this.task,
     this.taskType,
@@ -26,7 +26,8 @@ class DTasks {
     this.isPinned,
   });
 
-  factory DTasks.fromJson(Map<String, dynamic> json) => _$DTasksFromJson(json);
+  factory PinnedTasksByTypes.fromJson(Map<String, dynamic> json) =>
+      _$PinnedTasksByTypesFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DTasksToJson(this);
+  Map<String, dynamic> toJson() => _$PinnedTasksByTypesToJson(this);
 }

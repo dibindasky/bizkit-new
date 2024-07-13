@@ -18,6 +18,7 @@ class TaskTextField extends StatelessWidget {
   final Color? textColor;
   final String? hintText;
   final String? labelText;
+
   final IconData? icon;
   final Widget? suffixIcon;
   final int? maxLines;
@@ -26,7 +27,7 @@ class TaskTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       style: textStyle1.copyWith(color: textColor),
       maxLines: maxLines,
       controller: controller,

@@ -2,6 +2,7 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,11 @@ class TaskContainers extends StatelessWidget {
               homeController.changeSelectedTaskCategory('Others to self');
               taskController.filterByType(
                   filterByType: FilterByTypeModel(taskType: 'others_to_self'));
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                taskType: 'others_to_self',
+                isPinned: true,
+              ));
               Get.toNamed(Routes.taskLists, id: 1);
             },
           ),
@@ -42,6 +48,11 @@ class TaskContainers extends StatelessWidget {
               homeController.changeSelectedTaskCategory('Self to Others');
               taskController.filterByType(
                   filterByType: FilterByTypeModel(taskType: 'self_to_others'));
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                taskType: 'self_to_others',
+                isPinned: true,
+              ));
               Get.toNamed(Routes.taskLists, id: 1);
             },
           ),
@@ -56,6 +67,11 @@ class TaskContainers extends StatelessWidget {
               homeController.changeSelectedTaskCategory('Self to Self');
               taskController.filterByType(
                   filterByType: FilterByTypeModel(taskType: 'self_to_self'));
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                taskType: 'self_to_self',
+                isPinned: true,
+              ));
               Get.toNamed(Routes.taskLists, id: 1);
             },
           ),

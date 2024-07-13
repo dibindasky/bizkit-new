@@ -11,6 +11,8 @@ import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_task
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/filter_by_deadline_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/filter_pinned_task_by_type_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
@@ -224,6 +226,28 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch filterByDeadline $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, FilterPinnedTaskByTypeSuccessResponce>>
+      filterPinnedTaskByType(
+          {required FilterPinnedTaskByTypeModel filterPinnedTaskByType}) async {
+    try {
+      final response = await apiService.post(
+        ApiEndPoints.taskTestFilterByType,
+        data: filterPinnedTaskByType.toJson(),
+      );
+      log("=> Response Filter Pinned Tasks By Type : ${response.data}");
+      return Right(
+          FilterPinnedTaskByTypeSuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException filterPinnedTaskByType $e');
+
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch filterPinnedTaskByType $e');
       return Left(Failure(message: e.toString()));
     }
   }

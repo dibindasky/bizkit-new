@@ -52,9 +52,10 @@ class TaskFolderSection extends StatelessWidget {
               child: Text(name),
             ),
             adjustWidth(50),
-            const Text(
+            Text(
               '12/4',
               style: TextStyle(
+                fontSize: 13.sp,
                 color: klightgrey,
               ),
             ),

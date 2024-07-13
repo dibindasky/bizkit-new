@@ -17,6 +17,8 @@ class PinnedTask {
   List<AssignedTo>? assignedTo;
   @JsonKey(name: 'priority_level')
   String? priorityLevel;
+  @JsonKey(name: 'is_pinned')
+  bool? ispinned;
 
   PinnedTask({
     this.taskId,
@@ -25,6 +27,7 @@ class PinnedTask {
     this.subtasks,
     this.assignedTo,
     this.priorityLevel,
+    this.ispinned,
   });
 
   factory PinnedTask.fromJson(Map<String, dynamic> json) {

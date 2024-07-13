@@ -14,6 +14,7 @@ class TaskCalenderViewAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<TaskCalenderViewController>();
     return Container(
       padding: EdgeInsets.only(left: 10.h),
       width: double.infinity,
@@ -35,7 +36,10 @@ class TaskCalenderViewAppBar extends StatelessWidget {
           CustomCircleAvatar(
             backgroundColor: lightGrey,
             onTap: () {
-              // Get.toNamed(Routes.addTask, id: 2);
+              Get.toNamed(
+                Routes.addTask,
+                id: 2,
+              );
             },
             backgroundColorInner: neonShade,
             child: const Icon(

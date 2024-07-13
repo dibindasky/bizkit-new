@@ -84,7 +84,7 @@ class ScreenAddTask extends StatelessWidget {
                         adjustHieght(10.h),
                         Text('Task Head', style: style),
                         adjustHieght(3.h),
-                        const TaskTextField(hintText: 'Task Head'),
+                        TaskTextField(hintText: 'Task Head'),
                         adjustHieght(10.h),
                         Text('Assign to', style: style),
                         adjustHieght(3.h),

@@ -1,6 +1,6 @@
+import 'dart:developer';
 import 'dart:ui';
 
-import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/attachments_chooser.dart';
@@ -119,6 +119,7 @@ class ScreenAddTask extends StatelessWidget {
                             wdth: 300.w,
                             text: 'Create Task',
                             onTap: () {
+                              log("DeadLine => ${controller.deadlineDate.value}");
                               controller.createNewTask(
                                 task: TaskModel(
                                   title: titleController.text,

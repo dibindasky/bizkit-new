@@ -1,9 +1,9 @@
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/module/task/domain/model/errors/error_model/error_model.dart';
+import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
-import 'package:bizkit/module/task/domain/model/task/all_assigned_tasks_responce/all_assigned_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/filter_by_deadline_responce.dart';
@@ -16,6 +16,8 @@ import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_mo
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/self_to_others_type_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
+import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class TaskRepo {
@@ -24,8 +26,6 @@ abstract class TaskRepo {
   });
 
   Future<Either<Failure, AllTasksResponce>> getAllTasks();
-
-  Future<Either<Failure, AllAssignedTasksResponce>> getAllAssignedTasks();
 
   Future<Either<Failure, SelfToOthersTypeResponce>> filterByType({
     required FilterByTypeModel filterByType,
@@ -52,10 +52,11 @@ abstract class TaskRepo {
       filterPinnedTaskByType({
     required FilterPinnedTaskByTypeModel filterPinnedTaskByType,
   });
-  // Future<Either<ErrorModel, SuccessResponce>> editTask({
-  //   required EditTaskModel editTask,
-  // });
 
-  // Future<Either<Failure, ReceivedRequestsSuccessResponce>>
-  //     getAllReceivedTaskRequests();
+  Future<Either<ErrorModel, SuccessResponce>> acceptOrReject(
+      {required AcceptOrRejectModel acceptOrReject});
+
+  Future<Either<Failure, List<UserSearchSuccessResponce>>> participantsSearch({
+    required UserSearchModel user,
+  });
 }

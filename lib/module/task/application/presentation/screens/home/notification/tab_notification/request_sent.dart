@@ -6,9 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class RequestSentBuilder extends StatelessWidget {
-  RequestSentBuilder({
-    super.key,
-  });
+  RequestSentBuilder({super.key});
+
   final taskController = Get.find<CreateTaskController>();
 
   @override
@@ -16,16 +15,27 @@ class RequestSentBuilder extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: 15.h, right: 15.h, top: 10.h),
       child: Obx(
-        () => ListView.separated(
-          separatorBuilder: (context, index) => adjustHieght(10),
-          itemCount: taskController.sentRequests.length,
-          itemBuilder: (context, index) {
-            return NotificationCard(
-              title: '${taskController.sentRequests[index].title}',
-              description: '${taskController.sentRequests[index].description}',
-            );
-          },
-        ),
+        () {
+          if (taskController.isLoading.value) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (taskController.sentRequests.isEmpty) {
+            return const Center(child: Text('No sent requests available'));
+          }
+
+          return ListView.separated(
+            separatorBuilder: (context, index) => adjustHieght(10),
+            itemCount: taskController.sentRequests.length,
+            itemBuilder: (context, index) {
+              return NotificationCard(
+                title: '${taskController.sentRequests[index].title}',
+                description:
+                    '${taskController.sentRequests[index].description}',
+              );
+            },
+          );
+        },
       ),
     );
   }

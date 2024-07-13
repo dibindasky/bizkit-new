@@ -22,7 +22,7 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => TaskModel(
           ?.map((e) => SubTask.fromJson(e as Map<String, dynamic>))
           .toList(),
       assignedTo: (json['assigned_to'] as List<dynamic>?)
-          ?.map((e) => AssignedTo.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => TaskAssignedTo.fromJson(e as Map<String, dynamic>))
           .toList(),
       taskType: json['task_type'] as String?,
     );

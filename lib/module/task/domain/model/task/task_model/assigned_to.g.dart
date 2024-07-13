@@ -6,12 +6,13 @@ part of 'assigned_to.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AssignedTo _$AssignedToFromJson(Map<String, dynamic> json) => AssignedTo(
+TaskAssignedTo _$TaskAssignedToFromJson(Map<String, dynamic> json) =>
+    TaskAssignedTo(
       user: json['user'] as String?,
       isAccepted: json['is_accepted'] as bool?,
     );
 
-Map<String, dynamic> _$AssignedToToJson(AssignedTo instance) =>
+Map<String, dynamic> _$TaskAssignedToToJson(TaskAssignedTo instance) =>
     <String, dynamic>{
       'user': instance.user,
       'is_accepted': instance.isAccepted,

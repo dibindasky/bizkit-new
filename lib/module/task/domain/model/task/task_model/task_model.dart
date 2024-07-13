@@ -4,7 +4,7 @@ import 'assigned_to.dart';
 import 'attachment.dart';
 import 'sub_task.dart';
 
-part 'task_model.g.dart';
+part "task_model.g.dart";
 
 @JsonSerializable()
 class TaskModel {
@@ -25,7 +25,7 @@ class TaskModel {
   @JsonKey(name: 'sub_task')
   List<SubTask>? subTask;
   @JsonKey(name: 'assigned_to')
-  List<AssignedTo>? assignedTo;
+  List<TaskAssignedTo>? assignedTo;
   @JsonKey(name: 'task_type')
   String? taskType;
 

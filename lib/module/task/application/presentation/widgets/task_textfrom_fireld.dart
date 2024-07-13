@@ -13,7 +13,8 @@ class TaskTextField extends StatelessWidget {
       this.showBorder = false,
       this.textColor = klightgrey,
       this.labelText,
-      this.controller});
+      this.controller,
+      this.onChanged});
   final Color? fillColor;
   final Color? textColor;
   final String? hintText;
@@ -24,12 +25,14 @@ class TaskTextField extends StatelessWidget {
   final int? maxLines;
   final bool showBorder;
   final controller;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       style: textStyle1.copyWith(color: textColor),
       maxLines: maxLines,
+      onChanged: onChanged,
       controller: controller,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),

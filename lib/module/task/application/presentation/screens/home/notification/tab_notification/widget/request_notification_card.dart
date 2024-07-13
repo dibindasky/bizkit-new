@@ -6,7 +6,22 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class NotificationRequestCard extends StatelessWidget {
-  const NotificationRequestCard({super.key});
+  const NotificationRequestCard(
+      {super.key,
+      this.title,
+      this.priorityLevel,
+      this.deadline,
+      this.taskId,
+      this.acceptanceStatus,
+      this.taskType,
+      this.isAccepted});
+  final String? title;
+  final String? priorityLevel;
+  final String? deadline;
+  final bool? isAccepted;
+  final String? taskId;
+  final String? acceptanceStatus;
+  final String? taskType;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +38,7 @@ class NotificationRequestCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Landing Page Agency Creative',
+                  title ?? 'title',
                   style: TextStyle(
                     color: kwhite,
                     fontSize: 14.0.sp,
@@ -32,7 +47,7 @@ class NotificationRequestCard extends StatelessWidget {
                 ),
                 adjustHieght(4.h),
                 Text(
-                  'Inline Preview',
+                  priorityLevel ?? 'priorityLevel',
                   style: TextStyle(
                     color: klightgrey,
                     fontSize: 12.0.sp,
@@ -63,7 +78,7 @@ class NotificationRequestCard extends StatelessWidget {
                     ),
                     adjustWidth(4.w),
                     Text(
-                      '12 May',
+                      deadline ?? '12 My',
                       style: TextStyle(
                         color: neonShade,
                         fontSize: 12.0.sp,
@@ -84,7 +99,11 @@ class NotificationRequestCard extends StatelessWidget {
               ),
               color: neonShade,
               onPressed: () {
-                requestMarkingDailog(context);
+                requestMarkingDailog(
+                  isAccepted: isAccepted,
+                  context,
+                  taskId: taskId,
+                );
               },
             ),
           ),
@@ -96,7 +115,11 @@ class NotificationRequestCard extends StatelessWidget {
               icon: const Icon(Icons.cancel),
               color: Colors.redAccent,
               onPressed: () {
-                requestDiclineShowDailog(context);
+                requestDiclineShowDailog(
+                  context,
+                  taskId: taskId,
+                  isAccepted: isAccepted,
+                );
               },
             ),
           ),

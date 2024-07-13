@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/module/task/domain/model/errors/error_model/error_model.dart';
+import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
-import 'package:bizkit/module/task/domain/model/task/all_assigned_tasks_responce/all_assigned_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/filter_by_deadline_responce.dart';
@@ -19,6 +19,8 @@ import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_mo
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/self_to_others_type_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
+import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -33,11 +35,12 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, TaskSuccessResponce>> createTask(
       {required TaskModel task}) async {
     try {
+      log('data => :${task.assignedTo?.toList()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestCreateTask,
         data: task.toJson(),
       );
-      log("=> Response CreateTask : ${response.data}");
+      // log("=> Response CreateTask : ${response.data}");s
       return Right(TaskSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException createTask $e');
@@ -74,12 +77,6 @@ class TaskService implements TaskRepo {
   //     {required EditTaskModel editTask}) {
   //   throw UnimplementedError();
   // }
-
-  // Get all assigned tasks
-  @override
-  Future<Either<Failure, AllAssignedTasksResponce>> getAllAssignedTasks() {
-    throw UnimplementedError();
-  }
 
   // Filter the task by type
   @override
@@ -136,26 +133,6 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.toString()));
     }
   }
-
-  // @override
-  // Future<Either<Failure, FilterByTypeResponce>> filterByDeadline(
-  //     {required FilterByDeadlineModel filterByDeadline}) async {
-  //   try {
-  //     log('${filterByDeadline.toJson()}');
-  //     final response = await apiService.post(
-  //       ApiEndPoints.taskTestFilterByDeadline,
-  //       data: filterByDeadline.toJson(),
-  //     );
-  //     log("=> Response Filter by deadline : ${response.data}");
-  //     return Right(FilterByTypeResponce.fromJson(response.data));
-  //   } on DioException catch (e) {
-  //     log('DioException filterByDeadline $e');
-  //     return Left(Failure(message: e.message ?? errorMessage));
-  //   } catch (e) {
-  //     log('catch filterByDeadline $e');
-  //     return Left(Failure(message: e.toString()));
-  //   }
-  // }
 
   @override
   Future<Either<ErrorModel, SuccessResponce>> pinnedATask(
@@ -252,10 +229,47 @@ class TaskService implements TaskRepo {
     }
   }
 
-  // Received all task requests
-  // @override
-  // Future<Either<Failure, ReceivedRequestsSuccessResponce>>
-  //     getAllReceivedTaskRequests() {
-  //   throw UnimplementedError();
-  // }
+  @override
+  Future<Either<ErrorModel, SuccessResponce>> acceptOrReject(
+      {required AcceptOrRejectModel acceptOrReject}) async {
+    try {
+      final response = await apiService.patch(
+        ApiEndPoints.taskTestAcceptOrReject,
+        data: acceptOrReject.toJson(),
+      );
+      log("=> Response Accept or Reject  : ${response.data}");
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException acceptOrReject $e');
+      return Left(ErrorModel(error: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch acceptOrReject $e');
+      return Left(ErrorModel(error: '$e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<UserSearchSuccessResponce>>> participantsSearch(
+      {required UserSearchModel user}) async {
+    try {
+      final response = await apiService.post(
+        ApiEndPoints.taskTestFindUser,
+        data: user.toJson(),
+      );
+
+      log("=> Response Search Participants : ${response.data}");
+
+      List<UserSearchSuccessResponce> users = (response.data as List)
+          .map((userData) => UserSearchSuccessResponce.fromJson(userData))
+          .toList();
+      log('users : => $users');
+      return Right(users);
+    } on DioException catch (e) {
+      log('DioException participantsSearch $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch participantsSearch $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
 }

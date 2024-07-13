@@ -1,7 +1,11 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-Future<dynamic> requestDiclineShowDailog(BuildContext context) {
+Future<dynamic> requestDiclineShowDailog(
+  BuildContext context, {
+  String? taskId,
+  bool? isAccepted,
+}) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(

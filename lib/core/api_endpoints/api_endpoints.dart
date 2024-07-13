@@ -175,4 +175,6 @@ class ApiEndPoints {
   static const taskTestPinnedATask = '/pinned-tasks/';
   static const taskTestFilterByType = '/filter-tasks/';
   static const taskTestFolders = '/task-folders/';
+  static const taskTestAcceptOrReject = '/tasks/accept-reject/';
+  static const taskTestFindUser = '/find-user/';
 }

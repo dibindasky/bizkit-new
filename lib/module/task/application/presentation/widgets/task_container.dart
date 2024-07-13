@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/task.dart';
 // import 'package:bizkit/module/task/domain/model/task/filter_by_type_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_task.dart';
@@ -20,12 +21,14 @@ class TaskContainer extends StatelessWidget {
     this.tabIndex,
     this.pinnedTasks,
     this.typeTask,
+    this.deadlineTasks,
   });
 
   final int index;
   final int? tabIndex;
   final Tasks? task;
   final Task? typeTask;
+  final DTasks? deadlineTasks;
 
   final PinnedTask? pinnedTasks;
   final controller = Get.find<TaskCalenderViewController>();
@@ -112,7 +115,18 @@ class TaskContainer extends StatelessWidget {
                                                 color: neonShade,
                                               ),
                                             )
-                                          : const Text('Title'),
+                                          : deadlineTasks != null
+                                              ? Text(
+                                                  // task['title']!,
+                                                  deadlineTasks?.task?.title ??
+                                                      'Tittle',
+                                                  style: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: neonShade,
+                                                  ),
+                                                )
+                                              : const Text('Title'),
                             ],
                           ),
                           PopupMenuButton<String>(
@@ -192,17 +206,26 @@ class TaskContainer extends StatelessWidget {
                                       style: const TextStyle(
                                           color: kwhite, fontSize: 12),
                                     )
-                                  : const Text('description'),
+                                  : deadlineTasks != null
+                                      ? Text(
+                                          deadlineTasks?.task?.description ??
+                                              'description',
+                                          style: const TextStyle(
+                                              color: kwhite, fontSize: 12),
+                                        )
+                                      : const Text('description'),
                       adjustHieght(10),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: Text(
-                          task?.deadLine ?? 'dead',
-                          // task['date']!,
-                          style: const TextStyle(
-                            color: kwhite,
-                          ),
-                        ),
+                        child: deadlineTasks != null
+                            ? Text(
+                                deadlineTasks?.task?.deadLine ?? 'dead',
+                                // task['date']!,
+                                style: const TextStyle(
+                                  color: kwhite,
+                                ),
+                              )
+                            : const Text('Deadline'),
                       ),
                       adjustHieght(10),
                     ],

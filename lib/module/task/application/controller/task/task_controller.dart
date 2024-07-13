@@ -15,6 +15,7 @@ import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart'
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class CreateTaskController extends GetxController {
   Rx<TaskType> createTaskTupe = TaskType.official.obs;
@@ -39,6 +40,10 @@ class CreateTaskController extends GetxController {
 
   @override
   void onInit() {
+    final DateTime todaydate = DateTime.now();
+    taskFilterByDeadline(
+        filterByDeadline: FilterByDeadlineModel(
+            date: DateFormat('yyyy-MM-dd').format(todaydate)));
     fetchAllPinnedTasks();
     super.onInit();
   }
@@ -119,7 +124,6 @@ class CreateTaskController extends GetxController {
     result.fold(
       (failure) => log(failure.message.toString()),
       (success) {
-        log('filter by deadline ${success.tasks}');
         deadlineTasks.assignAll(success.tasks ?? []);
         isLoading.value = false;
       },

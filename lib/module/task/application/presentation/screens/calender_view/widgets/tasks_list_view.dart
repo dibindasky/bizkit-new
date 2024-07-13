@@ -14,43 +14,47 @@ class TaskListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (taskController.allTasks.isEmpty) {
-      return Center(
-        child: Image.asset(
-          emptyNodata3,
-          width: 200,
-        ),
-      );
-    } else {
-      return ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        itemCount: taskController.allTasks.length,
-        // itemCount: tasks.length,
-        itemBuilder: (context, index) {
-          // final task = tasks[index];
-          final task = taskController.allTasks[index];
-          // final typeTask = taskController.typeTasks[index];
-
-          return GestureDetector(
-            onLongPress: () {
-              bool isSelected = !controller.selectedIndices.contains(index);
-              controller.longPress(isSelected, index);
-            },
-            onTap: () {
-              if (controller.selectedFolderContainer.value) {
-                bool isSelected = !controller.selectedIndices.contains(index);
-                controller.longPress(isSelected, index);
-              } else {
-                GoRouter.of(context).push(Routes.taskChatScreen);
-              }
-            },
-            child: TaskContainer(
-              task: task,
-              index: index,
-            ),
+    return Obx(
+      () {
+        if (taskController.deadlineTasks.isEmpty) {
+          return const Center(child: Text('No Data'));
+        } else if (taskController.isLoading.value) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        },
-      );
-    }
+        } else {
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            itemCount: taskController.deadlineTasks.length,
+            // itemCount: tasks.length,
+            itemBuilder: (context, index) {
+              // final task = tasks[index];
+              final deadlineTask = taskController.deadlineTasks[index];
+              // final typeTask = taskController.typeTasks[index];
+
+              return GestureDetector(
+                onLongPress: () {
+                  bool isSelected = !controller.selectedIndices.contains(index);
+                  controller.longPress(isSelected, index);
+                },
+                onTap: () {
+                  if (controller.selectedFolderContainer.value) {
+                    bool isSelected =
+                        !controller.selectedIndices.contains(index);
+                    controller.longPress(isSelected, index);
+                  } else {
+                    GoRouter.of(context).push(Routes.taskChatScreen);
+                  }
+                },
+                child: TaskContainer(
+                  deadlineTasks: deadlineTask,
+                  index: index,
+                ),
+              );
+            },
+          );
+        }
+      },
+    );
   }
 }

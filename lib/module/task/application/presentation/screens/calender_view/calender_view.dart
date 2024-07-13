@@ -14,18 +14,28 @@ import 'package:get/get.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:intl/intl.dart';
 
-class ScreenTaskCalenderView extends StatelessWidget {
-  ScreenTaskCalenderView({super.key});
+class ScreenTaskCalenderView extends StatefulWidget {
+  const ScreenTaskCalenderView({super.key});
 
+  @override
+  State<ScreenTaskCalenderView> createState() => _ScreenTaskCalenderViewState();
+}
+
+class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
   final controller = Get.find<TaskCalenderViewController>();
+
   final taskController = Get.find<CreateTaskController>();
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<TaskCalenderViewController>();
+
+    final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // taskController.fetchAllTasks();
       // taskController.fetchAllPinnedTasks();
     });
+
     return Scaffold(
       body: SafeArea(
           child: Obx(

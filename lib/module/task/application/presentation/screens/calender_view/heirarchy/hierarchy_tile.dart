@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
@@ -47,6 +48,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<TaskCalenderViewController>();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -110,17 +112,35 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
             ),
             adjustHieght(10),
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                // itemCount: tasks.length,
-                itemCount: taskController.allTasks.length,
-                itemBuilder: (context, index) {
-                  final task = taskController.allTasks[index];
-                  // final task = tasks[index];
-                  return TaskContainer(
-                    index: index, task: task,
-                    // task: task,
-                  );
+              child: Obx(
+                () {
+                  if (controller.isLoading.value) {
+                    return const Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  } else if (controller.taskInSideAFolder.isEmpty) {
+                    return const Expanded(
+                      child: Center(
+                        child: Text('No Tasks'),
+                      ),
+                    );
+                  } else {
+                    return ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      // itemCount: tasks.length,
+                      itemCount: controller.taskInSideAFolder.length,
+                      itemBuilder: (context, index) {
+                        final task = controller.taskInSideAFolder[index];
+                        // final task = tasks[index];
+                        return TaskContainer(
+                          index: index, tasksInsideAFolder: task,
+                          // task: task,
+                        );
+                      },
+                    );
+                  }
                 },
               ),
             ),

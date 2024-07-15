@@ -2,20 +2,21 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
-import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
-import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/task.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/task_search_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
@@ -33,7 +34,7 @@ class CreateTaskController extends GetxController {
 
   var participants = <TaskAssignedTo>[].obs;
 
-  RxList<Tasks> allTasks = <Tasks>[].obs;
+  // RxList<Tasks> allTasks = <Tasks>[].obs;
 
   RxList<Task> typeTasks = <Task>[].obs;
 
@@ -48,6 +49,12 @@ class CreateTaskController extends GetxController {
 
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
+
+  RxList<SearchTasks> tasksSearch = <SearchTasks>[].obs;
+
+  RxList<SearchTasks> selectedTasks = <SearchTasks>[].obs;
+
+  Rx<GetTaskResponce> singleTask = GetTaskResponce().obs;
 
   @override
   void onInit() {
@@ -84,7 +91,7 @@ class CreateTaskController extends GetxController {
 
   void createNewTask({required TaskModel task}) async {
     isLoading.value = true;
-
+    log('task model ${task.toJson()}');
     final result = await taskService.createTask(task: task);
 
     result.fold(
@@ -96,8 +103,9 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
         log('${success.message}');
         testTaskId = success.taskId.toString();
+        fetchSendRequests();
         // isLoading.value = false;
-        fetchAllTasks();
+        // fetchAllTasks();
       },
     );
   }
@@ -221,6 +229,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         typeTasks.assignAll(success.tasks ?? []);
+
         isLoading.value = false;
         update();
       },
@@ -261,6 +270,7 @@ class CreateTaskController extends GetxController {
   }
 
   void searchParticipants({required UserSearchModel user}) async {
+    isLoading.value = true;
     final result = await taskService.participantsSearch(user: user);
     result.fold(
       (failure) {
@@ -270,6 +280,43 @@ class CreateTaskController extends GetxController {
       (success) {
         userslist.assignAll(success);
         isLoading.value = false;
+      },
+    );
+  }
+
+  void fetchSingleTask({required GetSingleTaskModel singleTaskModel}) async {
+    isLoading.value = true;
+    final result = await taskService.getTask(singleTaskModel: singleTaskModel);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        log('Get Single task : $success');
+        singleTask.value = success;
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void searchTasks({required String searchItem}) async {
+    isLoading.value = true;
+
+    final result = await taskService.taskSearch(
+        taskSearchItem: UserSearchModel(searchTerm: searchItem));
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        if (success.tasks != null) {
+          tasksSearch.clear();
+          tasksSearch.addAll(success.tasks!);
+        } else {
+          log("Received null tasks in the response");
+        }
       },
     );
   }

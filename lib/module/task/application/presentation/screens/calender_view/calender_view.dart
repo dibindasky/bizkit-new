@@ -6,6 +6,7 @@ import 'package:bizkit/module/task/application/presentation/screens/calender_vie
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/heirarchy_task_folder_data_folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/hierarchy_task_folder.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,12 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
 
     final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // taskController.fetchAllTasks();
+      taskController.filterByType(
+          filterByType: FilterByTypeModel(taskType: 'all'));
       // taskController.fetchAllPinnedTasks();
+      taskController.filterByType(
+          filterByType: FilterByTypeModel(taskType: 'all'));
+      controller.fetchAllFolders();
     });
 
     return Scaffold(

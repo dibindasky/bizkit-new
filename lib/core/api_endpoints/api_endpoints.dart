@@ -168,7 +168,7 @@ class ApiEndPoints {
 
   static const taskTestgetAllTasks = '/user-tasks/';
   static const taskTestCreateTask = '/tasks/create/';
-  static const taskTestEditTask = '/tasks';
+  static const taskTestEditTask = '/tasks/';
   static const taskTestSendRequests = '/get-send-requests/';
   static const taskTestReceivedRequests = '/task-requests/';
   static const taskTestFilterByDeadline = '/filter-tasks-by-deadine/';
@@ -177,4 +177,5 @@ class ApiEndPoints {
   static const taskTestFolders = '/task-folders/';
   static const taskTestAcceptOrReject = '/tasks/accept-reject/';
   static const taskTestFindUser = '/find-user/';
+  static const taskTestTaskSearch = '/search-tasks/';
 }

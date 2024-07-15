@@ -2,7 +2,8 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_bubble.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_text_field.dart';
-import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +11,9 @@ import 'package:go_router/go_router.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 
 class ScreenTaskChat extends StatelessWidget {
-  const ScreenTaskChat({super.key});
+  const ScreenTaskChat({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

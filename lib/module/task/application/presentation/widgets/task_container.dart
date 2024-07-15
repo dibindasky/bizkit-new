@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/domain/model/folders/taks_in_side_a_folder_success_responce/taks_in_side_a_folder_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/task.dart';
 // import 'package:bizkit/module/task/domain/model/task/filter_by_type_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
-import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_task.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -15,22 +15,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TaskContainer extends StatelessWidget {
-  TaskContainer({
-    super.key,
-    required this.index,
-    this.task,
-    this.tabIndex,
-    this.pinnedTasks,
-    this.typeTask,
-    this.deadlineTasks,
-  });
+  TaskContainer(
+      {super.key,
+      required this.index,
+      this.task,
+      this.tabIndex,
+      this.pinnedTasks,
+      this.typeTask,
+      this.deadlineTasks,
+      this.tasksInsideAFolder});
 
   final int index;
   final int? tabIndex;
   final Tasks? task;
   final Task? typeTask;
   final DTasks? deadlineTasks;
-
+  final FolderModels? tasksInsideAFolder;
   final PinnedTasksByTypes? pinnedTasks;
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
@@ -127,7 +127,20 @@ class TaskContainer extends StatelessWidget {
                                                     color: neonShade,
                                                   ),
                                                 )
-                                              : const Text('Title'),
+                                              : tasksInsideAFolder != null
+                                                  ? Text(
+                                                      // task['title']!,
+                                                      deadlineTasks
+                                                              ?.task?.title ??
+                                                          'Tittle',
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: neonShade,
+                                                      ),
+                                                    )
+                                                  : const Text('Title'),
                             ],
                           ),
                           PopupMenuButton<String>(
@@ -246,7 +259,15 @@ class TaskContainer extends StatelessWidget {
                                   color: kwhite,
                                 ),
                               )
-                            : const Text('Deadline'),
+                            : typeTask != null
+                                ? Text(
+                                    typeTask?.task?.deadLine ?? 'dead',
+                                    // task['date']!,
+                                    style: const TextStyle(
+                                      color: kwhite,
+                                    ),
+                                  )
+                                : const Text('Deadline'),
                       ),
                       adjustHieght(10),
                     ],

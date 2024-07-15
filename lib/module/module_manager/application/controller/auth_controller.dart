@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/data/service/auth/auth_service.dart';
@@ -79,11 +81,13 @@ class AuthenticationController extends GetxController {
     final result = await authRepo.loginUser(
         authPostmodel: AuthPostmodel(phoneNumber: authPostModel.phoneNumber));
     result.fold((l) {
+      log('Otp resnet fail');
       showSnackbar(context,
           message: l.message ?? errorMessage,
           backgroundColor: kred,
           textColor: kwhite);
     }, (r) {
+      log('Otp resnet successs');
       otpFromRegisterUser.value = false;
       GoRouter.of(context).pushNamed(Routes.otpPage);
       showSnackbar(context,

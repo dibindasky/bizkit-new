@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
-import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -76,11 +75,13 @@ class AddParticipentBottomSheet extends StatelessWidget {
                     trailing: GestureDetector(
                       onTap: () {
                         final participant = TaskAssignedTo(
-                          user: taskController.userslist[index].name,
+                          user: taskController.userslist[index].userId,
                           isAccepted: false,
                         );
                         taskController.participants.add(participant);
-                        log("participants => ${taskController.participants.map((e) => e.toJson()).toList()}");
+                        for (var element in taskController.participants) {
+                          log('User id ${element.user}');
+                        }
                       },
                       child: Container(
                           padding: EdgeInsets.symmetric(

@@ -4,13 +4,15 @@ import 'package:bizkit/module/task/application/presentation/screens/task_detail/
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/tag_selection_task_detail.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/task_detail_header_section.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/task_participants_details.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScreenTaskDetailPage extends StatelessWidget {
-  const ScreenTaskDetailPage({super.key});
+  const ScreenTaskDetailPage({super.key, this.taskResponce});
 
+  final GetTaskResponce? taskResponce;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

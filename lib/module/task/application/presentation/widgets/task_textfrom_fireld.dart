@@ -3,29 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TaskTextField extends StatelessWidget {
-  const TaskTextField(
-      {super.key,
-      this.fillColor,
-      this.hintText,
-      this.icon,
-      this.suffixIcon,
-      this.maxLines,
-      this.showBorder = false,
-      this.textColor = klightgrey,
-      this.labelText,
-      this.controller,
-      this.onChanged});
+  const TaskTextField({
+    Key? key,
+    this.fillColor,
+    this.hintText,
+    this.icon,
+    this.suffixIcon,
+    this.maxLines,
+    this.showBorder = false,
+    this.textColor = klightgrey,
+    this.labelText,
+    this.controller,
+    this.onChanged,
+    this.validator,
+  }) : super(key: key);
+
   final Color? fillColor;
   final Color? textColor;
   final String? hintText;
   final String? labelText;
-
   final IconData? icon;
   final Widget? suffixIcon;
   final int? maxLines;
   final bool showBorder;
-  final controller;
+  final TextEditingController? controller;
   final Function(String)? onChanged;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,7 @@ class TaskTextField extends StatelessWidget {
       maxLines: maxLines,
       onChanged: onChanged,
       controller: controller,
+      validator: validator,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
         hintText: hintText,

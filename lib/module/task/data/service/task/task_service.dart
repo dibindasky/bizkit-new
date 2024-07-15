@@ -13,11 +13,14 @@ import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/filter_pinned_task_by_type_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/self_to_others_type_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/task_search_responce/task_search_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
@@ -35,7 +38,9 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, TaskSuccessResponce>> createTask(
       {required TaskModel task}) async {
     try {
-      log('data => :${task.assignedTo?.toList()}');
+      for (var element in task.assignedTo ?? []) {
+        log('data => :${element.toString()}');
+      }
       final response = await apiService.post(
         ApiEndPoints.taskTestCreateTask,
         data: task.toJson(),
@@ -44,6 +49,7 @@ class TaskService implements TaskRepo {
       return Right(TaskSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException createTask $e');
+
       return Left(ErrorModel(error: e.message ?? errorMessage));
     } catch (e) {
       log('catch createTask $e');
@@ -142,7 +148,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestPinnedATask,
         data: pinnedATask.toJson(),
       );
-      log("=> Response Pinned A Task  : ${response.data}");
+      log("=> Response Pinned A Task  :");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException pinnedATask $e');
@@ -157,7 +163,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, PinnedTasksResponce>> getAllPinnedTasks() async {
     try {
       final response = await apiService.get(ApiEndPoints.taskTestPinnedATask);
-      log("=> Response All pinned tasks : ${response.data}");
+      log("=> Response All pinned tasks : ");
       return Right(PinnedTasksResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException getAllPinnedTasks $e');
@@ -176,7 +182,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestPinnedATask,
         data: unpinATask.toJson(),
       );
-      log("=> Response Pinned A Task  : ${response.data}");
+      log("=> Response Pinned A Task  :");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException unpinATask $e');
@@ -196,7 +202,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByDeadline,
         data: filterByDeadline.toJson(),
       );
-      log("=> Response Filter by Deadline : ${response.data}");
+      log("=> Response Filter by Deadline :");
       return Right(FilterByDeadlineResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException filterByDeadline $e');
@@ -216,7 +222,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByType,
         data: filterPinnedTaskByType.toJson(),
       );
-      log("=> Response Filter Pinned Tasks By Type : ${response.data}");
+      // log("=> Response Filter Pinned Tasks By Type : ${response.data}");
       return Right(
           FilterPinnedTaskByTypeSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -237,7 +243,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestAcceptOrReject,
         data: acceptOrReject.toJson(),
       );
-      log("=> Response Accept or Reject  : ${response.data}");
+      // log("=> Response Accept or Reject  : ${response.data}");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException acceptOrReject $e');
@@ -257,7 +263,7 @@ class TaskService implements TaskRepo {
         data: user.toJson(),
       );
 
-      log("=> Response Search Participants : ${response.data}");
+      //log("=> Response Search Participants : ${response.data}");
 
       List<UserSearchSuccessResponce> users = (response.data as List)
           .map((userData) => UserSearchSuccessResponce.fromJson(userData))
@@ -269,6 +275,46 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch participantsSearch $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetTaskResponce>> getTask(
+      {required GetSingleTaskModel singleTaskModel}) async {
+    try {
+      final response = await apiService.get(ApiEndPoints.taskTestEditTask,
+          data: singleTaskModel.toJson());
+
+      //log("=> Response Get one task : ${response.data}");
+
+      return Right(GetTaskResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getTask $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getTask $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, TaskSearchResponce>> taskSearch(
+      {required UserSearchModel taskSearchItem}) async {
+    try {
+      final response = await apiService.post(
+        ApiEndPoints.taskTestTaskSearch,
+        data: taskSearchItem.toJson(),
+      );
+
+      log("=> Response Search tasks : ${response.data}");
+
+      return Right(TaskSearchResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException taskSearch $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch taskSearch $e');
       return Left(Failure(message: e.toString()));
     }
   }

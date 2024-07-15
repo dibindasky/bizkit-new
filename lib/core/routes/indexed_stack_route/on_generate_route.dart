@@ -43,10 +43,14 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (ctx) => ScreenAddTask());
       case Routes.taskNotification:
         return MaterialPageRoute(builder: (ctx) => const NotoficationBuilder());
+      // case Routes.taskCreateNewFolder:
+      //   return MaterialPageRoute(
+      //       builder: (ctx) => const TaskCreateNewFolderScreen());
       case Routes.taskTabNotification:
         return MaterialPageRoute(builder: (ctx) => TaskTabNotification());
       case Routes.cardDetailView:
-        return MaterialPageRoute(builder: (ctx) => ScreenTaskCalenderView());
+        return MaterialPageRoute(
+            builder: (ctx) => const ScreenTaskCalenderView());
       case Routes.heirarchyUserDetail:
         return MaterialPageRoute(
             builder: (ctx) => ScreenHeirarchyTaskUserDetails());

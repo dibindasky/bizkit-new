@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -36,10 +37,20 @@ class TaskCalenderViewAppBar extends StatelessWidget {
           CustomCircleAvatar(
             backgroundColor: lightGrey,
             onTap: () {
-              Get.toNamed(
-                Routes.addTask,
-                id: 2,
-              );
+              if (controller.taskTabChangeIndex.value == 2) {
+                // Get.toNamed(
+                //   Routes.taskCreateNewFolder,
+                //   id: 2,
+                // );
+                showCreateFolderDialog(context);
+              } else {
+                Get.toNamed(Routes.addTask, id: 2);
+              }
+
+              // Get.toNamed(
+              //   Routes.addTask,
+              //   id: 2,
+              // );
             },
             backgroundColorInner: neonShade,
             child: const Icon(

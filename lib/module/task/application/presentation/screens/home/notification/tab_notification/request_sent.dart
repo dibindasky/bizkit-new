@@ -24,16 +24,21 @@ class RequestSentBuilder extends StatelessWidget {
             return const Center(child: Text('No sent requests available'));
           }
 
-          return ListView.separated(
-            separatorBuilder: (context, index) => adjustHieght(10),
-            itemCount: taskController.sentRequests.length,
-            itemBuilder: (context, index) {
-              return NotificationCard(
-                title: '${taskController.sentRequests[index].title}',
-                description:
-                    '${taskController.sentRequests[index].description}',
-              );
+          return RefreshIndicator(
+            onRefresh: () async {
+              taskController.fetchSendRequests();
             },
+            child: ListView.separated(
+              separatorBuilder: (context, index) => adjustHieght(10),
+              itemCount: taskController.sentRequests.length,
+              itemBuilder: (context, index) {
+                return NotificationCard(
+                  title: '${taskController.sentRequests[index].title}',
+                  description:
+                      '${taskController.sentRequests[index].description}',
+                );
+              },
+            ),
           );
         },
       ),

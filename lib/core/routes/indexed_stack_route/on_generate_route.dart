@@ -31,7 +31,7 @@ import '../../../module/attendence/application/presentation/screens/attendence_s
 
 class RouteGenerator {
   Route onGenerateRoute(RouteSettings settings) {
-    // final arguments = settings.arguments;
+    final arguments = settings.arguments;
     //Task section
     switch (settings.name) {
       case Routes.taskHome:
@@ -40,7 +40,15 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (ctx) => const ScreenTotalTasksScreen());
       case Routes.addTask:
-        return MaterialPageRoute(builder: (ctx) => ScreenAddTask());
+        if (arguments is int) {
+          return MaterialPageRoute(
+            builder: (ctx) => ScreenAddTask(
+              navigationId: arguments,
+            ),
+          );
+        } else {
+          return _errorScreen();
+        }
       case Routes.taskNotification:
         return MaterialPageRoute(builder: (ctx) => const NotoficationBuilder());
       // case Routes.taskCreateNewFolder:

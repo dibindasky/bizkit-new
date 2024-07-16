@@ -1,7 +1,5 @@
 import 'dart:developer';
 import 'dart:ui';
-import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/attachments_chooser.dart';
@@ -21,9 +19,10 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class ScreenAddTask extends StatelessWidget {
-  ScreenAddTask({super.key, this.edit = false});
+  ScreenAddTask({super.key, this.edit = false, required this.navigationId});
 
   final bool edit;
+  final int navigationId;
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -36,17 +35,15 @@ class ScreenAddTask extends StatelessWidget {
       fontSize: 15.sp,
       color: neonShade,
     );
-    final calendarController = Get.find<TaskCalenderViewController>();
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
             if (edit) {
               GoRouter.of(context).pop();
-            } else if (calendarController.taskTabChangeIndex.value == 1) {
-              Get.back(id: 2);
             } else {
-              Get.back(id: 1);
+              Get.back(id: navigationId);
             }
           },
           icon: const Icon(Icons.arrow_back_ios),
@@ -139,44 +136,43 @@ class ScreenAddTask extends StatelessWidget {
                               text: 'Create Task',
                               onTap: () {
                                 if (_formKey.currentState!.validate() &&
-                                    controller.participants.isNotEmpty &&
                                     controller.deadlineDate.value.isNotEmpty) {
-                                  log("DeadLine => ${controller.deadlineDate.value}");
-
+                                  // log("DeadLine => ${controller.deadlineDate.value}");
+                                  // log('======> $controller.participants');
+                                  // log('createPriorityLevel value : => ${controller.createPriorityLevel.value}');
                                   controller.createNewTask(
                                     task: TaskModel(
                                       title: titleController.text,
                                       description: descriptionController.text,
                                       deadLine: controller.deadlineDate.value,
-                                      assignedTo: controller.participants,
+                                      assignedTo:
+                                          controller.participants.isNotEmpty
+                                              ? controller.participants
+                                              : [],
                                       attachments: [],
                                       isCompleted: false,
                                       isKilled: false,
                                       priorityLevel: controller
-                                          .createPriorityLevel.value
-                                          .toString(),
+                                          .priorityLevelEnumToString(controller
+                                              .createPriorityLevel.value),
                                       recurrentTask:
                                           controller.createRecurring.value,
                                       subTask: [],
                                       tags: [],
-                                      taskType: controller.createTaskTupe.value
-                                          .toString(),
+                                      taskType: controller.taskTypeEnumToString(
+                                          controller.createTaskTupe.value),
                                     ),
                                   );
 
                                   Future.delayed(
                                     const Duration(seconds: 2),
                                     () {
-                                      Get.back(id: 1);
+                                      Get.back(
+                                        id: navigationId,
+                                      );
                                     },
                                   );
                                 } else {
-                                  if (controller.participants.isEmpty) {
-                                    _showErrorDialog(
-                                      context,
-                                      'Assign to at least one participant',
-                                    );
-                                  }
                                   if (controller.deadlineDate.value.isEmpty) {
                                     _showErrorDialog(
                                       context,

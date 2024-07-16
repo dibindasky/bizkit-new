@@ -1,7 +1,9 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/task_status_dialoge.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class TaskDetailHeaderSection extends StatelessWidget {
@@ -9,6 +11,8 @@ class TaskDetailHeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final taskController = Get.find<CreateTaskController>();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -16,7 +20,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'New Project User flow',
+              taskController.singleTask.value.title ?? 'Title',
               style: textHeadStyle1.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.sp,

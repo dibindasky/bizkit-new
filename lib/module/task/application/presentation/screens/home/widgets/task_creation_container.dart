@@ -26,7 +26,7 @@ class TaskCreationContainer extends StatelessWidget {
           wdth: 100,
           text: '+ Add Task',
           onTap: () {
-            Get.toNamed(Routes.addTask, id: 1);
+            Get.toNamed(Routes.addTask, id: 1, arguments: 1);
             //  GoRouter.of(context).pushNamed(Routes.addTask);
           },
           color: const LinearGradient(colors: [neonShade, neonShade]),

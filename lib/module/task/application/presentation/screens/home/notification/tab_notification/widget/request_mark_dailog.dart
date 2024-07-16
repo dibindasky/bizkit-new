@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 Future<dynamic> requestMarkingDailog(
   BuildContext context, {
   String? taskId,
-  bool? isAccepted,
+  String? isAccepted,
 }) {
   final taskController = Get.find<CreateTaskController>();
   return showDialog(
@@ -34,9 +34,9 @@ Future<dynamic> requestMarkingDailog(
                 taskController.acceptOrReject(
                   acceptOrReject: AcceptOrRejectModel(
                     taskId: taskId,
-                    taskType: 'official',
+                    taskType: 'Official',
                     acceptanceStatus:
-                        isAccepted == true ? 'accepted' : 'rejected',
+                        isAccepted == 'pending' ? 'accepted' : 'rejected',
                   ),
                 );
               },
@@ -54,27 +54,51 @@ Future<dynamic> requestMarkingDailog(
               ),
             ),
             adjustHieght(5.h),
-            ClipRRect(
-              borderRadius: kBorderRadius15,
-              child: const ColoredBox(
-                color: neonShade,
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Text('Personl'),
+            GestureDetector(
+              onTap: () {
+                taskController.acceptOrReject(
+                  acceptOrReject: AcceptOrRejectModel(
+                    taskId: taskId,
+                    taskType: 'Personl',
+                    acceptanceStatus:
+                        isAccepted == 'pending' ? 'accepted' : 'rejected',
+                  ),
+                );
+              },
+              child: ClipRRect(
+                borderRadius: kBorderRadius15,
+                child: const ColoredBox(
+                  color: neonShade,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      child: Text('Personl'),
+                    ),
                   ),
                 ),
               ),
             ),
             adjustHieght(5.h),
-            ClipRRect(
-              borderRadius: kBorderRadius15,
-              child: const ColoredBox(
-                color: neonShade,
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Text('Others'),
+            GestureDetector(
+              onTap: () {
+                taskController.acceptOrReject(
+                  acceptOrReject: AcceptOrRejectModel(
+                    taskId: taskId,
+                    taskType: 'Others',
+                    acceptanceStatus:
+                        isAccepted == 'pending' ? 'accepted' : 'rejected',
+                  ),
+                );
+              },
+              child: ClipRRect(
+                borderRadius: kBorderRadius15,
+                child: const ColoredBox(
+                  color: neonShade,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      child: Text('Others'),
+                    ),
                   ),
                 ),
               ),

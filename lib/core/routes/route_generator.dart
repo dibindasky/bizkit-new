@@ -262,16 +262,18 @@ class GoRouterConfig {
       builder: (context, state) => const ScreenNavbarTaskModule(),
     ),
     // add task screen
-    GoRoute(
-      name: Routes.addTask,
-      path: "${Routes.addTask}/:edit",
-      builder: (context, state) {
-        final edit = state.pathParameters['edit'] ?? '';
-        return ScreenAddTask(
-          edit: edit == 'true',
-        );
-      },
-    ),
+    // GoRoute(
+    //   name: Routes.addTask,
+    //   path: "${Routes.addTask}/:edit/:navid",
+    //   builder: (context, state) {
+    //     final edit = state.pathParameters['edit'] ?? '';
+    //     // final navId = state.pathParameters['navid'] ?? '';
+    //     return ScreenAddTask(
+    //       navigationId: int.parse(navId),
+    //       edit: edit == 'true',
+    //     );
+    //   },
+    // ),
     // Tasks Screen
     GoRoute(
       name: Routes.taskLists,

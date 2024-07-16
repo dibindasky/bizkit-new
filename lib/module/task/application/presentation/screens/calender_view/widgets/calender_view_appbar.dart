@@ -44,7 +44,8 @@ class TaskCalenderViewAppBar extends StatelessWidget {
                 // );
                 showCreateFolderDialog(context);
               } else {
-                Get.toNamed(Routes.addTask, id: 2);
+                Get.toNamed(Routes.addTask, id: 2, arguments: 2);
+                // Get.toNamed(Routes.addTask, id: 2);
               }
 
               // Get.toNamed(

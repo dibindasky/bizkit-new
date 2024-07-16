@@ -73,6 +73,34 @@ class CreateTaskController extends GetxController {
 
   final TaskRepo taskService = TaskService();
 
+  String taskTypeEnumToString(TaskType tasktype) {
+    switch (tasktype) {
+      case TaskType.official:
+        return 'official';
+      case TaskType.personal:
+        return 'personal';
+      case TaskType.others:
+        return 'official';
+
+      default:
+        return '';
+    }
+  }
+
+  String priorityLevelEnumToString(PriorityLevel priorityLevel) {
+    switch (priorityLevel) {
+      case PriorityLevel.medium:
+        return 'medium';
+      case PriorityLevel.low:
+        return 'low';
+      case PriorityLevel.high:
+        return 'high';
+
+      default:
+        return '';
+    }
+  }
+
   changeTaskType(TaskType type) {
     createTaskTupe.value = type;
   }
@@ -104,6 +132,7 @@ class CreateTaskController extends GetxController {
         log('${success.message}');
         testTaskId = success.taskId.toString();
         fetchSendRequests();
+        filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
         // isLoading.value = false;
         // fetchAllTasks();
       },
@@ -119,6 +148,23 @@ class CreateTaskController extends GetxController {
     //     allTasks.assignAll(success.tasks);
     //   },
     // );
+  }
+
+  void editTask({required TaskModel taskModel}) async {
+    isLoading.value = true;
+    final result = await taskService.editTask(taskModel: taskModel);
+    result.fold(
+      (error) {
+        isLoading.value = false;
+        log('${error.error}', name: 'Error from Edit Task');
+      },
+      (success) {
+        isLoading.value = false;
+        log('${success.message}');
+
+        filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
+      },
+    );
   }
 
   void fetchSendRequests() async {

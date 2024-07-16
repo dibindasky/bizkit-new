@@ -41,11 +41,13 @@ class TaskService implements TaskRepo {
       for (var element in task.assignedTo ?? []) {
         log('data => :${element.toString()}');
       }
+
+      log('Task Datas : => ${task.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestCreateTask,
         data: task.toJson(),
       );
-      // log("=> Response CreateTask : ${response.data}");s
+      log("=> Response CreateTask :");
       return Right(TaskSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException createTask $e');
@@ -62,7 +64,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, AllTasksResponce>> getAllTasks() async {
     try {
       final response = await apiService.get(ApiEndPoints.taskTestgetAllTasks);
-      log("=> Response All Tasks : ${response.data}");
+      log("=> Response All Tasks : ");
 
       List<dynamic> data = response.data;
       List<Tasks> tasks = data.map((task) => Tasks.fromJson(task)).toList();
@@ -94,7 +96,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByType,
         data: filterByType.toJson(),
       );
-      log("=> Response Filter by Type : ${response.data}");
+      log("=> Response Filter by Type : ");
       return Right(SelfToOthersTypeResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException filterByType $e');
@@ -286,7 +288,7 @@ class TaskService implements TaskRepo {
       final response = await apiService.get(ApiEndPoints.taskTestEditTask,
           data: singleTaskModel.toJson());
 
-      //log("=> Response Get one task : ${response.data}");
+      log("=> Response Get one task : ${response.data}");
 
       return Right(GetTaskResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -316,6 +318,25 @@ class TaskService implements TaskRepo {
     } catch (e) {
       log('catch taskSearch $e');
       return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<ErrorModel, SuccessResponce>> editTask(
+      {required TaskModel taskModel}) async {
+    try {
+      final response = await apiService.patch(
+        ApiEndPoints.taskTestEditTask,
+        data: taskModel.toJson(),
+      );
+      log("=> Response Edit Task  : ${response.data}");
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException editTask $e');
+      return Left(ErrorModel(error: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch editTask $e');
+      return Left(ErrorModel(error: '$e'));
     }
   }
 }

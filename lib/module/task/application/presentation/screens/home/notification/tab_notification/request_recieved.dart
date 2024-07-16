@@ -24,20 +24,25 @@ class TabNotificationItemBuilder extends StatelessWidget {
             return const Center(child: Text('No notifications available'));
           }
 
-          return ListView.separated(
-            itemBuilder: (context, index) {
-              return NotificationRequestCard(
-                isAccepted: taskController
-                    .receivedRequests[index].assignedTo?[index].isAccepted,
-                acceptanceStatus: '',
-                taskId: '${taskController.receivedRequests[index].id}',
-                title: '${taskController.receivedRequests[index].title}',
-                priorityLevel:
-                    '${taskController.receivedRequests[index].priorityLevel}',
-              );
+          return RefreshIndicator(
+            onRefresh: () async {
+              taskController.fetchReceivedRequests();
             },
-            separatorBuilder: (context, index) => adjustHieght(10.h),
-            itemCount: taskController.receivedRequests.length,
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                return NotificationRequestCard(
+                  isAccepted: taskController
+                      .receivedRequests[index].assignedTo?[index].isAccepted,
+                  acceptanceStatus: '',
+                  taskId: '${taskController.receivedRequests[index].id}',
+                  title: '${taskController.receivedRequests[index].title}',
+                  priorityLevel:
+                      '${taskController.receivedRequests[index].priorityLevel}',
+                );
+              },
+              separatorBuilder: (context, index) => adjustHieght(10.h),
+              itemCount: taskController.receivedRequests.length,
+            ),
           );
         },
       ),

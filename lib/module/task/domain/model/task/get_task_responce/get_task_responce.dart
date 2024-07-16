@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'assigned_to.dart';
-
 part 'get_task_responce.g.dart';
 
 @JsonSerializable()
@@ -27,7 +25,7 @@ class GetTaskResponce {
   @JsonKey(name: 'sub_task')
   List<dynamic>? subTask;
   @JsonKey(name: 'assigned_to')
-  List<AssignedTo>? assignedTo;
+  List<dynamic>? assignedTo;
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
 

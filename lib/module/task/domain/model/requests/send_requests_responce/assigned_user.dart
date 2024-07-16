@@ -11,7 +11,7 @@ class AssignedUser {
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
   @JsonKey(name: 'is_accepted')
-  bool? isAccepted;
+  String? isAccepted;
 
   AssignedUser({
     this.userId,

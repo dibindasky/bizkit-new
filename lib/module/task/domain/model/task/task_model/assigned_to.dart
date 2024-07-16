@@ -6,7 +6,7 @@ part 'assigned_to.g.dart';
 class TaskAssignedTo {
   String? user;
   @JsonKey(name: 'is_accepted')
-  bool? isAccepted;
+  String? isAccepted;
 
   TaskAssignedTo({this.user, this.isAccepted});
 

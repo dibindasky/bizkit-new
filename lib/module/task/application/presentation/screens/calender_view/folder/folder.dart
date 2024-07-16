@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
-import 'package:bizkit/module/task/domain/model/folders/folder_add_model/folder_add_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +122,7 @@ class TaskFolderSection extends StatelessWidget {
 void showTaskSelectionBottomSheet(BuildContext context, String folderId) {
   final taskcontroller = Get.find<CreateTaskController>();
   final TextEditingController searchController = TextEditingController();
-  final controller = Get.find<TaskCalenderViewController>();
+  // final controller = Get.find<TaskCalenderViewController>();
   showBottomSheet(
     enableDrag: true,
     context: context,

@@ -69,4 +69,7 @@ abstract class TaskRepo {
   Future<Either<Failure, TaskSearchResponce>> taskSearch({
     required UserSearchModel taskSearchItem,
   });
+
+  Future<Either<ErrorModel, SuccessResponce>> editTask(
+      {required TaskModel taskModel});
 }

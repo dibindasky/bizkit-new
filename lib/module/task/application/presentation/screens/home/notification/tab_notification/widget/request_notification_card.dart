@@ -18,7 +18,7 @@ class NotificationRequestCard extends StatelessWidget {
   final String? title;
   final String? priorityLevel;
   final String? deadline;
-  final bool? isAccepted;
+  final String? isAccepted;
   final String? taskId;
   final String? acceptanceStatus;
   final String? taskType;

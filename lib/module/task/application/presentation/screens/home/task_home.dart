@@ -22,7 +22,7 @@ class ScreenTaskHome extends StatelessWidget {
             children: [
               const TaskHomeAppBar(),
               adjustHieght(16.h),
-              TaskTextField(
+              const TaskTextField(
                 hintText: 'Find your task',
                 suffixIcon: Icon(Icons.search, color: neonShade),
               ),

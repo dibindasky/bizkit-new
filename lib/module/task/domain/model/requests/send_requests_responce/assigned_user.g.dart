@@ -11,7 +11,7 @@ AssignedUser _$AssignedUserFromJson(Map<String, dynamic> json) => AssignedUser(
       name: json['name'] as String?,
       email: json['email'] as String?,
       phoneNumber: json['phone_number'] as String?,
-      isAccepted: json['is_accepted'] as bool?,
+      isAccepted: json['is_accepted'] as String?,
     );
 
 Map<String, dynamic> _$AssignedUserToJson(AssignedUser instance) =>

@@ -1,11 +1,15 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 Future<dynamic> requestDiclineShowDailog(
   BuildContext context, {
   String? taskId,
-  bool? isAccepted,
+  String? isAccepted,
 }) {
+  final taskController = Get.find<CreateTaskController>();
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -14,7 +18,7 @@ Future<dynamic> requestDiclineShowDailog(
       ),
       backgroundColor: kNotificationColor,
       title: const Text(
-        'Are you sure do you want to Dicline this task',
+        'Are you sure do you want to decline this task',
         style: TextStyle(),
       ),
       actions: [
@@ -27,6 +31,15 @@ Future<dynamic> requestDiclineShowDailog(
         ),
         TextButton(
           onPressed: () {
+            taskController.acceptOrReject(
+              acceptOrReject: AcceptOrRejectModel(
+                taskId: taskId,
+                taskType: taskController
+                    .taskTypeEnumToString(taskController.createTaskTupe.value),
+                acceptanceStatus:
+                    isAccepted == 'accepted' ? 'accepted' : 'rejected',
+              ),
+            );
             Navigator.pop(context);
           },
           child: const Text(

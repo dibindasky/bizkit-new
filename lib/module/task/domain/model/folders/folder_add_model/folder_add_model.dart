@@ -8,7 +8,10 @@ class FolderAddModel {
   String? folderId;
   List<String>? tasks;
 
-  FolderAddModel({this.folderId, this.tasks});
+  FolderAddModel({
+    this.folderId,
+    this.tasks,
+  });
 
   factory FolderAddModel.fromJson(Map<String, dynamic> json) {
     return _$FolderAddModelFromJson(json);

@@ -68,7 +68,13 @@ class SubTaskBuilder extends StatelessWidget {
                       onTap: () {
                         showDialog(
                           context: context,
-                          builder: (context) => const SubTaskDetailView(),
+                          builder: (context) => SubTaskDetailView(
+                            index: index,
+                            subTaskDeadline:
+                                controller.subTasks[index].deadLine,
+                            subTaskDes: controller.subTasks[index].description,
+                            subTaskTitle: controller.subTasks[index].title,
+                          ),
                         );
                       },
                       child: Container(

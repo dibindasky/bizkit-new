@@ -3,15 +3,15 @@ import 'package:json_annotation/json_annotation.dart';
 part 'attachment.g.dart';
 
 @JsonSerializable()
-class Attachment {
+class Attachments {
   String? attachment;
   String? type;
 
-  Attachment({this.attachment, this.type});
+  Attachments({this.attachment, this.type});
 
-  factory Attachment.fromJson(Map<String, dynamic> json) {
-    return _$AttachmentFromJson(json);
+  factory Attachments.fromJson(Map<String, dynamic> json) {
+    return _$AttachmentsFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$AttachmentToJson(this);
+  Map<String, dynamic> toJson() => _$AttachmentsToJson(this);
 }

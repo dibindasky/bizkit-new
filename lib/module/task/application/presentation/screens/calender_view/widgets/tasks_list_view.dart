@@ -18,12 +18,12 @@ class TaskListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (taskController.deadlineTasks.isEmpty) {
-          return const Center(child: Text('No Data'));
-        } else if (taskController.isLoading.value) {
+        if (taskController.isLoading.value) {
           return const Center(
             child: CircularProgressIndicator(),
           );
+        } else if (taskController.deadlineTasks.isEmpty) {
+          return const Center(child: Text('No Tasks'));
         } else {
           return ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),

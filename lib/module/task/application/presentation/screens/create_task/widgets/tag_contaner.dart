@@ -1,35 +1,16 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class TagsContainer extends StatefulWidget {
-  const TagsContainer({super.key});
+class TagsContainer extends StatelessWidget {
+  TagsContainer({super.key});
 
-  @override
-  State<TagsContainer> createState() => _TagsContainerState();
-}
-
-class _TagsContainerState extends State<TagsContainer> {
-  List<String> selectedTags = [];
-  List<String> tags = [
-    'UI Design',
-    'Web Design',
-    'Design',
-    'Website',
-    'UIUX Designer',
-  ];
-  List<Color> tagColor = [kred, kblue, kgreen, kgrey, kOrange];
-  void toggleTagSelection(String tag) {
-    setState(() {
-      if (selectedTags.contains(tag)) {
-        selectedTags.remove(tag);
-      } else {
-        selectedTags.add(tag);
-      }
-    });
-  }
+  final TextEditingController tagController = TextEditingController();
+  final controller = Get.find<CreateTaskController>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +38,17 @@ class _TagsContainerState extends State<TagsContainer> {
                 child: CupertinoTextField(
                   placeholder: 'Add your tags',
                   placeholderStyle: TextStyle(color: kwhite.withOpacity(0.6)),
-                  suffix: const Padding(
-                    padding: EdgeInsets.only(right: 10.0),
-                    child: Icon(Icons.add, color: neonShade),
+                  suffix: GestureDetector(
+                    onTap: () {
+                      controller.addTag(tagController.text.trim());
+                      tagController.clear();
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.only(right: 10.0),
+                      child: Icon(Icons.add, color: neonShade),
+                    ),
                   ),
+                  controller: tagController,
                   style: const TextStyle(color: kwhite),
                   padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
@@ -76,31 +64,34 @@ class _TagsContainerState extends State<TagsContainer> {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Wrap(
-                  spacing: 18.0,
-                  runSpacing: 4.0,
-                  children: tags.asMap().entries.map((entry) {
-                    int index = entry.key;
-                    String tag = entry.value;
-                    final isSelected = selectedTags.contains(tag);
-                    return FilterChip(
-                      side: BorderSide.none,
-                      label: Text(
-                        tag,
-                        style: TextStyle(
-                          color: isSelected
-                              ? kwhite
-                              : tagColor[index].withOpacity(0.9),
+                child: Obx(() {
+                  return Wrap(
+                    spacing: 18.0,
+                    runSpacing: 4.0,
+                    children: controller.tags.asMap().entries.map((entry) {
+                      int index = entry.key % controller.tagColor.length;
+                      String tag = entry.value;
+                      final isSelected = controller.selectedTags.contains(tag);
+                      return FilterChip(
+                        side: BorderSide.none,
+                        label: Text(
+                          tag,
+                          style: TextStyle(
+                            color: isSelected
+                                ? kwhite
+                                : controller.tagColor[index].withOpacity(0.9),
+                          ),
                         ),
-                      ),
-                      selected: isSelected,
-                      onSelected: (_) => toggleTagSelection(tag),
-                      selectedColor: neonShade.withOpacity(0.9),
-                      backgroundColor: tagColor[index].withOpacity(0.2),
-                      checkmarkColor: kwhite,
-                    );
-                  }).toList(),
-                ),
+                        selected: isSelected,
+                        onSelected: (_) => controller.toggleTagSelection(tag),
+                        selectedColor: neonShade.withOpacity(0.9),
+                        backgroundColor:
+                            controller.tagColor[index].withOpacity(0.2),
+                        checkmarkColor: kwhite,
+                      );
+                    }).toList(),
+                  );
+                }),
               ),
             ],
           ),

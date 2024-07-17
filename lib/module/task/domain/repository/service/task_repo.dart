@@ -12,10 +12,14 @@ import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/filter_pinned_task_by_type_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/self_to_others_type_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_model/edit_sub_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_search_responce/task_search_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
@@ -72,4 +76,16 @@ abstract class TaskRepo {
 
   Future<Either<ErrorModel, SuccessResponce>> editTask(
       {required TaskModel taskModel});
+
+  Future<Either<Failure, SuccessResponce>> addSubTask(
+      {required SubTaskAddModel newsubtask});
+
+  Future<Either<Failure, SuccessResponce>> editSubTask(
+      {required EditSubTaskModel editsubtask});
+
+  Future<Either<Failure, SuccessResponce>> deleteSubTask(
+      {required DeleteSubTaskModel deletesubtask});
+
+  Future<Either<Failure, SuccessResponce>> killATask(
+      {required KillATaskModel killatask});
 }

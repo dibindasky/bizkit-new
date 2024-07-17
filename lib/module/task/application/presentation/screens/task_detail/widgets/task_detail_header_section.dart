@@ -44,7 +44,9 @@ class TaskDetailHeaderSection extends StatelessWidget {
                   showDialog(
                     context: context,
                     barrierDismissible: true,
-                    builder: (context) => const TaskStatusChangeDialog(),
+                    builder: (context) => TaskStatusChangeDialog(
+                      taskId: taskController.singleTask.value.id,
+                    ),
                   );
                 },
               ),

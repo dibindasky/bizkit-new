@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_task_responce.g.dart';
@@ -25,7 +26,7 @@ class GetTaskResponce {
   @JsonKey(name: 'sub_task')
   List<dynamic>? subTask;
   @JsonKey(name: 'assigned_to')
-  List<dynamic>? assignedTo;
+  List<TaskAssignedTo>? assignedTo;
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
 

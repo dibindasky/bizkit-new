@@ -42,7 +42,7 @@ class DateContainer extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  width: kwidth * .98,
+                  width: kwidth * .85,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   decoration: BoxDecoration(

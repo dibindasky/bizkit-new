@@ -21,6 +21,7 @@ import 'package:bizkit/module/attendence/application/presentation/screens/home/h
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/calender_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/edit_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
@@ -49,6 +50,8 @@ class RouteGenerator {
         } else {
           return _errorScreen();
         }
+      case Routes.editTask:
+        return MaterialPageRoute(builder: (ctx) => ScreenEditTask());
       case Routes.taskNotification:
         return MaterialPageRoute(builder: (ctx) => const NotoficationBuilder());
       // case Routes.taskCreateNewFolder:

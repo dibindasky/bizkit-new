@@ -63,13 +63,14 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             text: 'All Tasks',
             onTap: () {
               homeController.changeSelectedTaskCategory('All tasks');
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'all'));
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'all',
                 isPinned: true,
               ));
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(taskType: 'all'));
+
               log('=> ${homeController.taskCategory.value}');
               Navigator.of(context).pop();
             },
@@ -80,13 +81,14 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             text: 'Self to Self    ',
             onTap: () {
               homeController.changeSelectedTaskCategory('Self to self');
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'self_to_self'));
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'self_to_self',
                 isPinned: true,
               ));
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(taskType: 'self_to_self'));
+
               log('=> ${homeController.taskCategory.value}');
               Navigator.of(context).pop();
             },
@@ -97,13 +99,14 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             text: 'Self to others',
             onTap: () {
               homeController.changeSelectedTaskCategory('Self to others');
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'self_to_others'));
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'self_to_others',
                 isPinned: true,
               ));
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(taskType: 'self_to_others'));
+
               log('=> ${homeController.taskCategory.value}');
               Navigator.of(context).pop();
               log(homeController.taskCategory.value);
@@ -115,13 +118,14 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             text: 'Others to self',
             onTap: () {
               homeController.changeSelectedTaskCategory('Others to self');
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'others_to_self'));
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'others_to_self',
                 isPinned: true,
               ));
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(taskType: 'others_to_self'));
+
               Navigator.of(context).pop();
             },
           ),
@@ -242,47 +246,49 @@ class PinnedTasks extends StatelessWidget {
   Widget build(BuildContext context) {
     // final controller = Get.find<TaskCalenderViewController>();
     final taskController = Get.find<CreateTaskController>();
-    return Obx(() {
-      if (taskController.allPinnedTasks.isEmpty) {
-        return const Center(
-          child: Text('Pinned Tasks is Empty'),
-        );
-      } else if (taskController.isLoading.value) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      } else {
-        return Obx(
-          () => ListView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            itemCount: taskController.allPinnedTasks.length,
-            // itemCount: tasks.length,
-            itemBuilder: (context, index) {
-              final pinnedTasks = taskController.allPinnedTasks[index];
-              return GestureDetector(
-                onLongPress: () {
-                  // bool isSelected = !controller.selectedIndices.contains(index);
-                  // controller.longPress(isSelected, index);
-                },
-                onTap: () {
-                  // if (controller.selectedFolderContainer.value) {
-                  //   bool isSelected = !controller.selectedIndices.contains(index);
-                  //   controller.longPress(isSelected, index);
-                  // } else {
-                  GoRouter.of(context).push(Routes.taskChatScreen);
-                  //}
-                },
-                child: TaskContainer(
-                  tabIndex: tabController.index,
-                  index: index,
-                  pinnedTasks: pinnedTasks,
-                ),
-              );
-            },
-          ),
-        );
-      }
-    });
+    return Obx(
+      () {
+        if (taskController.isLoading.value) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (taskController.allPinnedTasks.isEmpty) {
+          return const Center(
+            child: Text('No Pinned Tasks'),
+          );
+        } else {
+          return Obx(
+            () => ListView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              itemCount: taskController.allPinnedTasks.length,
+              // itemCount: tasks.length,
+              itemBuilder: (context, index) {
+                final pinnedTasks = taskController.allPinnedTasks[index];
+                return GestureDetector(
+                  onLongPress: () {
+                    // bool isSelected = !controller.selectedIndices.contains(index);
+                    // controller.longPress(isSelected, index);
+                  },
+                  onTap: () {
+                    // if (controller.selectedFolderContainer.value) {
+                    //   bool isSelected = !controller.selectedIndices.contains(index);
+                    //   controller.longPress(isSelected, index);
+                    // } else {
+                    GoRouter.of(context).push(Routes.taskChatScreen);
+                    //}
+                  },
+                  child: TaskContainer(
+                    tabIndex: tabController.index,
+                    index: index,
+                    pinnedTasks: pinnedTasks,
+                  ),
+                );
+              },
+            ),
+          );
+        }
+      },
+    );
   }
 }

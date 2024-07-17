@@ -20,7 +20,9 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
       tags: json['tags'] as List<dynamic>?,
       attachments: json['attachments'] as List<dynamic>?,
       subTask: json['sub_task'] as List<dynamic>?,
-      assignedTo: json['assigned_to'] as List<dynamic>?,
+      assignedTo: (json['assigned_to'] as List<dynamic>?)
+          ?.map((e) => TaskAssignedTo.fromJson(e as Map<String, dynamic>))
+          .toList(),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),

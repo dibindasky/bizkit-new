@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DeadlineChooserCreateTask extends StatelessWidget {
-  const DeadlineChooserCreateTask(
-      {super.key, required this.onPressed, this.showTitle = true});
+  const DeadlineChooserCreateTask({
+    super.key,
+    required this.onPressed,
+    this.showTitle = true,
+  });
 
   final Function(String) onPressed;
   final bool showTitle;

@@ -178,4 +178,5 @@ class ApiEndPoints {
   static const taskTestAcceptOrReject = '/tasks/accept-reject/';
   static const taskTestFindUser = '/find-user/';
   static const taskTestTaskSearch = '/search-tasks/';
+  static const taskTestSubtask = '/tasks/sub-task/';
 }

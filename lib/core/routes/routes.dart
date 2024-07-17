@@ -31,6 +31,7 @@ class Routes {
   static const String initaltask = '/taskInitail';
   static const String taskNavbar = '/task_navbar';
   static const String addTask = '/taskAdd';
+  static const String editTask = '/editTask';
   static const String taskHome = '/taskHome';
   static const String taskLists = '/taskLists';
   static const String taskDeail = '/task_detail_page';

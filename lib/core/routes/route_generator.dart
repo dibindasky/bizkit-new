@@ -29,6 +29,7 @@ import 'package:bizkit/module/task/application/presentation/screens/calender_vie
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/poll_creation_page.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/task_chat_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/edit_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
@@ -286,6 +287,11 @@ class GoRouterConfig {
       name: Routes.taskDeail,
       path: Routes.taskDeail,
       builder: (context, state) => const ScreenTaskDetailPage(),
+    ),
+    GoRoute(
+      name: Routes.editTask,
+      path: Routes.editTask,
+      builder: (context, state) => ScreenEditTask(),
     ),
 
     // Tsks notification

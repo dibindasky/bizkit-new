@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
@@ -11,68 +13,92 @@ import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_model/edit_sub_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
+import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_search_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:intl/intl.dart';
+
+import '../../../domain/model/task/task_model/sub_task.dart';
 
 class CreateTaskController extends GetxController {
   Rx<TaskType> createTaskTupe = TaskType.official.obs;
   Rx<PriorityLevel> createPriorityLevel = PriorityLevel.medium.obs;
+  Rx<FilterTypes> filterTypes = FilterTypes.all.obs;
   Rx<RecurringTimePeriod> createRecurringTimePeriod =
       RecurringTimePeriod.none.obs;
   RxBool createRecurring = false.obs;
   RxString deadlineDate = ''.obs;
 
+  // List of participants involved in the task
   var participants = <TaskAssignedTo>[].obs;
 
-  // RxList<Tasks> allTasks = <Tasks>[].obs;
-
+  // Lists for storing various task types and deadlines
   RxList<Task> typeTasks = <Task>[].obs;
-
   RxList<DTasks> deadlineTasks = <DTasks>[].obs;
-
   RxList<SentRequest> sentRequests = <SentRequest>[].obs;
-
   RxList<ReceivedRequestsResponce> receivedRequests =
       <ReceivedRequestsResponce>[].obs;
-
   RxList<PinnedTasksByTypes> allPinnedTasks = <PinnedTasksByTypes>[].obs;
-
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
-
   RxList<SearchTasks> tasksSearch = <SearchTasks>[].obs;
-
   RxList<SearchTasks> selectedTasks = <SearchTasks>[].obs;
 
+  // Holds a single task response
   Rx<GetTaskResponce> singleTask = GetTaskResponce().obs;
+
+  // Reactive list to store selected files
+  RxList<PlatformFile> selectedFiles = <PlatformFile>[].obs;
+
+  // List of subtasks related to the main task
+  RxList<SubTask> subTasks = <SubTask>[].obs;
+
+  // List of all available tags
+  var tags = <String>[].obs;
+
+  // List of selected tags
+  var selectedTags = <String>[].obs;
+
+  // List of colors for tags
+  final List<Color> tagColor = [kred, kblue, kgreen, kgrey, kOrange];
 
   @override
   void onInit() {
     final DateTime todaydate = DateTime.now();
+    // Initialize with today's date for deadline filtering
     taskFilterByDeadline(
         filterByDeadline: FilterByDeadlineModel(
             date: DateFormat('yyyy-MM-dd').format(todaydate)));
-    // fetchAllPinnedTasks();
     super.onInit();
   }
 
-  // Test task id
+  // Test task ID for validation or testing purposes
   String testTaskId = '';
 
+  // Reactive variable for loading state
   RxBool isLoading = false.obs;
 
+  // Task service instance for API interactions
   final TaskRepo taskService = TaskService();
 
+  // Converts TaskType enum to string
   String taskTypeEnumToString(TaskType tasktype) {
     switch (tasktype) {
       case TaskType.official:
@@ -80,13 +106,13 @@ class CreateTaskController extends GetxController {
       case TaskType.personal:
         return 'personal';
       case TaskType.others:
-        return 'official';
-
+        return 'others';
       default:
         return '';
     }
   }
 
+  // Converts PriorityLevel enum to string
   String priorityLevelEnumToString(PriorityLevel priorityLevel) {
     switch (priorityLevel) {
       case PriorityLevel.medium:
@@ -95,30 +121,94 @@ class CreateTaskController extends GetxController {
         return 'low';
       case PriorityLevel.high:
         return 'high';
-
       default:
         return '';
     }
   }
 
-  changeTaskType(TaskType type) {
+  // Converts FilterTypes enum to string
+  String filterTypeToString(FilterTypes filterTypes) {
+    switch (filterTypes) {
+      case FilterTypes.all:
+        return 'all';
+      case FilterTypes.self_to_self:
+        return 'self_to_self';
+      case FilterTypes.self_to_others:
+        return 'self_to_others';
+      case FilterTypes.others_to_self:
+        return 'others_to_self';
+      default:
+        return '';
+    }
+  }
+
+  // Changes the task type based on user selection
+  void changeTaskType(TaskType type) {
     createTaskTupe.value = type;
   }
 
-  changePriorityLevel(PriorityLevel level) {
+  // Changes the priority level based on user selection
+  void changePriorityLevel(PriorityLevel level) {
     createPriorityLevel.value = level;
   }
 
-  changeRecurringTimePeriod(RecurringTimePeriod period) {
+  // Changes the recurring time period based on user selection
+  void changeRecurringTimePeriod(RecurringTimePeriod period) {
     createRecurringTimePeriod.value = period;
   }
 
-  changeCreateRecorring(bool value) {
+  // Toggles the recurring task state
+  void changeCreateRecorring(bool value) {
     createRecurring.value = value;
   }
 
+  // Clears the list of selected files
+  void clearSelectedFiles() {
+    selectedFiles.clear();
+  }
+
+  // Function to toggle the selection of a tag
+  void toggleTagSelection(String tag) {
+    if (selectedTags.contains(tag)) {
+      selectedTags.remove(tag);
+    } else {
+      selectedTags.add(tag);
+    }
+  }
+
+  // Function to add a new tag to the list
+  void addTag(String tag) {
+    if (tag.isNotEmpty && !tags.contains(tag)) {
+      tags.add(tag);
+    }
+  }
+
+  // Method to handle file selection
+  void pickFiles() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    if (result != null) {
+      selectedFiles.addAll(result.files);
+    }
+  }
+
+  // Converts selected files to Attachment objects for task creation
+  List<Attachment> convertFilesToAttachments(List<PlatformFile> files) {
+    return files.map((file) {
+      return Attachment(
+        attachment: base64Encode(File(file.path!).readAsBytesSync()),
+        type: file.extension,
+      );
+    }).toList();
+  }
+
+  // Creates a new task with the provided task model
   void createNewTask({required TaskModel task}) async {
     isLoading.value = true;
+
+    List<Attachment> attachments =
+        convertFilesToAttachments(selectedFiles).cast<Attachment>();
+    task.attachments = attachments;
+
     log('task model ${task.toJson()}');
     final result = await taskService.createTask(task: task);
 
@@ -131,25 +221,19 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
         log('${success.message}');
         testTaskId = success.taskId.toString();
+        clearSelectedFiles();
+        subTasks.clear();
+        selectedTags.clear();
+        tags.clear();
         fetchSendRequests();
+
+        // Filter tasks by type after creation
         filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
-        // isLoading.value = false;
-        // fetchAllTasks();
       },
     );
   }
 
-  void fetchAllTasks() async {
-    // final result = await taskService.getAllTasks();
-
-    // result.fold(
-    //   (failure) => log(failure.message.toString()),
-    //   (success) {
-    //     allTasks.assignAll(success.tasks);
-    //   },
-    // );
-  }
-
+  // Edits an existing task with the provided task model
   void editTask({required TaskModel taskModel}) async {
     isLoading.value = true;
     final result = await taskService.editTask(taskModel: taskModel);
@@ -162,11 +246,13 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
         log('${success.message}');
 
+        // Filter tasks by type after editing
         filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
       },
     );
   }
 
+  // Fetches the list of sent requests
   void fetchSendRequests() async {
     isLoading.value = true;
     final result = await taskService.getSendRequests();
@@ -182,6 +268,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Fetches the list of received requests
   void fetchReceivedRequests() async {
     isLoading.value = true;
     final result = await taskService.getReceivedRequests();
@@ -197,6 +284,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Filters tasks by deadline using the provided model
   void taskFilterByDeadline(
       {required FilterByDeadlineModel filterByDeadline}) async {
     isLoading.value = true;
@@ -214,6 +302,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Pins a task using the provided model
   void pinnedATask({required PinnedATaskModel pinnedATask}) async {
     isLoading.value = true;
     final result = await taskService.pinnedATask(pinnedATask: pinnedATask);
@@ -225,13 +314,12 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
         isLoading.value = false;
-        // fetchAllPinnedTasks();
-
-        update();
+        update(); // Update the UI or state
       },
     );
   }
 
+  // Fetches all pinned tasks
   void fetchAllPinnedTasks() async {
     isLoading.value = true;
     final result = await taskService.getAllPinnedTasks();
@@ -247,6 +335,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Unpins a task using the provided model
   void unpinATask({required UnpinATaskModel unpinATask}) async {
     isLoading.value = true;
     final result = await taskService.unpinATask(unpinATask: unpinATask);
@@ -258,12 +347,12 @@ class CreateTaskController extends GetxController {
       (success) {
         isLoading.value = false;
         log("${success.message}");
-        // fetchAllPinnedTasks();
-        update();
+        update(); // Update the UI or state
       },
     );
   }
 
+  // Filters tasks by type using the provided model
   void filterByType({required FilterByTypeModel filterByType}) async {
     isLoading.value = true;
     final result = await taskService.filterByType(filterByType: filterByType);
@@ -275,13 +364,13 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         typeTasks.assignAll(success.tasks ?? []);
-
         isLoading.value = false;
-        update();
+        update(); // Update the UI or state
       },
     );
   }
 
+  // Filters pinned tasks by type using the provided model
   void filterPinnedTasksByType(
       {required FilterPinnedTaskByTypeModel filterPinnedTask}) async {
     isLoading.value = true;
@@ -299,6 +388,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Accepts or rejects a request using the provided model
   void acceptOrReject({required AcceptOrRejectModel acceptOrReject}) async {
     isLoading.value = true;
     final result =
@@ -315,6 +405,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Searches for participants based on user input
   void searchParticipants({required UserSearchModel user}) async {
     isLoading.value = true;
     final result = await taskService.participantsSearch(user: user);
@@ -326,10 +417,12 @@ class CreateTaskController extends GetxController {
       (success) {
         userslist.assignAll(success);
         isLoading.value = false;
+        update();
       },
     );
   }
 
+  // Fetches a single task using the provided model
   void fetchSingleTask({required GetSingleTaskModel singleTaskModel}) async {
     isLoading.value = true;
     final result = await taskService.getTask(singleTaskModel: singleTaskModel);
@@ -346,6 +439,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Searches for tasks based on the search term
   void searchTasks({required String searchItem}) async {
     isLoading.value = true;
 
@@ -363,6 +457,79 @@ class CreateTaskController extends GetxController {
         } else {
           log("Received null tasks in the response");
         }
+      },
+    );
+  }
+
+  // Adds a new subtask using the provided model
+  void addSubTask({required SubTaskAddModel newsubtask}) async {
+    isLoading.value = true;
+
+    final result = await taskService.addSubTask(newsubtask: newsubtask);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        log("${success.message}");
+        isLoading.value = false;
+      },
+    );
+  }
+
+  // Deletes a subtask using the provided model
+  void deleteSubTask({required DeleteSubTaskModel deletesubtask}) async {
+    isLoading.value = true;
+
+    final result =
+        await taskService.deleteSubTask(deletesubtask: deletesubtask);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        log("${success.message}");
+        isLoading.value = false;
+      },
+    );
+  }
+
+  // Edits an existing subtask using the provided model
+  void editSubTask({required EditSubTaskModel editsubtask}) async {
+    isLoading.value = true;
+
+    final result = await taskService.editSubTask(editsubtask: editsubtask);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        log("${success.message}");
+        isLoading.value = false;
+      },
+    );
+  }
+
+  // Adds a subtask to the list before task creation
+  void createSubtaskBeforeTaskCreation({required SubTask subTask}) async {
+    subTasks.add(subTask);
+  }
+
+  // Kill a task
+  void killatask({required KillATaskModel killAtaskModel}) async {
+    isLoading.value = true;
+    final result = await taskService.killATask(killatask: killAtaskModel);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        log("${success.message}");
+        isLoading.value = false;
       },
     );
   }

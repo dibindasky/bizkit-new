@@ -42,6 +42,7 @@ class TaskModel {
     this.subTask,
     this.assignedTo,
     this.taskType,
+    String? id,
   });
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {

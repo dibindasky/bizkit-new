@@ -267,7 +267,15 @@ class TaskContainer extends StatelessWidget {
                                       color: kwhite,
                                     ),
                                   )
-                                : const Text('Deadline'),
+                                : pinnedTasks != null
+                                    ? Text(
+                                        pinnedTasks?.task?.deadLine ?? 'dead',
+                                        // task['date']!,
+                                        style: const TextStyle(
+                                          color: kwhite,
+                                        ),
+                                      )
+                                    : const Text('Deadline'),
                       ),
                       adjustHieght(10),
                     ],

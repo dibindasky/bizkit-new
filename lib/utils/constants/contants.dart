@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,6 +35,8 @@ TextStyle fontPopins = const TextStyle(fontFamily: 'Poppins');
 enum TaskType { official, personal, others }
 
 enum PriorityLevel { medium, low, high }
+
+enum FilterTypes { all, self_to_self, self_to_others, others_to_self }
 
 enum RecurringTimePeriod { everyDay, everyWeek, everyMoth, custom, none }
 

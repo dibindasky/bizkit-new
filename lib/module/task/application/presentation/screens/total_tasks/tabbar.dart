@@ -15,13 +15,13 @@ class TotalTaskListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (taskController.typeTasks.isEmpty) {
-          return const Center(
-            child: Text('No Data'),
-          );
-        } else if (taskController.isLoading.value) {
+        if (taskController.isLoading.value) {
           return const Center(
             child: CircularProgressIndicator(),
+          );
+        } else if (taskController.typeTasks.isEmpty) {
+          return const Center(
+            child: Text('No Data'),
           );
         } else {
           return ListView.builder(

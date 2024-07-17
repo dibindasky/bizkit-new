@@ -81,13 +81,13 @@ class AuthenticationController extends GetxController {
     final result = await authRepo.loginUser(
         authPostmodel: AuthPostmodel(phoneNumber: authPostModel.phoneNumber));
     result.fold((l) {
-      log('Otp resnet fail');
+      log('Otp resent failed');
       showSnackbar(context,
           message: l.message ?? errorMessage,
           backgroundColor: kred,
           textColor: kwhite);
     }, (r) {
-      log('Otp resnet successs');
+      log('Otp resent successs');
       otpFromRegisterUser.value = false;
       GoRouter.of(context).pushNamed(Routes.otpPage);
       showSnackbar(context,

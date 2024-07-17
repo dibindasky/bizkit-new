@@ -15,10 +15,14 @@ import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/filter_pinned_task_by_type_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/pinned_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/self_to_others_type_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_model/edit_sub_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_search_responce/task_search_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
@@ -78,13 +82,6 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.toString()));
     }
   }
-
-  // Edit the task
-  // @override
-  // Future<Either<ErrorModel, SuccessResponce>> editTask(
-  //     {required EditTaskModel editTask}) {
-  //   throw UnimplementedError();
-  // }
 
   // Filter the task by type
   @override
@@ -224,7 +221,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByType,
         data: filterPinnedTaskByType.toJson(),
       );
-      // log("=> Response Filter Pinned Tasks By Type : ${response.data}");
+      log("=> Response Filter Pinned Tasks By Type : ");
       return Right(
           FilterPinnedTaskByTypeSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -325,6 +322,7 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, SuccessResponce>> editTask(
       {required TaskModel taskModel}) async {
     try {
+      log('Json === >>>>>> ${taskModel.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestEditTask,
         data: taskModel.toJson(),
@@ -337,6 +335,92 @@ class TaskService implements TaskRepo {
     } catch (e) {
       log('catch editTask $e');
       return Left(ErrorModel(error: '$e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> addSubTask(
+      {required SubTaskAddModel newsubtask}) async {
+    try {
+      log('SubTask datas  => ${newsubtask.toJson()}');
+
+      final response = await apiService.patch(
+        ApiEndPoints.taskTestSubtask,
+        data: newsubtask.toJson(),
+      );
+
+      log("=> Response Add New Subtask : ${response.data}");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException addSubTask $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch addSubTask $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> deleteSubTask(
+      {required DeleteSubTaskModel deletesubtask}) async {
+    try {
+      final response = await apiService.delete(
+        ApiEndPoints.taskTestSubtask,
+        data: deletesubtask.toJson(),
+      );
+
+      log("=> Response Delete Subtask : ${response.data}");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException deleteSubTask $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch deleteSubTask $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> editSubTask(
+      {required EditSubTaskModel editsubtask}) async {
+    try {
+      final response = await apiService.put(
+        ApiEndPoints.taskTestSubtask,
+        data: editsubtask.toJson(),
+      );
+
+      log("=> Response Edit Subtask : ${response.data}");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException editSubTask $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch editSubTask $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> killATask(
+      {required KillATaskModel killatask}) async {
+    try {
+      final response = await apiService.patch(
+        ApiEndPoints.taskTestEditTask,
+        data: killatask.toJson(),
+      );
+
+      log("=> Response kill A Task : ${response.data}");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException killATask $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch killATask $e');
+      return Left(Failure(message: e.toString()));
     }
   }
 }

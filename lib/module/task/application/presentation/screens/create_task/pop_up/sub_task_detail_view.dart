@@ -3,7 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SubTaskDetailView extends StatelessWidget {
-  const SubTaskDetailView({super.key});
+  const SubTaskDetailView(
+      {super.key,
+      this.index,
+      this.subTaskDes,
+      this.subTaskTitle,
+      this.subTaskDeadline});
+
+  final String? subTaskTitle;
+  final String? subTaskDeadline;
+  final String? subTaskDes;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -12,20 +22,20 @@ class SubTaskDetailView extends StatelessWidget {
         padding: EdgeInsets.all(20.w),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Text(
-            'Client Meeting',
+            subTaskTitle ?? 'SubTask Title',
             style: TextStyle(fontSize: 17.sp, color: neonShade),
           ),
           const Divider(color: kblack, indent: 0),
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              'Deadline : 22:10:24',
+              subTaskDeadline ?? 'subTask Deadline',
               style: TextStyle(fontSize: 10.sp, color: kwhite),
             ),
           ),
           adjustHieght(10.h),
           Text(
-            'Sub task detail description, describe about the sub task to understand what exatly the task is Sub task detail description, describe about the sub task to understand what exatly the task is.Sub task detail description, describe about the sub task to understand what exatly the task is',
+            subTaskDes ?? 'Subtask des',
             style: TextStyle(fontSize: 14.sp, color: klightgrey),
           ),
           adjustHieght(10.h),

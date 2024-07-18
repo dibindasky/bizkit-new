@@ -64,7 +64,7 @@ class RouteGenerator {
             builder: (ctx) => const ScreenTaskCalenderView());
       case Routes.heirarchyUserDetail:
         return MaterialPageRoute(
-            builder: (ctx) => ScreenHeirarchyTaskUserDetails());
+            builder: (ctx) => const ScreenHeirarchyTaskUserDetails());
 
       //Attendence Module
       case Routes.attendenceHome:

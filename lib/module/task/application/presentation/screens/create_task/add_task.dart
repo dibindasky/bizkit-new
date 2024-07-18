@@ -193,6 +193,8 @@ class ScreenAddTask extends StatelessWidget {
         ),
       );
 
+      controller.userslist.clear();
+
       Future.delayed(
         const Duration(seconds: 2),
         () {

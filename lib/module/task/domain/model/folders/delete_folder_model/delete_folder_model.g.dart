@@ -1,20 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'folder_add_model.dart';
+part of 'delete_folder_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FolderAddModel _$FolderAddModelFromJson(Map<String, dynamic> json) =>
-    FolderAddModel(
+DeleteFolderModel _$DeleteFolderModelFromJson(Map<String, dynamic> json) =>
+    DeleteFolderModel(
       folderId: json['folder_id'] as String?,
-      tasks:
-          (json['tasks'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$FolderAddModelToJson(FolderAddModel instance) =>
+Map<String, dynamic> _$DeleteFolderModelToJson(DeleteFolderModel instance) =>
     <String, dynamic>{
       'folder_id': instance.folderId,
-      'tasks': instance.tasks,
     };

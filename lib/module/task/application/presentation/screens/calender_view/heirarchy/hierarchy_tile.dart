@@ -1,6 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
-import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -43,12 +42,12 @@ class HierarchyListtile extends StatelessWidget {
 }
 
 class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
-  ScreenHeirarchyTaskUserDetails({super.key});
-  final taskController = Get.find<CreateTaskController>();
+  const ScreenHeirarchyTaskUserDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<TaskCalenderViewController>();
+    final controller = Get.find<TaskFolderController>();
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -65,11 +64,11 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                     size: 16,
                   ),
                 ),
-                CustomStackOnlineDotCircleAvatar(
-                  image: dummyPersonImage,
-                  dotColor: knill,
-                  backgroundColor: lightGrey,
-                ),
+                // CustomStackOnlineDotCircleAvatar(
+                //   image: dummyPersonImage,
+                //   dotColor: knill,
+                //   backgroundColor: lightGrey,
+                // ),
                 adjustWidth(20),
                 const Text('Addam Smith'),
                 const Spacer(),

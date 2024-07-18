@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
+import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -38,20 +42,10 @@ class TaskCalenderViewAppBar extends StatelessWidget {
             backgroundColor: lightGrey,
             onTap: () {
               if (controller.taskTabChangeIndex.value == 2) {
-                // Get.toNamed(
-                //   Routes.taskCreateNewFolder,
-                //   id: 2,
-                // );
                 showCreateFolderDialog(context);
               } else {
                 Get.toNamed(Routes.addTask, id: 2, arguments: 2);
-                // Get.toNamed(Routes.addTask, id: 2);
               }
-
-              // Get.toNamed(
-              //   Routes.addTask,
-              //   id: 2,
-              // );
             },
             backgroundColorInner: neonShade,
             child: const Icon(
@@ -71,6 +65,48 @@ class TaskLongPressAppBarItems extends StatelessWidget {
   TaskLongPressAppBarItems({super.key});
 
   final controller = Get.find<TaskCalenderViewController>();
+  final folderController = Get.find<TaskFolderController>();
+
+  void _showMergeFoldersDialog(BuildContext context) {
+    TextEditingController folderNameController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Merge Folders'),
+          content: TextField(
+            controller: folderNameController,
+            decoration:
+                const InputDecoration(hintText: "Enter new folder name"),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Create'),
+              onPressed: () {
+                String newFolderName = folderNameController.text;
+                if (newFolderName.isNotEmpty) {
+                  folderController.mergeFolders(
+                    mergeFolders: MergeFolderModel(
+                      folderName: newFolderName,
+                      folders: folderController.selectedFolderIds,
+                    ),
+                  );
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +125,10 @@ class TaskLongPressAppBarItems extends StatelessWidget {
           const Spacer(),
           InkWell(
             onTap: () {
-              if (controller.taskTabChangeIndex.value == 0) {
-              } else if (controller.taskTabChangeIndex.value == 1) {
-              } else if (controller.taskTabChangeIndex.value == 2) {}
+              log('clicked');
+              if (controller.taskTabChangeIndex.value == 2) {
+                _showMergeFoldersDialog(context);
+              }
             },
             child: SizedBox(
               height: 20.h,
@@ -102,26 +139,12 @@ class TaskLongPressAppBarItems extends StatelessWidget {
           adjustWidth(22.w),
           InkWell(
             onTap: () {
-              if (controller.taskTabChangeIndex.value == 0) {
-              } else if (controller.taskTabChangeIndex.value == 1) {
-              } else if (controller.taskTabChangeIndex.value == 2) {}
+              if (controller.taskTabChangeIndex.value == 2) {}
             },
             child: SizedBox(
               height: 25.h,
               width: 25.w,
               child: Image.asset(taskFolderLongPressSelectAllImage),
-            ),
-          ),
-          adjustWidth(10.w),
-          IconButton(
-            onPressed: () {
-              if (controller.taskTabChangeIndex.value == 0) {
-              } else if (controller.taskTabChangeIndex.value == 1) {
-              } else if (controller.taskTabChangeIndex.value == 2) {}
-            },
-            icon: const Icon(
-              Icons.more_horiz,
-              color: neonShade,
             ),
           ),
           adjustWidth(10.w),

@@ -1,13 +1,12 @@
 import 'dart:developer';
 
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/calender_view_appbar.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/heirarchy_task_folder_data_folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/hierarchy_task_folder.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -30,19 +29,19 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<TaskCalenderViewController>();
+    final controller = Get.find<TaskFolderController>();
+    final taskCalenderViewController = Get.find<TaskCalenderViewController>();
 
     final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      taskController.filterPinnedTasksByType(
-          filterPinnedTask: FilterPinnedTaskByTypeModel(
-        taskType: 'all',
-        isPinned: true,
-      ));
-      taskController.filterByType(
-          filterByType: FilterByTypeModel(taskType: 'all'));
+      // taskController.filterPinnedTasksByType(
+      //     filterPinnedTask: FilterPinnedTaskByTypeModel(
+      //   taskType: 'all',
+      //   isPinned: true,
+      // ));
+      // taskController.filterByType(
+      //     filterByType: FilterByTypeModel(taskType: 'all'));
       // taskController.fetchAllPinnedTasks();
-
       controller.fetchAllFolders();
     });
 
@@ -51,16 +50,16 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
         child: Obx(
           () => Column(
             children: [
-              controller.selectedFolderContainer.value
+              taskCalenderViewController.selectedFolderContainer.value
                   ? TaskLongPressAppBarItems()
                   : const TaskCalenderViewAppBar(),
-              controller.selectedFolderContainer.value
+              taskCalenderViewController.selectedFolderContainer.value
                   ? kempty
                   : HeirarchyTaskFolderRow(),
-              controller.selectedFolderContainer.value
+              taskCalenderViewController.selectedFolderContainer.value
                   ? kempty
                   : adjustHieght(5.h),
-              controller.selectedFolderContainer.value
+              taskCalenderViewController.selectedFolderContainer.value
                   ? kempty
                   : EasyDateTimeLine(
                       dayProps: EasyDayProps(
@@ -107,7 +106,9 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                         String formattedDate =
                             DateFormat('yyyy-MM-dd').format(selectedDate);
                         log(selectedDate.toString());
-                        if (controller.taskTabChangeIndex.value == 1) {
+                        if (taskCalenderViewController
+                                .taskTabChangeIndex.value ==
+                            1) {
                           taskController.taskFilterByDeadline(
                             filterByDeadline: FilterByDeadlineModel(
                               date: formattedDate,

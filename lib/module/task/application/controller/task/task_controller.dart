@@ -416,6 +416,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         userslist.assignAll(success);
+
         isLoading.value = false;
         update();
       },

@@ -1,11 +1,10 @@
 import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
-import 'package:bizkit/module/task/domain/model/folders/taks_in_side_a_folder_success_responce/taks_in_side_a_folder_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/folders/all_tasks_inside_a_folder_responce/tasks_inside_folder/tasks_inside_folder.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/task.dart';
-// import 'package:bizkit/module/task/domain/model/task/filter_by_type_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
@@ -30,7 +29,7 @@ class TaskContainer extends StatelessWidget {
   final Tasks? task;
   final Task? typeTask;
   final DTasks? deadlineTasks;
-  final FolderModels? tasksInsideAFolder;
+  final TasksInsideFolder? tasksInsideAFolder;
   final PinnedTasksByTypes? pinnedTasks;
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
@@ -130,9 +129,11 @@ class TaskContainer extends StatelessWidget {
                                               : tasksInsideAFolder != null
                                                   ? Text(
                                                       // task['title']!,
-                                                      deadlineTasks
-                                                              ?.task?.title ??
-                                                          'Tittle',
+
+                                                      tasksInsideAFolder
+                                                              ?.title ??
+                                                          'Title',
+
                                                       style: const TextStyle(
                                                         fontSize: 18,
                                                         fontWeight:
@@ -247,7 +248,15 @@ class TaskContainer extends StatelessWidget {
                                           style: const TextStyle(
                                               color: kwhite, fontSize: 12),
                                         )
-                                      : const Text('description'),
+                                      : tasksInsideAFolder != null
+                                          ? Text(
+                                              deadlineTasks
+                                                      ?.task?.description ??
+                                                  'description',
+                                              style: const TextStyle(
+                                                  color: kwhite, fontSize: 12),
+                                            )
+                                          : const Text('description'),
                       adjustHieght(10),
                       Align(
                         alignment: Alignment.centerRight,

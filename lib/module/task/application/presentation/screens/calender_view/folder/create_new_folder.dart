@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_folder_model/edit_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/folder_model/folder_model.dart';
@@ -22,7 +22,7 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
     if (folderName != null) {
       folderNameController.text = folderName!;
     }
-    final taskCalenarcontroller = Get.find<TaskCalenderViewController>();
+    final folderController = Get.find<TaskFolderController>();
     final style = TextStyle(
       fontSize: 15.sp,
       color: neonShade,
@@ -30,7 +30,7 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
 
     return Obx(
       () {
-        final isLoading = taskCalenarcontroller.isLoading.value;
+        final isLoading = folderController.isLoading.value;
 
         return Stack(
           children: [
@@ -71,12 +71,12 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
                     text: folderName != null ? 'Save Changes' : 'Create Folder',
                     onTap: () {
                       if (folderName != null && folderId != null) {
-                        taskCalenarcontroller.editFolderName(
+                        folderController.editFolderName(
                             editFolderName: EditFolderModel(
                                 folderName: folderNameController.text,
                                 folderId: folderId));
                       } else {
-                        taskCalenarcontroller.createNewFolder(
+                        folderController.createNewFolder(
                           folder: FolderModel(
                             folderName: folderNameController.text,
                             tasks: [],

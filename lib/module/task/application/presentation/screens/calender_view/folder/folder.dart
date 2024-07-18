@@ -1,10 +1,14 @@
-import 'dart:developer';
-
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
+import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/module/task/domain/model/folders/delete_folder_model/delete_folder_model.dart';
+
+import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,8 +22,11 @@ class TaskFolderSection extends StatelessWidget {
   final int index;
   final String name;
   final String folderId;
+
   final controller = Get.find<TaskCalenderViewController>();
   final taskcontroller = Get.find<CreateTaskController>();
+
+  final folderController = Get.find<TaskFolderController>();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -104,6 +111,30 @@ class TaskFolderSection extends StatelessWidget {
                   style: TextStyle(color: kblack),
                 ),
               ),
+              PopupMenuItem<String>(
+                value: 'Delete Folder',
+                child: const Text(
+                  'Delete Folder',
+                  style: TextStyle(color: kblack),
+                ),
+                onTap: () {
+                  showCustomConfirmationDialogue(
+                    description:
+                        'Are you sure you want to delete this folder ?',
+                    buttonText: 'Delete',
+                    context: context,
+                    onTap: () {
+                      folderController.deleteFolder(
+                        deleteFolder: DeleteFolderModel(
+                          folderId: folderId,
+                        ),
+                      );
+                    },
+                    title: 'Delete Folder',
+                    buttonColor: neonShade,
+                  );
+                },
+              ),
               const PopupMenuItem<String>(
                 value: 'Merge Folders',
                 child: Text(
@@ -120,9 +151,12 @@ class TaskFolderSection extends StatelessWidget {
 }
 
 void showTaskSelectionBottomSheet(BuildContext context, String folderId) {
-  final taskcontroller = Get.find<CreateTaskController>();
+  final taskController = Get.find<CreateTaskController>();
   final TextEditingController searchController = TextEditingController();
-  // final controller = Get.find<TaskCalenderViewController>();
+  final folderController = Get.find<TaskFolderController>();
+
+  taskController.selectedTasks.clear();
+
   showBottomSheet(
     enableDrag: true,
     context: context,
@@ -140,63 +174,77 @@ void showTaskSelectionBottomSheet(BuildContext context, String folderId) {
               style: TextStyle(fontSize: 18.sp, color: kwhite),
             ),
             adjustHieght(10.h),
-            TextField(
-              controller: searchController,
-              decoration: InputDecoration(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TaskTextField(
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    taskController.searchTasks(searchItem: value);
+                  }
+                },
+                controller: searchController,
                 hintText: 'Search Tasks',
-                hintStyle: const TextStyle(color: klightgrey),
-                prefixIcon: const Icon(Icons.search, color: kwhite),
-                filled: true,
-                fillColor: knill,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
+                showBorder: true,
+                fillColor: textFieldFillColr,
+                suffixIcon: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.search, color: neonShade),
                 ),
               ),
-              style: const TextStyle(color: kwhite),
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  taskcontroller.searchTasks(searchItem: value);
-                }
-              },
             ),
             adjustHieght(10.h),
             Expanded(
               child: Obx(
-                () => ListView.builder(
-                  itemCount: taskcontroller.tasksSearch.length,
-                  itemBuilder: (context, index) {
-                    final task = taskcontroller.tasksSearch[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        title: Text(
-                          task.task?.title ?? 'Title',
-                          style: const TextStyle(color: kwhite),
-                        ),
-                        trailing: Obx(() => Checkbox(
+                () {
+                  return ListView.builder(
+                    itemCount: taskController.tasksSearch.length,
+                    itemBuilder: (context, index) {
+                      final task = taskController.tasksSearch[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          title: Text(
+                            task.task?.title ?? 'Title',
+                            style: const TextStyle(color: kwhite),
+                          ),
+                          trailing: Obx(
+                            () => Checkbox(
                               checkColor: kblack,
                               activeColor: neonShade,
                               value:
-                                  taskcontroller.selectedTasks.contains(task),
+                                  taskController.selectedTasks.contains(task),
                               onChanged: (bool? value) {
                                 if (value == true) {
-                                  taskcontroller.selectedTasks.add(task);
+                                  taskController.selectedTasks.add(task);
                                 } else {
-                                  taskcontroller.selectedTasks.remove(task);
+                                  taskController.selectedTasks.remove(task);
                                 }
                               },
-                            )),
-                      ),
-                    );
-                  },
-                ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             ElevatedButton(
-              onPressed: () {
-                log('${taskcontroller.selectedTasks}');
-                if (taskcontroller.selectedTasks.isNotEmpty) {
+              onPressed: () async {
+                if (taskController.selectedTasks.isNotEmpty) {
+                  List<String> selectedTaskIds = taskController.selectedTasks
+                      .map((task) => task.id)
+                      .cast<String>()
+                      .toList();
+
+                  TaskAddToFolderModel taskAddToFolder = TaskAddToFolderModel(
+                    folderId: folderId,
+                    tasks: selectedTaskIds,
+                  );
+
+                  folderController.tasksAddToFolder(
+                      taskAddToFolder: taskAddToFolder);
+
                   Navigator.pop(context);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

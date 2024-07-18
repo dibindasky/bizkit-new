@@ -5,6 +5,7 @@ showCustomConfirmationDialogue(
     {required BuildContext context,
     required String title,
     Color buttonColor = kneonShade,
+    String? description,
     required String buttonText,
     required VoidCallback onTap}) {
   showDialog(
@@ -23,6 +24,7 @@ showCustomConfirmationDialogue(
               title,
             ),
             adjustHieght(10),
+            Text(description ?? ''),
             FittedBox(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,

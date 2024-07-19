@@ -33,7 +33,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
 import '../../../domain/model/task/task_model/sub_task.dart';
 
@@ -81,11 +81,11 @@ class CreateTaskController extends GetxController {
 
   @override
   void onInit() {
-    final DateTime todaydate = DateTime.now();
+    // final DateTime todaydate = DateTime.now();
     // Initialize with today's date for deadline filtering
-    taskFilterByDeadline(
-        filterByDeadline: FilterByDeadlineModel(
-            date: DateFormat('yyyy-MM-dd').format(todaydate)));
+    // taskFilterByDeadline(
+    //     filterByDeadline: FilterByDeadlineModel(
+    //         date: DateFormat('yyyy-MM-dd').format(todaydate)));
     super.onInit();
   }
 

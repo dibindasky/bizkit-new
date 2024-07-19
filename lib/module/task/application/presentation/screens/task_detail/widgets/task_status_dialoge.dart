@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -19,6 +20,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
+    final homeController = Get.find<TaskHomeScreenController>();
     return SizedBox(
       height: 200.h,
       width: 200.h,
@@ -52,6 +54,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                       controller.killatask(
                           killAtaskModel:
                               KillATaskModel(isKilled: true, taskId: taskId));
+                      homeController.progresBar();
                     },
                     wdth: double.infinity),
                 kHeight10,

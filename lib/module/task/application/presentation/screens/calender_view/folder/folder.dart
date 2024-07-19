@@ -4,6 +4,7 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/delete_folder_model/delete_folder_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
 
 import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -68,19 +69,19 @@ class TaskFolderSection extends StatelessWidget {
               child: Text(name),
             ),
             adjustWidth(50),
-            Text(
-              '12/4',
-              style: TextStyle(
-                fontSize: 13.sp,
-                color: klightgrey,
-              ),
-            ),
+            // Text(
+            //   '12/4',
+            //   style: TextStyle(
+            //     fontSize: 13.sp,
+            //     color: klightgrey,
+            //   ),
+            // ),
           ],
         ),
         trailing: PopupMenuButton<String>(
           onSelected: (value) {
             if (value == 'Add New Task to Folder') {
-              showTaskSelectionBottomSheet(context, folderId);
+              showTaskSelectionBottomSheet(context, folderId, '', false);
             } else if (value == 'Edit folder name') {
               showCreateFolderDialog(context,
                   folderName: name, folderId: folderId);
@@ -90,13 +91,13 @@ class TaskFolderSection extends StatelessWidget {
           icon: const Icon(Icons.more_vert, color: kwhite),
           itemBuilder: (context) {
             return [
-              const PopupMenuItem<String>(
-                value: 'Collapse Folder',
-                child: Text(
-                  'Collapse Folder',
-                  style: TextStyle(color: kblack),
-                ),
-              ),
+              // const PopupMenuItem<String>(
+              //   value: 'Collapse Folder',
+              //   child: Text(
+              //     'Collapse Folder',
+              //     style: TextStyle(color: kblack),
+              //   ),
+              // ),
               const PopupMenuItem<String>(
                 value: 'Add New Task to Folder',
                 child: Text(
@@ -135,13 +136,13 @@ class TaskFolderSection extends StatelessWidget {
                   );
                 },
               ),
-              const PopupMenuItem<String>(
-                value: 'Merge Folders',
-                child: Text(
-                  'Merge Folders',
-                  style: TextStyle(color: kblack),
-                ),
-              ),
+              // const PopupMenuItem<String>(
+              //   value: 'Merge Folders',
+              //   child: Text(
+              //     'Merge Folders',
+              //     style: TextStyle(color: kblack),
+              //   ),
+              // ),
             ];
           },
         ),
@@ -150,7 +151,8 @@ class TaskFolderSection extends StatelessWidget {
   }
 }
 
-void showTaskSelectionBottomSheet(BuildContext context, String folderId) {
+void showTaskSelectionBottomSheet(BuildContext context, String folderId,
+    String? innerFoldrId, bool? isFromInner) {
   final taskController = Get.find<CreateTaskController>();
   final TextEditingController searchController = TextEditingController();
   final folderController = Get.find<TaskFolderController>();
@@ -231,29 +233,55 @@ void showTaskSelectionBottomSheet(BuildContext context, String folderId) {
             ),
             ElevatedButton(
               onPressed: () async {
-                if (taskController.selectedTasks.isNotEmpty) {
-                  List<String> selectedTaskIds = taskController.selectedTasks
-                      .map((task) => task.id)
-                      .cast<String>()
-                      .toList();
+                if (isFromInner == true) {
+                  if (taskController.selectedTasks.isNotEmpty) {
+                    List<String> selectedTaskIds = taskController.selectedTasks
+                        .map((task) => task.id!)
+                        .toList();
+                    TaskAddOrDeleteInnerFolderModel
+                        addOrDeleteInnerFolderModel =
+                        TaskAddOrDeleteInnerFolderModel(
+                      folderId: folderId,
+                      innerFolderId: innerFoldrId,
+                      innerFolderTasks: selectedTaskIds,
+                    );
 
-                  TaskAddToFolderModel taskAddToFolder = TaskAddToFolderModel(
-                    folderId: folderId,
-                    tasks: selectedTaskIds,
-                  );
-
-                  folderController.tasksAddToFolder(
-                      taskAddToFolder: taskAddToFolder);
-
-                  Navigator.pop(context);
+                    folderController.taskAddOrDeleteInnerFolder(
+                        taskAddOrDelete: addOrDeleteInnerFolderModel);
+                    Navigator.pop(context);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('No tasks selected'),
+                        behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('No tasks selected'),
-                      behavior: SnackBarBehavior.floating,
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
+                  if (taskController.selectedTasks.isNotEmpty) {
+                    List<String> selectedTaskIds = taskController.selectedTasks
+                        .map((task) => task.id!)
+                        .toList();
+
+                    TaskAddToFolderModel taskAddToFolder = TaskAddToFolderModel(
+                      folderId: folderId,
+                      tasks: selectedTaskIds,
+                    );
+
+                    folderController.tasksAddToFolder(
+                        taskAddToFolder: taskAddToFolder);
+
+                    Navigator.pop(context);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('No tasks selected'),
+                        behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
                 }
               },
               child: const Text('Add Tasks'),

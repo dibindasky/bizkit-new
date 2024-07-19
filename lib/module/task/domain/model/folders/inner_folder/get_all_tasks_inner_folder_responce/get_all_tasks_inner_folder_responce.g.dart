@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'all_tasks_inside_a_folder_responce.dart';
+part of 'get_all_tasks_inner_folder_responce.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AllTasksInsideAFolderResponce _$AllTasksInsideAFolderResponceFromJson(
+GetAllTasksInnerFolderResponce _$GetAllTasksInnerFolderResponceFromJson(
         Map<String, dynamic> json) =>
-    AllTasksInsideAFolderResponce(
+    GetAllTasksInnerFolderResponce(
       data: (json['data'] as List<dynamic>?)
-          ?.map((e) => TasksInsideFolder.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Datum.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$AllTasksInsideAFolderResponceToJson(
-        AllTasksInsideAFolderResponce instance) =>
+Map<String, dynamic> _$GetAllTasksInnerFolderResponceToJson(
+        GetAllTasksInnerFolderResponce instance) =>
     <String, dynamic>{
       'data': instance.data,
     };

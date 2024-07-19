@@ -3,10 +3,10 @@ import 'package:json_annotation/json_annotation.dart';
 import 'attachment.dart';
 import 'sub_task.dart';
 
-part 'tasks_inside_folder.g.dart';
+part 'task.g.dart';
 
 @JsonSerializable()
-class TasksInsideFolder {
+class InsideAFolderTasks {
   @JsonKey(name: 'task_id')
   String? taskId;
   String? title;
@@ -26,7 +26,7 @@ class TasksInsideFolder {
   @JsonKey(name: 'sub_task')
   List<SubTask>? subTask;
 
-  TasksInsideFolder({
+  InsideAFolderTasks({
     this.taskId,
     this.title,
     this.description,
@@ -40,9 +40,8 @@ class TasksInsideFolder {
     this.subTask,
   });
 
-  factory TasksInsideFolder.fromJson(Map<String, dynamic> json) {
-    return _$TasksInsideFolderFromJson(json);
-  }
+  factory InsideAFolderTasks.fromJson(Map<String, dynamic> json) =>
+      _$InsideAFolderTasksFromJson(json);
 
-  Map<String, dynamic> toJson() => _$TasksInsideFolderToJson(this);
+  Map<String, dynamic> toJson() => _$InsideAFolderTasksToJson(this);
 }

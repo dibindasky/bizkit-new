@@ -145,9 +145,9 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
 
   @override
   Widget build(BuildContext context) {
-    final taskController = Get.find<CreateTaskController>();
+    // final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      taskController.fetchAllPinnedTasks();
+      // taskController.fetchAllPinnedTasks();
       // taskController.filterByType(
       //     filterByType: FilterByTypeModel(taskType: 'self_to_self'));
     });

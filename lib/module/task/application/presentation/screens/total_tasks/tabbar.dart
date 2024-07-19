@@ -35,14 +35,11 @@ class TotalTaskListView extends StatelessWidget {
 
               return GestureDetector(
                 onLongPress: () {
-                  bool isSelected = !controller.selectedIndices.contains(index);
-                  controller.longPress(isSelected, index);
+                  controller.longPress(index);
                 },
                 onTap: () {
                   if (controller.selectedFolderContainer.value) {
-                    bool isSelected =
-                        !controller.selectedIndices.contains(index);
-                    controller.longPress(isSelected, index);
+                    controller.longPress(index);
                   } else {
                     GoRouter.of(context).push(Routes.taskChatScreen);
                   }

@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tasks_inside_folder.dart';
+part of 'inner_folder_task.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TasksInsideFolder _$TasksInsideFolderFromJson(Map<String, dynamic> json) =>
-    TasksInsideFolder(
+InnerFolderTask _$InnerFolderTaskFromJson(Map<String, dynamic> json) =>
+    InnerFolderTask(
       taskId: json['task_id'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -25,7 +25,7 @@ TasksInsideFolder _$TasksInsideFolderFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$TasksInsideFolderToJson(TasksInsideFolder instance) =>
+Map<String, dynamic> _$InnerFolderTaskToJson(InnerFolderTask instance) =>
     <String, dynamic>{
       'task_id': instance.taskId,
       'title': instance.title,

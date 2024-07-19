@@ -17,8 +17,8 @@ class AllControllerBinding implements Bindings {
 
     // Task Module
     Get.lazyPut(() => TaskNavbarController());
-    Get.lazyPut(() => CreateTaskController());
     Get.lazyPut(() => TaskCalenderViewController());
+    Get.lazyPut(() => CreateTaskController());
     Get.lazyPut(() => TaskGenerateReportController());
     Get.lazyPut(() => TaskHomeScreenController());
     Get.lazyPut(() => TaskFolderController());

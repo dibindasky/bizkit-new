@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
@@ -73,37 +74,47 @@ class TaskLongPressAppBarItems extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Merge Folders'),
-          content: TextField(
-            controller: folderNameController,
-            decoration:
-                const InputDecoration(hintText: "Enter new folder name"),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+        if (folderController.isLoading.value) {
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+            child: const Center(
+              child: CircularProgressIndicator(),
             ),
-            TextButton(
-              child: const Text('Create'),
-              onPressed: () {
-                String newFolderName = folderNameController.text;
-                if (newFolderName.isNotEmpty) {
-                  folderController.mergeFolders(
-                    mergeFolders: MergeFolderModel(
-                      folderName: newFolderName,
-                      folders: folderController.selectedFolderIds,
-                    ),
-                  );
+          );
+        } else {
+          return AlertDialog(
+            title: const Text('Merge Folders'),
+            content: TextField(
+              controller: folderNameController,
+              decoration:
+                  const InputDecoration(hintText: "Enter new folder name"),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
                   Navigator.of(context).pop();
-                }
-              },
-            ),
-          ],
-        );
+                },
+              ),
+              TextButton(
+                child: const Text('Create'),
+                onPressed: () {
+                  String newFolderName = folderNameController.text;
+                  if (newFolderName.isNotEmpty) {
+                    folderController.mergeFolders(
+                      mergeFolders: MergeFolderModel(
+                        folderName: newFolderName,
+                        folders: folderController.selectedFolderIds,
+                      ),
+                    );
+                    controller.selectedIndices.clear();
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
+            ],
+          );
+        }
       },
     );
   }

@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/tasks_list_view.dart';
+import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -53,35 +52,35 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onLongPress: () {
-                      bool isSelected =
-                          !controller.selectedIndices.contains(index);
-                      controller.longPress(isSelected, index);
+                      controller.longPress(index);
                       taskFolderController.toggleFolderSelection(
-                          taskFolderController.allFolders[index].id.toString());
+                        taskFolderController.allFolders[index].id ?? '',
+                      );
                     },
                     onTap: () {
                       if (controller.selectedFolderContainer.value) {
-                        bool isSelected =
-                            !controller.selectedIndices.contains(index);
-                        controller.longPress(isSelected, index);
-
+                        controller.longPress(index);
                         taskFolderController.toggleFolderSelection(
-                            taskFolderController.allFolders[index].id
-                                .toString());
+                          taskFolderController.allFolders[index].id ?? '',
+                        );
                       } else {
-                        Get.toNamed(Routes.heirarchyUserDetail, id: 2);
-                        // taskFolderController.fetchAllTasksInsideAFolder(
-                        //   folderId: taskFolderController.allFolders[index].id
-                        //       .toString(),
-                        // );
-                        log('Id : => ${taskFolderController.allFolders[index].id}');
+                        Get.toNamed(Routes.heirarchyUserDetail,
+                            id: 2,
+                            arguments:
+                                taskFolderController.allFolders[index].id ??
+                                    '');
+
+                        taskFolderController.fetchTasksInsideFolder(
+                            taskInsideFolder: GetTaskInsideAFolderParamsModel(
+                          folderId:
+                              taskFolderController.allFolders[index].id ?? '',
+                        ));
                       }
                     },
                     child: TaskFolderSection(
-                      folderId:
-                          taskFolderController.allFolders[index].id.toString(),
-                      name: taskFolderController.allFolders[index].folderName
-                          .toString(),
+                      folderId: taskFolderController.allFolders[index].id ?? '',
+                      name: taskFolderController.allFolders[index].folderName ??
+                          '',
                       index: index,
                     ),
                   );

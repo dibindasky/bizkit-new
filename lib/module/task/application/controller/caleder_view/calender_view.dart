@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/data/service/folder/folder_service.dart';
 import 'package:bizkit/module/task/domain/repository/service/folder_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -11,6 +12,8 @@ class TaskCalenderViewController extends GetxController {
   RxString taskType = ''.obs;
 
   RxList selectedTasks = [].obs;
+
+  final taskFolderController = Get.find<TaskFolderController>();
 
   @override
   void onInit() {
@@ -45,16 +48,14 @@ class TaskCalenderViewController extends GetxController {
 
   var selectedIndices = <int>[].obs;
 
-  void longPress(bool isSelected, int index) {
-    if (isSelected) {
-      if (!selectedIndices.contains(index)) {
-        selectedIndices.add(index);
-      }
+  void longPress(int index) {
+    if (selectedIndices.contains(index)) {
+      selectedIndices.remove(index);
     } else {
-      if (selectedIndices.contains(index)) {
-        selectedIndices.remove(index);
-      }
+      selectedIndices.add(index);
     }
     selectedFolderContainer.value = selectedIndices.isNotEmpty;
   }
+
+  void toggleSelection(int index) {}
 }

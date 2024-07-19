@@ -3,11 +3,18 @@ import 'dart:developer';
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/module/task/domain/model/folders/all_folders_responce/all_folders_responce.dart';
-import 'package:bizkit/module/task/domain/model/folders/all_tasks_inside_a_folder_responce/all_tasks_inside_a_folder_responce.dart';
 import 'package:bizkit/module/task/domain/model/folders/delete_folder_model/delete_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_folder_model/edit_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/folder_model/folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/folder_success_responce/folder_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/get_tasks_inside_folder_success_responce/get_tasks_inside_folder_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/create_folder_inside_a_folder/create_folder_inside_a_folder.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/delete_inner_folder_model/delete_inner_folder_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/edit_inner_folder_model/edit_inner_folder_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/get_all_tasks_inner_folder_responce.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_success_responce/merge_folder_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
@@ -55,24 +62,6 @@ class FolderService implements FolderRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch getAllFolder $e');
-      return Left(Failure(message: e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, AllTasksInsideAFolderResponce>> getTasksInsideAFolder(
-      {required String folderId}) async {
-    try {
-      final response = await apiService.get(
-        "${ApiEndPoints.taskTestFolders}?folder_id=$folderId",
-      );
-      log("=> Response Get All Taks inside a folder ${response.data}");
-      return Right(AllTasksInsideAFolderResponce.fromJson(response.data));
-    } on DioException catch (e) {
-      log('DioException getTasksInsideAFolder $e');
-      return Left(Failure(message: e.message ?? errorMessage));
-    } catch (e) {
-      log('catch getTasksInsideAFolder $e');
       return Left(Failure(message: e.toString()));
     }
   }
@@ -139,7 +128,7 @@ class FolderService implements FolderRepo {
   @override
   Future<Either<Failure, MergeFolderSuccessResponce>> mergeFolders(
       {required MergeFolderModel mergeFolders}) async {
-    log('======= > ${mergeFolders.toJson()}');
+    // log('======= > ${mergeFolders.toJson()}');
     try {
       final response = await apiService.post(
         ApiEndPoints.taskTestMergeFolders,
@@ -152,6 +141,126 @@ class FolderService implements FolderRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch mergeFolders $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> createNewFolderInsideFolder(
+      {required CreateFolderInsideAFolder createNewFolderInsideFolder}) async {
+    try {
+      log('Create Inner folder : =>> ${createNewFolderInsideFolder.toJson()}');
+      final response = await apiService.patch(
+        ApiEndPoints.taskTestFolders,
+        data: createNewFolderInsideFolder.toJson(),
+      );
+
+      log("=> Response Create New Folder Inside A Folder : ");
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException createNewFolderInsideFolder $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch createNewFolderInsideFolder $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetTasksInsideFolderSuccessResponce>>
+      getTasksInsideFolder(
+          {required GetTaskInsideAFolderParamsModel taskInsideFolder}) async {
+    try {
+      log('taskInsideFolder => ${taskInsideFolder.toJson()}');
+      final response = await apiService.get(
+        ApiEndPoints.taskTestFolders,
+        queryParameters: taskInsideFolder.toJson(),
+      );
+      log("=> Response Get tasks inside a folder : ");
+      return Right(GetTasksInsideFolderSuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getTasksInsideFolder $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getTasksInsideFolder $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> deleteInnerFolder(
+      {required DeleteInnerFolderModel deleteInnerFolder}) async {
+    try {
+      final response = await apiService.delete(
+        ApiEndPoints.taskTestFolders,
+        data: deleteInnerFolder.toJson(),
+      );
+
+      log("=> Response Delete a inner folder : ${response.data}");
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException deleteInnerFolder $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch deleteInnerFolder $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> editInnerFolder(
+      {required EditInnerFolderModel editInnerFolder}) async {
+    try {
+      final response = await apiService.patch(ApiEndPoints.taskTestFolders,
+          data: editInnerFolder.toJson());
+
+      log("=> Response Edit the innerFolder name : ${response.data}");
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException editInnerFolder $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch editInnerFolder $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> taskAddOrDeleteInnerFolder(
+      {required TaskAddOrDeleteInnerFolderModel taskAddOrDelete}) async {
+    try {
+      final response = await apiService.patch(ApiEndPoints.taskTestFolders,
+          data: taskAddOrDelete.toJson());
+
+      log("=> Response Task Add OR Delete - inner folder : ${response.data}");
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException taskAddOrDeleteInnerFolder $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch taskAddOrDeleteInnerFolder $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetAllTasksInnerFolderResponce>>
+      getTasksInsideAInnerFolder(
+          {required InnerFolderTasksGetParamsModel
+              innerFolderGetParams}) async {
+    try {
+      log('taskInsideFolder => ${innerFolderGetParams.toJson()}');
+      final response = await apiService.get(
+        ApiEndPoints.taskTestFolders,
+        queryParameters: innerFolderGetParams.toJson(),
+      );
+      log("=> Response Get tasks inside a inner folder :  ");
+      return Right(GetAllTasksInnerFolderResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getTasksInsideAInnerFolder $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getTasksInsideAInnerFolder $e');
       return Left(Failure(message: e.toString()));
     }
   }

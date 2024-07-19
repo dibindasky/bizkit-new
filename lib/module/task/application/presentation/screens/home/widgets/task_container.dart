@@ -5,6 +5,7 @@ import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,68 +16,226 @@ class TaskContainers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-    return FittedBox(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          ProgressIndicatorWidget(
-            text: 'Others to Self',
-            centerPercentage: 88,
-            outerPercentage1: 30,
-            outerPercentage2: 30,
-            outerPercentage3: 28,
-            onTap: () {
-              homeController.changeSelectedTaskCategory('Others to self');
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'others_to_self'));
-              taskController.filterPinnedTasksByType(
-                  filterPinnedTask: FilterPinnedTaskByTypeModel(
-                taskType: 'others_to_self',
-                isPinned: true,
-              ));
-              Get.toNamed(Routes.taskLists, id: 1);
-            },
+    return Obx(
+      () {
+        if (homeController.isLoading.value) {
+          return SizedBox(
+            height: 150.h,
+            child: Row(
+              children: List.generate(
+                3,
+                (index) => Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 3),
+                    child: ShimmerLoaderTile(
+                      height: 100.h,
+                      width: 100.w,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+        return FittedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ProgressIndicatorWidget(
+                text: 'Others to Self',
+                centerPercentage: (homeController.progresBarCounts.value
+                                .othersToSelf?.completed ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController.progresBarCounts.value.othersToSelf
+                                ?.completed ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.othersToSelf?.all ??
+                            1) *
+                        100,
+                outerPercentage1: (homeController
+                                .progresBarCounts.value.othersToSelf?.killed ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController
+                                .progresBarCounts.value.othersToSelf?.killed ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.othersToSelf?.all ??
+                            1) *
+                        100, //task/total * 100
+                outerPercentage2: (homeController.progresBarCounts.value
+                                .othersToSelf?.deadlineOver ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController.progresBarCounts.value.othersToSelf
+                                ?.deadlineOver ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.othersToSelf?.all ??
+                            1) *
+                        100,
+                outerPercentage3: (homeController.progresBarCounts.value
+                                .othersToSelf?.progressing ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController.progresBarCounts.value.othersToSelf
+                                ?.progressing ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.othersToSelf?.all ??
+                            1) *
+                        100,
+                onTap: () {
+                  homeController.changeSelectedTaskCategory('Others to self');
+                  taskController.filterByType(
+                      filterByType:
+                          FilterByTypeModel(taskType: 'others_to_self'));
+                  taskController.filterPinnedTasksByType(
+                      filterPinnedTask: FilterPinnedTaskByTypeModel(
+                    taskType: 'others_to_self',
+                    isPinned: true,
+                  ));
+                  Get.toNamed(Routes.taskLists, id: 1);
+                },
+              ),
+              kWidth10,
+              ProgressIndicatorWidget(
+                text: 'Self to Others',
+                centerPercentage: (homeController.progresBarCounts.value
+                                .selfToOthers?.completed ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController.progresBarCounts.value.selfToOthers
+                                ?.completed ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.selfToOthers?.all ??
+                            1) *
+                        100,
+                outerPercentage1: (homeController
+                                .progresBarCounts.value.selfToOthers?.killed ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController
+                                .progresBarCounts.value.selfToOthers?.killed ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.selfToOthers?.all ??
+                            1) *
+                        100,
+                outerPercentage2: (homeController.progresBarCounts.value
+                                .selfToOthers?.deadlineOver ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController.progresBarCounts.value.selfToOthers
+                                ?.deadlineOver ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.selfToOthers?.all ??
+                            1) *
+                        100,
+                outerPercentage3: (homeController.progresBarCounts.value
+                                .selfToOthers?.progressing ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController.progresBarCounts.value.selfToOthers
+                                ?.progressing ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.selfToOthers?.all ??
+                            1) *
+                        100,
+                onTap: () {
+                  homeController.changeSelectedTaskCategory('Self to Others');
+                  taskController.filterByType(
+                      filterByType:
+                          FilterByTypeModel(taskType: 'self_to_others'));
+                  taskController.filterPinnedTasksByType(
+                      filterPinnedTask: FilterPinnedTaskByTypeModel(
+                    taskType: 'self_to_others',
+                    isPinned: true,
+                  ));
+                  Get.toNamed(Routes.taskLists, id: 1);
+                },
+              ),
+              kWidth10,
+              ProgressIndicatorWidget(
+                text: 'Self to Self',
+                centerPercentage: (homeController
+                                .progresBarCounts.value.selfToSelf?.completed ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController
+                                .progresBarCounts.value.selfToSelf?.completed ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.selfToSelf?.all ??
+                            1) *
+                        100,
+                outerPercentage1:
+                    (homeController.progresBarCounts.value.selfToSelf?.killed ??
+                                0) ==
+                            0
+                        ? 0
+                        : (homeController.progresBarCounts.value.selfToSelf
+                                    ?.killed ??
+                                1) /
+                            (homeController
+                                    .progresBarCounts.value.selfToSelf?.all ??
+                                1) *
+                            100,
+                outerPercentage2: (homeController.progresBarCounts.value
+                                .selfToSelf?.deadlineOver ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController.progresBarCounts.value.selfToSelf
+                                ?.deadlineOver ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.selfToSelf?.all ??
+                            1) *
+                        100,
+                outerPercentage3: (homeController.progresBarCounts.value
+                                .selfToSelf?.progressing ??
+                            0) ==
+                        0
+                    ? 0
+                    : (homeController.progresBarCounts.value.selfToSelf
+                                ?.progressing ??
+                            1) /
+                        (homeController
+                                .progresBarCounts.value.selfToSelf?.all ??
+                            1) *
+                        100,
+                onTap: () {
+                  homeController.changeSelectedTaskCategory('Self to Self');
+                  taskController.filterByType(
+                      filterByType:
+                          FilterByTypeModel(taskType: 'self_to_self'));
+                  taskController.filterPinnedTasksByType(
+                      filterPinnedTask: FilterPinnedTaskByTypeModel(
+                    taskType: 'self_to_self',
+                    isPinned: true,
+                  ));
+                  Get.toNamed(Routes.taskLists, id: 1);
+                },
+              ),
+            ],
           ),
-          kWidth10,
-          ProgressIndicatorWidget(
-            text: 'Self to Others',
-            centerPercentage: 78,
-            outerPercentage1: 20,
-            outerPercentage2: 30,
-            outerPercentage3: 28,
-            onTap: () {
-              homeController.changeSelectedTaskCategory('Self to Others');
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'self_to_others'));
-              taskController.filterPinnedTasksByType(
-                  filterPinnedTask: FilterPinnedTaskByTypeModel(
-                taskType: 'self_to_others',
-                isPinned: true,
-              ));
-              Get.toNamed(Routes.taskLists, id: 1);
-            },
-          ),
-          kWidth10,
-          ProgressIndicatorWidget(
-            text: 'Self to Self',
-            centerPercentage: 65,
-            outerPercentage1: 20,
-            outerPercentage2: 25,
-            outerPercentage3: 20,
-            onTap: () {
-              homeController.changeSelectedTaskCategory('Self to Self');
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'self_to_self'));
-              taskController.filterPinnedTasksByType(
-                  filterPinnedTask: FilterPinnedTaskByTypeModel(
-                taskType: 'self_to_self',
-                isPinned: true,
-              ));
-              Get.toNamed(Routes.taskLists, id: 1);
-            },
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -137,7 +296,7 @@ class _ProgressIndicatorWidgetState extends State<ProgressIndicatorWidget>
   }
 
   animate() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     _controller.forward();
   }
 

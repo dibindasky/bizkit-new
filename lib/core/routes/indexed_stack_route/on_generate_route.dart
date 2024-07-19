@@ -19,6 +19,7 @@ import 'package:bizkit/module/attendence/application/presentation/screens/attend
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/timesheet/time_sheet_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/calender_view.dart';
+import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/inside_the_inner_folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/edit_task.dart';
@@ -50,6 +51,7 @@ class RouteGenerator {
         } else {
           return _errorScreen();
         }
+
       case Routes.editTask:
         return MaterialPageRoute(builder: (ctx) => ScreenEditTask());
       case Routes.taskNotification:
@@ -59,12 +61,27 @@ class RouteGenerator {
       //       builder: (ctx) => const TaskCreateNewFolderScreen());
       case Routes.taskTabNotification:
         return MaterialPageRoute(builder: (ctx) => TaskTabNotification());
+      case Routes.taskInsideTheInnerFolderScreen:
+        return MaterialPageRoute(
+            builder: (ctx) => const TaskInsideTheInnerFolderScreen());
       case Routes.cardDetailView:
         return MaterialPageRoute(
             builder: (ctx) => const ScreenTaskCalenderView());
+
       case Routes.heirarchyUserDetail:
-        return MaterialPageRoute(
-            builder: (ctx) => const ScreenHeirarchyTaskUserDetails());
+        if (arguments is String) {
+          return MaterialPageRoute(
+            builder: (context) => ScreenHeirarchyTaskUserDetails(
+              folderId: arguments,
+            ),
+          );
+        } else {
+          return _errorScreen();
+        }
+
+      // case Routes.heirarchyUserDetail:
+      //   return MaterialPageRoute(
+      //       builder: (ctx) => const ScreenHeirarchyTaskUserDetails());
 
       //Attendence Module
       case Routes.attendenceHome:

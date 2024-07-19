@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
-import 'package:bizkit/module/task/domain/model/folders/all_tasks_inside_a_folder_responce/tasks_inside_folder/tasks_inside_folder.dart';
+import 'package:bizkit/module/task/domain/model/folders/get_tasks_inside_folder_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/task.dart';
@@ -14,22 +14,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TaskContainer extends StatelessWidget {
-  TaskContainer(
-      {super.key,
-      required this.index,
-      this.task,
-      this.tabIndex,
-      this.pinnedTasks,
-      this.typeTask,
-      this.deadlineTasks,
-      this.tasksInsideAFolder});
+  TaskContainer({
+    super.key,
+    required this.index,
+    this.task,
+    this.tabIndex,
+    this.pinnedTasks,
+    this.typeTask,
+    this.deadlineTasks,
+    this.tasksInsideFolder,
+  });
 
   final int index;
   final int? tabIndex;
   final Tasks? task;
   final Task? typeTask;
   final DTasks? deadlineTasks;
-  final TasksInsideFolder? tasksInsideAFolder;
+  final InsideAFolderTasks? tasksInsideFolder;
+
   final PinnedTasksByTypes? pinnedTasks;
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
@@ -126,14 +128,11 @@ class TaskContainer extends StatelessWidget {
                                                     color: neonShade,
                                                   ),
                                                 )
-                                              : tasksInsideAFolder != null
+                                              : tasksInsideFolder != null
                                                   ? Text(
-                                                      // task['title']!,
-
-                                                      tasksInsideAFolder
+                                                      tasksInsideFolder
                                                               ?.title ??
-                                                          'Title',
-
+                                                          'Tittle',
                                                       style: const TextStyle(
                                                         fontSize: 18,
                                                         fontWeight:
@@ -154,13 +153,13 @@ class TaskContainer extends StatelessWidget {
                             },
                             itemBuilder: (BuildContext context) {
                               List<PopupMenuItem<String>> items = [
-                                const PopupMenuItem<String>(
-                                  value: 'Move task',
-                                  child: Text(
-                                    'Move task',
-                                    style: TextStyle(color: kblack),
-                                  ),
-                                ),
+                                // const PopupMenuItem<String>(
+                                //   value: 'Move task',
+                                //   child: Text(
+                                //     'Move task',
+                                //     style: TextStyle(color: kblack),
+                                //   ),
+                                // ),
                                 const PopupMenuItem<String>(
                                   value: 'Spot light Task',
                                   child: Text(
@@ -248,10 +247,9 @@ class TaskContainer extends StatelessWidget {
                                           style: const TextStyle(
                                               color: kwhite, fontSize: 12),
                                         )
-                                      : tasksInsideAFolder != null
+                                      : tasksInsideFolder != null
                                           ? Text(
-                                              deadlineTasks
-                                                      ?.task?.description ??
+                                              tasksInsideFolder?.description ??
                                                   'description',
                                               style: const TextStyle(
                                                   color: kwhite, fontSize: 12),
@@ -284,7 +282,16 @@ class TaskContainer extends StatelessWidget {
                                           color: kwhite,
                                         ),
                                       )
-                                    : const Text('Deadline'),
+                                    : tasksInsideFolder != null
+                                        ? Text(
+                                            tasksInsideFolder?.deadLine ??
+                                                'dead',
+                                            // task['date']!,
+                                            style: const TextStyle(
+                                              color: kwhite,
+                                            ),
+                                          )
+                                        : const Text('Deadline'),
                       ),
                       adjustHieght(10),
                     ],

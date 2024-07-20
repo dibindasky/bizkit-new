@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_tasks_inside_folder_success_responce/task.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/inner_folder_task.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/task.dart';
@@ -23,6 +24,7 @@ class TaskContainer extends StatelessWidget {
     this.typeTask,
     this.deadlineTasks,
     this.tasksInsideFolder,
+    this.tasksInsideInnerFolder,
   });
 
   final int index;
@@ -30,6 +32,7 @@ class TaskContainer extends StatelessWidget {
   final Tasks? task;
   final Task? typeTask;
   final DTasks? deadlineTasks;
+  final InnerFolderTask? tasksInsideInnerFolder;
   final InsideAFolderTasks? tasksInsideFolder;
 
   final PinnedTasksByTypes? pinnedTasks;
@@ -140,7 +143,21 @@ class TaskContainer extends StatelessWidget {
                                                         color: neonShade,
                                                       ),
                                                     )
-                                                  : const Text('Title'),
+                                                  : tasksInsideInnerFolder !=
+                                                          null
+                                                      ? Text(
+                                                          tasksInsideInnerFolder
+                                                                  ?.title ??
+                                                              'Tittle',
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: neonShade,
+                                                          ),
+                                                        )
+                                                      : const Text('Title'),
                             ],
                           ),
                           PopupMenuButton<String>(

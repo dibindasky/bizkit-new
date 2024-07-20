@@ -1,9 +1,6 @@
 class ApiEndPoints {
-  // static String baseUrl = 'http://192.168.29.216:8000';
   // static String baseUrl = 'https://bizkit.onrender.com';
   static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms/';
-  //static String baseUrl = 'http://44.203.134.42';
-  // static String baseUrl = 'http://192.168.29.216:8000';
 
   // refesh token
   static String refreshUrl = '/token/';
@@ -182,4 +179,6 @@ class ApiEndPoints {
   static const taskTestSubtask = '/tasks/sub-task/';
   static const taskTestMergeFolders = '/merge-folders/';
   static const taskTestProgresBar = '/get-count-of-tasks/';
+  static const taskTestFilterFolders = '/filter-folders/';
+  static const taskTestGenerateTaskReport = '/generate-task-report/';
 }

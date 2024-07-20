@@ -12,7 +12,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 // import 'package:get/get.dart';
 
 class ScreenTaskHome extends StatelessWidget {
@@ -20,7 +20,7 @@ class ScreenTaskHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeController = Get.find<TaskHomeScreenController>();
+    // final homeController = Get.find<TaskHomeScreenController>();
     // final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // taskController.filterByType(
@@ -31,7 +31,7 @@ class ScreenTaskHome extends StatelessWidget {
       //   taskType: 'all',
       //   isPinned: true,
       // ));
-      homeController.progresBar();
+      // homeController.progresBar();
     });
 
     return Scaffold(

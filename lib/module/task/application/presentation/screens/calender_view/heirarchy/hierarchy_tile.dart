@@ -7,6 +7,8 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_contain
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/create_folder_inside_a_folder/create_folder_inside_a_folder.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/delete_inner_folder_model/delete_inner_folder_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/edit_inner_folder_model/edit_inner_folder_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -15,6 +17,7 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class HierarchyListtile extends StatelessWidget {
   const HierarchyListtile({super.key});
@@ -58,13 +61,17 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
     final controller = Get.find<TaskFolderController>();
     final taskCalenderViewController = Get.find<TaskCalenderViewController>();
 
-    void showCreateInnerFolderDialog() {
-      TextEditingController folderNameController = TextEditingController();
+    void showInnerFolderDialog({String? initialName, String? innerFolderId}) {
+      TextEditingController folderNameController = TextEditingController(
+        text: initialName ?? '',
+      );
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Create Inner Folder'),
+            title: Text(innerFolderId == null
+                ? 'Create Inner Folder'
+                : 'Edit Inner Folder'),
             content: TextField(
               controller: folderNameController,
               decoration: const InputDecoration(hintText: "Enter folder name"),
@@ -77,17 +84,26 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                 },
               ),
               TextButton(
-                child: const Text('Create'),
+                child: Text(innerFolderId == null ? 'Create' : 'Update'),
                 onPressed: () {
                   String innerFolderName = folderNameController.text;
                   if (innerFolderName.isNotEmpty) {
-                    controller.createNewFolderInsideFolder(
-                      createNewFolderInsideFolder: CreateFolderInsideAFolder(
-                        folderId: folderId,
+                    if (innerFolderId == null) {
+                      controller.createNewFolderInsideFolder(
+                        createNewFolderInsideFolder: CreateFolderInsideAFolder(
+                          folderId: folderId,
+                          innerFolderName: innerFolderName,
+                          innerFolderTasks: [],
+                        ),
+                      );
+                    } else {
+                      controller.editInnerFolderName(
+                          editInnerFolderName: EditInnerFolderModel(
+                        folderId: folderId ?? '',
+                        innerFolderId: innerFolderId,
                         innerFolderName: innerFolderName,
-                        innerFolderTasks: [],
-                      ),
-                    );
+                      ));
+                    }
 
                     controller.fetchTasksInsideFolder(
                         taskInsideFolder: GetTaskInsideAFolderParamsModel(
@@ -130,7 +146,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                 const Spacer(),
                 CustomCircleAvatar(
                   backgroundColor: lightGrey,
-                  onTap: showCreateInnerFolderDialog,
+                  onTap: () => showInnerFolderDialog(),
                   backgroundColorInner: neonShade,
                   child: const Icon(
                     Icons.add,
@@ -151,9 +167,44 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                 showSelectedDate: false,
                 showHeader: false,
               ),
+              dayProps: EasyDayProps(
+                todayStyle: DayStyle(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: kred),
+                    borderRadius: kBorderRadius15,
+                  ),
+                  monthStrStyle: TextStyle(color: kwhite, fontSize: 11.sp),
+                  dayNumStyle: TextStyle(color: kwhite, fontSize: 12.sp),
+                  dayStrStyle: TextStyle(color: kwhite, fontSize: 11.sp),
+                ),
+                todayHighlightColor: kwhite,
+                activeDayStyle: DayStyle(
+                  dayNumStyle: const TextStyle(color: kblack),
+                  decoration: BoxDecoration(
+                    color: neonShade,
+                    borderRadius: kBorderRadius15,
+                    border: Border.all(color: neonShade),
+                  ),
+                ),
+                inactiveDayStyle: DayStyle(
+                  decoration: BoxDecoration(
+                    color: lightGrey,
+                    borderRadius: kBorderRadius15,
+                  ),
+                  dayNumStyle: const TextStyle(color: kwhite),
+                ),
+              ),
               activeColor: neonShade,
               initialDate: DateTime.now(),
-              onDateChange: (selectedDate) {},
+              onDateChange: (selectedDate) {
+                String formattedDate =
+                    DateFormat('yyyy-MM-dd').format(selectedDate);
+                controller.filterInnerFolderByDeadline(
+                    filterInnerFolder: FilterInnerFolderModel(
+                  folderId: folderId ?? '',
+                  filterDate: formattedDate,
+                ));
+              },
             ),
             adjustHieght(10),
             Obx(
@@ -173,155 +224,200 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                   );
                 } else {
                   return Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      itemCount: controller.innerFolders.length +
-                          controller.tasksInsideFolder.length +
-                          1,
-                      itemBuilder: (context, index) {
-                        if (index < controller.innerFolders.length) {
-                          final innerFolder = controller.innerFolders[index];
-                          return ListTile(
-                            onTap: () {
-                              controller.fetchAllTasksInsideAInnerFolder(
-                                  InnerFolderTasksGetParamsModel(
-                                      folderId: folderId,
-                                      innerFolderId:
-                                          innerFolder.innerFolderId));
-                            },
-                            tileColor: taskCalenderViewController
-                                    .selectedIndices
-                                    .contains(index)
-                                ? lightColr
-                                : knill,
-                            leading: taskCalenderViewController.selectedIndices
-                                    .contains(index)
-                                ? Stack(
-                                    children: [
-                                      SizedBox(
-                                        width: 60.w,
-                                        height: 60.h,
-                                        child: Image.asset(taskFolderImage),
-                                      ),
-                                      const Positioned(
-                                        top: 13,
-                                        left: 0,
-                                        right: 0,
-                                        child: CircleAvatar(
-                                          backgroundColor: neonShade,
-                                          radius: 15,
-                                          child: Icon(
-                                            Icons.check,
-                                            color: kblack,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : SizedBox(
-                                    width: 60.w,
-                                    height: 60.h,
-                                    child: Image.asset(taskFolderImage),
-                                  ),
-                            title: SizedBox(
-                              width: 100,
-                              child: Text(innerFolder.innerFolderName ?? ''),
-                            ),
-                            trailing: PopupMenuButton<String>(
-                              onSelected: (value) {
-                                if (value == 'Add New Task to Folder') {
-                                  showTaskSelectionBottomSheet(
-                                      context,
-                                      folderId ?? '',
-                                      innerFolder.innerFolderId,
-                                      true);
-                                } else if (value == 'Edit folder name') {
-                                  // showCreateFolderDialog(context,
-                                  //     folderName: name, folderId: folderId);
-                                }
-                              },
-                              color: kwhite,
-                              icon: const Icon(Icons.more_vert, color: kwhite),
-                              itemBuilder: (context) {
-                                return [
-                                  const PopupMenuItem<String>(
-                                    value: 'Add New Task to Folder',
-                                    child: Text(
-                                      'Add New Task to Folder',
-                                      style: TextStyle(color: kblack),
-                                    ),
-                                  ),
-                                  PopupMenuItem<String>(
-                                    onTap: () {},
-                                    value: 'Edit folder name',
-                                    child: const Text(
-                                      'Edit folder name',
-                                      style: TextStyle(color: kblack),
-                                    ),
-                                  ),
-                                  PopupMenuItem<String>(
-                                    value: 'Delete Folder',
-                                    child: const Text(
-                                      'Delete Folder',
-                                      style: TextStyle(color: kblack),
-                                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (controller.innerFolders.isNotEmpty)
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              itemCount: controller.innerFolders.length,
+                              itemBuilder: (context, index) {
+                                final innerFolder =
+                                    controller.innerFolders[index];
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4),
+                                  child: ListTile(
                                     onTap: () {
-                                      showCustomConfirmationDialogue(
-                                        description:
-                                            'Are you sure you want to delete this folder ?',
-                                        buttonText: 'Delete',
-                                        context: context,
-                                        onTap: () {
-                                          controller.deleteInnerFolder(
-                                            deleteInnerFolder:
-                                                DeleteInnerFolderModel(
-                                              folderId: folderId,
-                                              innerFolderId: controller
-                                                      .innerFolders[index]
-                                                      .innerFolderId ??
-                                                  '',
-                                            ),
-                                          );
-                                          controller.fetchTasksInsideFolder(
-                                            taskInsideFolder:
-                                                GetTaskInsideAFolderParamsModel(
-                                              folderId: folderId,
-                                            ),
-                                          );
-                                        },
-                                        title: 'Delete Folder',
-                                        buttonColor: neonShade,
-                                      );
+                                      controller
+                                          .fetchAllTasksInsideAInnerFolder(
+                                              InnerFolderTasksGetParamsModel(
+                                                  folderId: folderId,
+                                                  innerFolderId: innerFolder
+                                                      .innerFolderId));
+
+                                      Get.toNamed(
+                                          Routes.taskInsideTheInnerFolderScreen,
+                                          arguments: controller
+                                              .innerFolders[index]
+                                              .innerFolderName,
+                                          id: 2);
                                     },
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'Merge Folders',
-                                    child: Text(
-                                      'Merge Folders',
-                                      style: TextStyle(color: kblack),
+                                    tileColor: taskCalenderViewController
+                                            .selectedIndices
+                                            .contains(index)
+                                        ? lightColr
+                                        : knill,
+                                    leading: taskCalenderViewController
+                                            .selectedIndices
+                                            .contains(index)
+                                        ? Stack(
+                                            children: [
+                                              SizedBox(
+                                                width: 60.w,
+                                                height: 60.h,
+                                                child: Image.asset(
+                                                    taskFolderImage),
+                                              ),
+                                              const Positioned(
+                                                top: 13,
+                                                left: 0,
+                                                right: 0,
+                                                child: CircleAvatar(
+                                                  backgroundColor: neonShade,
+                                                  radius: 15,
+                                                  child: Icon(
+                                                    Icons.check,
+                                                    color: kblack,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : SizedBox(
+                                            width: 60.w,
+                                            height: 60.h,
+                                            child: Image.asset(taskFolderImage),
+                                          ),
+                                    title: SizedBox(
+                                      width: 100,
+                                      child: Text(
+                                          innerFolder.innerFolderName ?? ''),
+                                    ),
+                                    trailing: PopupMenuButton<String>(
+                                      onSelected: (value) {
+                                        if (value == 'Add New Task to Folder') {
+                                          showTaskSelectionBottomSheet(
+                                              context,
+                                              folderId ?? '',
+                                              innerFolder.innerFolderId,
+                                              true);
+                                        } else if (value ==
+                                            'Edit folder name') {
+                                          showInnerFolderDialog(
+                                            initialName:
+                                                innerFolder.innerFolderName,
+                                            innerFolderId:
+                                                innerFolder.innerFolderId,
+                                          );
+                                        }
+                                      },
+                                      color: kwhite,
+                                      icon: const Icon(Icons.more_vert,
+                                          color: kwhite),
+                                      itemBuilder: (context) {
+                                        return [
+                                          const PopupMenuItem<String>(
+                                            value: 'Add New Task to Folder',
+                                            child: Text(
+                                              'Add New Task to Folder',
+                                              style: TextStyle(color: kblack),
+                                            ),
+                                          ),
+                                          const PopupMenuItem<String>(
+                                            value: 'Edit folder name',
+                                            child: Text(
+                                              'Edit folder name',
+                                              style: TextStyle(color: kblack),
+                                            ),
+                                          ),
+                                          PopupMenuItem<String>(
+                                            value: 'Delete Folder',
+                                            child: const Text(
+                                              'Delete Folder',
+                                              style: TextStyle(color: kblack),
+                                            ),
+                                            onTap: () {
+                                              showCustomConfirmationDialogue(
+                                                description:
+                                                    'Are you sure you want to delete this folder ?',
+                                                buttonText: 'Delete',
+                                                context: context,
+                                                onTap: () {
+                                                  controller.deleteInnerFolder(
+                                                    deleteInnerFolder:
+                                                        DeleteInnerFolderModel(
+                                                      folderId: folderId,
+                                                      innerFolderId: controller
+                                                              .innerFolders[
+                                                                  index]
+                                                              .innerFolderId ??
+                                                          '',
+                                                    ),
+                                                  );
+                                                  controller
+                                                      .fetchTasksInsideFolder(
+                                                    taskInsideFolder:
+                                                        GetTaskInsideAFolderParamsModel(
+                                                      folderId: folderId,
+                                                    ),
+                                                  );
+                                                },
+                                                title: 'Delete Folder',
+                                                buttonColor: neonShade,
+                                              );
+                                            },
+                                          ),
+                                          // const PopupMenuItem<String>(
+                                          //   value: 'Merge Folders',
+                                          //   child: Text(
+                                          //     'Merge Folders',
+                                          //     style: TextStyle(color: kblack),
+                                          //   ),
+                                          // ),
+                                        ];
+                                      },
                                     ),
                                   ),
-                                ];
+                                );
                               },
                             ),
-                          );
-                        } else if (index == controller.innerFolders.length) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: Text(
-                              'Tasks',
-                              style: textHeadStyle1.copyWith(fontSize: 18),
+                          if (controller.tasksInsideFolder.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Text(
+                                    'Tasks',
+                                    style:
+                                        textHeadStyle1.copyWith(fontSize: 18),
+                                  ),
+                                ),
+                              ),
                             ),
-                          );
-                        } else {
-                          final task = controller.tasksInsideFolder[
-                              index - controller.innerFolders.length - 1];
-                          return TaskContainer(
-                            tasksInsideFolder: task,
-                            index: index - controller.innerFolders.length - 1,
-                          );
-                        }
-                      },
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            itemCount: controller.tasksInsideFolder.length,
+                            itemBuilder: (context, index) {
+                              final task = controller.tasksInsideFolder[index];
+                              return TaskContainer(
+                                tasksInsideFolder: task,
+                                index: index,
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }

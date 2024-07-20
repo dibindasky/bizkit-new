@@ -32,6 +32,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 // import 'package:intl/intl.dart';
 
@@ -81,11 +82,11 @@ class CreateTaskController extends GetxController {
 
   @override
   void onInit() {
-    // final DateTime todaydate = DateTime.now();
+    final DateTime todaydate = DateTime.now();
     // Initialize with today's date for deadline filtering
-    // taskFilterByDeadline(
-    //     filterByDeadline: FilterByDeadlineModel(
-    //         date: DateFormat('yyyy-MM-dd').format(todaydate)));
+    deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
+    taskFilterByDeadline(
+        filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
     super.onInit();
   }
 
@@ -297,6 +298,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         deadlineTasks.assignAll(success.tasks ?? []);
+        log('deadlineTasks :=> $deadlineTasks');
         isLoading.value = false;
       },
     );

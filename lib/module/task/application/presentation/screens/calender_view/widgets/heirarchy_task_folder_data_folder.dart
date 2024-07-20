@@ -78,8 +78,9 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
 
                         taskFolderController.fetchTasksInsideFolder(
                             taskInsideFolder: GetTaskInsideAFolderParamsModel(
-                          folderId:
-                              taskFolderController.allFolders[index].id ?? '',
+                          folderId: taskFolderController
+                                  .filteredFoldersByDeadline[index].folderId ??
+                              '',
                         ));
                       }
                     },

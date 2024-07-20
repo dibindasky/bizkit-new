@@ -264,8 +264,22 @@ class TaskContainer extends StatelessWidget {
                                         style: TextStyle(color: kblack),
                                       ),
                                     ),
-                                  ];
-
+                                  ),
+                                const PopupMenuItem<String>(
+                                  value: 'Add Sub Task',
+                                  child: Text(
+                                    'Add Sub Task',
+                                    style: TextStyle(color: kblack),
+                                  ),
+                                ),
+                                const PopupMenuItem<String>(
+                                  value: 'remove task from folder',
+                                  child: Text(
+                                    'Remove task from folder',
+                                    style: TextStyle(color: kblack),
+                                  ),
+                                ),
+                              ];
                                   return items;
                                 },
                               ),
@@ -299,9 +313,9 @@ class TaskContainer extends StatelessWidget {
                                               style: const TextStyle(
                                                   color: kwhite, fontSize: 12),
                                             )
-                                          : tasksInsideFolder != null
+                                          : tasksInsideInnerFolder != null
                                               ? Text(
-                                                  tasksInsideFolder
+                                                  tasksInsideInnerFolder
                                                           ?.description ??
                                                       'description',
                                                   style: const TextStyle(
@@ -309,10 +323,18 @@ class TaskContainer extends StatelessWidget {
                                                       fontSize: 12),
                                                 )
                                               : const Text('description'),
-                          adjustHieght(10),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: deadlineTasks != null
+                      adjustHieght(10),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: deadlineTasks != null
+                            ? Text(
+                                deadlineTasks?.task?.deadLine ?? 'dead',
+                                // task['date']!,
+                                style: const TextStyle(
+                                  color: kwhite,
+                                ),
+                              )
+                            : typeTask != null
                                 ? Text(
                                     deadlineTasks?.task?.deadLine ?? 'dead',
                                     // task['date']!,
@@ -337,9 +359,10 @@ class TaskContainer extends StatelessWidget {
                                               color: kwhite,
                                             ),
                                           )
-                                        : tasksInsideFolder != null
+                                        : tasksInsideInnerFolder != null
                                             ? Text(
-                                                tasksInsideFolder?.deadLine ??
+                                                tasksInsideInnerFolder
+                                                        ?.deadLine ??
                                                     'dead',
                                                 // task['date']!,
                                                 style: const TextStyle(
@@ -347,9 +370,6 @@ class TaskContainer extends StatelessWidget {
                                                 ),
                                               )
                                             : const Text('Deadline'),
-                          ),
-                          adjustHieght(10),
-                        ],
                       ),
                     ],
                   ),

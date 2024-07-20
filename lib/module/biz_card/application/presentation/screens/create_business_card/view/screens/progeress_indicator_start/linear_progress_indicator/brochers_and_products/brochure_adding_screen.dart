@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bizkit/core/model/pdf/pdf_model.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/utils/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/packages/pdf/pdf_picker.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';

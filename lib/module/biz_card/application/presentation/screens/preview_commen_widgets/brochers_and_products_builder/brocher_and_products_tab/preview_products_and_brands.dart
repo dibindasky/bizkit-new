@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/utils/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/brocher_and_products_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/product_detail_view.dart';
 import 'package:bizkit/utils/constants/colors.dart';

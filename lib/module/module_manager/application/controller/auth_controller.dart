@@ -39,14 +39,14 @@ class AuthenticationController extends GetxController {
       showSnackbar(context,
           message: l.message ?? errorMessage,
           backgroundColor: kred,
-          textColor: kwhite);
+          textColor: kblack);
     }, (r) {
       otpFromRegisterUser.value = true;
       GoRouter.of(context).pushNamed(Routes.otpPage);
       showSnackbar(context,
           message: r.message ?? 'Otp send to your mail id',
           backgroundColor: kneonShade,
-          textColor: kwhite);
+          textColor: kblack);
     });
     loadingregister.value = false;
   }
@@ -61,7 +61,7 @@ class AuthenticationController extends GetxController {
       showSnackbar(context,
           message: l.message ?? errorMessage,
           backgroundColor: kred,
-          textColor: kwhite);
+          textColor: kblack);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
       SecureStorage.setLogin();
@@ -69,7 +69,7 @@ class AuthenticationController extends GetxController {
       showSnackbar(context,
           message: 'User Registered Successfully',
           backgroundColor: kneonShade,
-          textColor: kwhite);
+          textColor: kblack);
     });
     loadingOtpEmail.value = false;
   }
@@ -85,7 +85,7 @@ class AuthenticationController extends GetxController {
       showSnackbar(context,
           message: l.message ?? errorMessage,
           backgroundColor: kred,
-          textColor: kwhite);
+          textColor: kblack);
     }, (r) {
       log('Otp resent successs');
       otpFromRegisterUser.value = false;
@@ -93,7 +93,7 @@ class AuthenticationController extends GetxController {
       showSnackbar(context,
           message: 'Otp send to your registered mobile number',
           backgroundColor: kneonShade,
-          textColor: kwhite);
+          textColor: kblack);
     });
     loadingLogin.value = false;
   }
@@ -108,7 +108,7 @@ class AuthenticationController extends GetxController {
       showSnackbar(context,
           message: l.message ?? errorMessage,
           backgroundColor: kred,
-          textColor: kwhite);
+          textColor: kblack);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
       SecureStorage.setLogin();
@@ -116,7 +116,7 @@ class AuthenticationController extends GetxController {
       showSnackbar(context,
           message: 'User Logged In Successfully',
           backgroundColor: kneonShade,
-          textColor: kwhite);
+          textColor: kblack);
     });
     loadingOtpPhone.value = false;
   }

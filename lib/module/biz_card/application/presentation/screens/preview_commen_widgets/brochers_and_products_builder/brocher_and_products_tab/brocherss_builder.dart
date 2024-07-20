@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/utils/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/brochure/brochure.dart';
 import 'package:flutter/material.dart';

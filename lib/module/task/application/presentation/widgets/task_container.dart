@@ -263,9 +263,9 @@ class TaskContainer extends StatelessWidget {
         date1, DateTime.now().toString());
     if (first < second) return kred;
     final int part = (first / 3).round();
-    if (part <= second) {
+    if (part >= second) {
       return kblue;
-    } else if (part * 2 <= second) {
+    } else if (part * 2 >= second) {
       return kgreen;
     } else {
       return kOrange;

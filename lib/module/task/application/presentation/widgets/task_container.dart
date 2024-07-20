@@ -234,6 +234,13 @@ class TaskContainer extends StatelessWidget {
                                     style: TextStyle(color: kblack),
                                   ),
                                 ),
+                                const PopupMenuItem<String>(
+                                  value: 'remove task from folder',
+                                  child: Text(
+                                    'Remove task from folder',
+                                    style: TextStyle(color: kblack),
+                                  ),
+                                ),
                               ];
 
                               return items;
@@ -275,7 +282,16 @@ class TaskContainer extends StatelessWidget {
                                               style: const TextStyle(
                                                   color: kwhite, fontSize: 12),
                                             )
-                                          : const Text('description'),
+                                          : tasksInsideInnerFolder != null
+                                              ? Text(
+                                                  tasksInsideInnerFolder
+                                                          ?.description ??
+                                                      'description',
+                                                  style: const TextStyle(
+                                                      color: kwhite,
+                                                      fontSize: 12),
+                                                )
+                                              : const Text('description'),
                       adjustHieght(10),
                       Align(
                         alignment: Alignment.centerRight,
@@ -312,7 +328,17 @@ class TaskContainer extends StatelessWidget {
                                               color: kwhite,
                                             ),
                                           )
-                                        : const Text('Deadline'),
+                                        : tasksInsideInnerFolder != null
+                                            ? Text(
+                                                tasksInsideInnerFolder
+                                                        ?.deadLine ??
+                                                    'dead',
+                                                // task['date']!,
+                                                style: const TextStyle(
+                                                  color: kwhite,
+                                                ),
+                                              )
+                                            : const Text('Deadline'),
                       ),
                       adjustHieght(10),
                     ],

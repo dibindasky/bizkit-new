@@ -10,6 +10,7 @@ import 'package:bizkit/module/task/application/presentation/screens/calender_vie
 import 'package:bizkit/module/task/domain/model/folders/filter_folder_by_deadline_model/filter_folder_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +43,10 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
       //   taskType: 'all',
       //   isPinned: true,
       // ));
+
       // taskController.filterByType(
       //     filterByType: FilterByTypeModel(taskType: 'all'));
       // taskController.fetchAllPinnedTasks();
-      controller.fetchAllFolders();
     });
 
     return Scaffold(
@@ -109,21 +110,22 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                         String formattedDate =
                             DateFormat('yyyy-MM-dd').format(selectedDate);
                         controller.deadlineDate.value = formattedDate;
+                        taskController.deadlineDate.value = formattedDate;
                         log(selectedDate.toString());
                         if (taskCalenderViewController
                                 .taskTabChangeIndex.value ==
                             1) {
-                          // taskController.taskFilterByDeadline(
-                          //   filterByDeadline: FilterByDeadlineModel(
-                          //     date: formattedDate,
-                          //   ),
-                          // );
+                          taskController.taskFilterByDeadline(
+                            filterByDeadline: FilterByDeadlineModel(
+                              date: taskController.deadlineDate.value,
+                            ),
+                          );
                         } else if (taskCalenderViewController
                                 .taskTabChangeIndex.value ==
                             2) {
                           controller.filterFoldersByDeadline(
                               filterFolder: FilterFolderByDeadlineModel(
-                                  filterDate: formattedDate));
+                                  filterDate: controller.deadlineDate.value));
                         }
                       },
                     ),

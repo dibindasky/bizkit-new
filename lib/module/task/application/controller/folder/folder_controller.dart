@@ -58,10 +58,11 @@ class TaskFolderController extends GetxController {
   @override
   void onInit() {
     final DateTime todaydate = DateTime.now();
+    deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
     // Initialize with today's date for deadline filtering
     filterFoldersByDeadline(
-        filterFolder: FilterFolderByDeadlineModel(
-            filterDate: DateFormat('yyyy-MM-dd').format(todaydate)));
+        filterFolder:
+            FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
     super.onInit();
   }
 
@@ -88,22 +89,9 @@ class TaskFolderController extends GetxController {
         isLoading.value = false;
         folderId = success.folderId.toString();
 
-        fetchAllFolders();
-      },
-    );
-  }
-
-  void fetchAllFolders() async {
-    isLoading.value = true;
-    final result = await folderService.getAllFolder();
-    result.fold(
-      (failure) {
-        isLoading.value = false;
-        log(failure.message.toString());
-      },
-      (success) {
-        isLoading.value = false;
-        allFolders.assignAll(success.data ?? []);
+        filterFoldersByDeadline(
+            filterFolder:
+                FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
       },
     );
   }
@@ -119,7 +107,9 @@ class TaskFolderController extends GetxController {
       },
       (success) {
         log('${success.message}');
-        fetchAllFolders();
+        filterFoldersByDeadline(
+            filterFolder:
+                FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
         isLoading.value = false;
       },
     );
@@ -136,8 +126,8 @@ class TaskFolderController extends GetxController {
       (success) {
         log('${success.message}');
         filterFoldersByDeadline(
-            filterFolder: FilterFolderByDeadlineModel(
-                filterDate: deadlineDate.toString()));
+            filterFolder:
+                FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
         isLoading.value = false;
       },
     );
@@ -174,7 +164,9 @@ class TaskFolderController extends GetxController {
         log('${success.message}');
         afterMergeNewFolderId = success.newFolderId ?? '';
         selectedFolderIds.clear();
-        fetchAllFolders();
+        filterFoldersByDeadline(
+            filterFolder: FilterFolderByDeadlineModel(
+                filterDate: deadlineDate.toString()));
       },
     );
   }
@@ -246,6 +238,7 @@ class TaskFolderController extends GetxController {
       },
       (success) {
         log('${success.message}');
+
         isLoading.value = false;
       },
     );

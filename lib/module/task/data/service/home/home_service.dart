@@ -39,7 +39,7 @@ class HomeService implements HomeRepo {
       final response = await apiService.post(
         ApiEndPoints.taskTestGenerateTaskReport,
       );
-      log("=> Response Generate Task Report : ${response.data}");
+      log("=> Response Generate Task Report : ");
       return Right(GenearateTaskReportSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException genearateTaskReport $e');

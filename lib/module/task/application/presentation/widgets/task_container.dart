@@ -50,360 +50,351 @@ class TaskContainer extends StatelessWidget {
         end: 0.99,
         backgroundColor: klightGreyClr,
         child: Container(
-            decoration: BoxDecoration(
-                borderRadius: kBorderRadius15,
-                boxShadow: index == 1
-                    ? [
-                        BoxShadow(
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(0, 1),
-                            color: kred.withOpacity(0.4))
-                      ]
-                    : null),
-            child: Obx(
-              () => Stack(
-                children: [
-                  Card(
-                    color: !controller.selectedIndices.contains(index)
-                        ? kblack
-                        : kwhite.withOpacity(.2),
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 2,
-                        color: showSpotLight
-                            ? kred
-                            : controller.selectedIndices.contains(index)
-                                ? neonShade
-                                : kwhite,
-                        // : const Color(0xFF0B06FF),
-                      ),
-                      borderRadius: BorderRadius.circular(15.0),
+          decoration: BoxDecoration(
+              borderRadius: kBorderRadius15,
+              boxShadow: index == 1
+                  ? [
+                      BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 1),
+                          color: kred.withOpacity(0.4))
+                    ]
+                  : null),
+          child: Obx(
+            () => Stack(
+              children: [
+                Card(
+                  color: !controller.selectedIndices.contains(index)
+                      ? kblack
+                      : kwhite.withOpacity(.2),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      width: 2,
+                      color: showSpotLight
+                          ? kred
+                          : controller.selectedIndices.contains(index)
+                              ? neonShade
+                              : kwhite,
+                      // : const Color(0xFF0B06FF),
                     ),
-                    margin: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      controller.selectedIndices.contains(index)
-                                          ? Container(
-                                              padding: const EdgeInsets.all(6),
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: neonShade),
-                                                borderRadius: kBorderRadius25,
-                                                color: neonShade,
-                                              ),
-                                              child: const Icon(
-                                                Icons.done,
-                                                color: kwhite,
-                                                size: 16,
-                                              ),
-                                            )
-                                          : Image.asset(
-                                              'asset/images/icon/Vector.png',
-                                              scale: 2,
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    controller.selectedIndices.contains(index)
+                                        ? Container(
+                                            padding: const EdgeInsets.all(6),
+                                            decoration: BoxDecoration(
+                                              border:
+                                                  Border.all(color: neonShade),
+                                              borderRadius: kBorderRadius25,
+                                              color: neonShade,
                                             ),
-                                      adjustWidth(10),
-                                      task != null
-                                          ? Text(
-                                              // task['title']!,
-                                              task?.title ?? 'Tittle',
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: neonShade,
-                                              ),
-                                            )
-                                          : pinnedTasks != null
-                                              ? Text(
-                                                  // task['title']!,
-                                                  pinnedTasks!.task?.title ??
-                                                      'Title',
-                                                  style: const TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: neonShade,
-                                                  ),
-                                                )
-                                              : typeTask != null
-                                                  ? Text(
-                                                      // task['title']!,
-                                                      typeTask?.task?.title ??
-                                                          'Tittle',
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: neonShade,
-                                                      ),
-                                                    )
-                                                  : deadlineTasks != null
-                                                      ? Text(
-                                                          // task['title']!,
-                                                          deadlineTasks?.task
-                                                                  ?.title ??
-                                                              'Tittle',
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: neonShade,
-                                                          ),
-                                                        )
-                                                      : tasksInsideFolder !=
-                                                              null
-                                                          ? Text(
-                                                              tasksInsideFolder
-                                                                      ?.title ??
-                                                                  'Tittle',
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color:
-                                                                    neonShade,
-                                                              ),
-                                                            )
-                                                          : tasksInsideInnerFolder !=
-                                                                  null
-                                                              ? Text(
-                                                                  tasksInsideInnerFolder
-                                                                          ?.title ??
-                                                                      'Tittle',
-                                                                  style:
-                                                                      const TextStyle(
-                                                                    fontSize:
-                                                                        18,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    color:
-                                                                        neonShade,
-                                                                  ),
-                                                                )
-                                                              : const Text(
-                                                                  'Title'),
-                                    ],
-                                  ),
-                                  PopupMenuButton<String>(
-                                    color: kwhite,
-                                    icon: const Icon(Icons.more_horiz,
-                                        color: kwhite),
-                                    onSelected: (value) {
-                                      if (value == 'Move task') {
-                                        log('Move task');
-                                      } else if (value == 'delete') {}
-                                    },
-                                    itemBuilder: (BuildContext context) {
-                                      List<PopupMenuItem<String>> items = [
-                                        // const PopupMenuItem<String>(
-                                        //   value: 'Move task',
-                                        //   child: Text(
-                                        //     'Move task',
-                                        //     style: TextStyle(color: kblack),
-                                        //   ),
-                                        // ),
-                                        const PopupMenuItem<String>(
-                                          value: 'Spot light Task',
-                                          child: Text(
-                                            'Spot light Task',
-                                            style: TextStyle(color: kblack),
-                                          ),
-                                        ),
-                                        if (typeTask?.isPinned != true &&
-                                            pinnedTasks?.isPinned != true)
-                                          PopupMenuItem<String>(
-                                            value: 'Pin the task',
-                                            onTap: () {
-                                              taskController.pinnedATask(
-                                                pinnedATask: PinnedATaskModel(
-                                                  isPinned: true,
-                                                  taskId: typeTask?.id ?? '',
-                                                ),
-                                              );
-                                              // taskController.filterByType(
-                                              //     filterByType: FilterByTypeModel(
-                                              //         taskType: Get.find<
-                                              //                 TaskHomeScreenController>()
-                                              //             .taskCategory
-                                              //             .value));
-                                            },
-                                            child: const Text(
-                                              'Pin the task',
-                                              style: TextStyle(color: kblack),
-                                            ),
-                                          ),
-                                        if (pinnedTasks?.isPinned == true)
-                                          PopupMenuItem<String>(
-                                            value: 'Unpin the task',
-                                            onTap: () {
-                                              taskController.unpinATask(
-                                                unpinATask: UnpinATaskModel(
-                                                  taskId: pinnedTasks?.id ?? '',
-                                                  isPinned: false,
-                                                ),
-                                              );
-                                            },
-                                            child: const Text(
-                                              'Unpin the task',
-                                              style: TextStyle(color: kblack),
-                                            ),
-                                          ),
-                                        const PopupMenuItem<String>(
-                                          value: 'Add Sub Task',
-                                          child: Text(
-                                            'Add Sub Task',
-                                            style: TextStyle(color: kblack),
-                                          ),
-                                        ),
-                                        const PopupMenuItem<String>(
-                                          value: 'remove task from folder',
-                                          child: Text(
-                                            'Remove task from folder',
-                                            style: TextStyle(color: kblack),
-                                          ),
-                                        ),
-                                      ];
-
-                                      return items;
-                                    },
-                                  ),
-                                ],
-                              ),
-                              task != null
-                                  ? Text(
-                                      task?.description ?? 'description',
-                                      style: const TextStyle(
-                                          color: kwhite, fontSize: 12),
-                                    )
-                                  : pinnedTasks != null
-                                      ? Text(
-                                          pinnedTasks!.task?.description ??
-                                              'description',
-                                          style: const TextStyle(
-                                              color: kwhite, fontSize: 12),
-                                        )
-                                      : typeTask != null
-                                          ? Text(
-                                              typeTask?.task?.description ??
-                                                  'description',
-                                              style: const TextStyle(
-                                                  color: kwhite, fontSize: 12),
-                                            )
-                                          : deadlineTasks != null
-                                              ? Text(
-                                                  deadlineTasks
-                                                          ?.task?.description ??
-                                                      'description',
-                                                  style: const TextStyle(
-                                                      color: kwhite,
-                                                      fontSize: 12),
-                                                )
-                                              : tasksInsideFolder != null
-                                                  ? Text(
-                                                      tasksInsideFolder
-                                                              ?.description ??
-                                                          'description',
-                                                      style: const TextStyle(
-                                                          color: kwhite,
-                                                          fontSize: 12),
-                                                    )
-                                                  : tasksInsideInnerFolder !=
-                                                          null
-                                                      ? Text(
-                                                          tasksInsideInnerFolder
-                                                                  ?.description ??
-                                                              'description',
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: kwhite,
-                                                                  fontSize: 12),
-                                                        )
-                                                      : const Text(
-                                                          'description'),
-                              adjustHieght(10),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: deadlineTasks != null
-                                    ? Text(
-                                        deadlineTasks?.task?.deadLine ?? 'dead',
-                                        // task['date']!,
-                                        style: const TextStyle(
-                                          color: kwhite,
-                                        ),
-                                      )
-                                    : typeTask != null
-                                        ? Text(
-                                            typeTask?.task?.deadLine ?? 'dead',
-                                            // task['date']!,
-                                            style: const TextStyle(
+                                            child: const Icon(
+                                              Icons.done,
                                               color: kwhite,
+                                              size: 16,
+                                            ),
+                                          )
+                                        : Image.asset(
+                                            'asset/images/icon/Vector.png',
+                                            scale: 2,
+                                          ),
+                                    adjustWidth(10),
+                                    task != null
+                                        ? Text(
+                                            // task['title']!,
+                                            task?.title ?? 'Tittle',
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: neonShade,
                                             ),
                                           )
                                         : pinnedTasks != null
                                             ? Text(
-                                                pinnedTasks?.task?.deadLine ??
-                                                    'dead',
-                                                // task['date']!,
+                                                // task['title']!,
+                                                pinnedTasks!.task?.title ??
+                                                    'Title',
                                                 style: const TextStyle(
-                                                  color: kwhite,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: neonShade,
                                                 ),
+                                              )
+                                            : typeTask != null
+                                                ? Text(
+                                                    // task['title']!,
+                                                    typeTask?.task?.title ??
+                                                        'Tittle',
+                                                    style: const TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: neonShade,
+                                                    ),
+                                                  )
+                                                : deadlineTasks != null
+                                                    ? Text(
+                                                        // task['title']!,
+                                                        deadlineTasks
+                                                                ?.task?.title ??
+                                                            'Tittle',
+                                                        style: const TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: neonShade,
+                                                        ),
+                                                      )
+                                                    : tasksInsideFolder != null
+                                                        ? Text(
+                                                            tasksInsideFolder
+                                                                    ?.title ??
+                                                                'Tittle',
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: neonShade,
+                                                            ),
+                                                          )
+                                                        : tasksInsideInnerFolder !=
+                                                                null
+                                                            ? Text(
+                                                                tasksInsideInnerFolder
+                                                                        ?.title ??
+                                                                    'Tittle',
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color:
+                                                                      neonShade,
+                                                                ),
+                                                              )
+                                                            : const Text(
+                                                                'Title'),
+                                  ],
+                                ),
+                                PopupMenuButton<String>(
+                                  color: kwhite,
+                                  icon: const Icon(Icons.more_horiz,
+                                      color: kwhite),
+                                  onSelected: (value) {
+                                    if (value == 'Move task') {
+                                      log('Move task');
+                                    } else if (value == 'delete') {}
+                                  },
+                                  itemBuilder: (BuildContext context) {
+                                    List<PopupMenuItem<String>> items = [
+                                      // const PopupMenuItem<String>(
+                                      //   value: 'Move task',
+                                      //   child: Text(
+                                      //     'Move task',
+                                      //     style: TextStyle(color: kblack),
+                                      //   ),
+                                      // ),
+                                      const PopupMenuItem<String>(
+                                        value: 'Spot light Task',
+                                        child: Text(
+                                          'Spot light Task',
+                                          style: TextStyle(color: kblack),
+                                        ),
+                                      ),
+                                      if (typeTask?.isPinned != true &&
+                                          pinnedTasks?.isPinned != true)
+                                        PopupMenuItem<String>(
+                                          value: 'Pin the task',
+                                          onTap: () {
+                                            taskController.pinnedATask(
+                                              pinnedATask: PinnedATaskModel(
+                                                isPinned: true,
+                                                taskId: typeTask?.id ?? '',
+                                              ),
+                                            );
+                                            // taskController.filterByType(
+                                            //     filterByType: FilterByTypeModel(
+                                            //         taskType: Get.find<
+                                            //                 TaskHomeScreenController>()
+                                            //             .taskCategory
+                                            //             .value));
+                                          },
+                                          child: const Text(
+                                            'Pin the task',
+                                            style: TextStyle(color: kblack),
+                                          ),
+                                        ),
+                                      if (pinnedTasks?.isPinned == true)
+                                        PopupMenuItem<String>(
+                                          value: 'Unpin the task',
+                                          onTap: () {
+                                            taskController.unpinATask(
+                                              unpinATask: UnpinATaskModel(
+                                                taskId: pinnedTasks?.id ?? '',
+                                                isPinned: false,
+                                              ),
+                                            );
+                                          },
+                                          child: const Text(
+                                            'Unpin the task',
+                                            style: TextStyle(color: kblack),
+                                          ),
+                                        ),
+                                      const PopupMenuItem<String>(
+                                        value: 'Add Sub Task',
+                                        child: Text(
+                                          'Add Sub Task',
+                                          style: TextStyle(color: kblack),
+                                        ),
+                                      ),
+                                      const PopupMenuItem<String>(
+                                        value: 'remove task from folder',
+                                        child: Text(
+                                          'Remove task from folder',
+                                          style: TextStyle(color: kblack),
+                                        ),
+                                      ),
+                                    ];
+
+                                    return items;
+                                  },
+                                ),
+                              ],
+                            ),
+                            task != null
+                                ? Text(
+                                    task?.description ?? 'description',
+                                    style: const TextStyle(
+                                        color: kwhite, fontSize: 12),
+                                  )
+                                : pinnedTasks != null
+                                    ? Text(
+                                        pinnedTasks!.task?.description ??
+                                            'description',
+                                        style: const TextStyle(
+                                            color: kwhite, fontSize: 12),
+                                      )
+                                    : typeTask != null
+                                        ? Text(
+                                            typeTask?.task?.description ??
+                                                'description',
+                                            style: const TextStyle(
+                                                color: kwhite, fontSize: 12),
+                                          )
+                                        : deadlineTasks != null
+                                            ? Text(
+                                                deadlineTasks
+                                                        ?.task?.description ??
+                                                    'description',
+                                                style: const TextStyle(
+                                                    color: kwhite,
+                                                    fontSize: 12),
                                               )
                                             : tasksInsideFolder != null
                                                 ? Text(
                                                     tasksInsideFolder
-                                                            ?.deadLine ??
-                                                        'dead',
-                                                    // task['date']!,
+                                                            ?.description ??
+                                                        'description',
                                                     style: const TextStyle(
-                                                      color: kwhite,
-                                                    ),
+                                                        color: kwhite,
+                                                        fontSize: 12),
                                                   )
                                                 : tasksInsideInnerFolder != null
                                                     ? Text(
                                                         tasksInsideInnerFolder
-                                                                ?.deadLine ??
-                                                            'dead',
-                                                        // task['date']!,
+                                                                ?.description ??
+                                                            'description',
                                                         style: const TextStyle(
-                                                          color: kwhite,
-                                                        ),
+                                                            color: kwhite,
+                                                            fontSize: 12),
                                                       )
-                                                    : const Text('Deadline'),
-                              ),
-                              adjustHieght(10),
-                            ],
-                          ),
-                        ],
-                      ),
+                                                    : const Text('description'),
+                            adjustHieght(10),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: deadlineTasks != null
+                                  ? Text(
+                                      deadlineTasks?.task?.deadLine ?? 'dead',
+                                      // task['date']!,
+                                      style: const TextStyle(
+                                        color: kwhite,
+                                      ),
+                                    )
+                                  : typeTask != null
+                                      ? Text(
+                                          typeTask?.task?.deadLine ?? 'dead',
+                                          // task['date']!,
+                                          style: const TextStyle(
+                                            color: kwhite,
+                                          ),
+                                        )
+                                      : pinnedTasks != null
+                                          ? Text(
+                                              pinnedTasks?.task?.deadLine ??
+                                                  'dead',
+                                              // task['date']!,
+                                              style: const TextStyle(
+                                                color: kwhite,
+                                              ),
+                                            )
+                                          : tasksInsideFolder != null
+                                              ? Text(
+                                                  tasksInsideFolder?.deadLine ??
+                                                      'dead',
+                                                  // task['date']!,
+                                                  style: const TextStyle(
+                                                    color: kwhite,
+                                                  ),
+                                                )
+                                              : tasksInsideInnerFolder != null
+                                                  ? Text(
+                                                      tasksInsideInnerFolder
+                                                              ?.deadLine ??
+                                                          'dead',
+                                                      // task['date']!,
+                                                      style: const TextStyle(
+                                                        color: kwhite,
+                                                      ),
+                                                    )
+                                                  : const Text('Deadline'),
+                            ),
+                            adjustHieght(10),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    top: 50,
-                    bottom: 50,
-                    left: 0,
-                    child: Container(
-                      color: klightgrey,
-                      width: 4,
-                      height: 100,
-                    ),
-                  )
-                ],
-              ),
+                ),
+                Positioned(
+                  top: 50,
+                  bottom: 50,
+                  left: 0,
+                  child: Container(
+                    color: klightgrey,
+                    width: 4,
+                    height: 100,
+                  ),
+                )
+              ],
             ),
-          ));
+          ),
+        ));
   }
 }

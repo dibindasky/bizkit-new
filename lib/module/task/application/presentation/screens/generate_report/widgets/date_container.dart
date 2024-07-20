@@ -7,7 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class DateContainer extends StatelessWidget {
-  DateContainer({super.key});
+  DateContainer({super.key, this.title, this.isFromDate});
+
+  final String? title;
+  final bool? isFromDate;
 
   final controllerr = Get.find<TaskGenerateReportController>();
 
@@ -16,7 +19,7 @@ class DateContainer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Select Date Range', style: TextStyle(color: kwhite)),
+        // Text(title ?? '', style: const TextStyle(color: kwhite)),
         adjustHieght(8.h),
         GetBuilder<TaskGenerateReportController>(
           builder: (controller) => Row(
@@ -34,9 +37,15 @@ class DateContainer extends StatelessWidget {
                         year: 500,
                         last: 500,
                         onPressed: (date) {
-                          controllerr.changeGenareteDate(date);
+                          if (isFromDate == true) {
+                            controllerr.changeFromDate(date);
+                          } else {
+                            controllerr.changeToDate(date);
+                          }
                         },
-                        datePicker: controllerr.genaretesDate,
+                        datePicker: isFromDate == true
+                            ? controllerr.fromDate
+                            : controllerr.toDate,
                       );
                     },
                   );
@@ -53,9 +62,16 @@ class DateContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        controller.genaretesDate.text.isEmpty
-                            ? 'Select Date Range'
-                            : controller.genaretesDate.text,
+                        // controller.fromDate.text.isEmpty
+                        //     ? title ?? ''
+                        //     : controller.fromDate.text,
+                        isFromDate == true
+                            ? controller.fromDate.text.isEmpty
+                                ? title ?? ''
+                                : controller.fromDate.text
+                            : controller.toDate.text.isEmpty
+                                ? title ?? ''
+                                : controller.toDate.text,
                         style: const TextStyle(color: kwhite),
                       ),
                       const Icon(Icons.calendar_month_rounded,

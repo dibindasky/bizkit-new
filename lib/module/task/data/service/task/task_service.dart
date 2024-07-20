@@ -286,7 +286,7 @@ class TaskService implements TaskRepo {
       final response = await apiService.get(ApiEndPoints.taskTestEditTask,
           data: singleTaskModel.toJson());
 
-      log("=> Response Get one task : ");
+      log("=> Response Get one task : ${response.data} ");
 
       return Right(GetTaskResponce.fromJson(response.data));
     } on DioException catch (e) {

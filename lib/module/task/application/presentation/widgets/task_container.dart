@@ -35,6 +35,7 @@ class TaskContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('task id  =>${typeTask?.id}');
     final color = getSpotLightColor(typeTask?.createdAt, typeTask?.deadLine);
     return AnimatedGrowShrinkContainer(
       animate: typeTask?.spotlightOn ?? false,
@@ -263,12 +264,12 @@ class TaskContainer extends StatelessWidget {
         date1, DateTime.now().toString());
     if (first < second) return kred;
     final int part = (first / 3).round();
-    if (part <= second) {
-      return kblue;
-    } else if (part * 2 <= second) {
-      return kgreen;
+    if ((part * 2) <= second) {
+      return leaveBorderClr;
+    } else if (part <= second) {
+      return neonShade;
     } else {
-      return kOrange;
+      return kblue;
     }
   }
 }

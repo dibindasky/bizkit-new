@@ -129,7 +129,7 @@ class TaskService implements TaskRepo {
       final response =
           await apiService.get(ApiEndPoints.taskTestReceivedRequests);
       log("=> Response Received Requests : ${response.data}");
-      final List<dynamic> data = response.data as List<dynamic>;
+      final List<dynamic> data = response.data['tasks'] as List<dynamic>;
       final receivedRequests = data
           .map((json) =>
               ReceivedRequestsResponce.fromJson(json as Map<String, dynamic>))
@@ -148,6 +148,7 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, SuccessResponce>> pinnedATask(
       {required PinnedATaskModel pinnedATask}) async {
     try {
+      log('pin task body=> ${pinnedATask.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestPinnedATask,
         data: pinnedATask.toJson(),
@@ -223,6 +224,7 @@ class TaskService implements TaskRepo {
       filterPinnedTaskByType(
           {required FilterPinnedTaskByTypeModel filterPinnedTaskByType}) async {
     try {
+      log('filter by pinned => ${filterPinnedTaskByType.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestFilterByType,
         data: filterPinnedTaskByType.toJson(),
@@ -434,11 +436,12 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SuccessResponce>> spotLightTask(
       {required SpotLightTask spotLightTask}) async {
     try {
+      log("=> spotLightTask : ${spotLightTask.toJson()}");
       final response = await apiService.patch(
         ApiEndPoints.taskTestSpotLightTask,
         data: spotLightTask.toJson(),
       );
-      log("=> spotLightTask : ${response.data}");
+      log("=> spotLightTask response : ${response.data}");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException spotLightTask $e');

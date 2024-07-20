@@ -7,7 +7,7 @@ part of 'task.dart';
 // **************************************************************************
 
 Task _$TaskFromJson(Map<String, dynamic> json) => Task(
-      id: json['_id'] as String?,
+      id: json['task_id'] as String?,
       taskType: json['task_type'] as String?,
       isOwned: json['is_owned'] as bool?,
       spotlightOn: json['spotlight_on'] as bool?,
@@ -23,7 +23,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
-      '_id': instance.id,
+      'task_id': instance.id,
       'description': instance.description,
       'task_title': instance.title,
       'created_at': instance.createdAt,

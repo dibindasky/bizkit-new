@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
@@ -94,6 +95,7 @@ class CreateTaskController extends GetxController {
 
   // Reactive variable for loading state
   RxBool isLoading = false.obs;
+  RxBool pinLoader = false.obs;
 
   // Task service instance for API interactions
   final TaskRepo taskService = TaskService();
@@ -325,16 +327,38 @@ class CreateTaskController extends GetxController {
   // Pins a task using the provided model
   void pinnedATask({required PinnedATaskModel pinnedATask}) async {
     isLoading.value = true;
+    pinLoader.value = true;
     final result = await taskService.pinnedATask(pinnedATask: pinnedATask);
     result.fold(
       (error) {
-        isLoading.value = false;
+        pinLoader.value = false;
         log('${error.error}', name: 'Error from pinnedATask ');
       },
       (success) {
         log("${success.message}");
-        isLoading.value = false;
         update(); // Update the UI or state
+        if (pinnedATask.isPinned == false) {
+          print('pinned length => ${allPinnedTasks.length}');
+          allPinnedTasks.removeWhere((e) => e.id == pinnedATask.taskId);
+          pinLoader.value = false;
+        }
+        print('pinned length => ${allPinnedTasks.length}');
+        filterPinnedTasksByType(
+            filterPinnedTask: FilterPinnedTaskByTypeModel(
+                taskType: Get.find<TaskHomeScreenController>()
+                    .taskCategory
+                    .value
+                    .replaceAll(' ', '_')
+                    .toLowerCase(),
+                isPinned: true));
+        filterByType(
+            filterByType: FilterByTypeModel(
+                taskType: Get.find<TaskHomeScreenController>()
+                    .taskCategory
+                    .value
+                    .replaceAll(' ', '_')
+                    .toLowerCase()));
+        pinLoader.value = false;
       },
     );
   }
@@ -392,8 +416,10 @@ class CreateTaskController extends GetxController {
 
   // Filters pinned tasks by type using the provided model
   void filterPinnedTasksByType(
-      {required FilterPinnedTaskByTypeModel filterPinnedTask}) async {
+      {required FilterPinnedTaskByTypeModel filterPinnedTask,
+      bool pinn = false}) async {
     isLoading.value = true;
+    print('pinned task => ${filterPinnedTask.toJson()}');
     final result = await taskService.filterPinnedTaskByType(
         filterPinnedTaskByType: filterPinnedTask);
     result.fold(
@@ -406,6 +432,7 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
       },
     );
+    update();
   }
 
   // Accepts or rejects a request using the provided model

@@ -18,12 +18,9 @@ class TabNotificationItemBuilder extends StatelessWidget {
         () {
           if (taskController.isLoading.value) {
             return const Center(child: CircularProgressIndicator());
-          }
-
-          if (taskController.receivedRequests.isEmpty) {
+          } else if (taskController.receivedRequests.isEmpty) {
             return const Center(child: Text('No new requests available'));
           }
-
           return RefreshIndicator(
             onRefresh: () async {
               taskController.fetchReceivedRequests();

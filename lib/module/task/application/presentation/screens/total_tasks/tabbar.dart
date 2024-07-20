@@ -15,7 +15,7 @@ class TotalTaskListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (taskController.isLoading.value) {
+        if (taskController.isLoading.value || taskController.pinLoader.value) {
           return const Center(
             child: CircularProgressIndicator(),
           );

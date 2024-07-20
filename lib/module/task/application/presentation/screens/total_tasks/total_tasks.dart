@@ -248,7 +248,7 @@ class PinnedTasks extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
     return Obx(
       () {
-        if (taskController.isLoading.value) {
+        if (taskController.isLoading.value || taskController.pinLoader.value) {
           return const Center(
             child: CircularProgressIndicator(),
           );

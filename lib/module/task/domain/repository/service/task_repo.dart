@@ -24,6 +24,8 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_search_responce/task_search_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/tasks_count_model/task_counts_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_count_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:dartz/dartz.dart';
@@ -89,7 +91,10 @@ abstract class TaskRepo {
 
   Future<Either<Failure, SuccessResponce>> killATask(
       {required KillATaskModel killatask});
-
   Future<Either<Failure, SuccessResponce>> spotLightTask(
       {required SpotLightTask spotLightTask});
+  Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithoutDate();
+  Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithDate(
+      {required TasksCountModel tasksCountModel});
+
 }

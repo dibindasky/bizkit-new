@@ -27,6 +27,8 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_search_responce/task_search_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/tasks_count_model/task_counts_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_count_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
@@ -443,6 +445,46 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch spotLightTask $e');
+      return Left(Failure(message: e.toString()));
+    }
+  
+   @override
+  Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithDate(
+      {required TasksCountModel tasksCountModel}) async {
+    try {
+      final response = await apiService.post(
+        ApiEndPoints.taskTestGetTasksCounts,
+        data: tasksCountModel.toJson(),
+      );
+
+      log("=> Response get tasks counts with date : ${response.data}");
+
+      return Right(TaskCountsResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getTasksCountsWithDate $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getTasksCountsWithDate $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, TaskCountsResponce>>
+      getTasksCountsWithoutDate() async {
+    try {
+      final response = await apiService.post(
+        ApiEndPoints.taskTestGetTasksCounts,
+      );
+
+      log("=> Response get tasks counts without date : ${response.data}");
+
+      return Right(TaskCountsResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getTasksCountsWithoutDate $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getTasksCountsWithoutDate $e');
       return Left(Failure(message: e.toString()));
     }
   }

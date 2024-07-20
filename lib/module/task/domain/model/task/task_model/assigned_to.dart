@@ -7,6 +7,7 @@ class TaskAssignedTo {
   String? user;
   @JsonKey(name: 'is_accepted')
   String? isAccepted;
+  String? name;
 
   TaskAssignedTo({this.user, this.isAccepted});
 

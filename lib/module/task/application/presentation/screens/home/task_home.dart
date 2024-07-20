@@ -23,7 +23,7 @@ class ScreenTaskHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<TaskHomeScreenController>();
-    // final taskController = Get.find<CreateTaskController>();
+    final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // taskController.filterByType(
       //     filterByType: FilterByTypeModel(taskType: 'all'));
@@ -33,7 +33,7 @@ class ScreenTaskHome extends StatelessWidget {
       //   taskType: 'all',
       //   isPinned: true,
       // ));
-      // homeController.progresBar();
+      homeController.progresBar();
     });
 
     return Scaffold(

@@ -28,7 +28,7 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
               const Spacer(),
               GestureDetector(
                 onTap: () {
-                  GoRouter.of(context).pushNamed(Routes.taskAttachmetnsList);
+                  // GoRouter.of(context).pushNamed(Routes.taskAttachmetnsList);
                 },
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(150),

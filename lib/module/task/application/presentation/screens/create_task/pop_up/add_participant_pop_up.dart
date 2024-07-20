@@ -91,6 +91,7 @@ class AddParticipentBottomSheet extends StatelessWidget {
                                         participant.user == user.userId);
                               } else {
                                 final participant = TaskAssignedTo(
+                                  name: user.name,
                                   user: user.userId,
                                   isAccepted: 'pending',
                                 );

@@ -3,6 +3,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/routes/routes.dart';
 
@@ -236,6 +237,34 @@ const String levelSettingText = 'Level setting text';
 
 commenText(String data, {TextStyle? style}) {
   return Text(data, style: style);
+}
+
+// will return date as String type  yyyy-mm-dd
+String getDateApi(DateTime? dateTime) {
+  if (dateTime == null) return '';
+  return DateFormat('yyyy-MM-dd').format(dateTime);
+}
+
+// will return week day
+String getWeekDay(int day) {
+  switch (day) {
+    case DateTime.monday:
+      return 'Mon';
+    case DateTime.tuesday:
+      return 'Tue';
+    case DateTime.wednesday:
+      return 'Wed';
+    case DateTime.thursday:
+      return 'Thu';
+    case DateTime.friday:
+      return 'Fri';
+    case DateTime.saturday:
+      return 'Sat';
+    case DateTime.sunday:
+      return 'Sun';
+    default:
+      return '';
+  }
 }
 
 //Task Constatnts

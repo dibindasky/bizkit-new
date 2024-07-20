@@ -47,7 +47,9 @@ class TaskListView extends StatelessWidget {
                       singleTaskModel:
                           GetSingleTaskModel(taskId: deadlineTask.id),
                     );
-                    GoRouter.of(context).push(Routes.taskChatScreen);
+                    GoRouter.of(context).push(
+                      Routes.taskChatScreen,
+                    );
                   }
                 },
                 child: TaskContainer(

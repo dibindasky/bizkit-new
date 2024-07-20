@@ -8,10 +8,10 @@ part of 'tasks_count_model.dart';
 
 TasksCountModel _$TasksCountModelFromJson(Map<String, dynamic> json) =>
     TasksCountModel(
-      fromDate: json['from_date'] as String?,
+      fromDate: json['to_date'] as String?,
     );
 
 Map<String, dynamic> _$TasksCountModelToJson(TasksCountModel instance) =>
     <String, dynamic>{
-      'from_date': instance.fromDate,
+      'to_date': instance.fromDate,
     };

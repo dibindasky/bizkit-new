@@ -26,6 +26,12 @@ class DateTimeFormater {
     return '$formattedDate, $formattedTime';
   }
 
+  static String dateTimeFormat(
+    DateTime date,
+  ) {
+    return DateFormat('yyyy-MM-dd').format(date);
+  }
+
   static int calculateDifferenceInHours(String date1, String date2) {
     DateTime? parseDate(String date) {
       try {

@@ -37,6 +37,7 @@ class DeadlineChooserCreateTask extends StatelessWidget {
               return DatePickingBottomSheet(
                 year: 500,
                 last: 500,
+                initialDate: DateTime.now(),
                 onPressed: onPressed,
                 datePicker: dateController,
               );

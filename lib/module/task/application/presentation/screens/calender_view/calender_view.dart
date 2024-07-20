@@ -44,8 +44,8 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
       //   isPinned: true,
       // ));
 
-      // taskController.filterByType(
-      //     filterByType: FilterByTypeModel(taskType: 'all'));
+      taskController.filterByType(
+          filterByType: FilterByTypeModel(taskType: 'all'));
       // taskController.fetchAllPinnedTasks();
     });
 

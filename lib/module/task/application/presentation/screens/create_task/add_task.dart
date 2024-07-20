@@ -119,6 +119,28 @@ class ScreenAddTask extends StatelessWidget {
                               );
                             },
                           ),
+                          adjustHieght(10.h),
+                          Obx(() {
+                            final participants = controller.participants;
+                            return Wrap(
+                              spacing: 10.w,
+                              runSpacing: 10.h,
+                              children: participants
+                                  .map((participant) => Chip(
+                                        deleteIconColor: kred,
+                                        side:
+                                            const BorderSide(color: neonShade),
+                                        label: Text(
+                                          participant.name ?? 'name',
+                                        ),
+                                        onDeleted: () {
+                                          controller
+                                              .removeParticipant(participant);
+                                        },
+                                      ))
+                                  .toList(),
+                            );
+                          }),
                           DeadlineChooserCreateTask(
                             onPressed: (date) {
                               controller.deadlineDate.value = date;

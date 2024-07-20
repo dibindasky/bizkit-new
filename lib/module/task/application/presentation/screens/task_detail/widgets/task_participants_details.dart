@@ -24,7 +24,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
       }
 
       // Join participants names
-      // String participants = task.assignedTo?.join(', ') ?? 'None';
+      // String participants = task.assignedTo?.map((e) => e.user,);
 
       return Container(
         padding: EdgeInsets.all(10.w),
@@ -110,6 +110,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                     ),
                     Text(
                       'Stephen, Joseph, Christopher, . . .',
+                      // '',
                       style: textStyle1,
                       overflow: TextOverflow.ellipsis,
                     )

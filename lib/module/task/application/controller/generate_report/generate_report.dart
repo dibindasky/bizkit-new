@@ -6,7 +6,9 @@ class TaskGenerateReportController extends GetxController {
   RxList<String> taskFromOptions =
       <String>['Option 1', 'Option 2', 'Option 3'].obs;
   RxString genareteDropDownData = 'Option 1'.obs;
-  final TextEditingController genaretesDate = TextEditingController();
+
+  final TextEditingController fromDate = TextEditingController();
+  final TextEditingController toDate = TextEditingController();
 
   @override
   void onInit() {
@@ -21,8 +23,13 @@ class TaskGenerateReportController extends GetxController {
     genareteDropDownData.value = selectedDropDownData;
   }
 
-  void changeGenareteDate(String selecteDate) {
-    genaretesDate.text = selecteDate;
+  void changeFromDate(String selecteDate) {
+    fromDate.text = selecteDate;
+    update();
+  }
+
+  void changeToDate(String selecteDate) {
+    toDate.text = selecteDate;
     update();
   }
 }

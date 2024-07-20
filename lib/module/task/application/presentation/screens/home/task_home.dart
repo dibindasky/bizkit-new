@@ -22,7 +22,7 @@ class ScreenTaskHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final homeController = Get.find<TaskHomeScreenController>();
+    final homeController = Get.find<TaskHomeScreenController>();
     // final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // taskController.filterByType(

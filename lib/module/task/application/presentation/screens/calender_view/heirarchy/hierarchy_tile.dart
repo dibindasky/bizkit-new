@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
@@ -96,12 +98,22 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                           innerFolderTasks: [],
                         ),
                       );
+                      controller.filterInnerFolderByDeadline(
+                          filterInnerFolder: FilterInnerFolderModel(
+                        filterDate: controller.deadlineDate.value,
+                        folderId: folderId,
+                      ));
                     } else {
                       controller.editInnerFolderName(
                           editInnerFolderName: EditInnerFolderModel(
                         folderId: folderId ?? '',
                         innerFolderId: innerFolderId,
                         innerFolderName: innerFolderName,
+                      ));
+                      controller.filterInnerFolderByDeadline(
+                          filterInnerFolder: FilterInnerFolderModel(
+                        filterDate: controller.deadlineDate.value,
+                        folderId: folderId,
                       ));
                     }
 
@@ -197,12 +209,13 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
               activeColor: neonShade,
               initialDate: DateTime.now(),
               onDateChange: (selectedDate) {
-                String formattedDate =
+                controller.deadlineDate.value =
                     DateFormat('yyyy-MM-dd').format(selectedDate);
+                log('date :=> ${controller.deadlineDate.value}');
                 controller.filterInnerFolderByDeadline(
                     filterInnerFolder: FilterInnerFolderModel(
                   folderId: folderId ?? '',
-                  filterDate: formattedDate,
+                  filterDate: controller.deadlineDate.value,
                 ));
               },
             ),

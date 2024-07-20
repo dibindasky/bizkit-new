@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:bizkit/module/task/application/controller/generate_report/generate_report.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/date_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -19,6 +22,8 @@ class ScreenTaskReportGenerator extends StatefulWidget {
 class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
   final TaskHomeScreenController controller =
       Get.find<TaskHomeScreenController>();
+
+  final taskGenerateReportController = Get.find<TaskGenerateReportController>();
 
   List<String> selectedOptionCategory = [];
   List<String> selectedTaskType = [];
@@ -55,46 +60,22 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
   }
 
   void _generateReport() async {
+    log(' taskGenerateReportController.toDate.text = > ${taskGenerateReportController.toDate.text}');
+    log(' taskGenerateReportController.fromDate.text= > ${taskGenerateReportController.fromDate.text}');
     GenerateTaskReportModel reportModel = GenerateTaskReportModel(
       priorityLevel:
           selectedPriorityType.isNotEmpty ? selectedPriorityType : null,
       taskMentionedType: selectedTaskType.isNotEmpty ? selectedTaskType : null,
       taskType:
           selectedOptionCategory.isNotEmpty ? selectedOptionCategory : null,
-      fromDate: '2024-01-01',
-      toDate: '2024-12-31',
+      fromDate: taskGenerateReportController.fromDate.text,
+      toDate: taskGenerateReportController.toDate.text,
     );
 
     controller.generateTaskReport(
         genearteTaskReport: reportModel, context: context);
-
-    // showDialog(
-    //   context: context,
-    //   barrierDismissible: false,
-    //   builder: (context) {
-    //     return const Center(
-    //       child: CircularProgressIndicator(),
-    //     );
-    //   },
-    // );
-
-    // else {
-    //   showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       return AlertDialog(
-    //         title: const Text('Error'),
-    //         content: const Text('No report available. Please try again.'),
-    //         actions: [
-    //           TextButton(
-    //             onPressed: () => Navigator.pop(context),
-    //             child: const Text('Close'),
-    //           ),
-    //         ],
-    //       );
-    //     },
-    //   );
-    // }
+    taskGenerateReportController.fromDate.clear();
+    taskGenerateReportController.toDate.clear();
   }
 
   @override
@@ -108,6 +89,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
           child: controller.isLoading.value
               ? const Center(child: CircularProgressIndicator())
               : ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   children: [
                     const Text(
                       'Generate report for your tasks',
@@ -145,8 +127,15 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                           _handlePriorityTypeChange),
                     ]),
                     adjustHieght(16.h),
-                    DateContainer(),
+                    DateContainer(
+                      isFromDate: true,
+                      title: 'Select from date',
+                    ),
                     adjustHieght(8.h),
+                    DateContainer(
+                      isFromDate: false,
+                      title: 'Select to date',
+                    ),
                     // GenerateReportDropDownButton(),
                     adjustHieght(20.h),
                     Center(
@@ -156,6 +145,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                         onTap: _generateReport,
                       ),
                     ),
+                    adjustHieght(10.h),
                   ],
                 ),
         ),

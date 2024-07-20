@@ -127,9 +127,11 @@ class TaskService implements TaskRepo {
       final response =
           await apiService.get(ApiEndPoints.taskTestReceivedRequests);
       log("=> Response Received Requests : ${response.data}");
-      final List<dynamic> data = response.data;
-      final receivedRequests =
-          data.map((json) => ReceivedRequestsResponce.fromJson(json)).toList();
+      final List<dynamic> data = response.data as List<dynamic>;
+      final receivedRequests = data
+          .map((json) =>
+              ReceivedRequestsResponce.fromJson(json as Map<String, dynamic>))
+          .toList();
       return Right(receivedRequests);
     } on DioException catch (e) {
       log('DioException getReceivedRequests $e');

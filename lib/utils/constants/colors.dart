@@ -26,7 +26,6 @@ const Color kOrange = Color.fromARGB(255, 201, 121, 2);
 const klightGreyClr = Color(0xFF313131);
 const Color holidayBorderClr = Color(0xFF5E77FF);
 const Color leaveBorderClr = Color(0xFFFF814C);
-
 const klightDarkGrey = Color.fromARGB(255, 40, 40, 40);
 double khieght = 850;
 double kwidth = 400;
@@ -39,6 +38,7 @@ SizedBox kempty = const SizedBox(height: 0);
 //   khieght = size.height > 900 ? 900 : size.height;
 //   kwidth = size.width > 450 ? 450 : size.width;
 // }
+
 
 adjustWidth(double width) {
   return SizedBox(

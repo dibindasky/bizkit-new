@@ -49,8 +49,7 @@ class TaskContainer extends StatelessWidget {
         begin: 0.9,
         end: 0.99,
         backgroundColor: klightGreyClr,
-        child: Obx(
-          () => Container(
+        child: Container(
             decoration: BoxDecoration(
                 borderRadius: kBorderRadius15,
                 boxShadow: index == 1
@@ -67,7 +66,7 @@ class TaskContainer extends StatelessWidget {
                 children: [
                   Card(
                     color: !controller.selectedIndices.contains(index)
-                        ? lightColr
+                        ? kblack
                         : kwhite.withOpacity(.2),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
@@ -405,7 +404,6 @@ class TaskContainer extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ));
+          ));
   }
 }

@@ -167,6 +167,7 @@ class ApiEndPoints {
   static const taskTestgetAllTasks = '/user-tasks/';
   static const taskTestCreateTask = '/tasks/create/';
   static const taskTestEditTask = '/tasks/';
+  static const taskTestSpotLightTask = '/task-spot-light/';
   static const taskTestSendRequests = '/get-send-requests/';
   static const taskTestReceivedRequests = '/task-requests/';
   static const taskTestFilterByDeadline = '/filter-tasks-by-deadine/';

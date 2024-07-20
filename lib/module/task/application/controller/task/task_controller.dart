@@ -16,6 +16,7 @@ import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_ta
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
+import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_model/edit_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
@@ -298,6 +299,20 @@ class CreateTaskController extends GetxController {
         deadlineTasks.assignAll(success.tasks ?? []);
         log('deadlineTasks :=> $deadlineTasks');
         isLoading.value = false;
+      },
+    );
+  }
+
+  // add spotlight to a task
+  void spotLightTask({required SpotLightTask spotLightTask}) async {
+    final result =
+        await taskService.spotLightTask(spotLightTask: spotLightTask);
+    result.fold(
+      (failure) {
+        log(failure.message.toString());
+      },
+      (success) {
+        log('SpotLightTask :=> $deadlineTasks');
       },
     );
   }

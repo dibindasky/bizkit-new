@@ -6,6 +6,7 @@ import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tas
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
+import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
 import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -133,12 +134,22 @@ class TaskContainer extends StatelessWidget {
                                       //     style: TextStyle(color: kblack),
                                       //   ),
                                       // ),
-                                      const PopupMenuItem<String>(
+                                      PopupMenuItem<String>(
                                         value: 'Spot light Task',
-                                        child: Text(
+                                        child: const Text(
                                           'Spot light Task',
                                           style: TextStyle(color: kblack),
                                         ),
+                                        onTap: () {
+                                          taskController.spotLightTask(
+                                              spotLightTask: SpotLightTask(
+                                                  spotLightStatus: true,
+                                                  taskId: typeTask?.id ??
+                                                      tasksInsideFolder
+                                                          ?.taskId ??
+                                                      tasksInsideInnerFolder
+                                                          ?.taskId));
+                                        },
                                       ),
                                       if (typeTask?.isPinned == false)
                                         PopupMenuItem<String>(

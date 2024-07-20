@@ -7,7 +7,6 @@ import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/task.dart';
@@ -23,7 +22,6 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model
 import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
-import 'package:bizkit/module/task/domain/model/task/task_search_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
@@ -52,15 +50,15 @@ class CreateTaskController extends GetxController {
 
   // Lists for storing various task types and deadlines
   RxList<Task> typeTasks = <Task>[].obs;
-  RxList<DTasks> deadlineTasks = <DTasks>[].obs;
+  RxList<Task> deadlineTasks = <Task>[].obs;
   RxList<SentRequest> sentRequests = <SentRequest>[].obs;
   RxList<ReceivedRequestsResponce> receivedRequests =
       <ReceivedRequestsResponce>[].obs;
-  RxList<PinnedTasksByTypes> allPinnedTasks = <PinnedTasksByTypes>[].obs;
+  RxList<Task> allPinnedTasks = <Task>[].obs;
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
-  RxList<SearchTasks> tasksSearch = <SearchTasks>[].obs;
-  RxList<SearchTasks> selectedTasks = <SearchTasks>[].obs;
+  RxList<Task> tasksSearch = <Task>[].obs;
+  RxList<Task> selectedTasks = <Task>[].obs;
 
   // Holds a single task response
   Rx<GetTaskResponce> singleTask = GetTaskResponce().obs;

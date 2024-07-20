@@ -1,12 +1,11 @@
+import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'task.dart';
 
 part 'filter_pinned_task_by_type_success_responce.g.dart';
 
 @JsonSerializable()
 class FilterPinnedTaskByTypeSuccessResponce {
-  List<PinnedTasksByTypes>? tasks;
+  List<Task>? tasks;
 
   FilterPinnedTaskByTypeSuccessResponce({this.tasks});
 

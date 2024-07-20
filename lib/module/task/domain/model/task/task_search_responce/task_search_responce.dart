@@ -1,12 +1,11 @@
+import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'task.dart';
 
 part 'task_search_responce.g.dart';
 
 @JsonSerializable()
 class TaskSearchResponce {
-  List<SearchTasks>? tasks;
+  List<Task>? tasks;
 
   TaskSearchResponce({this.tasks});
 

@@ -9,7 +9,7 @@ part of 'task_search_responce.dart';
 TaskSearchResponce _$TaskSearchResponceFromJson(Map<String, dynamic> json) =>
     TaskSearchResponce(
       tasks: (json['tasks'] as List<dynamic>?)
-          ?.map((e) => SearchTasks.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Task.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

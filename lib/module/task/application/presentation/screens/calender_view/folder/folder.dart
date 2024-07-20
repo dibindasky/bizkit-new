@@ -206,7 +206,7 @@ void showTaskSelectionBottomSheet(BuildContext context, String folderId,
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
                           title: Text(
-                            task.task?.title ?? 'Title',
+                            task.title ?? 'Title',
                             style: const TextStyle(color: kwhite),
                           ),
                           trailing: Obx(

@@ -5,6 +5,8 @@ import 'package:bizkit/module/task/domain/model/folders/all_folders_responce/dat
 
 import 'package:bizkit/module/task/domain/model/folders/delete_folder_model/delete_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_folder_model/edit_folder_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/filter_folder_by_deadline_model/filter_folder_by_deadline_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/filter_folders_by_deadlin_success_responce/filtered_folder.dart';
 
 import 'package:bizkit/module/task/domain/model/folders/folder_model/folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
@@ -13,6 +15,8 @@ import 'package:bizkit/module/task/domain/model/folders/get_tasks_inside_folder_
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/create_folder_inside_a_folder/create_folder_inside_a_folder.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/delete_inner_folder_model/delete_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/edit_inner_folder_model/edit_inner_folder_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_success_responce/filtered_folder.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/inner_folder_task.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
@@ -20,6 +24,7 @@ import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge
 import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
 import 'package:bizkit/module/task/domain/repository/service/folder_repo.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class TaskFolderController extends GetxController {
   RxList<Datum> allFolders = <Datum>[].obs;
@@ -31,7 +36,13 @@ class TaskFolderController extends GetxController {
 
   RxList<InnerFolder> innerFolders = <InnerFolder>[].obs;
 
+  RxList<FilteredFolder> filteredInnerFolders = <FilteredFolder>[].obs;
+
+  RxList<FilteredFolders> filteredFoldersByDeadline = <FilteredFolders>[].obs;
+
   RxBool isLoading = false.obs;
+
+  RxString deadlineDate = ''.obs;
 
   // Folder Id
   String folderId = '';
@@ -43,6 +54,16 @@ class TaskFolderController extends GetxController {
   String innerFolderId = '';
 
   final FolderRepo folderService = FolderService();
+
+  @override
+  void onInit() {
+    final DateTime todaydate = DateTime.now();
+    // Initialize with today's date for deadline filtering
+    filterFoldersByDeadline(
+        filterFolder: FilterFolderByDeadlineModel(
+            filterDate: DateFormat('yyyy-MM-dd').format(todaydate)));
+    super.onInit();
+  }
 
   void toggleFolderSelection(String folderId) {
     if (selectedFolderIds.contains(folderId)) {
@@ -66,6 +87,7 @@ class TaskFolderController extends GetxController {
         log('${success.message}');
         isLoading.value = false;
         folderId = success.folderId.toString();
+
         fetchAllFolders();
       },
     );
@@ -113,7 +135,9 @@ class TaskFolderController extends GetxController {
       },
       (success) {
         log('${success.message}');
-        fetchAllFolders();
+        filterFoldersByDeadline(
+            filterFolder: FilterFolderByDeadlineModel(
+                filterDate: deadlineDate.toString()));
         isLoading.value = false;
       },
     );
@@ -245,6 +269,7 @@ class TaskFolderController extends GetxController {
 
   void fetchAllTasksInsideAInnerFolder(
       InnerFolderTasksGetParamsModel innerFolderGetParams) async {
+    isLoading.value = true;
     final result = await folderService.getTasksInsideAInnerFolder(
         innerFolderGetParams: innerFolderGetParams);
     result.fold(
@@ -256,6 +281,40 @@ class TaskFolderController extends GetxController {
         tasksInsideInnerFolder
             .assignAll(success.data?.first.innerFolderTasks ?? []);
         log('tasksInsideInnerFolder :=> $tasksInsideInnerFolder');
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void filterInnerFolderByDeadline(
+      {required FilterInnerFolderModel filterInnerFolder}) async {
+    isLoading.value = true;
+    final result = await folderService.filterInnerFolderByDealine(
+        filterInnerFolder: filterInnerFolder);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        filteredInnerFolders.assignAll(success.filteredFolders ?? []);
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void filterFoldersByDeadline(
+      {required FilterFolderByDeadlineModel filterFolder}) async {
+    isLoading.value = true;
+    final result =
+        await folderService.filterFolderByDeadline(filterFolder: filterFolder);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        filteredFoldersByDeadline.assignAll(success.filteredFolders ?? []);
         isLoading.value = false;
       },
     );

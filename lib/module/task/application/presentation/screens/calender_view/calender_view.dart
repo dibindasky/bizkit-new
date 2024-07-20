@@ -7,6 +7,7 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/calender_view_appbar.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/heirarchy_task_folder_data_folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/hierarchy_task_folder.dart';
+import 'package:bizkit/module/task/domain/model/folders/filter_folder_by_deadline_model/filter_folder_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -41,8 +42,8 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
       //   taskType: 'all',
       //   isPinned: true,
       // ));
-      taskController.filterByType(
-          filterByType: FilterByTypeModel(taskType: 'all'));
+      // taskController.filterByType(
+      //     filterByType: FilterByTypeModel(taskType: 'all'));
       // taskController.fetchAllPinnedTasks();
       controller.fetchAllFolders();
     });
@@ -107,15 +108,22 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                       onDateChange: (selectedDate) {
                         String formattedDate =
                             DateFormat('yyyy-MM-dd').format(selectedDate);
+                        controller.deadlineDate.value = formattedDate;
                         log(selectedDate.toString());
                         if (taskCalenderViewController
                                 .taskTabChangeIndex.value ==
                             1) {
-                          taskController.taskFilterByDeadline(
-                            filterByDeadline: FilterByDeadlineModel(
-                              date: formattedDate,
-                            ),
-                          );
+                          // taskController.taskFilterByDeadline(
+                          //   filterByDeadline: FilterByDeadlineModel(
+                          //     date: formattedDate,
+                          //   ),
+                          // );
+                        } else if (taskCalenderViewController
+                                .taskTabChangeIndex.value ==
+                            2) {
+                          controller.filterFoldersByDeadline(
+                              filterFolder: FilterFolderByDeadlineModel(
+                                  filterDate: formattedDate));
                         }
                       },
                     ),

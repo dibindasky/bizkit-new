@@ -39,7 +39,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                 child: CircularProgressIndicator(),
               ),
             );
-          } else if (taskFolderController.allFolders.isEmpty) {
+          } else if (taskFolderController.filteredFoldersByDeadline.isEmpty) {
             return const Expanded(
               child: Center(
                 child: Text('No folders available'),
@@ -48,27 +48,33 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
           } else {
             return Expanded(
               child: ListView.builder(
-                itemCount: taskFolderController.allFolders.length,
+                itemCount:
+                    taskFolderController.filteredFoldersByDeadline.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onLongPress: () {
                       controller.longPress(index);
                       taskFolderController.toggleFolderSelection(
-                        taskFolderController.allFolders[index].id ?? '',
+                        taskFolderController
+                                .filteredFoldersByDeadline[index].folderId ??
+                            '',
                       );
                     },
                     onTap: () {
                       if (controller.selectedFolderContainer.value) {
                         controller.longPress(index);
                         taskFolderController.toggleFolderSelection(
-                          taskFolderController.allFolders[index].id ?? '',
+                          taskFolderController
+                                  .filteredFoldersByDeadline[index].folderId ??
+                              '',
                         );
                       } else {
                         Get.toNamed(Routes.heirarchyUserDetail,
                             id: 2,
-                            arguments:
-                                taskFolderController.allFolders[index].id ??
-                                    '');
+                            arguments: taskFolderController
+                                    .filteredFoldersByDeadline[index]
+                                    .folderId ??
+                                '');
 
                         taskFolderController.fetchTasksInsideFolder(
                             taskInsideFolder: GetTaskInsideAFolderParamsModel(
@@ -78,8 +84,11 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                       }
                     },
                     child: TaskFolderSection(
-                      folderId: taskFolderController.allFolders[index].id ?? '',
-                      name: taskFolderController.allFolders[index].folderName ??
+                      folderId: taskFolderController
+                              .filteredFoldersByDeadline[index].folderId ??
+                          '',
+                      name: taskFolderController
+                              .filteredFoldersByDeadline[index].folderName ??
                           '',
                       index: index,
                     ),

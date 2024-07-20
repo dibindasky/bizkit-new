@@ -51,7 +51,18 @@ class RouteGenerator {
         } else {
           return _errorScreen();
         }
-
+      case Routes.taskInsideTheInnerFolderScreen:
+        if (arguments is String) {
+          return MaterialPageRoute(
+            builder: (ctx) => TaskInsideTheInnerFolderScreen(
+              foldername: arguments,
+            ),
+          );
+        } else {
+          return _errorScreen();
+        }
+      // return MaterialPageRoute(
+      //     builder: (ctx) => const TaskInsideTheInnerFolderScreen());
       case Routes.editTask:
         return MaterialPageRoute(builder: (ctx) => ScreenEditTask());
       case Routes.taskNotification:
@@ -61,9 +72,7 @@ class RouteGenerator {
       //       builder: (ctx) => const TaskCreateNewFolderScreen());
       case Routes.taskTabNotification:
         return MaterialPageRoute(builder: (ctx) => TaskTabNotification());
-      case Routes.taskInsideTheInnerFolderScreen:
-        return MaterialPageRoute(
-            builder: (ctx) => const TaskInsideTheInnerFolderScreen());
+
       case Routes.cardDetailView:
         return MaterialPageRoute(
             builder: (ctx) => const ScreenTaskCalenderView());

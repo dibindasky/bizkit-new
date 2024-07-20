@@ -180,7 +180,7 @@ class FolderService implements FolderRepo {
         ApiEndPoints.taskTestFolders,
         queryParameters: taskInsideFolder.toJson(),
       );
-      log("=> Response Get tasks inside a folder : ");
+      log("=> Response Get tasks inside a folder :");
       return Right(GetTasksInsideFolderSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException getTasksInsideFolder $e');

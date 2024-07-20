@@ -29,7 +29,7 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'created_at': instance.createdAt,
       'dead_line': instance.deadLine,
       'priority_level': instance.priorityLevel,
-      'subtasks': instance.subtasks?.map((e) => e.toJson()).toList(),
+      'subtasks': instance.subtasks,
       'task_type': instance.taskType,
       'is_owned': instance.isOwned,
       'spotlight_on': instance.spotlightOn,

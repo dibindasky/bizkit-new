@@ -111,6 +111,11 @@ class CreateTaskController extends GetxController {
     }
   }
 
+  // Method to remove a participant
+  void removeParticipant(TaskAssignedTo participant) {
+    participants.remove(participant);
+  }
+
   // Converts PriorityLevel enum to string
   String priorityLevelEnumToString(PriorityLevel priorityLevel) {
     switch (priorityLevel) {

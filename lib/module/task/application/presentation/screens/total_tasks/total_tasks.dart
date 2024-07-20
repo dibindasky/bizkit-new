@@ -281,7 +281,7 @@ class PinnedTasks extends StatelessWidget {
                   child: TaskContainer(
                     tabIndex: tabController.index,
                     index: index,
-                    pinnedTasks: pinnedTasks,
+                    typeTask: pinnedTasks,
                   ),
                 );
               },

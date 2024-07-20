@@ -12,7 +12,7 @@ FilterPinnedTaskByTypeSuccessResponce
         FilterPinnedTaskByTypeSuccessResponce(
           tasks: (json['tasks'] as List<dynamic>?)
               ?.map(
-                  (e) => PinnedTasksByTypes.fromJson(e as Map<String, dynamic>))
+                  (e) => Task.fromJson(e as Map<String, dynamic>))
               .toList(),
         );
 

@@ -51,7 +51,7 @@ class TaskListView extends StatelessWidget {
                   }
                 },
                 child: TaskContainer(
-                  deadlineTasks: deadlineTask,
+                  typeTask: deadlineTask,
                   index: index,
                 ),
               );

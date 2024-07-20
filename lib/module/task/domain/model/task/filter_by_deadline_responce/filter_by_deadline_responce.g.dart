@@ -10,7 +10,7 @@ FilterByDeadlineResponce _$FilterByDeadlineResponceFromJson(
         Map<String, dynamic> json) =>
     FilterByDeadlineResponce(
       tasks: (json['tasks'] as List<dynamic>?)
-          ?.map((e) => DTasks.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Task.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

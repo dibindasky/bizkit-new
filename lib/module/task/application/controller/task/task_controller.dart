@@ -9,7 +9,6 @@ import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
@@ -23,11 +22,13 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model
 import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_count_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,7 +61,7 @@ class CreateTaskController extends GetxController {
       <UserSearchSuccessResponce>[].obs;
   RxList<Task> tasksSearch = <Task>[].obs;
   RxList<Task> selectedTasks = <Task>[].obs;
-
+  RxMap<String, RxInt> tasksCounts = <String, RxInt>{}.obs;
   // Holds a single task response
   Rx<GetTaskResponce> singleTask = GetTaskResponce().obs;
 
@@ -86,6 +87,7 @@ class CreateTaskController extends GetxController {
     deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
     taskFilterByDeadline(
         filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
+    getTasksCountWithoutDate();
     super.onInit();
   }
 
@@ -97,6 +99,8 @@ class CreateTaskController extends GetxController {
 
   // Task service instance for API interactions
   final TaskRepo taskService = TaskService();
+
+  Rx<DateTime> selectedDate = DateTime.now().obs;
 
   // Converts TaskType enum to string
   String taskTypeEnumToString(TaskType tasktype) {
@@ -110,6 +114,10 @@ class CreateTaskController extends GetxController {
       default:
         return '';
     }
+  }
+
+  void selctDate(DateTime value) {
+    selectedDate.value = value;
   }
 
   // Method to remove a participant
@@ -550,6 +558,28 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         log("${success.message}");
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void getTasksCountWithoutDate() async {
+    isLoading.value = true;
+    final result = await taskService.getTasksCountsWithDate(
+        tasksCountModel: TasksCountModel(
+            fromDate: DateTimeFormater.dateTimeFormat(
+                DateTime.now().add(Duration(days: 31)))));
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        for (var element in success.taskCounts.keys) {
+          tasksCounts[element] = success.taskCounts[element]!.obs;
+        }
+        // tasksCounts.value = success.taskCounts.map((e)=>);
+        log('Tasks Count : => ${tasksCounts.toJson()}');
         isLoading.value = false;
       },
     );

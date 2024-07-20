@@ -51,12 +51,12 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
               controller: descriptionController,
             ),
             SizedBox(height: 10.h),
-            DeadlineChooserCreateTask(
-              onPressed: (date) {
-                controller.deadlineDate.value = date;
-              },
-              showTitle: false,
-            ),
+            // DeadlineChooserCreateTask(
+            //   onPressed: (date) {
+            //     controller.deadlineDate.value = date;
+            //   },
+            //   showTitle: false,
+            // ),
             SizedBox(height: 30.h),
             SizedBox(
               width: double.infinity,

@@ -5,7 +5,7 @@ part 'task.g.dart';
 
 @JsonSerializable()
 class Task {
-  @JsonKey(name: '_id')
+  @JsonKey(name: 'task_id')
   String? id;
   @JsonKey(name: 'description')
   String? description;

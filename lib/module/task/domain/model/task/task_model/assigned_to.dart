@@ -9,7 +9,7 @@ class TaskAssignedTo {
   String? isAccepted;
   String? name;
 
-  TaskAssignedTo({this.user, this.isAccepted});
+  TaskAssignedTo({this.user, this.isAccepted, this.name});
 
   factory TaskAssignedTo.fromJson(Map<String, dynamic> json) {
     return _$TaskAssignedToFromJson(json);

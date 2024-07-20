@@ -4,7 +4,7 @@ part 'tasks_count_model.g.dart';
 
 @JsonSerializable()
 class TasksCountModel {
-  @JsonKey(name: 'from_date')
+  @JsonKey(name: 'to_date')
   String? fromDate;
 
   TasksCountModel({this.fromDate});

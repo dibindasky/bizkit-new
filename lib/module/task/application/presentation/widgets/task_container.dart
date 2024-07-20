@@ -25,6 +25,7 @@ class TaskContainer extends StatelessWidget {
     this.deadlineTasks,
     this.tasksInsideFolder,
     this.tasksInsideInnerFolder,
+    this.showSpotLight = true,
   });
 
   final int index;
@@ -34,6 +35,7 @@ class TaskContainer extends StatelessWidget {
   final DTasks? deadlineTasks;
   final InnerFolderTask? tasksInsideInnerFolder;
   final InsideAFolderTasks? tasksInsideFolder;
+  final bool showSpotLight;
 
   final PinnedTasksByTypes? pinnedTasks;
   final controller = Get.find<TaskCalenderViewController>();
@@ -51,9 +53,11 @@ class TaskContainer extends StatelessWidget {
             shape: RoundedRectangleBorder(
               side: BorderSide(
                 width: 2,
-                color: controller.selectedIndices.contains(index)
-                    ? neonShade
-                    : kwhite,
+                color: showSpotLight
+                    ? kred
+                    : controller.selectedIndices.contains(index)
+                        ? neonShade
+                        : kwhite,
                 // : const Color(0xFF0B06FF),
               ),
               borderRadius: BorderRadius.circular(15.0),

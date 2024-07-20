@@ -447,8 +447,9 @@ class TaskService implements TaskRepo {
       log('catch spotLightTask $e');
       return Left(Failure(message: e.toString()));
     }
-  
-   @override
+  }
+
+  @override
   Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithDate(
       {required TasksCountModel tasksCountModel}) async {
     try {

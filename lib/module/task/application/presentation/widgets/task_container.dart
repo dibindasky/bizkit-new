@@ -9,6 +9,7 @@ import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
+import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -43,91 +44,103 @@ class TaskContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Stack(
-        children: [
-          Card(
-            color: !controller.selectedIndices.contains(index)
-                ? lightColr
-                : kwhite.withOpacity(.2),
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                width: 2,
-                color: showSpotLight
-                    ? kred
-                    : controller.selectedIndices.contains(index)
-                        ? neonShade
-                        : kwhite,
-                // : const Color(0xFF0B06FF),
-              ),
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            margin: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
+    return AnimatedGrowShrinkContainer(
+      // give condition for spotlight here true will be animated
+      animate: index == 1,
+      begin: 0.90,
+      end: 0.99,
+      backgroundColor: klightGreyClr,
+      child: Obx(
+        () => Container(
+          decoration: BoxDecoration(
+              borderRadius: kBorderRadius15,
+              boxShadow: index == 1
+                  ? [
+                      BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 1),
+                          color: kred.withOpacity(0.4))
+                    ]
+                  : null),
+          child: Stack(
+            children: [
+              Card(
+                color: !controller.selectedIndices.contains(index)
+                    // give spotlight color here
+                    ? kblack
+                    : kwhite.withOpacity(.2),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: 2,
+                    color: showSpotLight
+                        // give spotlight color here
+                        ? kred
+                        : controller.selectedIndices.contains(index)
+                            ? neonShade
+                            : kwhite,
+                    // : const Color(0xFF0B06FF),
+                  ),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                margin: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              controller.selectedIndices.contains(index)
-                                  ? Container(
-                                      padding: const EdgeInsets.all(6),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: neonShade),
-                                        borderRadius: kBorderRadius25,
-                                        color: neonShade,
-                                      ),
-                                      child: const Icon(
-                                        Icons.done,
-                                        color: kwhite,
-                                        size: 16,
-                                      ),
-                                    )
-                                  : Image.asset(
-                                      'asset/images/icon/Vector.png',
-                                      scale: 2,
-                                    ),
-                              adjustWidth(10),
-                              task != null
-                                  ? Text(
-                                      // task['title']!,
-                                      task?.title ?? 'Tittle',
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: neonShade,
-                                      ),
-                                    )
-                                  : pinnedTasks != null
+                              Row(
+                                children: [
+                                  controller.selectedIndices.contains(index)
+                                      ? Container(
+                                          padding: const EdgeInsets.all(6),
+                                          decoration: BoxDecoration(
+                                            border:
+                                                Border.all(color: neonShade),
+                                            borderRadius: kBorderRadius25,
+                                            color: neonShade,
+                                          ),
+                                          child: const Icon(
+                                            Icons.done,
+                                            color: kwhite,
+                                            size: 16,
+                                          ),
+                                        )
+                                      : Image.asset(
+                                          'asset/images/icon/Vector.png',
+                                          scale: 2,
+                                        ),
+                                  adjustWidth(10),
+                                  task != null
                                       ? Text(
                                           // task['title']!,
-                                          pinnedTasks!.task?.title ?? 'Title',
+                                          task?.title ?? 'Tittle',
                                           style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
                                             color: neonShade,
                                           ),
                                         )
-                                      : typeTask != null
+                                      : pinnedTasks != null
                                           ? Text(
                                               // task['title']!,
-                                              typeTask?.task?.title ?? 'Tittle',
+                                              pinnedTasks!.task?.title ??
+                                                  'Title',
                                               style: const TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                                 color: neonShade,
                                               ),
                                             )
-                                          : deadlineTasks != null
+                                          : typeTask != null
                                               ? Text(
                                                   // task['title']!,
-                                                  deadlineTasks?.task?.title ??
+                                                  typeTask?.task?.title ??
                                                       'Tittle',
                                                   style: const TextStyle(
                                                     fontSize: 18,
@@ -135,10 +148,11 @@ class TaskContainer extends StatelessWidget {
                                                     color: neonShade,
                                                   ),
                                                 )
-                                              : tasksInsideFolder != null
+                                              : deadlineTasks != null
                                                   ? Text(
-                                                      tasksInsideFolder
-                                                              ?.title ??
+                                                      // task['title']!,
+                                                      deadlineTasks
+                                                              ?.task?.title ??
                                                           'Tittle',
                                                       style: const TextStyle(
                                                         fontSize: 18,
@@ -147,10 +161,9 @@ class TaskContainer extends StatelessWidget {
                                                         color: neonShade,
                                                       ),
                                                     )
-                                                  : tasksInsideInnerFolder !=
-                                                          null
+                                                  : tasksInsideFolder != null
                                                       ? Text(
-                                                          tasksInsideInnerFolder
+                                                          tasksInsideFolder
                                                                   ?.title ??
                                                               'Tittle',
                                                           style:
@@ -161,177 +174,200 @@ class TaskContainer extends StatelessWidget {
                                                             color: neonShade,
                                                           ),
                                                         )
-                                                      : const Text('Title'),
+                                                      : tasksInsideInnerFolder !=
+                                                              null
+                                                          ? Text(
+                                                              tasksInsideInnerFolder
+                                                                      ?.title ??
+                                                                  'Tittle',
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    neonShade,
+                                                              ),
+                                                            )
+                                                          : const Text('Title'),
+                                ],
+                              ),
+                              PopupMenuButton<String>(
+                                color: kwhite,
+                                icon:
+                                    const Icon(Icons.more_horiz, color: kwhite),
+                                onSelected: (value) {
+                                  if (value == 'Move task') {
+                                    log('Move task');
+                                  } else if (value == 'delete') {}
+                                },
+                                itemBuilder: (BuildContext context) {
+                                  List<PopupMenuItem<String>> items = [
+                                    // const PopupMenuItem<String>(
+                                    //   value: 'Move task',
+                                    //   child: Text(
+                                    //     'Move task',
+                                    //     style: TextStyle(color: kblack),
+                                    //   ),
+                                    // ),
+                                    const PopupMenuItem<String>(
+                                      value: 'Spot light Task',
+                                      child: Text(
+                                        'Spot light Task',
+                                        style: TextStyle(color: kblack),
+                                      ),
+                                    ),
+                                    if (typeTask?.isPinned != true &&
+                                        pinnedTasks?.isPinned != true)
+                                      PopupMenuItem<String>(
+                                        value: 'Pin the task',
+                                        onTap: () {
+                                          taskController.pinnedATask(
+                                            pinnedATask: PinnedATaskModel(
+                                              isPinned: true,
+                                              taskId: typeTask?.id ?? '',
+                                            ),
+                                          );
+                                          // taskController.filterByType(
+                                          //     filterByType: FilterByTypeModel(
+                                          //         taskType: Get.find<
+                                          //                 TaskHomeScreenController>()
+                                          //             .taskCategory
+                                          //             .value));
+                                        },
+                                        child: const Text(
+                                          'Pin the task',
+                                          style: TextStyle(color: kblack),
+                                        ),
+                                      ),
+                                    if (pinnedTasks?.isPinned == true)
+                                      PopupMenuItem<String>(
+                                        value: 'Unpin the task',
+                                        onTap: () {
+                                          taskController.unpinATask(
+                                            unpinATask: UnpinATaskModel(
+                                              taskId: pinnedTasks?.id ?? '',
+                                              isPinned: false,
+                                            ),
+                                          );
+                                        },
+                                        child: const Text(
+                                          'Unpin the task',
+                                          style: TextStyle(color: kblack),
+                                        ),
+                                      ),
+                                    const PopupMenuItem<String>(
+                                      value: 'Add Sub Task',
+                                      child: Text(
+                                        'Add Sub Task',
+                                        style: TextStyle(color: kblack),
+                                      ),
+                                    ),
+                                  ];
+
+                                  return items;
+                                },
+                              ),
                             ],
                           ),
-                          PopupMenuButton<String>(
-                            color: kwhite,
-                            icon: const Icon(Icons.more_horiz, color: kwhite),
-                            onSelected: (value) {
-                              if (value == 'Move task') {
-                                log('Move task');
-                              } else if (value == 'delete') {}
-                            },
-                            itemBuilder: (BuildContext context) {
-                              List<PopupMenuItem<String>> items = [
-                                // const PopupMenuItem<String>(
-                                //   value: 'Move task',
-                                //   child: Text(
-                                //     'Move task',
-                                //     style: TextStyle(color: kblack),
-                                //   ),
-                                // ),
-                                const PopupMenuItem<String>(
-                                  value: 'Spot light Task',
-                                  child: Text(
-                                    'Spot light Task',
-                                    style: TextStyle(color: kblack),
-                                  ),
-                                ),
-                                if (typeTask?.isPinned != true &&
-                                    pinnedTasks?.isPinned != true)
-                                  PopupMenuItem<String>(
-                                    value: 'Pin the task',
-                                    onTap: () {
-                                      taskController.pinnedATask(
-                                        pinnedATask: PinnedATaskModel(
-                                          isPinned: true,
-                                          taskId: typeTask?.id ?? '',
-                                        ),
-                                      );
-                                      // taskController.filterByType(
-                                      //     filterByType: FilterByTypeModel(
-                                      //         taskType: Get.find<
-                                      //                 TaskHomeScreenController>()
-                                      //             .taskCategory
-                                      //             .value));
-                                    },
-                                    child: const Text(
-                                      'Pin the task',
-                                      style: TextStyle(color: kblack),
-                                    ),
-                                  ),
-                                if (pinnedTasks?.isPinned == true)
-                                  PopupMenuItem<String>(
-                                    value: 'Unpin the task',
-                                    onTap: () {
-                                      taskController.unpinATask(
-                                        unpinATask: UnpinATaskModel(
-                                          taskId: pinnedTasks?.id ?? '',
-                                          isPinned: false,
-                                        ),
-                                      );
-                                    },
-                                    child: const Text(
-                                      'Unpin the task',
-                                      style: TextStyle(color: kblack),
-                                    ),
-                                  ),
-                                const PopupMenuItem<String>(
-                                  value: 'Add Sub Task',
-                                  child: Text(
-                                    'Add Sub Task',
-                                    style: TextStyle(color: kblack),
-                                  ),
-                                ),
-                              ];
-
-                              return items;
-                            },
-                          ),
-                        ],
-                      ),
-                      task != null
-                          ? Text(
-                              task?.description ?? 'description',
-                              style:
-                                  const TextStyle(color: kwhite, fontSize: 12),
-                            )
-                          : pinnedTasks != null
+                          task != null
                               ? Text(
-                                  pinnedTasks!.task?.description ??
-                                      'description',
+                                  task?.description ?? 'description',
                                   style: const TextStyle(
                                       color: kwhite, fontSize: 12),
                                 )
-                              : typeTask != null
+                              : pinnedTasks != null
                                   ? Text(
-                                      typeTask?.task?.description ??
+                                      pinnedTasks!.task?.description ??
                                           'description',
                                       style: const TextStyle(
                                           color: kwhite, fontSize: 12),
                                     )
-                                  : deadlineTasks != null
+                                  : typeTask != null
                                       ? Text(
-                                          deadlineTasks?.task?.description ??
+                                          typeTask?.task?.description ??
                                               'description',
                                           style: const TextStyle(
                                               color: kwhite, fontSize: 12),
                                         )
-                                      : tasksInsideFolder != null
+                                      : deadlineTasks != null
                                           ? Text(
-                                              tasksInsideFolder?.description ??
+                                              deadlineTasks
+                                                      ?.task?.description ??
                                                   'description',
                                               style: const TextStyle(
                                                   color: kwhite, fontSize: 12),
                                             )
-                                          : const Text('description'),
-                      adjustHieght(10),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: deadlineTasks != null
-                            ? Text(
-                                deadlineTasks?.task?.deadLine ?? 'dead',
-                                // task['date']!,
-                                style: const TextStyle(
-                                  color: kwhite,
-                                ),
-                              )
-                            : typeTask != null
+                                          : tasksInsideFolder != null
+                                              ? Text(
+                                                  tasksInsideFolder
+                                                          ?.description ??
+                                                      'description',
+                                                  style: const TextStyle(
+                                                      color: kwhite,
+                                                      fontSize: 12),
+                                                )
+                                              : const Text('description'),
+                          adjustHieght(10),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: deadlineTasks != null
                                 ? Text(
-                                    typeTask?.task?.deadLine ?? 'dead',
+                                    deadlineTasks?.task?.deadLine ?? 'dead',
                                     // task['date']!,
                                     style: const TextStyle(
                                       color: kwhite,
                                     ),
                                   )
-                                : pinnedTasks != null
+                                : typeTask != null
                                     ? Text(
-                                        pinnedTasks?.task?.deadLine ?? 'dead',
+                                        typeTask?.task?.deadLine ?? 'dead',
                                         // task['date']!,
                                         style: const TextStyle(
                                           color: kwhite,
                                         ),
                                       )
-                                    : tasksInsideFolder != null
+                                    : pinnedTasks != null
                                         ? Text(
-                                            tasksInsideFolder?.deadLine ??
+                                            pinnedTasks?.task?.deadLine ??
                                                 'dead',
                                             // task['date']!,
                                             style: const TextStyle(
                                               color: kwhite,
                                             ),
                                           )
-                                        : const Text('Deadline'),
+                                        : tasksInsideFolder != null
+                                            ? Text(
+                                                tasksInsideFolder?.deadLine ??
+                                                    'dead',
+                                                // task['date']!,
+                                                style: const TextStyle(
+                                                  color: kwhite,
+                                                ),
+                                              )
+                                            : const Text('Deadline'),
+                          ),
+                          adjustHieght(10),
+                        ],
                       ),
-                      adjustHieght(10),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
+              Positioned(
+                top: 50,
+                bottom: 50,
+                left: 0,
+                child: Container(
+                  color: klightgrey,
+                  width: 4,
+                  height: 100,
+                ),
+              )
+            ],
           ),
-          Positioned(
-            top: 50,
-            bottom: 50,
-            left: 0,
-            child: Container(
-              color: klightgrey,
-              width: 4,
-              height: 100,
-            ),
-          )
-        ],
+        ),
       ),
     );
   }

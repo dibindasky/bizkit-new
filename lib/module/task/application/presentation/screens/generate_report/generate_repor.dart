@@ -1,9 +1,11 @@
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/date_container.dart';
-import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/drop_down_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/generate_task_report_model/generate_task_report_model.dart';
 
 class ScreenTaskReportGenerator extends StatefulWidget {
   const ScreenTaskReportGenerator({super.key});
@@ -14,35 +16,94 @@ class ScreenTaskReportGenerator extends StatefulWidget {
 }
 
 class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
-  bool othersToSelf = false;
-  bool selfToOthers = false;
-  bool selfToSelf = false;
-  bool personal = false;
-  bool social = false;
-  bool critical = false;
-  bool medium = false;
-  String? selectedTaskFrom;
+  final TaskHomeScreenController _controller =
+      Get.put(TaskHomeScreenController());
 
-  String selectedOptionCategory = '';
-  String selectedTaskType = '';
-  String selectedPriorityType = '';
+  List<String> selectedOptionCategory = [];
+  List<String> selectedTaskType = [];
+  List<String> selectedPriorityType = [];
 
-  void _handleCategoryChange(String newValue) {
+  void _handleCategoryChange(String value) {
     setState(() {
-      selectedOptionCategory = newValue;
+      if (selectedOptionCategory.contains(value)) {
+        selectedOptionCategory.remove(value);
+      } else {
+        selectedOptionCategory.add(value);
+      }
     });
   }
 
-  void _handleTaskTypeChange(String newValue) {
+  void _handleTaskTypeChange(String value) {
     setState(() {
-      selectedTaskType = newValue;
+      if (selectedTaskType.contains(value)) {
+        selectedTaskType.remove(value);
+      } else {
+        selectedTaskType.add(value);
+      }
     });
   }
 
-  void _handlePriorityTypeChange(String newValue) {
+  void _handlePriorityTypeChange(String value) {
     setState(() {
-      selectedPriorityType = newValue;
+      if (selectedPriorityType.contains(value)) {
+        selectedPriorityType.remove(value);
+      } else {
+        selectedPriorityType.add(value);
+      }
     });
+  }
+
+  void _generateReport() async {
+    // Create the report model with the selected values
+    GenerateTaskReportModel reportModel = GenerateTaskReportModel(
+      priorityLevel:
+          selectedPriorityType.isNotEmpty ? selectedPriorityType : null,
+      taskMentionedType: selectedTaskType.isNotEmpty ? selectedTaskType : null,
+      taskType:
+          selectedOptionCategory.isNotEmpty ? selectedOptionCategory : null,
+      fromDate: '2024-01-01', // Replace with actual date if available
+      toDate: '2024-12-31', // Replace with actual date if available
+    );
+
+    // Call the generateTaskReport function
+    _controller.generateTaskReport(genearteTaskReport: reportModel);
+    Navigator.pop(context);
+
+    // Display the report if available
+    if (_controller.taskReport.isNotEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Task Report'),
+            content: Text(_controller.taskReport.value),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Optionally, show an error message if no report is available
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: const Text('No report available. Please try again.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -75,8 +136,10 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
             _buildCheckboxRow('Select the Task type', [
               _buildCheckbox('Personal', 'Personal', selectedTaskType,
                   _handleTaskTypeChange),
+              _buildCheckbox('Official', 'Official', selectedTaskType,
+                  _handleTaskTypeChange),
               _buildCheckbox(
-                  'Social', 'Social', selectedTaskType, _handleTaskTypeChange),
+                  'Others', 'Others', selectedTaskType, _handleTaskTypeChange),
             ]),
             _buildCheckboxRow('Select the Priority type', [
               _buildCheckbox('High', 'High', selectedPriorityType,
@@ -95,9 +158,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
               child: EventButton(
                 wdth: kwidth * 98,
                 text: 'Generate',
-                onTap: () {
-                  Navigator.pop(context);
-                },
+                onTap: _generateReport,
               ),
             ),
           ],
@@ -121,19 +182,17 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
     );
   }
 
-  Widget _buildCheckbox(String label, String currentValue,
-      String selectedOption, Function(String) onChanged) {
+  Widget _buildCheckbox(String label, String value,
+      List<String> selectedOptions, Function(String) onChanged) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Checkbox(
           side: const BorderSide(color: neonShade),
-          value: selectedOption == currentValue,
+          value: selectedOptions.contains(value),
           onChanged: (newValue) {
-            if (newValue != null && newValue) {
-              onChanged(currentValue);
-            } else {
-              onChanged('');
+            if (newValue != null) {
+              onChanged(value);
             }
           },
           checkColor: neonShade,

@@ -170,7 +170,7 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                               duration: const Duration(milliseconds: 300),
                               decoration: BoxDecoration(
                                 borderRadius: kBorderRadius5,
-                                color: isSelected ? neonShade : lightGrey,
+                                color: isSelected ? neonShade : kgrey,
                               ),
                               padding: const EdgeInsets.all(5),
                               margin: EdgeInsets.symmetric(
@@ -183,7 +183,7 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      getWeekDay(date.weekday),
+                                      DateTimeFormater.getMonth(date.month),
                                       style: textHeadStyle1.copyWith(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -193,18 +193,31 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                     Text(
                                       date.day.toString(),
                                       style: textThinStyle1.copyWith(
-                                        fontSize: 12,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w200,
                                         color: isSelected ? kwhite : kblack,
                                       ),
                                     ),
-                                    Text(
-                                      '$taskCount',
-                                      style: textThinStyle1.copyWith(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w200,
-                                        color: isSelected ? kwhite : kblack,
-                                      ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          DateTimeFormater.getWeekDay(
+                                              date.weekday),
+                                          style: textHeadStyle1.copyWith(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400,
+                                            color: isSelected ? kwhite : kblack,
+                                          ),
+                                        ),
+                                        Text(
+                                          ' ($taskCount)',
+                                          style: textThinStyle1.copyWith(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w200,
+                                            color: isSelected ? kwhite : kblack,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
